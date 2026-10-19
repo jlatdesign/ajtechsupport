@@ -37,6 +37,10 @@ nav.scrolled{background:rgba(5,7,15,.75);backdrop-filter:blur(14px);border-botto
 .lang{display:flex;border:1px solid var(--line);border-radius:999px;padding:3px;background:var(--card)}
 .lang button{background:none;border:0;color:var(--muted);padding:6px 12px;border-radius:999px;cursor:pointer;font-weight:600;font-size:.82rem}
 .lang button.on{background:var(--grad);color:#05070f}
+.links a.portal{border:1px solid var(--line);background:var(--card);padding:6px 14px;border-radius:999px;font-size:.85rem}
+.links a.portal:hover{border-color:var(--c1);color:var(--c1)}
+.f-links{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.f-links a:hover{color:var(--c1)}
 .burger{display:none;background:none;border:0;color:var(--text);font-size:1.6rem;cursor:pointer}
 
 /* BUTTONS */
@@ -204,6 +208,7 @@ footer{border-top:1px solid var(--line);padding:40px 0;color:var(--muted);font-s
       <a href="#planes" data-i18n="nav_plans">Planes</a>
       <a href="#faq" data-i18n="nav_faq">Preguntas</a>
       <a href="#contacto" data-i18n="nav_contact">Contacto</a>
+      <a href="/inventario/" target="_blank" rel="noopener" class="portal">🔒 <span data-i18n="nav_portal">Portal</span></a>
       <div class="lang">
         <button data-lang="es" class="on">ES</button>
         <button data-lang="en">EN</button>
@@ -424,7 +429,10 @@ footer{border-top:1px solid var(--line);padding:40px 0;color:var(--muted);font-s
 <footer>
   <div class="wrap f-in">
     <a href="#top" class="logo"><span class="logo-mark">AJ</span>AJ Tech Support</a>
-    <span>© <span id="yr"></span> AJ Tech Support. <span data-i18n="ft">Todos los derechos reservados.</span></span>
+    <div class="f-links">
+      <span>© <span id="yr"></span> AJ Tech Support. <span data-i18n="ft">Todos los derechos reservados.</span></span>
+      <a href="/inventario/" target="_blank" rel="noopener">🔒 <span data-i18n="ft_portal">Portal técnico</span></a>
+    </div>
   </div>
 </footer>
 
@@ -440,7 +448,7 @@ const CONTACT_EMAIL = "info.ajtsinc@gmail.com";
 /* ============ TRADUCCIONES ============ */
 const T = {
 es:{
-nav_services:"Servicios",nav_why:"Por qué nosotros",nav_plans:"Planes",nav_faq:"Preguntas",nav_contact:"Contacto",
+nav_services:"Servicios",nav_why:"Por qué nosotros",nav_plans:"Planes",nav_faq:"Preguntas",nav_contact:"Contacto",nav_portal:"Portal",ft_portal:"Portal técnico",
 badge:"Soporte disponible 24/7",h1a:"Tecnología que",
 lead:"Sitios web, sistemas telefónicos en la nube, soporte técnico e inteligencia artificial para que tu negocio funcione más rápido, más seguro y sin complicaciones.",
 cta1:"Cotización gratis →",cta2:"Ver servicios",st1:"Clientes atendidos",st2:"Uptime garantizado",st3:"Tiempo de respuesta",
@@ -471,7 +479,7 @@ fm_name:"Nombre",fm_co:"Empresa",fm_svc:"Servicio de interés",fm_msg:"Mensaje",
 typed:["funciona.","conecta.","vende.","piensa.","protege."]
 },
 en:{
-nav_services:"Services",nav_why:"Why us",nav_plans:"Plans",nav_faq:"FAQ",nav_contact:"Contact",
+nav_services:"Services",nav_why:"Why us",nav_plans:"Plans",nav_faq:"FAQ",nav_contact:"Contact",nav_portal:"Portal",ft_portal:"Tech portal",
 badge:"Support available 24/7",h1a:"Technology that",
 lead:"Websites, cloud phone systems, tech support and artificial intelligence to make your business run faster, safer and hassle-free.",
 cta1:"Free quote →",cta2:"See services",st1:"Clients served",st2:"Guaranteed uptime",st3:"Response time",

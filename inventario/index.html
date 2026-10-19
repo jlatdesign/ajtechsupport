@@ -736,7 +736,11 @@ function simplificar(q){
 function expandirAbrev(q){
   const M = {N:'North',S:'South',E:'East',W:'West',NW:'Northwest',NE:'Northeast',SW:'Southwest',SE:'Southeast',
     ST:'Street',AVE:'Avenue',AV:'Avenue',BLVD:'Boulevard',RD:'Road',DR:'Drive',CT:'Court',LN:'Lane',PL:'Place',
-    TER:'Terrace',TERR:'Terrace',PKWY:'Parkway',HWY:'Highway',CIR:'Circle',WAY:'Way',TRL:'Trail'};
+    TER:'Terrace',TERR:'Terrace',PKWY:'Parkway',HWY:'Highway',CIR:'Circle',WAY:'Way',TRL:'Trail',
+    COR:'Court',CRT:'Court',MNR:'Manor',CIRCLE:'Circle'};
+  // "8 th" → "8th", "2 nd" → "2nd", "21 st" → "21st"
+  q = q.replace(/\b(\d+)\s+th\b/gi, '$1th').replace(/\b(\d*2)\s+nd\b/gi, '$1nd')
+       .replace(/\b(\d*3)\s+rd\b/gi, '$1rd').replace(/\b(\d*1)\s+st\b(?=\s+(?:st|street|ave|avenue|ct|court|ter|terrace|pl|place|dr|drive|rd|road|way|ln|lane|cir|circle|mnr|manor)\b)/gi, '$1st');
   return q.split(/\s+/).map(w => { const k = w.replace(/[.,]/g,'').toUpperCase(); return M[k] ? M[k] + (w.endsWith(',') ? ',' : '') : w; }).join(' ');
 }
 async function getJSON(url, signal){
@@ -750,6 +754,10 @@ const FL_BBOX = [-87.7, 24.3, -79.8, 31.1];
 function aSugerencia(p, q){
   if (p.state && p.state !== 'Florida') return null;
   const num = (($('direccion').value || q).match(/^\s*(\d+[A-Za-z]?)\b/) || [])[1];
+  // Cuando el resultado ES una calle (no un edificio), el nombre de la calle viene en "name"
+  const esCalle = !p.street && p.name && (p.osm_key === 'highway' || p.type === 'street' ||
+    /\b(Street|Avenue|Court|Circle|Manor|Road|Drive|Lane|Place|Terrace|Boulevard|Parkway|Way|Trail|Highway)\b/i.test(p.name));
+  if (esCalle) p = { ...p, street: p.name, name: undefined };
   let agregado = false;
   if (!p.housenumber && p.street && num){ p = { ...p, housenumber: num }; agregado = true; }
   const value = fmtDireccion(p);

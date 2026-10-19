@@ -212,6 +212,16 @@ td.client b{font-family:"Space Grotesk",sans-serif;font-weight:600}
   .card,.table-wrap{border:none;background:none;max-height:none;overflow:visible}
   thead th{position:static;background:#fff;color:#000}
 }
+
+/* Dirección compacta en la tabla */
+td.addr{max-width:210px}
+td.addr a{display:block;max-width:210px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* Selector de idioma */
+.lang{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:3px;background:var(--card)}
+.lang button{border:0;background:none;padding:5px 10px;border-radius:999px;font:600 11px "JetBrains Mono",monospace;color:var(--muted)}
+.lang button:hover{color:var(--c1)}
+.lang button.on{background:var(--grad);color:#05070f}
+.lang-login{position:absolute;top:16px;right:16px}
 </style>
 </head>
 <body>
@@ -220,13 +230,14 @@ td.client b{font-family:"Space Grotesk",sans-serif;font-weight:600}
 <!-- ================= LOGIN ================= -->
 <div id="login">
   <div class="card login-card">
+    <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
-    <h1>Inventario</h1>
+    <h1 data-i18n="login_title">Inventory</h1>
     <p class="sub">Network Asset Manager</p>
     <form onsubmit="doLogin(event)">
-      <label>Usuario<input id="lgUser" autocomplete="username" required autofocus placeholder="tu usuario"></label>
-      <label>Password<input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
-      <button class="primary" id="lgBtn">Entrar →</button>
+      <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
+      <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
+      <button class="primary" id="lgBtn" data-i18n="sign_in">Sign in →</button>
       <p class="err" id="lgErr"></p>
     </form>
     <a class="back" href="/">← AJ Tech Support</a>
@@ -238,112 +249,106 @@ td.client b{font-family:"Space Grotesk",sans-serif;font-weight:600}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1>Inventario de Equipos</h1><small>Network Asset Manager</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager</small></div>
   </div>
   <div class="actions no-print">
-    <button onclick="loadData()" title="Actualizar">↻ Actualizar</button>
-    <button onclick="exportJSON()" title="Descargar respaldo">⤓ Respaldo</button>
-    <button onclick="exportCSV()" title="Exportar a Excel">⊞ CSV</button>
-    <button onclick="document.getElementById('fileIn').click()" title="Importar JSON o CSV">⤒ Importar</button>
+    <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
+    <button onclick="exportJSON()" data-i18n-title="t_backup"><span data-i18n="backup">⤓ Backup</span></button>
+    <button onclick="exportCSV()" data-i18n-title="t_csv">⊞ CSV</button>
+    <button onclick="document.getElementById('fileIn').click()" data-i18n-title="t_import"><span data-i18n="import">⤒ Import</span></button>
     <input type="file" id="fileIn" accept=".json,.csv" hidden onchange="importFile(event)">
-    <button id="migrarBtn" class="hidden" onclick="migrarLocal()">Subir datos locales</button>
-    <button class="icon-btn" onclick="window.print()" title="Imprimir">⎙</button>
-    <button class="icon-btn" onclick="toggleTheme()" title="Tema claro/oscuro">🌓</button>
-    <button class="icon-btn" onclick="cambiarPassword()" title="Cambiar mi password">🔑</button>
+    <button id="migrarBtn" class="hidden" onclick="migrarLocal()" data-i18n="upload_local">Upload local data</button>
+    <button class="icon-btn" onclick="window.print()" data-i18n-title="t_print">⎙</button>
+    <button class="icon-btn" onclick="toggleTheme()" data-i18n-title="t_theme">🌓</button>
+    <button class="icon-btn" onclick="cambiarPassword()" data-i18n-title="t_changepw">🔑</button>
+    <div class="lang"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <span class="user-chip"><span class="dot"></span><span id="whoami"></span></span>
-    <button onclick="logout()" title="Cerrar sesión">Salir ⏻</button>
+    <button onclick="logout()" data-i18n-title="t_logout"><span data-i18n="logout">Log out ⏻</span></button>
   </div>
 </header>
 
 <div class="wrap">
   <div class="kpis no-print">
-    <div class="kpi"><span>Equipos</span><b id="kTotal">0</b></div>
-    <div class="kpi"><span>Clientes</span><b id="kClientes">0</b></div>
-    <div class="kpi"><span>Activos</span><b class="ok" id="kActivos">0</b></div>
-    <div class="kpi"><span>En reparación</span><b class="warn" id="kRep">0</b></div>
+    <div class="kpi"><span data-i18n="k_devices">Devices</span><b id="kTotal">0</b></div>
+    <div class="kpi"><span data-i18n="k_clients">Clients</span><b id="kClientes">0</b></div>
+    <div class="kpi"><span data-i18n="k_active">Active</span><b class="ok" id="kActivos">0</b></div>
+    <div class="kpi"><span data-i18n="k_repair">In repair</span><b class="warn" id="kRep">0</b></div>
   </div>
 
   <div class="card no-print">
     <form id="form" onsubmit="save(event)">
       <div class="client-box">
-        <div class="sec"><i>01</i> Cliente</div>
+        <div class="sec"><i>01</i> <span data-i18n="sec_client">Client</span></div>
         <div class="grid2">
-          <label>Cliente<input id="cliente" list="clientes" required placeholder="Ej: Advance Medical" onchange="autoDireccion()"></label>
-          <label>Dirección
+          <label><span data-i18n="client">Client</span><input id="cliente" list="clientes" required data-i18n-ph="client_ph" placeholder="e.g. Advance Medical" onchange="autoDireccion()"></label>
+          <label><span data-i18n="address">Address</span>
             <div class="addr-wrap">
-              <input id="direccion" autocomplete="off" placeholder="Empieza a escribir la dirección..."
+              <input id="direccion" autocomplete="off" data-i18n-ph="address_ph" placeholder="Start typing the address..."
                 oninput="buscarDireccion(this.value)" onkeydown="navDireccion(event)" onblur="setTimeout(cerrarSugerencias,150)">
-              <button type="button" class="maps-btn" onclick="abrirMapa($('direccion').value)" title="Ver en Google Maps">📍 Maps</button>
+              <button type="button" class="maps-btn" onclick="abrirMapa($('direccion').value)" data-i18n-title="t_maps">📍 Maps</button>
               <div id="addrList" class="suggest hidden"></div>
             </div>
           </label>
         </div>
       </div>
 
-      <div class="sec"><i>02</i> Equipo</div>
+      <div class="sec"><i>02</i> <span data-i18n="sec_device">Device</span></div>
       <div class="grid">
-        <label>Tipo
-          <select id="tipo" required onchange="updateMarcas()">
-            <option>DVR</option><option>NVR</option><option>Cámara</option><option>PC</option>
-            <option>Laptop</option><option>Teléfono</option><option>Router</option><option>Switch</option>
-            <option>Access Point</option><option>Impresora</option><option>Servidor</option>
-            <option>Control de Acceso</option><option>Otro</option>
-          </select>
+        <label><span data-i18n="type">Type</span>
+          <select id="tipo" required onchange="updateMarcas()"></select>
         </label>
-        <label>Nombre<input id="nombre" required placeholder="Ej: DVR Principal"></label>
-        <label>Ubicación (área)<input id="lugar" list="lugares" placeholder="Ej: Recepción, Rack IT"></label>
-        <label>Marca / Modelo<input id="modelo" list="marcas" autocomplete="off" placeholder="Escribe o elige una marca"></label>
-        <label>Serial<input id="serial" placeholder="SN"></label>
+        <label><span data-i18n="name">Name</span><input id="nombre" required data-i18n-ph="name_ph" placeholder="e.g. Main DVR"></label>
+        <label><span data-i18n="area">Location (area)</span><input id="lugar" list="lugares" data-i18n-ph="area_ph" placeholder="e.g. Front desk, IT rack"></label>
+        <label><span data-i18n="brand">Brand / Model</span><input id="modelo" list="marcas" autocomplete="off" data-i18n-ph="brand_ph" placeholder="Type or pick a brand"></label>
+        <label><span data-i18n="serial">Serial</span><input id="serial" placeholder="SN"></label>
         <label>IP<input id="ip" placeholder="192.168.1.10" inputmode="decimal" maxlength="15" autocomplete="off"
           pattern="((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)"
-          title="Formato IP: 4 números del 0 al 255 separados por punto. Ej: 192.168.1.10"
-          oninput="formatIP(this)"></label>
+          data-i18n-title="t_ip" oninput="formatIP(this)"></label>
         <label>MAC<input id="mac" placeholder="AA:BB:CC:DD:EE:FF" maxlength="17" autocomplete="off"
           pattern="([0-9A-F]{2}:){5}[0-9A-F]{2}"
-          title="Formato MAC: 12 caracteres hexadecimales (0-9, A-F). Ej: AA:BB:CC:DD:EE:FF"
-          oninput="formatMAC(this)"></label>
-        <label>Usuario<input id="usuario" autocomplete="off" placeholder="admin"></label>
-        <label>Password
+          data-i18n-title="t_mac" oninput="formatMAC(this)"></label>
+        <label><span data-i18n="username">Username</span><input id="usuario" autocomplete="off" placeholder="admin"></label>
+        <label><span data-i18n="password">Password</span>
           <span class="pw">
             <input id="password" type="password" autocomplete="new-password" placeholder="••••••">
-            <button type="button" class="sm" onclick="togglePwField()" title="Mostrar/ocultar">👁</button>
+            <button type="button" class="sm" onclick="togglePwField()" data-i18n-title="t_showhide">👁</button>
           </span>
         </label>
-        <label>Estado
-          <select id="estado"><option>Activo</option><option>En reparación</option><option>Inactivo</option><option>Dado de baja</option></select>
+        <label><span data-i18n="status">Status</span>
+          <select id="estado"></select>
         </label>
-        <label class="full">Notas<textarea id="notas" placeholder="Puertos, canales, configuración, etc."></textarea></label>
+        <label class="full"><span data-i18n="notes">Notes</span><textarea id="notas" data-i18n-ph="notes_ph" placeholder="Ports, channels, configuration, etc."></textarea></label>
       </div>
       <datalist id="clientes"></datalist>
       <datalist id="direcciones"></datalist>
       <datalist id="lugares"></datalist>
       <datalist id="marcas"></datalist>
       <div class="row" style="margin-top:16px">
-        <button class="primary" type="submit" id="saveBtn">Agregar equipo</button>
-        <button type="button" onclick="resetForm()">Limpiar</button>
-        <label class="check"><input type="checkbox" id="keepClient" checked> Mantener cliente al agregar</label>
+        <button class="primary" type="submit" id="saveBtn" data-i18n="add_device">Add device</button>
+        <button type="button" onclick="resetForm()" data-i18n="clear">Clear</button>
+        <label class="check"><input type="checkbox" id="keepClient" checked> <span data-i18n="keep_client">Keep client after adding</span></label>
         <span class="muted" id="editMsg"></span>
       </div>
     </form>
   </div>
 
   <div class="card">
-    <div class="card-title"><h3>Equipos registrados</h3><span class="muted mono" id="count"></span></div>
+    <div class="card-title"><h3 data-i18n="registered">Registered devices</h3><span class="muted mono" id="count"></span></div>
     <div class="row no-print" style="margin-bottom:12px">
-      <div class="search"><input id="q" placeholder="Buscar por cliente, nombre, IP, MAC, serial, modelo, notas..." oninput="render()"></div>
-      <select id="fCliente" onchange="render()" style="max-width:220px"><option value="">Todos los clientes</option></select>
-      <select id="fLugar" onchange="render()" style="max-width:200px"><option value="">Todas las áreas</option></select>
-      <label class="check"><input type="checkbox" id="showPw" onchange="render()"> Mostrar passwords</label>
+      <div class="search"><input id="q" data-i18n-ph="search_ph" placeholder="Search by client, name, IP, MAC, serial, model, notes..." oninput="render()"></div>
+      <select id="fCliente" onchange="render()" style="max-width:220px"><option value=""></option></select>
+      <select id="fLugar" onchange="render()" style="max-width:200px"><option value=""></option></select>
+      <label class="check"><input type="checkbox" id="showPw" onchange="render()"> <span data-i18n="show_pw">Show passwords</span></label>
     </div>
     <div class="stats no-print" id="chips" style="margin-bottom:14px"></div>
     <div class="table-wrap">
       <table>
         <thead><tr>
-          <th data-k="cliente">Cliente</th><th data-k="direccion">Dirección</th>
-          <th data-k="tipo">Tipo</th><th data-k="nombre">Nombre</th><th data-k="lugar">Área</th>
-          <th data-k="modelo">Modelo</th><th data-k="serial">Serial</th><th data-k="ip">IP</th>
-          <th data-k="mac">MAC</th><th data-k="usuario">Usuario</th><th>Password</th>
-          <th data-k="estado">Estado</th><th>Notas</th><th class="no-print"></th>
+          <th data-k="cliente" data-i18n="client">Client</th><th data-k="direccion" data-i18n="address">Address</th>
+          <th data-k="tipo" data-i18n="type">Type</th><th data-k="nombre" data-i18n="name">Name</th><th data-k="lugar" data-i18n="th_area">Area</th>
+          <th data-k="modelo" data-i18n="th_model">Model</th><th data-k="serial" data-i18n="serial">Serial</th><th data-k="ip">IP</th>
+          <th data-k="mac">MAC</th><th data-k="usuario" data-i18n="username">Username</th><th data-i18n="password">Password</th>
+          <th data-k="estado" data-i18n="status">Status</th><th data-i18n="notes">Notes</th><th class="no-print"></th>
         </tr></thead>
         <tbody id="tbody"></tbody>
       </table>
@@ -376,8 +381,132 @@ const $ = id => document.getElementById(id);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const ipNum = ip => { const p = String(ip).split('.').map(Number); return p.length===4 && p.every(n=>!isNaN(n)) ? p.reduce((a,n)=>a*256+n,0) : null; };
 function toast(msg){ const t=$('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),1800); }
-function fail(error, msg){ console.error(error); alert((msg||'Error') + ':\n' + (error?.message || error)); }
+function fail(error, msg){ console.error(error); alert((msg||t('e_generic')) + ':\n' + (error?.message || error)); }
 const clean = x => { const o = {}; FIELDS.forEach(f => { const v = String(x[f] ?? '').trim(); o[f] = v || null; }); if(!o.tipo) o.tipo='Otro'; if(!o.estado) o.estado='Activo'; return o; };
+
+/* ================== IDIOMAS / LANGUAGES ==================
+   Inglés es el idioma principal. Los valores guardados en la base
+   de datos (tipo y estado) no cambian; solo cambia lo que se muestra.
+=========================================================== */
+const I18N = {
+en:{
+  login_title:'Inventory', username:'Username', username_ph:'your username', password:'Password', sign_in:'Sign in →',
+  app_title:'Equipment Inventory', refresh:'↻ Refresh', backup:'⤓ Backup', import:'⤒ Import', upload_local:'Upload local data', logout:'Log out ⏻',
+  t_refresh:'Reload data', t_backup:'Download backup (JSON)', t_csv:'Export to Excel (CSV)', t_import:'Import JSON or CSV', t_print:'Print',
+  t_theme:'Light / dark theme', t_changepw:'Change my password', t_logout:'Sign out', t_maps:'Open in Google Maps', t_showhide:'Show / hide',
+  t_ip:'IP format: 4 numbers from 0 to 255 separated by dots. e.g. 192.168.1.10',
+  t_mac:'MAC format: 12 hex characters (0-9, A-F). e.g. AA:BB:CC:DD:EE:FF',
+  t_view:'View', t_copy:'Copy', t_dup:'Duplicate', t_delete:'Delete', t_openmap:'Open in Google Maps',
+  k_devices:'Devices', k_clients:'Clients', k_active:'Active', k_repair:'In repair',
+  sec_client:'Client', sec_device:'Device', client:'Client', client_ph:'e.g. Advance Medical',
+  address:'Address', address_ph:'Start typing the address...',
+  type:'Type', name:'Name', name_ph:'e.g. Main DVR', area:'Location (area)', area_ph:'e.g. Front desk, IT rack',
+  brand:'Brand / Model', brand_ph:'Type or pick a brand', serial:'Serial', status:'Status', notes:'Notes', notes_ph:'Ports, channels, configuration, etc.',
+  add_device:'Add device', save_changes:'Save changes', clear:'Clear', keep_client:'Keep client after adding',
+  editing:'Editing: ', duplicating:'Duplicating', copy_suffix:' (copy)',
+  registered:'Registered devices', search_ph:'Search by client, name, IP, MAC, serial, model, notes...',
+  all_clients:'All clients', all_areas:'All areas', show_pw:'Show passwords', all:'All',
+  th_area:'Area', th_model:'Model', edit:'Edit', count:'{n} / {t} devices',
+  no_results:'No results', empty:'No devices yet. Add the first one above.',
+  // Tipos y estados (la clave es el valor guardado)
+  'tipo.DVR':'DVR','tipo.NVR':'NVR','tipo.Cámara':'Camera','tipo.PC':'PC','tipo.Laptop':'Laptop','tipo.Teléfono':'Phone',
+  'tipo.Router':'Router','tipo.Switch':'Switch','tipo.Access Point':'Access Point','tipo.Impresora':'Printer','tipo.Servidor':'Server',
+  'tipo.Control de Acceso':'Access Control','tipo.Otro':'Other',
+  'estado.Activo':'Active','estado.En reparación':'In repair','estado.Inactivo':'Inactive','estado.Dado de baja':'Decommissioned',
+  // Mensajes
+  e_supabase:'Could not load the Supabase library. Check your connection or disable ad blockers and reload.',
+  e_connect:'Connection error: ', e_login:'Wrong username or password', e_generic:'Error',
+  pw_prompt:'New password (minimum 6 characters):', pw_short:'Too short.', pw_fail:'Could not change password', pw_ok:'Password updated',
+  load_fail:'Could not load data', ip_invalid:'Invalid IP. Use 4 numbers from 0 to 255. e.g. 192.168.1.10',
+  mac_invalid:'Invalid MAC. It must have 12 characters (0-9, A-F). e.g. AA:BB:CC:DD:EE:FF',
+  dup_ip:'This client already has a device with IP {ip}. Save anyway?', save_fail:'Could not save', saved:'Changes saved', added:'Device added',
+  confirm_del:'Delete "{n}"?', del_fail:'Could not delete', deleted:'Deleted', pw_copied:'Password copied', copy_fail:'Could not copy',
+  csv_pw:'Include passwords in the CSV?\n\nOK = Yes\nCancel = No (empty column)',
+  no_valid:'No valid devices to upload.', confirm_upload:'{n} devices will be added to the database. Continue?', upload_fail:'Upload error',
+  uploaded:'{n} devices uploaded', bad_file:'Invalid file.', local_done:'Data uploaded. Delete the local copy in this browser?', no_local:'No local data found.',
+  no_client:'No client',
+  // Direcciones
+  addr_type_first:'Type an address first', addr_used:'Used before', addr_searching:'Searching…',
+  addr_numhint:'Street found on the map · number typed by you (check with 📍 Maps)',
+  addr_err:'Could not search ({e}). Use 📍 Maps or type it manually.',
+  addr_none:'Not found on the free map, but you can save it as typed. Check it with 📍 Maps.',
+  src_saved:'saved', src_map:'map'
+},
+es:{
+  login_title:'Inventario', username:'Usuario', username_ph:'tu usuario', password:'Password', sign_in:'Entrar →',
+  app_title:'Inventario de Equipos', refresh:'↻ Actualizar', backup:'⤓ Respaldo', import:'⤒ Importar', upload_local:'Subir datos locales', logout:'Salir ⏻',
+  t_refresh:'Recargar datos', t_backup:'Descargar respaldo (JSON)', t_csv:'Exportar a Excel (CSV)', t_import:'Importar JSON o CSV', t_print:'Imprimir',
+  t_theme:'Tema claro / oscuro', t_changepw:'Cambiar mi password', t_logout:'Cerrar sesión', t_maps:'Ver en Google Maps', t_showhide:'Mostrar / ocultar',
+  t_ip:'Formato IP: 4 números del 0 al 255 separados por punto. Ej: 192.168.1.10',
+  t_mac:'Formato MAC: 12 caracteres hexadecimales (0-9, A-F). Ej: AA:BB:CC:DD:EE:FF',
+  t_view:'Ver', t_copy:'Copiar', t_dup:'Duplicar', t_delete:'Eliminar', t_openmap:'Abrir en Google Maps',
+  k_devices:'Equipos', k_clients:'Clientes', k_active:'Activos', k_repair:'En reparación',
+  sec_client:'Cliente', sec_device:'Equipo', client:'Cliente', client_ph:'Ej: Advance Medical',
+  address:'Dirección', address_ph:'Empieza a escribir la dirección...',
+  type:'Tipo', name:'Nombre', name_ph:'Ej: DVR Principal', area:'Ubicación (área)', area_ph:'Ej: Recepción, Rack IT',
+  brand:'Marca / Modelo', brand_ph:'Escribe o elige una marca', serial:'Serial', status:'Estado', notes:'Notas', notes_ph:'Puertos, canales, configuración, etc.',
+  add_device:'Agregar equipo', save_changes:'Guardar cambios', clear:'Limpiar', keep_client:'Mantener cliente al agregar',
+  editing:'Editando: ', duplicating:'Duplicando', copy_suffix:' (copia)',
+  registered:'Equipos registrados', search_ph:'Buscar por cliente, nombre, IP, MAC, serial, modelo, notas...',
+  all_clients:'Todos los clientes', all_areas:'Todas las áreas', show_pw:'Mostrar passwords', all:'Todos',
+  th_area:'Área', th_model:'Modelo', edit:'Editar', count:'{n} / {t} equipos',
+  no_results:'No hay resultados', empty:'Aún no hay equipos. Agrega el primero arriba.',
+  'tipo.DVR':'DVR','tipo.NVR':'NVR','tipo.Cámara':'Cámara','tipo.PC':'PC','tipo.Laptop':'Laptop','tipo.Teléfono':'Teléfono',
+  'tipo.Router':'Router','tipo.Switch':'Switch','tipo.Access Point':'Access Point','tipo.Impresora':'Impresora','tipo.Servidor':'Servidor',
+  'tipo.Control de Acceso':'Control de Acceso','tipo.Otro':'Otro',
+  'estado.Activo':'Activo','estado.En reparación':'En reparación','estado.Inactivo':'Inactivo','estado.Dado de baja':'Dado de baja',
+  e_supabase:'No se pudo cargar la librería de Supabase. Revisa tu conexión o desactiva bloqueadores de anuncios y recarga.',
+  e_connect:'Error al conectar: ', e_login:'Usuario o password incorrecto', e_generic:'Error',
+  pw_prompt:'Nueva password (mínimo 6 caracteres):', pw_short:'Muy corta.', pw_fail:'No se pudo cambiar', pw_ok:'Password actualizada',
+  load_fail:'No se pudieron cargar los datos', ip_invalid:'IP no válida. Usa 4 números del 0 al 255. Ej: 192.168.1.10',
+  mac_invalid:'MAC no válida. Debe tener 12 caracteres (0-9, A-F). Ej: AA:BB:CC:DD:EE:FF',
+  dup_ip:'Ya existe un equipo de este cliente con la IP {ip}. ¿Guardar de todos modos?', save_fail:'No se pudo guardar', saved:'Cambios guardados', added:'Equipo agregado',
+  confirm_del:'¿Eliminar "{n}"?', del_fail:'No se pudo eliminar', deleted:'Eliminado', pw_copied:'Password copiada', copy_fail:'No se pudo copiar',
+  csv_pw:'¿Incluir passwords en el CSV?\n\nAceptar = Sí\nCancelar = No (columna vacía)',
+  no_valid:'No hay equipos válidos para subir.', confirm_upload:'Se van a agregar {n} equipos a la base de datos. ¿Continuar?', upload_fail:'Error al subir',
+  uploaded:'{n} equipos subidos', bad_file:'Archivo no válido.', local_done:'Datos subidos. ¿Borrar la copia local de este navegador?', no_local:'No se encontraron datos locales.',
+  no_client:'Sin cliente',
+  addr_type_first:'Escribe una dirección primero', addr_used:'Usada antes', addr_searching:'Buscando…',
+  addr_numhint:'Calle encontrada en el mapa · número escrito por ti (verifica con 📍 Maps)',
+  addr_err:'No se pudo buscar ({e}). Usa 📍 Maps o escríbela a mano.',
+  addr_none:'No aparece en el mapa gratuito, pero puedes guardarla tal como la escribiste. Verifícala con 📍 Maps.',
+  src_saved:'guardada', src_map:'mapa'
+}};
+const TIPOS = ['DVR','NVR','Cámara','PC','Laptop','Teléfono','Router','Switch','Access Point','Impresora','Servidor','Control de Acceso','Otro'];
+const ESTADOS = ['Activo','En reparación','Inactivo','Dado de baja'];
+let LANG = 'en';
+try{ LANG = localStorage.getItem('inv_lang') || 'en'; }catch(e){}
+if (!I18N[LANG]) LANG = 'en';
+function t(k, vars){
+  let s = (I18N[LANG] && I18N[LANG][k]) ?? I18N.en[k] ?? k;
+  if (vars) for (const v in vars) s = s.replaceAll('{' + v + '}', vars[v]);
+  return s;
+}
+const tTipo = v => t('tipo.' + v) === 'tipo.' + v ? v : t('tipo.' + v);
+const tEstado = v => t('estado.' + v) === 'estado.' + v ? v : t('estado.' + v);
+function fillOptions(sel, values, labelFn){
+  const cur = sel.value;
+  sel.innerHTML = values.map(v => `<option value="${esc(v)}">${esc(labelFn(v))}</option>`).join('');
+  if (cur && values.includes(cur)) sel.value = cur;
+}
+function applyLang(){
+  document.documentElement.lang = LANG;
+  document.querySelectorAll('[data-i18n]').forEach(el => el.textContent = t(el.dataset.i18n));
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => el.placeholder = t(el.dataset.i18nPh));
+  document.querySelectorAll('[data-i18n-title]').forEach(el => el.title = t(el.dataset.i18nTitle));
+  document.querySelectorAll('.lang button').forEach(b => b.classList.toggle('on', b.dataset.lang === LANG));
+  fillOptions($('tipo'), TIPOS, tTipo);
+  fillOptions($('estado'), ESTADOS, tEstado);
+  $('saveBtn').textContent = editId ? t('save_changes') : t('add_device');
+  document.title = (LANG === 'es' ? 'Inventario' : 'Inventory') + ' · AJ Tech Support';
+}
+function setLang(l){
+  LANG = I18N[l] ? l : 'en';
+  try{ localStorage.setItem('inv_lang', LANG); }catch(e){}
+  applyLang();
+  if (!$('app').classList.contains('hidden')) render();
+}
+
 
 /* ---------- Login ---------- */
 async function init(){
@@ -386,7 +515,7 @@ async function init(){
     return;
   }
   if (typeof supabase === 'undefined'){
-    $('lgErr').textContent = 'No se pudo cargar la librería de Supabase. Revisa tu conexión o desactiva bloqueadores de anuncios y recarga.';
+    $('lgErr').textContent = t('e_supabase');
     return;
   }
   try{
@@ -397,7 +526,7 @@ async function init(){
   }catch(err){
     console.error(err);
     showLogin();
-    $('lgErr').textContent = 'Error al conectar: ' + (err?.message || err);
+    $('lgErr').textContent = t('e_connect') + (err?.message || err);
   }
 }
 window.addEventListener('error', e => { const el = $('lgErr'); if (el) el.textContent = 'Error: ' + e.message; });
@@ -415,22 +544,22 @@ async function doLogin(e){
   $('lgBtn').disabled = true; $('lgErr').textContent = '';
   const { data, error } = await db.auth.signInWithPassword({ email: u, password: $('lgPass').value });
   $('lgBtn').disabled = false;
-  if (error){ $('lgErr').textContent = 'Usuario o password incorrecto'; return; }
+  if (error){ $('lgErr').textContent = t('e_login'); return; }
   $('lgPass').value = '';
   showApp(data.session);
 }
 async function logout(){ await db.auth.signOut(); showLogin(); }
 async function cambiarPassword(){
-  const p = prompt('Nueva password (mínimo 6 caracteres):'); if (!p) return;
-  if (p.length < 6) return alert('Muy corta.');
+  const p = prompt(t('pw_prompt')); if (!p) return;
+  if (p.length < 6) return alert(t('pw_short'));
   const { error } = await db.auth.updateUser({ password: p });
-  error ? fail(error, 'No se pudo cambiar') : toast('Password actualizada');
+  error ? fail(error, t('pw_fail')) : toast(t('pw_ok'));
 }
 
 /* ---------- Datos ---------- */
 async function loadData(){
   const { data, error } = await db.from('equipos').select('*').order('cliente');
-  if (error) return fail(error, 'No se pudieron cargar los datos');
+  if (error) return fail(error, t('load_fail'));
   items = data; render();
 }
 function autoDireccion(){
@@ -457,8 +586,8 @@ function formatMAC(el){
 }
 function validarIPMAC(){
   const ip = $('ip'), mac = $('mac');
-  ip.setCustomValidity(ip.value && !IP_RE.test(ip.value) ? 'IP no válida. Usa 4 números del 0 al 255. Ej: 192.168.1.10' : '');
-  mac.setCustomValidity(mac.value && !MAC_RE.test(mac.value) ? 'MAC no válida. Debe tener 12 caracteres (0-9, A-F). Ej: AA:BB:CC:DD:EE:FF' : '');
+  ip.setCustomValidity(ip.value && !IP_RE.test(ip.value) ? t('ip_invalid') : '');
+  mac.setCustomValidity(mac.value && !MAC_RE.test(mac.value) ? t('mac_invalid') : '');
   return $('form').reportValidity();
 }
 function togglePwField(){ const p=$('password'); p.type = p.type==='password' ? 'text' : 'password'; }
@@ -469,14 +598,14 @@ async function save(e){
   const d = {}; FIELDS.forEach(f => d[f] = $(f).value);
   const row = clean(d);
   if (row.ip && items.some(x => x.ip === row.ip && x.cliente === row.cliente && x.id !== editId) &&
-      !confirm('Ya existe un equipo de este cliente con la IP ' + row.ip + '. ¿Guardar de todos modos?')) return;
+      !confirm(t('dup_ip', {ip: row.ip}))) return;
   $('saveBtn').disabled = true;
   const { error } = editId
     ? await db.from('equipos').update(row).eq('id', editId)
     : await db.from('equipos').insert(row);
   $('saveBtn').disabled = false;
-  if (error) return fail(error, 'No se pudo guardar');
-  toast(editId ? 'Cambios guardados' : 'Equipo agregado');
+  if (error) return fail(error, t('save_fail'));
+  toast(editId ? t('saved') : t('added'));
   resetForm(true); loadData();
 }
 function resetForm(afterSave){
@@ -485,34 +614,34 @@ function resetForm(afterSave){
   if (afterSave === true && $('keepClient').checked){ $('cliente').value = c; $('direccion').value = dir; }
   $('password').type = 'password';
   updateMarcas();
-  $('saveBtn').textContent = 'Agregar equipo'; $('editMsg').textContent = '';
+  $('saveBtn').textContent = t('add_device'); $('editMsg').textContent = '';
 }
 function edit(id){
   const x = items.find(i => i.id === id); if(!x) return;
   FIELDS.forEach(f => $(f).value = x[f] || '');
   formatMAC($('mac'));
   updateMarcas();
-  editId = id; $('saveBtn').textContent = 'Guardar cambios';
-  $('editMsg').textContent = 'Editando: ' + x.nombre;
+  editId = id; $('saveBtn').textContent = t('save_changes');
+  $('editMsg').textContent = t('editing') + x.nombre;
   window.scrollTo({top:0, behavior:'smooth'});
 }
 async function del(id){
   const x = items.find(i => i.id === id);
-  if (!confirm('¿Eliminar "' + x.nombre + '"?')) return;
+  if (!confirm(t('confirm_del', {n: x.nombre}))) return;
   const { error } = await db.from('equipos').delete().eq('id', id);
-  if (error) return fail(error, 'No se pudo eliminar');
-  toast('Eliminado'); loadData();
+  if (error) return fail(error, t('del_fail'));
+  toast(t('deleted')); loadData();
 }
 function dup(id){
   const x = items.find(i => i.id === id); edit(id);
   editId = null; $('serial').value=''; $('ip').value=''; $('mac').value='';
-  $('nombre').value = x.nombre + ' (copia)';
-  $('saveBtn').textContent = 'Agregar equipo'; $('editMsg').textContent = 'Duplicando';
+  $('nombre').value = x.nombre + t('copy_suffix');
+  $('saveBtn').textContent = t('add_device'); $('editMsg').textContent = t('duplicating');
 }
 function reveal(id){ revealed.has(id) ? revealed.delete(id) : revealed.add(id); render(); }
 function copyPw(id){
   const x = items.find(i => i.id === id); if(!x || !x.password) return;
-  navigator.clipboard?.writeText(x.password).then(() => toast('Password copiada'), () => toast('No se pudo copiar'));
+  navigator.clipboard?.writeText(x.password).then(() => toast(t('pw_copied')), () => toast(t('copy_fail')));
 }
 
 /* ---------- Tabla ---------- */
@@ -548,7 +677,7 @@ let addrTimer = null, addrCtl = null, addrOpts = [], addrIdx = -1;
 const mapUrl = a => 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(a);
 function abrirMapa(a){
   a = (a || '').trim();
-  if (!a) return toast('Escribe una dirección primero');
+  if (!a) return toast(t('addr_type_first'));
   window.open(mapUrl(a), '_blank', 'noopener');
 }
 function fmtDireccion(p){
@@ -566,10 +695,10 @@ function buscarDireccion(q){
   // 1) Direcciones que ya usaste (instantáneo)
   const ql = q.toLowerCase();
   const locales = q.length < 2 ? [] : uniq('direccion').filter(d => d.toLowerCase().includes(ql)).slice(0, 4)
-    .map(d => ({ value: d, title: d, sub: 'Usada antes', src: 'guardada' }));
+    .map(d => ({ value: d, title: d, sub: t('addr_used'), src: 'guardada' }));
   addrOpts = locales; addrIdx = -1;
   if (q.length < 4){ pintarSugerencias(locales.length ? null : ''); return; }
-  pintarSugerencias('Buscando…');
+  pintarSugerencias(t('addr_searching'));
   // 2) Búsqueda en el mapa (con pausa para no saturar)
   addrTimer = setTimeout(async () => {
     addrCtl?.abort(); addrCtl = new AbortController();
@@ -577,8 +706,12 @@ function buscarDireccion(q){
     const vistos = new Set(locales.map(o => o.value.toLowerCase()));
     const nuevos = arr => arr.filter(o => o.value && !vistos.has(o.value.toLowerCase()) && vistos.add(o.value.toLowerCase()));
     let remotos = [], errores = [];
-    // Servicio 1: Photon
-    try{ remotos = nuevos(await buscarPhoton(qx, signal)); }
+    // Servicio 1: Photon (si no encuentra, reintenta sin estado / código postal)
+    const qs = simplificar(qx);
+    try{
+      remotos = nuevos(await buscarPhoton(qx, signal));
+      if (!remotos.length && qs !== qx) remotos = nuevos(await buscarPhoton(qs, signal));
+    }
     catch(err){ if (err.name === 'AbortError') return; errores.push('Photon: ' + err.message); }
     // Servicio 2: Nominatim (solo si el primero falló o no encontró nada)
     if (!remotos.length){
@@ -588,9 +721,16 @@ function buscarDireccion(q){
     if ($('direccion').value.trim() !== q) return; // el usuario siguió escribiendo
     addrOpts = [...locales, ...remotos]; addrIdx = -1;
     if (addrOpts.length) pintarSugerencias();
-    else if (errores.length){ console.warn('Búsqueda de dirección:', errores); pintarSugerencias('No se pudo buscar (' + errores.join(' · ') + '). Usa 📍 Maps o escríbela a mano.'); }
-    else pintarSugerencias('Sin resultados. Prueba con menos detalles (ej: "8500 NW 25th St Doral") o escríbela a mano.');
+    else if (errores.length){ console.warn('Búsqueda de dirección:', errores); pintarSugerencias(t('addr_err', {e: errores.join(' · ')})); }
+    else pintarSugerencias(t('addr_none'));
   }, 400);
+}
+// Quita ", FL 33178" / "Florida" para una segunda búsqueda más simple
+function simplificar(q){
+  // Solo quita el código postal / estado del FINAL (no el número del edificio)
+  return q.replace(/,?\s*\b(FL|Florida)\b\.?\s*(\d{5}(-\d{4})?)?\s*$/i, '')
+          .replace(/,?\s*\d{5}(-\d{4})?\s*$/, '')
+          .replace(/[,\s]+$/, '').trim();
 }
 // NW → Northwest, St → Street, etc. (así están guardadas las calles en OpenStreetMap)
 function expandirAbrev(q){
@@ -604,24 +744,36 @@ async function getJSON(url, signal){
   if (!r.ok) throw new Error('HTTP ' + r.status);
   return r.json();
 }
+// Solo Florida: [oeste, sur, este, norte]
+const FL_BBOX = [-87.7, 24.3, -79.8, 31.1];
+// Si el mapa tiene la calle pero no el número, se usa el número que escribiste
+function aSugerencia(p, q){
+  if (p.state && p.state !== 'Florida') return null;
+  const num = (($('direccion').value || q).match(/^\s*(\d+[A-Za-z]?)\b/) || [])[1];
+  let agregado = false;
+  if (!p.housenumber && p.street && num){ p = { ...p, housenumber: num }; agregado = true; }
+  const value = fmtDireccion(p);
+  const esLugar = p.name && p.name !== p.street && !p.housenumber;
+  return {
+    value,
+    title: esLugar ? p.name : value,
+    sub: agregado ? t('addr_numhint') : (esLugar ? value : ''),
+    src: 'mapa'
+  };
+}
 async function buscarPhoton(q, signal){
-  const j = await getJSON(`https://photon.komoot.io/api/?q=${encodeURIComponent(q)}&limit=6&lat=${BIAS.lat}&lon=${BIAS.lon}`, signal);
-  return (j.features || []).map(f => {
-    const p = f.properties || {}, value = fmtDireccion(p);
-    const esLugar = p.name && p.name !== p.street && !p.housenumber;
-    return { value, title: esLugar ? p.name : value, sub: esLugar ? value : '', src: 'mapa' };
-  });
+  const j = await getJSON(`https://photon.komoot.io/api/?q=${encodeURIComponent(q)}&limit=8&lat=${BIAS.lat}&lon=${BIAS.lon}&bbox=${FL_BBOX.join(',')}`, signal);
+  return (j.features || []).map(f => aSugerencia({ ...(f.properties || {}) }, q)).filter(Boolean);
 }
 async function buscarNominatim(q, signal){
-  const j = await getJSON(`https://nominatim.openstreetmap.org/search?format=jsonv2&addressdetails=1&limit=5&countrycodes=us&q=${encodeURIComponent(q)}`, signal);
+  const [w, s, e, n] = FL_BBOX;
+  const j = await getJSON(`https://nominatim.openstreetmap.org/search?format=jsonv2&addressdetails=1&limit=5&countrycodes=us&viewbox=${w},${n},${e},${s}&bounded=1&q=${encodeURIComponent(q)}`, signal);
   return (j || []).map(x => {
     const a = x.address || {};
-    const value = fmtDireccion({ housenumber:a.house_number, street:a.road, name:x.name,
+    return aSugerencia({ housenumber:a.house_number, street:a.road, name:x.name,
       city:a.city || a.town || a.village || a.hamlet || a.suburb, county:a.county, state:a.state,
-      postcode:a.postcode, countrycode:(a.country_code || '').toUpperCase(), country:a.country });
-    const esLugar = x.name && x.name !== a.road && !a.house_number;
-    return { value, title: esLugar ? x.name : value, sub: esLugar ? value : '', src: 'mapa' };
-  });
+      postcode:a.postcode, countrycode:(a.country_code || '').toUpperCase(), country:a.country }, q);
+  }).filter(Boolean);
 }
 function pintarSugerencias(msg){
   const box = $('addrList');
@@ -629,7 +781,7 @@ function pintarSugerencias(msg){
   box.innerHTML = addrOpts.map((o, i) => `<div class="opt ${i === addrIdx ? 'on' : ''}" onmousedown="event.preventDefault();elegirDireccion(${i})">
       <span class="ic">${o.src === 'guardada' ? '🕘' : '📍'}</span>
       <span><span class="t">${esc(o.title)}</span>${o.sub ? `<small>${esc(o.sub)}</small>` : ''}</span>
-      <span class="src">${o.src}</span></div>`).join('') + (msg ? `<div class="msg">${esc(msg)}</div>` : '');
+      <span class="src">${o.src === 'guardada' ? t('src_saved') : t('src_map')}</span></div>`).join('') + (msg ? `<div class="msg">${esc(msg)}</div>` : '');
   box.classList.remove('hidden');
 }
 function elegirDireccion(i){
@@ -674,45 +826,45 @@ const ESTADO_CLS = { 'Activo':'b-ok','En reparación':'b-warn','Inactivo':'b-off
 
 function render(){
   const clientes = uniq('cliente'), lugares = uniq('lugar'), dirs = uniq('direccion');
-  fillSelect($('fCliente'), clientes, 'Todos los clientes');
-  fillSelect($('fLugar'), lugares, 'Todas las áreas');
+  fillSelect($('fCliente'), clientes, t('all_clients'));
+  fillSelect($('fLugar'), lugares, t('all_areas'));
   $('clientes').innerHTML = clientes.map(v => `<option value="${esc(v)}">`).join('');
   $('lugares').innerHTML = lugares.map(v => `<option value="${esc(v)}">`).join('');
   $('direcciones').innerHTML = dirs.map(v => `<option value="${esc(v)}">`).join('');
   updateMarcas();
 
   const counts = {}; items.forEach(x => counts[x.tipo] = (counts[x.tipo]||0)+1);
-  $('chips').innerHTML = `<span class="chip ${!fTipo?'on':''}" onclick="setTipo('')">Todos (${items.length})</span>` +
-    Object.keys(counts).sort().map(t => `<span class="chip ${fTipo===t?'on':''}" onclick="setTipo('${esc(t)}')">${esc(t)} (${counts[t]})</span>`).join('');
+  $('chips').innerHTML = `<span class="chip ${!fTipo?'on':''}" onclick="setTipo('')">${t('all')} (${items.length})</span>` +
+    Object.keys(counts).sort().map(k => `<span class="chip ${fTipo===k?'on':''}" onclick="setTipo('${esc(k)}')">${esc(tTipo(k))} (${counts[k]})</span>`).join('');
 
   const showAll = $('showPw').checked;
   const rows = filtered();
   $('tbody').innerHTML = rows.length ? rows.map(x => {
     const vis = showAll || revealed.has(x.id);
     const pw = x.password
-      ? `${vis ? esc(x.password) : '••••••'} <span class="no-print"><button class="sm" onclick="reveal('${x.id}')" title="Ver">👁</button><button class="sm" onclick="copyPw('${x.id}')" title="Copiar">📋</button></span>`
+      ? `${vis ? esc(x.password) : '••••••'} <span class="no-print"><button class="sm" onclick="reveal('${x.id}')" title="${t('t_view')}">👁</button><button class="sm" onclick="copyPw('${x.id}')" title="${t('t_copy')}">📋</button></span>`
       : '';
     return `<tr>
-    <td class="client"><b>${esc(x.cliente)}</b></td><td class="addr">${x.direccion ? `<a href="${mapUrl(x.direccion)}" target="_blank" rel="noopener" title="Abrir en Google Maps">📍 ${esc(x.direccion)}</a>` : ''}</td>
-    <td><span class="type">${TIPO_ICON[x.tipo] || '◆'} ${esc(x.tipo)}</span></td><td>${esc(x.nombre)}</td><td>${esc(x.lugar)}</td><td>${esc(x.modelo)}</td>
+    <td class="client"><b>${esc(x.cliente)}</b></td><td class="addr">${x.direccion ? `<a href="${mapUrl(x.direccion)}" target="_blank" rel="noopener" title="${esc(x.direccion)} · ${t('t_openmap')}">📍 ${esc(x.direccion)}</a>` : ''}</td>
+    <td><span class="type">${TIPO_ICON[x.tipo] || '◆'} ${esc(tTipo(x.tipo))}</span></td><td>${esc(x.nombre)}</td><td>${esc(x.lugar)}</td><td>${esc(x.modelo)}</td>
     <td class="mono">${esc(x.serial)}</td>
     <td class="mono ip">${x.ip ? `<a href="http://${esc(x.ip)}" target="_blank" rel="noopener">${esc(x.ip)}</a>` : ''}</td>
     <td class="mono">${esc(x.mac)}</td><td class="mono">${esc(x.usuario)}</td><td class="mono">${pw}</td>
-    <td>${x.estado ? `<span class="badge ${ESTADO_CLS[x.estado] || 'b-off'}">${esc(x.estado)}</span>` : ''}</td><td class="notes">${esc(x.notas)}</td>
+    <td>${x.estado ? `<span class="badge ${ESTADO_CLS[x.estado] || 'b-off'}">${esc(tEstado(x.estado))}</span>` : ''}</td><td class="notes">${esc(x.notas)}</td>
     <td class="no-print" style="white-space:nowrap">
-      <button class="sm" onclick="edit('${x.id}')">Editar</button>
-      <button class="sm" onclick="dup('${x.id}')" title="Duplicar">⧉</button>
-      <button class="sm danger" onclick="del('${x.id}')">✕</button>
+      <button class="sm" onclick="edit('${x.id}')">${t('edit')}</button>
+      <button class="sm" onclick="dup('${x.id}')" title="${t('t_dup')}">⧉</button>
+      <button class="sm danger" onclick="del('${x.id}')" title="${t('t_delete')}">✕</button>
     </td></tr>`;
   }).join('')
-    : `<tr><td colspan="14" class="empty">${items.length ? 'No hay resultados' : 'Aún no hay equipos. Agrega el primero arriba.'}</td></tr>`;
-  $('count').textContent = `${rows.length} / ${items.length} equipos`;
+    : `<tr><td colspan="14" class="empty">${items.length ? t('no_results') : t('empty')}</td></tr>`;
+  $('count').textContent = t('count', {n: rows.length, t: items.length});
   $('kTotal').textContent = items.length;
   $('kClientes').textContent = clientes.length;
   $('kActivos').textContent = items.filter(x => x.estado === 'Activo').length;
   $('kRep').textContent = items.filter(x => x.estado === 'En reparación').length;
   document.querySelectorAll('th[data-k]').forEach(th => {
-    th.textContent = th.textContent.replace(/ [▲▼]$/,'') + (th.dataset.k===sortK ? (sortDir>0?' ▲':' ▼') : '');
+    th.textContent = (th.dataset.i18n ? t(th.dataset.i18n) : th.textContent.replace(/ [▲▼]$/,'')) + (th.dataset.k===sortK ? (sortDir>0?' ▲':' ▼') : '');
   });
 }
 function setTipo(t){ fTipo = t; render(); }
@@ -729,7 +881,7 @@ function download(name, content, type){
 const stamp = () => new Date().toISOString().slice(0,10);
 function exportJSON(){ download(`inventario-${stamp()}.json`, JSON.stringify(items.map(clean), null, 2), 'application/json'); }
 function exportCSV(){
-  const incluirPw = confirm('¿Incluir passwords en el CSV?\n\nAceptar = Sí\nCancelar = No (columna vacía)');
+  const incluirPw = confirm(t('csv_pw'));
   const q = v => `"${String(v ?? '').replace(/"/g,'""')}"`;
   const csv = [FIELDS.join(','), ...filtered().map(x => FIELDS.map(f => q(f==='password' && !incluirPw ? '' : x[f])).join(','))].join('\r\n');
   download(`inventario-${stamp()}.csv`, '\uFEFF' + csv, 'text/csv;charset=utf-8');
@@ -750,14 +902,14 @@ function parseCSV(text){
   return rows.filter(r => r.some(v => v.trim())).map(r => { const o = {}; head.forEach((h,i) => o[h] = (r[i]||'').trim()); return o; });
 }
 async function subir(lista){
-  const rows = lista.map(clean).filter(r => r.nombre).map(r => ({...r, cliente: r.cliente || 'Sin cliente'}));
-  if (!rows.length) { alert('No hay equipos válidos para subir.'); return false; }
-  if (!confirm(`Se van a agregar ${rows.length} equipos a la base de datos. ¿Continuar?`)) return false;
+  const rows = lista.map(clean).filter(r => r.nombre).map(r => ({...r, cliente: r.cliente || t('no_client')}));
+  if (!rows.length) { alert(t('no_valid')); return false; }
+  if (!confirm(t('confirm_upload', {n: rows.length}))) return false;
   for (let i = 0; i < rows.length; i += 500){
     const { error } = await db.from('equipos').insert(rows.slice(i, i + 500));
-    if (error){ fail(error, 'Error al subir'); return false; }
+    if (error){ fail(error, t('upload_fail')); return false; }
   }
-  toast(`${rows.length} equipos subidos`); loadData(); return true;
+  toast(t('uploaded', {n: rows.length})); loadData(); return true;
 }
 function importFile(e){
   const file = e.target.files[0]; if(!file) return;
@@ -767,7 +919,7 @@ function importFile(e){
       const data = file.name.toLowerCase().endsWith('.csv') ? parseCSV(r.result) : JSON.parse(r.result);
       if(!Array.isArray(data)) throw 0;
       await subir(data);
-    }catch(err){ alert('Archivo no válido.'); }
+    }catch(err){ alert(t('bad_file')); }
     e.target.value = '';
   };
   r.readAsText(file);
@@ -775,10 +927,10 @@ function importFile(e){
 async function migrarLocal(){
   try{
     const local = JSON.parse(localStorage.getItem(LOCAL_KEY)) || [];
-    if (await subir(local) && confirm('Datos subidos. ¿Borrar la copia local de este navegador?')){
+    if (await subir(local) && confirm(t('local_done'))){
       localStorage.removeItem(LOCAL_KEY); $('migrarBtn').classList.add('hidden');
     }
-  }catch(e){ alert('No se encontraron datos locales.'); }
+  }catch(e){ alert(t('no_local')); }
 }
 
 /* ---------- Tema ---------- */
@@ -789,6 +941,7 @@ function toggleTheme(){
 }
 try{ const t = localStorage.getItem('inv_theme'); if(t) document.documentElement.dataset.theme = t; }catch(e){}
 
+applyLang();
 init();
 </script>
 </body>

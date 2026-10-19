@@ -109,6 +109,22 @@ input:invalid:not(:placeholder-shown){border-color:var(--bad)}
 select option{background:var(--card-solid);color:var(--text)}
 textarea{min-height:44px;resize:vertical}
 .pw{display:flex;gap:6px}.pw input{flex:1}
+/* Autocompletar dirección */
+.addr-wrap{position:relative;display:flex;gap:6px}
+.addr-wrap input{flex:1}
+.maps-btn{white-space:nowrap;padding:9px 12px}
+.suggest{position:absolute;left:0;right:0;top:calc(100% + 6px);z-index:40;background:var(--card-solid);border:1px solid var(--line-strong);border-radius:12px;box-shadow:0 20px 40px -12px rgba(0,0,0,.6);max-height:320px;overflow-y:auto}
+.suggest .opt{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;cursor:pointer;color:var(--text);font-size:13px;border-bottom:1px solid var(--line)}
+.suggest .opt:last-child{border-bottom:0}
+.suggest .opt:hover,.suggest .opt.on{background:var(--row-hover)}
+.suggest .opt.on .t{color:var(--c1)}
+.suggest .ic{flex:none;opacity:.8}
+.suggest .t{display:block;font-weight:500}
+.suggest small{display:block;color:var(--muted);font-size:12px}
+.suggest .src{margin-left:auto;flex:none;font:500 10px "JetBrains Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
+.suggest .msg{padding:10px 12px;color:var(--muted);font-size:12px}
+td.addr a{color:var(--muted);text-decoration:none}
+td.addr a:hover{color:var(--c1)}
 .check{flex-direction:row;align-items:center;gap:8px;font-weight:400;cursor:pointer;white-space:nowrap}
 .check input{width:16px;height:16px;accent-color:var(--c2)}
 
@@ -253,7 +269,14 @@ td.client b{font-family:"Space Grotesk",sans-serif;font-weight:600}
         <div class="sec"><i>01</i> Cliente</div>
         <div class="grid2">
           <label>Cliente<input id="cliente" list="clientes" required placeholder="Ej: Advance Medical" onchange="autoDireccion()"></label>
-          <label>Dirección<input id="direccion" list="direcciones" placeholder="Ej: 8500 NW 25th St, Doral, FL 33122"></label>
+          <label>Dirección
+            <div class="addr-wrap">
+              <input id="direccion" autocomplete="off" placeholder="Empieza a escribir la dirección..."
+                oninput="buscarDireccion(this.value)" onkeydown="navDireccion(event)" onblur="setTimeout(cerrarSugerencias,150)">
+              <button type="button" class="maps-btn" onclick="abrirMapa($('direccion').value)" title="Ver en Google Maps">📍 Maps</button>
+              <div id="addrList" class="suggest hidden"></div>
+            </div>
+          </label>
         </div>
       </div>
 
@@ -511,13 +534,95 @@ const uniq = k => [...new Set(items.map(x => x[k]).filter(Boolean))].sort((a,b)=
 
 const TIPO_ICON = { 'DVR':'📹','NVR':'📹','Cámara':'📷','PC':'🖥️','Laptop':'💻','Teléfono':'📞','Router':'📡',
   'Switch':'🔀','Access Point':'📶','Impresora':'🖨️','Servidor':'🗄️','Control de Acceso':'🔐','Otro':'◆' };
+/* ---------- Dirección: autocompletar (OpenStreetMap / Photon, gratis) + Google Maps ---------- */
+const BIAS = { lat: 25.79, lon: -80.33 }; // Prioriza resultados en el Sur de Florida
+const US_ST = {Alabama:'AL',Alaska:'AK',Arizona:'AZ',Arkansas:'AR',California:'CA',Colorado:'CO',Connecticut:'CT',Delaware:'DE',
+  'District of Columbia':'DC',Florida:'FL',Georgia:'GA',Hawaii:'HI',Idaho:'ID',Illinois:'IL',Indiana:'IN',Iowa:'IA',Kansas:'KS',
+  Kentucky:'KY',Louisiana:'LA',Maine:'ME',Maryland:'MD',Massachusetts:'MA',Michigan:'MI',Minnesota:'MN',Mississippi:'MS',
+  Missouri:'MO',Montana:'MT',Nebraska:'NE',Nevada:'NV','New Hampshire':'NH','New Jersey':'NJ','New Mexico':'NM','New York':'NY',
+  'North Carolina':'NC','North Dakota':'ND',Ohio:'OH',Oklahoma:'OK',Oregon:'OR',Pennsylvania:'PA','Puerto Rico':'PR',
+  'Rhode Island':'RI','South Carolina':'SC','South Dakota':'SD',Tennessee:'TN',Texas:'TX',Utah:'UT',Vermont:'VT',Virginia:'VA',
+  Washington:'WA','West Virginia':'WV',Wisconsin:'WI',Wyoming:'WY'};
+let addrTimer = null, addrCtl = null, addrOpts = [], addrIdx = -1;
+
+const mapUrl = a => 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(a);
+function abrirMapa(a){
+  a = (a || '').trim();
+  if (!a) return toast('Escribe una dirección primero');
+  window.open(mapUrl(a), '_blank', 'noopener');
+}
+function fmtDireccion(p){
+  const calle = [p.housenumber, p.street].filter(Boolean).join(' ');
+  const ciudad = p.city || p.town || p.village || p.district || p.locality || p.county || '';
+  const st = p.countrycode === 'US' ? (US_ST[p.state] || p.state || '') : (p.state || '');
+  const zona = [st, p.postcode].filter(Boolean).join(' ');
+  const partes = [calle || p.name, ciudad, zona].filter(Boolean);
+  if (p.countrycode && p.countrycode !== 'US' && p.country) partes.push(p.country);
+  return [...new Set(partes)].join(', ');
+}
+function buscarDireccion(q){
+  q = q.trim();
+  clearTimeout(addrTimer);
+  // 1) Direcciones que ya usaste (instantáneo)
+  const ql = q.toLowerCase();
+  const locales = q.length < 2 ? [] : uniq('direccion').filter(d => d.toLowerCase().includes(ql)).slice(0, 4)
+    .map(d => ({ value: d, title: d, sub: 'Usada antes', src: 'guardada' }));
+  addrOpts = locales; addrIdx = -1;
+  if (q.length < 4){ pintarSugerencias(locales.length ? null : ''); return; }
+  pintarSugerencias('Buscando…');
+  // 2) Búsqueda en el mapa (con pausa para no saturar)
+  addrTimer = setTimeout(async () => {
+    try{
+      addrCtl?.abort(); addrCtl = new AbortController();
+      const url = `https://photon.komoot.io/api/?q=${encodeURIComponent(q)}&limit=6&lang=en&lat=${BIAS.lat}&lon=${BIAS.lon}`;
+      const r = await fetch(url, { signal: addrCtl.signal });
+      const j = await r.json();
+      const vistos = new Set(locales.map(o => o.value.toLowerCase()));
+      const remotos = (j.features || []).map(f => {
+        const p = f.properties || {}, value = fmtDireccion(p);
+        const esLugar = p.name && p.name !== p.street && !p.housenumber;
+        return { value, title: esLugar ? p.name : value, sub: esLugar ? value : '', src: 'mapa' };
+      }).filter(o => o.value && !vistos.has(o.value.toLowerCase()) && vistos.add(o.value.toLowerCase()));
+      if ($('direccion').value.trim() !== q) return; // el usuario siguió escribiendo
+      addrOpts = [...locales, ...remotos]; addrIdx = -1;
+      pintarSugerencias(addrOpts.length ? null : 'Sin resultados. Puedes escribirla a mano.');
+    }catch(err){
+      if (err.name === 'AbortError') return;
+      pintarSugerencias(addrOpts.length ? null : 'No se pudo buscar ahora. Escríbela a mano.');
+    }
+  }, 350);
+}
+function pintarSugerencias(msg){
+  const box = $('addrList');
+  if (!addrOpts.length && !msg){ box.classList.add('hidden'); return; }
+  box.innerHTML = addrOpts.map((o, i) => `<div class="opt ${i === addrIdx ? 'on' : ''}" onmousedown="event.preventDefault();elegirDireccion(${i})">
+      <span class="ic">${o.src === 'guardada' ? '🕘' : '📍'}</span>
+      <span><span class="t">${esc(o.title)}</span>${o.sub ? `<small>${esc(o.sub)}</small>` : ''}</span>
+      <span class="src">${o.src}</span></div>`).join('') + (msg ? `<div class="msg">${esc(msg)}</div>` : '');
+  box.classList.remove('hidden');
+}
+function elegirDireccion(i){
+  const o = addrOpts[i]; if (!o) return;
+  $('direccion').value = o.value;
+  cerrarSugerencias();
+}
+function cerrarSugerencias(){ $('addrList').classList.add('hidden'); addrIdx = -1; }
+function navDireccion(e){
+  const box = $('addrList');
+  if (box.classList.contains('hidden') || !addrOpts.length) return;
+  if (e.key === 'ArrowDown'){ e.preventDefault(); addrIdx = (addrIdx + 1) % addrOpts.length; pintarSugerencias(); }
+  else if (e.key === 'ArrowUp'){ e.preventDefault(); addrIdx = (addrIdx - 1 + addrOpts.length) % addrOpts.length; pintarSugerencias(); }
+  else if (e.key === 'Enter' && addrIdx >= 0){ e.preventDefault(); elegirDireccion(addrIdx); }
+  else if (e.key === 'Escape'){ cerrarSugerencias(); }
+}
+
 /* ---------- Marcas más comunes por tipo de equipo ---------- */
 const CCTV = ['Hikvision','Dahua','Uniview (UNV)','Lorex','Swann','Amcrest','Reolink','Axis','Hanwha (Wisenet)','Avigilon','Ubiquiti UniFi Protect','Annke','Speco','Provision-ISR','LTS','EZVIZ','Imou','Verkada'];
 const MARCAS = {
   'DVR': CCTV, 'NVR': CCTV, 'Cámara': CCTV,
   'PC': ['Dell','HP','Lenovo','Apple','Asus','Acer','Microsoft Surface','MSI','Intel NUC','Gigabyte','Samsung'],
   'Laptop': ['Dell','HP','Lenovo','Apple MacBook','Asus','Acer','Microsoft Surface','MSI','Samsung','Toshiba / Dynabook'],
-  'Teléfono': ['Yealink','Poly (Polycom)','Grandstream','Cisco','Fanvil','Snom','Avaya','Mitel','Panasonic','Ubiquiti UniFi Talk','Apple iPhone','Samsung Galaxy','Motorola','Google Pixel'],
+  'Teléfono': ['Yealink','Poly (Polycom)','Grandstream','Cisco','Fanvil','Snom','Avaya','Mitel','Panasonic','UniFi','UniFi Talk','Ubiquiti UniFi Talk','Apple iPhone','Samsung Galaxy','Motorola','Google Pixel'],
   'Router': ['Ubiquiti','MikroTik','Cisco','Cisco Meraki','TP-Link','Netgear','Fortinet FortiGate','SonicWall','Sophos','Netgate pfSense','Juniper','Aruba','Linksys','Asus','Peplink','DrayTek','Zyxel','Arris','Technicolor'],
   'Switch': ['Cisco','Cisco Meraki','Ubiquiti UniFi','Aruba (HPE)','Netgear','TP-Link','MikroTik','Juniper','Dell','D-Link','Fortinet FortiSwitch','Extreme Networks','Zyxel'],
   'Access Point': ['Ubiquiti UniFi','Aruba Instant On','Cisco Meraki','Ruckus','TP-Link Omada','EnGenius','Netgear','Fortinet FortiAP','Grandstream','Cambium'],
@@ -557,7 +662,7 @@ function render(){
       ? `${vis ? esc(x.password) : '••••••'} <span class="no-print"><button class="sm" onclick="reveal('${x.id}')" title="Ver">👁</button><button class="sm" onclick="copyPw('${x.id}')" title="Copiar">📋</button></span>`
       : '';
     return `<tr>
-    <td class="client"><b>${esc(x.cliente)}</b></td><td class="addr">${esc(x.direccion)}</td>
+    <td class="client"><b>${esc(x.cliente)}</b></td><td class="addr">${x.direccion ? `<a href="${mapUrl(x.direccion)}" target="_blank" rel="noopener" title="Abrir en Google Maps">📍 ${esc(x.direccion)}</a>` : ''}</td>
     <td><span class="type">${TIPO_ICON[x.tipo] || '◆'} ${esc(x.tipo)}</span></td><td>${esc(x.nombre)}</td><td>${esc(x.lugar)}</td><td>${esc(x.modelo)}</td>
     <td class="mono">${esc(x.serial)}</td>
     <td class="mono ip">${x.ip ? `<a href="http://${esc(x.ip)}" target="_blank" rel="noopener">${esc(x.ip)}</a>` : ''}</td>

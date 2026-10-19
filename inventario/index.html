@@ -3,118 +3,261 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Inventario de Equipos</title>
+<title>Inventario · AJ Tech Support</title>
 <meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
+/* ===== Tema oscuro (por defecto) ===== */
 :root{
-  --bg:#f4f6f9; --card:#ffffff; --text:#1c2430; --muted:#6b7686; --border:#dde2ea;
-  --primary:#1f6feb; --primary-text:#fff; --danger:#d1242f; --row-hover:#f0f4fb; --input:#fff; --accent:#eef4ff;
+  --bg:#05070f; --bg2:#0b1020; --card:rgba(255,255,255,.035); --card-solid:#0d1324;
+  --line:rgba(255,255,255,.09); --line-strong:rgba(255,255,255,.16);
+  --text:#e8ecf7; --muted:#8f99b8; --dim:#5d6785;
+  --c1:#00e5ff; --c2:#7c4dff; --c3:#ff2fb3;
+  --grad:linear-gradient(120deg,var(--c1),var(--c2) 55%,var(--c3));
+  --input:rgba(0,0,0,.35); --row-hover:rgba(0,229,255,.05);
+  --ok:#2bff88; --warn:#ffc53d; --off:#8f99b8; --bad:#ff4d6d;
+  --glow:.22; --grid-line:rgba(124,77,255,.07);
 }
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --bg:#0f141b; --card:#171e27; --text:#e4e9f0; --muted:#8d99a8; --border:#2a3441;
-    --primary:#3b82f6; --primary-text:#fff; --danger:#f05454; --row-hover:#1d2632; --input:#0f141b; --accent:#1a2433;
-  }
-}
-:root[data-theme="dark"]{
-  --bg:#0f141b; --card:#171e27; --text:#e4e9f0; --muted:#8d99a8; --border:#2a3441;
-  --primary:#3b82f6; --primary-text:#fff; --danger:#f05454; --row-hover:#1d2632; --input:#0f141b; --accent:#1a2433;
+/* ===== Tema claro ===== */
+:root[data-theme="light"]{
+  --bg:#f3f5fb; --bg2:#ffffff; --card:rgba(255,255,255,.85); --card-solid:#ffffff;
+  --line:rgba(16,24,48,.10); --line-strong:rgba(16,24,48,.18);
+  --text:#121a2e; --muted:#5a6482; --dim:#8a93ad;
+  --c1:#0094b8; --c2:#6a3df0; --c3:#d61f8f;
+  --input:#ffffff; --row-hover:rgba(106,61,240,.05);
+  --ok:#0f9d58; --warn:#b7791f; --off:#6b7280; --bad:#d6334f;
+  --glow:.10; --grid-line:rgba(106,61,240,.06);
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font:14px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-header{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;padding:16px;border-bottom:1px solid var(--border);background:var(--card)}
-h1{font-size:20px;margin:0}
-h2{font-size:13px;margin:0 0 10px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
-.wrap{max-width:1400px;margin:0 auto;padding:16px}
-.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:16px}
-.client-box{background:var(--accent);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:14px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
-.grid2{display:grid;grid-template-columns:1fr 2fr;gap:10px}
-@media (max-width:600px){.grid2{grid-template-columns:1fr}}
-label{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted);font-weight:600}
-input,select,textarea{font:inherit;color:var(--text);background:var(--input);border:1px solid var(--border);border-radius:6px;padding:8px;width:100%}
-textarea{min-height:38px;resize:vertical}
+html,body{margin:0}
+body{
+  background:var(--bg);color:var(--text);
+  font:14px/1.5 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+  min-height:100vh;overflow-x:hidden;
+}
+/* fondo: rejilla + brillos */
+body::before{
+  content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;
+  background-image:linear-gradient(var(--grid-line) 1px,transparent 1px),linear-gradient(90deg,var(--grid-line) 1px,transparent 1px);
+  background-size:42px 42px;
+  mask-image:radial-gradient(ellipse at 50% 0%,#000 30%,transparent 75%);
+  -webkit-mask-image:radial-gradient(ellipse at 50% 0%,#000 30%,transparent 75%);
+}
+.glow{position:fixed;width:560px;height:560px;border-radius:50%;filter:blur(140px);opacity:var(--glow);z-index:-1;pointer-events:none}
+.g1{background:var(--c2);top:-220px;left:-160px}.g2{background:var(--c1);bottom:-260px;right:-160px}
+
+h1,h2,h3,.brand{font-family:"Space Grotesk",sans-serif}
+.mono,td.mono{font-family:"JetBrains Mono",ui-monospace,Consolas,monospace}
+a{color:var(--c1)}
+
+/* ===== Header ===== */
+header{
+  position:sticky;top:0;z-index:20;
+  display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;
+  padding:14px 20px;background:rgba(5,7,15,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+:root[data-theme="light"] header{background:rgba(255,255,255,.8)}
+.brand{display:flex;align-items:center;gap:12px}
+.logo-mark{width:40px;height:40px;border-radius:12px;background:var(--grad);display:grid;place-items:center;color:#05070f;font-weight:800;font-size:.95rem;box-shadow:0 0 24px rgba(124,77,255,.55)}
+.brand h1{font-size:18px;margin:0;line-height:1.1}
+.brand small{display:block;color:var(--muted);font:500 11px/1.2 "JetBrains Mono",monospace;letter-spacing:.12em;text-transform:uppercase;margin-top:3px}
+.actions{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.user-chip{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border:1px solid var(--line);border-radius:999px;background:var(--card);font:500 12px "JetBrains Mono",monospace;color:var(--muted)}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 8px var(--ok);animation:pulse 1.8s infinite}
+@keyframes pulse{50%{opacity:.35}}
+
+.wrap{max-width:1440px;margin:0 auto;padding:22px 20px 40px}
+
+/* ===== KPIs ===== */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}
+.kpi{position:relative;padding:16px 18px;border:1px solid var(--line);border-radius:16px;background:var(--card);overflow:hidden}
+.kpi::after{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--grad)}
+.kpi span{display:block;color:var(--muted);font:500 11px "JetBrains Mono",monospace;letter-spacing:.12em;text-transform:uppercase}
+.kpi b{display:block;font:700 28px/1.2 "Space Grotesk",sans-serif;margin-top:6px}
+.kpi b.ok{color:var(--ok)} .kpi b.warn{color:var(--warn)}
+@media (max-width:760px){.kpis{grid-template-columns:repeat(2,1fr)}}
+
+/* ===== Tarjetas ===== */
+.card{
+  position:relative;background:var(--card);border:1px solid var(--line);border-radius:18px;
+  padding:20px;margin-bottom:18px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+}
+.card-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 14px}
+.card-title h3{margin:0;font-size:16px}
+.sec{display:flex;align-items:center;gap:10px;margin:0 0 12px;color:var(--muted);font:600 11px "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase}
+.sec i{font-style:normal;color:var(--c1)}
+.sec::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line-strong),transparent)}
+.client-box{border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:18px;background:linear-gradient(160deg,rgba(124,77,255,.10),rgba(0,229,255,.04))}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+.grid2{display:grid;grid-template-columns:1fr 2fr;gap:12px}
+@media (max-width:640px){.grid2{grid-template-columns:1fr}}
 .full{grid-column:1/-1}
-.pw{display:flex;gap:4px}.pw input{flex:1}
-button{font:inherit;cursor:pointer;border:1px solid var(--border);background:var(--card);color:var(--text);border-radius:6px;padding:8px 12px}
-button.sm{padding:3px 7px;font-size:12px}
-button.primary{background:var(--primary);color:var(--primary-text);border-color:var(--primary)}
-button.danger{color:var(--danger)}
-button:hover{filter:brightness(.95)}
+
+label{display:flex;flex-direction:column;gap:6px;font-size:12px;color:var(--muted);font-weight:500}
+input,select,textarea{
+  font:inherit;color:var(--text);background:var(--input);border:1px solid var(--line);
+  border-radius:10px;padding:10px 12px;width:100%;outline:none;transition:border-color .2s,box-shadow .2s;
+}
+input::placeholder,textarea::placeholder{color:var(--dim)}
+input:focus,select:focus,textarea:focus{border-color:var(--c1);box-shadow:0 0 0 3px rgba(0,229,255,.12)}
+input:invalid:not(:placeholder-shown){border-color:var(--bad)}
+#ip,#mac,#serial{font-family:"JetBrains Mono",monospace;letter-spacing:.02em}
+select option{background:var(--card-solid);color:var(--text)}
+textarea{min-height:44px;resize:vertical}
+.pw{display:flex;gap:6px}.pw input{flex:1}
+.check{flex-direction:row;align-items:center;gap:8px;font-weight:400;cursor:pointer;white-space:nowrap}
+.check input{width:16px;height:16px;accent-color:var(--c2)}
+
+/* ===== Botones ===== */
+button{
+  font:500 13px Inter,sans-serif;cursor:pointer;border:1px solid var(--line);background:var(--card);
+  color:var(--text);border-radius:10px;padding:9px 14px;transition:border-color .2s,color .2s,transform .15s,box-shadow .2s;
+}
+button:hover{border-color:var(--c1);color:var(--c1)}
+button.sm{padding:4px 8px;font-size:12px;border-radius:8px}
+button.primary{background:var(--grad);color:#05070f;border:0;font-weight:700;box-shadow:0 8px 24px -8px rgba(124,77,255,.7)}
+button.primary:hover{color:#05070f;transform:translateY(-1px);box-shadow:0 12px 30px -8px rgba(0,229,255,.7)}
+button.danger:hover{border-color:var(--bad);color:var(--bad)}
 button:disabled{opacity:.6;cursor:wait}
-.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-.stats{display:flex;flex-wrap:wrap;gap:8px}
-.chip{border:1px solid var(--border);border-radius:999px;padding:4px 10px;font-size:12px;cursor:pointer;background:var(--card)}
-.chip.on{background:var(--primary);color:var(--primary-text);border-color:var(--primary)}
-.table-wrap{overflow-x:auto}
-table{width:100%;border-collapse:collapse;min-width:1300px}
-th,td{text-align:left;padding:8px;border-bottom:1px solid var(--border);vertical-align:top}
-th{font-size:12px;color:var(--muted);cursor:pointer;user-select:none;white-space:nowrap}
-tr:hover td{background:var(--row-hover)}
-td.mono{font-family:ui-monospace,Consolas,monospace;font-size:13px;white-space:nowrap}
-td.notes{max-width:240px;white-space:pre-wrap;color:var(--muted)}
-td.addr{max-width:200px;color:var(--muted)}
-.empty{text-align:center;color:var(--muted);padding:30px}
+.icon-btn{width:38px;height:38px;padding:0;display:grid;place-items:center;font-size:15px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
 .muted{color:var(--muted);font-size:12px}
-.err{color:var(--danger);font-size:13px;min-height:18px}
-.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--text);color:var(--bg);padding:8px 14px;border-radius:6px;opacity:0;transition:.2s;pointer-events:none;z-index:9}
-.toast.show{opacity:1}
-#login{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:16px}
-#login .card{width:100%;max-width:360px}
-#login h1{text-align:center;margin-bottom:6px}
+
+/* ===== Filtros ===== */
+.search{position:relative;flex:1;min-width:240px}
+.search input{padding-left:38px}
+.search::before{content:"⌕";position:absolute;left:13px;top:50%;transform:translateY(-52%);color:var(--c1);font-size:18px}
+.stats{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);border-radius:999px;padding:5px 12px;font:500 12px Inter,sans-serif;cursor:pointer;background:var(--card);color:var(--muted);transition:.2s}
+.chip:hover{border-color:var(--c1);color:var(--c1)}
+.chip.on{background:var(--grad);color:#05070f;border-color:transparent;font-weight:700}
+
+/* ===== Tabla ===== */
+.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:14px;max-height:70vh}
+table{width:100%;border-collapse:separate;border-spacing:0;min-width:1320px}
+th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+thead th{
+  position:sticky;top:0;z-index:2;background:var(--card-solid);
+  font:600 11px "JetBrains Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+  cursor:pointer;user-select:none;white-space:nowrap;border-bottom:1px solid var(--line-strong);
+}
+thead th:hover{color:var(--c1)}
+tbody tr{transition:background .15s}
+tbody tr:hover td{background:var(--row-hover)}
+tbody tr:last-child td{border-bottom:0}
+td.mono{font-size:12.5px;white-space:nowrap}
+td.ip a{color:var(--c1);text-decoration:none}
+td.ip a:hover{text-shadow:0 0 10px var(--c1)}
+td.notes{max-width:240px;white-space:pre-wrap;color:var(--muted);font-size:13px}
+td.addr{max-width:200px;color:var(--muted);font-size:13px}
+td.client b{font-family:"Space Grotesk",sans-serif;font-weight:600}
+.type{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:8px;border:1px solid var(--line);background:rgba(124,77,255,.10);font-size:12px;white-space:nowrap}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:600;white-space:nowrap;border:1px solid currentColor}
+.badge::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;box-shadow:0 0 6px currentColor}
+.b-ok{color:var(--ok);background:rgba(43,255,136,.07)}
+.b-warn{color:var(--warn);background:rgba(255,197,61,.08)}
+.b-off{color:var(--off);background:rgba(143,153,184,.08)}
+.b-bad{color:var(--bad);background:rgba(255,77,109,.08)}
+.empty{text-align:center;color:var(--muted);padding:40px}
+.foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:12px}
+
+/* ===== Login ===== */
+#login{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.login-card{width:100%;max-width:400px;padding:34px 30px}
+.login-card::before{
+  content:"";position:absolute;inset:-1px;border-radius:18px;padding:1px;background:var(--grad);opacity:.6;pointer-events:none;
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;
+}
+.login-card .logo-mark{width:54px;height:54px;font-size:1.2rem;border-radius:15px;margin:0 auto 16px}
+.login-card h1{text-align:center;margin:0 0 4px;font-size:24px}
+.login-card .sub{text-align:center;color:var(--muted);font:500 11px "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;margin:0 0 24px}
+.login-card form{display:grid;gap:14px}
+.login-card button.primary{width:100%;padding:12px;font-size:14px}
+.err{color:var(--bad);font-size:13px;min-height:18px;margin:0}
+.back{display:block;text-align:center;margin-top:14px;color:var(--muted);font-size:12px;text-decoration:none}
+.back:hover{color:var(--c1)}
+
+/* ===== Toast ===== */
+.toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,10px);background:var(--card-solid);color:var(--text);border:1px solid var(--c1);box-shadow:0 0 24px rgba(0,229,255,.25);padding:10px 18px;border-radius:12px;opacity:0;transition:.25s;pointer-events:none;z-index:50;font-weight:500}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
 .hidden{display:none!important}
-@media print{header .row,.no-print{display:none!important}body{background:#fff;color:#000}.card{border:none}}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:var(--line-strong);border-radius:10px}
+::-webkit-scrollbar-track{background:transparent}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media print{
+  header .actions,.no-print,.glow{display:none!important}
+  body{background:#fff;color:#000} body::before{display:none}
+  .card,.table-wrap{border:none;background:none;max-height:none;overflow:visible}
+  thead th{position:static;background:#fff;color:#000}
+}
 </style>
 </head>
 <body>
+<div class="glow g1"></div><div class="glow g2"></div>
 
 <!-- ================= LOGIN ================= -->
 <div id="login">
-  <div class="card">
-    <h1>📋 Inventario</h1>
-    <p class="muted" style="text-align:center;margin-top:0">Ingresa con tu usuario</p>
+  <div class="card login-card">
+    <div class="logo-mark">AJ</div>
+    <h1>Inventario</h1>
+    <p class="sub">Network Asset Manager</p>
     <form onsubmit="doLogin(event)">
-      <label>Usuario<input id="lgUser" autocomplete="username" required autofocus></label><br>
-      <label>Password<input id="lgPass" type="password" autocomplete="current-password" required></label><br>
-      <button class="primary" style="width:100%" id="lgBtn">Entrar</button>
+      <label>Usuario<input id="lgUser" autocomplete="username" required autofocus placeholder="tu usuario"></label>
+      <label>Password<input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
+      <button class="primary" id="lgBtn">Entrar →</button>
       <p class="err" id="lgErr"></p>
     </form>
-    <p class="muted" style="text-align:center"><a href="/" style="color:var(--muted)">← AJ Tech Support</a></p>
+    <a class="back" href="/">← AJ Tech Support</a>
   </div>
 </div>
 
 <!-- ================= APP ================= -->
 <div id="app" class="hidden">
 <header>
-  <h1>📋 Inventario de Equipos</h1>
-  <div class="row no-print">
-    <button onclick="loadData()">↻ Actualizar</button>
-    <button onclick="exportJSON()">Respaldo JSON</button>
-    <button onclick="exportCSV()">Exportar CSV</button>
-    <button onclick="document.getElementById('fileIn').click()">Importar</button>
+  <div class="brand">
+    <div class="logo-mark">AJ</div>
+    <div><h1>Inventario de Equipos</h1><small>Network Asset Manager</small></div>
+  </div>
+  <div class="actions no-print">
+    <button onclick="loadData()" title="Actualizar">↻ Actualizar</button>
+    <button onclick="exportJSON()" title="Descargar respaldo">⤓ Respaldo</button>
+    <button onclick="exportCSV()" title="Exportar a Excel">⊞ CSV</button>
+    <button onclick="document.getElementById('fileIn').click()" title="Importar JSON o CSV">⤒ Importar</button>
     <input type="file" id="fileIn" accept=".json,.csv" hidden onchange="importFile(event)">
     <button id="migrarBtn" class="hidden" onclick="migrarLocal()">Subir datos locales</button>
-    <button onclick="window.print()">Imprimir</button>
-    <button onclick="toggleTheme()">🌓</button>
-    <button onclick="cambiarPassword()">🔑</button>
-    <span class="muted" id="whoami"></span>
-    <button onclick="logout()">Salir</button>
+    <button class="icon-btn" onclick="window.print()" title="Imprimir">⎙</button>
+    <button class="icon-btn" onclick="toggleTheme()" title="Tema claro/oscuro">🌓</button>
+    <button class="icon-btn" onclick="cambiarPassword()" title="Cambiar mi password">🔑</button>
+    <span class="user-chip"><span class="dot"></span><span id="whoami"></span></span>
+    <button onclick="logout()" title="Cerrar sesión">Salir ⏻</button>
   </div>
 </header>
 
 <div class="wrap">
+  <div class="kpis no-print">
+    <div class="kpi"><span>Equipos</span><b id="kTotal">0</b></div>
+    <div class="kpi"><span>Clientes</span><b id="kClientes">0</b></div>
+    <div class="kpi"><span>Activos</span><b class="ok" id="kActivos">0</b></div>
+    <div class="kpi"><span>En reparación</span><b class="warn" id="kRep">0</b></div>
+  </div>
+
   <div class="card no-print">
     <form id="form" onsubmit="save(event)">
       <div class="client-box">
-        <h2>Cliente</h2>
+        <div class="sec"><i>01</i> Cliente</div>
         <div class="grid2">
           <label>Cliente<input id="cliente" list="clientes" required placeholder="Ej: Advance Medical" onchange="autoDireccion()"></label>
           <label>Dirección<input id="direccion" list="direcciones" placeholder="Ej: 8500 NW 25th St, Doral, FL 33122"></label>
         </div>
       </div>
 
-      <h2>Equipo</h2>
+      <div class="sec"><i>02</i> Equipo</div>
       <div class="grid">
         <label>Tipo
           <select id="tipo" required>
@@ -127,13 +270,19 @@ td.addr{max-width:200px;color:var(--muted)}
         <label>Nombre<input id="nombre" required placeholder="Ej: DVR Principal"></label>
         <label>Ubicación (área)<input id="lugar" list="lugares" placeholder="Ej: Recepción, Rack IT"></label>
         <label>Marca / Modelo<input id="modelo" placeholder="Ej: Hikvision DS-7208"></label>
-        <label>Serial<input id="serial"></label>
-        <label>IP<input id="ip" placeholder="192.168.1.10"></label>
-        <label>MAC<input id="mac" placeholder="AA:BB:CC:DD:EE:FF"></label>
+        <label>Serial<input id="serial" placeholder="SN"></label>
+        <label>IP<input id="ip" placeholder="192.168.1.10" inputmode="decimal" maxlength="15" autocomplete="off"
+          pattern="((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)"
+          title="Formato IP: 4 números del 0 al 255 separados por punto. Ej: 192.168.1.10"
+          oninput="formatIP(this)"></label>
+        <label>MAC<input id="mac" placeholder="AA:BB:CC:DD:EE:FF" maxlength="17" autocomplete="off"
+          pattern="([0-9A-F]{2}:){5}[0-9A-F]{2}"
+          title="Formato MAC: 12 caracteres hexadecimales (0-9, A-F). Ej: AA:BB:CC:DD:EE:FF"
+          oninput="formatMAC(this)"></label>
         <label>Usuario<input id="usuario" autocomplete="off" placeholder="admin"></label>
         <label>Password
           <span class="pw">
-            <input id="password" type="password" autocomplete="new-password">
+            <input id="password" type="password" autocomplete="new-password" placeholder="••••••">
             <button type="button" class="sm" onclick="togglePwField()" title="Mostrar/ocultar">👁</button>
           </span>
         </label>
@@ -145,27 +294,24 @@ td.addr{max-width:200px;color:var(--muted)}
       <datalist id="clientes"></datalist>
       <datalist id="direcciones"></datalist>
       <datalist id="lugares"></datalist>
-      <div class="row" style="margin-top:12px">
+      <div class="row" style="margin-top:16px">
         <button class="primary" type="submit" id="saveBtn">Agregar equipo</button>
         <button type="button" onclick="resetForm()">Limpiar</button>
-        <label style="flex-direction:row;align-items:center;gap:6px;font-weight:400">
-          <input type="checkbox" id="keepClient" checked style="width:auto"> Mantener cliente al agregar
-        </label>
+        <label class="check"><input type="checkbox" id="keepClient" checked> Mantener cliente al agregar</label>
         <span class="muted" id="editMsg"></span>
       </div>
     </form>
   </div>
 
   <div class="card">
+    <div class="card-title"><h3>Equipos registrados</h3><span class="muted mono" id="count"></span></div>
     <div class="row no-print" style="margin-bottom:12px">
-      <input id="q" placeholder="🔎 Buscar por cliente, nombre, IP, serial, modelo, notas..." oninput="render()" style="flex:1;min-width:220px">
+      <div class="search"><input id="q" placeholder="Buscar por cliente, nombre, IP, MAC, serial, modelo, notas..." oninput="render()"></div>
       <select id="fCliente" onchange="render()" style="max-width:220px"><option value="">Todos los clientes</option></select>
       <select id="fLugar" onchange="render()" style="max-width:200px"><option value="">Todas las áreas</option></select>
-      <label style="flex-direction:row;align-items:center;gap:6px;font-weight:400">
-        <input type="checkbox" id="showPw" onchange="render()" style="width:auto"> Mostrar passwords
-      </label>
+      <label class="check"><input type="checkbox" id="showPw" onchange="render()"> Mostrar passwords</label>
     </div>
-    <div class="stats no-print" id="chips" style="margin-bottom:12px"></div>
+    <div class="stats no-print" id="chips" style="margin-bottom:14px"></div>
     <div class="table-wrap">
       <table>
         <thead><tr>
@@ -178,7 +324,6 @@ td.addr{max-width:200px;color:var(--muted)}
         <tbody id="tbody"></tbody>
       </table>
     </div>
-    <p class="muted" id="count"></p>
   </div>
 </div>
 </div>
@@ -270,10 +415,33 @@ function autoDireccion(){
   const prev = items.find(x => x.cliente === c && x.direccion);
   if (prev) $('direccion').value = prev.direccion;
 }
+/* ---------- Formato IP / MAC ---------- */
+const IP_RE  = /^((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)$/;
+const MAC_RE = /^([0-9A-F]{2}:){5}[0-9A-F]{2}$/;
+function formatIP(el){
+  // Solo números y puntos, máximo 4 bloques de 3 dígitos
+  let v = el.value.replace(/,/g, '.').replace(/[^\d.]/g, '').replace(/\.{2,}/g, '.').replace(/^\./, '');
+  v = v.split('.').slice(0, 4).map(p => p.slice(0, 3)).join('.');
+  el.value = v;
+  el.setCustomValidity('');
+}
+function formatMAC(el){
+  // Solo hexadecimal, mayúsculas, agrega ":" automáticamente
+  const hex = el.value.toUpperCase().replace(/[^0-9A-F]/g, '').slice(0, 12);
+  el.value = hex.match(/.{1,2}/g)?.join(':') || '';
+  el.setCustomValidity('');
+}
+function validarIPMAC(){
+  const ip = $('ip'), mac = $('mac');
+  ip.setCustomValidity(ip.value && !IP_RE.test(ip.value) ? 'IP no válida. Usa 4 números del 0 al 255. Ej: 192.168.1.10' : '');
+  mac.setCustomValidity(mac.value && !MAC_RE.test(mac.value) ? 'MAC no válida. Debe tener 12 caracteres (0-9, A-F). Ej: AA:BB:CC:DD:EE:FF' : '');
+  return $('form').reportValidity();
+}
 function togglePwField(){ const p=$('password'); p.type = p.type==='password' ? 'text' : 'password'; }
 
 async function save(e){
   e.preventDefault();
+  if (!validarIPMAC()) return;
   const d = {}; FIELDS.forEach(f => d[f] = $(f).value);
   const row = clean(d);
   if (row.ip && items.some(x => x.ip === row.ip && x.cliente === row.cliente && x.id !== editId) &&
@@ -297,6 +465,7 @@ function resetForm(afterSave){
 function edit(id){
   const x = items.find(i => i.id === id); if(!x) return;
   FIELDS.forEach(f => $(f).value = x[f] || '');
+  formatMAC($('mac'));
   editId = id; $('saveBtn').textContent = 'Guardar cambios';
   $('editMsg').textContent = 'Editando: ' + x.nombre;
   window.scrollTo({top:0, behavior:'smooth'});
@@ -337,6 +506,10 @@ function fillSelect(sel, values, allLabel){
 }
 const uniq = k => [...new Set(items.map(x => x[k]).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'es'));
 
+const TIPO_ICON = { 'DVR':'📹','NVR':'📹','Cámara':'📷','PC':'🖥️','Laptop':'💻','Teléfono':'📞','Router':'📡',
+  'Switch':'🔀','Access Point':'📶','Impresora':'🖨️','Servidor':'🗄️','Control de Acceso':'🔐','Otro':'◆' };
+const ESTADO_CLS = { 'Activo':'b-ok','En reparación':'b-warn','Inactivo':'b-off','Dado de baja':'b-bad' };
+
 function render(){
   const clientes = uniq('cliente'), lugares = uniq('lugar'), dirs = uniq('direccion');
   fillSelect($('fCliente'), clientes, 'Todos los clientes');
@@ -357,12 +530,12 @@ function render(){
       ? `${vis ? esc(x.password) : '••••••'} <span class="no-print"><button class="sm" onclick="reveal('${x.id}')" title="Ver">👁</button><button class="sm" onclick="copyPw('${x.id}')" title="Copiar">📋</button></span>`
       : '';
     return `<tr>
-    <td><b>${esc(x.cliente)}</b></td><td class="addr">${esc(x.direccion)}</td>
-    <td>${esc(x.tipo)}</td><td>${esc(x.nombre)}</td><td>${esc(x.lugar)}</td><td>${esc(x.modelo)}</td>
+    <td class="client"><b>${esc(x.cliente)}</b></td><td class="addr">${esc(x.direccion)}</td>
+    <td><span class="type">${TIPO_ICON[x.tipo] || '◆'} ${esc(x.tipo)}</span></td><td>${esc(x.nombre)}</td><td>${esc(x.lugar)}</td><td>${esc(x.modelo)}</td>
     <td class="mono">${esc(x.serial)}</td>
-    <td class="mono">${x.ip ? `<a href="http://${esc(x.ip)}" target="_blank" rel="noopener">${esc(x.ip)}</a>` : ''}</td>
+    <td class="mono ip">${x.ip ? `<a href="http://${esc(x.ip)}" target="_blank" rel="noopener">${esc(x.ip)}</a>` : ''}</td>
     <td class="mono">${esc(x.mac)}</td><td class="mono">${esc(x.usuario)}</td><td class="mono">${pw}</td>
-    <td>${esc(x.estado)}</td><td class="notes">${esc(x.notas)}</td>
+    <td>${x.estado ? `<span class="badge ${ESTADO_CLS[x.estado] || 'b-off'}">${esc(x.estado)}</span>` : ''}</td><td class="notes">${esc(x.notas)}</td>
     <td class="no-print" style="white-space:nowrap">
       <button class="sm" onclick="edit('${x.id}')">Editar</button>
       <button class="sm" onclick="dup('${x.id}')" title="Duplicar">⧉</button>
@@ -370,7 +543,11 @@ function render(){
     </td></tr>`;
   }).join('')
     : `<tr><td colspan="14" class="empty">${items.length ? 'No hay resultados' : 'Aún no hay equipos. Agrega el primero arriba.'}</td></tr>`;
-  $('count').textContent = `Mostrando ${rows.length} de ${items.length} equipos`;
+  $('count').textContent = `${rows.length} / ${items.length} equipos`;
+  $('kTotal').textContent = items.length;
+  $('kClientes').textContent = clientes.length;
+  $('kActivos').textContent = items.filter(x => x.estado === 'Activo').length;
+  $('kRep').textContent = items.filter(x => x.estado === 'En reparación').length;
   document.querySelectorAll('th[data-k]').forEach(th => {
     th.textContent = th.textContent.replace(/ [▲▼]$/,'') + (th.dataset.k===sortK ? (sortDir>0?' ▲':' ▼') : '');
   });
@@ -444,8 +621,7 @@ async function migrarLocal(){
 /* ---------- Tema ---------- */
 function toggleTheme(){
   const d = document.documentElement;
-  const dark = d.dataset.theme ? d.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
-  d.dataset.theme = dark ? 'light' : 'dark';
+  d.dataset.theme = d.dataset.theme === 'light' ? 'dark' : 'light';
   try{ localStorage.setItem('inv_theme', d.dataset.theme); }catch(e){}
 }
 try{ const t = localStorage.getItem('inv_theme'); if(t) document.documentElement.dataset.theme = t; }catch(e){}

@@ -1,1 +1,446 @@
 
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inventario de Equipos</title>
+<meta name="robots" content="noindex, nofollow">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{
+  --bg:#f4f6f9; --card:#ffffff; --text:#1c2430; --muted:#6b7686; --border:#dde2ea;
+  --primary:#1f6feb; --primary-text:#fff; --danger:#d1242f; --row-hover:#f0f4fb; --input:#fff; --accent:#eef4ff;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0f141b; --card:#171e27; --text:#e4e9f0; --muted:#8d99a8; --border:#2a3441;
+    --primary:#3b82f6; --primary-text:#fff; --danger:#f05454; --row-hover:#1d2632; --input:#0f141b; --accent:#1a2433;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0f141b; --card:#171e27; --text:#e4e9f0; --muted:#8d99a8; --border:#2a3441;
+  --primary:#3b82f6; --primary-text:#fff; --danger:#f05454; --row-hover:#1d2632; --input:#0f141b; --accent:#1a2433;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:14px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;padding:16px;border-bottom:1px solid var(--border);background:var(--card)}
+h1{font-size:20px;margin:0}
+h2{font-size:13px;margin:0 0 10px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.wrap{max-width:1400px;margin:0 auto;padding:16px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:16px}
+.client-box{background:var(--accent);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+.grid2{display:grid;grid-template-columns:1fr 2fr;gap:10px}
+@media (max-width:600px){.grid2{grid-template-columns:1fr}}
+label{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted);font-weight:600}
+input,select,textarea{font:inherit;color:var(--text);background:var(--input);border:1px solid var(--border);border-radius:6px;padding:8px;width:100%}
+textarea{min-height:38px;resize:vertical}
+.full{grid-column:1/-1}
+.pw{display:flex;gap:4px}.pw input{flex:1}
+button{font:inherit;cursor:pointer;border:1px solid var(--border);background:var(--card);color:var(--text);border-radius:6px;padding:8px 12px}
+button.sm{padding:3px 7px;font-size:12px}
+button.primary{background:var(--primary);color:var(--primary-text);border-color:var(--primary)}
+button.danger{color:var(--danger)}
+button:hover{filter:brightness(.95)}
+button:disabled{opacity:.6;cursor:wait}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.stats{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--border);border-radius:999px;padding:4px 10px;font-size:12px;cursor:pointer;background:var(--card)}
+.chip.on{background:var(--primary);color:var(--primary-text);border-color:var(--primary)}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:1300px}
+th,td{text-align:left;padding:8px;border-bottom:1px solid var(--border);vertical-align:top}
+th{font-size:12px;color:var(--muted);cursor:pointer;user-select:none;white-space:nowrap}
+tr:hover td{background:var(--row-hover)}
+td.mono{font-family:ui-monospace,Consolas,monospace;font-size:13px;white-space:nowrap}
+td.notes{max-width:240px;white-space:pre-wrap;color:var(--muted)}
+td.addr{max-width:200px;color:var(--muted)}
+.empty{text-align:center;color:var(--muted);padding:30px}
+.muted{color:var(--muted);font-size:12px}
+.err{color:var(--danger);font-size:13px;min-height:18px}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--text);color:var(--bg);padding:8px 14px;border-radius:6px;opacity:0;transition:.2s;pointer-events:none;z-index:9}
+.toast.show{opacity:1}
+#login{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:16px}
+#login .card{width:100%;max-width:360px}
+#login h1{text-align:center;margin-bottom:6px}
+.hidden{display:none!important}
+@media print{header .row,.no-print{display:none!important}body{background:#fff;color:#000}.card{border:none}}
+</style>
+</head>
+<body>
+
+<!-- ================= LOGIN ================= -->
+<div id="login" class="hidden">
+  <div class="card">
+    <h1>📋 Inventario</h1>
+    <p class="muted" style="text-align:center;margin-top:0">Ingresa con tu usuario</p>
+    <form onsubmit="doLogin(event)">
+      <label>Usuario<input id="lgUser" autocomplete="username" required autofocus></label><br>
+      <label>Password<input id="lgPass" type="password" autocomplete="current-password" required></label><br>
+      <button class="primary" style="width:100%" id="lgBtn">Entrar</button>
+      <p class="err" id="lgErr"></p>
+    </form>
+    <p class="muted" style="text-align:center"><a href="/" style="color:var(--muted)">← AJ Tech Support</a></p>
+  </div>
+</div>
+
+<!-- ================= APP ================= -->
+<div id="app" class="hidden">
+<header>
+  <h1>📋 Inventario de Equipos</h1>
+  <div class="row no-print">
+    <button onclick="loadData()">↻ Actualizar</button>
+    <button onclick="exportJSON()">Respaldo JSON</button>
+    <button onclick="exportCSV()">Exportar CSV</button>
+    <button onclick="document.getElementById('fileIn').click()">Importar</button>
+    <input type="file" id="fileIn" accept=".json,.csv" hidden onchange="importFile(event)">
+    <button id="migrarBtn" class="hidden" onclick="migrarLocal()">Subir datos locales</button>
+    <button onclick="window.print()">Imprimir</button>
+    <button onclick="toggleTheme()">🌓</button>
+    <button onclick="cambiarPassword()">🔑</button>
+    <span class="muted" id="whoami"></span>
+    <button onclick="logout()">Salir</button>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="card no-print">
+    <form id="form" onsubmit="save(event)">
+      <div class="client-box">
+        <h2>Cliente</h2>
+        <div class="grid2">
+          <label>Cliente<input id="cliente" list="clientes" required placeholder="Ej: Advance Medical" onchange="autoDireccion()"></label>
+          <label>Dirección<input id="direccion" list="direcciones" placeholder="Ej: 8500 NW 25th St, Doral, FL 33122"></label>
+        </div>
+      </div>
+
+      <h2>Equipo</h2>
+      <div class="grid">
+        <label>Tipo
+          <select id="tipo" required>
+            <option>DVR</option><option>NVR</option><option>Cámara</option><option>PC</option>
+            <option>Laptop</option><option>Teléfono</option><option>Router</option><option>Switch</option>
+            <option>Access Point</option><option>Impresora</option><option>Servidor</option>
+            <option>Control de Acceso</option><option>Otro</option>
+          </select>
+        </label>
+        <label>Nombre<input id="nombre" required placeholder="Ej: DVR Principal"></label>
+        <label>Ubicación (área)<input id="lugar" list="lugares" placeholder="Ej: Recepción, Rack IT"></label>
+        <label>Marca / Modelo<input id="modelo" placeholder="Ej: Hikvision DS-7208"></label>
+        <label>Serial<input id="serial"></label>
+        <label>IP<input id="ip" placeholder="192.168.1.10"></label>
+        <label>MAC<input id="mac" placeholder="AA:BB:CC:DD:EE:FF"></label>
+        <label>Usuario<input id="usuario" autocomplete="off" placeholder="admin"></label>
+        <label>Password
+          <span class="pw">
+            <input id="password" type="password" autocomplete="new-password">
+            <button type="button" class="sm" onclick="togglePwField()" title="Mostrar/ocultar">👁</button>
+          </span>
+        </label>
+        <label>Estado
+          <select id="estado"><option>Activo</option><option>En reparación</option><option>Inactivo</option><option>Dado de baja</option></select>
+        </label>
+        <label class="full">Notas<textarea id="notas" placeholder="Puertos, canales, configuración, etc."></textarea></label>
+      </div>
+      <datalist id="clientes"></datalist>
+      <datalist id="direcciones"></datalist>
+      <datalist id="lugares"></datalist>
+      <div class="row" style="margin-top:12px">
+        <button class="primary" type="submit" id="saveBtn">Agregar equipo</button>
+        <button type="button" onclick="resetForm()">Limpiar</button>
+        <label style="flex-direction:row;align-items:center;gap:6px;font-weight:400">
+          <input type="checkbox" id="keepClient" checked style="width:auto"> Mantener cliente al agregar
+        </label>
+        <span class="muted" id="editMsg"></span>
+      </div>
+    </form>
+  </div>
+
+  <div class="card">
+    <div class="row no-print" style="margin-bottom:12px">
+      <input id="q" placeholder="🔎 Buscar por cliente, nombre, IP, serial, modelo, notas..." oninput="render()" style="flex:1;min-width:220px">
+      <select id="fCliente" onchange="render()" style="max-width:220px"><option value="">Todos los clientes</option></select>
+      <select id="fLugar" onchange="render()" style="max-width:200px"><option value="">Todas las áreas</option></select>
+      <label style="flex-direction:row;align-items:center;gap:6px;font-weight:400">
+        <input type="checkbox" id="showPw" onchange="render()" style="width:auto"> Mostrar passwords
+      </label>
+    </div>
+    <div class="stats no-print" id="chips" style="margin-bottom:12px"></div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th data-k="cliente">Cliente</th><th data-k="direccion">Dirección</th>
+          <th data-k="tipo">Tipo</th><th data-k="nombre">Nombre</th><th data-k="lugar">Área</th>
+          <th data-k="modelo">Modelo</th><th data-k="serial">Serial</th><th data-k="ip">IP</th>
+          <th data-k="mac">MAC</th><th data-k="usuario">Usuario</th><th>Password</th>
+          <th data-k="estado">Estado</th><th>Notas</th><th class="no-print"></th>
+        </tr></thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+    <p class="muted" id="count"></p>
+  </div>
+</div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ================== CONFIGURACIÓN ==================
+   Copia estos 2 valores de Supabase:
+   Project Settings > API Keys (o botón "Connect")
+   - URL del proyecto
+   - Publishable key (empieza con sb_publishable_...)
+   NUNCA pongas aquí la "secret key" ni la "service_role".
+==================================================== */
+const SUPABASE_URL = 'https://eojunmqxbnxyjiazhwol.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_OFx4T7_TNJYOdGv2fsN_Ug_Dy56OD-S';
+// Si escribes un usuario sin @, se le agrega este dominio (ej: juan -> juan@inventario.local)
+const DOMINIO_USUARIOS = 'inventario.local';
+/* ================================================== */
+
+const LOCAL_KEY = 'inventario_equipos_v1';
+const FIELDS = ['cliente','direccion','tipo','nombre','lugar','modelo','serial','ip','mac','usuario','password','estado','notas'];
+let items = [], editId = null, fTipo = '', sortK = 'cliente', sortDir = 1, db = null;
+const revealed = new Set();
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const ipNum = ip => { const p = String(ip).split('.').map(Number); return p.length===4 && p.every(n=>!isNaN(n)) ? p.reduce((a,n)=>a*256+n,0) : null; };
+function toast(msg){ const t=$('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),1800); }
+function fail(error, msg){ console.error(error); alert((msg||'Error') + ':\n' + (error?.message || error)); }
+const clean = x => { const o = {}; FIELDS.forEach(f => { const v = String(x[f] ?? '').trim(); o[f] = v || null; }); if(!o.tipo) o.tipo='Otro'; if(!o.estado) o.estado='Activo'; return o; };
+
+/* ---------- Login ---------- */
+async function init(){
+  if (SUPABASE_URL.includes('TU-PROYECTO') || SUPABASE_KEY.includes('XXXX')){
+    document.body.innerHTML = '<div class="wrap"><div class="card"><h1>Falta configurar</h1><p>Abre <b>index.html</b> y pon tu SUPABASE_URL y SUPABASE_KEY en la sección CONFIGURACIÓN.</p></div></div>';
+    return;
+  }
+  db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+  const { data: { session } } = await db.auth.getSession();
+  session ? showApp(session) : showLogin();
+  db.auth.onAuthStateChange((ev, s) => { if (ev === 'SIGNED_OUT') showLogin(); });
+}
+function showLogin(){ $('app').classList.add('hidden'); $('login').classList.remove('hidden'); items = []; }
+function showApp(session){
+  $('login').classList.add('hidden'); $('app').classList.remove('hidden');
+  $('whoami').textContent = (session.user.email || '').replace('@' + DOMINIO_USUARIOS, '');
+  try{ const local = JSON.parse(localStorage.getItem(LOCAL_KEY)); if (Array.isArray(local) && local.length) $('migrarBtn').classList.remove('hidden'); }catch(e){}
+  loadData();
+}
+async function doLogin(e){
+  e.preventDefault();
+  let u = $('lgUser').value.trim().toLowerCase();
+  if (!u.includes('@')) u += '@' + DOMINIO_USUARIOS;
+  $('lgBtn').disabled = true; $('lgErr').textContent = '';
+  const { data, error } = await db.auth.signInWithPassword({ email: u, password: $('lgPass').value });
+  $('lgBtn').disabled = false;
+  if (error){ $('lgErr').textContent = 'Usuario o password incorrecto'; return; }
+  $('lgPass').value = '';
+  showApp(data.session);
+}
+async function logout(){ await db.auth.signOut(); showLogin(); }
+async function cambiarPassword(){
+  const p = prompt('Nueva password (mínimo 6 caracteres):'); if (!p) return;
+  if (p.length < 6) return alert('Muy corta.');
+  const { error } = await db.auth.updateUser({ password: p });
+  error ? fail(error, 'No se pudo cambiar') : toast('Password actualizada');
+}
+
+/* ---------- Datos ---------- */
+async function loadData(){
+  const { data, error } = await db.from('equipos').select('*').order('cliente');
+  if (error) return fail(error, 'No se pudieron cargar los datos');
+  items = data; render();
+}
+function autoDireccion(){
+  const c = $('cliente').value.trim();
+  if (!c || $('direccion').value.trim()) return;
+  const prev = items.find(x => x.cliente === c && x.direccion);
+  if (prev) $('direccion').value = prev.direccion;
+}
+function togglePwField(){ const p=$('password'); p.type = p.type==='password' ? 'text' : 'password'; }
+
+async function save(e){
+  e.preventDefault();
+  const d = {}; FIELDS.forEach(f => d[f] = $(f).value);
+  const row = clean(d);
+  if (row.ip && items.some(x => x.ip === row.ip && x.cliente === row.cliente && x.id !== editId) &&
+      !confirm('Ya existe un equipo de este cliente con la IP ' + row.ip + '. ¿Guardar de todos modos?')) return;
+  $('saveBtn').disabled = true;
+  const { error } = editId
+    ? await db.from('equipos').update(row).eq('id', editId)
+    : await db.from('equipos').insert(row);
+  $('saveBtn').disabled = false;
+  if (error) return fail(error, 'No se pudo guardar');
+  toast(editId ? 'Cambios guardados' : 'Equipo agregado');
+  resetForm(true); loadData();
+}
+function resetForm(afterSave){
+  const c = $('cliente').value, dir = $('direccion').value;
+  $('form').reset(); editId = null;
+  if (afterSave === true && $('keepClient').checked){ $('cliente').value = c; $('direccion').value = dir; }
+  $('password').type = 'password';
+  $('saveBtn').textContent = 'Agregar equipo'; $('editMsg').textContent = '';
+}
+function edit(id){
+  const x = items.find(i => i.id === id); if(!x) return;
+  FIELDS.forEach(f => $(f).value = x[f] || '');
+  editId = id; $('saveBtn').textContent = 'Guardar cambios';
+  $('editMsg').textContent = 'Editando: ' + x.nombre;
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+async function del(id){
+  const x = items.find(i => i.id === id);
+  if (!confirm('¿Eliminar "' + x.nombre + '"?')) return;
+  const { error } = await db.from('equipos').delete().eq('id', id);
+  if (error) return fail(error, 'No se pudo eliminar');
+  toast('Eliminado'); loadData();
+}
+function dup(id){
+  const x = items.find(i => i.id === id); edit(id);
+  editId = null; $('serial').value=''; $('ip').value=''; $('mac').value='';
+  $('nombre').value = x.nombre + ' (copia)';
+  $('saveBtn').textContent = 'Agregar equipo'; $('editMsg').textContent = 'Duplicando';
+}
+function reveal(id){ revealed.has(id) ? revealed.delete(id) : revealed.add(id); render(); }
+function copyPw(id){
+  const x = items.find(i => i.id === id); if(!x || !x.password) return;
+  navigator.clipboard?.writeText(x.password).then(() => toast('Password copiada'), () => toast('No se pudo copiar'));
+}
+
+/* ---------- Tabla ---------- */
+function filtered(){
+  const q = $('q').value.toLowerCase().trim(), fl = $('fLugar').value, fc = $('fCliente').value;
+  return items.filter(x =>
+    (!fTipo || x.tipo === fTipo) && (!fl || x.lugar === fl) && (!fc || x.cliente === fc) &&
+    (!q || FIELDS.filter(f => f !== 'password').some(f => String(x[f]||'').toLowerCase().includes(q)))
+  ).sort((a,b) => {
+    if (sortK === 'ip'){ const A=ipNum(a.ip), B=ipNum(b.ip); if(A!==null && B!==null) return (A-B)*sortDir; }
+    return String(a[sortK]||'').localeCompare(String(b[sortK]||''), 'es', {numeric:true}) * sortDir;
+  });
+}
+function fillSelect(sel, values, allLabel){
+  const cur = sel.value;
+  sel.innerHTML = `<option value="">${allLabel}</option>` + values.map(v => `<option ${v===cur?'selected':''}>${esc(v)}</option>`).join('');
+}
+const uniq = k => [...new Set(items.map(x => x[k]).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'es'));
+
+function render(){
+  const clientes = uniq('cliente'), lugares = uniq('lugar'), dirs = uniq('direccion');
+  fillSelect($('fCliente'), clientes, 'Todos los clientes');
+  fillSelect($('fLugar'), lugares, 'Todas las áreas');
+  $('clientes').innerHTML = clientes.map(v => `<option value="${esc(v)}">`).join('');
+  $('lugares').innerHTML = lugares.map(v => `<option value="${esc(v)}">`).join('');
+  $('direcciones').innerHTML = dirs.map(v => `<option value="${esc(v)}">`).join('');
+
+  const counts = {}; items.forEach(x => counts[x.tipo] = (counts[x.tipo]||0)+1);
+  $('chips').innerHTML = `<span class="chip ${!fTipo?'on':''}" onclick="setTipo('')">Todos (${items.length})</span>` +
+    Object.keys(counts).sort().map(t => `<span class="chip ${fTipo===t?'on':''}" onclick="setTipo('${esc(t)}')">${esc(t)} (${counts[t]})</span>`).join('');
+
+  const showAll = $('showPw').checked;
+  const rows = filtered();
+  $('tbody').innerHTML = rows.length ? rows.map(x => {
+    const vis = showAll || revealed.has(x.id);
+    const pw = x.password
+      ? `${vis ? esc(x.password) : '••••••'} <span class="no-print"><button class="sm" onclick="reveal('${x.id}')" title="Ver">👁</button><button class="sm" onclick="copyPw('${x.id}')" title="Copiar">📋</button></span>`
+      : '';
+    return `<tr>
+    <td><b>${esc(x.cliente)}</b></td><td class="addr">${esc(x.direccion)}</td>
+    <td>${esc(x.tipo)}</td><td>${esc(x.nombre)}</td><td>${esc(x.lugar)}</td><td>${esc(x.modelo)}</td>
+    <td class="mono">${esc(x.serial)}</td>
+    <td class="mono">${x.ip ? `<a href="http://${esc(x.ip)}" target="_blank" rel="noopener">${esc(x.ip)}</a>` : ''}</td>
+    <td class="mono">${esc(x.mac)}</td><td class="mono">${esc(x.usuario)}</td><td class="mono">${pw}</td>
+    <td>${esc(x.estado)}</td><td class="notes">${esc(x.notas)}</td>
+    <td class="no-print" style="white-space:nowrap">
+      <button class="sm" onclick="edit('${x.id}')">Editar</button>
+      <button class="sm" onclick="dup('${x.id}')" title="Duplicar">⧉</button>
+      <button class="sm danger" onclick="del('${x.id}')">✕</button>
+    </td></tr>`;
+  }).join('')
+    : `<tr><td colspan="14" class="empty">${items.length ? 'No hay resultados' : 'Aún no hay equipos. Agrega el primero arriba.'}</td></tr>`;
+  $('count').textContent = `Mostrando ${rows.length} de ${items.length} equipos`;
+  document.querySelectorAll('th[data-k]').forEach(th => {
+    th.textContent = th.textContent.replace(/ [▲▼]$/,'') + (th.dataset.k===sortK ? (sortDir>0?' ▲':' ▼') : '');
+  });
+}
+function setTipo(t){ fTipo = t; render(); }
+document.querySelectorAll('th[data-k]').forEach(th => th.onclick = () => {
+  sortDir = sortK === th.dataset.k ? -sortDir : 1; sortK = th.dataset.k; render();
+});
+
+/* ---------- Exportar / Importar ---------- */
+function download(name, content, type){
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([content], {type}));
+  a.download = name; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+const stamp = () => new Date().toISOString().slice(0,10);
+function exportJSON(){ download(`inventario-${stamp()}.json`, JSON.stringify(items.map(clean), null, 2), 'application/json'); }
+function exportCSV(){
+  const incluirPw = confirm('¿Incluir passwords en el CSV?\n\nAceptar = Sí\nCancelar = No (columna vacía)');
+  const q = v => `"${String(v ?? '').replace(/"/g,'""')}"`;
+  const csv = [FIELDS.join(','), ...filtered().map(x => FIELDS.map(f => q(f==='password' && !incluirPw ? '' : x[f])).join(','))].join('\r\n');
+  download(`inventario-${stamp()}.csv`, '\uFEFF' + csv, 'text/csv;charset=utf-8');
+}
+function parseCSV(text){
+  const rows = []; let row = [], cell = '', inQ = false;
+  text = text.replace(/^\uFEFF/, '');
+  for (let i = 0; i < text.length; i++){
+    const c = text[i];
+    if (inQ){ if (c === '"'){ if (text[i+1] === '"'){ cell += '"'; i++; } else inQ = false; } else cell += c; }
+    else if (c === '"') inQ = true;
+    else if (c === ',' || c === ';'){ row.push(cell); cell = ''; }
+    else if (c === '\n'){ row.push(cell); rows.push(row); row = []; cell = ''; }
+    else if (c !== '\r') cell += c;
+  }
+  if (cell || row.length){ row.push(cell); rows.push(row); }
+  const head = rows.shift().map(h => h.trim().toLowerCase());
+  return rows.filter(r => r.some(v => v.trim())).map(r => { const o = {}; head.forEach((h,i) => o[h] = (r[i]||'').trim()); return o; });
+}
+async function subir(lista){
+  const rows = lista.map(clean).filter(r => r.nombre).map(r => ({...r, cliente: r.cliente || 'Sin cliente'}));
+  if (!rows.length) { alert('No hay equipos válidos para subir.'); return false; }
+  if (!confirm(`Se van a agregar ${rows.length} equipos a la base de datos. ¿Continuar?`)) return false;
+  for (let i = 0; i < rows.length; i += 500){
+    const { error } = await db.from('equipos').insert(rows.slice(i, i + 500));
+    if (error){ fail(error, 'Error al subir'); return false; }
+  }
+  toast(`${rows.length} equipos subidos`); loadData(); return true;
+}
+function importFile(e){
+  const file = e.target.files[0]; if(!file) return;
+  const r = new FileReader();
+  r.onload = async () => {
+    try{
+      const data = file.name.toLowerCase().endsWith('.csv') ? parseCSV(r.result) : JSON.parse(r.result);
+      if(!Array.isArray(data)) throw 0;
+      await subir(data);
+    }catch(err){ alert('Archivo no válido.'); }
+    e.target.value = '';
+  };
+  r.readAsText(file);
+}
+async function migrarLocal(){
+  try{
+    const local = JSON.parse(localStorage.getItem(LOCAL_KEY)) || [];
+    if (await subir(local) && confirm('Datos subidos. ¿Borrar la copia local de este navegador?')){
+      localStorage.removeItem(LOCAL_KEY); $('migrarBtn').classList.add('hidden');
+    }
+  }catch(e){ alert('No se encontraron datos locales.'); }
+}
+
+/* ---------- Tema ---------- */
+function toggleTheme(){
+  const d = document.documentElement;
+  const dark = d.dataset.theme ? d.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+  d.dataset.theme = dark ? 'light' : 'dark';
+  try{ localStorage.setItem('inv_theme', d.dataset.theme); }catch(e){}
+}
+try{ const t = localStorage.getItem('inv_theme'); if(t) document.documentElement.dataset.theme = t; }catch(e){}
+
+init();
+</script>
+</body>
+</html>

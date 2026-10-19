@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="es">
 <head>
@@ -71,7 +70,7 @@ td.addr{max-width:200px;color:var(--muted)}
 <body>
 
 <!-- ================= LOGIN ================= -->
-<div id="login" class="hidden">
+<div id="login">
   <div class="card">
     <h1>📋 Inventario</h1>
     <p class="muted" style="text-align:center;margin-top:0">Ingresa con tu usuario</p>
@@ -217,11 +216,22 @@ async function init(){
     document.body.innerHTML = '<div class="wrap"><div class="card"><h1>Falta configurar</h1><p>Abre <b>index.html</b> y pon tu SUPABASE_URL y SUPABASE_KEY en la sección CONFIGURACIÓN.</p></div></div>';
     return;
   }
-  db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-  const { data: { session } } = await db.auth.getSession();
-  session ? showApp(session) : showLogin();
-  db.auth.onAuthStateChange((ev, s) => { if (ev === 'SIGNED_OUT') showLogin(); });
+  if (typeof supabase === 'undefined'){
+    $('lgErr').textContent = 'No se pudo cargar la librería de Supabase. Revisa tu conexión o desactiva bloqueadores de anuncios y recarga.';
+    return;
+  }
+  try{
+    db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    const { data: { session } } = await db.auth.getSession();
+    session ? showApp(session) : showLogin();
+    db.auth.onAuthStateChange((ev, s) => { if (ev === 'SIGNED_OUT') showLogin(); });
+  }catch(err){
+    console.error(err);
+    showLogin();
+    $('lgErr').textContent = 'Error al conectar: ' + (err?.message || err);
+  }
 }
+window.addEventListener('error', e => { const el = $('lgErr'); if (el) el.textContent = 'Error: ' + e.message; });
 function showLogin(){ $('app').classList.add('hidden'); $('login').classList.remove('hidden'); items = []; }
 function showApp(session){
   $('login').classList.add('hidden'); $('app').classList.remove('hidden');

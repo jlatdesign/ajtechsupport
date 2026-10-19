@@ -260,7 +260,7 @@ td.client b{font-family:"Space Grotesk",sans-serif;font-weight:600}
       <div class="sec"><i>02</i> Equipo</div>
       <div class="grid">
         <label>Tipo
-          <select id="tipo" required>
+          <select id="tipo" required onchange="updateMarcas()">
             <option>DVR</option><option>NVR</option><option>Cámara</option><option>PC</option>
             <option>Laptop</option><option>Teléfono</option><option>Router</option><option>Switch</option>
             <option>Access Point</option><option>Impresora</option><option>Servidor</option>
@@ -269,7 +269,7 @@ td.client b{font-family:"Space Grotesk",sans-serif;font-weight:600}
         </label>
         <label>Nombre<input id="nombre" required placeholder="Ej: DVR Principal"></label>
         <label>Ubicación (área)<input id="lugar" list="lugares" placeholder="Ej: Recepción, Rack IT"></label>
-        <label>Marca / Modelo<input id="modelo" placeholder="Ej: Hikvision DS-7208"></label>
+        <label>Marca / Modelo<input id="modelo" list="marcas" autocomplete="off" placeholder="Escribe o elige una marca"></label>
         <label>Serial<input id="serial" placeholder="SN"></label>
         <label>IP<input id="ip" placeholder="192.168.1.10" inputmode="decimal" maxlength="15" autocomplete="off"
           pattern="((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)"
@@ -294,6 +294,7 @@ td.client b{font-family:"Space Grotesk",sans-serif;font-weight:600}
       <datalist id="clientes"></datalist>
       <datalist id="direcciones"></datalist>
       <datalist id="lugares"></datalist>
+      <datalist id="marcas"></datalist>
       <div class="row" style="margin-top:16px">
         <button class="primary" type="submit" id="saveBtn">Agregar equipo</button>
         <button type="button" onclick="resetForm()">Limpiar</button>
@@ -460,12 +461,14 @@ function resetForm(afterSave){
   $('form').reset(); editId = null;
   if (afterSave === true && $('keepClient').checked){ $('cliente').value = c; $('direccion').value = dir; }
   $('password').type = 'password';
+  updateMarcas();
   $('saveBtn').textContent = 'Agregar equipo'; $('editMsg').textContent = '';
 }
 function edit(id){
   const x = items.find(i => i.id === id); if(!x) return;
   FIELDS.forEach(f => $(f).value = x[f] || '');
   formatMAC($('mac'));
+  updateMarcas();
   editId = id; $('saveBtn').textContent = 'Guardar cambios';
   $('editMsg').textContent = 'Editando: ' + x.nombre;
   window.scrollTo({top:0, behavior:'smooth'});
@@ -508,6 +511,29 @@ const uniq = k => [...new Set(items.map(x => x[k]).filter(Boolean))].sort((a,b)=
 
 const TIPO_ICON = { 'DVR':'📹','NVR':'📹','Cámara':'📷','PC':'🖥️','Laptop':'💻','Teléfono':'📞','Router':'📡',
   'Switch':'🔀','Access Point':'📶','Impresora':'🖨️','Servidor':'🗄️','Control de Acceso':'🔐','Otro':'◆' };
+/* ---------- Marcas más comunes por tipo de equipo ---------- */
+const CCTV = ['Hikvision','Dahua','Uniview (UNV)','Lorex','Swann','Amcrest','Reolink','Axis','Hanwha (Wisenet)','Avigilon','Ubiquiti UniFi Protect','Annke','Speco','Provision-ISR','LTS','EZVIZ','Imou','Verkada'];
+const MARCAS = {
+  'DVR': CCTV, 'NVR': CCTV, 'Cámara': CCTV,
+  'PC': ['Dell','HP','Lenovo','Apple','Asus','Acer','Microsoft Surface','MSI','Intel NUC','Gigabyte','Samsung'],
+  'Laptop': ['Dell','HP','Lenovo','Apple MacBook','Asus','Acer','Microsoft Surface','MSI','Samsung','Toshiba / Dynabook'],
+  'Teléfono': ['Yealink','Poly (Polycom)','Grandstream','Cisco','Fanvil','Snom','Avaya','Mitel','Panasonic','Ubiquiti UniFi Talk','Apple iPhone','Samsung Galaxy','Motorola','Google Pixel'],
+  'Router': ['Ubiquiti','MikroTik','Cisco','Cisco Meraki','TP-Link','Netgear','Fortinet FortiGate','SonicWall','Sophos','Netgate pfSense','Juniper','Aruba','Linksys','Asus','Peplink','DrayTek','Zyxel','Arris','Technicolor'],
+  'Switch': ['Cisco','Cisco Meraki','Ubiquiti UniFi','Aruba (HPE)','Netgear','TP-Link','MikroTik','Juniper','Dell','D-Link','Fortinet FortiSwitch','Extreme Networks','Zyxel'],
+  'Access Point': ['Ubiquiti UniFi','Aruba Instant On','Cisco Meraki','Ruckus','TP-Link Omada','EnGenius','Netgear','Fortinet FortiAP','Grandstream','Cambium'],
+  'Impresora': ['HP','Canon','Epson','Brother','Xerox','Lexmark','Ricoh','Kyocera','Konica Minolta','Sharp','Zebra','Dymo'],
+  'Servidor': ['Dell PowerEdge','HPE ProLiant','Lenovo ThinkSystem','Supermicro','Synology','QNAP','Cisco UCS','TrueNAS','Asustor'],
+  'Control de Acceso': ['HID','ZKTeco','Hikvision','Dahua','Paxton','Kantech','Lenel','Honeywell','Brivo','Verkada','Avigilon Alta (Openpath)','Genetec','Suprema','UniFi Access','Salto','2N','Bosch','LiftMaster','DoorKing','Viking']
+};
+function updateMarcas(){
+  const tipo = $('tipo').value;
+  const base = MARCAS[tipo] || [...new Set(Object.values(MARCAS).flat())].sort();
+  // También sugiere modelos que ya usaste en ese tipo de equipo
+  const usados = items.filter(x => x.tipo === tipo && x.modelo).map(x => x.modelo);
+  const lista = [...new Set([...usados, ...base])];
+  $('marcas').innerHTML = lista.map(v => `<option value="${esc(v)}">`).join('');
+}
+
 const ESTADO_CLS = { 'Activo':'b-ok','En reparación':'b-warn','Inactivo':'b-off','Dado de baja':'b-bad' };
 
 function render(){
@@ -517,6 +543,7 @@ function render(){
   $('clientes').innerHTML = clientes.map(v => `<option value="${esc(v)}">`).join('');
   $('lugares').innerHTML = lugares.map(v => `<option value="${esc(v)}">`).join('');
   $('direcciones').innerHTML = dirs.map(v => `<option value="${esc(v)}">`).join('');
+  updateMarcas();
 
   const counts = {}; items.forEach(x => counts[x.tipo] = (counts[x.tipo]||0)+1);
   $('chips').innerHTML = `<span class="chip ${!fTipo?'on':''}" onclick="setTipo('')">Todos (${items.length})</span>` +

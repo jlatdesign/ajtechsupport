@@ -349,7 +349,7 @@ tbody tr:hover td.actions-col{background:var(--card-solid)}
         <label><span data-i18n="serial">Serial</span><input id="serial" placeholder="SN"></label>
         <label>IP<input id="ip" placeholder="192.168.1.10" inputmode="decimal" maxlength="15" autocomplete="off"
           pattern="((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)"
-          data-i18n-title="t_ip" oninput="formatIP(this)"></label>
+          data-i18n-title="t_ip" oninput="formatIP(this);if($('tipo').value==='Impresora')actualizarVinculos()"></label>
         <label>MAC<input id="mac" placeholder="AA:BB:CC:DD:EE:FF" maxlength="17" autocomplete="off"
           pattern="([0-9A-F]{2}:){5}[0-9A-F]{2}"
           data-i18n-title="t_mac" oninput="formatMAC(this)"></label>
@@ -369,7 +369,7 @@ tbody tr:hover td.actions-col{background:var(--card-solid)}
         <div class="sec"><i>03</i> <span data-i18n="sec_printer">Printer</span></div>
         <div class="grid">
           <label><span data-i18n="prn_kind">Printer kind</span><select id="prn_tipo"></select></label>
-          <label><span data-i18n="connection">Connection</span><select id="conexion"></select></label>
+          <label><span data-i18n="connection">Connection</span><select id="conexion" onchange="actualizarVinculos()"></select></label>
         </div>
         <div id="prnLinks" class="link-hint"></div>
       </div>
@@ -490,7 +490,9 @@ const PRN_FIELDS = ['prn_tipo','conexion'];
 const PRN_TIPOS = ['', 'Label', 'Regular'];
 const SECRET_FIELDS = ['password','win_key','office_key','anydesk_pw','pc_user_pw','pc_admin_pw'];
 const SINO = ['', 'Yes', 'No'];
-const CONEXIONES = ['', 'Network', 'USB', 'N/A'];
+const CONEXIONES = ['', 'Network', 'WiFi', 'USB', 'Bluetooth', 'Shared', 'N/A'];
+// Conexiones que usan IP
+const usaIP = c => c === 'Network' || c === 'WiFi';
 const FIELDS = ['cliente','direccion','tipo','nombre','lugar','modelo','serial','ip','mac','usuario','password','estado','notas', ...PC_FIELDS, ...PRN_FIELDS];
 let items = [], editId = null, fTipo = '', sortK = 'cliente', sortDir = 1, db = null;
 const revealed = new Set();
@@ -567,8 +569,8 @@ en:{
   link_prn:'🔗 Linked to printer(s) of this client:', confirm_sync_pcs:'This printer is used by {n} PC(s) of {c}:\n{list}\n\nUpdate the connection and IP in those PCs?',
   synced:'Printer info updated in {n} PC(s)', filled_prn:'Missing data filled in {n} printer(s)',
   w_expired:'Warranty expired', w_soon:'Expires in less than 60 days', t_anydesk:'Open in AnyDesk',
-  'conn.Network':'Network', 'conn.USB':'USB', 'conn.N/A':'N/A',
-  printer_ip_invalid:'Invalid printer IP. e.g. 192.168.1.50', ip_missing:'Network printer: add its IP',
+  'conn.Network':'Ethernet (wired)', 'conn.WiFi':'WiFi', 'conn.USB':'USB', 'conn.Bluetooth':'Bluetooth', 'conn.Shared':'Shared via PC', 'conn.N/A':'N/A',
+  printer_ip_invalid:'Invalid printer IP. e.g. 192.168.1.50', ip_missing:'Ethernet/WiFi printer: add its IP',
   copied:'Copied ✓', ask_client:'Some rows have no client. Which client do these devices belong to?'
 },
 es:{
@@ -628,8 +630,8 @@ es:{
   link_prn:'🔗 Vinculada a impresora(s) de este cliente:', confirm_sync_pcs:'Esta impresora la usan {n} PC de {c}:\n{list}\n\n¿Actualizar la conexión y la IP en esas PC?',
   synced:'Datos de impresora actualizados en {n} PC', filled_prn:'Datos faltantes completados en {n} impresora(s)',
   w_expired:'Garantía vencida', w_soon:'Vence en menos de 60 días', t_anydesk:'Abrir en AnyDesk',
-  'conn.Network':'Red', 'conn.USB':'USB', 'conn.N/A':'N/A',
-  printer_ip_invalid:'IP de impresora no válida. Ej: 192.168.1.50', ip_missing:'Impresora en red: agrega su IP',
+  'conn.Network':'Ethernet (cable)', 'conn.WiFi':'WiFi', 'conn.USB':'USB', 'conn.Bluetooth':'Bluetooth', 'conn.Shared':'Compartida por PC', 'conn.N/A':'N/A',
+  printer_ip_invalid:'IP de impresora no válida. Ej: 192.168.1.50', ip_missing:'Impresora por Ethernet/WiFi: agrega su IP',
   copied:'Copiado ✓', ask_client:'Algunas filas no tienen cliente. ¿A qué cliente pertenecen estos equipos?'
 }};
 const TIPOS = ['DVR','NVR','Cámara','PC','Laptop','Teléfono','Router','Switch','Access Point','Impresora','Servidor','Control de Acceso','Otro'];
@@ -886,6 +888,8 @@ const nombrePC = x => x.hostname || x.nombre || [x.first_name, x.last_name].filt
 function actualizarVinculos(){
   const tipo = $('tipo').value, c = $('cliente').value.trim();
   if (tipo === 'Impresora'){
+    const falta = usaIP($('conexion').value) && !$('ip').value.trim();
+    $('ip').classList.toggle('warn-input', falta); $('ip').title = falta ? t('ip_missing') : '';
     const usos = pcsQueUsan({ cliente: c, nombre: $('nombre').value, modelo: $('modelo').value }, editId);
     $('prnLinks').innerHTML = !c || (!$('nombre').value.trim() && !$('modelo').value.trim()) ? ''
       : usos.length ? `${t('link_pcs', { n: usos.length, c: `<b>${esc(c)}</b>` })} ` + usos.map(u => `<span class="link-chip">${u.slot === 'lbl' ? '🏷️' : '🖨️'} ${esc(nombrePC(u.pc))}</span>`).join('')
@@ -915,7 +919,7 @@ function completarAntes(d){
   if (PC_TIPOS.includes(d.tipo)) ['lbl','imp'].forEach(s => {
     const p = impresoraDe(d.cliente, d[s + '_modelo']); if (!p) return;
     if (!d[s + '_conexion'] && p.conexion) d[s + '_conexion'] = p.conexion;
-    if (!d[s + '_ip'] && p.ip && (d[s + '_conexion'] || p.conexion) === 'Network') d[s + '_ip'] = p.ip;
+    if (!d[s + '_ip'] && p.ip && usaIP(d[s + '_conexion'] || p.conexion)) d[s + '_ip'] = p.ip;
   });
 }
 // Después de guardar: pasar los datos al otro lado
@@ -924,13 +928,13 @@ async function sincronizarDespues(row, idGuardado){
   if (row.tipo === 'Impresora'){
     const usos = pcsQueUsan(row, idGuardado).filter(u => {
       const conn = row.conexion || u.pc[u.slot + '_conexion'] || '';
-      const ip = conn === 'Network' ? (row.ip || u.pc[u.slot + '_ip'] || '') : '';
+      const ip = usaIP(conn) ? (row.ip || u.pc[u.slot + '_ip'] || '') : '';
       return (u.pc[u.slot + '_conexion'] || '') !== conn || (u.pc[u.slot + '_ip'] || '') !== ip;
     });
     if (usos.length && confirm(t('confirm_sync_pcs', { n: usos.length, c: row.cliente, list: usos.map(u => '• ' + nombrePC(u.pc)).join('\n') }))){
       for (const u of usos){
         const conn = row.conexion || u.pc[u.slot + '_conexion'] || null;
-        const patch = { [u.slot + '_conexion']: conn, [u.slot + '_ip']: conn === 'Network' ? (row.ip || u.pc[u.slot + '_ip'] || null) : null };
+        const patch = { [u.slot + '_conexion']: conn, [u.slot + '_ip']: usaIP(conn) ? (row.ip || u.pc[u.slot + '_ip'] || null) : null };
         await db.from('equipos').update(patch).eq('id', u.pc.id);
       }
       msgs.push(t('synced', { n: usos.length }));
@@ -964,8 +968,8 @@ function checkPrinterIP(){
   const on = !$('pcBox').classList.contains('hidden');
   ['lbl','imp'].forEach(p => {
     const conn = $(p + '_conexion').value, ip = $(p + '_ip');
-    ip.disabled = !on || conn === 'USB' || conn === 'N/A';
-    const falta = on && conn === 'Network' && !ip.value.trim();
+    ip.disabled = !on || (!!conn && !usaIP(conn));
+    const falta = on && usaIP(conn) && !ip.value.trim();
     ip.classList.toggle('warn-input', falta);
     ip.title = falta ? t('ip_missing') : '';
   });
@@ -1024,7 +1028,7 @@ async function save(e){
   d.pc_user = users[0]?.user || ''; d.pc_user_pw = users[0]?.pw || '';
   if (PC_TIPOS.includes(d.tipo)){
     d.anydesk = soloDigitos(d.anydesk);
-    ['lbl','imp'].forEach(p => { if (d[p + '_conexion'] === 'USB' || d[p + '_conexion'] === 'N/A') d[p + '_ip'] = ''; });
+    ['lbl','imp'].forEach(p => { if (d[p + '_conexion'] && !usaIP(d[p + '_conexion'])) d[p + '_ip'] = ''; });
   } else PC_FIELDS.forEach(f => d[f] = '');
   if (d.tipo !== 'Impresora') PRN_FIELDS.forEach(f => d[f] = '');
   completarAntes(d);
@@ -1413,7 +1417,7 @@ async function subir(lista){
   lista = lista.filter(r => !/example row/i.test(r.notas || ''));
   let clienteDef = '';
   if (lista.some(r => !String(r.cliente || '').trim())) clienteDef = (prompt(t('ask_client'), $('fCliente').value || '') || '').trim();
-  const CONN = { network:'Network', red:'Network', usb:'USB', 'n/a':'N/A', na:'N/A' };
+  const CONN = { network:'Network', red:'Network', ethernet:'Network', lan:'Network', wifi:'WiFi', 'wi-fi':'WiFi', wireless:'WiFi', usb:'USB', bluetooth:'Bluetooth', bt:'Bluetooth', shared:'Shared', compartida:'Shared', 'n/a':'N/A', na:'N/A' };
   lista = lista.map(r => {
     const o = { ...r };
     if (!o.tipo && (o.hostname || o.cpu || o.so)) o.tipo = 'PC';

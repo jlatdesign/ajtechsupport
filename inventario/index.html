@@ -268,6 +268,26 @@ tbody tr:hover td.actions-col{background:var(--card-solid)}
 .link-hint:empty{display:none}
 .link-hint b{color:var(--c1);font-weight:600}
 .link-chip{display:inline-flex;align-items:center;gap:5px;padding:2px 9px;margin:2px 4px 2px 0;border-radius:999px;border:1px solid var(--line-strong);font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--text)}
+/* Grupos */
+.g-card-wide{max-width:980px}
+.g-toolbar{display:grid;grid-template-columns:220px 1fr auto;gap:10px;margin-bottom:16px}
+@media (max-width:700px){.g-toolbar{grid-template-columns:1fr}}
+.g-item{border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px;background:var(--card)}
+.g-item.open{border-color:var(--c1)}
+.g-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.g-head h4{margin:0;font:600 15px "Space Grotesk",sans-serif}
+.g-head .sp{flex:1}
+.g-cols{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:12px}
+@media (max-width:700px){.g-cols{grid-template-columns:1fr}}
+.g-cols h5{margin:0 0 6px;color:var(--muted);font:600 11px "JetBrains Mono",monospace;letter-spacing:.1em;text-transform:uppercase}
+.g-cols .muted{font-size:12px}
+.g-pick{margin-top:12px;border-top:1px dashed var(--line-strong);padding-top:12px;max-height:300px;overflow:auto}
+.g-pick label{flex-direction:row;align-items:center;gap:8px;font-weight:400;color:var(--text);padding:5px 0;cursor:pointer}
+.g-pick input{width:16px;height:16px;accent-color:var(--c2)}
+.g-pick small{color:var(--muted)}
+.g-chip{display:inline-flex;align-items:center;gap:5px;padding:2px 9px;border-radius:999px;border:1px solid rgba(124,77,255,.5);background:rgba(124,77,255,.12);font-size:12px;white-space:nowrap;cursor:pointer;color:var(--text)}
+.g-chip:hover{border-color:var(--c1)}
+#grupo_id{flex:1}
 </style>
 </head>
 <body>
@@ -306,6 +326,7 @@ tbody tr:hover td.actions-col{background:var(--card-solid)}
     <button id="migrarBtn" class="hidden" onclick="migrarLocal()" data-i18n="upload_local">Upload local data</button>
     <button class="icon-btn" onclick="window.print()" data-i18n-title="t_print">⎙</button>
     <button class="icon-btn" onclick="toggleTheme()" data-i18n-title="t_theme">🌓</button>
+    <button onclick="openGrupos()" data-i18n-title="t_groups">🗂 <span data-i18n="groups">Groups</span></button>
     <button class="icon-btn" onclick="cambiarPassword()" data-i18n-title="t_changepw">🔑</button>
     <div class="lang"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <span class="user-chip"><span class="dot"></span><span id="whoami"></span></span>
@@ -326,7 +347,7 @@ tbody tr:hover td.actions-col{background:var(--card-solid)}
       <div class="client-box">
         <div class="sec"><i>01</i> <span data-i18n="sec_client">Client</span></div>
         <div class="grid2">
-          <label><span data-i18n="client">Client</span><input id="cliente" list="clientes" required oninput="actualizarVinculos()" data-i18n-ph="client_ph" placeholder="e.g. Advance Medical" onchange="autoDireccion()"></label>
+          <label><span data-i18n="client">Client</span><input id="cliente" list="clientes" required oninput="actualizarVinculos();fillGrupoSelect()" data-i18n-ph="client_ph" placeholder="e.g. Advance Medical" onchange="autoDireccion()"></label>
           <label><span data-i18n="address">Address</span>
             <div class="addr-wrap">
               <input id="direccion" autocomplete="off" data-i18n-ph="address_ph" placeholder="Start typing the address..."
@@ -359,6 +380,9 @@ tbody tr:hover td.actions-col{background:var(--card-solid)}
             <input id="password" type="password" class="secret" autocomplete="new-password" placeholder="••••••">
             <button type="button" class="sm" onclick="togglePwField()" data-i18n-title="t_showhide">👁</button>
           </span>
+        </label>
+        <label><span data-i18n="group">Group</span>
+          <span class="pw"><select id="grupo_id"></select><button type="button" class="sm" onclick="nuevoGrupoDesdeForm()" data-i18n-title="t_newgroup">＋</button></span>
         </label>
         <label><span data-i18n="status">Status</span>
           <select id="estado"></select>
@@ -441,6 +465,7 @@ tbody tr:hover td.actions-col{background:var(--card-solid)}
       <div class="search"><input id="q" data-i18n-ph="search_ph" placeholder="Search by client, name, IP, MAC, serial, model, notes..." oninput="render()"></div>
       <select id="fCliente" onchange="render()" style="max-width:220px"><option value=""></option></select>
       <select id="fLugar" onchange="render()" style="max-width:200px"><option value=""></option></select>
+      <select id="fGrupo" onchange="render()" style="max-width:200px"><option value=""></option></select>
       <label class="check"><input type="checkbox" id="showPw" onchange="render()"> <span data-i18n="show_pw">Show passwords</span></label>
     </div>
     <div class="stats no-print" id="chips" style="margin-bottom:14px"></div>
@@ -448,7 +473,7 @@ tbody tr:hover td.actions-col{background:var(--card-solid)}
       <table>
         <thead><tr>
           <th data-k="cliente" data-i18n="client">Client</th><th data-k="direccion" data-i18n="address">Address</th>
-          <th data-k="tipo" data-i18n="type">Type</th><th data-k="nombre" data-i18n="name">Name</th><th data-k="lugar" data-i18n="th_area">Area</th>
+          <th data-k="tipo" data-i18n="type">Type</th><th data-k="nombre" data-i18n="name">Name</th><th data-i18n="group">Group</th><th data-k="lugar" data-i18n="th_area">Area</th>
           <th data-k="modelo" data-i18n="th_model">Model</th><th data-k="serial" data-i18n="serial">Serial</th><th data-k="ip">IP</th>
           <th data-k="mac">MAC</th><th data-k="usuario" data-i18n="username">Username</th><th data-i18n="password">Password</th>
           <th data-k="first_name" data-i18n="th_user">Assigned user</th><th data-k="hostname" data-i18n="th_pc">Computer</th><th data-k="anydesk" data-i18n="th_remote">Remote access</th><th data-k="pc_user" data-i18n="th_logins">PC logins</th><th data-k="lbl_modelo" data-i18n="th_printers">Printers</th><th data-i18n="th_licenses">Licenses</th><th data-k="garantia" data-i18n="th_warranty">Warranty</th>
@@ -461,6 +486,17 @@ tbody tr:hover td.actions-col{background:var(--card-solid)}
 </div>
 </div>
 <div class="toast" id="toast"></div>
+<div id="gModal" class="modal hidden" onclick="if(event.target===this)closeGrupos()">
+  <div class="modal-card g-card-wide">
+    <div class="modal-head"><h3>🗂 <span data-i18n="groups">Groups</span></h3><button class="sm" onclick="closeGrupos()">✕</button></div>
+    <div class="g-toolbar">
+      <select id="gCliente" onchange="renderGrupos()"></select>
+      <input id="gNombre" data-i18n-ph="group_name_ph" placeholder="New group name (e.g. Warehouse)" onkeydown="if(event.key==='Enter'){event.preventDefault();crearGrupo()}">
+      <button class="primary" onclick="crearGrupo()">＋ <span data-i18n="create_group">Create group</span></button>
+    </div>
+    <div id="gList"></div>
+  </div>
+</div>
 <div id="modal" class="modal hidden" onclick="if(event.target===this)closeModal()">
   <div class="modal-card">
     <div class="modal-head"><h3 id="modalTitle"></h3><button class="sm" onclick="closeModal()">✕</button></div>
@@ -567,6 +603,18 @@ en:{
   sec_printer:'Printer', prn_kind:'Printer kind', 'pk.Label':'Label printer', 'pk.Regular':'Regular printer',
   used_by:'Used by', link_pcs:'🔗 Used by {n} PC(s) of {c}:', link_none:'No PC of {c} uses this printer yet. In the PC, type this printer\'s name or model in "Printers used by this PC" to link them.',
   link_prn:'🔗 Linked to printer(s) of this client:', confirm_sync_pcs:'This printer is used by {n} PC(s) of {c}:\n{list}\n\nUpdate the connection and IP in those PCs?',
+  cancel:'Cancel', groups:'Groups', group:'Group', t_groups:'Manage groups of PCs and printers', t_newgroup:'Create a new group for this client',
+  group_name_ph:'New group name (e.g. Warehouse)', create_group:'Create group', all_groups:'All groups', no_group:'— No group —',
+  choose_client:'Choose a client', g_need_client:'Choose or type the client first', g_need_name:'Type a name for the group',
+  g_exists:'{c} already has a group named "{n}"', g_created:'Group "{n}" created', g_empty:'No groups yet for this client. Create one above.',
+  g_printers:'Printers', g_pcs:'PCs', g_others:'Other devices', g_none:'None yet', g_manage:'Add / remove devices', g_done:'Save',
+  g_rename:'Rename', g_delete:'Delete group', g_rename_prompt:'New name for the group:', g_confirm_del:'Delete group "{n}"?\nThe devices are NOT deleted, they just stay without a group.',
+  g_saved:'Group updated', g_deleted:'Group deleted', g_in_other:'in {g}', g_devices:'{n} device(s)', g_table_missing:'Groups are not set up yet. Run the groups SQL in Supabase.',
+  g_shared:'Group printers', g_used_group:'Group PCs',
+  merge_pc:'{c} already has a {tipo} named "{n}".\n\nAdd this printer to that {tipo} instead of creating a new device?',
+  merge_prn:'{c} already has a printer named "{n}".\n\nUpdate that printer instead of creating a duplicate?',
+  replace_slot:'"{n}" already has a {k} ("{m}").\n\nReplace it with "{nm}"?', merged_pc:'Printer added to {n}', merged_prn:'Printer "{n}" updated',
+  dup_removed:'duplicate removed', 'slot.lbl':'label printer', 'slot.imp':'regular printer',
   synced:'Printer info updated in {n} PC(s)', filled_prn:'Missing data filled in {n} printer(s)',
   w_expired:'Warranty expired', w_soon:'Expires in less than 60 days', t_anydesk:'Open in AnyDesk',
   'conn.Network':'Ethernet (wired)', 'conn.WiFi':'WiFi', 'conn.USB':'USB', 'conn.Bluetooth':'Bluetooth', 'conn.Shared':'Shared via PC', 'conn.N/A':'N/A',
@@ -628,6 +676,18 @@ es:{
   sec_printer:'Impresora', prn_kind:'Tipo de impresora', 'pk.Label':'Impresora de etiquetas', 'pk.Regular':'Impresora normal',
   used_by:'Usada por', link_pcs:'🔗 La usan {n} PC de {c}:', link_none:'Ninguna PC de {c} usa esta impresora todavía. En la PC, escribe el nombre o modelo de esta impresora en "Impresoras que usa esta PC" para vincularlas.',
   link_prn:'🔗 Vinculada a impresora(s) de este cliente:', confirm_sync_pcs:'Esta impresora la usan {n} PC de {c}:\n{list}\n\n¿Actualizar la conexión y la IP en esas PC?',
+  cancel:'Cancelar', groups:'Grupos', group:'Grupo', t_groups:'Administrar grupos de PC e impresoras', t_newgroup:'Crear un grupo nuevo para este cliente',
+  group_name_ph:'Nombre del grupo nuevo (ej: Almacén)', create_group:'Crear grupo', all_groups:'Todos los grupos', no_group:'— Sin grupo —',
+  choose_client:'Elige un cliente', g_need_client:'Primero elige o escribe el cliente', g_need_name:'Escribe un nombre para el grupo',
+  g_exists:'{c} ya tiene un grupo llamado "{n}"', g_created:'Grupo "{n}" creado', g_empty:'Este cliente todavía no tiene grupos. Crea uno arriba.',
+  g_printers:'Impresoras', g_pcs:'PC', g_others:'Otros equipos', g_none:'Ninguno todavía', g_manage:'Agregar / quitar equipos', g_done:'Guardar',
+  g_rename:'Renombrar', g_delete:'Eliminar grupo', g_rename_prompt:'Nuevo nombre del grupo:', g_confirm_del:'¿Eliminar el grupo "{n}"?\nLos equipos NO se borran, solo quedan sin grupo.',
+  g_saved:'Grupo actualizado', g_deleted:'Grupo eliminado', g_in_other:'en {g}', g_devices:'{n} equipo(s)', g_table_missing:'Los grupos aún no están configurados. Corre el SQL de grupos en Supabase.',
+  g_shared:'Impresoras del grupo', g_used_group:'PC del grupo',
+  merge_pc:'{c} ya tiene un(a) {tipo} llamado(a) "{n}".\n\n¿Agregar esta impresora a ese equipo en vez de crear uno nuevo?',
+  merge_prn:'{c} ya tiene una impresora llamada "{n}".\n\n¿Actualizar esa impresora en vez de crear una duplicada?',
+  replace_slot:'"{n}" ya tiene una {k} ("{m}").\n\n¿Reemplazarla por "{nm}"?', merged_pc:'Impresora agregada a {n}', merged_prn:'Impresora "{n}" actualizada',
+  dup_removed:'duplicado eliminado', 'slot.lbl':'impresora de etiquetas', 'slot.imp':'impresora normal',
   synced:'Datos de impresora actualizados en {n} PC', filled_prn:'Datos faltantes completados en {n} impresora(s)',
   w_expired:'Garantía vencida', w_soon:'Vence en menos de 60 días', t_anydesk:'Abrir en AnyDesk',
   'conn.Network':'Ethernet (cable)', 'conn.WiFi':'WiFi', 'conn.USB':'USB', 'conn.Bluetooth':'Bluetooth', 'conn.Shared':'Compartida por PC', 'conn.N/A':'N/A',
@@ -725,7 +785,11 @@ async function cambiarPassword(){
 async function loadData(){
   const { data, error } = await db.from('equipos').select('*').order('cliente');
   if (error) return fail(error, t('load_fail'));
-  items = data; render();
+  items = data;
+  const g = await db.from('grupos').select('*').order('nombre');
+  grupos = g.error ? [] : (g.data || []); gruposOK = !g.error;
+  render();
+  if (!$('gModal').classList.contains('hidden')) renderGrupos();
 }
 function autoDireccion(){
   const c = $('cliente').value.trim();
@@ -865,7 +929,7 @@ function showHistory(id){
   $('modal').classList.remove('hidden');
 }
 function closeModal(){ $('modal').classList.add('hidden'); }
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape'){ closeModal(); closeGrupos(); } });
 function copyText(v){ navigator.clipboard?.writeText(v || '').then(() => toast(t('copied')), () => toast(t('copy_fail'))); }
 function copyUserPw(id, i){ const x = items.find(k => k.id === id); copyText(getUsers(x)[i]?.pw); }
 /* ---------- Vínculo Printer ↔ PC (mismo cliente + mismo nombre o modelo) ---------- */
@@ -922,6 +986,36 @@ function completarAntes(d){
     if (!d[s + '_ip'] && p.ip && usaIP(d[s + '_conexion'] || p.conexion)) d[s + '_ip'] = p.ip;
   });
 }
+// Printer con el mismo cliente + nombre que un equipo existente → se une a ese equipo
+// Devuelve: null = guardar normal · 'abort' = no guardar · texto = ya se unió (mensaje)
+async function fusionarImpresora(row){
+  const dest = items.find(x => x.id !== editId && mismoCliente(x.cliente, row.cliente) && nrm(row.nombre)
+    && (nrm(x.nombre) === nrm(row.nombre) || nrm(x.hostname) === nrm(row.nombre))
+    && (PC_TIPOS.includes(x.tipo) || x.tipo === 'Impresora'));
+  if (!dest) return null;
+  let patch = {}, msg;
+  if (PC_TIPOS.includes(dest.tipo)){
+    if (!confirm(t('merge_pc', { c: dest.cliente, n: dest.nombre, tipo: tTipo(dest.tipo) }))) return null;
+    let slot = row.prn_tipo === 'Label' ? 'lbl' : row.prn_tipo === 'Regular' ? 'imp' : null;
+    if (!slot) slot = coincide(dest.lbl_modelo, row) ? 'lbl' : coincide(dest.imp_modelo, row) ? 'imp'
+                    : !dest.imp_modelo ? 'imp' : !dest.lbl_modelo ? 'lbl' : 'imp';
+    const nuevoModelo = row.modelo || dest[slot + '_modelo'] || row.nombre;
+    if (dest[slot + '_modelo'] && !coincide(dest[slot + '_modelo'], row) && nrm(dest[slot + '_modelo']) !== nrm(nuevoModelo)
+        && !confirm(t('replace_slot', { n: dest.nombre, k: t('slot.' + slot), m: dest[slot + '_modelo'], nm: nuevoModelo }))) return 'abort';
+    const conn = row.conexion || dest[slot + '_conexion'] || null;
+    patch = { [slot + '_modelo']: nuevoModelo, [slot + '_conexion']: conn,
+              [slot + '_ip']: usaIP(conn) ? (row.ip || dest[slot + '_ip'] || null) : null };
+    msg = t('merged_pc', { n: nombrePC(dest) });
+  } else {
+    if (!confirm(t('merge_prn', { c: dest.cliente, n: dest.nombre }))) return null;
+    FIELDS.forEach(k => { if (row[k] != null && row[k] !== '' && k !== 'nombre' && k !== 'cliente') patch[k] = row[k]; });
+    msg = t('merged_prn', { n: dest.nombre });
+  }
+  const { error } = await db.from('equipos').update(patch).eq('id', dest.id);
+  if (error){ fail(error, t('save_fail')); return 'abort'; }
+  if (editId){ await db.from('equipos').delete().eq('id', editId); msg += ' · ' + t('dup_removed'); }
+  return msg;
+}
 // Después de guardar: pasar los datos al otro lado
 async function sincronizarDespues(row, idGuardado){
   let msgs = [];
@@ -953,6 +1047,98 @@ async function sincronizarDespues(row, idGuardado){
     if (n) msgs.push(t('filled_prn', { n }));
   }
   return msgs;
+}
+/* ---------- Grupos ---------- */
+let grupos = [], gruposOK = true, gAbierto = null;
+const grupoDe = x => x?.grupo_id ? grupos.find(g => g.id === x.grupo_id) : null;
+const miembros = gid => items.filter(x => x.grupo_id === gid);
+function fillGrupoSelect(){
+  const sel = $('grupo_id'), cur = sel.value, c = $('cliente').value;
+  const lista = grupos.filter(g => mismoCliente(g.cliente, c) || g.id === cur);
+  sel.innerHTML = `<option value="">${t('no_group')}</option>` + lista.map(g => `<option value="${g.id}">${esc(g.nombre)}</option>`).join('');
+  if (lista.some(g => g.id === cur)) sel.value = cur;
+}
+async function crearGrupoBase(cliente, nombre){
+  if (!gruposOK) { alert(t('g_table_missing')); return null; }
+  cliente = (cliente || '').trim(); nombre = (nombre || '').trim();
+  if (!cliente) { alert(t('g_need_client')); return null; }
+  if (!nombre) { alert(t('g_need_name')); return null; }
+  if (grupos.some(g => mismoCliente(g.cliente, cliente) && nrm(g.nombre) === nrm(nombre))) { alert(t('g_exists', { c: cliente, n: nombre })); return null; }
+  const { data, error } = await db.from('grupos').insert({ cliente, nombre }).select().single();
+  if (error) { fail(error, t('save_fail')); return null; }
+  grupos.push(data); grupos.sort((a, b) => a.nombre.localeCompare(b.nombre));
+  toast(t('g_created', { n: nombre }));
+  return data;
+}
+async function nuevoGrupoDesdeForm(){
+  const n = prompt(t('group_name_ph')); if (!n) return;
+  const g = await crearGrupoBase($('cliente').value, n);
+  if (g){ fillGrupoSelect(); $('grupo_id').value = g.id; }
+}
+function openGrupos(gid){
+  if (!gruposOK) return alert(t('g_table_missing'));
+  const clientes = uniq('cliente');
+  const pre = gid ? grupoDe({ grupo_id: gid })?.cliente : ($('fCliente').value || $('cliente').value || clientes[0] || '');
+  $('gCliente').innerHTML = `<option value="">${t('choose_client')}</option>` + clientes.map(c => `<option>${esc(c)}</option>`).join('');
+  const match = clientes.find(c => mismoCliente(c, pre)); if (match) $('gCliente').value = match;
+  gAbierto = gid || null;
+  renderGrupos();
+  $('gModal').classList.remove('hidden');
+}
+function closeGrupos(){ $('gModal').classList.add('hidden'); gAbierto = null; }
+async function crearGrupo(){
+  const g = await crearGrupoBase($('gCliente').value, $('gNombre').value);
+  if (g){ $('gNombre').value = ''; renderGrupos(); render(); }
+}
+function chipEquipo(x){
+  const ic = TIPO_ICON[x.tipo] || '◆';
+  const extra = x.tipo === 'Impresora' ? [x.conexion ? t('conn.' + x.conexion) : '', x.ip].filter(Boolean).join(' · ')
+              : PC_TIPOS.includes(x.tipo) ? [x.hostname && x.hostname !== x.nombre ? x.hostname : '', [x.first_name, x.last_name].filter(Boolean).join(' ')].filter(Boolean).join(' · ')
+              : x.ip || '';
+  return `<span class="link-chip">${ic} ${esc(x.nombre)}${extra ? ' · ' + esc(extra) : ''}</span>`;
+}
+function renderGrupos(){
+  const c = $('gCliente').value;
+  const lista = grupos.filter(g => !c || mismoCliente(g.cliente, c));
+  $('gList').innerHTML = !lista.length ? `<p class="muted">${c ? t('g_empty') : t('choose_client')}</p>` : lista.map(g => {
+    const m = miembros(g.id);
+    const prns = m.filter(x => x.tipo === 'Impresora'), pcs = m.filter(x => PC_TIPOS.includes(x.tipo)), otros = m.filter(x => x.tipo !== 'Impresora' && !PC_TIPOS.includes(x.tipo));
+    const col = (titulo, arr) => `<div><h5>${titulo} (${arr.length})</h5>${arr.length ? arr.map(chipEquipo).join(' ') : `<span class="muted">${t('g_none')}</span>`}</div>`;
+    const abierto = gAbierto === g.id;
+    const pick = abierto ? `<div class="g-pick">${items.filter(x => mismoCliente(x.cliente, g.cliente))
+        .sort((a, b) => (a.tipo === 'Impresora' ? 0 : PC_TIPOS.includes(a.tipo) ? 1 : 2) - (b.tipo === 'Impresora' ? 0 : PC_TIPOS.includes(b.tipo) ? 1 : 2) || String(a.nombre).localeCompare(b.nombre))
+        .map(x => { const otro = x.grupo_id && x.grupo_id !== g.id ? grupoDe(x) : null;
+          return `<label><input type="checkbox" data-id="${x.id}" ${x.grupo_id === g.id ? 'checked' : ''}> ${TIPO_ICON[x.tipo] || '◆'} ${esc(x.nombre)} <small>${esc(tTipo(x.tipo))}${otro ? ' · ' + t('g_in_other', { g: esc(otro.nombre) }) : ''}</small></label>`; }).join('')}
+        <div class="row" style="margin-top:10px"><button class="primary" onclick="guardarMiembros('${g.id}')">${t('g_done')}</button><button onclick="gAbierto=null;renderGrupos()">${t('cancel')}</button></div></div>` : '';
+    return `<div class="g-item ${abierto ? 'open' : ''}">
+      <div class="g-head"><h4>🗂 ${esc(g.nombre)}</h4><small class="muted">${esc(g.cliente)} · ${t('g_devices', { n: m.length })}</small><span class="sp"></span>
+        <button class="sm" onclick="gAbierto='${abierto ? '' : g.id}'||null;renderGrupos()">${t('g_manage')}</button>
+        <button class="sm" onclick="renombrarGrupo('${g.id}')">✏️ ${t('g_rename')}</button>
+        <button class="sm danger" onclick="borrarGrupo('${g.id}')" title="${t('g_delete')}">✕</button></div>
+      <div class="g-cols">${col('🖨️ ' + t('g_printers'), prns)}${col('🖥️ ' + t('g_pcs'), pcs)}${otros.length ? col('◆ ' + t('g_others'), otros) : ''}</div>${pick}</div>`;
+  }).join('');
+}
+async function guardarMiembros(gid){
+  const checks = [...document.querySelectorAll('.g-pick input[type=checkbox]')];
+  const add = checks.filter(c => c.checked && items.find(x => x.id === c.dataset.id)?.grupo_id !== gid).map(c => c.dataset.id);
+  const del = checks.filter(c => !c.checked && items.find(x => x.id === c.dataset.id)?.grupo_id === gid).map(c => c.dataset.id);
+  if (add.length){ const { error } = await db.from('equipos').update({ grupo_id: gid }).in('id', add); if (error) return fail(error, t('save_fail')); }
+  if (del.length){ const { error } = await db.from('equipos').update({ grupo_id: null }).in('id', del); if (error) return fail(error, t('save_fail')); }
+  gAbierto = null; toast(t('g_saved')); await loadData();
+}
+async function renombrarGrupo(gid){
+  const g = grupos.find(x => x.id === gid); const n = (prompt(t('g_rename_prompt'), g.nombre) || '').trim();
+  if (!n || n === g.nombre) return;
+  if (grupos.some(x => x.id !== gid && mismoCliente(x.cliente, g.cliente) && nrm(x.nombre) === nrm(n))) return alert(t('g_exists', { c: g.cliente, n }));
+  const { error } = await db.from('grupos').update({ nombre: n }).eq('id', gid); if (error) return fail(error, t('save_fail'));
+  toast(t('g_saved')); await loadData();
+}
+async function borrarGrupo(gid){
+  const g = grupos.find(x => x.id === gid);
+  if (!confirm(t('g_confirm_del', { n: g.nombre }))) return;
+  await db.from('equipos').update({ grupo_id: null }).eq('grupo_id', gid);
+  const { error } = await db.from('grupos').delete().eq('id', gid); if (error) return fail(error, t('del_fail'));
+  toast(t('g_deleted')); await loadData();
 }
 function togglePC(){
   const esPrn = $('tipo').value === 'Impresora';
@@ -1033,6 +1219,7 @@ async function save(e){
   if (d.tipo !== 'Impresora') PRN_FIELDS.forEach(f => d[f] = '');
   completarAntes(d);
   const row = clean(d);
+  row.grupo_id = $('grupo_id').value || null;
   const orig = editId ? items.find(i => i.id === editId) : null;
   row.pc_users = users;
   row.pw_history = construirHistorial(orig, row, users);
@@ -1040,6 +1227,11 @@ async function save(e){
   if (row.ip && items.some(x => x.ip === row.ip && x.cliente === row.cliente && x.id !== editId) &&
       !confirm(t('dup_ip', {ip: row.ip}))) return;
   $('saveBtn').disabled = true;
+  if (row.tipo === 'Impresora'){
+    const r = await fusionarImpresora(row);
+    if (r === 'abort'){ $('saveBtn').disabled = false; return; }
+    if (r){ $('saveBtn').disabled = false; toast(r); resetForm(true); loadData(); return; }
+  }
   const idGuardado = editId;
   const { error } = editId
     ? await db.from('equipos').update(row).eq('id', editId)
@@ -1053,10 +1245,12 @@ async function save(e){
 }
 function resetForm(afterSave){
   const c = $('cliente').value, dir = $('direccion').value;
+  const gKeep = $('grupo_id').value;
   $('form').reset(); editId = null;
   unlockAll(); fillUsers([], false); $('histBtn').classList.add('hidden');
   document.querySelectorAll('#form input.secret').forEach(el => { el.type = 'password'; delete el.dataset.orig; });
   if (afterSave === true && $('keepClient').checked){ $('cliente').value = c; $('direccion').value = dir; }
+  fillGrupoSelect(); if (afterSave === true && $('keepClient').checked && gKeep) $('grupo_id').value = gKeep;
   $('password').type = 'password';
   updateMarcas();
   $('saveBtn').textContent = t('add_device'); $('editMsg').textContent = '';
@@ -1065,6 +1259,7 @@ function edit(id){
   const x = items.find(i => i.id === id); if(!x) return;
   unlockAll();
   FIELDS.forEach(f => $(f).value = x[f] || '');
+  fillGrupoSelect(); $('grupo_id').value = x.grupo_id || ''; fillGrupoSelect();
   document.querySelectorAll('#form input.secret').forEach(el => { el.type = 'password'; if (el.id) el.dataset.orig = el.value; });
   fillUsers(getUsers(x), true);
   HIST_FIELDS.forEach(f => lockSecret($(f)));
@@ -1101,10 +1296,10 @@ function copyPw(id){
 
 /* ---------- Tabla ---------- */
 function filtered(){
-  const q = $('q').value.toLowerCase().trim(), fl = $('fLugar').value, fc = $('fCliente').value;
+  const q = $('q').value.toLowerCase().trim(), fl = $('fLugar').value, fc = $('fCliente').value, fg = $('fGrupo').value;
   return items.filter(x =>
-    (!fTipo || x.tipo === fTipo) && (!fl || x.lugar === fl) && (!fc || x.cliente === fc) &&
-    (!q || FIELDS.filter(f => !SECRET_FIELDS.includes(f)).some(f => String(x[f]||'').toLowerCase().includes(q))
+    (!fTipo || x.tipo === fTipo) && (!fl || x.lugar === fl) && (!fc || x.cliente === fc) && (!fg || x.grupo_id === fg) &&
+    (!q || FIELDS.filter(f => !SECRET_FIELDS.includes(f)).some(f => String(x[f]||'').toLowerCase().includes(q)) || nrm(grupoDe(x)?.nombre).includes(q)
         || getUsers(x).some(u => String(u.user || '').toLowerCase().includes(q)))
   ).sort((a,b) => {
     if (sortK === 'ip'){ const A=ipNum(a.ip), B=ipNum(b.ip); if(A!==null && B!==null) return (A-B)*sortDir; }
@@ -1293,6 +1488,11 @@ function render(){
   const clientes = uniq('cliente'), lugares = uniq('lugar'), dirs = uniq('direccion');
   fillSelect($('fCliente'), clientes, t('all_clients'));
   fillSelect($('fLugar'), lugares, t('all_areas'));
+  { const fg = $('fGrupo'), cur = fg.value, fc = $('fCliente').value;
+    const gl = grupos.filter(g => !fc || mismoCliente(g.cliente, fc));
+    fg.innerHTML = `<option value="">${t('all_groups')}</option>` + gl.map(g => `<option value="${g.id}">${esc(g.nombre)}${fc ? '' : ' · ' + esc(g.cliente)}</option>`).join('');
+    if (gl.some(g => g.id === cur)) fg.value = cur; fg.style.display = grupos.length ? '' : 'none'; }
+  fillGrupoSelect();
   $('clientes').innerHTML = clientes.map(v => `<option value="${esc(v)}">`).join('');
   $('lugares').innerHTML = lugares.map(v => `<option value="${esc(v)}">`).join('');
   $('direcciones').innerHTML = dirs.map(v => `<option value="${esc(v)}">`).join('');
@@ -1335,13 +1535,24 @@ function render(){
         + (x.conexion ? `<small>🔌 ${esc(t('conn.' + x.conexion))}</small>` : '')
         + (usos.length ? `<small>🖥️ ${t('used_by')}: ${usos.map(u => `<span class="mono">${esc(nombrePC(u.pc))}</span>`).join(', ')}</small>` : '');
     }
+    // Grupo: impresoras compartidas / PC que las usan
+    if (x.grupo_id){
+      const m = miembros(x.grupo_id).filter(y => y.id !== x.id);
+      if (PC_TIPOS.includes(x.tipo)){
+        const gp = m.filter(y => y.tipo === 'Impresora');
+        if (gp.length) cPrn += `<small>🗂 ${t('g_shared')}: ${gp.map(y => `${esc(y.nombre)}${y.conexion ? ' · ' + esc(t('conn.' + y.conexion)) : ''}${y.ip ? ` · <a class="mono" href="http://${esc(y.ip)}" target="_blank" rel="noopener">${esc(y.ip)}</a>` : ''}`).join(' | ')}</small>`;
+      } else if (x.tipo === 'Impresora'){
+        const gpc = m.filter(y => PC_TIPOS.includes(y.tipo));
+        if (gpc.length) cPrn += `<small>🗂 ${t('g_used_group')}: ${gpc.map(y => `<span class="mono">${esc(nombrePC(y))}</span>`).join(', ')}</small>`;
+      }
+    }
     const key = (f, lbl) => x[f] ? `<small>${lbl}: <span class="mono">${vis ? esc(x[f]) : '•••••'}</span> <button class="sm no-print" onclick="copyVal('${x.id}','${f}')" title="${t('t_copy')}">📋</button></small>` : '';
     const cAD = (cAD0 ? `<small>${cAD0}</small>` : '') + secreto('anydesk_pw', '🔑') + cST + ojo(['anydesk_pw']);
     const cLic = key('win_key', 'Win') + key('office_key', 'Office') + (x.antivirus ? `<small>🛡️ ${esc(x.antivirus)}</small>` : '')
       + ((x.win_key || x.office_key) && !showAll ? `<small class="no-print"><button class="sm" onclick="reveal('${x.id}')" title="${t('t_view')}">👁</button></small>` : '');
     return `<tr>
     <td class="client"><b>${esc(x.cliente)}</b></td><td class="addr">${x.direccion ? `<a href="${mapUrl(x.direccion)}" target="_blank" rel="noopener" title="${esc(x.direccion)} · ${t('t_openmap')}">📍 ${esc(x.direccion)}</a>` : ''}</td>
-    <td><span class="type">${TIPO_ICON[x.tipo] || '◆'} ${esc(tTipo(x.tipo))}</span></td><td>${esc(x.nombre)}</td><td>${esc(x.lugar)}</td><td>${esc(x.modelo)}</td>
+    <td><span class="type">${TIPO_ICON[x.tipo] || '◆'} ${esc(tTipo(x.tipo))}</span></td><td>${esc(x.nombre)}</td><td>${grupoDe(x) ? `<span class="g-chip" onclick="openGrupos('${x.grupo_id}')">🗂 ${esc(grupoDe(x).nombre)}</span>` : ''}</td><td>${esc(x.lugar)}</td><td>${esc(x.modelo)}</td>
     <td class="mono">${esc(x.serial)}</td>
     <td class="mono ip">${x.ip ? `<a href="http://${esc(x.ip)}" target="_blank" rel="noopener">${esc(x.ip)}</a>` : ''}</td>
     <td class="mono">${esc(x.mac)}</td><td class="mono">${esc(x.usuario)}</td><td class="mono">${pw}</td>
@@ -1354,7 +1565,7 @@ function render(){
       <button class="sm danger" onclick="del('${x.id}')" title="${t('t_delete')}">✕</button>
     </td></tr>`;
   }).join('')
-    : `<tr><td colspan="21" class="empty">${items.length ? t('no_results') : t('empty')}</td></tr>`;
+    : `<tr><td colspan="22" class="empty">${items.length ? t('no_results') : t('empty')}</td></tr>`;
   $('count').textContent = t('count', {n: rows.length, t: items.length});
   $('kTotal').textContent = items.length;
   $('kClientes').textContent = clientes.length;
@@ -1376,7 +1587,7 @@ function download(name, content, type){
   a.download = name; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
 }
 const stamp = () => new Date().toISOString().slice(0,10);
-function exportJSON(){ download(`inventario-${stamp()}.json`, JSON.stringify(items.map(x => ({ ...clean(x), pc_users: getUsers(x), pw_history: x.pw_history || [] })), null, 2), 'application/json'); }
+function exportJSON(){ download(`inventario-${stamp()}.json`, JSON.stringify(items.map(x => ({ ...clean(x), pc_users: getUsers(x), pw_history: x.pw_history || [], grupo: grupoDe(x)?.nombre || null })), null, 2), 'application/json'); }
 function exportCSV(){
   const incluirPw = confirm(t('csv_pw'));
   const q = v => `"${String(v ?? '').replace(/"/g,'""')}"`;

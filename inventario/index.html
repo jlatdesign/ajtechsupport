@@ -258,6 +258,10 @@ input.changing{border-color:var(--warn)!important;box-shadow:0 0 0 3px rgba(255,
 .hist-val{font-family:"JetBrains Mono",monospace;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
 .hist-btn{position:relative}
 .hist-btn b{position:absolute;top:-6px;right:-6px;background:var(--warn);color:#05070f;border-radius:999px;font:700 10px Inter,sans-serif;padding:1px 5px}
+/* Columna de botones fija a la derecha */
+th.actions-col,td.actions-col{position:sticky;right:0;z-index:1;background:var(--card-solid);box-shadow:-12px 0 16px -12px rgba(0,0,0,.6)}
+thead th.actions-col{z-index:3}
+tbody tr:hover td.actions-col{background:var(--card-solid)}
 </style>
 </head>
 <body>
@@ -433,7 +437,7 @@ input.changing{border-color:var(--warn)!important;box-shadow:0 0 0 3px rgba(255,
           <th data-k="modelo" data-i18n="th_model">Model</th><th data-k="serial" data-i18n="serial">Serial</th><th data-k="ip">IP</th>
           <th data-k="mac">MAC</th><th data-k="usuario" data-i18n="username">Username</th><th data-i18n="password">Password</th>
           <th data-k="first_name" data-i18n="th_user">Assigned user</th><th data-k="hostname" data-i18n="th_pc">Computer</th><th data-k="anydesk" data-i18n="th_remote">Remote access</th><th data-k="pc_user" data-i18n="th_logins">PC logins</th><th data-k="lbl_modelo" data-i18n="th_printers">Printers</th><th data-i18n="th_licenses">Licenses</th><th data-k="garantia" data-i18n="th_warranty">Warranty</th>
-          <th data-k="estado" data-i18n="status">Status</th><th data-i18n="notes">Notes</th><th class="no-print"></th>
+          <th data-k="estado" data-i18n="status">Status</th><th data-i18n="notes">Notes</th><th class="no-print actions-col"></th>
         </tr></thead>
         <tbody id="tbody"></tbody>
       </table>
@@ -1180,9 +1184,11 @@ function render(){
   const rows = filtered();
   $('tbody').innerHTML = rows.length ? rows.map(x => {
     const vis = showAll || revealed.has(x.id);
+    const nh = (x.pw_history || []).length;
+    const histIcon = nh ? ` <button class="sm hist-btn no-print" onclick="showHistory('${x.id}')" title="${t('hist_title')}">🕘<b>${nh}</b></button>` : '';
     const pw = x.password
-      ? `${vis ? esc(x.password) : '••••••'} <span class="no-print"><button class="sm" onclick="reveal('${x.id}')" title="${t('t_view')}">👁</button><button class="sm" onclick="copyPw('${x.id}')" title="${t('t_copy')}">📋</button></span>`
-      : '';
+      ? `${vis ? esc(x.password) : '••••••'} <span class="no-print"><button class="sm" onclick="reveal('${x.id}')" title="${t('t_view')}">👁</button><button class="sm" onclick="copyPw('${x.id}')" title="${t('t_copy')}">📋</button></span>${histIcon}`
+      : histIcon;
     const sm = v => v ? `<small>${esc(v)}</small>` : '';
     const persona = [x.first_name, x.last_name].filter(Boolean).join(' ');
     const cUser = (persona ? `<b>${esc(persona)}</b>` : '') + sm(x.departamento)
@@ -1212,7 +1218,7 @@ function render(){
     <td class="mono">${esc(x.mac)}</td><td class="mono">${esc(x.usuario)}</td><td class="mono">${pw}</td>
     <td class="stack">${cUser}</td><td class="stack">${cPC}</td><td class="stack">${cAD}</td><td class="stack">${cLog}</td><td class="stack">${cPrn}</td><td class="stack">${cLic}</td><td>${badgeGarantia(x.garantia)}</td>
     <td>${x.estado ? `<span class="badge ${ESTADO_CLS[x.estado] || 'b-off'}">${esc(tEstado(x.estado))}</span>` : ''}</td><td class="notes">${esc(x.notas)}</td>
-    <td class="no-print" style="white-space:nowrap">
+    <td class="no-print actions-col" style="white-space:nowrap">
       <button class="sm" onclick="edit('${x.id}')">${t('edit')}</button>
       ${(x.pw_history || []).length ? `<button class="sm hist-btn" onclick="showHistory('${x.id}')" title="${t('hist_title')}">🕘<b>${x.pw_history.length}</b></button>` : ''}
       <button class="sm" onclick="dup('${x.id}')" title="${t('t_dup')}">⧉</button>

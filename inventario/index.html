@@ -154,7 +154,7 @@ button:disabled{opacity:.6;cursor:wait}
 
 /* ===== Tabla ===== */
 .table-wrap{overflow:auto;border:1px solid var(--line);border-radius:14px;max-height:70vh}
-table{width:100%;border-collapse:separate;border-spacing:0;min-width:2000px}
+table{width:100%;border-collapse:separate;border-spacing:0;min-width:2200px}
 th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top}
 thead th{
   position:sticky;top:0;z-index:2;background:var(--card-solid);
@@ -345,6 +345,8 @@ td.stack a:hover{text-shadow:0 0 10px var(--c1)}
         <div class="grid">
           <label><span data-i18n="hostname">Device name (hostname)</span><input id="hostname" class="monoin" autocomplete="off" placeholder="SC-OPS-01"></label>
           <label>AnyDesk<input id="anydesk" class="monoin" autocomplete="off" placeholder="123 456 789" oninput="formatAnyDesk(this)"></label>
+          <label><span data-i18n="anydesk_pw">AnyDesk password (unattended)</span><span class="pw"><input id="anydesk_pw" type="password" class="monoin" autocomplete="new-password" placeholder="••••••"><button type="button" class="sm" onclick="toggleField('anydesk_pw')" data-i18n-title="t_showhide">👁</button></span></label>
+          <label>Splashtop<select id="splashtop"></select></label>
           <label><span data-i18n="os">Windows version / OS</span><input id="so" list="soList" autocomplete="off" placeholder="Windows 11 Pro"></label>
           <label><span data-i18n="cpu">Processor</span><input id="cpu" list="cpuList" autocomplete="off" placeholder="Intel Core i5-12400"></label>
           <label><span data-i18n="ram">Installed RAM</span><input id="ram" list="ramList" autocomplete="off" placeholder="16 GB"></label>
@@ -354,7 +356,14 @@ td.stack a:hover{text-shadow:0 0 10px var(--c1)}
           <label>Antivirus<input id="antivirus" list="avList" autocomplete="off" placeholder="Windows Defender"></label>
           <label><span data-i18n="warranty">Warranty until</span><input id="garantia" type="date"></label>
         </div>
-        <div class="sec"><i>05</i> <span data-i18n="sec_printers">Printers used by this PC</span></div>
+        <div class="sec"><i>05</i> <span data-i18n="sec_logins">PC logins</span></div>
+        <div class="grid">
+          <label><span data-i18n="pc_user">Regular user</span><input id="pc_user" class="monoin" autocomplete="off" placeholder="user"></label>
+          <label><span data-i18n="pc_user_pw">Regular user password</span><span class="pw"><input id="pc_user_pw" type="password" class="monoin" autocomplete="new-password" placeholder="••••••"><button type="button" class="sm" onclick="toggleField('pc_user_pw')" data-i18n-title="t_showhide">👁</button></span></label>
+          <label><span data-i18n="pc_admin">Administrator user</span><input id="pc_admin" class="monoin" autocomplete="off" placeholder="Administrator"></label>
+          <label><span data-i18n="pc_admin_pw">Administrator password</span><span class="pw"><input id="pc_admin_pw" type="password" class="monoin" autocomplete="new-password" placeholder="••••••"><button type="button" class="sm" onclick="toggleField('pc_admin_pw')" data-i18n-title="t_showhide">👁</button></span></label>
+        </div>
+        <div class="sec"><i>06</i> <span data-i18n="sec_printers">Printers used by this PC</span></div>
         <div class="grid-prn">
           <label><span data-i18n="lbl_model">Label printer (model)</span><input id="lbl_modelo" list="lblList" autocomplete="off" placeholder="Zebra ZD421"></label>
           <label><span data-i18n="connection">Connection</span><select id="lbl_conexion" onchange="checkPrinterIP()"></select></label>
@@ -395,7 +404,7 @@ td.stack a:hover{text-shadow:0 0 10px var(--c1)}
           <th data-k="tipo" data-i18n="type">Type</th><th data-k="nombre" data-i18n="name">Name</th><th data-k="lugar" data-i18n="th_area">Area</th>
           <th data-k="modelo" data-i18n="th_model">Model</th><th data-k="serial" data-i18n="serial">Serial</th><th data-k="ip">IP</th>
           <th data-k="mac">MAC</th><th data-k="usuario" data-i18n="username">Username</th><th data-i18n="password">Password</th>
-          <th data-k="first_name" data-i18n="th_user">Assigned user</th><th data-k="hostname" data-i18n="th_pc">Computer</th><th data-k="anydesk">AnyDesk</th><th data-k="lbl_modelo" data-i18n="th_printers">Printers</th><th data-i18n="th_licenses">Licenses</th><th data-k="garantia" data-i18n="th_warranty">Warranty</th>
+          <th data-k="first_name" data-i18n="th_user">Assigned user</th><th data-k="hostname" data-i18n="th_pc">Computer</th><th data-k="anydesk" data-i18n="th_remote">Remote access</th><th data-k="pc_user" data-i18n="th_logins">PC logins</th><th data-k="lbl_modelo" data-i18n="th_printers">Printers</th><th data-i18n="th_licenses">Licenses</th><th data-k="garantia" data-i18n="th_warranty">Warranty</th>
           <th data-k="estado" data-i18n="status">Status</th><th data-i18n="notes">Notes</th><th class="no-print"></th>
         </tr></thead>
         <tbody id="tbody"></tbody>
@@ -422,9 +431,10 @@ const DOMINIO_USUARIOS = 'inventario.local';
 
 const LOCAL_KEY = 'inventario_equipos_v1';
 const PC_TIPOS = ['PC','Laptop','Servidor'];
-const PC_FIELDS = ['first_name','last_name','departamento','celular','email','hostname','anydesk','so','cpu','ram','disco',
+const PC_FIELDS = ['first_name','last_name','departamento','celular','email','hostname','anydesk','anydesk_pw','splashtop','pc_user','pc_user_pw','pc_admin','pc_admin_pw','so','cpu','ram','disco',
   'win_key','office_key','antivirus','garantia','lbl_modelo','lbl_conexion','lbl_ip','imp_modelo','imp_conexion','imp_ip'];
-const SECRET_FIELDS = ['password','win_key','office_key'];
+const SECRET_FIELDS = ['password','win_key','office_key','anydesk_pw','pc_user_pw','pc_admin_pw'];
+const SINO = ['', 'Yes', 'No'];
 const CONEXIONES = ['', 'Network', 'USB', 'N/A'];
 const FIELDS = ['cliente','direccion','tipo','nombre','lugar','modelo','serial','ip','mac','usuario','password','estado','notas', ...PC_FIELDS];
 let items = [], editId = null, fTipo = '', sortK = 'cliente', sortDir = 1, db = null;
@@ -489,6 +499,9 @@ en:{
   win_key:'Windows key', office_key:'Office key', warranty:'Warranty until',
   sec_printers:'Printers used by this PC', lbl_model:'Label printer (model)', reg_model:'Regular printer (model)', connection:'Connection', printer_ip:'Printer IP',
   th_user:'Assigned user', th_pc:'Computer', th_printers:'Printers', th_licenses:'Licenses', th_warranty:'Warranty',
+  anydesk_pw:'AnyDesk password (unattended)', sec_logins:'PC logins', pc_user:'Regular user', pc_user_pw:'Regular user password',
+  pc_admin:'Administrator user', pc_admin_pw:'Administrator password', th_remote:'Remote access', th_logins:'PC logins',
+  'yn.Yes':'Yes', 'yn.No':'No', lg_user:'User', lg_admin:'Admin', st_yes:'Splashtop installed', st_no:'No Splashtop',
   w_expired:'Warranty expired', w_soon:'Expires in less than 60 days', t_anydesk:'Open in AnyDesk',
   'conn.Network':'Network', 'conn.USB':'USB', 'conn.N/A':'N/A',
   printer_ip_invalid:'Invalid printer IP. e.g. 192.168.1.50', ip_missing:'Network printer: add its IP',
@@ -538,6 +551,9 @@ es:{
   win_key:'Clave de Windows', office_key:'Clave de Office', warranty:'Garantía hasta',
   sec_printers:'Impresoras que usa esta PC', lbl_model:'Impresora de etiquetas (modelo)', reg_model:'Impresora normal (modelo)', connection:'Conexión', printer_ip:'IP de impresora',
   th_user:'Usuario asignado', th_pc:'Computadora', th_printers:'Impresoras', th_licenses:'Licencias', th_warranty:'Garantía',
+  anydesk_pw:'Password de AnyDesk (desatendido)', sec_logins:'Accesos de la PC', pc_user:'Usuario regular', pc_user_pw:'Password usuario regular',
+  pc_admin:'Usuario administrador', pc_admin_pw:'Password administrador', th_remote:'Acceso remoto', th_logins:'Accesos PC',
+  'yn.Yes':'Sí', 'yn.No':'No', lg_user:'Usuario', lg_admin:'Admin', st_yes:'Tiene Splashtop', st_no:'Sin Splashtop',
   w_expired:'Garantía vencida', w_soon:'Vence en menos de 60 días', t_anydesk:'Abrir en AnyDesk',
   'conn.Network':'Red', 'conn.USB':'USB', 'conn.N/A':'N/A',
   printer_ip_invalid:'IP de impresora no válida. Ej: 192.168.1.50', ip_missing:'Impresora en red: agrega su IP',
@@ -568,6 +584,7 @@ function applyLang(){
   document.querySelectorAll('.lang button').forEach(b => b.classList.toggle('on', b.dataset.lang === LANG));
   fillOptions($('tipo'), TIPOS, tTipo);
   fillOptions($('estado'), ESTADOS, tEstado);
+  fillOptions($('splashtop'), SINO, v => v ? t('yn.' + v) : '—');
   ['lbl_conexion','imp_conexion'].forEach(id => fillOptions($(id), CONEXIONES, v => v ? t('conn.' + v) : '—'));
   $('saveBtn').textContent = editId ? t('save_changes') : t('add_device');
   document.title = (LANG === 'es' ? 'Inventario' : 'Inventory') + ' · AJ Tech Support';
@@ -665,6 +682,7 @@ function validarIPMAC(){
   return $('form').reportValidity();
 }
 /* ---------- Sección PC ---------- */
+function toggleField(id){ const p = $(id); p.type = p.type === 'password' ? 'text' : 'password'; }
 function togglePC(){
   const on = PC_TIPOS.includes($('tipo').value);
   $('pcBox').classList.toggle('hidden', !on);
@@ -772,7 +790,7 @@ async function del(id){
 }
 function dup(id){
   const x = items.find(i => i.id === id); edit(id);
-  editId = null; ['serial','ip','mac','hostname','anydesk','win_key','office_key','first_name','last_name','celular','email'].forEach(f => $(f).value = '');
+  editId = null; ['serial','ip','mac','hostname','anydesk','anydesk_pw','win_key','office_key','first_name','last_name','celular','email','pc_user_pw','pc_admin_pw'].forEach(f => $(f).value = '');
   $('nombre').value = x.nombre + t('copy_suffix');
   $('saveBtn').textContent = t('add_device'); $('editMsg').textContent = t('duplicating');
 }
@@ -998,10 +1016,18 @@ function render(){
       + (x.email ? `<small><a href="mailto:${esc(x.email)}">${esc(x.email)}</a></small>` : '')
       + (x.celular ? `<small><a href="tel:${esc(String(x.celular).replace(/[^\d+]/g, ''))}">${esc(x.celular)}</a></small>` : '');
     const cPC = (x.hostname ? `<span class="mono">${esc(x.hostname)}</span>` : '') + sm(x.so) + sm(x.cpu) + sm([x.ram, x.disco].filter(Boolean).join(' · '));
-    const cAD = x.anydesk ? `<a class="mono" href="anydesk:${esc(soloDigitos(x.anydesk))}" title="${t('t_anydesk')}">${esc(fmtAD(x.anydesk))}</a> <button class="sm no-print" onclick="copyVal('${x.id}','anydesk')" title="${t('t_copy')}">📋</button>` : '';
+    const secreto = (f, lbl) => x[f] ? `<small>${lbl}: <span class="mono">${vis ? esc(x[f]) : '•••••'}</span> <button class="sm no-print" onclick="copyVal('${x.id}','${f}')" title="${t('t_copy')}">📋</button></small>` : '';
+    const ojo = fs => fs.some(f => x[f]) && !showAll ? `<small class="no-print"><button class="sm" onclick="reveal('${x.id}')" title="${t('t_view')}">👁</button></small>` : '';
+    const cST = x.splashtop === 'Yes' ? `<small><span class="badge b-ok" title="${t('st_yes')}">Splashtop</span></small>`
+              : x.splashtop === 'No' ? `<small><span class="badge b-off" title="${t('st_no')}">Splashtop ✕</span></small>` : '';
+    const cLog = (x.pc_user ? `<small>👤 ${t('lg_user')}: <span class="mono">${esc(x.pc_user)}</span></small>` : '') + secreto('pc_user_pw', '🔑')
+      + (x.pc_admin ? `<small>🛡️ ${t('lg_admin')}: <span class="mono">${esc(x.pc_admin)}</span></small>` : '') + secreto('pc_admin_pw', '🔑')
+      + ojo(['pc_user_pw','pc_admin_pw']);
+    const cAD0 = x.anydesk ? `<a class="mono" href="anydesk:${esc(soloDigitos(x.anydesk))}" title="${t('t_anydesk')}">${esc(fmtAD(x.anydesk))}</a> <button class="sm no-print" onclick="copyVal('${x.id}','anydesk')" title="${t('t_copy')}">📋</button>` : '';
     const prn = (ic, m, c, ip) => (m || c || ip) ? `<small>${ic} ${esc(m || '—')}${c ? ' · ' + esc(t('conn.' + c)) : ''}${ip ? ` · <a class="mono" href="http://${esc(ip)}" target="_blank" rel="noopener">${esc(ip)}</a>` : ''}</small>` : '';
     const cPrn = prn('🏷️', x.lbl_modelo, x.lbl_conexion, x.lbl_ip) + prn('🖨️', x.imp_modelo, x.imp_conexion, x.imp_ip);
     const key = (f, lbl) => x[f] ? `<small>${lbl}: <span class="mono">${vis ? esc(x[f]) : '•••••'}</span> <button class="sm no-print" onclick="copyVal('${x.id}','${f}')" title="${t('t_copy')}">📋</button></small>` : '';
+    const cAD = (cAD0 ? `<small>${cAD0}</small>` : '') + secreto('anydesk_pw', '🔑') + cST + ojo(['anydesk_pw']);
     const cLic = key('win_key', 'Win') + key('office_key', 'Office') + (x.antivirus ? `<small>🛡️ ${esc(x.antivirus)}</small>` : '')
       + ((x.win_key || x.office_key) && !showAll ? `<small class="no-print"><button class="sm" onclick="reveal('${x.id}')" title="${t('t_view')}">👁</button></small>` : '');
     return `<tr>
@@ -1010,7 +1036,7 @@ function render(){
     <td class="mono">${esc(x.serial)}</td>
     <td class="mono ip">${x.ip ? `<a href="http://${esc(x.ip)}" target="_blank" rel="noopener">${esc(x.ip)}</a>` : ''}</td>
     <td class="mono">${esc(x.mac)}</td><td class="mono">${esc(x.usuario)}</td><td class="mono">${pw}</td>
-    <td class="stack">${cUser}</td><td class="stack">${cPC}</td><td class="stack">${cAD}</td><td class="stack">${cPrn}</td><td class="stack">${cLic}</td><td>${badgeGarantia(x.garantia)}</td>
+    <td class="stack">${cUser}</td><td class="stack">${cPC}</td><td class="stack">${cAD}</td><td class="stack">${cLog}</td><td class="stack">${cPrn}</td><td class="stack">${cLic}</td><td>${badgeGarantia(x.garantia)}</td>
     <td>${x.estado ? `<span class="badge ${ESTADO_CLS[x.estado] || 'b-off'}">${esc(tEstado(x.estado))}</span>` : ''}</td><td class="notes">${esc(x.notas)}</td>
     <td class="no-print" style="white-space:nowrap">
       <button class="sm" onclick="edit('${x.id}')">${t('edit')}</button>
@@ -1018,7 +1044,7 @@ function render(){
       <button class="sm danger" onclick="del('${x.id}')" title="${t('t_delete')}">✕</button>
     </td></tr>`;
   }).join('')
-    : `<tr><td colspan="20" class="empty">${items.length ? t('no_results') : t('empty')}</td></tr>`;
+    : `<tr><td colspan="21" class="empty">${items.length ? t('no_results') : t('empty')}</td></tr>`;
   $('count').textContent = t('count', {n: rows.length, t: items.length});
   $('kTotal').textContent = items.length;
   $('kClientes').textContent = clientes.length;
@@ -1053,6 +1079,7 @@ const HEADER_ALIAS = {
   'email':'email','e-mail':'email','anydesk':'anydesk','anydesk id':'anydesk','notes':'notas','serial number':'serial','serial':'serial',
   'label printer (model)':'lbl_modelo','label printer connection':'lbl_conexion','label printer ip':'lbl_ip',
   'regular printer (model)':'imp_modelo','regular printer connection':'imp_conexion','regular printer ip':'imp_ip',
+  'anydesk password':'anydesk_pw','splashtop':'splashtop','regular user':'pc_user','user':'pc_user','admin user':'pc_admin','administrator':'pc_admin',
   'client':'cliente','customer':'cliente','address':'direccion','type':'tipo','name':'nombre','model':'modelo','status':'estado','warranty':'garantia'
 };
 function parseCSV(text){
@@ -1086,6 +1113,7 @@ async function subir(lista){
     if (!o.nombre) o.nombre = o.hostname || [o.first_name, o.last_name].filter(Boolean).join(' ');
     if (!String(o.cliente || '').trim()) o.cliente = clienteDef;
     if (o.anydesk) o.anydesk = soloDigitos(o.anydesk);
+    if (o.splashtop) o.splashtop = /^(y|yes|s|si|sí|true|1|x)$/i.test(String(o.splashtop).trim()) ? 'Yes' : /^(n|no|false|0)$/i.test(String(o.splashtop).trim()) ? 'No' : '';
     if (o.celular){ const el = { value: String(o.celular) }; formatPhone(el); o.celular = el.value; }
     ['lbl_conexion','imp_conexion'].forEach(f => { if (o[f]) o[f] = CONN[String(o[f]).trim().toLowerCase()] || o[f]; });
     if (o.garantia){ const m = String(o.garantia).match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);

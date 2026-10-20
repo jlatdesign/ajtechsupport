@@ -154,7 +154,7 @@ button:disabled{opacity:.6;cursor:wait}
 
 /* ===== Tabla ===== */
 .table-wrap{overflow:auto;border:1px solid var(--line);border-radius:14px;max-height:70vh}
-table{width:100%;border-collapse:separate;border-spacing:0;min-width:1320px}
+table{width:100%;border-collapse:separate;border-spacing:0;min-width:2000px}
 th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top}
 thead th{
   position:sticky;top:0;z-index:2;background:var(--card-solid);
@@ -222,6 +222,19 @@ td.addr a{display:block;max-width:210px;white-space:nowrap;overflow:hidden;text-
 .lang button:hover{color:var(--c1)}
 .lang button.on{background:var(--grad);color:#05070f}
 .lang-login{position:absolute;top:16px;right:16px}
+/* Sección PC */
+.pc-box .sec{margin-top:20px}
+.grid-prn{display:grid;grid-template-columns:2fr 1fr 1.2fr;gap:12px}
+@media (max-width:640px){.grid-prn{grid-template-columns:1fr}}
+.monoin{font-family:"JetBrains Mono",monospace!important;letter-spacing:.02em}
+input:disabled,select:disabled{opacity:.45;cursor:not-allowed}
+.warn-input{border-color:var(--warn)!important;box-shadow:0 0 0 3px rgba(255,197,61,.12)!important}
+td.stack{white-space:nowrap}
+td.stack small{display:block;color:var(--muted);font-size:12px;line-height:1.5}
+td.stack b{font-family:"Space Grotesk",sans-serif;font-weight:600}
+td.stack .mono{font-family:"JetBrains Mono",monospace;font-size:12.5px}
+td.stack a{color:var(--c1);text-decoration:none}
+td.stack a:hover{text-shadow:0 0 10px var(--c1)}
 </style>
 </head>
 <body>
@@ -319,7 +332,41 @@ td.addr a{display:block;max-width:210px;white-space:nowrap;overflow:hidden;text-
         </label>
         <label class="full"><span data-i18n="notes">Notes</span><textarea id="notas" data-i18n-ph="notes_ph" placeholder="Ports, channels, configuration, etc."></textarea></label>
       </div>
+      <div id="pcBox" class="pc-box hidden">
+        <div class="sec"><i>03</i> <span data-i18n="sec_user">Assigned user</span></div>
+        <div class="grid">
+          <label><span data-i18n="first_name">First name</span><input id="first_name" autocomplete="off"></label>
+          <label><span data-i18n="last_name">Last name</span><input id="last_name" autocomplete="off"></label>
+          <label><span data-i18n="department">Department</span><input id="departamento" list="deptList" autocomplete="off" data-i18n-ph="dept_ph" placeholder="e.g. Operations"></label>
+          <label><span data-i18n="cell">Cell phone</span><input id="celular" type="tel" inputmode="tel" autocomplete="off" placeholder="(305) 555-0123" oninput="formatPhone(this)"></label>
+          <label>Email<input id="email" type="email" autocomplete="off" placeholder="name@company.com"></label>
+        </div>
+        <div class="sec"><i>04</i> <span data-i18n="sec_pc">Computer</span></div>
+        <div class="grid">
+          <label><span data-i18n="hostname">Device name (hostname)</span><input id="hostname" class="monoin" autocomplete="off" placeholder="SC-OPS-01"></label>
+          <label>AnyDesk<input id="anydesk" class="monoin" autocomplete="off" placeholder="123 456 789" oninput="formatAnyDesk(this)"></label>
+          <label><span data-i18n="os">Windows version / OS</span><input id="so" list="soList" autocomplete="off" placeholder="Windows 11 Pro"></label>
+          <label><span data-i18n="cpu">Processor</span><input id="cpu" list="cpuList" autocomplete="off" placeholder="Intel Core i5-12400"></label>
+          <label><span data-i18n="ram">Installed RAM</span><input id="ram" list="ramList" autocomplete="off" placeholder="16 GB"></label>
+          <label><span data-i18n="disk">Disk</span><input id="disco" list="diskList" autocomplete="off" placeholder="SSD 512 GB"></label>
+          <label><span data-i18n="win_key">Windows key</span><input id="win_key" class="monoin" autocomplete="off" placeholder="XXXXX-XXXXX-XXXXX-XXXXX-XXXXX"></label>
+          <label><span data-i18n="office_key">Office key</span><input id="office_key" class="monoin" autocomplete="off" placeholder="XXXXX-XXXXX-XXXXX-XXXXX-XXXXX"></label>
+          <label>Antivirus<input id="antivirus" list="avList" autocomplete="off" placeholder="Windows Defender"></label>
+          <label><span data-i18n="warranty">Warranty until</span><input id="garantia" type="date"></label>
+        </div>
+        <div class="sec"><i>05</i> <span data-i18n="sec_printers">Printers used by this PC</span></div>
+        <div class="grid-prn">
+          <label><span data-i18n="lbl_model">Label printer (model)</span><input id="lbl_modelo" list="lblList" autocomplete="off" placeholder="Zebra ZD421"></label>
+          <label><span data-i18n="connection">Connection</span><select id="lbl_conexion" onchange="checkPrinterIP()"></select></label>
+          <label><span data-i18n="printer_ip">Printer IP</span><input id="lbl_ip" class="monoin" inputmode="decimal" maxlength="15" autocomplete="off" placeholder="192.168.1.50" oninput="formatIP(this);checkPrinterIP()"></label>
+          <label><span data-i18n="reg_model">Regular printer (model)</span><input id="imp_modelo" list="impList" autocomplete="off" placeholder="HP LaserJet Pro"></label>
+          <label><span data-i18n="connection">Connection</span><select id="imp_conexion" onchange="checkPrinterIP()"></select></label>
+          <label><span data-i18n="printer_ip">Printer IP</span><input id="imp_ip" class="monoin" inputmode="decimal" maxlength="15" autocomplete="off" placeholder="192.168.1.60" oninput="formatIP(this);checkPrinterIP()"></label>
+        </div>
+      </div>
       <datalist id="clientes"></datalist>
+      <datalist id="deptList"></datalist><datalist id="soList"></datalist><datalist id="cpuList"></datalist><datalist id="ramList"></datalist>
+      <datalist id="diskList"></datalist><datalist id="avList"></datalist><datalist id="lblList"></datalist><datalist id="impList"></datalist>
       <datalist id="direcciones"></datalist>
       <datalist id="lugares"></datalist>
       <datalist id="marcas"></datalist>
@@ -348,6 +395,7 @@ td.addr a{display:block;max-width:210px;white-space:nowrap;overflow:hidden;text-
           <th data-k="tipo" data-i18n="type">Type</th><th data-k="nombre" data-i18n="name">Name</th><th data-k="lugar" data-i18n="th_area">Area</th>
           <th data-k="modelo" data-i18n="th_model">Model</th><th data-k="serial" data-i18n="serial">Serial</th><th data-k="ip">IP</th>
           <th data-k="mac">MAC</th><th data-k="usuario" data-i18n="username">Username</th><th data-i18n="password">Password</th>
+          <th data-k="first_name" data-i18n="th_user">Assigned user</th><th data-k="hostname" data-i18n="th_pc">Computer</th><th data-k="anydesk">AnyDesk</th><th data-k="lbl_modelo" data-i18n="th_printers">Printers</th><th data-i18n="th_licenses">Licenses</th><th data-k="garantia" data-i18n="th_warranty">Warranty</th>
           <th data-k="estado" data-i18n="status">Status</th><th data-i18n="notes">Notes</th><th class="no-print"></th>
         </tr></thead>
         <tbody id="tbody"></tbody>
@@ -373,7 +421,12 @@ const DOMINIO_USUARIOS = 'inventario.local';
 /* ================================================== */
 
 const LOCAL_KEY = 'inventario_equipos_v1';
-const FIELDS = ['cliente','direccion','tipo','nombre','lugar','modelo','serial','ip','mac','usuario','password','estado','notas'];
+const PC_TIPOS = ['PC','Laptop','Servidor'];
+const PC_FIELDS = ['first_name','last_name','departamento','celular','email','hostname','anydesk','so','cpu','ram','disco',
+  'win_key','office_key','antivirus','garantia','lbl_modelo','lbl_conexion','lbl_ip','imp_modelo','imp_conexion','imp_ip'];
+const SECRET_FIELDS = ['password','win_key','office_key'];
+const CONEXIONES = ['', 'Network', 'USB', 'N/A'];
+const FIELDS = ['cliente','direccion','tipo','nombre','lugar','modelo','serial','ip','mac','usuario','password','estado','notas', ...PC_FIELDS];
 let items = [], editId = null, fTipo = '', sortK = 'cliente', sortDir = 1, db = null;
 const revealed = new Set();
 
@@ -430,7 +483,16 @@ en:{
   addr_numhint:'Street found on the map · number typed by you (check with 📍 Maps)',
   addr_err:'Could not search ({e}). Use 📍 Maps or type it manually.',
   addr_none:'Not found on the free map, but you can save it as typed. Check it with 📍 Maps.',
-  src_saved:'saved', src_map:'map'
+  src_saved:'saved', src_map:'map',
+  sec_user:'Assigned user', first_name:'First name', last_name:'Last name', department:'Department', dept_ph:'e.g. Operations', cell:'Cell phone',
+  sec_pc:'Computer', hostname:'Device name (hostname)', os:'Windows version / OS', cpu:'Processor', ram:'Installed RAM', disk:'Disk',
+  win_key:'Windows key', office_key:'Office key', warranty:'Warranty until',
+  sec_printers:'Printers used by this PC', lbl_model:'Label printer (model)', reg_model:'Regular printer (model)', connection:'Connection', printer_ip:'Printer IP',
+  th_user:'Assigned user', th_pc:'Computer', th_printers:'Printers', th_licenses:'Licenses', th_warranty:'Warranty',
+  w_expired:'Warranty expired', w_soon:'Expires in less than 60 days', t_anydesk:'Open in AnyDesk',
+  'conn.Network':'Network', 'conn.USB':'USB', 'conn.N/A':'N/A',
+  printer_ip_invalid:'Invalid printer IP. e.g. 192.168.1.50', ip_missing:'Network printer: add its IP',
+  copied:'Copied ✓', ask_client:'Some rows have no client. Which client do these devices belong to?'
 },
 es:{
   login_title:'Inventario', username:'Usuario', username_ph:'tu usuario', password:'Password', sign_in:'Entrar →',
@@ -470,7 +532,16 @@ es:{
   addr_numhint:'Calle encontrada en el mapa · número escrito por ti (verifica con 📍 Maps)',
   addr_err:'No se pudo buscar ({e}). Usa 📍 Maps o escríbela a mano.',
   addr_none:'No aparece en el mapa gratuito, pero puedes guardarla tal como la escribiste. Verifícala con 📍 Maps.',
-  src_saved:'guardada', src_map:'mapa'
+  src_saved:'guardada', src_map:'mapa',
+  sec_user:'Usuario asignado', first_name:'Nombre', last_name:'Apellido', department:'Departamento', dept_ph:'Ej: Operaciones', cell:'Celular',
+  sec_pc:'Computadora', hostname:'Nombre del equipo (hostname)', os:'Versión de Windows / SO', cpu:'Procesador', ram:'RAM instalada', disk:'Disco',
+  win_key:'Clave de Windows', office_key:'Clave de Office', warranty:'Garantía hasta',
+  sec_printers:'Impresoras que usa esta PC', lbl_model:'Impresora de etiquetas (modelo)', reg_model:'Impresora normal (modelo)', connection:'Conexión', printer_ip:'IP de impresora',
+  th_user:'Usuario asignado', th_pc:'Computadora', th_printers:'Impresoras', th_licenses:'Licencias', th_warranty:'Garantía',
+  w_expired:'Garantía vencida', w_soon:'Vence en menos de 60 días', t_anydesk:'Abrir en AnyDesk',
+  'conn.Network':'Red', 'conn.USB':'USB', 'conn.N/A':'N/A',
+  printer_ip_invalid:'IP de impresora no válida. Ej: 192.168.1.50', ip_missing:'Impresora en red: agrega su IP',
+  copied:'Copiado ✓', ask_client:'Algunas filas no tienen cliente. ¿A qué cliente pertenecen estos equipos?'
 }};
 const TIPOS = ['DVR','NVR','Cámara','PC','Laptop','Teléfono','Router','Switch','Access Point','Impresora','Servidor','Control de Acceso','Otro'];
 const ESTADOS = ['Activo','En reparación','Inactivo','Dado de baja'];
@@ -497,6 +568,7 @@ function applyLang(){
   document.querySelectorAll('.lang button').forEach(b => b.classList.toggle('on', b.dataset.lang === LANG));
   fillOptions($('tipo'), TIPOS, tTipo);
   fillOptions($('estado'), ESTADOS, tEstado);
+  ['lbl_conexion','imp_conexion'].forEach(id => fillOptions($(id), CONEXIONES, v => v ? t('conn.' + v) : '—'));
   $('saveBtn').textContent = editId ? t('save_changes') : t('add_device');
   document.title = (LANG === 'es' ? 'Inventario' : 'Inventory') + ' · AJ Tech Support';
 }
@@ -588,7 +660,68 @@ function validarIPMAC(){
   const ip = $('ip'), mac = $('mac');
   ip.setCustomValidity(ip.value && !IP_RE.test(ip.value) ? t('ip_invalid') : '');
   mac.setCustomValidity(mac.value && !MAC_RE.test(mac.value) ? t('mac_invalid') : '');
+  ['lbl_ip','imp_ip'].forEach(id => { const el = $(id);
+    el.setCustomValidity(!el.disabled && el.value && !IP_RE.test(el.value) ? t('printer_ip_invalid') : ''); });
   return $('form').reportValidity();
+}
+/* ---------- Sección PC ---------- */
+function togglePC(){
+  const on = PC_TIPOS.includes($('tipo').value);
+  $('pcBox').classList.toggle('hidden', !on);
+  $('pcBox').querySelectorAll('input,select').forEach(el => el.disabled = !on);
+  checkPrinterIP();
+}
+function checkPrinterIP(){
+  const on = !$('pcBox').classList.contains('hidden');
+  ['lbl','imp'].forEach(p => {
+    const conn = $(p + '_conexion').value, ip = $(p + '_ip');
+    ip.disabled = !on || conn === 'USB' || conn === 'N/A';
+    const falta = on && conn === 'Network' && !ip.value.trim();
+    ip.classList.toggle('warn-input', falta);
+    ip.title = falta ? t('ip_missing') : '';
+  });
+}
+const soloDigitos = v => /^[\d\s]+$/.test(v || '') ? String(v).replace(/\s/g, '') : (v || '');
+const fmtAD = v => /^\d+$/.test(soloDigitos(v)) ? soloDigitos(v).replace(/\B(?=(\d{3})+(?!\d))/g, ' ') : v;
+function formatAnyDesk(el){
+  if (/^[\d\s]*$/.test(el.value)) el.value = fmtAD(el.value.replace(/\D/g, '').slice(0, 10));
+}
+function formatPhone(el){
+  if (el.value.trim().startsWith('+')) return; // internacional: se deja como está
+  let d = el.value.replace(/\D/g, '');
+  if (d.length === 11 && d[0] === '1') d = d.slice(1);
+  d = d.slice(0, 10);
+  el.value = d.length > 6 ? `(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}` : d.length > 3 ? `(${d.slice(0,3)}) ${d.slice(3)}` : d;
+}
+function fmtFecha(d){
+  try{ return new Date(d + 'T00:00:00').toLocaleDateString(LANG === 'es' ? 'es-US' : 'en-US', { year:'numeric', month:'short', day:'numeric' }); }
+  catch(e){ return d; }
+}
+function badgeGarantia(d){
+  if (!d) return '';
+  const dias = (new Date(d + 'T00:00:00') - new Date(new Date().toDateString())) / 864e5;
+  const cls = dias < 0 ? 'b-bad' : dias <= 60 ? 'b-warn' : 'b-ok';
+  const tip = dias < 0 ? t('w_expired') : dias <= 60 ? t('w_soon') : '';
+  return `<span class="badge ${cls}" title="${tip}">${esc(fmtFecha(d))}</span>`;
+}
+const PC_LISTAS = {
+  soList: ['Windows 11 Pro','Windows 11 Home','Windows 10 Pro','Windows 10 Home','Windows Server 2025','Windows Server 2022','Windows Server 2019','macOS Sequoia','macOS Sonoma','Ubuntu','ChromeOS'],
+  cpuList: ['Intel Core i3','Intel Core i5','Intel Core i7','Intel Core i9','Intel Core Ultra 5','Intel Core Ultra 7','Intel Celeron','Intel Pentium','Intel Xeon','AMD Ryzen 3','AMD Ryzen 5','AMD Ryzen 7','AMD Ryzen 9','Apple M1','Apple M2','Apple M3','Apple M4'],
+  ramList: ['4 GB','8 GB','16 GB','32 GB','64 GB','128 GB'],
+  diskList: ['SSD 256 GB','SSD 512 GB','SSD 1 TB','SSD 2 TB','NVMe 512 GB','NVMe 1 TB','HDD 500 GB','HDD 1 TB','HDD 2 TB'],
+  avList: ['Windows Defender','Bitdefender','ESET','Sophos','SentinelOne','CrowdStrike','Malwarebytes','Norton','McAfee','Webroot','Avast','Trend Micro'],
+  lblList: ['Zebra ZD421','Zebra ZD411','Zebra ZD621','Zebra ZD620','Zebra GK420d','Zebra GX430t','Zebra ZT230','Zebra ZT411','Rollo','Brother QL-820NWB','Dymo LabelWriter 550','TSC TE200','Honeywell PC42t','SATO CL4NX'],
+  impList: ['HP LaserJet Pro','HP OfficeJet Pro','HP Color LaserJet','Brother HL-L2350DW','Brother MFC-L2750DW','Canon imageCLASS','Epson WorkForce','Epson EcoTank','Xerox VersaLink','Lexmark','Ricoh','Kyocera ECOSYS']
+};
+function updatePCLists(){
+  const usados = { soList:'so', cpuList:'cpu', ramList:'ram', diskList:'disco', avList:'antivirus', lblList:'lbl_modelo', impList:'imp_modelo' };
+  for (const id in PC_LISTAS) $(id).innerHTML = [...new Set([...uniq(usados[id]), ...PC_LISTAS[id]])].map(v => `<option value="${esc(v)}">`).join('');
+  $('deptList').innerHTML = uniq('departamento').map(v => `<option value="${esc(v)}">`).join('');
+}
+function copyVal(id, f){
+  const x = items.find(i => i.id === id); if (!x || !x[f]) return;
+  const v = f === 'anydesk' ? soloDigitos(x[f]) : x[f];
+  navigator.clipboard?.writeText(v).then(() => toast(t('copied')), () => toast(t('copy_fail')));
 }
 function togglePwField(){ const p=$('password'); p.type = p.type==='password' ? 'text' : 'password'; }
 
@@ -596,6 +729,10 @@ async function save(e){
   e.preventDefault();
   if (!validarIPMAC()) return;
   const d = {}; FIELDS.forEach(f => d[f] = $(f).value);
+  if (PC_TIPOS.includes(d.tipo)){
+    d.anydesk = soloDigitos(d.anydesk);
+    ['lbl','imp'].forEach(p => { if (d[p + '_conexion'] === 'USB' || d[p + '_conexion'] === 'N/A') d[p + '_ip'] = ''; });
+  } else PC_FIELDS.forEach(f => d[f] = '');
   const row = clean(d);
   if (row.ip && items.some(x => x.ip === row.ip && x.cliente === row.cliente && x.id !== editId) &&
       !confirm(t('dup_ip', {ip: row.ip}))) return;
@@ -620,6 +757,7 @@ function edit(id){
   const x = items.find(i => i.id === id); if(!x) return;
   FIELDS.forEach(f => $(f).value = x[f] || '');
   formatMAC($('mac'));
+  formatAnyDesk($('anydesk'));
   updateMarcas();
   editId = id; $('saveBtn').textContent = t('save_changes');
   $('editMsg').textContent = t('editing') + x.nombre;
@@ -634,7 +772,7 @@ async function del(id){
 }
 function dup(id){
   const x = items.find(i => i.id === id); edit(id);
-  editId = null; $('serial').value=''; $('ip').value=''; $('mac').value='';
+  editId = null; ['serial','ip','mac','hostname','anydesk','win_key','office_key','first_name','last_name','celular','email'].forEach(f => $(f).value = '');
   $('nombre').value = x.nombre + t('copy_suffix');
   $('saveBtn').textContent = t('add_device'); $('editMsg').textContent = t('duplicating');
 }
@@ -649,7 +787,7 @@ function filtered(){
   const q = $('q').value.toLowerCase().trim(), fl = $('fLugar').value, fc = $('fCliente').value;
   return items.filter(x =>
     (!fTipo || x.tipo === fTipo) && (!fl || x.lugar === fl) && (!fc || x.cliente === fc) &&
-    (!q || FIELDS.filter(f => f !== 'password').some(f => String(x[f]||'').toLowerCase().includes(q)))
+    (!q || FIELDS.filter(f => !SECRET_FIELDS.includes(f)).some(f => String(x[f]||'').toLowerCase().includes(q)))
   ).sort((a,b) => {
     if (sortK === 'ip'){ const A=ipNum(a.ip), B=ipNum(b.ip); if(A!==null && B!==null) return (A-B)*sortDir; }
     return String(a[sortK]||'').localeCompare(String(b[sortK]||''), 'es', {numeric:true}) * sortDir;
@@ -822,6 +960,7 @@ const MARCAS = {
   'Control de Acceso': ['HID','ZKTeco','Hikvision','Dahua','Paxton','Kantech','Lenel','Honeywell','Brivo','Verkada','Avigilon Alta (Openpath)','Genetec','Suprema','UniFi Access','Salto','2N','Bosch','LiftMaster','DoorKing','Viking']
 };
 function updateMarcas(){
+  togglePC();
   const tipo = $('tipo').value;
   const base = MARCAS[tipo] || [...new Set(Object.values(MARCAS).flat())].sort();
   // También sugiere modelos que ya usaste en ese tipo de equipo
@@ -840,6 +979,7 @@ function render(){
   $('lugares').innerHTML = lugares.map(v => `<option value="${esc(v)}">`).join('');
   $('direcciones').innerHTML = dirs.map(v => `<option value="${esc(v)}">`).join('');
   updateMarcas();
+  updatePCLists();
 
   const counts = {}; items.forEach(x => counts[x.tipo] = (counts[x.tipo]||0)+1);
   $('chips').innerHTML = `<span class="chip ${!fTipo?'on':''}" onclick="setTipo('')">${t('all')} (${items.length})</span>` +
@@ -852,12 +992,25 @@ function render(){
     const pw = x.password
       ? `${vis ? esc(x.password) : '••••••'} <span class="no-print"><button class="sm" onclick="reveal('${x.id}')" title="${t('t_view')}">👁</button><button class="sm" onclick="copyPw('${x.id}')" title="${t('t_copy')}">📋</button></span>`
       : '';
+    const sm = v => v ? `<small>${esc(v)}</small>` : '';
+    const persona = [x.first_name, x.last_name].filter(Boolean).join(' ');
+    const cUser = (persona ? `<b>${esc(persona)}</b>` : '') + sm(x.departamento)
+      + (x.email ? `<small><a href="mailto:${esc(x.email)}">${esc(x.email)}</a></small>` : '')
+      + (x.celular ? `<small><a href="tel:${esc(String(x.celular).replace(/[^\d+]/g, ''))}">${esc(x.celular)}</a></small>` : '');
+    const cPC = (x.hostname ? `<span class="mono">${esc(x.hostname)}</span>` : '') + sm(x.so) + sm(x.cpu) + sm([x.ram, x.disco].filter(Boolean).join(' · '));
+    const cAD = x.anydesk ? `<a class="mono" href="anydesk:${esc(soloDigitos(x.anydesk))}" title="${t('t_anydesk')}">${esc(fmtAD(x.anydesk))}</a> <button class="sm no-print" onclick="copyVal('${x.id}','anydesk')" title="${t('t_copy')}">📋</button>` : '';
+    const prn = (ic, m, c, ip) => (m || c || ip) ? `<small>${ic} ${esc(m || '—')}${c ? ' · ' + esc(t('conn.' + c)) : ''}${ip ? ` · <a class="mono" href="http://${esc(ip)}" target="_blank" rel="noopener">${esc(ip)}</a>` : ''}</small>` : '';
+    const cPrn = prn('🏷️', x.lbl_modelo, x.lbl_conexion, x.lbl_ip) + prn('🖨️', x.imp_modelo, x.imp_conexion, x.imp_ip);
+    const key = (f, lbl) => x[f] ? `<small>${lbl}: <span class="mono">${vis ? esc(x[f]) : '•••••'}</span> <button class="sm no-print" onclick="copyVal('${x.id}','${f}')" title="${t('t_copy')}">📋</button></small>` : '';
+    const cLic = key('win_key', 'Win') + key('office_key', 'Office') + (x.antivirus ? `<small>🛡️ ${esc(x.antivirus)}</small>` : '')
+      + ((x.win_key || x.office_key) && !showAll ? `<small class="no-print"><button class="sm" onclick="reveal('${x.id}')" title="${t('t_view')}">👁</button></small>` : '');
     return `<tr>
     <td class="client"><b>${esc(x.cliente)}</b></td><td class="addr">${x.direccion ? `<a href="${mapUrl(x.direccion)}" target="_blank" rel="noopener" title="${esc(x.direccion)} · ${t('t_openmap')}">📍 ${esc(x.direccion)}</a>` : ''}</td>
     <td><span class="type">${TIPO_ICON[x.tipo] || '◆'} ${esc(tTipo(x.tipo))}</span></td><td>${esc(x.nombre)}</td><td>${esc(x.lugar)}</td><td>${esc(x.modelo)}</td>
     <td class="mono">${esc(x.serial)}</td>
     <td class="mono ip">${x.ip ? `<a href="http://${esc(x.ip)}" target="_blank" rel="noopener">${esc(x.ip)}</a>` : ''}</td>
     <td class="mono">${esc(x.mac)}</td><td class="mono">${esc(x.usuario)}</td><td class="mono">${pw}</td>
+    <td class="stack">${cUser}</td><td class="stack">${cPC}</td><td class="stack">${cAD}</td><td class="stack">${cPrn}</td><td class="stack">${cLic}</td><td>${badgeGarantia(x.garantia)}</td>
     <td>${x.estado ? `<span class="badge ${ESTADO_CLS[x.estado] || 'b-off'}">${esc(tEstado(x.estado))}</span>` : ''}</td><td class="notes">${esc(x.notas)}</td>
     <td class="no-print" style="white-space:nowrap">
       <button class="sm" onclick="edit('${x.id}')">${t('edit')}</button>
@@ -865,7 +1018,7 @@ function render(){
       <button class="sm danger" onclick="del('${x.id}')" title="${t('t_delete')}">✕</button>
     </td></tr>`;
   }).join('')
-    : `<tr><td colspan="14" class="empty">${items.length ? t('no_results') : t('empty')}</td></tr>`;
+    : `<tr><td colspan="20" class="empty">${items.length ? t('no_results') : t('empty')}</td></tr>`;
   $('count').textContent = t('count', {n: rows.length, t: items.length});
   $('kTotal').textContent = items.length;
   $('kClientes').textContent = clientes.length;
@@ -894,6 +1047,14 @@ function exportCSV(){
   const csv = [FIELDS.join(','), ...filtered().map(x => FIELDS.map(f => q(f==='password' && !incluirPw ? '' : x[f])).join(','))].join('\r\n');
   download(`inventario-${stamp()}.csv`, '\uFEFF' + csv, 'text/csv;charset=utf-8');
 }
+const HEADER_ALIAS = {
+  'first name':'first_name','last name':'last_name','device name':'hostname','processor':'cpu','installed ram':'ram','ram':'ram',
+  'windows version':'so','os':'so','pc ip address':'ip','ip address':'ip','department':'departamento','cell phone':'celular','phone':'celular',
+  'email':'email','e-mail':'email','anydesk':'anydesk','anydesk id':'anydesk','notes':'notas','serial number':'serial','serial':'serial',
+  'label printer (model)':'lbl_modelo','label printer connection':'lbl_conexion','label printer ip':'lbl_ip',
+  'regular printer (model)':'imp_modelo','regular printer connection':'imp_conexion','regular printer ip':'imp_ip',
+  'client':'cliente','customer':'cliente','address':'direccion','type':'tipo','name':'nombre','model':'modelo','status':'estado','warranty':'garantia'
+};
 function parseCSV(text){
   const rows = []; let row = [], cell = '', inQ = false;
   text = text.replace(/^\uFEFF/, '');
@@ -906,10 +1067,31 @@ function parseCSV(text){
     else if (c !== '\r') cell += c;
   }
   if (cell || row.length){ row.push(cell); rows.push(row); }
-  const head = rows.shift().map(h => h.trim().toLowerCase());
+  // Busca la fila de encabezados (la hoja de Google tiene título e instrucciones arriba)
+  const norm = h => { const k = String(h).trim().toLowerCase().replace(/\s+/g, ' '); return HEADER_ALIAS[k] || (FIELDS.includes(k) ? k : null); };
+  let hi = rows.findIndex(r => r.filter(c => norm(c)).length >= 2);
+  if (hi < 0) hi = 0;
+  const head = rows[hi].map(h => norm(h) || h.trim().toLowerCase());
+  rows.splice(0, hi + 1);
   return rows.filter(r => r.some(v => v.trim())).map(r => { const o = {}; head.forEach((h,i) => o[h] = (r[i]||'').trim()); return o; });
 }
 async function subir(lista){
+  lista = lista.filter(r => !/example row/i.test(r.notas || ''));
+  let clienteDef = '';
+  if (lista.some(r => !String(r.cliente || '').trim())) clienteDef = (prompt(t('ask_client'), $('fCliente').value || '') || '').trim();
+  const CONN = { network:'Network', red:'Network', usb:'USB', 'n/a':'N/A', na:'N/A' };
+  lista = lista.map(r => {
+    const o = { ...r };
+    if (!o.tipo && (o.hostname || o.cpu || o.so)) o.tipo = 'PC';
+    if (!o.nombre) o.nombre = o.hostname || [o.first_name, o.last_name].filter(Boolean).join(' ');
+    if (!String(o.cliente || '').trim()) o.cliente = clienteDef;
+    if (o.anydesk) o.anydesk = soloDigitos(o.anydesk);
+    if (o.celular){ const el = { value: String(o.celular) }; formatPhone(el); o.celular = el.value; }
+    ['lbl_conexion','imp_conexion'].forEach(f => { if (o[f]) o[f] = CONN[String(o[f]).trim().toLowerCase()] || o[f]; });
+    if (o.garantia){ const m = String(o.garantia).match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+      o.garantia = m ? `${m[3]}-${m[1].padStart(2,'0')}-${m[2].padStart(2,'0')}` : (/^\d{4}-\d{2}-\d{2}$/.test(o.garantia) ? o.garantia : ''); }
+    return o;
+  });
   const rows = lista.map(clean).filter(r => r.nombre).map(r => ({...r, cliente: r.cliente || t('no_client')}));
   if (!rows.length) { alert(t('no_valid')); return false; }
   if (!confirm(t('confirm_upload', {n: rows.length}))) return false;

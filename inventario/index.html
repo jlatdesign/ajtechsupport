@@ -235,6 +235,29 @@ td.stack b{font-family:"Space Grotesk",sans-serif;font-weight:600}
 td.stack .mono{font-family:"JetBrains Mono",monospace;font-size:12.5px}
 td.stack a{color:var(--c1);text-decoration:none}
 td.stack a:hover{text-shadow:0 0 10px var(--c1)}
+/* Usuarios múltiples */
+.users-box{border:1px dashed var(--line-strong);border-radius:12px;padding:12px}
+.users-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px;color:var(--muted);font-size:12px;font-weight:500}
+.add-btn{border-color:var(--c1);color:var(--c1)}
+.user-row{display:grid;grid-template-columns:1fr 1fr auto;gap:10px;margin-bottom:8px;align-items:end}
+.user-row:last-child{margin-bottom:0}
+@media (max-width:640px){.user-row{grid-template-columns:1fr}}
+.users-empty{color:var(--dim);font-size:12px}
+/* Campos bloqueados (cambiar con aviso) */
+input.locked{cursor:pointer;background-image:repeating-linear-gradient(135deg,transparent 0 8px,rgba(124,77,255,.06) 8px 16px)}
+input.changing{border-color:var(--warn)!important;box-shadow:0 0 0 3px rgba(255,197,61,.15)!important}
+.chg{border-color:var(--warn)!important;color:var(--warn)!important}
+/* Modal historial */
+.modal{position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:20px}
+.modal-card{width:100%;max-width:640px;max-height:80vh;overflow:auto;background:var(--card-solid);border:1px solid var(--line-strong);border-radius:18px;padding:20px;box-shadow:0 30px 80px -20px rgba(0,0,0,.8)}
+.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.modal-head h3{margin:0;font-size:17px}
+.hist-row{display:grid;grid-template-columns:1.3fr 1.2fr 1fr;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-size:13px}
+.hist-row:last-child{border-bottom:0}
+.hist-row small{display:block;color:var(--muted);font-size:11.5px}
+.hist-val{font-family:"JetBrains Mono",monospace;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.hist-btn{position:relative}
+.hist-btn b{position:absolute;top:-6px;right:-6px;background:var(--warn);color:#05070f;border-radius:999px;font:700 10px Inter,sans-serif;padding:1px 5px}
 </style>
 </head>
 <body>
@@ -323,7 +346,7 @@ td.stack a:hover{text-shadow:0 0 10px var(--c1)}
         <label><span data-i18n="username">Username</span><input id="usuario" autocomplete="off" placeholder="admin"></label>
         <label><span data-i18n="password">Password</span>
           <span class="pw">
-            <input id="password" type="password" autocomplete="new-password" placeholder="••••••">
+            <input id="password" type="password" class="secret" autocomplete="new-password" placeholder="••••••">
             <button type="button" class="sm" onclick="togglePwField()" data-i18n-title="t_showhide">👁</button>
           </span>
         </label>
@@ -345,23 +368,27 @@ td.stack a:hover{text-shadow:0 0 10px var(--c1)}
         <div class="grid">
           <label><span data-i18n="hostname">Device name (hostname)</span><input id="hostname" class="monoin" autocomplete="off" placeholder="SC-OPS-01"></label>
           <label>AnyDesk<input id="anydesk" class="monoin" autocomplete="off" placeholder="123 456 789" oninput="formatAnyDesk(this)"></label>
-          <label><span data-i18n="anydesk_pw">AnyDesk password (unattended)</span><span class="pw"><input id="anydesk_pw" type="password" class="monoin" autocomplete="new-password" placeholder="••••••"><button type="button" class="sm" onclick="toggleField('anydesk_pw')" data-i18n-title="t_showhide">👁</button></span></label>
+          <label><span data-i18n="anydesk_pw">AnyDesk password (unattended)</span><span class="pw"><input id="anydesk_pw" type="password" class="monoin secret" autocomplete="new-password" placeholder="••••••"><button type="button" class="sm" onclick="toggleField('anydesk_pw')" data-i18n-title="t_showhide">👁</button></span></label>
           <label>Splashtop<select id="splashtop"></select></label>
           <label><span data-i18n="os">Windows version / OS</span><input id="so" list="soList" autocomplete="off" placeholder="Windows 11 Pro"></label>
           <label><span data-i18n="cpu">Processor</span><input id="cpu" list="cpuList" autocomplete="off" placeholder="Intel Core i5-12400"></label>
           <label><span data-i18n="ram">Installed RAM</span><input id="ram" list="ramList" autocomplete="off" placeholder="16 GB"></label>
           <label><span data-i18n="disk">Disk</span><input id="disco" list="diskList" autocomplete="off" placeholder="SSD 512 GB"></label>
-          <label><span data-i18n="win_key">Windows key</span><input id="win_key" class="monoin" autocomplete="off" placeholder="XXXXX-XXXXX-XXXXX-XXXXX-XXXXX"></label>
-          <label><span data-i18n="office_key">Office key</span><input id="office_key" class="monoin" autocomplete="off" placeholder="XXXXX-XXXXX-XXXXX-XXXXX-XXXXX"></label>
+          <label><span data-i18n="win_key">Windows key</span><span class="pw"><input id="win_key" type="password" class="monoin secret" autocomplete="off" placeholder="XXXXX-XXXXX-XXXXX-XXXXX-XXXXX"><button type="button" class="sm" onclick="toggleField('win_key')" data-i18n-title="t_showhide">👁</button></span></label>
+          <label><span data-i18n="office_key">Office key</span><span class="pw"><input id="office_key" type="password" class="monoin secret" autocomplete="off" placeholder="XXXXX-XXXXX-XXXXX-XXXXX-XXXXX"><button type="button" class="sm" onclick="toggleField('office_key')" data-i18n-title="t_showhide">👁</button></span></label>
           <label>Antivirus<input id="antivirus" list="avList" autocomplete="off" placeholder="Windows Defender"></label>
           <label><span data-i18n="warranty">Warranty until</span><input id="garantia" type="date"></label>
         </div>
         <div class="sec"><i>05</i> <span data-i18n="sec_logins">PC logins</span></div>
         <div class="grid">
-          <label><span data-i18n="pc_user">Regular user</span><input id="pc_user" class="monoin" autocomplete="off" placeholder="user"></label>
-          <label><span data-i18n="pc_user_pw">Regular user password</span><span class="pw"><input id="pc_user_pw" type="password" class="monoin" autocomplete="new-password" placeholder="••••••"><button type="button" class="sm" onclick="toggleField('pc_user_pw')" data-i18n-title="t_showhide">👁</button></span></label>
+          <div class="full users-box">
+            <input type="hidden" id="pc_user"><input type="hidden" id="pc_user_pw">
+            <div class="users-head"><span data-i18n="pc_users">Regular users</span>
+              <button type="button" class="sm add-btn" onclick="addUserRow()">＋ <span data-i18n="add_user">Add user</span></button></div>
+            <div id="usersList"></div>
+          </div>
           <label><span data-i18n="pc_admin">Administrator user</span><input id="pc_admin" class="monoin" autocomplete="off" placeholder="Administrator"></label>
-          <label><span data-i18n="pc_admin_pw">Administrator password</span><span class="pw"><input id="pc_admin_pw" type="password" class="monoin" autocomplete="new-password" placeholder="••••••"><button type="button" class="sm" onclick="toggleField('pc_admin_pw')" data-i18n-title="t_showhide">👁</button></span></label>
+          <label><span data-i18n="pc_admin_pw">Administrator password</span><span class="pw"><input id="pc_admin_pw" type="password" class="monoin secret" autocomplete="new-password" placeholder="••••••"><button type="button" class="sm" onclick="toggleField('pc_admin_pw')" data-i18n-title="t_showhide">👁</button></span></label>
         </div>
         <div class="sec"><i>06</i> <span data-i18n="sec_printers">Printers used by this PC</span></div>
         <div class="grid-prn">
@@ -383,6 +410,7 @@ td.stack a:hover{text-shadow:0 0 10px var(--c1)}
         <button class="primary" type="submit" id="saveBtn" data-i18n="add_device">Add device</button>
         <button type="button" onclick="resetForm()" data-i18n="clear">Clear</button>
         <label class="check"><input type="checkbox" id="keepClient" checked> <span data-i18n="keep_client">Keep client after adding</span></label>
+        <button type="button" id="histBtn" class="hidden" onclick="showHistory(editId)">🕘 <span data-i18n="history">History</span> <span id="histCount"></span></button>
         <span class="muted" id="editMsg"></span>
       </div>
     </form>
@@ -414,6 +442,12 @@ td.stack a:hover{text-shadow:0 0 10px var(--c1)}
 </div>
 </div>
 <div class="toast" id="toast"></div>
+<div id="modal" class="modal hidden" onclick="if(event.target===this)closeModal()">
+  <div class="modal-card">
+    <div class="modal-head"><h3 id="modalTitle"></h3><button class="sm" onclick="closeModal()">✕</button></div>
+    <div id="modalBody"></div>
+  </div>
+</div>
 
 <script>
 /* ================== CONFIGURACIÓN ==================
@@ -502,6 +536,11 @@ en:{
   anydesk_pw:'AnyDesk password (unattended)', sec_logins:'PC logins', pc_user:'Regular user', pc_user_pw:'Regular user password',
   pc_admin:'Administrator user', pc_admin_pw:'Administrator password', th_remote:'Remote access', th_logins:'PC logins',
   'yn.Yes':'Yes', 'yn.No':'No', lg_user:'User', lg_admin:'Admin', st_yes:'Splashtop installed', st_no:'No Splashtop',
+  pc_users:'Regular users', add_user:'Add user', no_users:'No regular users yet. Click ＋ to add one.', t_remove:'Remove user',
+  t_change:'Change (keeps the old one in history)', history:'History', hist_title:'Password history', hist_empty:'No previous passwords yet.',
+  hist_field:'Field', hist_old:'Old value', hist_when:'Changed', hist_removed:'user removed', by:'by',
+  confirm_change:'⚠️ "{f}" already has a value.\n\nDo you want to change it?\nThe current value will be saved in the history.',
+  confirm_remove_user:'⚠️ Remove user "{u}"?\nIts password will be saved in the history.', changed_n:'{n} old password(s) saved to history',
   w_expired:'Warranty expired', w_soon:'Expires in less than 60 days', t_anydesk:'Open in AnyDesk',
   'conn.Network':'Network', 'conn.USB':'USB', 'conn.N/A':'N/A',
   printer_ip_invalid:'Invalid printer IP. e.g. 192.168.1.50', ip_missing:'Network printer: add its IP',
@@ -554,6 +593,11 @@ es:{
   anydesk_pw:'Password de AnyDesk (desatendido)', sec_logins:'Accesos de la PC', pc_user:'Usuario regular', pc_user_pw:'Password usuario regular',
   pc_admin:'Usuario administrador', pc_admin_pw:'Password administrador', th_remote:'Acceso remoto', th_logins:'Accesos PC',
   'yn.Yes':'Sí', 'yn.No':'No', lg_user:'Usuario', lg_admin:'Admin', st_yes:'Tiene Splashtop', st_no:'Sin Splashtop',
+  pc_users:'Usuarios regulares', add_user:'Agregar usuario', no_users:'Aún no hay usuarios regulares. Haz clic en ＋ para agregar.', t_remove:'Quitar usuario',
+  t_change:'Cambiar (guarda la anterior en el historial)', history:'Historial', hist_title:'Historial de passwords', hist_empty:'Aún no hay passwords anteriores.',
+  hist_field:'Campo', hist_old:'Valor anterior', hist_when:'Cambiado', hist_removed:'usuario eliminado', by:'por',
+  confirm_change:'⚠️ "{f}" ya tiene un valor.\n\n¿Seguro que lo quieres cambiar?\nEl valor actual se guardará en el historial.',
+  confirm_remove_user:'⚠️ ¿Quitar el usuario "{u}"?\nSu password se guardará en el historial.', changed_n:'{n} password(s) anterior(es) guardada(s) en el historial',
   w_expired:'Garantía vencida', w_soon:'Vence en menos de 60 días', t_anydesk:'Abrir en AnyDesk',
   'conn.Network':'Red', 'conn.USB':'USB', 'conn.N/A':'N/A',
   printer_ip_invalid:'IP de impresora no válida. Ej: 192.168.1.50', ip_missing:'Impresora en red: agrega su IP',
@@ -682,7 +726,116 @@ function validarIPMAC(){
   return $('form').reportValidity();
 }
 /* ---------- Sección PC ---------- */
-function toggleField(id){ const p = $(id); p.type = p.type === 'password' ? 'text' : 'password'; }
+function toggleField(id){ const p = typeof id === 'string' ? $(id) : id; p.type = p.type === 'password' ? 'text' : 'password'; }
+
+/* ---------- Usuarios regulares (varios) ---------- */
+const getUsers = x => Array.isArray(x?.pc_users) && x.pc_users.length ? x.pc_users
+  : (x && (x.pc_user || x.pc_user_pw) ? [{ user: x.pc_user || '', pw: x.pc_user_pw || '' }] : []);
+function addUserRow(u = '', p = '', lock = false){
+  const row = document.createElement('div');
+  row.className = 'user-row';
+  row.innerHTML = `<label><span data-i18n="lg_user">${t('lg_user')}</span><input class="u-name monoin" autocomplete="off" placeholder="user"></label>
+    <label><span data-i18n="password">${t('password')}</span><span class="pw"><input class="u-pw monoin secret" type="password" autocomplete="new-password" placeholder="••••••">
+      <button type="button" class="sm" onclick="toggleField(this.previousElementSibling)" title="${t('t_showhide')}">👁</button></span></label>
+    <button type="button" class="sm danger" onclick="removeUserRow(this)" title="${t('t_remove')}">✕</button>`;
+  row.querySelector('.u-name').value = u;
+  const pw = row.querySelector('.u-pw'); pw.value = p; pw.dataset.orig = p;
+  $('usersList').appendChild(row);
+  $('usersList').querySelector('.users-empty')?.remove();
+  if (lock) lockSecret(pw); else if (!u) row.querySelector('.u-name').focus();
+  return row;
+}
+function removeUserRow(btn){
+  const row = btn.closest('.user-row');
+  const u = row.querySelector('.u-name').value, p = row.querySelector('.u-pw').dataset.orig;
+  if (editId && p && !confirm(t('confirm_remove_user', { u: u || '—' }))) return;
+  row.remove();
+  if (!$('usersList').children.length) emptyUsers();
+}
+function emptyUsers(){ $('usersList').innerHTML = `<div class="users-empty" data-i18n="no_users">${t('no_users')}</div>`; }
+function readUsers(){
+  return [...$('usersList').querySelectorAll('.user-row')].map(r => {
+    const pwEl = r.querySelector('.u-pw');
+    // Si empezó a cambiar y lo dejó vacío, se queda la password anterior
+    const pw = pwEl.classList.contains('changing') && !pwEl.value.trim() ? pwEl.dataset.orig : pwEl.value.trim();
+    return { user: r.querySelector('.u-name').value.trim(), pw };
+  }).filter(u => u.user || u.pw);
+}
+function fillUsers(list, lock){
+  $('usersList').innerHTML = '';
+  (list || []).forEach(u => addUserRow(u.user || '', u.pw || '', lock));
+  if (!$('usersList').children.length) emptyUsers();
+}
+
+/* ---------- Bloqueo y aviso al cambiar passwords ---------- */
+const HIST_FIELDS = ['password','anydesk_pw','pc_admin_pw','win_key','office_key'];
+function labelDe(el){
+  if (el.classList.contains('u-pw')) return t('lg_user') + ' ' + (el.closest('.user-row').querySelector('.u-name').value || '') + ' · ' + t('password');
+  return el.closest('label')?.querySelector('span[data-i18n]')?.textContent || el.id;
+}
+function lockSecret(el){
+  if (!el.value) return;
+  el.readOnly = true; el.classList.add('locked'); el.classList.remove('changing');
+  el.title = t('t_change');
+  const wrap = el.closest('.pw');
+  if (wrap && !wrap.querySelector('.chg')){
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'sm chg'; b.textContent = '🔄'; b.title = t('t_change');
+    b.onclick = () => startChange(el);
+    wrap.appendChild(b);
+  }
+}
+function unlockAll(){
+  document.querySelectorAll('#form .secret').forEach(el => { el.readOnly = false; el.classList.remove('locked','changing'); el.title = ''; });
+  document.querySelectorAll('#form .chg').forEach(b => b.remove());
+}
+function startChange(el){
+  if (!el.readOnly) return;
+  if (!confirm(t('confirm_change', { f: labelDe(el) }))) return;
+  el.readOnly = false; el.classList.remove('locked'); el.classList.add('changing');
+  el.dataset.orig = el.dataset.orig ?? el.value;
+  el.value = ''; el.type = 'text'; el.focus();
+  el.closest('.pw')?.querySelector('.chg')?.remove();
+}
+document.addEventListener('click', e => { const el = e.target; if (el.matches?.('#form input.secret.locked')) startChange(el); });
+document.addEventListener('keydown', e => { const el = e.target; if (el.matches?.('#form input.secret.locked') && e.key.length === 1){ e.preventDefault(); startChange(el); } });
+
+/* ---------- Historial ---------- */
+function construirHistorial(orig, row, users){
+  const hist = Array.isArray(orig?.pw_history) ? [...orig.pw_history] : [];
+  if (!orig) return hist;
+  const at = new Date().toISOString(), by = $('whoami').textContent || '';
+  HIST_FIELDS.forEach(f => { if (orig[f] && orig[f] !== row[f]) hist.push({ f, v: orig[f], at, by }); });
+  getUsers(orig).forEach(ou => {
+    if (!ou.pw) return;
+    const nu = users.find(n => n.user === ou.user);
+    if (!nu || nu.pw !== ou.pw) hist.push({ f: 'user', u: ou.user, v: ou.pw, at, by, removed: !nu });
+  });
+  return hist;
+}
+function etiquetaHist(h){
+  if (h.f === 'user') return `👤 ${t('lg_user')}: ${h.u || '—'}` + (h.removed ? ` <small>(${t('hist_removed')})</small>` : '');
+  const L = { password: t('password'), anydesk_pw: t('anydesk_pw'), pc_admin_pw: t('pc_admin_pw'), win_key: t('win_key'), office_key: t('office_key') };
+  return L[h.f] || h.f;
+}
+function showHistory(id){
+  const x = items.find(i => i.id === id); if (!x) return;
+  const hist = [...(x.pw_history || [])].map((h, i) => ({ ...h, i })).reverse();
+  $('modalTitle').textContent = `🕘 ${t('hist_title')} · ${x.nombre || ''}`;
+  $('modalBody').innerHTML = hist.length ? hist.map(h => `<div class="hist-row">
+      <div>${etiquetaHist(h)}</div>
+      <div class="hist-val"><span data-v="${esc(h.v)}">•••••</span>
+        <button class="sm" onclick="const s=this.previousElementSibling;s.textContent=s.textContent==='•••••'?s.dataset.v:'•••••'" title="${t('t_view')}">👁</button>
+        <button class="sm" onclick="copyText(this.parentElement.querySelector('span').dataset.v)" title="${t('t_copy')}">📋</button></div>
+      <div>${esc(new Date(h.at).toLocaleString(LANG === 'es' ? 'es-US' : 'en-US', { dateStyle: 'medium', timeStyle: 'short' }))}
+        ${h.by ? `<small>${t('by')} ${esc(h.by)}</small>` : ''}</div></div>`).join('')
+    : `<p class="muted">${t('hist_empty')}</p>`;
+  $('modal').classList.remove('hidden');
+}
+function closeModal(){ $('modal').classList.add('hidden'); }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+function copyText(v){ navigator.clipboard?.writeText(v || '').then(() => toast(t('copied')), () => toast(t('copy_fail'))); }
+function copyUserPw(id, i){ const x = items.find(k => k.id === id); copyText(getUsers(x)[i]?.pw); }
 function togglePC(){
   const on = PC_TIPOS.includes($('tipo').value);
   $('pcBox').classList.toggle('hidden', !on);
@@ -746,12 +899,20 @@ function togglePwField(){ const p=$('password'); p.type = p.type==='password' ? 
 async function save(e){
   e.preventDefault();
   if (!validarIPMAC()) return;
+  // Si empezó a cambiar una password y la dejó vacía, se mantiene la anterior
+  document.querySelectorAll('#form input.secret.changing').forEach(el => { if (el.id && !el.value.trim()) el.value = el.dataset.orig || ''; });
   const d = {}; FIELDS.forEach(f => d[f] = $(f).value);
+  let users = PC_TIPOS.includes(d.tipo) ? readUsers() : [];
+  d.pc_user = users[0]?.user || ''; d.pc_user_pw = users[0]?.pw || '';
   if (PC_TIPOS.includes(d.tipo)){
     d.anydesk = soloDigitos(d.anydesk);
     ['lbl','imp'].forEach(p => { if (d[p + '_conexion'] === 'USB' || d[p + '_conexion'] === 'N/A') d[p + '_ip'] = ''; });
   } else PC_FIELDS.forEach(f => d[f] = '');
   const row = clean(d);
+  const orig = editId ? items.find(i => i.id === editId) : null;
+  row.pc_users = users;
+  row.pw_history = construirHistorial(orig, row, users);
+  const nuevos = row.pw_history.length - (orig?.pw_history?.length || 0);
   if (row.ip && items.some(x => x.ip === row.ip && x.cliente === row.cliente && x.id !== editId) &&
       !confirm(t('dup_ip', {ip: row.ip}))) return;
   $('saveBtn').disabled = true;
@@ -760,12 +921,14 @@ async function save(e){
     : await db.from('equipos').insert(row);
   $('saveBtn').disabled = false;
   if (error) return fail(error, t('save_fail'));
-  toast(editId ? t('saved') : t('added'));
+  toast(nuevos > 0 ? t('changed_n', { n: nuevos }) : (editId ? t('saved') : t('added')));
   resetForm(true); loadData();
 }
 function resetForm(afterSave){
   const c = $('cliente').value, dir = $('direccion').value;
   $('form').reset(); editId = null;
+  unlockAll(); fillUsers([], false); $('histBtn').classList.add('hidden');
+  document.querySelectorAll('#form input.secret').forEach(el => { el.type = 'password'; delete el.dataset.orig; });
   if (afterSave === true && $('keepClient').checked){ $('cliente').value = c; $('direccion').value = dir; }
   $('password').type = 'password';
   updateMarcas();
@@ -773,7 +936,13 @@ function resetForm(afterSave){
 }
 function edit(id){
   const x = items.find(i => i.id === id); if(!x) return;
+  unlockAll();
   FIELDS.forEach(f => $(f).value = x[f] || '');
+  document.querySelectorAll('#form input.secret').forEach(el => { el.type = 'password'; if (el.id) el.dataset.orig = el.value; });
+  fillUsers(getUsers(x), true);
+  HIST_FIELDS.forEach(f => lockSecret($(f)));
+  const nh = (x.pw_history || []).length;
+  $('histBtn').classList.toggle('hidden', !nh); $('histCount').textContent = nh ? `(${nh})` : '';
   formatMAC($('mac'));
   formatAnyDesk($('anydesk'));
   updateMarcas();
@@ -791,6 +960,9 @@ async function del(id){
 function dup(id){
   const x = items.find(i => i.id === id); edit(id);
   editId = null; ['serial','ip','mac','hostname','anydesk','anydesk_pw','win_key','office_key','first_name','last_name','celular','email','pc_user_pw','pc_admin_pw'].forEach(f => $(f).value = '');
+  unlockAll(); $('histBtn').classList.add('hidden');
+  fillUsers(getUsers(x).map(u => ({ user: u.user, pw: '' })), false);
+  HIST_FIELDS.forEach(f => { $(f).value = ''; delete $(f).dataset.orig; });
   $('nombre').value = x.nombre + t('copy_suffix');
   $('saveBtn').textContent = t('add_device'); $('editMsg').textContent = t('duplicating');
 }
@@ -805,7 +977,8 @@ function filtered(){
   const q = $('q').value.toLowerCase().trim(), fl = $('fLugar').value, fc = $('fCliente').value;
   return items.filter(x =>
     (!fTipo || x.tipo === fTipo) && (!fl || x.lugar === fl) && (!fc || x.cliente === fc) &&
-    (!q || FIELDS.filter(f => !SECRET_FIELDS.includes(f)).some(f => String(x[f]||'').toLowerCase().includes(q)))
+    (!q || FIELDS.filter(f => !SECRET_FIELDS.includes(f)).some(f => String(x[f]||'').toLowerCase().includes(q))
+        || getUsers(x).some(u => String(u.user || '').toLowerCase().includes(q)))
   ).sort((a,b) => {
     if (sortK === 'ip'){ const A=ipNum(a.ip), B=ipNum(b.ip); if(A!==null && B!==null) return (A-B)*sortDir; }
     return String(a[sortK]||'').localeCompare(String(b[sortK]||''), 'es', {numeric:true}) * sortDir;
@@ -1020,9 +1193,10 @@ function render(){
     const ojo = fs => fs.some(f => x[f]) && !showAll ? `<small class="no-print"><button class="sm" onclick="reveal('${x.id}')" title="${t('t_view')}">👁</button></small>` : '';
     const cST = x.splashtop === 'Yes' ? `<small><span class="badge b-ok" title="${t('st_yes')}">Splashtop</span></small>`
               : x.splashtop === 'No' ? `<small><span class="badge b-off" title="${t('st_no')}">Splashtop ✕</span></small>` : '';
-    const cLog = (x.pc_user ? `<small>👤 ${t('lg_user')}: <span class="mono">${esc(x.pc_user)}</span></small>` : '') + secreto('pc_user_pw', '🔑')
+    const us = getUsers(x);
+    const cLog = us.map((u, i) => `<small>👤 <span class="mono">${esc(u.user || '—')}</span>${u.pw ? ` · 🔑 <span class="mono">${vis ? esc(u.pw) : '•••••'}</span> <button class="sm no-print" onclick="copyUserPw('${x.id}',${i})" title="${t('t_copy')}">📋</button>` : ''}</small>`).join('')
       + (x.pc_admin ? `<small>🛡️ ${t('lg_admin')}: <span class="mono">${esc(x.pc_admin)}</span></small>` : '') + secreto('pc_admin_pw', '🔑')
-      + ojo(['pc_user_pw','pc_admin_pw']);
+      + (us.some(u => u.pw) || x.pc_admin_pw ? ojo(['pc_admin_pw','pc_user_pw','pc_user']) : '');
     const cAD0 = x.anydesk ? `<a class="mono" href="anydesk:${esc(soloDigitos(x.anydesk))}" title="${t('t_anydesk')}">${esc(fmtAD(x.anydesk))}</a> <button class="sm no-print" onclick="copyVal('${x.id}','anydesk')" title="${t('t_copy')}">📋</button>` : '';
     const prn = (ic, m, c, ip) => (m || c || ip) ? `<small>${ic} ${esc(m || '—')}${c ? ' · ' + esc(t('conn.' + c)) : ''}${ip ? ` · <a class="mono" href="http://${esc(ip)}" target="_blank" rel="noopener">${esc(ip)}</a>` : ''}</small>` : '';
     const cPrn = prn('🏷️', x.lbl_modelo, x.lbl_conexion, x.lbl_ip) + prn('🖨️', x.imp_modelo, x.imp_conexion, x.imp_ip);
@@ -1040,6 +1214,7 @@ function render(){
     <td>${x.estado ? `<span class="badge ${ESTADO_CLS[x.estado] || 'b-off'}">${esc(tEstado(x.estado))}</span>` : ''}</td><td class="notes">${esc(x.notas)}</td>
     <td class="no-print" style="white-space:nowrap">
       <button class="sm" onclick="edit('${x.id}')">${t('edit')}</button>
+      ${(x.pw_history || []).length ? `<button class="sm hist-btn" onclick="showHistory('${x.id}')" title="${t('hist_title')}">🕘<b>${x.pw_history.length}</b></button>` : ''}
       <button class="sm" onclick="dup('${x.id}')" title="${t('t_dup')}">⧉</button>
       <button class="sm danger" onclick="del('${x.id}')" title="${t('t_delete')}">✕</button>
     </td></tr>`;
@@ -1066,7 +1241,7 @@ function download(name, content, type){
   a.download = name; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
 }
 const stamp = () => new Date().toISOString().slice(0,10);
-function exportJSON(){ download(`inventario-${stamp()}.json`, JSON.stringify(items.map(clean), null, 2), 'application/json'); }
+function exportJSON(){ download(`inventario-${stamp()}.json`, JSON.stringify(items.map(x => ({ ...clean(x), pc_users: getUsers(x), pw_history: x.pw_history || [] })), null, 2), 'application/json'); }
 function exportCSV(){
   const incluirPw = confirm(t('csv_pw'));
   const q = v => `"${String(v ?? '').replace(/"/g,'""')}"`;
@@ -1120,7 +1295,7 @@ async function subir(lista){
       o.garantia = m ? `${m[3]}-${m[1].padStart(2,'0')}-${m[2].padStart(2,'0')}` : (/^\d{4}-\d{2}-\d{2}$/.test(o.garantia) ? o.garantia : ''); }
     return o;
   });
-  const rows = lista.map(clean).filter(r => r.nombre).map(r => ({...r, cliente: r.cliente || t('no_client')}));
+  const rows = lista.map(r => Object.assign(clean(r), Array.isArray(r.pc_users) ? { pc_users: r.pc_users } : {}, Array.isArray(r.pw_history) ? { pw_history: r.pw_history } : {})).filter(r => r.nombre).map(r => ({...r, cliente: r.cliente || t('no_client')}));
   if (!rows.length) { alert(t('no_valid')); return false; }
   if (!confirm(t('confirm_upload', {n: rows.length}))) return false;
   for (let i = 0; i < rows.length; i += 500){
@@ -1160,6 +1335,7 @@ function toggleTheme(){
 try{ const t = localStorage.getItem('inv_theme'); if(t) document.documentElement.dataset.theme = t; }catch(e){}
 
 applyLang();
+emptyUsers();
 init();
 </script>
 </body>

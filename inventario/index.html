@@ -262,6 +262,12 @@ input.changing{border-color:var(--warn)!important;box-shadow:0 0 0 3px rgba(255,
 th.actions-col,td.actions-col{position:sticky;right:0;z-index:1;background:var(--card-solid);box-shadow:-12px 0 16px -12px rgba(0,0,0,.6)}
 thead th.actions-col{z-index:3}
 tbody tr:hover td.actions-col{background:var(--card-solid)}
+.hist-btn.hist-empty{opacity:.45}
+.hist-btn.hist-empty:hover{opacity:1}
+.link-hint{margin-top:10px;font-size:12.5px;color:var(--muted)}
+.link-hint:empty{display:none}
+.link-hint b{color:var(--c1);font-weight:600}
+.link-chip{display:inline-flex;align-items:center;gap:5px;padding:2px 9px;margin:2px 4px 2px 0;border-radius:999px;border:1px solid var(--line-strong);font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--text)}
 </style>
 </head>
 <body>
@@ -320,7 +326,7 @@ tbody tr:hover td.actions-col{background:var(--card-solid)}
       <div class="client-box">
         <div class="sec"><i>01</i> <span data-i18n="sec_client">Client</span></div>
         <div class="grid2">
-          <label><span data-i18n="client">Client</span><input id="cliente" list="clientes" required data-i18n-ph="client_ph" placeholder="e.g. Advance Medical" onchange="autoDireccion()"></label>
+          <label><span data-i18n="client">Client</span><input id="cliente" list="clientes" required oninput="actualizarVinculos()" data-i18n-ph="client_ph" placeholder="e.g. Advance Medical" onchange="autoDireccion()"></label>
           <label><span data-i18n="address">Address</span>
             <div class="addr-wrap">
               <input id="direccion" autocomplete="off" data-i18n-ph="address_ph" placeholder="Start typing the address..."
@@ -337,9 +343,9 @@ tbody tr:hover td.actions-col{background:var(--card-solid)}
         <label><span data-i18n="type">Type</span>
           <select id="tipo" required onchange="updateMarcas()"></select>
         </label>
-        <label><span data-i18n="name">Name</span><input id="nombre" required data-i18n-ph="name_ph" placeholder="e.g. Main DVR"></label>
+        <label><span data-i18n="name">Name</span><input id="nombre" required oninput="actualizarVinculos()" data-i18n-ph="name_ph" placeholder="e.g. Main DVR"></label>
         <label><span data-i18n="area">Location (area)</span><input id="lugar" list="lugares" data-i18n-ph="area_ph" placeholder="e.g. Front desk, IT rack"></label>
-        <label><span data-i18n="brand">Brand / Model</span><input id="modelo" list="marcas" autocomplete="off" data-i18n-ph="brand_ph" placeholder="Type or pick a brand"></label>
+        <label><span data-i18n="brand">Brand / Model</span><input id="modelo" list="marcas" autocomplete="off" oninput="actualizarVinculos()" data-i18n-ph="brand_ph" placeholder="Type or pick a brand"></label>
         <label><span data-i18n="serial">Serial</span><input id="serial" placeholder="SN"></label>
         <label>IP<input id="ip" placeholder="192.168.1.10" inputmode="decimal" maxlength="15" autocomplete="off"
           pattern="((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)"
@@ -358,6 +364,14 @@ tbody tr:hover td.actions-col{background:var(--card-solid)}
           <select id="estado"></select>
         </label>
         <label class="full"><span data-i18n="notes">Notes</span><textarea id="notas" data-i18n-ph="notes_ph" placeholder="Ports, channels, configuration, etc."></textarea></label>
+      </div>
+      <div id="prnBox" class="pc-box hidden">
+        <div class="sec"><i>03</i> <span data-i18n="sec_printer">Printer</span></div>
+        <div class="grid">
+          <label><span data-i18n="prn_kind">Printer kind</span><select id="prn_tipo"></select></label>
+          <label><span data-i18n="connection">Connection</span><select id="conexion"></select></label>
+        </div>
+        <div id="prnLinks" class="link-hint"></div>
       </div>
       <div id="pcBox" class="pc-box hidden">
         <div class="sec"><i>03</i> <span data-i18n="sec_user">Assigned user</span></div>
@@ -395,11 +409,12 @@ tbody tr:hover td.actions-col{background:var(--card-solid)}
           <label><span data-i18n="pc_admin_pw">Administrator password</span><span class="pw"><input id="pc_admin_pw" type="password" class="monoin secret" autocomplete="new-password" placeholder="••••••"><button type="button" class="sm" onclick="toggleField('pc_admin_pw')" data-i18n-title="t_showhide">👁</button></span></label>
         </div>
         <div class="sec"><i>06</i> <span data-i18n="sec_printers">Printers used by this PC</span></div>
+        <div id="pcPrnLinks" class="link-hint"></div>
         <div class="grid-prn">
-          <label><span data-i18n="lbl_model">Label printer (model)</span><input id="lbl_modelo" list="lblList" autocomplete="off" placeholder="Zebra ZD421"></label>
+          <label><span data-i18n="lbl_model">Label printer (model)</span><input id="lbl_modelo" list="lblList" autocomplete="off" oninput="actualizarVinculos()" placeholder="Zebra ZD421"></label>
           <label><span data-i18n="connection">Connection</span><select id="lbl_conexion" onchange="checkPrinterIP()"></select></label>
           <label><span data-i18n="printer_ip">Printer IP</span><input id="lbl_ip" class="monoin" inputmode="decimal" maxlength="15" autocomplete="off" placeholder="192.168.1.50" oninput="formatIP(this);checkPrinterIP()"></label>
-          <label><span data-i18n="reg_model">Regular printer (model)</span><input id="imp_modelo" list="impList" autocomplete="off" placeholder="HP LaserJet Pro"></label>
+          <label><span data-i18n="reg_model">Regular printer (model)</span><input id="imp_modelo" list="impList" autocomplete="off" oninput="actualizarVinculos()" placeholder="HP LaserJet Pro"></label>
           <label><span data-i18n="connection">Connection</span><select id="imp_conexion" onchange="checkPrinterIP()"></select></label>
           <label><span data-i18n="printer_ip">Printer IP</span><input id="imp_ip" class="monoin" inputmode="decimal" maxlength="15" autocomplete="off" placeholder="192.168.1.60" oninput="formatIP(this);checkPrinterIP()"></label>
         </div>
@@ -471,10 +486,12 @@ const LOCAL_KEY = 'inventario_equipos_v1';
 const PC_TIPOS = ['PC','Laptop','Servidor'];
 const PC_FIELDS = ['first_name','last_name','departamento','celular','email','hostname','anydesk','anydesk_pw','splashtop','pc_user','pc_user_pw','pc_admin','pc_admin_pw','so','cpu','ram','disco',
   'win_key','office_key','antivirus','garantia','lbl_modelo','lbl_conexion','lbl_ip','imp_modelo','imp_conexion','imp_ip'];
+const PRN_FIELDS = ['prn_tipo','conexion'];
+const PRN_TIPOS = ['', 'Label', 'Regular'];
 const SECRET_FIELDS = ['password','win_key','office_key','anydesk_pw','pc_user_pw','pc_admin_pw'];
 const SINO = ['', 'Yes', 'No'];
 const CONEXIONES = ['', 'Network', 'USB', 'N/A'];
-const FIELDS = ['cliente','direccion','tipo','nombre','lugar','modelo','serial','ip','mac','usuario','password','estado','notas', ...PC_FIELDS];
+const FIELDS = ['cliente','direccion','tipo','nombre','lugar','modelo','serial','ip','mac','usuario','password','estado','notas', ...PC_FIELDS, ...PRN_FIELDS];
 let items = [], editId = null, fTipo = '', sortK = 'cliente', sortDir = 1, db = null;
 const revealed = new Set();
 
@@ -541,10 +558,14 @@ en:{
   pc_admin:'Administrator user', pc_admin_pw:'Administrator password', th_remote:'Remote access', th_logins:'PC logins',
   'yn.Yes':'Yes', 'yn.No':'No', lg_user:'User', lg_admin:'Admin', st_yes:'Splashtop installed', st_no:'No Splashtop',
   pc_users:'Regular users', add_user:'Add user', no_users:'No regular users yet. Click ＋ to add one.', t_remove:'Remove user',
-  t_change:'Change (keeps the old one in history)', history:'History', hist_title:'Password history', hist_empty:'No previous passwords yet.',
+  t_change:'Change (keeps the old one in history)', history:'History', hist_title:'Password history', hist_empty:'No previous passwords yet. When you change a password with 🔄 and save, the old one will appear here.',
   hist_field:'Field', hist_old:'Old value', hist_when:'Changed', hist_removed:'user removed', by:'by',
   confirm_change:'⚠️ "{f}" already has a value.\n\nDo you want to change it?\nThe current value will be saved in the history.',
   confirm_remove_user:'⚠️ Remove user "{u}"?\nIts password will be saved in the history.', changed_n:'{n} old password(s) saved to history',
+  sec_printer:'Printer', prn_kind:'Printer kind', 'pk.Label':'Label printer', 'pk.Regular':'Regular printer',
+  used_by:'Used by', link_pcs:'🔗 Used by {n} PC(s) of {c}:', link_none:'No PC of {c} uses this printer yet. In the PC, type this printer\'s name or model in "Printers used by this PC" to link them.',
+  link_prn:'🔗 Linked to printer(s) of this client:', confirm_sync_pcs:'This printer is used by {n} PC(s) of {c}:\n{list}\n\nUpdate the connection and IP in those PCs?',
+  synced:'Printer info updated in {n} PC(s)', filled_prn:'Missing data filled in {n} printer(s)',
   w_expired:'Warranty expired', w_soon:'Expires in less than 60 days', t_anydesk:'Open in AnyDesk',
   'conn.Network':'Network', 'conn.USB':'USB', 'conn.N/A':'N/A',
   printer_ip_invalid:'Invalid printer IP. e.g. 192.168.1.50', ip_missing:'Network printer: add its IP',
@@ -598,10 +619,14 @@ es:{
   pc_admin:'Usuario administrador', pc_admin_pw:'Password administrador', th_remote:'Acceso remoto', th_logins:'Accesos PC',
   'yn.Yes':'Sí', 'yn.No':'No', lg_user:'Usuario', lg_admin:'Admin', st_yes:'Tiene Splashtop', st_no:'Sin Splashtop',
   pc_users:'Usuarios regulares', add_user:'Agregar usuario', no_users:'Aún no hay usuarios regulares. Haz clic en ＋ para agregar.', t_remove:'Quitar usuario',
-  t_change:'Cambiar (guarda la anterior en el historial)', history:'Historial', hist_title:'Historial de passwords', hist_empty:'Aún no hay passwords anteriores.',
+  t_change:'Cambiar (guarda la anterior en el historial)', history:'Historial', hist_title:'Historial de passwords', hist_empty:'Aún no hay passwords anteriores. Cuando cambies una password con 🔄 y guardes, la anterior aparecerá aquí.',
   hist_field:'Campo', hist_old:'Valor anterior', hist_when:'Cambiado', hist_removed:'usuario eliminado', by:'por',
   confirm_change:'⚠️ "{f}" ya tiene un valor.\n\n¿Seguro que lo quieres cambiar?\nEl valor actual se guardará en el historial.',
   confirm_remove_user:'⚠️ ¿Quitar el usuario "{u}"?\nSu password se guardará en el historial.', changed_n:'{n} password(s) anterior(es) guardada(s) en el historial',
+  sec_printer:'Impresora', prn_kind:'Tipo de impresora', 'pk.Label':'Impresora de etiquetas', 'pk.Regular':'Impresora normal',
+  used_by:'Usada por', link_pcs:'🔗 La usan {n} PC de {c}:', link_none:'Ninguna PC de {c} usa esta impresora todavía. En la PC, escribe el nombre o modelo de esta impresora en "Impresoras que usa esta PC" para vincularlas.',
+  link_prn:'🔗 Vinculada a impresora(s) de este cliente:', confirm_sync_pcs:'Esta impresora la usan {n} PC de {c}:\n{list}\n\n¿Actualizar la conexión y la IP en esas PC?',
+  synced:'Datos de impresora actualizados en {n} PC', filled_prn:'Datos faltantes completados en {n} impresora(s)',
   w_expired:'Garantía vencida', w_soon:'Vence en menos de 60 días', t_anydesk:'Abrir en AnyDesk',
   'conn.Network':'Red', 'conn.USB':'USB', 'conn.N/A':'N/A',
   printer_ip_invalid:'IP de impresora no válida. Ej: 192.168.1.50', ip_missing:'Impresora en red: agrega su IP',
@@ -633,7 +658,8 @@ function applyLang(){
   fillOptions($('tipo'), TIPOS, tTipo);
   fillOptions($('estado'), ESTADOS, tEstado);
   fillOptions($('splashtop'), SINO, v => v ? t('yn.' + v) : '—');
-  ['lbl_conexion','imp_conexion'].forEach(id => fillOptions($(id), CONEXIONES, v => v ? t('conn.' + v) : '—'));
+  ['lbl_conexion','imp_conexion','conexion'].forEach(id => fillOptions($(id), CONEXIONES, v => v ? t('conn.' + v) : '—'));
+  fillOptions($('prn_tipo'), PRN_TIPOS, v => v ? t('pk.' + v) : '—');
   $('saveBtn').textContent = editId ? t('save_changes') : t('add_device');
   document.title = (LANG === 'es' ? 'Inventario' : 'Inventory') + ' · AJ Tech Support';
 }
@@ -840,11 +866,99 @@ function closeModal(){ $('modal').classList.add('hidden'); }
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 function copyText(v){ navigator.clipboard?.writeText(v || '').then(() => toast(t('copied')), () => toast(t('copy_fail'))); }
 function copyUserPw(id, i){ const x = items.find(k => k.id === id); copyText(getUsers(x)[i]?.pw); }
+/* ---------- Vínculo Printer ↔ PC (mismo cliente + mismo nombre o modelo) ---------- */
+const nrm = s => String(s || '').trim().toLowerCase();
+const mismoCliente = (a, b) => nrm(a) && nrm(a) === nrm(b);
+const coincide = (modeloEnPC, prn) => !!nrm(modeloEnPC) && (nrm(modeloEnPC) === nrm(prn.nombre) || nrm(modeloEnPC) === nrm(prn.modelo));
+// PCs del cliente que usan esta impresora → [{pc, slot}]
+function pcsQueUsan(prn, excluirId){
+  const out = [];
+  items.forEach(x => {
+    if (!PC_TIPOS.includes(x.tipo) || x.id === excluirId || !mismoCliente(x.cliente, prn.cliente)) return;
+    ['lbl','imp'].forEach(s => { if (coincide(x[s + '_modelo'], prn)) out.push({ pc: x, slot: s }); });
+  });
+  return out;
+}
+// Impresora (equipo tipo Printer) del cliente que corresponde a un modelo escrito en la PC
+const impresoraDe = (cliente, modelo, excluirId) =>
+  items.find(x => x.tipo === 'Impresora' && x.id !== excluirId && mismoCliente(x.cliente, cliente) && coincide(modelo, x));
+const nombrePC = x => x.hostname || x.nombre || [x.first_name, x.last_name].filter(Boolean).join(' ') || '—';
+function actualizarVinculos(){
+  const tipo = $('tipo').value, c = $('cliente').value.trim();
+  if (tipo === 'Impresora'){
+    const usos = pcsQueUsan({ cliente: c, nombre: $('nombre').value, modelo: $('modelo').value }, editId);
+    $('prnLinks').innerHTML = !c || (!$('nombre').value.trim() && !$('modelo').value.trim()) ? ''
+      : usos.length ? `${t('link_pcs', { n: usos.length, c: `<b>${esc(c)}</b>` })} ` + usos.map(u => `<span class="link-chip">${u.slot === 'lbl' ? '🏷️' : '🖨️'} ${esc(nombrePC(u.pc))}</span>`).join('')
+      : t('link_none', { c: esc(c) });
+  } else $('prnLinks').innerHTML = '';
+  if (PC_TIPOS.includes(tipo)){
+    const enc = ['lbl','imp'].map(s => impresoraDe(c, $(s + '_modelo').value)).filter(Boolean);
+    $('pcPrnLinks').innerHTML = enc.length ? `${t('link_prn')} ` + enc.map(p => `<span class="link-chip">🖨️ ${esc(p.nombre)}${p.ip ? ' · ' + esc(p.ip) : ''}${p.conexion ? ' · ' + esc(t('conn.' + p.conexion)) : ''}</span>`).join('') : '';
+  } else $('pcPrnLinks').innerHTML = '';
+  // Sugerir impresoras registradas del cliente en los campos de la PC
+  const prns = items.filter(x => x.tipo === 'Impresora' && mismoCliente(x.cliente, c)).flatMap(x => [x.nombre, x.modelo]).filter(Boolean);
+  if (prns.length) ['lblList','impList'].forEach(id => {
+    const ya = [...$(id).options].map(o => o.value);
+    $(id).insertAdjacentHTML('afterbegin', [...new Set(prns)].filter(v => !ya.includes(v)).map(v => `<option value="${esc(v)}">`).join(''));
+  });
+}
+// Antes de guardar: completar lo que falta con los datos del equipo vinculado
+function completarAntes(d){
+  if (d.tipo === 'Impresora'){
+    const u = pcsQueUsan(d, editId)[0];
+    if (u){
+      if (!d.conexion && u.pc[u.slot + '_conexion']) d.conexion = u.pc[u.slot + '_conexion'];
+      if (!d.prn_tipo) d.prn_tipo = u.slot === 'lbl' ? 'Label' : 'Regular';
+      if (!d.ip && u.pc[u.slot + '_ip']) d.ip = u.pc[u.slot + '_ip'];
+    }
+  }
+  if (PC_TIPOS.includes(d.tipo)) ['lbl','imp'].forEach(s => {
+    const p = impresoraDe(d.cliente, d[s + '_modelo']); if (!p) return;
+    if (!d[s + '_conexion'] && p.conexion) d[s + '_conexion'] = p.conexion;
+    if (!d[s + '_ip'] && p.ip && (d[s + '_conexion'] || p.conexion) === 'Network') d[s + '_ip'] = p.ip;
+  });
+}
+// Después de guardar: pasar los datos al otro lado
+async function sincronizarDespues(row, idGuardado){
+  let msgs = [];
+  if (row.tipo === 'Impresora'){
+    const usos = pcsQueUsan(row, idGuardado).filter(u => {
+      const conn = row.conexion || u.pc[u.slot + '_conexion'] || '';
+      const ip = conn === 'Network' ? (row.ip || u.pc[u.slot + '_ip'] || '') : '';
+      return (u.pc[u.slot + '_conexion'] || '') !== conn || (u.pc[u.slot + '_ip'] || '') !== ip;
+    });
+    if (usos.length && confirm(t('confirm_sync_pcs', { n: usos.length, c: row.cliente, list: usos.map(u => '• ' + nombrePC(u.pc)).join('\n') }))){
+      for (const u of usos){
+        const conn = row.conexion || u.pc[u.slot + '_conexion'] || null;
+        const patch = { [u.slot + '_conexion']: conn, [u.slot + '_ip']: conn === 'Network' ? (row.ip || u.pc[u.slot + '_ip'] || null) : null };
+        await db.from('equipos').update(patch).eq('id', u.pc.id);
+      }
+      msgs.push(t('synced', { n: usos.length }));
+    }
+  }
+  if (PC_TIPOS.includes(row.tipo)){
+    let n = 0;
+    for (const s of ['lbl','imp']){
+      const p = impresoraDe(row.cliente, row[s + '_modelo'], idGuardado); if (!p) continue;
+      const patch = {};
+      if (!p.conexion && row[s + '_conexion']) patch.conexion = row[s + '_conexion'];
+      if (!p.prn_tipo) patch.prn_tipo = s === 'lbl' ? 'Label' : 'Regular';
+      if (!p.ip && row[s + '_ip']) patch.ip = row[s + '_ip'];
+      if (Object.keys(patch).length){ await db.from('equipos').update(patch).eq('id', p.id); n++; }
+    }
+    if (n) msgs.push(t('filled_prn', { n }));
+  }
+  return msgs;
+}
 function togglePC(){
+  const esPrn = $('tipo').value === 'Impresora';
+  $('prnBox').classList.toggle('hidden', !esPrn);
+  $('prnBox').querySelectorAll('select').forEach(el => el.disabled = !esPrn);
   const on = PC_TIPOS.includes($('tipo').value);
   $('pcBox').classList.toggle('hidden', !on);
   $('pcBox').querySelectorAll('input,select').forEach(el => el.disabled = !on);
   checkPrinterIP();
+  actualizarVinculos();
 }
 function checkPrinterIP(){
   const on = !$('pcBox').classList.contains('hidden');
@@ -912,6 +1026,8 @@ async function save(e){
     d.anydesk = soloDigitos(d.anydesk);
     ['lbl','imp'].forEach(p => { if (d[p + '_conexion'] === 'USB' || d[p + '_conexion'] === 'N/A') d[p + '_ip'] = ''; });
   } else PC_FIELDS.forEach(f => d[f] = '');
+  if (d.tipo !== 'Impresora') PRN_FIELDS.forEach(f => d[f] = '');
+  completarAntes(d);
   const row = clean(d);
   const orig = editId ? items.find(i => i.id === editId) : null;
   row.pc_users = users;
@@ -920,12 +1036,15 @@ async function save(e){
   if (row.ip && items.some(x => x.ip === row.ip && x.cliente === row.cliente && x.id !== editId) &&
       !confirm(t('dup_ip', {ip: row.ip}))) return;
   $('saveBtn').disabled = true;
+  const idGuardado = editId;
   const { error } = editId
     ? await db.from('equipos').update(row).eq('id', editId)
     : await db.from('equipos').insert(row);
+  if (error){ $('saveBtn').disabled = false; return fail(error, t('save_fail')); }
+  let extra = [];
+  try{ extra = await sincronizarDespues(row, idGuardado); }catch(err){ console.warn(err); }
   $('saveBtn').disabled = false;
-  if (error) return fail(error, t('save_fail'));
-  toast(nuevos > 0 ? t('changed_n', { n: nuevos }) : (editId ? t('saved') : t('added')));
+  toast([nuevos > 0 ? t('changed_n', { n: nuevos }) : (editId ? t('saved') : t('added')), ...extra].join(' · '));
   resetForm(true); loadData();
 }
 function resetForm(afterSave){
@@ -946,7 +1065,7 @@ function edit(id){
   fillUsers(getUsers(x), true);
   HIST_FIELDS.forEach(f => lockSecret($(f)));
   const nh = (x.pw_history || []).length;
-  $('histBtn').classList.toggle('hidden', !nh); $('histCount').textContent = nh ? `(${nh})` : '';
+  $('histBtn').classList.remove('hidden'); $('histCount').textContent = `(${nh})`;
   formatMAC($('mac'));
   formatAnyDesk($('anydesk'));
   updateMarcas();
@@ -1205,7 +1324,13 @@ function render(){
       + (us.some(u => u.pw) || x.pc_admin_pw ? ojo(['pc_admin_pw','pc_user_pw','pc_user']) : '');
     const cAD0 = x.anydesk ? `<a class="mono" href="anydesk:${esc(soloDigitos(x.anydesk))}" title="${t('t_anydesk')}">${esc(fmtAD(x.anydesk))}</a> <button class="sm no-print" onclick="copyVal('${x.id}','anydesk')" title="${t('t_copy')}">📋</button>` : '';
     const prn = (ic, m, c, ip) => (m || c || ip) ? `<small>${ic} ${esc(m || '—')}${c ? ' · ' + esc(t('conn.' + c)) : ''}${ip ? ` · <a class="mono" href="http://${esc(ip)}" target="_blank" rel="noopener">${esc(ip)}</a>` : ''}</small>` : '';
-    const cPrn = prn('🏷️', x.lbl_modelo, x.lbl_conexion, x.lbl_ip) + prn('🖨️', x.imp_modelo, x.imp_conexion, x.imp_ip);
+    let cPrn = prn('🏷️', x.lbl_modelo, x.lbl_conexion, x.lbl_ip) + prn('🖨️', x.imp_modelo, x.imp_conexion, x.imp_ip);
+    if (x.tipo === 'Impresora'){
+      const usos = pcsQueUsan(x, x.id);
+      cPrn = (x.prn_tipo ? `<small>${x.prn_tipo === 'Label' ? '🏷️' : '🖨️'} ${esc(t('pk.' + x.prn_tipo))}</small>` : '')
+        + (x.conexion ? `<small>🔌 ${esc(t('conn.' + x.conexion))}</small>` : '')
+        + (usos.length ? `<small>🖥️ ${t('used_by')}: ${usos.map(u => `<span class="mono">${esc(nombrePC(u.pc))}</span>`).join(', ')}</small>` : '');
+    }
     const key = (f, lbl) => x[f] ? `<small>${lbl}: <span class="mono">${vis ? esc(x[f]) : '•••••'}</span> <button class="sm no-print" onclick="copyVal('${x.id}','${f}')" title="${t('t_copy')}">📋</button></small>` : '';
     const cAD = (cAD0 ? `<small>${cAD0}</small>` : '') + secreto('anydesk_pw', '🔑') + cST + ojo(['anydesk_pw']);
     const cLic = key('win_key', 'Win') + key('office_key', 'Office') + (x.antivirus ? `<small>🛡️ ${esc(x.antivirus)}</small>` : '')
@@ -1220,7 +1345,7 @@ function render(){
     <td>${x.estado ? `<span class="badge ${ESTADO_CLS[x.estado] || 'b-off'}">${esc(tEstado(x.estado))}</span>` : ''}</td><td class="notes">${esc(x.notas)}</td>
     <td class="no-print actions-col" style="white-space:nowrap">
       <button class="sm" onclick="edit('${x.id}')">${t('edit')}</button>
-      ${(x.pw_history || []).length ? `<button class="sm hist-btn" onclick="showHistory('${x.id}')" title="${t('hist_title')}">🕘<b>${x.pw_history.length}</b></button>` : ''}
+      <button class="sm hist-btn ${nh ? '' : 'hist-empty'}" onclick="showHistory('${x.id}')" title="${t('hist_title')}">🕘${nh ? `<b>${nh}</b>` : ''}</button>
       <button class="sm" onclick="dup('${x.id}')" title="${t('t_dup')}">⧉</button>
       <button class="sm danger" onclick="del('${x.id}')" title="${t('t_delete')}">✕</button>
     </td></tr>`;
@@ -1261,6 +1386,7 @@ const HEADER_ALIAS = {
   'label printer (model)':'lbl_modelo','label printer connection':'lbl_conexion','label printer ip':'lbl_ip',
   'regular printer (model)':'imp_modelo','regular printer connection':'imp_conexion','regular printer ip':'imp_ip',
   'anydesk password':'anydesk_pw','splashtop':'splashtop','regular user':'pc_user','user':'pc_user','admin user':'pc_admin','administrator':'pc_admin',
+  'connection':'conexion','printer kind':'prn_tipo',
   'client':'cliente','customer':'cliente','address':'direccion','type':'tipo','name':'nombre','model':'modelo','status':'estado','warranty':'garantia'
 };
 function parseCSV(text){

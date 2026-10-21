@@ -352,6 +352,9 @@ thead th.sel-col{z-index:3}
 tbody tr.is-sel td{background:var(--row-hover)}
 .bulk{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 14px;margin-bottom:12px;border:1px solid var(--c1);border-radius:12px;background:var(--row-hover);position:sticky;top:76px;z-index:6}
 .bulk b{color:var(--c1)}
+.bulk-chk{cursor:pointer;font-weight:500;color:var(--text)}
+.bulk-chk input{width:17px;height:17px;accent-color:var(--c1);cursor:pointer}
+.bulk-clear{border-color:var(--c1)!important;color:var(--c1)!important;font-weight:600}
 .bulk-del{border-color:var(--bad)!important;color:var(--bad)!important;font-weight:600}
 .bulk-del:hover{background:var(--bad)!important;color:#fff!important}
 </style>
@@ -365,7 +368,7 @@ tbody tr.is-sel td{background:var(--row-hover)}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v3.3</p>
+    <p class="sub">Network Asset Manager · v3.4</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -381,7 +384,7 @@ tbody tr.is-sel td{background:var(--row-hover)}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v3.3</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v3.4</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -570,9 +573,9 @@ tbody tr.is-sel td{background:var(--row-hover)}
     </div>
     <div class="stats no-print" id="chips" style="margin-bottom:14px"></div>
     <div id="bulkBar" class="bulk no-print hidden">
-      <span>☑️ <b id="selN">0</b> <span data-i18n="selected">selected</span></span>
+      <label class="check bulk-chk" data-i18n-title="sel_clear"><input type="checkbox" id="selBar" checked onclick="limpiarSel()"> <b id="selN">0</b> <span data-i18n="selected">selected</span></label>
       <button class="sm" onclick="selTodos(true)" data-i18n="sel_all_visible">Select all visible</button>
-      <button class="sm" onclick="limpiarSel()" data-i18n="sel_clear">Clear selection</button>
+      <button class="sm bulk-clear" onclick="limpiarSel()">✕ <span data-i18n="sel_clear">Clear selection</span></button>
       <span style="flex:1"></span>
       <button class="danger bulk-del" onclick="borrarSel()">🗑 <span data-i18n="del_selected">Delete selected</span></button>
     </div>
@@ -1125,7 +1128,10 @@ function showHistory(id){
   $('modal').classList.remove('hidden');
 }
 function closeModal(){ $('modal').classList.add('hidden'); }
-document.addEventListener('keydown', e => { if (e.key === 'Escape'){ closeModal(); closeGrupos(); cerrarClienteModal(); cerrarDrawer(); cerrarImport(); } });
+document.addEventListener('keydown', e => { if (e.key === 'Escape'){
+  const abierto = ['modal','gModal','cModal','xModal','drawer'].some(id => $(id) && !$(id).classList.contains('hidden'));
+  closeModal(); closeGrupos(); cerrarClienteModal(); cerrarDrawer(); cerrarImport();
+  if (!abierto && sel.size) limpiarSel(); } });
 function copyText(v){ navigator.clipboard?.writeText(v || '').then(() => toast(t('copied')), () => toast(t('copy_fail'))); }
 function copyUserPw(id, i){ const x = items.find(k => k.id === id); copyText(getUsers(x)[i]?.pw); }
 /* ---------- Vínculo Printer ↔ PC (explícito: se elige con casillas) ---------- */
@@ -1838,7 +1844,7 @@ function actualizarSel(){
   const all = $('selAll');
   all.checked = vis.length > 0 && vis.every(c => c.checked);
   all.indeterminate = !all.checked && vis.some(c => c.checked);
-  $('selN').textContent = sel.size;
+  $('selN').textContent = sel.size; $('selBar').checked = true;
   $('bulkBar').classList.toggle('hidden', !sel.size);
 }
 function selUno(c){ c.checked ? sel.add(c.dataset.id) : sel.delete(c.dataset.id); actualizarSel(); }

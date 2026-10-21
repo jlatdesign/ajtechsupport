@@ -356,7 +356,7 @@ table.x-map select{padding:6px 8px}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v3.1</p>
+    <p class="sub">Network Asset Manager · v3.2</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -372,7 +372,7 @@ table.x-map select{padding:6px 8px}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v3.1</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v3.2</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -748,7 +748,7 @@ en:{
   x_need_key:'Map at least one column to Name, Hostname or Serial so each row can be identified.',
   x_sum:'{r} rows · <b>{u}</b> will be updated · <b>{n}</b> new · {s} skipped (empty or no name)', x_done:'Import done: {u} updated, {n} created',
   x_loading:'Reading file…', x_lib_fail:'Could not load the Excel reader. Check your internet connection.', x_auto:'(auto)', x_type_from:'Use the Type column if present',
-  x_badip:'{n} invalid IP(s) were skipped',
+  x_badip:'{n} invalid IP(s) were skipped', x_prn:'{n} printer(s) detected',
   clients_title:'Clients', new_client:'New client', edit_client:'Edit client', search_clients:'Search clients...', cm_name:'Client / company name',
   cm_contact:'Contact person', cm_phone:'Phone', save_client:'Save client', delete_client:'Delete client', k_groups:'Groups',
   client_has_devices:'This client has {n} device(s). Delete or move them first.', confirm_del_client:'Delete client "{n}"?',
@@ -838,7 +838,7 @@ es:{
   x_need_key:'Asigna al menos una columna a Nombre, Hostname o Serial para identificar cada fila.',
   x_sum:'{r} filas · <b>{u}</b> se actualizan · <b>{n}</b> nuevas · {s} se saltan (vacías o sin nombre)', x_done:'Importación lista: {u} actualizados, {n} creados',
   x_loading:'Leyendo archivo…', x_lib_fail:'No se pudo cargar el lector de Excel. Revisa tu conexión a internet.', x_auto:'(auto)', x_type_from:'Usar la columna Tipo si existe',
-  x_badip:'{n} IP(s) no válidas se omitieron',
+  x_badip:'{n} IP(s) no válidas se omitieron', x_prn:'{n} impresora(s) detectada(s)',
   clients_title:'Clientes', new_client:'Nuevo cliente', edit_client:'Editar cliente', search_clients:'Buscar clientes...', cm_name:'Nombre del cliente / empresa',
   cm_contact:'Persona de contacto', cm_phone:'Teléfono', save_client:'Guardar cliente', delete_client:'Eliminar cliente', k_groups:'Grupos',
   client_has_devices:'Este cliente tiene {n} equipo(s). Bórralos o muévelos primero.', confirm_del_client:'¿Eliminar el cliente "{n}"?',
@@ -1969,7 +1969,7 @@ function xCargarHoja(){
   if (hi < 0) hi = aoa.findIndex(r => r.filter(c => String(c).trim()).length >= 2);
   if (hi < 0) hi = 0;
   X.heads = (aoa[hi] || []).map(h => String(h).trim());
-  X.rows = aoa.slice(hi + 1).filter(r => r.some(c => String(c).trim()) && !/example row/i.test(r.join(' ')));
+  X.rows = aoa.slice(hi + 1).filter(r => r.some(c => String(c).trim()) && !/example row|fila de ejemplo/i.test(r.join(' ')));
   let guardado = {};
   try{ guardado = JSON.parse(localStorage.getItem('inv_xmap') || '{}'); }catch(e){}
   const usados = new Set();
@@ -2023,21 +2023,68 @@ function xFila(r){
   if (!o.nombre) o.nombre = o.hostname || [o.first_name, o.last_name].filter(Boolean).join(' ') || o.serial || '';
   return o;
 }
+/* Limpieza inteligente de filas importadas */
+const titulo = s => String(s || '').replace(/\bversalink\b/gi, 'VersaLink').replace(/\baltalink\b/gi, 'AltaLink').replace(/\b([a-z])([a-z]{2,})\b/g, (m, a, b) => a.toUpperCase() + b);
+// ¿La fila es una impresora? (ej: "Printer Network" en el nombre y sin datos de PC)
+function esImpresoraFila(o){
+  if (o.tipo === 'Impresora') return true;
+  if (o.hostname || o.cpu || o.so || o.ram) return false;
+  const txt = [o.first_name, o.last_name, o.nombre].join(' ');
+  return /printer|impresora|print\b/i.test(txt) && !!(o.imp_modelo || o.lbl_modelo || o.imp_ip || o.lbl_ip || o.ip);
+}
+function aImpresora(o){
+  const una = s => s && !/\s/.test(String(s).trim());
+  const marca = una(o.lbl_modelo) && o.imp_modelo ? o.lbl_modelo : '';
+  let modelo = o.imp_modelo || (marca ? '' : o.lbl_modelo) || '';
+  if (marca && modelo && !nrm(modelo).includes(nrm(marca))) modelo = marca + ' ' + titulo(modelo);
+  modelo = titulo(modelo) || marca || 'Printer';
+  const ip = o.imp_ip || o.lbl_ip || o.ip || '';
+  const conn = o.imp_conexion || o.lbl_conexion || o.conexion || (ip ? 'Network' : '');
+  const depto = /printer|impresora/i.test(o.first_name || '') ? '' : (o.first_name || '').trim();
+  const sitio = (o.notas || '').trim();
+  const p = { cliente: o.cliente, tipo: 'Impresora', estado: o.estado || 'Activo', modelo, ip, conexion: conn,
+    prn_tipo: o.imp_modelo ? 'Regular' : 'Label', lugar: sitio || depto, serial: o.serial, mac: o.mac,
+    nombre: `${modelo} – ${sitio || ip || depto || '?'}`, notas: depto && sitio ? depto : null, _prn: true };
+  Object.keys(p).forEach(k => { if (p[k] == null || p[k] === '') delete p[k]; });
+  return p;
+}
+function limpiarPC(o){
+  // Nombres que no son personas
+  if (/to be determined|server room|^tbd$/i.test([o.first_name, o.last_name].join(' ').trim())){ o.first_name = ''; o.last_name = ''; }
+  // RAM: "16.0 GB (15.7 GB usable)" → "16 GB"
+  if (o.ram){ const m = String(o.ram).match(/([\d.]+)\s*(gb|tb|mb)/i); if (m) o.ram = parseFloat(m[1]) + ' ' + m[2].toUpperCase(); }
+  if (o.so) o.so = o.so.replace(/^windows/i, 'Windows').replace(/\bpro\b/i, 'Pro').replace(/\bhome\b/i, 'Home');
+  // Tipo según el nombre del equipo o el departamento
+  if (!o.tipo){
+    if (/laptop|lptp|macbook|mc ?book|notebook/i.test(o.hostname || '')) o.tipo = 'Laptop';
+    else if (/server|servidor|dataroom/i.test([o.departamento, o.hostname].join(' '))) o.tipo = 'Servidor';
+  }
+  return o;
+}
 function xPlan(){
   xBadIP = 0;
   const key = $('xKey').value, over = $('xOver').checked, tipoDef = $('xType').value;
-  const plan = { upd: [], ins: [], skip: 0 };
+  const plan = { upd: [], ins: [], skip: 0, prn: 0 };
+  const usados = new Set();
   X.rows.forEach(r => {
-    const o = xFila(r);
+    let o = xFila(r);
+    o = esImpresoraFila(o) ? aImpresora(o) : limpiarPC(o);
+    if (o._prn) plan.prn++;
     if (!o.cliente || !o.nombre){ plan.skip++; return; }
-    const kv = nrm(o[key]);
-    const delCli = items.filter(x => mismoCliente(x.cliente, o.cliente));
-    const ex = (kv && delCli.find(x => nrm(x[key]) === kv))
-      || (!kv && delCli.find(x => nrm(x.nombre) === nrm(o.nombre) && (!x[key] || key === 'nombre')));
+    // Impresoras se identifican por IP; el resto por la llave elegida
+    const k = o._prn ? (o.ip ? 'ip' : 'nombre') : key;
+    const kv = nrm(o[k]);
+    const delCli = items.filter(x => mismoCliente(x.cliente, o.cliente) && !usados.has(x.id) && (o._prn ? x.tipo === 'Impresora' : x.tipo !== 'Impresora'));
+    let cands = kv ? delCli.filter(x => nrm(x[k]) === kv) : delCli.filter(x => nrm(x.nombre) === nrm(o.nombre) && (!x[k] || k === 'nombre'));
+    // Hostname repetido: preferir el que tenga la misma IP
+    if (cands.length > 1 && o.ip) cands = [...cands.filter(x => x.ip === o.ip), ...cands.filter(x => x.ip !== o.ip)];
+    const ex = cands[0];
+    delete o._prn;
+    if (ex) usados.add(ex.id);
     if (ex){
       const patch = {}, hist = [];
       Object.keys(o).forEach(f => {
-        if (f === 'cliente' || o[f] === (ex[f] ?? '')) return;
+        if (f === 'cliente' || o[f] == null || o[f] === '' || o[f] === (ex[f] ?? '')) return;
         if (!over && ex[f]) return;
         if (SECRET_FIELDS.includes(f) && ex[f] && HIST_FIELDS.includes(f)) hist.push({ f, v: ex[f], at: new Date().toISOString(), by: ($('whoami').textContent || '') + ' (Excel)' });
         patch[f] = o[f];
@@ -2048,6 +2095,7 @@ function xPlan(){
       const row = clean(o);
       const hojaPC = X.map.some(f => ['hostname','cpu','so','ram','disco','anydesk','first_name','win_key'].includes(f));
       row.tipo = o.tipo || tipoDef || (hojaPC ? 'PC' : 'Otro');
+      if (row.tipo === 'Impresora') PC_FIELDS.forEach(f => row[f] = null);
       row.estado = o.estado || 'Activo';
       if (!row.direccion) row.direccion = clienteObj(o.cliente)?.direccion || null;
       if (o.pc_user || o.pc_user_pw) row.pc_users = [{ user: o.pc_user || '', pw: o.pc_user_pw || '' }];
@@ -2062,7 +2110,7 @@ function xPreview(){
   const faltaKey = !['nombre','hostname','serial'].some(k => X.map.includes(k));
   if (faltaCli || faltaKey){ $('xSummary').innerHTML = '⚠️ ' + (faltaCli ? t('x_need_client') : t('x_need_key')); $('xGo').disabled = true; return; }
   const p = xPlan();
-  $('xSummary').innerHTML = t('x_sum', { r: X.rows.length, u: p.upd.length, n: p.ins.length, s: p.skip }) + (xBadIP ? ' · ⚠️ ' + t('x_badip', { n: xBadIP }) : '');
+  $('xSummary').innerHTML = t('x_sum', { r: X.rows.length, u: p.upd.length, n: p.ins.length, s: p.skip }) + (p.prn ? ' · 🖨️ ' + t('x_prn', { n: p.prn }) : '') + (xBadIP ? ' · ⚠️ ' + t('x_badip', { n: xBadIP }) : '');
   $('xGo').disabled = !(p.upd.length || p.ins.length);
 }
 async function xImportar(){

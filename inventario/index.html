@@ -288,6 +288,13 @@ tbody tr:hover td.actions-col{background:var(--card-solid)}
 .g-chip{display:inline-flex;align-items:center;gap:5px;padding:2px 9px;border-radius:999px;border:1px solid rgba(124,77,255,.5);background:rgba(124,77,255,.12);font-size:12px;white-space:nowrap;cursor:pointer;color:var(--text)}
 .g-chip:hover{border-color:var(--c1)}
 #grupo_id{flex:1}
+.link-box{border:1px dashed var(--line-strong);border-radius:12px;padding:12px;margin-top:12px}
+.link-list{display:flex;flex-wrap:wrap;gap:8px}
+.link-list label{flex-direction:row;align-items:center;gap:8px;font-weight:400;color:var(--text);padding:6px 10px;border:1px solid var(--line);border-radius:10px;cursor:pointer;background:var(--input)}
+.link-list label:has(input:checked){border-color:var(--c1);background:rgba(0,229,255,.08)}
+.link-list input{width:16px;height:16px;accent-color:var(--c2)}
+.link-list small{color:var(--muted)}
+.link-list .muted{font-size:12px}
 </style>
 </head>
 <body>
@@ -364,9 +371,9 @@ tbody tr:hover td.actions-col{background:var(--card-solid)}
         <label><span data-i18n="type">Type</span>
           <select id="tipo" required onchange="updateMarcas()"></select>
         </label>
-        <label><span data-i18n="name">Name</span><input id="nombre" required oninput="actualizarVinculos()" data-i18n-ph="name_ph" placeholder="e.g. Main DVR"></label>
+        <label><span data-i18n="name">Name</span><input id="nombre" required data-i18n-ph="name_ph" placeholder="e.g. Main DVR"></label>
         <label><span data-i18n="area">Location (area)</span><input id="lugar" list="lugares" data-i18n-ph="area_ph" placeholder="e.g. Front desk, IT rack"></label>
-        <label><span data-i18n="brand">Brand / Model</span><input id="modelo" list="marcas" autocomplete="off" oninput="actualizarVinculos()" data-i18n-ph="brand_ph" placeholder="Type or pick a brand"></label>
+        <label><span data-i18n="brand">Brand / Model</span><input id="modelo" list="marcas" autocomplete="off" data-i18n-ph="brand_ph" placeholder="Type or pick a brand"></label>
         <label><span data-i18n="serial">Serial</span><input id="serial" placeholder="SN"></label>
         <label>IP<input id="ip" placeholder="192.168.1.10" inputmode="decimal" maxlength="15" autocomplete="off"
           pattern="((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)"
@@ -395,7 +402,10 @@ tbody tr:hover td.actions-col{background:var(--card-solid)}
           <label><span data-i18n="prn_kind">Printer kind</span><select id="prn_tipo"></select></label>
           <label><span data-i18n="connection">Connection</span><select id="conexion" onchange="actualizarVinculos()"></select></label>
         </div>
-        <div id="prnLinks" class="link-hint"></div>
+        <div class="link-box">
+          <div class="users-head"><span>🔗 <span data-i18n="prn_used_by">PCs that use this printer</span></span></div>
+          <div id="linkList" class="link-list"></div>
+        </div>
       </div>
       <div id="pcBox" class="pc-box hidden">
         <div class="sec"><i>03</i> <span data-i18n="sec_user">Assigned user</span></div>
@@ -433,12 +443,16 @@ tbody tr:hover td.actions-col{background:var(--card-solid)}
           <label><span data-i18n="pc_admin_pw">Administrator password</span><span class="pw"><input id="pc_admin_pw" type="password" class="monoin secret" autocomplete="new-password" placeholder="••••••"><button type="button" class="sm" onclick="toggleField('pc_admin_pw')" data-i18n-title="t_showhide">👁</button></span></label>
         </div>
         <div class="sec"><i>06</i> <span data-i18n="sec_printers">Printers used by this PC</span></div>
-        <div id="pcPrnLinks" class="link-hint"></div>
+        <div class="link-box">
+          <div class="users-head"><span>🔗 <span data-i18n="pc_reg_prns">Registered printers this PC uses</span></span></div>
+          <div id="linkList2" class="link-list"></div>
+        </div>
+        <div class="users-head" style="margin-top:14px"><span data-i18n="other_prns">Other printers (not registered as devices)</span></div>
         <div class="grid-prn">
-          <label><span data-i18n="lbl_model">Label printer (model)</span><input id="lbl_modelo" list="lblList" autocomplete="off" oninput="actualizarVinculos()" placeholder="Zebra ZD421"></label>
+          <label><span data-i18n="lbl_model">Label printer (model)</span><input id="lbl_modelo" list="lblList" autocomplete="off" placeholder="Zebra ZD421"></label>
           <label><span data-i18n="connection">Connection</span><select id="lbl_conexion" onchange="checkPrinterIP()"></select></label>
           <label><span data-i18n="printer_ip">Printer IP</span><input id="lbl_ip" class="monoin" inputmode="decimal" maxlength="15" autocomplete="off" placeholder="192.168.1.50" oninput="formatIP(this);checkPrinterIP()"></label>
-          <label><span data-i18n="reg_model">Regular printer (model)</span><input id="imp_modelo" list="impList" autocomplete="off" oninput="actualizarVinculos()" placeholder="HP LaserJet Pro"></label>
+          <label><span data-i18n="reg_model">Regular printer (model)</span><input id="imp_modelo" list="impList" autocomplete="off" placeholder="HP LaserJet Pro"></label>
           <label><span data-i18n="connection">Connection</span><select id="imp_conexion" onchange="checkPrinterIP()"></select></label>
           <label><span data-i18n="printer_ip">Printer IP</span><input id="imp_ip" class="monoin" inputmode="decimal" maxlength="15" autocomplete="off" placeholder="192.168.1.60" oninput="formatIP(this);checkPrinterIP()"></label>
         </div>
@@ -603,6 +617,9 @@ en:{
   sec_printer:'Printer', prn_kind:'Printer kind', 'pk.Label':'Label printer', 'pk.Regular':'Regular printer',
   used_by:'Used by', link_pcs:'🔗 Used by {n} PC(s) of {c}:', link_none:'No PC of {c} uses this printer yet. In the PC, type this printer\'s name or model in "Printers used by this PC" to link them.',
   link_prn:'🔗 Linked to printer(s) of this client:', confirm_sync_pcs:'This printer is used by {n} PC(s) of {c}:\n{list}\n\nUpdate the connection and IP in those PCs?',
+  prn_used_by:'PCs that use this printer', pc_reg_prns:'Registered printers this PC uses', other_prns:'Other printers (not registered as devices)',
+  no_pcs_client:'This client has no PCs yet.', no_prns_client:'This client has no registered printers yet (add one with Type = Printer).',
+  need_client_first:'Type the client first to see its devices.', linked_n:'Links updated in {n} printer(s)',
   cancel:'Cancel', groups:'Groups', group:'Group', t_groups:'Manage groups of PCs and printers', t_newgroup:'Create a new group for this client',
   group_name_ph:'New group name (e.g. Warehouse)', create_group:'Create group', all_groups:'All groups', no_group:'— No group —',
   choose_client:'Choose a client', g_need_client:'Choose or type the client first', g_need_name:'Type a name for the group',
@@ -676,6 +693,9 @@ es:{
   sec_printer:'Impresora', prn_kind:'Tipo de impresora', 'pk.Label':'Impresora de etiquetas', 'pk.Regular':'Impresora normal',
   used_by:'Usada por', link_pcs:'🔗 La usan {n} PC de {c}:', link_none:'Ninguna PC de {c} usa esta impresora todavía. En la PC, escribe el nombre o modelo de esta impresora en "Impresoras que usa esta PC" para vincularlas.',
   link_prn:'🔗 Vinculada a impresora(s) de este cliente:', confirm_sync_pcs:'Esta impresora la usan {n} PC de {c}:\n{list}\n\n¿Actualizar la conexión y la IP en esas PC?',
+  prn_used_by:'PC que usan esta impresora', pc_reg_prns:'Impresoras registradas que usa esta PC', other_prns:'Otras impresoras (no registradas como equipo)',
+  no_pcs_client:'Este cliente todavía no tiene PC.', no_prns_client:'Este cliente todavía no tiene impresoras registradas (agrega una con Tipo = Printer).',
+  need_client_first:'Escribe primero el cliente para ver sus equipos.', linked_n:'Vínculos actualizados en {n} impresora(s)',
   cancel:'Cancelar', groups:'Grupos', group:'Grupo', t_groups:'Administrar grupos de PC e impresoras', t_newgroup:'Crear un grupo nuevo para este cliente',
   group_name_ph:'Nombre del grupo nuevo (ej: Almacén)', create_group:'Crear grupo', all_groups:'Todos los grupos', no_group:'— Sin grupo —',
   choose_client:'Elige un cliente', g_need_client:'Primero elige o escribe el cliente', g_need_name:'Escribe un nombre para el grupo',
@@ -932,121 +952,43 @@ function closeModal(){ $('modal').classList.add('hidden'); }
 document.addEventListener('keydown', e => { if (e.key === 'Escape'){ closeModal(); closeGrupos(); } });
 function copyText(v){ navigator.clipboard?.writeText(v || '').then(() => toast(t('copied')), () => toast(t('copy_fail'))); }
 function copyUserPw(id, i){ const x = items.find(k => k.id === id); copyText(getUsers(x)[i]?.pw); }
-/* ---------- Vínculo Printer ↔ PC (mismo cliente + mismo nombre o modelo) ---------- */
+/* ---------- Vínculo Printer ↔ PC (explícito: se elige con casillas) ---------- */
 const nrm = s => String(s || '').trim().toLowerCase();
 const mismoCliente = (a, b) => nrm(a) && nrm(a) === nrm(b);
-const coincide = (modeloEnPC, prn) => !!nrm(modeloEnPC) && (nrm(modeloEnPC) === nrm(prn.nombre) || nrm(modeloEnPC) === nrm(prn.modelo));
-// PCs del cliente que usan esta impresora → [{pc, slot}]
-function pcsQueUsan(prn, excluirId){
-  const out = [];
-  items.forEach(x => {
-    if (!PC_TIPOS.includes(x.tipo) || x.id === excluirId || !mismoCliente(x.cliente, prn.cliente)) return;
-    ['lbl','imp'].forEach(s => { if (coincide(x[s + '_modelo'], prn)) out.push({ pc: x, slot: s }); });
-  });
-  return out;
-}
-// Impresora (equipo tipo Printer) del cliente que corresponde a un modelo escrito en la PC
-const impresoraDe = (cliente, modelo, excluirId) =>
-  items.find(x => x.tipo === 'Impresora' && x.id !== excluirId && mismoCliente(x.cliente, cliente) && coincide(modelo, x));
 const nombrePC = x => x.hostname || x.nombre || [x.first_name, x.last_name].filter(Boolean).join(' ') || '—';
+const pcIds = p => Array.isArray(p?.pc_ids) ? p.pc_ids : [];
+const pcsDeImpresora = p => pcIds(p).map(id => items.find(x => x.id === id)).filter(Boolean);
+const impresorasDePC = pc => items.filter(p => p.tipo === 'Impresora' && pcIds(p).includes(pc.id));
+let linkSel = new Set();
 function actualizarVinculos(){
   const tipo = $('tipo').value, c = $('cliente').value.trim();
   if (tipo === 'Impresora'){
     const falta = usaIP($('conexion').value) && !$('ip').value.trim();
     $('ip').classList.toggle('warn-input', falta); $('ip').title = falta ? t('ip_missing') : '';
-    const usos = pcsQueUsan({ cliente: c, nombre: $('nombre').value, modelo: $('modelo').value }, editId);
-    $('prnLinks').innerHTML = !c || (!$('nombre').value.trim() && !$('modelo').value.trim()) ? ''
-      : usos.length ? `${t('link_pcs', { n: usos.length, c: `<b>${esc(c)}</b>` })} ` + usos.map(u => `<span class="link-chip">${u.slot === 'lbl' ? '🏷️' : '🖨️'} ${esc(nombrePC(u.pc))}</span>`).join('')
-      : t('link_none', { c: esc(c) });
-  } else $('prnLinks').innerHTML = '';
-  if (PC_TIPOS.includes(tipo)){
-    const enc = ['lbl','imp'].map(s => impresoraDe(c, $(s + '_modelo').value)).filter(Boolean);
-    $('pcPrnLinks').innerHTML = enc.length ? `${t('link_prn')} ` + enc.map(p => `<span class="link-chip">🖨️ ${esc(p.nombre)}${p.ip ? ' · ' + esc(p.ip) : ''}${p.conexion ? ' · ' + esc(t('conn.' + p.conexion)) : ''}</span>`).join('') : '';
-  } else $('pcPrnLinks').innerHTML = '';
-  // Sugerir impresoras registradas del cliente en los campos de la PC
-  const prns = items.filter(x => x.tipo === 'Impresora' && mismoCliente(x.cliente, c)).flatMap(x => [x.nombre, x.modelo]).filter(Boolean);
-  if (prns.length) ['lblList','impList'].forEach(id => {
-    const ya = [...$(id).options].map(o => o.value);
-    $(id).insertAdjacentHTML('afterbegin', [...new Set(prns)].filter(v => !ya.includes(v)).map(v => `<option value="${esc(v)}">`).join(''));
-  });
+  }
+  const pintar = (box, lista, vacio, etiqueta) => {
+    $(box).innerHTML = !c ? `<span class="muted">${t('need_client_first')}</span>`
+      : !lista.length ? `<span class="muted">${vacio}</span>`
+      : lista.map(x => `<label><input type="checkbox" data-id="${x.id}" ${linkSel.has(x.id) ? 'checked' : ''} onchange="this.checked?linkSel.add(this.dataset.id):linkSel.delete(this.dataset.id)"> ${etiqueta(x)}</label>`).join('');
+  };
+  if (tipo === 'Impresora')
+    pintar('linkList', items.filter(x => PC_TIPOS.includes(x.tipo) && mismoCliente(x.cliente, c)), t('no_pcs_client'),
+      x => `${TIPO_ICON[x.tipo]} ${esc(x.nombre)} <small>${esc([x.hostname !== x.nombre ? x.hostname : '', [x.first_name, x.last_name].filter(Boolean).join(' ')].filter(Boolean).join(' · '))}</small>`);
+  if (PC_TIPOS.includes(tipo))
+    pintar('linkList2', items.filter(x => x.tipo === 'Impresora' && mismoCliente(x.cliente, c) && x.id !== editId), t('no_prns_client'),
+      x => `${x.prn_tipo === 'Label' ? '🏷️' : '🖨️'} ${esc(x.nombre)} <small>${esc([x.modelo, x.conexion ? t('conn.' + x.conexion) : '', x.ip].filter(Boolean).join(' · '))}</small>`);
 }
-// Antes de guardar: completar lo que falta con los datos del equipo vinculado
-function completarAntes(d){
-  if (d.tipo === 'Impresora'){
-    const u = pcsQueUsan(d, editId)[0];
-    if (u){
-      if (!d.conexion && u.pc[u.slot + '_conexion']) d.conexion = u.pc[u.slot + '_conexion'];
-      if (!d.prn_tipo) d.prn_tipo = u.slot === 'lbl' ? 'Label' : 'Regular';
-      if (!d.ip && u.pc[u.slot + '_ip']) d.ip = u.pc[u.slot + '_ip'];
-    }
+// PC guardada → actualizar la lista "pc_ids" de cada impresora del cliente
+async function guardarVinculosPC(pcId, cliente){
+  let n = 0;
+  for (const p of items.filter(x => x.tipo === 'Impresora' && mismoCliente(x.cliente, cliente))){
+    const tiene = pcIds(p).includes(pcId), quiere = linkSel.has(p.id);
+    if (tiene === quiere) continue;
+    const ids = quiere ? [...pcIds(p), pcId] : pcIds(p).filter(i => i !== pcId);
+    const { error } = await db.from('equipos').update({ pc_ids: ids }).eq('id', p.id);
+    if (!error) n++;
   }
-  if (PC_TIPOS.includes(d.tipo)) ['lbl','imp'].forEach(s => {
-    const p = impresoraDe(d.cliente, d[s + '_modelo']); if (!p) return;
-    if (!d[s + '_conexion'] && p.conexion) d[s + '_conexion'] = p.conexion;
-    if (!d[s + '_ip'] && p.ip && usaIP(d[s + '_conexion'] || p.conexion)) d[s + '_ip'] = p.ip;
-  });
-}
-// Printer con el mismo cliente + nombre que un equipo existente → se une a ese equipo
-// Devuelve: null = guardar normal · 'abort' = no guardar · texto = ya se unió (mensaje)
-async function fusionarImpresora(row){
-  const dest = items.find(x => x.id !== editId && mismoCliente(x.cliente, row.cliente) && nrm(row.nombre)
-    && (nrm(x.nombre) === nrm(row.nombre) || nrm(x.hostname) === nrm(row.nombre))
-    && (PC_TIPOS.includes(x.tipo) || x.tipo === 'Impresora'));
-  if (!dest) return null;
-  let patch = {}, msg;
-  if (PC_TIPOS.includes(dest.tipo)){
-    if (!confirm(t('merge_pc', { c: dest.cliente, n: dest.nombre, tipo: tTipo(dest.tipo) }))) return null;
-    let slot = row.prn_tipo === 'Label' ? 'lbl' : row.prn_tipo === 'Regular' ? 'imp' : null;
-    if (!slot) slot = coincide(dest.lbl_modelo, row) ? 'lbl' : coincide(dest.imp_modelo, row) ? 'imp'
-                    : !dest.imp_modelo ? 'imp' : !dest.lbl_modelo ? 'lbl' : 'imp';
-    const nuevoModelo = row.modelo || dest[slot + '_modelo'] || row.nombre;
-    if (dest[slot + '_modelo'] && !coincide(dest[slot + '_modelo'], row) && nrm(dest[slot + '_modelo']) !== nrm(nuevoModelo)
-        && !confirm(t('replace_slot', { n: dest.nombre, k: t('slot.' + slot), m: dest[slot + '_modelo'], nm: nuevoModelo }))) return 'abort';
-    const conn = row.conexion || dest[slot + '_conexion'] || null;
-    patch = { [slot + '_modelo']: nuevoModelo, [slot + '_conexion']: conn,
-              [slot + '_ip']: usaIP(conn) ? (row.ip || dest[slot + '_ip'] || null) : null };
-    msg = t('merged_pc', { n: nombrePC(dest) });
-  } else {
-    if (!confirm(t('merge_prn', { c: dest.cliente, n: dest.nombre }))) return null;
-    FIELDS.forEach(k => { if (row[k] != null && row[k] !== '' && k !== 'nombre' && k !== 'cliente') patch[k] = row[k]; });
-    msg = t('merged_prn', { n: dest.nombre });
-  }
-  const { error } = await db.from('equipos').update(patch).eq('id', dest.id);
-  if (error){ fail(error, t('save_fail')); return 'abort'; }
-  if (editId){ await db.from('equipos').delete().eq('id', editId); msg += ' · ' + t('dup_removed'); }
-  return msg;
-}
-// Después de guardar: pasar los datos al otro lado
-async function sincronizarDespues(row, idGuardado){
-  let msgs = [];
-  if (row.tipo === 'Impresora'){
-    const usos = pcsQueUsan(row, idGuardado).filter(u => {
-      const conn = row.conexion || u.pc[u.slot + '_conexion'] || '';
-      const ip = usaIP(conn) ? (row.ip || u.pc[u.slot + '_ip'] || '') : '';
-      return (u.pc[u.slot + '_conexion'] || '') !== conn || (u.pc[u.slot + '_ip'] || '') !== ip;
-    });
-    if (usos.length && confirm(t('confirm_sync_pcs', { n: usos.length, c: row.cliente, list: usos.map(u => '• ' + nombrePC(u.pc)).join('\n') }))){
-      for (const u of usos){
-        const conn = row.conexion || u.pc[u.slot + '_conexion'] || null;
-        const patch = { [u.slot + '_conexion']: conn, [u.slot + '_ip']: usaIP(conn) ? (row.ip || u.pc[u.slot + '_ip'] || null) : null };
-        await db.from('equipos').update(patch).eq('id', u.pc.id);
-      }
-      msgs.push(t('synced', { n: usos.length }));
-    }
-  }
-  if (PC_TIPOS.includes(row.tipo)){
-    let n = 0;
-    for (const s of ['lbl','imp']){
-      const p = impresoraDe(row.cliente, row[s + '_modelo'], idGuardado); if (!p) continue;
-      const patch = {};
-      if (!p.conexion && row[s + '_conexion']) patch.conexion = row[s + '_conexion'];
-      if (!p.prn_tipo) patch.prn_tipo = s === 'lbl' ? 'Label' : 'Regular';
-      if (!p.ip && row[s + '_ip']) patch.ip = row[s + '_ip'];
-      if (Object.keys(patch).length){ await db.from('equipos').update(patch).eq('id', p.id); n++; }
-    }
-    if (n) msgs.push(t('filled_prn', { n }));
-  }
-  return msgs;
+  return n;
 }
 /* ---------- Grupos ---------- */
 let grupos = [], gruposOK = true, gAbierto = null;
@@ -1217,9 +1159,9 @@ async function save(e){
     ['lbl','imp'].forEach(p => { if (d[p + '_conexion'] && !usaIP(d[p + '_conexion'])) d[p + '_ip'] = ''; });
   } else PC_FIELDS.forEach(f => d[f] = '');
   if (d.tipo !== 'Impresora') PRN_FIELDS.forEach(f => d[f] = '');
-  completarAntes(d);
   const row = clean(d);
   row.grupo_id = $('grupo_id').value || null;
+  row.pc_ids = d.tipo === 'Impresora' ? [...linkSel].filter(id => items.some(x => x.id === id && PC_TIPOS.includes(x.tipo))) : [];
   const orig = editId ? items.find(i => i.id === editId) : null;
   row.pc_users = users;
   row.pw_history = construirHistorial(orig, row, users);
@@ -1227,18 +1169,14 @@ async function save(e){
   if (row.ip && items.some(x => x.ip === row.ip && x.cliente === row.cliente && x.id !== editId) &&
       !confirm(t('dup_ip', {ip: row.ip}))) return;
   $('saveBtn').disabled = true;
-  if (row.tipo === 'Impresora'){
-    const r = await fusionarImpresora(row);
-    if (r === 'abort'){ $('saveBtn').disabled = false; return; }
-    if (r){ $('saveBtn').disabled = false; toast(r); resetForm(true); loadData(); return; }
-  }
-  const idGuardado = editId;
-  const { error } = editId
-    ? await db.from('equipos').update(row).eq('id', editId)
-    : await db.from('equipos').insert(row);
+  let idGuardado = editId, error;
+  if (editId) ({ error } = await db.from('equipos').update(row).eq('id', editId));
+  else { const r = await db.from('equipos').insert(row).select().single(); error = r.error; idGuardado = r.data?.id; }
   if (error){ $('saveBtn').disabled = false; return fail(error, t('save_fail')); }
   let extra = [];
-  try{ extra = await sincronizarDespues(row, idGuardado); }catch(err){ console.warn(err); }
+  if (PC_TIPOS.includes(row.tipo) && idGuardado){
+    try{ const n = await guardarVinculosPC(idGuardado, row.cliente); if (n) extra.push(t('linked_n', { n })); }catch(err){ console.warn(err); }
+  }
   $('saveBtn').disabled = false;
   toast([nuevos > 0 ? t('changed_n', { n: nuevos }) : (editId ? t('saved') : t('added')), ...extra].join(' · '));
   resetForm(true); loadData();
@@ -1246,7 +1184,7 @@ async function save(e){
 function resetForm(afterSave){
   const c = $('cliente').value, dir = $('direccion').value;
   const gKeep = $('grupo_id').value;
-  $('form').reset(); editId = null;
+  $('form').reset(); editId = null; linkSel = new Set();
   unlockAll(); fillUsers([], false); $('histBtn').classList.add('hidden');
   document.querySelectorAll('#form input.secret').forEach(el => { el.type = 'password'; delete el.dataset.orig; });
   if (afterSave === true && $('keepClient').checked){ $('cliente').value = c; $('direccion').value = dir; }
@@ -1260,6 +1198,7 @@ function edit(id){
   unlockAll();
   FIELDS.forEach(f => $(f).value = x[f] || '');
   fillGrupoSelect(); $('grupo_id').value = x.grupo_id || ''; fillGrupoSelect();
+  linkSel = new Set(x.tipo === 'Impresora' ? pcIds(x) : PC_TIPOS.includes(x.tipo) ? impresorasDePC(x).map(p => p.id) : []);
   document.querySelectorAll('#form input.secret').forEach(el => { el.type = 'password'; if (el.id) el.dataset.orig = el.value; });
   fillUsers(getUsers(x), true);
   HIST_FIELDS.forEach(f => lockSecret($(f)));
@@ -1282,7 +1221,7 @@ async function del(id){
 function dup(id){
   const x = items.find(i => i.id === id); edit(id);
   editId = null; ['serial','ip','mac','hostname','anydesk','anydesk_pw','win_key','office_key','first_name','last_name','celular','email','pc_user_pw','pc_admin_pw'].forEach(f => $(f).value = '');
-  unlockAll(); $('histBtn').classList.add('hidden');
+  unlockAll(); $('histBtn').classList.add('hidden'); linkSel = new Set(); actualizarVinculos();
   fillUsers(getUsers(x).map(u => ({ user: u.user, pw: '' })), false);
   HIST_FIELDS.forEach(f => { $(f).value = ''; delete $(f).dataset.orig; });
   $('nombre').value = x.nombre + t('copy_suffix');
@@ -1529,8 +1468,12 @@ function render(){
     const cAD0 = x.anydesk ? `<a class="mono" href="anydesk:${esc(soloDigitos(x.anydesk))}" title="${t('t_anydesk')}">${esc(fmtAD(x.anydesk))}</a> <button class="sm no-print" onclick="copyVal('${x.id}','anydesk')" title="${t('t_copy')}">📋</button>` : '';
     const prn = (ic, m, c, ip) => (m || c || ip) ? `<small>${ic} ${esc(m || '—')}${c ? ' · ' + esc(t('conn.' + c)) : ''}${ip ? ` · <a class="mono" href="http://${esc(ip)}" target="_blank" rel="noopener">${esc(ip)}</a>` : ''}</small>` : '';
     let cPrn = prn('🏷️', x.lbl_modelo, x.lbl_conexion, x.lbl_ip) + prn('🖨️', x.imp_modelo, x.imp_conexion, x.imp_ip);
+    if (PC_TIPOS.includes(x.tipo)){
+      const vp = impresorasDePC(x);
+      if (vp.length) cPrn = vp.map(p => `<small>🔗 ${p.prn_tipo === 'Label' ? '🏷️' : '🖨️'} ${esc(p.nombre)}${p.conexion ? ' · ' + esc(t('conn.' + p.conexion)) : ''}${p.ip ? ` · <a class="mono" href="http://${esc(p.ip)}" target="_blank" rel="noopener">${esc(p.ip)}</a>` : ''}</small>`).join('') + cPrn;
+    }
     if (x.tipo === 'Impresora'){
-      const usos = pcsQueUsan(x, x.id);
+      const usos = pcsDeImpresora(x).map(pc => ({ pc }));
       cPrn = (x.prn_tipo ? `<small>${x.prn_tipo === 'Label' ? '🏷️' : '🖨️'} ${esc(t('pk.' + x.prn_tipo))}</small>` : '')
         + (x.conexion ? `<small>🔌 ${esc(t('conn.' + x.conexion))}</small>` : '')
         + (usos.length ? `<small>🖥️ ${t('used_by')}: ${usos.map(u => `<span class="mono">${esc(nombrePC(u.pc))}</span>`).join(', ')}</small>` : '');
@@ -1587,7 +1530,7 @@ function download(name, content, type){
   a.download = name; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
 }
 const stamp = () => new Date().toISOString().slice(0,10);
-function exportJSON(){ download(`inventario-${stamp()}.json`, JSON.stringify(items.map(x => ({ ...clean(x), pc_users: getUsers(x), pw_history: x.pw_history || [], grupo: grupoDe(x)?.nombre || null })), null, 2), 'application/json'); }
+function exportJSON(){ download(`inventario-${stamp()}.json`, JSON.stringify(items.map(x => ({ ...clean(x), pc_users: getUsers(x), pw_history: x.pw_history || [], pc_ids: pcIds(x), grupo: grupoDe(x)?.nombre || null })), null, 2), 'application/json'); }
 function exportCSV(){
   const incluirPw = confirm(t('csv_pw'));
   const q = v => `"${String(v ?? '').replace(/"/g,'""')}"`;

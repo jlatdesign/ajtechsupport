@@ -22,14 +22,20 @@
 }
 /* ===== Tema claro ===== */
 :root[data-theme="light"]{
-  --bg:#f3f5fb; --bg2:#ffffff; --card:rgba(255,255,255,.85); --card-solid:#ffffff;
-  --line:rgba(16,24,48,.10); --line-strong:rgba(16,24,48,.18);
-  --text:#121a2e; --muted:#5a6482; --dim:#8a93ad;
-  --c1:#0094b8; --c2:#6a3df0; --c3:#d61f8f;
-  --input:#ffffff; --row-hover:rgba(106,61,240,.05);
-  --ok:#0f9d58; --warn:#b7791f; --off:#6b7280; --bad:#d6334f;
-  --glow:.10; --grid-line:rgba(106,61,240,.06);
+  --bg:#f4f5f6; --bg2:#ffffff; --card:#ffffff; --card-solid:#ffffff;
+  --line:#e3e5e8; --line-strong:#cfd3d8;
+  --text:#212327; --muted:#6b7280; --dim:#9ca3af;
+  --c1:#006fff; --c2:#006fff; --c3:#2f86ff;
+  --grad:linear-gradient(120deg,#006fff,#2f86ff);
+  --input:#ffffff; --row-hover:#f2f6ff;
+  --ok:#12b76a; --warn:#e0a800; --off:#9ca3af; --bad:#e5484d;
+  --glow:0; --grid-line:transparent;
 }
+:root[data-theme="light"] .logo-mark,:root[data-theme="light"] button.primary,:root[data-theme="light"] button.primary:hover,
+:root[data-theme="light"] .chip.on,:root[data-theme="light"] .lang button.on{color:#fff}
+:root[data-theme="light"] .logo-mark,:root[data-theme="light"] button.primary{box-shadow:none}
+:root[data-theme="light"] .kpi::after{background:#006fff}
+:root[data-theme="light"] .client-box{background:#eef4ff;border-color:#d6e4ff}
 *{box-sizing:border-box}
 html,body{margin:0}
 body{
@@ -295,6 +301,40 @@ tbody tr:hover td.actions-col{background:var(--card-solid)}
 .link-list input{width:16px;height:16px;accent-color:var(--c2)}
 .link-list small{color:var(--muted)}
 .link-list .muted{font-size:12px}
+/* ===== Vista de clientes (estilo UniFi Site Manager) ===== */
+.cv-top{display:flex;justify-content:space-between;align-items:flex-end;gap:14px;flex-wrap:wrap;margin-bottom:16px}
+.cv-top h2,.cl-info h2{margin:0;font:700 22px "Space Grotesk",sans-serif}
+.cv-top .search{min-width:260px}
+.site-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px}
+.site-card{background:var(--card-solid);border:1px solid var(--line);border-radius:12px;padding:16px;cursor:pointer;transition:border-color .15s,box-shadow .15s,transform .15s;display:flex;flex-direction:column;gap:10px;min-height:178px}
+.site-card:hover{border-color:var(--c1);box-shadow:0 6px 20px -10px rgba(0,111,255,.45);transform:translateY(-1px)}
+.site-card h3{margin:0;font:700 14.5px Inter,sans-serif;letter-spacing:.02em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sc-sub{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:12.5px}
+.sc-sub .dot{width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:none;animation:none}
+.sc-sub .dot.warn{background:var(--warn)} .sc-sub .dot.off{background:var(--off)}
+.sc-bar{display:flex;height:7px;border-radius:4px;overflow:hidden;background:var(--line)}
+.sc-bar i{display:block;height:100%}
+.sc-addr{font-size:12.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sc-addr a{color:var(--muted);text-decoration:none}.sc-addr a:hover{color:var(--c1)}
+.sc-icons{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:10px;border-top:1px solid var(--line)}
+.sc-icons span{display:inline-flex;align-items:center;gap:4px;font-size:12px;padding:3px 8px;border-radius:8px;background:var(--bg);border:1px solid var(--line)}
+.sc-icons .empty{background:none;border:0;color:var(--dim);padding:3px 0}
+.site-card.add{align-items:center;justify-content:center;border-style:dashed;color:var(--c1);font-weight:600;font-size:15px}
+.site-card.add:hover{background:var(--row-hover)}
+/* Cabecera del cliente */
+.cl-head{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+.cl-info{flex:1;min-width:220px}
+.cl-info .muted{font-size:13px;margin-top:3px}
+.cl-info .muted a{color:var(--muted)}
+.backbtn{padding:8px 12px}
+#devTable.scoped th:nth-child(1),#devTable.scoped td:nth-child(1):not(.empty){display:none}
+/* Panel lateral del formulario */
+.drawer{position:fixed;inset:0;z-index:55;background:rgba(15,20,30,.45);backdrop-filter:blur(2px);display:flex;justify-content:flex-end}
+.drawer-panel{width:min(980px,100%);height:100%;overflow-y:auto;margin:0;border-radius:0;border-width:0 0 0 1px;background:var(--bg)!important;padding:22px}
+.drawer-panel .modal-head{position:sticky;top:-22px;z-index:5;background:var(--bg);padding:10px 0;margin:-10px 0 10px}
+input[readonly].client-lock{background:var(--bg);color:var(--muted);cursor:not-allowed}
+.grid2c{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:640px){.grid2c{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -342,14 +382,39 @@ tbody tr:hover td.actions-col{background:var(--card-solid)}
 </header>
 
 <div class="wrap">
+<!-- ===== Vista: lista de clientes ===== -->
+<div id="clientsView">
+  <div class="cv-top">
+    <div><h2 data-i18n="clients_title">Clients</h2><small class="muted" id="cvCount"></small></div>
+    <div class="row">
+      <div class="search"><input id="cq" data-i18n-ph="search_clients" placeholder="Search clients..." oninput="renderClientes()"></div>
+      <button class="primary" onclick="abrirClienteModal()">＋ <span data-i18n="new_client">New client</span></button>
+    </div>
+  </div>
+  <div id="clientGrid" class="site-grid"></div>
+</div>
+
+<!-- ===== Vista: un cliente ===== -->
+<div id="clientView" class="hidden">
+  <div class="cl-head">
+    <button class="backbtn" onclick="volverClientes()">← <span data-i18n="clients_title">Clients</span></button>
+    <div class="cl-info"><h2 id="clNombre"></h2><div id="clMeta" class="muted"></div></div>
+    <div class="row no-print">
+      <button onclick="abrirClienteModal(curCliente)">✏️ <span data-i18n="edit_client">Edit client</span></button>
+      <button onclick="openGrupos()">🗂 <span data-i18n="groups">Groups</span></button>
+      <button class="primary" onclick="nuevoEquipo()">＋ <span data-i18n="add_device">Add device</span></button>
+    </div>
+  </div>
   <div class="kpis no-print">
     <div class="kpi"><span data-i18n="k_devices">Devices</span><b id="kTotal">0</b></div>
-    <div class="kpi"><span data-i18n="k_clients">Clients</span><b id="kClientes">0</b></div>
+    <div class="kpi"><span data-i18n="k_groups">Groups</span><b id="kClientes">0</b></div>
     <div class="kpi"><span data-i18n="k_active">Active</span><b class="ok" id="kActivos">0</b></div>
     <div class="kpi"><span data-i18n="k_repair">In repair</span><b class="warn" id="kRep">0</b></div>
   </div>
 
-  <div class="card no-print">
+  <div id="drawer" class="drawer hidden" onclick="if(event.target===this)cerrarDrawer()">
+  <div class="drawer-panel card no-print">
+    <div class="modal-head"><h3 id="drawerTitle"></h3><button type="button" class="sm" onclick="cerrarDrawer()">✕</button></div>
     <form id="form" onsubmit="save(event)">
       <div class="client-box">
         <div class="sec"><i>01</i> <span data-i18n="sec_client">Client</span></div>
@@ -358,7 +423,7 @@ tbody tr:hover td.actions-col{background:var(--card-solid)}
           <label><span data-i18n="address">Address</span>
             <div class="addr-wrap">
               <input id="direccion" autocomplete="off" data-i18n-ph="address_ph" placeholder="Start typing the address..."
-                oninput="buscarDireccion(this.value)" onkeydown="navDireccion(event)" onblur="setTimeout(cerrarSugerencias,150)">
+                oninput="buscarDireccion(this.value,this)" onkeydown="navDireccion(event)" onblur="setTimeout(cerrarSugerencias,150)">
               <button type="button" class="maps-btn" onclick="abrirMapa($('direccion').value)" data-i18n-title="t_maps">📍 Maps</button>
               <div id="addrList" class="suggest hidden"></div>
             </div>
@@ -466,11 +531,12 @@ tbody tr:hover td.actions-col{background:var(--card-solid)}
       <div class="row" style="margin-top:16px">
         <button class="primary" type="submit" id="saveBtn" data-i18n="add_device">Add device</button>
         <button type="button" onclick="resetForm()" data-i18n="clear">Clear</button>
-        <label class="check"><input type="checkbox" id="keepClient" checked> <span data-i18n="keep_client">Keep client after adding</span></label>
+        <label class="check hidden"><input type="checkbox" id="keepClient" checked> <span data-i18n="keep_client">Keep client after adding</span></label>
         <button type="button" id="histBtn" class="hidden" onclick="showHistory(editId)">🕘 <span data-i18n="history">History</span> <span id="histCount"></span></button>
         <span class="muted" id="editMsg"></span>
       </div>
     </form>
+  </div>
   </div>
 
   <div class="card">
@@ -484,7 +550,7 @@ tbody tr:hover td.actions-col{background:var(--card-solid)}
     </div>
     <div class="stats no-print" id="chips" style="margin-bottom:14px"></div>
     <div class="table-wrap">
-      <table>
+      <table id="devTable">
         <thead><tr>
           <th data-k="cliente" data-i18n="client">Client</th><th data-k="direccion" data-i18n="address">Address</th>
           <th data-k="tipo" data-i18n="type">Type</th><th data-k="nombre" data-i18n="name">Name</th><th data-i18n="group">Group</th><th data-k="lugar" data-i18n="th_area">Area</th>
@@ -499,7 +565,36 @@ tbody tr:hover td.actions-col{background:var(--card-solid)}
   </div>
 </div>
 </div>
+</div>
 <div class="toast" id="toast"></div>
+<div id="cModal" class="modal hidden" onclick="if(event.target===this)cerrarClienteModal()">
+  <div class="modal-card">
+    <div class="modal-head"><h3 id="cmTitle"></h3><button class="sm" onclick="cerrarClienteModal()">✕</button></div>
+    <form id="cForm" onsubmit="guardarCliente(event)">
+      <div class="grid2c">
+        <label class="full"><span data-i18n="cm_name">Client / company name</span><input id="cm_nombre" required autocomplete="off"></label>
+        <label class="full"><span data-i18n="address">Address</span>
+          <div class="addr-wrap">
+            <input id="cm_direccion" autocomplete="off" data-i18n-ph="address_ph" placeholder="Start typing the address..."
+              oninput="buscarDireccion(this.value,this)" onkeydown="navDireccion(event)" onblur="setTimeout(cerrarSugerencias,150)">
+            <button type="button" class="maps-btn" onclick="abrirMapa($('cm_direccion').value)" data-i18n-title="t_maps">📍 Maps</button>
+            <div class="suggest hidden"></div>
+          </div>
+        </label>
+        <label><span data-i18n="cm_contact">Contact person</span><input id="cm_contacto" autocomplete="off"></label>
+        <label><span data-i18n="cm_phone">Phone</span><input id="cm_telefono" type="tel" autocomplete="off" placeholder="(305) 555-0123" oninput="formatPhone(this)"></label>
+        <label class="full">Email<input id="cm_email" type="email" autocomplete="off" placeholder="name@company.com"></label>
+        <label class="full"><span data-i18n="notes">Notes</span><textarea id="cm_notas"></textarea></label>
+      </div>
+      <div class="row" style="margin-top:16px">
+        <button class="primary" type="submit" data-i18n="save_client">Save client</button>
+        <button type="button" onclick="cerrarClienteModal()" data-i18n="cancel">Cancel</button>
+        <span class="sp" style="flex:1"></span>
+        <button type="button" id="cmDel" class="danger hidden" onclick="borrarCliente()">✕ <span data-i18n="delete_client">Delete client</span></button>
+      </div>
+    </form>
+  </div>
+</div>
 <div id="gModal" class="modal hidden" onclick="if(event.target===this)closeGrupos()">
   <div class="modal-card g-card-wide">
     <div class="modal-head"><h3>🗂 <span data-i18n="groups">Groups</span></h3><button class="sm" onclick="closeGrupos()">✕</button></div>
@@ -577,7 +672,7 @@ en:{
   registered:'Registered devices', search_ph:'Search by client, name, IP, MAC, serial, model, notes...',
   all_clients:'All clients', all_areas:'All areas', show_pw:'Show passwords', all:'All',
   th_area:'Area', th_model:'Model', edit:'Edit', count:'{n} / {t} devices',
-  no_results:'No results', empty:'No devices yet. Add the first one above.',
+  no_results:'No results', empty:'No devices yet. Click ＋ Add device to add the first one.',
   // Tipos y estados (la clave es el valor guardado)
   'tipo.DVR':'DVR','tipo.NVR':'NVR','tipo.Cámara':'Camera','tipo.PC':'PC','tipo.Laptop':'Laptop','tipo.Teléfono':'Phone',
   'tipo.Router':'Router','tipo.Switch':'Switch','tipo.Access Point':'Access Point','tipo.Impresora':'Printer','tipo.Servidor':'Server',
@@ -617,6 +712,13 @@ en:{
   sec_printer:'Printer', prn_kind:'Printer kind', 'pk.Label':'Label printer', 'pk.Regular':'Regular printer',
   used_by:'Used by', link_pcs:'🔗 Used by {n} PC(s) of {c}:', link_none:'No PC of {c} uses this printer yet. In the PC, type this printer\'s name or model in "Printers used by this PC" to link them.',
   link_prn:'🔗 Linked to printer(s) of this client:', confirm_sync_pcs:'This printer is used by {n} PC(s) of {c}:\n{list}\n\nUpdate the connection and IP in those PCs?',
+  clients_title:'Clients', new_client:'New client', edit_client:'Edit client', search_clients:'Search clients...', cm_name:'Client / company name',
+  cm_contact:'Contact person', cm_phone:'Phone', save_client:'Save client', delete_client:'Delete client', k_groups:'Groups',
+  client_has_devices:'This client has {n} device(s). Delete or move them first.', confirm_del_client:'Delete client "{n}"?',
+  client_exists:'A client named "{n}" already exists', client_saved:'Client saved', client_deleted:'Client deleted',
+  update_addr_devices:'Also update the address in {n} device(s) of this client?', n_devices:'{n} devices', n_groups:'{n} groups', n_device1:'1 device', n_group1:'1 group',
+  no_devices_yet:'No devices yet', edit_device:'Edit device', clients_count:'{n} clients · {d} devices', no_clients:'No clients found.',
+  clients_missing:'The clients table is not set up yet. Run the clients SQL in Supabase.', n_repair:'{n} in repair', all_ok:'All active',
   prn_used_by:'PCs that use this printer', pc_reg_prns:'Registered printers this PC uses', other_prns:'Other printers (not registered as devices)',
   no_pcs_client:'This client has no PCs yet.', no_prns_client:'This client has no registered printers yet (add one with Type = Printer).',
   need_client_first:'Type the client first to see its devices.', linked_n:'Links updated in {n} printer(s)',
@@ -656,7 +758,7 @@ es:{
   registered:'Equipos registrados', search_ph:'Buscar por cliente, nombre, IP, MAC, serial, modelo, notas...',
   all_clients:'Todos los clientes', all_areas:'Todas las áreas', show_pw:'Mostrar passwords', all:'Todos',
   th_area:'Área', th_model:'Modelo', edit:'Editar', count:'{n} / {t} equipos',
-  no_results:'No hay resultados', empty:'Aún no hay equipos. Agrega el primero arriba.',
+  no_results:'No hay resultados', empty:'Aún no hay equipos. Haz clic en ＋ Agregar equipo para agregar el primero.',
   'tipo.DVR':'DVR','tipo.NVR':'NVR','tipo.Cámara':'Cámara','tipo.PC':'PC','tipo.Laptop':'Laptop','tipo.Teléfono':'Teléfono',
   'tipo.Router':'Router','tipo.Switch':'Switch','tipo.Access Point':'Access Point','tipo.Impresora':'Impresora','tipo.Servidor':'Servidor',
   'tipo.Control de Acceso':'Control de Acceso','tipo.Otro':'Otro',
@@ -693,6 +795,13 @@ es:{
   sec_printer:'Impresora', prn_kind:'Tipo de impresora', 'pk.Label':'Impresora de etiquetas', 'pk.Regular':'Impresora normal',
   used_by:'Usada por', link_pcs:'🔗 La usan {n} PC de {c}:', link_none:'Ninguna PC de {c} usa esta impresora todavía. En la PC, escribe el nombre o modelo de esta impresora en "Impresoras que usa esta PC" para vincularlas.',
   link_prn:'🔗 Vinculada a impresora(s) de este cliente:', confirm_sync_pcs:'Esta impresora la usan {n} PC de {c}:\n{list}\n\n¿Actualizar la conexión y la IP en esas PC?',
+  clients_title:'Clientes', new_client:'Nuevo cliente', edit_client:'Editar cliente', search_clients:'Buscar clientes...', cm_name:'Nombre del cliente / empresa',
+  cm_contact:'Persona de contacto', cm_phone:'Teléfono', save_client:'Guardar cliente', delete_client:'Eliminar cliente', k_groups:'Grupos',
+  client_has_devices:'Este cliente tiene {n} equipo(s). Bórralos o muévelos primero.', confirm_del_client:'¿Eliminar el cliente "{n}"?',
+  client_exists:'Ya existe un cliente llamado "{n}"', client_saved:'Cliente guardado', client_deleted:'Cliente eliminado',
+  update_addr_devices:'¿Actualizar también la dirección en {n} equipo(s) de este cliente?', n_devices:'{n} equipos', n_groups:'{n} grupos', n_device1:'1 equipo', n_group1:'1 grupo',
+  no_devices_yet:'Sin equipos todavía', edit_device:'Editar equipo', clients_count:'{n} clientes · {d} equipos', no_clients:'No se encontraron clientes.',
+  clients_missing:'La tabla de clientes aún no está configurada. Corre el SQL de clientes en Supabase.', n_repair:'{n} en reparación', all_ok:'Todos activos',
   prn_used_by:'PC que usan esta impresora', pc_reg_prns:'Impresoras registradas que usa esta PC', other_prns:'Otras impresoras (no registradas como equipo)',
   no_pcs_client:'Este cliente todavía no tiene PC.', no_prns_client:'Este cliente todavía no tiene impresoras registradas (agrega una con Tipo = Printer).',
   need_client_first:'Escribe primero el cliente para ver sus equipos.', linked_n:'Vínculos actualizados en {n} impresora(s)',
@@ -777,6 +886,7 @@ async function init(){
 window.addEventListener('error', e => { const el = $('lgErr'); if (el) el.textContent = 'Error: ' + e.message; });
 function showLogin(){ $('app').classList.add('hidden'); $('login').classList.remove('hidden'); items = []; }
 function showApp(session){
+  { const m = location.hash.match(/^#c=(.+)$/); curCliente = m ? decodeURIComponent(m[1]) : null; }
   $('login').classList.add('hidden'); $('app').classList.remove('hidden');
   $('whoami').textContent = (session.user.email || '').replace('@' + DOMINIO_USUARIOS, '');
   try{ const local = JSON.parse(localStorage.getItem(LOCAL_KEY)); if (Array.isArray(local) && local.length) $('migrarBtn').classList.remove('hidden'); }catch(e){}
@@ -808,6 +918,8 @@ async function loadData(){
   items = data;
   const g = await db.from('grupos').select('*').order('nombre');
   grupos = g.error ? [] : (g.data || []); gruposOK = !g.error;
+  const cl = await db.from('clientes').select('*').order('nombre');
+  clientesDB = cl.error ? [] : (cl.data || []); clientesOK = !cl.error;
   render();
   if (!$('gModal').classList.contains('hidden')) renderGrupos();
 }
@@ -949,7 +1061,7 @@ function showHistory(id){
   $('modal').classList.remove('hidden');
 }
 function closeModal(){ $('modal').classList.add('hidden'); }
-document.addEventListener('keydown', e => { if (e.key === 'Escape'){ closeModal(); closeGrupos(); } });
+document.addEventListener('keydown', e => { if (e.key === 'Escape'){ closeModal(); closeGrupos(); cerrarClienteModal(); cerrarDrawer(); } });
 function copyText(v){ navigator.clipboard?.writeText(v || '').then(() => toast(t('copied')), () => toast(t('copy_fail'))); }
 function copyUserPw(id, i){ const x = items.find(k => k.id === id); copyText(getUsers(x)[i]?.pw); }
 /* ---------- Vínculo Printer ↔ PC (explícito: se elige con casillas) ---------- */
@@ -990,6 +1102,126 @@ async function guardarVinculosPC(pcId, cliente){
   }
   return n;
 }
+/* ---------- Clientes (cuentas) ---------- */
+let clientesDB = [], clientesOK = true, curCliente = null, cmEditando = null;
+// Lista de clientes = tabla "clientes" + nombres usados en equipos (por si alguno no tiene ficha)
+function listaClientes(){
+  const m = new Map();
+  clientesDB.forEach(c => m.set(nrm(c.nombre), { ...c }));
+  items.forEach(x => { const k = nrm(x.cliente); if (k && !m.has(k)) m.set(k, { nombre: x.cliente, direccion: x.direccion || '', _virtual: true }); });
+  return [...m.values()].sort((a, b) => a.nombre.localeCompare(b.nombre, 'es', { sensitivity: 'base' }));
+}
+const clienteObj = n => listaClientes().find(c => mismoCliente(c.nombre, n));
+const equiposDe = n => items.filter(x => mismoCliente(x.cliente, n));
+const tN = (k, n) => n === 1 ? t(k.replace(/s$/, '') === 'n_device' ? 'n_device1' : 'n_group1') : t(k, { n });
+function renderClientes(){
+  const q = nrm($('cq').value), todos = listaClientes();
+  const lista = todos.filter(c => !q || nrm(c.nombre).includes(q) || nrm(c.direccion).includes(q) || nrm(c.contacto).includes(q));
+  $('cvCount').textContent = t('clients_count', { n: todos.length, d: items.length });
+  const orden = ['DVR','NVR','Cámara','PC','Laptop','Servidor','Impresora','Router','Switch','Access Point','Teléfono','Control de Acceso','Otro'];
+  $('clientGrid').innerHTML = `<div class="site-card add" onclick="abrirClienteModal()">＋ ${t('new_client')}</div>` + lista.map(c => {
+    const d = equiposDe(c.nombre), n = d.length || 1;
+    const cnt = k => d.filter(x => x.estado === k).length;
+    const rep = cnt('En reparación'), act = cnt('Activo');
+    const tipos = {}; d.forEach(x => tipos[x.tipo] = (tipos[x.tipo] || 0) + 1);
+    const ng = grupos.filter(g => mismoCliente(g.cliente, c.nombre)).length;
+    const estado = !d.length ? `<span class="dot off"></span>${t('no_devices_yet')}`
+      : rep ? `<span class="dot warn"></span>${tN('n_devices', d.length)} · ${t('n_repair', { n: rep })}`
+      : `<span class="dot"></span>${tN('n_devices', d.length)}${ng ? ' · ' + tN('n_groups', ng) : ''}`;
+    const bar = d.length ? `<i style="width:${act / n * 100}%;background:var(--ok)"></i><i style="width:${rep / n * 100}%;background:var(--warn)"></i><i style="width:${cnt('Inactivo') / n * 100}%;background:var(--off)"></i><i style="width:${cnt('Dado de baja') / n * 100}%;background:var(--bad)"></i>` : '';
+    return `<div class="site-card" onclick="abrirCliente(this.dataset.n)" data-n="${esc(c.nombre)}">
+      <h3 title="${esc(c.nombre)}">${esc(c.nombre)}</h3>
+      <div class="sc-sub">${estado}</div>
+      <div class="sc-bar">${bar}</div>
+      <div class="sc-addr">${c.direccion ? `📍 ${esc(c.direccion)}` : '&nbsp;'}</div>
+      <div class="sc-icons">${Object.keys(tipos).length ? Object.keys(tipos).sort((a, b) => orden.indexOf(a) - orden.indexOf(b)).map(k => `<span title="${esc(tTipo(k))}">${TIPO_ICON[k] || '◆'} ${tipos[k]}</span>`).join('') : `<span class="empty">＋ ${t('add_device')}</span>`}</div>
+    </div>`;
+  }).join('') + (!lista.length && q ? `<p class="muted">${t('no_clients')}</p>` : '');
+}
+function renderClienteHead(){
+  const c = clienteObj(curCliente) || { nombre: curCliente };
+  $('clNombre').textContent = c.nombre;
+  $('clMeta').innerHTML = [c.direccion ? `<a href="${mapUrl(c.direccion)}" target="_blank" rel="noopener">📍 ${esc(c.direccion)}</a>` : '',
+    c.contacto ? `👤 ${esc(c.contacto)}` : '', c.telefono ? `📞 <a href="tel:${esc(String(c.telefono).replace(/[^\d+]/g, ''))}">${esc(c.telefono)}</a>` : '',
+    c.email ? `✉️ <a href="mailto:${esc(c.email)}">${esc(c.email)}</a>` : ''].filter(Boolean).join(' &nbsp;·&nbsp; ');
+}
+function mostrarVista(){
+  const enCliente = !!curCliente;
+  $('clientsView').classList.toggle('hidden', enCliente);
+  $('clientView').classList.toggle('hidden', !enCliente);
+  $('devTable').classList.toggle('scoped', enCliente);
+  $('fCliente').style.display = enCliente ? 'none' : '';
+  if (enCliente) renderClienteHead(); else renderClientes();
+}
+function abrirCliente(n){
+  curCliente = n; fTipo = ''; $('q').value = ''; $('fGrupo').value = ''; $('fLugar').value = '';
+  try{ history.pushState({ c: n }, '', '#c=' + encodeURIComponent(n)); }catch(e){}
+  render(); window.scrollTo({ top: 0 });
+}
+function volverClientes(){
+  if (curCliente){ try{ history.pushState({}, '', location.pathname); }catch(e){} }
+  curCliente = null; cerrarDrawer(); render(); window.scrollTo({ top: 0 });
+}
+window.addEventListener('popstate', () => {
+  const m = location.hash.match(/^#c=(.+)$/);
+  curCliente = m ? decodeURIComponent(m[1]) : null; cerrarDrawer(); render();
+});
+function abrirDrawer(titulo){ $('drawerTitle').textContent = titulo; $('drawer').classList.remove('hidden'); $('drawer').querySelector('.drawer-panel').scrollTop = 0; }
+function cerrarDrawer(){ $('drawer')?.classList.add('hidden'); }
+function nuevoEquipo(){
+  resetForm(); abrirDrawer(t('add_device'));
+  setTimeout(() => $('nombre').focus(), 50);
+}
+// Modal de cliente
+function abrirClienteModal(nombre){
+  if (!clientesOK){ alert(t('clients_missing')); return; }
+  const c = nombre ? (clienteObj(nombre) || { nombre }) : null;
+  cmEditando = c;
+  $('cmTitle').textContent = c ? t('edit_client') : t('new_client');
+  $('cm_nombre').value = c?.nombre || ''; $('cm_direccion').value = c?.direccion || '';
+  $('cm_contacto').value = c?.contacto || ''; $('cm_telefono').value = c?.telefono || '';
+  $('cm_email').value = c?.email || ''; $('cm_notas').value = c?.notas || '';
+  $('cmDel').classList.toggle('hidden', !c);
+  $('cModal').classList.remove('hidden'); setTimeout(() => $('cm_nombre').focus(), 50);
+}
+function cerrarClienteModal(){ $('cModal').classList.add('hidden'); cmEditando = null; }
+async function guardarCliente(e){
+  e.preventDefault();
+  const row = { nombre: $('cm_nombre').value.trim(), direccion: $('cm_direccion').value.trim() || null,
+    contacto: $('cm_contacto').value.trim() || null, telefono: $('cm_telefono').value.trim() || null,
+    email: $('cm_email').value.trim() || null, notas: $('cm_notas').value.trim() || null };
+  if (!row.nombre) return;
+  const viejo = cmEditando;
+  if (listaClientes().some(c => mismoCliente(c.nombre, row.nombre) && !(viejo && mismoCliente(viejo.nombre, row.nombre))))
+    return alert(t('client_exists', { n: row.nombre }));
+  const { error } = viejo && viejo.id ? await db.from('clientes').update(row).eq('id', viejo.id) : await db.from('clientes').insert(row);
+  if (error) return fail(error, t('save_fail'));
+  if (viejo){
+    // Renombrar: pasar equipos y grupos al nombre nuevo
+    if (viejo.nombre !== row.nombre){
+      for (const n of [...new Set(equiposDe(viejo.nombre).map(x => x.cliente))]) await db.from('equipos').update({ cliente: row.nombre }).eq('cliente', n);
+      for (const g of grupos.filter(g => mismoCliente(g.cliente, viejo.nombre))) await db.from('grupos').update({ cliente: row.nombre }).eq('id', g.id);
+      if (curCliente && mismoCliente(curCliente, viejo.nombre)){ curCliente = row.nombre; try{ history.replaceState({ c: row.nombre }, '', '#c=' + encodeURIComponent(row.nombre)); }catch(e){} }
+    }
+    // Dirección cambiada: ofrecer actualizar equipos con la dirección vieja o vacía
+    if ((viejo.direccion || '') !== (row.direccion || '')){
+      const afect = equiposDe(viejo.nombre).filter(x => !x.direccion || x.direccion === viejo.direccion);
+      if (afect.length && confirm(t('update_addr_devices', { n: afect.length })))
+        await db.from('equipos').update({ direccion: row.direccion }).in('id', afect.map(x => x.id));
+    }
+  }
+  cerrarClienteModal(); toast(t('client_saved'));
+  await loadData();
+  if (!viejo) abrirCliente(row.nombre);
+}
+async function borrarCliente(){
+  const c = cmEditando; if (!c) return;
+  const n = equiposDe(c.nombre).length;
+  if (n) return alert(t('client_has_devices', { n }));
+  if (!confirm(t('confirm_del_client', { n: c.nombre }))) return;
+  if (c.id){ const { error } = await db.from('clientes').delete().eq('id', c.id); if (error) return fail(error, t('del_fail')); }
+  cerrarClienteModal(); toast(t('client_deleted')); volverClientes(); await loadData();
+}
 /* ---------- Grupos ---------- */
 let grupos = [], gruposOK = true, gAbierto = null;
 const grupoDe = x => x?.grupo_id ? grupos.find(g => g.id === x.grupo_id) : null;
@@ -1020,7 +1252,7 @@ async function nuevoGrupoDesdeForm(){
 function openGrupos(gid){
   if (!gruposOK) return alert(t('g_table_missing'));
   const clientes = uniq('cliente');
-  const pre = gid ? grupoDe({ grupo_id: gid })?.cliente : ($('fCliente').value || $('cliente').value || clientes[0] || '');
+  const pre = gid ? grupoDe({ grupo_id: gid })?.cliente : (curCliente || $('fCliente').value || $('cliente').value || clientes[0] || '');
   $('gCliente').innerHTML = `<option value="">${t('choose_client')}</option>` + clientes.map(c => `<option>${esc(c)}</option>`).join('');
   const match = clientes.find(c => mismoCliente(c, pre)); if (match) $('gCliente').value = match;
   gAbierto = gid || null;
@@ -1179,7 +1411,7 @@ async function save(e){
   }
   $('saveBtn').disabled = false;
   toast([nuevos > 0 ? t('changed_n', { n: nuevos }) : (editId ? t('saved') : t('added')), ...extra].join(' · '));
-  resetForm(true); loadData();
+  resetForm(true); cerrarDrawer(); loadData();
 }
 function resetForm(afterSave){
   const c = $('cliente').value, dir = $('direccion').value;
@@ -1188,7 +1420,11 @@ function resetForm(afterSave){
   unlockAll(); fillUsers([], false); $('histBtn').classList.add('hidden');
   document.querySelectorAll('#form input.secret').forEach(el => { el.type = 'password'; delete el.dataset.orig; });
   if (afterSave === true && $('keepClient').checked){ $('cliente').value = c; $('direccion').value = dir; }
+  if (curCliente){ const co = clienteObj(curCliente) || { nombre: curCliente };
+    $('cliente').value = co.nombre; if (!$('direccion').value) $('direccion').value = co.direccion || ''; }
+  $('cliente').readOnly = !!curCliente; $('cliente').classList.toggle('client-lock', !!curCliente);
   fillGrupoSelect(); if (afterSave === true && $('keepClient').checked && gKeep) $('grupo_id').value = gKeep;
+  actualizarVinculos();
   $('password').type = 'password';
   updateMarcas();
   $('saveBtn').textContent = t('add_device'); $('editMsg').textContent = '';
@@ -1209,7 +1445,8 @@ function edit(id){
   updateMarcas();
   editId = id; $('saveBtn').textContent = t('save_changes');
   $('editMsg').textContent = t('editing') + x.nombre;
-  window.scrollTo({top:0, behavior:'smooth'});
+  $('cliente').readOnly = !!curCliente; $('cliente').classList.toggle('client-lock', !!curCliente);
+  abrirDrawer(t('edit_device') + ' · ' + (x.nombre || ''));
 }
 async function del(id){
   const x = items.find(i => i.id === id);
@@ -1235,9 +1472,9 @@ function copyPw(id){
 
 /* ---------- Tabla ---------- */
 function filtered(){
-  const q = $('q').value.toLowerCase().trim(), fl = $('fLugar').value, fc = $('fCliente').value, fg = $('fGrupo').value;
+  const q = $('q').value.toLowerCase().trim(), fl = $('fLugar').value, fc = curCliente || $('fCliente').value, fg = $('fGrupo').value;
   return items.filter(x =>
-    (!fTipo || x.tipo === fTipo) && (!fl || x.lugar === fl) && (!fc || x.cliente === fc) && (!fg || x.grupo_id === fg) &&
+    (!fTipo || x.tipo === fTipo) && (!fl || x.lugar === fl) && (!fc || mismoCliente(x.cliente, fc)) && (!fg || x.grupo_id === fg) &&
     (!q || FIELDS.filter(f => !SECRET_FIELDS.includes(f)).some(f => String(x[f]||'').toLowerCase().includes(q)) || nrm(grupoDe(x)?.nombre).includes(q)
         || getUsers(x).some(u => String(u.user || '').toLowerCase().includes(q)))
   ).sort((a,b) => {
@@ -1263,6 +1500,9 @@ const US_ST = {Alabama:'AL',Alaska:'AK',Arizona:'AZ',Arkansas:'AR',California:'C
   'Rhode Island':'RI','South Carolina':'SC','South Dakota':'SD',Tennessee:'TN',Texas:'TX',Utah:'UT',Vermont:'VT',Virginia:'VA',
   Washington:'WA','West Virginia':'WV',Wisconsin:'WI',Wyoming:'WY'};
 let addrTimer = null, addrCtl = null, addrOpts = [], addrIdx = -1;
+const ADDR = { el: null, box: null };
+const addrEl = () => ADDR.el || $('direccion');
+const addrBox = () => ADDR.box || $('addrList');
 
 const mapUrl = a => 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(a);
 function abrirMapa(a){
@@ -1279,7 +1519,8 @@ function fmtDireccion(p){
   if (p.countrycode && p.countrycode !== 'US' && p.country) partes.push(p.country);
   return [...new Set(partes)].join(', ');
 }
-function buscarDireccion(q){
+function buscarDireccion(q, el){
+  if (el){ if (ADDR.box && ADDR.el !== el) ADDR.box.classList.add('hidden'); ADDR.el = el; ADDR.box = el.closest('.addr-wrap').querySelector('.suggest'); }
   q = q.trim();
   clearTimeout(addrTimer);
   // 1) Direcciones que ya usaste (instantáneo)
@@ -1308,7 +1549,7 @@ function buscarDireccion(q){
       try{ remotos = nuevos(await buscarNominatim(qx, signal)); }
       catch(err){ if (err.name === 'AbortError') return; errores.push('Nominatim: ' + err.message); }
     }
-    if ($('direccion').value.trim() !== q) return; // el usuario siguió escribiendo
+    if (addrEl().value.trim() !== q) return; // el usuario siguió escribiendo
     addrOpts = [...locales, ...remotos]; addrIdx = -1;
     if (addrOpts.length) pintarSugerencias();
     else if (errores.length){ console.warn('Búsqueda de dirección:', errores); pintarSugerencias(t('addr_err', {e: errores.join(' · ')})); }
@@ -1343,7 +1584,7 @@ const FL_BBOX = [-87.7, 24.3, -79.8, 31.1];
 // Si el mapa tiene la calle pero no el número, se usa el número que escribiste
 function aSugerencia(p, q){
   if (p.state && p.state !== 'Florida') return null;
-  const num = (($('direccion').value || q).match(/^\s*(\d+[A-Za-z]?)\b/) || [])[1];
+  const num = ((addrEl().value || q).match(/^\s*(\d+[A-Za-z]?)\b/) || [])[1];
   // Cuando el resultado ES una calle (no un edificio), el nombre de la calle viene en "name"
   const esCalle = !p.street && p.name && (p.osm_key === 'highway' || p.type === 'street' ||
     /\b(Street|Avenue|Court|Circle|Manor|Road|Drive|Lane|Place|Terrace|Boulevard|Parkway|Way|Trail|Highway)\b/i.test(p.name));
@@ -1374,7 +1615,7 @@ async function buscarNominatim(q, signal){
   }).filter(Boolean);
 }
 function pintarSugerencias(msg){
-  const box = $('addrList');
+  const box = addrBox();
   if (!addrOpts.length && !msg){ box.classList.add('hidden'); return; }
   box.innerHTML = addrOpts.map((o, i) => `<div class="opt ${i === addrIdx ? 'on' : ''}" onmousedown="event.preventDefault();elegirDireccion(${i})">
       <span class="ic">${o.src === 'guardada' ? '🕘' : '📍'}</span>
@@ -1384,12 +1625,12 @@ function pintarSugerencias(msg){
 }
 function elegirDireccion(i){
   const o = addrOpts[i]; if (!o) return;
-  $('direccion').value = o.value;
+  addrEl().value = o.value;
   cerrarSugerencias();
 }
-function cerrarSugerencias(){ $('addrList').classList.add('hidden'); addrIdx = -1; }
+function cerrarSugerencias(){ addrBox().classList.add('hidden'); addrIdx = -1; }
 function navDireccion(e){
-  const box = $('addrList');
+  const box = addrBox();
   if (box.classList.contains('hidden') || !addrOpts.length) return;
   if (e.key === 'ArrowDown'){ e.preventDefault(); addrIdx = (addrIdx + 1) % addrOpts.length; pintarSugerencias(); }
   else if (e.key === 'ArrowUp'){ e.preventDefault(); addrIdx = (addrIdx - 1 + addrOpts.length) % addrOpts.length; pintarSugerencias(); }
@@ -1427,7 +1668,7 @@ function render(){
   const clientes = uniq('cliente'), lugares = uniq('lugar'), dirs = uniq('direccion');
   fillSelect($('fCliente'), clientes, t('all_clients'));
   fillSelect($('fLugar'), lugares, t('all_areas'));
-  { const fg = $('fGrupo'), cur = fg.value, fc = $('fCliente').value;
+  { const fg = $('fGrupo'), cur = fg.value, fc = curCliente || $('fCliente').value;
     const gl = grupos.filter(g => !fc || mismoCliente(g.cliente, fc));
     fg.innerHTML = `<option value="">${t('all_groups')}</option>` + gl.map(g => `<option value="${g.id}">${esc(g.nombre)}${fc ? '' : ' · ' + esc(g.cliente)}</option>`).join('');
     if (gl.some(g => g.id === cur)) fg.value = cur; fg.style.display = grupos.length ? '' : 'none'; }
@@ -1438,8 +1679,9 @@ function render(){
   updateMarcas();
   updatePCLists();
 
-  const counts = {}; items.forEach(x => counts[x.tipo] = (counts[x.tipo]||0)+1);
-  $('chips').innerHTML = `<span class="chip ${!fTipo?'on':''}" onclick="setTipo('')">${t('all')} (${items.length})</span>` +
+  const base = curCliente ? equiposDe(curCliente) : items;
+  const counts = {}; base.forEach(x => counts[x.tipo] = (counts[x.tipo]||0)+1);
+  $('chips').innerHTML = `<span class="chip ${!fTipo?'on':''}" onclick="setTipo('')">${t('all')} (${base.length})</span>` +
     Object.keys(counts).sort().map(k => `<span class="chip ${fTipo===k?'on':''}" onclick="setTipo('${esc(k)}')">${esc(tTipo(k))} (${counts[k]})</span>`).join('');
 
   const showAll = $('showPw').checked;
@@ -1508,12 +1750,13 @@ function render(){
       <button class="sm danger" onclick="del('${x.id}')" title="${t('t_delete')}">✕</button>
     </td></tr>`;
   }).join('')
-    : `<tr><td colspan="22" class="empty">${items.length ? t('no_results') : t('empty')}</td></tr>`;
-  $('count').textContent = t('count', {n: rows.length, t: items.length});
-  $('kTotal').textContent = items.length;
-  $('kClientes').textContent = clientes.length;
-  $('kActivos').textContent = items.filter(x => x.estado === 'Activo').length;
-  $('kRep').textContent = items.filter(x => x.estado === 'En reparación').length;
+    : `<tr><td colspan="22" class="empty">${(curCliente ? equiposDe(curCliente).length : items.length) ? t('no_results') : t('empty')}</td></tr>`;
+  $('count').textContent = t('count', {n: rows.length, t: base.length});
+  $('kTotal').textContent = base.length;
+  $('kClientes').textContent = curCliente ? grupos.filter(g => mismoCliente(g.cliente, curCliente)).length : clientes.length;
+  $('kActivos').textContent = base.filter(x => x.estado === 'Activo').length;
+  $('kRep').textContent = base.filter(x => x.estado === 'En reparación').length;
+  mostrarVista();
   document.querySelectorAll('th[data-k]').forEach(th => {
     th.textContent = (th.dataset.i18n ? t(th.dataset.i18n) : th.textContent.replace(/ [▲▼]$/,'')) + (th.dataset.k===sortK ? (sortDir>0?' ▲':' ▼') : '');
   });
@@ -1622,7 +1865,7 @@ function toggleTheme(){
   d.dataset.theme = d.dataset.theme === 'light' ? 'dark' : 'light';
   try{ localStorage.setItem('inv_theme', d.dataset.theme); }catch(e){}
 }
-try{ const t = localStorage.getItem('inv_theme'); if(t) document.documentElement.dataset.theme = t; }catch(e){}
+{ let th = null; try{ th = localStorage.getItem('inv_theme'); }catch(e){} document.documentElement.dataset.theme = th || 'light'; }
 
 applyLang();
 emptyUsers();

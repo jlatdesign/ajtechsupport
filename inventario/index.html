@@ -335,6 +335,16 @@ tbody tr:hover td.actions-col{background:var(--card-solid)}
 input[readonly].client-lock{background:var(--bg);color:var(--muted);cursor:not-allowed}
 .grid2c{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 @media (max-width:640px){.grid2c{grid-template-columns:1fr}}
+/* Importar Excel */
+.x-opts{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:6px}
+@media (max-width:760px){.x-opts{grid-template-columns:1fr 1fr}}
+table.x-map{min-width:0}
+table.x-map td{vertical-align:middle;padding:6px 10px}
+table.x-map td:nth-child(2){color:var(--muted);font-size:12.5px;max-width:260px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+table.x-map tr.mapped td:first-child{font-weight:600;color:var(--c1)}
+table.x-map select{padding:6px 8px}
+.x-sum{margin-top:12px;padding:10px 12px;border-radius:10px;background:var(--row-hover);border:1px solid var(--line);font-size:13px}
+.x-sum b{font-weight:700}
 </style>
 </head>
 <body>
@@ -346,7 +356,7 @@ input[readonly].client-lock{background:var(--bg);color:var(--muted);cursor:not-a
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager</p>
+    <p class="sub">Network Asset Manager · v3.1</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -362,14 +372,14 @@ input[readonly].client-lock{background:var(--bg);color:var(--muted);cursor:not-a
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v3.1</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
     <button onclick="exportJSON()" data-i18n-title="t_backup"><span data-i18n="backup">⤓ Backup</span></button>
     <button onclick="exportCSV()" data-i18n-title="t_csv">⊞ CSV</button>
     <button onclick="document.getElementById('fileIn').click()" data-i18n-title="t_import"><span data-i18n="import">⤒ Import</span></button>
-    <input type="file" id="fileIn" accept=".json,.csv" hidden onchange="importFile(event)">
+    <input type="file" id="fileIn" accept=".json,.csv,.xlsx,.xls" hidden onchange="importFile(event)">
     <button id="migrarBtn" class="hidden" onclick="migrarLocal()" data-i18n="upload_local">Upload local data</button>
     <button class="icon-btn" onclick="window.print()" data-i18n-title="t_print">⎙</button>
     <button class="icon-btn" onclick="toggleTheme()" data-i18n-title="t_theme">🌓</button>
@@ -402,6 +412,7 @@ input[readonly].client-lock{background:var(--bg);color:var(--muted);cursor:not-a
     <div class="row no-print">
       <button onclick="abrirClienteModal(curCliente)">✏️ <span data-i18n="edit_client">Edit client</span></button>
       <button onclick="openGrupos()">🗂 <span data-i18n="groups">Groups</span></button>
+      <button onclick="document.getElementById('fileIn').click()">📥 <span data-i18n="import_excel">Import Excel</span></button>
       <button class="primary" onclick="nuevoEquipo()">＋ <span data-i18n="add_device">Add device</span></button>
     </div>
   </div>
@@ -595,6 +606,25 @@ input[readonly].client-lock{background:var(--bg);color:var(--muted);cursor:not-a
     </form>
   </div>
 </div>
+<div id="xModal" class="modal hidden" onclick="if(event.target===this)cerrarImport()">
+  <div class="modal-card g-card-wide">
+    <div class="modal-head"><h3>📥 <span data-i18n="import_excel">Import Excel</span> · <span id="xFile" class="muted"></span></h3><button class="sm" onclick="cerrarImport()">✕</button></div>
+    <div class="x-opts">
+      <label id="xSheetBox"><span data-i18n="x_sheet">Sheet</span><select id="xSheet" onchange="xCargarHoja()"></select></label>
+      <label><span data-i18n="x_client">Client</span><select id="xClient" onchange="xPreview()"></select></label>
+      <label><span data-i18n="x_match">Match existing devices by</span><select id="xKey" onchange="xPreview()"></select></label>
+      <label><span data-i18n="x_deftype">Type for new rows</span><select id="xType" onchange="xPreview()"></select></label>
+    </div>
+    <label class="check" style="margin:6px 0 12px"><input type="checkbox" id="xOver" onchange="xPreview()"> <span data-i18n="x_over">Overwrite values that already have data (if off, only empty fields are filled)</span></label>
+    <div class="table-wrap" style="max-height:44vh"><table class="x-map"><thead><tr>
+      <th data-i18n="x_col">Excel column</th><th data-i18n="x_sample">Example</th><th data-i18n="x_field">Field in the app</th></tr></thead><tbody id="xMap"></tbody></table></div>
+    <div id="xSummary" class="x-sum"></div>
+    <div class="row" style="margin-top:12px">
+      <button class="primary" id="xGo" onclick="xImportar()" data-i18n="x_go">Import</button>
+      <button onclick="cerrarImport()" data-i18n="cancel">Cancel</button>
+    </div>
+  </div>
+</div>
 <div id="gModal" class="modal hidden" onclick="if(event.target===this)closeGrupos()">
   <div class="modal-card g-card-wide">
     <div class="modal-head"><h3>🗂 <span data-i18n="groups">Groups</span></h3><button class="sm" onclick="closeGrupos()">✕</button></div>
@@ -712,6 +742,13 @@ en:{
   sec_printer:'Printer', prn_kind:'Printer kind', 'pk.Label':'Label printer', 'pk.Regular':'Regular printer',
   used_by:'Used by', link_pcs:'🔗 Used by {n} PC(s) of {c}:', link_none:'No PC of {c} uses this printer yet. In the PC, type this printer\'s name or model in "Printers used by this PC" to link them.',
   link_prn:'🔗 Linked to printer(s) of this client:', confirm_sync_pcs:'This printer is used by {n} PC(s) of {c}:\n{list}\n\nUpdate the connection and IP in those PCs?',
+  import_excel:'Import Excel', x_sheet:'Sheet', x_client:'Client', x_match:'Match existing devices by', x_deftype:'Type for new rows',
+  x_over:'Overwrite values that already have data (if off, only empty fields are filled)', x_col:'Excel column', x_sample:'Example', x_field:'Field in the app',
+  x_go:'Import', x_ignore:'— Ignore —', x_from_col:'From column: {c}', x_need_client:'Choose the client, or map a column to "Client".',
+  x_need_key:'Map at least one column to Name, Hostname or Serial so each row can be identified.',
+  x_sum:'{r} rows · <b>{u}</b> will be updated · <b>{n}</b> new · {s} skipped (empty or no name)', x_done:'Import done: {u} updated, {n} created',
+  x_loading:'Reading file…', x_lib_fail:'Could not load the Excel reader. Check your internet connection.', x_auto:'(auto)', x_type_from:'Use the Type column if present',
+  x_badip:'{n} invalid IP(s) were skipped',
   clients_title:'Clients', new_client:'New client', edit_client:'Edit client', search_clients:'Search clients...', cm_name:'Client / company name',
   cm_contact:'Contact person', cm_phone:'Phone', save_client:'Save client', delete_client:'Delete client', k_groups:'Groups',
   client_has_devices:'This client has {n} device(s). Delete or move them first.', confirm_del_client:'Delete client "{n}"?',
@@ -795,6 +832,13 @@ es:{
   sec_printer:'Impresora', prn_kind:'Tipo de impresora', 'pk.Label':'Impresora de etiquetas', 'pk.Regular':'Impresora normal',
   used_by:'Usada por', link_pcs:'🔗 La usan {n} PC de {c}:', link_none:'Ninguna PC de {c} usa esta impresora todavía. En la PC, escribe el nombre o modelo de esta impresora en "Impresoras que usa esta PC" para vincularlas.',
   link_prn:'🔗 Vinculada a impresora(s) de este cliente:', confirm_sync_pcs:'Esta impresora la usan {n} PC de {c}:\n{list}\n\n¿Actualizar la conexión y la IP en esas PC?',
+  import_excel:'Importar Excel', x_sheet:'Hoja', x_client:'Cliente', x_match:'Buscar equipos existentes por', x_deftype:'Tipo para filas nuevas',
+  x_over:'Sobrescribir valores que ya tienen datos (si está apagado, solo llena los campos vacíos)', x_col:'Columna del Excel', x_sample:'Ejemplo', x_field:'Campo en la app',
+  x_go:'Importar', x_ignore:'— Ignorar —', x_from_col:'De la columna: {c}', x_need_client:'Elige el cliente o asigna una columna a "Cliente".',
+  x_need_key:'Asigna al menos una columna a Nombre, Hostname o Serial para identificar cada fila.',
+  x_sum:'{r} filas · <b>{u}</b> se actualizan · <b>{n}</b> nuevas · {s} se saltan (vacías o sin nombre)', x_done:'Importación lista: {u} actualizados, {n} creados',
+  x_loading:'Leyendo archivo…', x_lib_fail:'No se pudo cargar el lector de Excel. Revisa tu conexión a internet.', x_auto:'(auto)', x_type_from:'Usar la columna Tipo si existe',
+  x_badip:'{n} IP(s) no válidas se omitieron',
   clients_title:'Clientes', new_client:'Nuevo cliente', edit_client:'Editar cliente', search_clients:'Buscar clientes...', cm_name:'Nombre del cliente / empresa',
   cm_contact:'Persona de contacto', cm_phone:'Teléfono', save_client:'Guardar cliente', delete_client:'Eliminar cliente', k_groups:'Grupos',
   client_has_devices:'Este cliente tiene {n} equipo(s). Bórralos o muévelos primero.', confirm_del_client:'¿Eliminar el cliente "{n}"?',
@@ -1061,7 +1105,7 @@ function showHistory(id){
   $('modal').classList.remove('hidden');
 }
 function closeModal(){ $('modal').classList.add('hidden'); }
-document.addEventListener('keydown', e => { if (e.key === 'Escape'){ closeModal(); closeGrupos(); cerrarClienteModal(); cerrarDrawer(); } });
+document.addEventListener('keydown', e => { if (e.key === 'Escape'){ closeModal(); closeGrupos(); cerrarClienteModal(); cerrarDrawer(); cerrarImport(); } });
 function copyText(v){ navigator.clipboard?.writeText(v || '').then(() => toast(t('copied')), () => toast(t('copy_fail'))); }
 function copyUserPw(id, i){ const x = items.find(k => k.id === id); copyText(getUsers(x)[i]?.pw); }
 /* ---------- Vínculo Printer ↔ PC (explícito: se elige con casillas) ---------- */
@@ -1839,17 +1883,205 @@ async function subir(lista){
 }
 function importFile(e){
   const file = e.target.files[0]; if(!file) return;
-  const r = new FileReader();
-  r.onload = async () => {
-    try{
-      const data = file.name.toLowerCase().endsWith('.csv') ? parseCSV(r.result) : JSON.parse(r.result);
-      if(!Array.isArray(data)) throw 0;
-      await subir(data);
-    }catch(err){ alert(t('bad_file')); }
-    e.target.value = '';
-  };
-  r.readAsText(file);
+  const nombre = file.name.toLowerCase();
+  if (nombre.endsWith('.json')){
+    const r = new FileReader();
+    r.onload = async () => {
+      try{ const data = JSON.parse(r.result); if (!Array.isArray(data)) throw 0; await subir(data); }
+      catch(err){ alert(t('bad_file')); }
+      e.target.value = '';
+    };
+    return r.readAsText(file);
+  }
+  abrirImport(file).finally(() => { e.target.value = ''; });
 }
+
+/* ---------- Importar Excel / CSV con mapeo de columnas ---------- */
+let X = { wb: null, rows: [], heads: [], map: [], file: '' };
+function cargarXLSX(){
+  if (window.XLSX) return Promise.resolve();
+  return new Promise((ok, no) => {
+    const s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js';
+    s.onload = ok; s.onerror = () => no(new Error(t('x_lib_fail')));
+    document.head.appendChild(s);
+  });
+}
+const sinAcento = s => String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[_\-.:#()\/]+/g, ' ').replace(/\s+/g, ' ').trim();
+// Nombres de columna que se reconocen solos (inglés y español)
+const X_ALIAS = {
+  cliente:['client','customer','cliente','company','empresa','site','account','cuenta'], direccion:['address','direccion','location address','site address'],
+  tipo:['type','tipo','device type','category','categoria'], nombre:['name','nombre','device','equipo','asset','asset name'],
+  lugar:['area','location','ubicacion','room','department location','zona'], modelo:['model','modelo','brand','marca','make','manufacturer model','brand model'],
+  serial:['serial','serial number','s n','sn','service tag','numero de serie','serie'], ip:['ip','ip address','pc ip address','local ip','lan ip','direccion ip','ipv4'],
+  mac:['mac','mac address','direccion mac','physical address'], usuario:['username','user name','login','usuario'], password:['password','pass','contrasena','clave'],
+  estado:['status','estado','state'], notas:['notes','note','notas','comments','comentarios','observaciones'],
+  first_name:['first name','nombre usuario','firstname','given name','primer nombre'], last_name:['last name','apellido','lastname','surname'],
+  departamento:['department','departamento','dept'], celular:['cell phone','cell','mobile','phone','celular','telefono','movil'], email:['email','e mail','correo','mail'],
+  hostname:['hostname','host name','computer name','device name','pc name','nombre del equipo','computer','machine name'],
+  anydesk:['anydesk','anydesk id','anydesk code','codigo anydesk'], anydesk_pw:['anydesk password','anydesk pass','anydesk pw'], splashtop:['splashtop'],
+  pc_admin:['admin','admin user','administrator','local admin'], pc_admin_pw:['admin password','administrator password','admin pass'],
+  pc_user:['regular user','windows user','user','pc user'], pc_user_pw:['user password','regular user password','windows password'],
+  so:['windows version','os','operating system','sistema operativo','os version','windows'], cpu:['processor','cpu','procesador'],
+  ram:['installed ram','ram','memory','memoria','ram gb'], disco:['disk','disco','storage','hard drive','hdd','ssd','almacenamiento'],
+  win_key:['windows key','windows product key','product key','clave windows'], office_key:['office key','office product key','clave office'],
+  antivirus:['antivirus','av'], garantia:['warranty','warranty until','warranty expiration','garantia','warranty end'],
+  lbl_modelo:['label printer model','label printer','impresora etiquetas'], lbl_conexion:['label printer connection'], lbl_ip:['label printer ip'],
+  imp_modelo:['regular printer model','regular printer','printer','impresora'], imp_conexion:['regular printer connection','printer connection'], imp_ip:['regular printer ip','printer ip'],
+  prn_tipo:['printer kind','printer type'], conexion:['connection','conexion','connectivity']
+};
+function xAdivinar(h){
+  const k = sinAcento(h);
+  for (const f in X_ALIAS) if (X_ALIAS[f].includes(k)) return f;
+  for (const f in X_ALIAS) if (X_ALIAS[f].some(a => a.length > 3 && (k.startsWith(a + ' ') || k.endsWith(' ' + a)))) return f;
+  return '';
+}
+const X_LABEL = f => ({ cliente:t('client'), direccion:t('address'), tipo:t('type'), nombre:t('name'), lugar:t('area'), modelo:t('brand'), serial:t('serial'),
+  ip:'IP', mac:'MAC', usuario:t('username'), password:t('password'), estado:t('status'), notas:t('notes'), first_name:t('first_name'), last_name:t('last_name'),
+  departamento:t('department'), celular:t('cell'), email:'Email', hostname:t('hostname'), anydesk:'AnyDesk', anydesk_pw:t('anydesk_pw'), splashtop:'Splashtop',
+  pc_user:t('pc_user'), pc_user_pw:t('pc_user_pw'), pc_admin:t('pc_admin'), pc_admin_pw:t('pc_admin_pw'), so:t('os'), cpu:t('cpu'), ram:t('ram'), disco:t('disk'),
+  win_key:t('win_key'), office_key:t('office_key'), antivirus:'Antivirus', garantia:t('warranty'), lbl_modelo:t('lbl_model'), lbl_conexion:t('lbl_model') + ' · ' + t('connection'),
+  lbl_ip:t('lbl_model') + ' · IP', imp_modelo:t('reg_model'), imp_conexion:t('reg_model') + ' · ' + t('connection'), imp_ip:t('reg_model') + ' · IP',
+  prn_tipo:t('prn_kind'), conexion:t('connection') }[f] || f);
+const X_CAMPOS = () => Object.keys(X_ALIAS);
+async function abrirImport(file){
+  toast(t('x_loading'));
+  try{ await cargarXLSX(); }catch(err){ return alert(err.message); }
+  const buf = await file.arrayBuffer();
+  try{ X.wb = XLSX.read(buf, { type: 'array', cellDates: true }); }catch(err){ return alert(t('bad_file')); }
+  X.file = file.name;
+  $('xFile').textContent = file.name;
+  $('xSheet').innerHTML = X.wb.SheetNames.map(n => `<option>${esc(n)}</option>`).join('');
+  $('xSheetBox').style.display = X.wb.SheetNames.length > 1 ? '' : 'none';
+  // Cliente: el actual, o elegir uno, o desde una columna
+  const cl = listaClientes().map(c => c.nombre);
+  $('xClient').innerHTML = `<option value="">—</option>` + cl.map(c => `<option value="c:${esc(c)}">${esc(c)}</option>`).join('');
+  if (curCliente) $('xClient').value = 'c:' + (clienteObj(curCliente)?.nombre || curCliente);
+  $('xType').innerHTML = `<option value="">${t('x_type_from')} · PC</option>` + TIPOS.map(v => `<option value="${esc(v)}">${esc(tTipo(v))}</option>`).join('');
+  xCargarHoja();
+  $('xModal').classList.remove('hidden');
+}
+function xCargarHoja(){
+  const ws = X.wb.Sheets[$('xSheet').value || X.wb.SheetNames[0]];
+  const aoa = XLSX.utils.sheet_to_json(ws, { header: 1, raw: true, defval: '' });
+  // Fila de encabezados: la primera donde se reconocen 2+ columnas (salta títulos e instrucciones)
+  let hi = aoa.findIndex(r => r.filter(c => xAdivinar(c)).length >= 2);
+  if (hi < 0) hi = aoa.findIndex(r => r.filter(c => String(c).trim()).length >= 2);
+  if (hi < 0) hi = 0;
+  X.heads = (aoa[hi] || []).map(h => String(h).trim());
+  X.rows = aoa.slice(hi + 1).filter(r => r.some(c => String(c).trim()) && !/example row/i.test(r.join(' ')));
+  let guardado = {};
+  try{ guardado = JSON.parse(localStorage.getItem('inv_xmap') || '{}'); }catch(e){}
+  const usados = new Set();
+  X.map = X.heads.map(h => {
+    let f = guardado[sinAcento(h)] ?? xAdivinar(h);
+    if (f && usados.has(f)) f = ''; if (f) usados.add(f);
+    return f;
+  });
+  // Cliente como columna
+  const iCli = X.map.indexOf('cliente');
+  if (iCli >= 0 && !curCliente) $('xClient').innerHTML = `<option value="col">${t('x_from_col', { c: esc(X.heads[iCli]) })}</option>` + $('xClient').innerHTML;
+  if (iCli >= 0 && !curCliente) $('xClient').value = 'col';
+  // Llave para buscar existentes
+  const llaves = ['hostname','nombre','serial','ip','mac'];
+  $('xKey').innerHTML = llaves.map(k => `<option value="${k}">${esc(X_LABEL(k))}</option>`).join('');
+  $('xKey').value = llaves.find(k => X.map.includes(k)) || 'nombre';
+  $('xMap').innerHTML = X.heads.map((h, i) => {
+    const ej = X.rows.map(r => r[i]).find(v => String(v).trim() !== '');
+    return `<tr class="${X.map[i] ? 'mapped' : ''}"><td>${esc(h || '(' + (i + 1) + ')')}</td><td>${esc(ej instanceof Date ? ej.toISOString().slice(0,10) : ej ?? '')}</td>
+      <td><select data-i="${i}" onchange="X.map[${i}]=this.value;this.closest('tr').classList.toggle('mapped',!!this.value);xPreview()">
+        <option value="">${t('x_ignore')}</option>${X_CAMPOS().map(f => `<option value="${f}" ${X.map[i] === f ? 'selected' : ''}>${esc(X_LABEL(f))}</option>`).join('')}</select></td></tr>`;
+  }).join('');
+  xPreview();
+}
+// Convierte una fila del Excel en un objeto con los campos de la app (limpiando formatos)
+const TIPO_REV = (() => { const m = {}; TIPOS.forEach(v => { m[sinAcento(v)] = v; ['en','es'].forEach(l => { const s = I18N[l]['tipo.' + v]; if (s) m[sinAcento(s)] = v; }); });
+  Object.assign(m, { computer:'PC', desktop:'PC', workstation:'PC', notebook:'Laptop', printer:'Impresora', camera:'Cámara', phone:'Teléfono', server:'Servidor', ap:'Access Point' }); return m; })();
+const ESTADO_REV = (() => { const m = {}; ESTADOS.forEach(v => { m[sinAcento(v)] = v; ['en','es'].forEach(l => { const s = I18N[l]['estado.' + v]; if (s) m[sinAcento(s)] = v; }); }); return m; })();
+let xBadIP = 0;
+function xFila(r){
+  const o = {};
+  X.map.forEach((f, i) => {
+    if (!f) return;
+    let v = r[i];
+    if (v instanceof Date) v = f === 'garantia' ? v.toISOString().slice(0, 10) : v.toLocaleDateString();
+    v = String(v ?? '').trim(); if (!v) return;
+    if (f === 'ip' || f === 'lbl_ip' || f === 'imp_ip'){ v = v.replace(/,/g, '.'); if (!IP_RE.test(v)){ xBadIP++; return; } }
+    if (f === 'mac'){ const h = v.toUpperCase().replace(/[^0-9A-F]/g, ''); if (h.length !== 12) return; v = h.match(/.{2}/g).join(':'); }
+    if (f === 'anydesk') v = v.replace(/\D/g, '');
+    if (f === 'celular'){ const el = { value: v }; formatPhone(el); v = el.value; }
+    if (f === 'tipo') v = TIPO_REV[sinAcento(v)] || 'Otro';
+    if (f === 'estado') v = ESTADO_REV[sinAcento(v)] || 'Activo';
+    if (f === 'splashtop') v = /^(y|yes|s|si|true|1|x|installed|instalado)$/i.test(sinAcento(v)) ? 'Yes' : /^(n|no|false|0)$/i.test(sinAcento(v)) ? 'No' : '';
+    if (/_conexion$|^conexion$/.test(f)){ const c = { network:'Network', ethernet:'Network', red:'Network', lan:'Network', wifi:'WiFi', 'wi fi':'WiFi', usb:'USB', bluetooth:'Bluetooth', shared:'Shared', compartida:'Shared', 'n a':'N/A', na:'N/A' }[sinAcento(v)]; if (!c) return; v = c; }
+    if (f === 'prn_tipo') v = /label|etiqueta/i.test(v) ? 'Label' : 'Regular';
+    if (f === 'garantia'){ const m = v.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/); v = m ? `${m[3]}-${m[1].padStart(2,'0')}-${m[2].padStart(2,'0')}` : (/^\d{4}-\d{2}-\d{2}/.test(v) ? v.slice(0, 10) : ''); if (!v) return; }
+    o[f] = v;
+  });
+  const cs = $('xClient').value;
+  if (cs.startsWith('c:')) o.cliente = cs.slice(2);
+  if (!o.nombre) o.nombre = o.hostname || [o.first_name, o.last_name].filter(Boolean).join(' ') || o.serial || '';
+  return o;
+}
+function xPlan(){
+  xBadIP = 0;
+  const key = $('xKey').value, over = $('xOver').checked, tipoDef = $('xType').value;
+  const plan = { upd: [], ins: [], skip: 0 };
+  X.rows.forEach(r => {
+    const o = xFila(r);
+    if (!o.cliente || !o.nombre){ plan.skip++; return; }
+    const kv = nrm(o[key]);
+    const delCli = items.filter(x => mismoCliente(x.cliente, o.cliente));
+    const ex = (kv && delCli.find(x => nrm(x[key]) === kv))
+      || (!kv && delCli.find(x => nrm(x.nombre) === nrm(o.nombre) && (!x[key] || key === 'nombre')));
+    if (ex){
+      const patch = {}, hist = [];
+      Object.keys(o).forEach(f => {
+        if (f === 'cliente' || o[f] === (ex[f] ?? '')) return;
+        if (!over && ex[f]) return;
+        if (SECRET_FIELDS.includes(f) && ex[f] && HIST_FIELDS.includes(f)) hist.push({ f, v: ex[f], at: new Date().toISOString(), by: ($('whoami').textContent || '') + ' (Excel)' });
+        patch[f] = o[f];
+      });
+      if (hist.length) patch.pw_history = [...(ex.pw_history || []), ...hist];
+      if (Object.keys(patch).length) plan.upd.push({ id: ex.id, patch }); 
+    } else {
+      const row = clean(o);
+      const hojaPC = X.map.some(f => ['hostname','cpu','so','ram','disco','anydesk','first_name','win_key'].includes(f));
+      row.tipo = o.tipo || tipoDef || (hojaPC ? 'PC' : 'Otro');
+      row.estado = o.estado || 'Activo';
+      if (!row.direccion) row.direccion = clienteObj(o.cliente)?.direccion || null;
+      if (o.pc_user || o.pc_user_pw) row.pc_users = [{ user: o.pc_user || '', pw: o.pc_user_pw || '' }];
+      plan.ins.push(row);
+    }
+  });
+  return plan;
+}
+function xPreview(){
+  const cs = $('xClient').value;
+  const faltaCli = !cs || (cs === 'col' && !X.map.includes('cliente'));
+  const faltaKey = !['nombre','hostname','serial'].some(k => X.map.includes(k));
+  if (faltaCli || faltaKey){ $('xSummary').innerHTML = '⚠️ ' + (faltaCli ? t('x_need_client') : t('x_need_key')); $('xGo').disabled = true; return; }
+  const p = xPlan();
+  $('xSummary').innerHTML = t('x_sum', { r: X.rows.length, u: p.upd.length, n: p.ins.length, s: p.skip }) + (xBadIP ? ' · ⚠️ ' + t('x_badip', { n: xBadIP }) : '');
+  $('xGo').disabled = !(p.upd.length || p.ins.length);
+}
+async function xImportar(){
+  const p = xPlan();
+  $('xGo').disabled = true;
+  // Recordar el mapeo de columnas para la próxima vez
+  try{ const m = JSON.parse(localStorage.getItem('inv_xmap') || '{}'); X.heads.forEach((h, i) => m[sinAcento(h)] = X.map[i] || ''); localStorage.setItem('inv_xmap', JSON.stringify(m)); }catch(e){}
+  // Crear fichas de clientes nuevos
+  if (clientesOK) for (const c of [...new Set(p.ins.map(r => r.cliente))].filter(c => !clientesDB.some(d => mismoCliente(d.nombre, c))))
+    await db.from('clientes').insert({ nombre: c });
+  for (const u of p.upd){ const { error } = await db.from('equipos').update(u.patch).eq('id', u.id); if (error){ $('xGo').disabled = false; return fail(error, t('save_fail')); } }
+  for (let i = 0; i < p.ins.length; i += 200){
+    const { error } = await db.from('equipos').insert(p.ins.slice(i, i + 200));
+    if (error){ $('xGo').disabled = false; return fail(error, t('save_fail')); }
+  }
+  cerrarImport(); toast(t('x_done', { u: p.upd.length, n: p.ins.length }));
+  await loadData();
+}
+function cerrarImport(){ $('xModal').classList.add('hidden'); }
 async function migrarLocal(){
   try{
     const local = JSON.parse(localStorage.getItem(LOCAL_KEY)) || [];

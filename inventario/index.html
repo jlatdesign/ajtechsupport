@@ -327,7 +327,7 @@ tbody tr:hover td.actions-col{background:var(--card-solid)}
 .cl-info .muted{font-size:13px;margin-top:3px}
 .cl-info .muted a{color:var(--muted)}
 .backbtn{padding:8px 12px}
-#devTable.scoped th:nth-child(1),#devTable.scoped td:nth-child(1):not(.empty){display:none}
+#devTable.scoped th:nth-child(2),#devTable.scoped td:nth-child(2){display:none}
 /* Panel lateral del formulario */
 .drawer{position:fixed;inset:0;z-index:55;background:rgba(15,20,30,.45);backdrop-filter:blur(2px);display:flex;justify-content:flex-end}
 .drawer-panel{width:min(980px,100%);height:100%;overflow-y:auto;margin:0;border-radius:0;border-width:0 0 0 1px;background:var(--bg)!important;padding:22px}
@@ -345,6 +345,15 @@ table.x-map tr.mapped td:first-child{font-weight:600;color:var(--c1)}
 table.x-map select{padding:6px 8px}
 .x-sum{margin-top:12px;padding:10px 12px;border-radius:10px;background:var(--row-hover);border:1px solid var(--line);font-size:13px}
 .x-sum b{font-weight:700}
+/* Selección múltiple */
+.sel-col{width:36px;text-align:center!important;position:sticky;left:0;z-index:1;background:var(--card-solid)}
+thead th.sel-col{z-index:3}
+.sel-col input{width:16px;height:16px;accent-color:var(--c1);cursor:pointer}
+tbody tr.is-sel td{background:var(--row-hover)}
+.bulk{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 14px;margin-bottom:12px;border:1px solid var(--c1);border-radius:12px;background:var(--row-hover);position:sticky;top:76px;z-index:6}
+.bulk b{color:var(--c1)}
+.bulk-del{border-color:var(--bad)!important;color:var(--bad)!important;font-weight:600}
+.bulk-del:hover{background:var(--bad)!important;color:#fff!important}
 </style>
 </head>
 <body>
@@ -356,7 +365,7 @@ table.x-map select{padding:6px 8px}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v3.2</p>
+    <p class="sub">Network Asset Manager · v3.3</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -372,7 +381,7 @@ table.x-map select{padding:6px 8px}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v3.2</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v3.3</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -560,10 +569,17 @@ table.x-map select{padding:6px 8px}
       <label class="check"><input type="checkbox" id="showPw" onchange="render()"> <span data-i18n="show_pw">Show passwords</span></label>
     </div>
     <div class="stats no-print" id="chips" style="margin-bottom:14px"></div>
+    <div id="bulkBar" class="bulk no-print hidden">
+      <span>☑️ <b id="selN">0</b> <span data-i18n="selected">selected</span></span>
+      <button class="sm" onclick="selTodos(true)" data-i18n="sel_all_visible">Select all visible</button>
+      <button class="sm" onclick="limpiarSel()" data-i18n="sel_clear">Clear selection</button>
+      <span style="flex:1"></span>
+      <button class="danger bulk-del" onclick="borrarSel()">🗑 <span data-i18n="del_selected">Delete selected</span></button>
+    </div>
     <div class="table-wrap">
       <table id="devTable">
         <thead><tr>
-          <th data-k="cliente" data-i18n="client">Client</th><th data-k="direccion" data-i18n="address">Address</th>
+          <th class="no-print sel-col"><input type="checkbox" id="selAll" onclick="selTodos(this.checked)" data-i18n-title="t_selall"></th><th data-k="cliente" data-i18n="client">Client</th><th data-k="direccion" data-i18n="address">Address</th>
           <th data-k="tipo" data-i18n="type">Type</th><th data-k="nombre" data-i18n="name">Name</th><th data-i18n="group">Group</th><th data-k="lugar" data-i18n="th_area">Area</th>
           <th data-k="modelo" data-i18n="th_model">Model</th><th data-k="serial" data-i18n="serial">Serial</th><th data-k="ip">IP</th>
           <th data-k="mac">MAC</th><th data-k="usuario" data-i18n="username">Username</th><th data-i18n="password">Password</th>
@@ -742,6 +758,8 @@ en:{
   sec_printer:'Printer', prn_kind:'Printer kind', 'pk.Label':'Label printer', 'pk.Regular':'Regular printer',
   used_by:'Used by', link_pcs:'🔗 Used by {n} PC(s) of {c}:', link_none:'No PC of {c} uses this printer yet. In the PC, type this printer\'s name or model in "Printers used by this PC" to link them.',
   link_prn:'🔗 Linked to printer(s) of this client:', confirm_sync_pcs:'This printer is used by {n} PC(s) of {c}:\n{list}\n\nUpdate the connection and IP in those PCs?',
+  selected:'selected', sel_all_visible:'Select all visible', sel_clear:'Clear selection', del_selected:'Delete selected', t_selall:'Select all',
+  confirm_del_n:'⚠️ Delete {n} device(s)?\n\n{list}\n\nThis cannot be undone.', deleted_n:'{n} device(s) deleted', and_more:'…and {n} more',
   import_excel:'Import Excel', x_sheet:'Sheet', x_client:'Client', x_match:'Match existing devices by', x_deftype:'Type for new rows',
   x_over:'Overwrite values that already have data (if off, only empty fields are filled)', x_col:'Excel column', x_sample:'Example', x_field:'Field in the app',
   x_go:'Import', x_ignore:'— Ignore —', x_from_col:'From column: {c}', x_need_client:'Choose the client, or map a column to "Client".',
@@ -832,6 +850,8 @@ es:{
   sec_printer:'Impresora', prn_kind:'Tipo de impresora', 'pk.Label':'Impresora de etiquetas', 'pk.Regular':'Impresora normal',
   used_by:'Usada por', link_pcs:'🔗 La usan {n} PC de {c}:', link_none:'Ninguna PC de {c} usa esta impresora todavía. En la PC, escribe el nombre o modelo de esta impresora en "Impresoras que usa esta PC" para vincularlas.',
   link_prn:'🔗 Vinculada a impresora(s) de este cliente:', confirm_sync_pcs:'Esta impresora la usan {n} PC de {c}:\n{list}\n\n¿Actualizar la conexión y la IP en esas PC?',
+  selected:'seleccionado(s)', sel_all_visible:'Seleccionar todos los visibles', sel_clear:'Quitar selección', del_selected:'Eliminar seleccionados', t_selall:'Seleccionar todos',
+  confirm_del_n:'⚠️ ¿Eliminar {n} equipo(s)?\n\n{list}\n\nEsto no se puede deshacer.', deleted_n:'{n} equipo(s) eliminado(s)', and_more:'…y {n} más',
   import_excel:'Importar Excel', x_sheet:'Hoja', x_client:'Cliente', x_match:'Buscar equipos existentes por', x_deftype:'Tipo para filas nuevas',
   x_over:'Sobrescribir valores que ya tienen datos (si está apagado, solo llena los campos vacíos)', x_col:'Columna del Excel', x_sample:'Ejemplo', x_field:'Campo en la app',
   x_go:'Importar', x_ignore:'— Ignorar —', x_from_col:'De la columna: {c}', x_need_client:'Elige el cliente o asigna una columna a "Cliente".',
@@ -1198,7 +1218,7 @@ function mostrarVista(){
   if (enCliente) renderClienteHead(); else renderClientes();
 }
 function abrirCliente(n){
-  curCliente = n; fTipo = ''; $('q').value = ''; $('fGrupo').value = ''; $('fLugar').value = '';
+  curCliente = n; fTipo = ''; sel.clear(); $('q').value = ''; $('fGrupo').value = ''; $('fLugar').value = '';
   try{ history.pushState({ c: n }, '', '#c=' + encodeURIComponent(n)); }catch(e){}
   render(); window.scrollTo({ top: 0 });
 }
@@ -1780,6 +1800,7 @@ function render(){
     const cLic = key('win_key', 'Win') + key('office_key', 'Office') + (x.antivirus ? `<small>🛡️ ${esc(x.antivirus)}</small>` : '')
       + ((x.win_key || x.office_key) && !showAll ? `<small class="no-print"><button class="sm" onclick="reveal('${x.id}')" title="${t('t_view')}">👁</button></small>` : '');
     return `<tr>
+    <td class="no-print sel-col"><input type="checkbox" class="rowsel" data-id="${x.id}" ${sel.has(x.id) ? 'checked' : ''} onclick="selUno(this)"></td>
     <td class="client"><b>${esc(x.cliente)}</b></td><td class="addr">${x.direccion ? `<a href="${mapUrl(x.direccion)}" target="_blank" rel="noopener" title="${esc(x.direccion)} · ${t('t_openmap')}">📍 ${esc(x.direccion)}</a>` : ''}</td>
     <td><span class="type">${TIPO_ICON[x.tipo] || '◆'} ${esc(tTipo(x.tipo))}</span></td><td>${esc(x.nombre)}</td><td>${grupoDe(x) ? `<span class="g-chip" onclick="openGrupos('${x.grupo_id}')">🗂 ${esc(grupoDe(x).nombre)}</span>` : ''}</td><td>${esc(x.lugar)}</td><td>${esc(x.modelo)}</td>
     <td class="mono">${esc(x.serial)}</td>
@@ -1794,18 +1815,46 @@ function render(){
       <button class="sm danger" onclick="del('${x.id}')" title="${t('t_delete')}">✕</button>
     </td></tr>`;
   }).join('')
-    : `<tr><td colspan="22" class="empty">${(curCliente ? equiposDe(curCliente).length : items.length) ? t('no_results') : t('empty')}</td></tr>`;
+    : `<tr><td colspan="23" class="empty">${(curCliente ? equiposDe(curCliente).length : items.length) ? t('no_results') : t('empty')}</td></tr>`;
   $('count').textContent = t('count', {n: rows.length, t: base.length});
   $('kTotal').textContent = base.length;
   $('kClientes').textContent = curCliente ? grupos.filter(g => mismoCliente(g.cliente, curCliente)).length : clientes.length;
   $('kActivos').textContent = base.filter(x => x.estado === 'Activo').length;
   $('kRep').textContent = base.filter(x => x.estado === 'En reparación').length;
   mostrarVista();
+  actualizarSel();
   document.querySelectorAll('th[data-k]').forEach(th => {
     th.textContent = (th.dataset.i18n ? t(th.dataset.i18n) : th.textContent.replace(/ [▲▼]$/,'')) + (th.dataset.k===sortK ? (sortDir>0?' ▲':' ▼') : '');
   });
 }
 function setTipo(t){ fTipo = t; render(); }
+/* ---------- Selección múltiple ---------- */
+let sel = new Set();
+function actualizarSel(){
+  // Solo cuenta equipos que siguen existiendo
+  sel = new Set([...sel].filter(id => items.some(x => x.id === id)));
+  const vis = [...document.querySelectorAll('#tbody .rowsel')];
+  vis.forEach(c => { c.checked = sel.has(c.dataset.id); c.closest('tr').classList.toggle('is-sel', c.checked); });
+  const all = $('selAll');
+  all.checked = vis.length > 0 && vis.every(c => c.checked);
+  all.indeterminate = !all.checked && vis.some(c => c.checked);
+  $('selN').textContent = sel.size;
+  $('bulkBar').classList.toggle('hidden', !sel.size);
+}
+function selUno(c){ c.checked ? sel.add(c.dataset.id) : sel.delete(c.dataset.id); actualizarSel(); }
+function selTodos(on){ document.querySelectorAll('#tbody .rowsel').forEach(c => on ? sel.add(c.dataset.id) : sel.delete(c.dataset.id)); actualizarSel(); }
+function limpiarSel(){ sel.clear(); actualizarSel(); }
+async function borrarSel(){
+  const ids = [...sel].filter(id => items.some(x => x.id === id)); if (!ids.length) return;
+  const nombres = ids.map(id => items.find(x => x.id === id)).map(x => `• ${x.nombre} (${tTipo(x.tipo)})`);
+  const list = nombres.slice(0, 12).join('\n') + (nombres.length > 12 ? '\n' + t('and_more', { n: nombres.length - 12 }) : '');
+  if (!confirm(t('confirm_del_n', { n: ids.length, list }))) return;
+  for (let i = 0; i < ids.length; i += 100){
+    const { error } = await db.from('equipos').delete().in('id', ids.slice(i, i + 100));
+    if (error) return fail(error, t('del_fail'));
+  }
+  sel.clear(); toast(t('deleted_n', { n: ids.length })); await loadData();
+}
 document.querySelectorAll('th[data-k]').forEach(th => th.onclick = () => {
   sortDir = sortK === th.dataset.k ? -sortDir : 1; sortK = th.dataset.k; render();
 });
@@ -2044,7 +2093,7 @@ function aImpresora(o){
   const sitio = (o.notas || '').trim();
   const p = { cliente: o.cliente, tipo: 'Impresora', estado: o.estado || 'Activo', modelo, ip, conexion: conn,
     prn_tipo: o.imp_modelo ? 'Regular' : 'Label', lugar: sitio || depto, serial: o.serial, mac: o.mac,
-    nombre: `${modelo} – ${sitio || ip || depto || '?'}`, notas: depto && sitio ? depto : null, _prn: true };
+    nombre: sitio || depto ? `${modelo} – ${sitio || depto}` : modelo, notas: depto && sitio ? depto : null, _prn: true };
   Object.keys(p).forEach(k => { if (p[k] == null || p[k] === '') delete p[k]; });
   return p;
 }
@@ -2090,6 +2139,7 @@ function xPlan(){
         patch[f] = o[f];
       });
       if (hist.length) patch.pw_history = [...(ex.pw_history || []), ...hist];
+      if (ex.tipo === 'Impresora' && /–\s*\d{1,3}(\.\d{1,3}){3}\s*$/.test(ex.nombre || '') && o.nombre && o.nombre !== ex.nombre) patch.nombre = o.nombre;
       if (Object.keys(patch).length) plan.upd.push({ id: ex.id, patch }); 
     } else {
       const row = clean(o);

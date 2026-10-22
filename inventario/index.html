@@ -419,6 +419,41 @@ a.dev-link:hover{color:var(--c1);text-decoration:underline}
 .det-actions button{border:0;border-radius:0;border-right:1px solid var(--line);padding:14px 6px;font-size:12px;display:flex;flex-direction:column;align-items:center;gap:4px;background:none}
 .det-actions button:last-child{border-right:0}
 .det-actions button span{font-size:18px}
+/* ===== Servicios por cliente ===== */
+.svc-ic{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.sc-svc{display:flex;gap:6px;min-height:26px;margin-top:10px;flex-wrap:wrap}
+.sc-svc span{width:26px;height:26px;border-radius:7px;display:inline-grid;place-items:center;background:color-mix(in srgb,var(--sc) 13%,transparent);color:var(--sc)}
+.sc-svc span.none{width:auto;background:none;color:var(--dim);font-size:12px}
+.svc-bar{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.svc-pill{display:inline-flex;align-items:center;gap:7px;padding:6px 11px;border-radius:999px;border:1px solid color-mix(in srgb,var(--sc) 35%,var(--line));background:color-mix(in srgb,var(--sc) 9%,var(--card-solid));color:var(--text);font-size:12.5px;cursor:pointer}
+.svc-pill .svc-ic{color:var(--sc)}
+.svc-pill small{color:var(--muted);font-size:11.5px}
+.svc-pill b{font:600 11px "JetBrains Mono",monospace;color:var(--sc)}
+.svc-pill.add{--sc:var(--muted);border-style:dashed;background:transparent;color:var(--muted)}
+.svc-pill.warn{--sc:var(--warn)}
+.svc-grid{display:grid;gap:8px;grid-column:1/-1}
+.svc-card{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--card-solid)}
+.svc-card.on{border-color:color-mix(in srgb,var(--sc) 55%,var(--line));background:color-mix(in srgb,var(--sc) 6%,var(--card-solid))}
+.svc-row{display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none}
+.svc-row .ib{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;background:color-mix(in srgb,var(--sc) 14%,transparent);color:var(--sc)}
+.svc-row .ib .svc-ic{width:18px;height:18px}
+.svc-row .tx{flex:1;min-width:0}
+.svc-row .tx b{display:block;font-size:13.5px;color:var(--text)}
+.svc-row .tx small{color:var(--muted);font-size:12px}
+.sw{width:38px;height:22px;border-radius:999px;background:var(--line-strong);position:relative;flex:none;transition:.15s}
+.sw::after{content:"";position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:.15s;box-shadow:0 1px 2px rgba(0,0,0,.3)}
+.svc-card.on .sw{background:var(--sc)}
+.svc-card.on .sw::after{left:19px}
+.svc-more{display:none;margin-top:10px;padding-left:42px;gap:8px;flex-direction:column}
+.svc-card.on .svc-more{display:flex}
+.svc-cov{display:flex;flex-wrap:wrap;gap:6px}
+.svc-cov button{padding:4px 10px;font-size:12px;border-radius:999px;box-shadow:none}
+.svc-cov button.on{border-color:var(--sc);color:var(--sc);background:color-mix(in srgb,var(--sc) 10%,transparent)}
+.svc-cov button:not(.on){text-decoration:line-through;color:var(--dim)}
+.svc-more input{font-size:13px;padding:7px 10px}
+.svc-filter{display:flex;gap:8px;flex-wrap:wrap;margin:-4px 0 16px}
+.svc-filter .chip{display:inline-flex;align-items:center;gap:6px}
+.svc-filter .chip .svc-ic{width:14px;height:14px}
 /* ===== Historial de actividad ===== */
 .act{display:grid;grid-template-columns:270px minmax(0,1fr);gap:18px;align-items:start}
 @media (max-width:900px){.act{grid-template-columns:1fr}.act-side{position:static!important;max-height:none!important}}
@@ -478,7 +513,7 @@ a.dev-link:hover{color:var(--c1);text-decoration:underline}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v4.2</p>
+    <p class="sub">Network Asset Manager · v4.3</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -494,7 +529,7 @@ a.dev-link:hover{color:var(--c1);text-decoration:underline}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v4.2</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v4.3</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -524,6 +559,7 @@ a.dev-link:hover{color:var(--c1);text-decoration:underline}
       <button class="primary" onclick="abrirClienteModal()">＋ <span data-i18n="new_client">New client</span></button>
     </div>
   </div>
+  <div id="svcFilter" class="svc-filter"></div>
   <div id="clientGrid" class="site-grid"></div>
 </div>
 
@@ -547,7 +583,7 @@ a.dev-link:hover{color:var(--c1);text-decoration:underline}
 <div id="clientView" class="hidden">
   <div class="cl-head">
     <button class="backbtn" onclick="volverClientes()">← <span data-i18n="clients_title">Clients</span></button>
-    <div class="cl-info"><h2 id="clNombre"></h2><div id="clMeta" class="muted"></div></div>
+    <div class="cl-info"><h2 id="clNombre"></h2><div id="clMeta" class="muted"></div><div id="clSvc" class="svc-bar no-print"></div></div>
     <div class="row no-print">
       <button onclick="abrirClienteModal(curCliente)">✏️ <span data-i18n="edit_client">Edit client</span></button>
       <button onclick="openGrupos()">🗂 <span data-i18n="groups">Groups</span></button>
@@ -750,6 +786,8 @@ a.dev-link:hover{color:var(--c1);text-decoration:underline}
         <label><span data-i18n="cm_phone">Phone</span><input id="cm_telefono" type="tel" autocomplete="off" placeholder="(305) 555-0123" oninput="formatPhone(this)"></label>
         <label class="full">Email<input id="cm_email" type="email" autocomplete="off" placeholder="name@company.com"></label>
         <label class="full"><span data-i18n="notes">Notes</span><textarea id="cm_notas"></textarea></label>
+        <div class="sec full" style="grid-column:1/-1;margin:6px 0 0"><span data-i18n="svc_title">Services we provide</span></div>
+        <div id="cm_svc" class="svc-grid"></div>
       </div>
       <div class="row" style="margin-top:16px">
         <button class="primary" type="submit" data-i18n="save_client">Save client</button>
@@ -1040,6 +1078,12 @@ es:{
   copied:'Copiado ✓', ask_client:'Algunas filas no tienen cliente. ¿A qué cliente pertenecen estos equipos?'
 }};
 Object.assign(I18N.en, {
+  svc_title:'Services we provide', svc_add:'Add services', svc_all:'All clients', svc_none:'No services', svc_nota_ph:'Note: plan, contract, extensions, provider…',
+  svc_cov:'Covers:', svc_without:'without {x}', svc_uncovered:'{n} not covered', svc_uncovered_t:'Devices not covered by any active service',
+  svc_n:'{n} devices covered', svc_missing:'Services were not saved: run supabase-servicios.sql in Supabase first. The rest of the client was saved.',
+  'svc.it':'IT Support', 'svc.net':'Network Management', 'svc.tel':'Telephony', 'svc.cloud':'Cloud Server', 'svc.prn':'Printer Service',
+  'svcd.it':'Computers, printers, network and everything else', 'svcd.net':'Routers, switches, Wi-Fi, firewall', 'svcd.tel':'Phones and phone system (PBX)',
+  'svcd.cloud':'Servers, backups and cloud hosting', 'svcd.prn':'Printers, toner and maintenance', 'fl.servicios':'Services',
   activity:'Activity', t_activity:'Change history: who changed what and when', act_sub:'Who changed what, and when',
   act_all:'All', act_sev:'Severity', act_events:'Events', act_users:'Users', act_clients:'Clients', act_clear:'Clear filters',
   act_search:'Search activity...', act_n:'{n} events', act_none:'No activity for these filters.', act_loading:'Loading…', act_more:'Show more',
@@ -1066,6 +1110,12 @@ Object.assign(I18N.en, {
   'fl.ip':'IP', 'fl.mac':'MAC', 'fl.cliente':'Client', 'fl.direccion':'Address', 'fl.grupo_id':'Group', 'fl.pc_ids':'Linked PCs', 'fl.pc_users':'Users', 'fl.nombre':'Name', 'fl.contacto':'Contact', 'fl.telefono':'Phone', 'fl.email':'Email', 'fl.notas':'Notes',
 });
 Object.assign(I18N.es, {
+  svc_title:'Servicios que le damos', svc_add:'Agregar servicios', svc_all:'Todos los clientes', svc_none:'Sin servicios', svc_nota_ph:'Nota: plan, contrato, extensiones, proveedor…',
+  svc_cov:'Cubre:', svc_without:'sin {x}', svc_uncovered:'{n} sin servicio', svc_uncovered_t:'Equipos que no cubre ningún servicio activo',
+  svc_n:'{n} equipos cubiertos', svc_missing:'Los servicios no se guardaron: primero corre supabase-servicios.sql en Supabase. Lo demás del cliente sí se guardó.',
+  'svc.it':'Soporte IT', 'svc.net':'Administración de red', 'svc.tel':'Telefonía', 'svc.cloud':'Cloud Server', 'svc.prn':'Servicio de printers',
+  'svcd.it':'Computadoras, printers, red y todo lo demás', 'svcd.net':'Routers, switches, Wi-Fi, firewall', 'svcd.tel':'Teléfonos y central telefónica (PBX)',
+  'svcd.cloud':'Servidores, backups y hosting en la nube', 'svcd.prn':'Impresoras, tóner y mantenimiento', 'fl.servicios':'Servicios',
   activity:'Actividad', t_activity:'Historial de cambios: quién cambió qué y cuándo', act_sub:'Quién cambió qué, y cuándo',
   act_all:'Todo', act_sev:'Severidad', act_events:'Eventos', act_users:'Usuarios', act_clients:'Clientes', act_clear:'Limpiar filtros',
   act_search:'Buscar en la actividad...', act_n:'{n} eventos', act_none:'No hay actividad con estos filtros.', act_loading:'Cargando…', act_more:'Ver más',
@@ -1390,7 +1440,12 @@ const equiposDe = n => items.filter(x => mismoCliente(x.cliente, n));
 const tN = (k, n) => n === 1 ? t(k.replace(/s$/, '') === 'n_device' ? 'n_device1' : 'n_group1') : t(k, { n });
 function renderClientes(){
   const q = nrm($('cq').value), todos = listaClientes();
-  const lista = todos.filter(c => !q || nrm(c.nombre).includes(q) || nrm(c.direccion).includes(q) || nrm(c.contacto).includes(q));
+  const lista = todos.filter(c => (!q || nrm(c.nombre).includes(q) || nrm(c.direccion).includes(q) || nrm(c.contacto).includes(q))
+    && (!fSvc || (fSvc === '-' ? !svcActivos(c).length : !!svcDe(c)[fSvc])));
+  const nSvc = k => todos.filter(c => k === '-' ? !svcActivos(c).length : !!svcDe(c)[k]).length;
+  $('svcFilter').innerHTML = todos.some(c => svcActivos(c).length) ? `<span class="chip ${!fSvc ? 'on' : ''}" onclick="fSvc='';renderClientes()">${t('svc_all')} (${todos.length})</span>` +
+    SERVICIOS.filter(S => nSvc(S.k) || fSvc === S.k).map(S => `<span class="chip ${fSvc === S.k ? 'on' : ''}" onclick="fSvc='${S.k}';renderClientes()" style="${fSvc === S.k ? '' : 'color:' + S.color}">${svcIcon(S.k)} ${esc(t('svc.' + S.k))} (${nSvc(S.k)})</span>`).join('') +
+    (nSvc('-') ? `<span class="chip ${fSvc === '-' ? 'on' : ''}" onclick="fSvc='-';renderClientes()">${t('svc_none')} (${nSvc('-')})</span>` : '') : '';
   $('cvCount').textContent = t('clients_count', { n: todos.length, d: items.length });
   const orden = ['DVR','NVR','Cámara','PC','Laptop','Servidor','Impresora','Router','Switch','Access Point','Teléfono','Control de Acceso','Otro'];
   $('clientGrid').innerHTML = `<div class="site-card add" onclick="abrirClienteModal()">＋ ${t('new_client')}</div>` + lista.map(c => {
@@ -1408,6 +1463,7 @@ function renderClientes(){
       <div class="sc-sub">${estado}</div>
       <div class="sc-bar">${bar}</div>
       <div class="sc-addr">${c.direccion ? `📍 ${esc(c.direccion)}` : '&nbsp;'}</div>
+      <div class="sc-svc">${svcActivos(c).map(S => `<span style="--sc:${S.color}" title="${esc(t('svc.' + S.k) + (S.k === 'it' && svcSinIT(svcDe(c).it) ? ' · ' + svcSinIT(svcDe(c).it) : ''))}">${svcIcon(S.k)}</span>`).join('')}</div>
       <div class="sc-icons">${Object.keys(tipos).length ? Object.keys(tipos).sort((a, b) => orden.indexOf(a) - orden.indexOf(b)).map(k => `<span title="${esc(tTipo(k))}">${TIPO_ICON[k] || '◆'} ${tipos[k]}</span>`).join('') : `<span class="empty">＋ ${t('add_device')}</span>`}</div>
     </div>`;
   }).join('') + (!lista.length && q ? `<p class="muted">${t('no_clients')}</p>` : '');
@@ -1418,6 +1474,7 @@ function renderClienteHead(){
   $('clMeta').innerHTML = [c.direccion ? `<a href="${mapUrl(c.direccion)}" target="_blank" rel="noopener">📍 ${esc(c.direccion)}</a>` : '',
     c.contacto ? `👤 ${esc(c.contacto)}` : '', c.telefono ? `📞 <a href="tel:${esc(String(c.telefono).replace(/[^\d+]/g, ''))}">${esc(c.telefono)}</a>` : '',
     c.email ? `✉️ <a href="mailto:${esc(c.email)}">${esc(c.email)}</a>` : ''].filter(Boolean).join(' &nbsp;·&nbsp; ');
+  renderSvcBar();
 }
 function mostrarVista(){
   const enCliente = !!curCliente, act = ACT.open;
@@ -1450,7 +1507,62 @@ function nuevoEquipo(){
   setTimeout(() => $('nombre').focus(), 50);
 }
 // Modal de cliente
-function abrirClienteModal(nombre){
+/* ---------- Servicios por cliente ---------- */
+const SVC_PATH = {
+  it: '<path d="M4 15v-3a8 8 0 0 1 16 0v3"/><path d="M4 15h3v5H5a1 1 0 0 1-1-1z"/><path d="M20 15h-3v5h2a1 1 0 0 0 1-1z"/>',
+  net: '<rect x="9" y="3" width="6" height="5" rx="1"/><rect x="3" y="16" width="6" height="5" rx="1"/><rect x="15" y="16" width="6" height="5" rx="1"/><path d="M12 8v4M6 16v-4h12v4"/>',
+  tel: '<path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/>',
+  cloud: '<path d="M17.5 19H9a7 7 0 1 1 6.7-9h1.8a4.5 4.5 0 1 1 0 9z"/>',
+  prn: '<path d="M6 9V3h12v6"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="7"/>'
+};
+const SERVICIOS = [
+  { k: 'it',    color: '#006fff', cats: null },            // IT cubre todo menos lo que se excluya
+  { k: 'net',   color: '#1baf7a', cats: ['net'] },
+  { k: 'tel',   color: '#8b5cf6', cats: ['tel'] },
+  { k: 'cloud', color: '#0ea5e9', tipos: ['Servidor'] },
+  { k: 'prn',   color: '#eb6834', cats: ['prn'] }
+];
+const IT_COV = [['comp', 't_computers'], ['prn', 't_printers'], ['net', 't_network'], ['cctv', 't_cctv'], ['tel', 't_phones'], ['acc', 't_access']];
+const svcIcon = k => `<svg class="svc-ic" viewBox="0 0 24 24" aria-hidden="true">${SVC_PATH[k]}</svg>`;
+const catDe = tipo => Object.keys(CATS).find(c => CATS[c].includes(tipo)) || 'otro';
+function svcDe(c){ let v = c?.servicios; if (typeof v === 'string'){ try{ v = JSON.parse(v); }catch(e){ v = {}; } } return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; }
+const svcActivos = c => { const v = svcDe(c); return SERVICIOS.filter(S => v[S.k]); };
+function svcCubre(S, conf, x){
+  if (S.k === 'it') return !(conf?.excl || []).includes(catDe(x.tipo));
+  if (S.tipos) return S.tipos.includes(x.tipo);
+  return S.cats.includes(catDe(x.tipo));
+}
+function cubierto(c, x){ const v = svcDe(c); return SERVICIOS.some(S => v[S.k] && svcCubre(S, v[S.k], x)); }
+function svcSinIT(conf){ const ex = (conf?.excl || []); return ex.length ? t('svc_without', { x: IT_COV.filter(([k]) => ex.includes(k)).map(([, l]) => t(l).toLowerCase()).join(', ') }) : ''; }
+// Barra de servicios dentro del cliente
+function renderSvcBar(){
+  const c = clienteObj(curCliente) || { nombre: curCliente }, v = svcDe(c), act = svcActivos(c), d = equiposDe(curCliente);
+  if (!act.length){ $('clSvc').innerHTML = `<span class="svc-pill add" onclick="abrirClienteModal(curCliente,true)">＋ ${t('svc_add')}</span>`; return; }
+  const sin = d.filter(x => !cubierto(c, x)).length;
+  $('clSvc').innerHTML = act.map(S => { const n = d.filter(x => svcCubre(S, v[S.k], x)).length, extra = S.k === 'it' ? svcSinIT(v.it) : '';
+      return `<span class="svc-pill" style="--sc:${S.color}" onclick="abrirClienteModal(curCliente,true)" title="${esc(t('svc_n', { n }) + (v[S.k].nota ? ' · ' + v[S.k].nota : ''))}">${svcIcon(S.k)}${esc(t('svc.' + S.k))}${extra ? ` <small>${esc(extra)}</small>` : ''} <b>${n}</b></span>`; }).join('')
+    + (sin ? `<span class="svc-pill warn" onclick="verSinServicio()" title="${esc(t('svc_uncovered_t'))}">⚠️ ${esc(t('svc_uncovered', { n: sin }))}</span>` : '');
+}
+function verSinServicio(){
+  const c = clienteObj(curCliente) || {};
+  irA('list'); fPred = { label: '⚠️ ' + t('svc_uncovered_t'), fn: x => !cubierto(c, x) }; render();
+}
+// Formulario de servicios en el modal del cliente
+let cmSvc = {};
+function renderSvcForm(){
+  $('cm_svc').innerHTML = SERVICIOS.map(S => { const on = !!cmSvc[S.k], conf = cmSvc[S.k] || {};
+    const cov = S.k === 'it' ? `<div class="svc-cov"><small class="muted" style="align-self:center">${t('svc_cov')}</small>${IT_COV.map(([k, l]) =>
+        `<button type="button" class="${(conf.excl || []).includes(k) ? '' : 'on'}" onclick="svcExcl('${k}')">${esc(t(l))}</button>`).join('')}</div>` : '';
+    return `<div class="svc-card ${on ? 'on' : ''}" style="--sc:${S.color}">
+      <div class="svc-row" onclick="svcToggle('${S.k}')" role="switch" aria-checked="${on}"><span class="ib">${svcIcon(S.k)}</span>
+        <span class="tx"><b>${esc(t('svc.' + S.k))}</b><small>${esc(t('svcd.' + S.k))}</small></span><span class="sw"></span></div>
+      <div class="svc-more">${cov}<input value="${esc(conf.nota || '')}" placeholder="${esc(t('svc_nota_ph'))}" oninput="cmSvc['${S.k}'].nota=this.value"></div></div>`; }).join('');
+}
+function svcToggle(k){ if (cmSvc[k]) delete cmSvc[k]; else cmSvc[k] = k === 'it' ? { excl: [] } : {}; renderSvcForm(); }
+function svcExcl(cat){ const e = cmSvc.it.excl = cmSvc.it.excl || []; const i = e.indexOf(cat); i >= 0 ? e.splice(i, 1) : e.push(cat); renderSvcForm(); }
+function svcLimpio(){ const o = {}; for (const S of SERVICIOS) if (cmSvc[S.k]){ const c = {}; if (S.k === 'it' && cmSvc.it.excl?.length) c.excl = [...cmSvc.it.excl]; if (cmSvc[S.k].nota?.trim()) c.nota = cmSvc[S.k].nota.trim(); o[S.k] = c; } return o; }
+let fSvc = '';
+function abrirClienteModal(nombre, enServicios){
   if (!clientesOK){ alert(t('clients_missing')); return; }
   const c = nombre ? (clienteObj(nombre) || { nombre }) : null;
   cmEditando = c;
@@ -1459,19 +1571,26 @@ function abrirClienteModal(nombre){
   $('cm_contacto').value = c?.contacto || ''; $('cm_telefono').value = c?.telefono || '';
   $('cm_email').value = c?.email || ''; $('cm_notas').value = c?.notas || '';
   $('cmDel').classList.toggle('hidden', !c);
-  $('cModal').classList.remove('hidden'); setTimeout(() => $('cm_nombre').focus(), 50);
+  cmSvc = JSON.parse(JSON.stringify(svcDe(c))); renderSvcForm();
+  $('cModal').classList.remove('hidden');
+  setTimeout(() => enServicios ? $('cm_svc').scrollIntoView({ block: 'start', behavior: 'smooth' }) : $('cm_nombre').focus(), 50);
 }
 function cerrarClienteModal(){ $('cModal').classList.add('hidden'); cmEditando = null; }
 async function guardarCliente(e){
   e.preventDefault();
   const row = { nombre: $('cm_nombre').value.trim(), direccion: $('cm_direccion').value.trim() || null,
     contacto: $('cm_contacto').value.trim() || null, telefono: $('cm_telefono').value.trim() || null,
-    email: $('cm_email').value.trim() || null, notas: $('cm_notas').value.trim() || null };
+    email: $('cm_email').value.trim() || null, notas: $('cm_notas').value.trim() || null, servicios: svcLimpio() };
   if (!row.nombre) return;
   const viejo = cmEditando;
   if (listaClientes().some(c => mismoCliente(c.nombre, row.nombre) && !(viejo && mismoCliente(viejo.nombre, row.nombre))))
     return alert(t('client_exists', { n: row.nombre }));
-  const { error } = viejo && viejo.id ? await db.from('clientes').update(row).eq('id', viejo.id) : await db.from('clientes').insert(row);
+  const grabar = r => viejo && viejo.id ? db.from('clientes').update(r).eq('id', viejo.id) : db.from('clientes').insert(r);
+  let { error } = await grabar(row);
+  if (error && /servicios/i.test(error.message || '')){   // falta la columna: guardar lo demás y avisar
+    const { servicios, ...resto } = row; ({ error } = await grabar(resto));
+    if (!error) alert(t('svc_missing'));
+  }
   if (error) return fail(error, t('save_fail'));
   if (viejo){
     // Renombrar: pasar equipos y grupos al nombre nuevo
@@ -2020,6 +2139,8 @@ function valAct(k, v){
   if (k === 'estado') return esc(tEstado(v));
   if (k === 'grupo_id') return esc(grupos.find(g => g.id === v)?.nombre || t('act_deleted_group'));
   if (['conexion', 'lbl_conexion', 'imp_conexion'].includes(k)) return esc(t('conn.' + v) === 'conn.' + v ? v : t('conn.' + v));
+  if (k === 'servicios'){ const o = svcDe({ servicios: v }); const ks = SERVICIOS.filter(S => o[S.k]);
+    return ks.length ? ks.map(S => esc(t('svc.' + S.k)) + (S.k === 'it' && svcSinIT(o.it) ? ` (${esc(svcSinIT(o.it))})` : '')).join(', ') : esc(t('svc_none')); }
   if (k === 'pc_ids'){
     let ids = v; try{ if (typeof v === 'string') ids = JSON.parse(v); }catch(e){}
     return Array.isArray(ids) ? (ids.map(id => esc(items.find(i => i.id === id)?.nombre || '?')).join(', ') || t('act_nochg')) : esc(v);

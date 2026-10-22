@@ -327,7 +327,30 @@ tbody tr:hover td.actions-col{background:var(--card-solid)}
 .cl-info .muted{font-size:13px;margin-top:3px}
 .cl-info .muted a{color:var(--muted)}
 .backbtn{padding:8px 12px}
-#devTable.scoped th:nth-child(2),#devTable.scoped td:nth-child(2){display:none}
+#devTable .col-off{display:none}
+/* ===== Columnas: mover y ocultar ===== */
+#devTable thead th[draggable=true]{cursor:grab}
+#devTable thead th.dragging{opacity:.45}
+#devTable thead th.drop-l{box-shadow:inset 3px 0 0 var(--c1)}
+#devTable thead th.drop-r{box-shadow:inset -3px 0 0 var(--c1)}
+.cols-wrap{position:relative}
+.cols-pop{position:absolute;right:0;top:calc(100% + 6px);z-index:60;width:270px;background:var(--card-solid);border:1px solid var(--line-strong);border-radius:12px;box-shadow:0 20px 40px -12px rgba(0,0,0,.45);padding:10px}
+.cols-pop h5{margin:2px 4px 8px;font:600 11px "JetBrains Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;align-items:center}
+.cols-pop small{display:block;color:var(--muted);font-size:11.5px;margin:0 4px 8px}
+.cols-list{max-height:min(420px,60vh);overflow:auto;display:flex;flex-direction:column;gap:2px}
+.col-item{display:flex;align-items:center;gap:8px;padding:6px 6px;border-radius:8px;font-size:13px;color:var(--text);background:transparent;user-select:none}
+.col-item:hover{background:var(--row-hover)}
+.col-item .hd{cursor:grab;color:var(--dim);font-size:14px;line-height:1;padding:0 2px}
+.col-item input{width:auto;margin:0}
+.col-item label{flex-direction:row;align-items:center;gap:8px;flex:1;cursor:pointer;color:inherit;font-size:13px;font-weight:400}
+.col-item.off label{color:var(--dim)}
+.col-item.dragging{opacity:.4}
+.col-item.drop-t{box-shadow:inset 0 2px 0 var(--c1)}
+.col-item.drop-b{box-shadow:inset 0 -2px 0 var(--c1)}
+.col-item .mv{display:flex;gap:2px}
+.col-item .mv button{padding:1px 6px;font-size:11px;line-height:1.4;box-shadow:none}
+.cols-foot{display:flex;justify-content:space-between;gap:8px;margin-top:8px;padding-top:8px;border-top:1px solid var(--line)}
+.cols-foot button{font-size:12px;padding:6px 10px}
 /* Panel lateral del formulario */
 .drawer{position:fixed;inset:0;z-index:55;background:rgba(15,20,30,.45);backdrop-filter:blur(2px);display:flex;justify-content:flex-end}
 .drawer-panel{width:min(980px,100%);height:100%;overflow-y:auto;margin:0;border-radius:0;border-width:0 0 0 1px;background:var(--bg)!important;padding:22px}
@@ -513,7 +536,7 @@ a.dev-link:hover{color:var(--c1);text-decoration:underline}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v4.3</p>
+    <p class="sub">Network Asset Manager · v4.4</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -529,7 +552,7 @@ a.dev-link:hover{color:var(--c1);text-decoration:underline}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v4.3</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v4.4</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -737,6 +760,7 @@ a.dev-link:hover{color:var(--c1);text-decoration:underline}
       <select id="fCliente" onchange="render()" style="max-width:220px"><option value=""></option></select>
       <select id="fLugar" onchange="render()" style="max-width:200px"><option value=""></option></select>
       <select id="fGrupo" onchange="render()" style="max-width:200px"><option value=""></option></select>
+      <div class="cols-wrap"><button type="button" onclick="toggleColsPop(event)" data-i18n-title="t_cols">⚙️ <span data-i18n="cols">Columns</span> <span id="colsN" class="muted"></span></button><div id="colsPop" class="cols-pop hidden" onclick="event.stopPropagation()"></div></div>
       <label class="check"><input type="checkbox" id="showPw" onchange="render(); if (this.checked) logAct('password_viewed', null, { all: true, n: filtered().length }, { cliente: curCliente })"> <span data-i18n="show_pw">Show passwords</span></label>
     </div>
     <div class="stats no-print" id="chips" style="margin-bottom:14px"></div>
@@ -1078,6 +1102,8 @@ es:{
   copied:'Copiado ✓', ask_client:'Algunas filas no tienen cliente. ¿A qué cliente pertenecen estos equipos?'
 }};
 Object.assign(I18N.en, {
+  cols:'Columns', t_cols:'Show, hide and reorder the columns', cols_title:'Columns', cols_help:'Check to show · drag ⠿ (or the table headers) to reorder',
+  cols_reset:'Reset', cols_all:'Show all', cols_hidden:'({n} hidden)', th_group_col:'Group', cols_up:'Move up', cols_down:'Move down',
   svc_title:'Services we provide', svc_add:'Add services', svc_all:'All clients', svc_none:'No services', svc_nota_ph:'Note: plan, contract, extensions, provider…',
   svc_cov:'Covers:', svc_without:'without {x}', svc_uncovered:'{n} not covered', svc_uncovered_t:'Devices not covered by any active service',
   svc_n:'{n} devices covered', svc_missing:'Services were not saved: run supabase-servicios.sql in Supabase first. The rest of the client was saved.',
@@ -1110,6 +1136,8 @@ Object.assign(I18N.en, {
   'fl.ip':'IP', 'fl.mac':'MAC', 'fl.cliente':'Client', 'fl.direccion':'Address', 'fl.grupo_id':'Group', 'fl.pc_ids':'Linked PCs', 'fl.pc_users':'Users', 'fl.nombre':'Name', 'fl.contacto':'Contact', 'fl.telefono':'Phone', 'fl.email':'Email', 'fl.notas':'Notes',
 });
 Object.assign(I18N.es, {
+  cols:'Columnas', t_cols:'Mostrar, ocultar y mover las columnas', cols_title:'Columnas', cols_help:'Marca para mostrar · arrastra ⠿ (o los encabezados de la tabla) para mover',
+  cols_reset:'Restablecer', cols_all:'Mostrar todas', cols_hidden:'({n} ocultas)', th_group_col:'Grupo', cols_up:'Subir', cols_down:'Bajar',
   svc_title:'Servicios que le damos', svc_add:'Agregar servicios', svc_all:'Todos los clientes', svc_none:'Sin servicios', svc_nota_ph:'Nota: plan, contrato, extensiones, proveedor…',
   svc_cov:'Cubre:', svc_without:'sin {x}', svc_uncovered:'{n} sin servicio', svc_uncovered_t:'Equipos que no cubre ningún servicio activo',
   svc_n:'{n} equipos cubiertos', svc_missing:'Los servicios no se guardaron: primero corre supabase-servicios.sql en Supabase. Lo demás del cliente sí se guardó.',
@@ -2547,7 +2575,86 @@ function render(){
   document.querySelectorAll('th[data-k]').forEach(th => {
     th.textContent = (th.dataset.i18n ? t(th.dataset.i18n) : th.textContent.replace(/ [▲▼]$/,'')) + (th.dataset.k===sortK ? (sortDir>0?' ▲':' ▼') : '');
   });
+  aplicarColumnas();
 }
+/* ---------- Columnas de la tabla: mover y ocultar (se guarda en este navegador) ---------- */
+// Orden ORIGINAL de las columnas movibles (entre la casilla de selección y los botones)
+const COLS = ['cliente','direccion','tipo','nombre','grupo','lugar','modelo','serial','ip','mac','usuario','password',
+  'persona','pc','remoto','logins','printers','licencias','garantia','estado','notas'];
+const COLS_FIJAS = ['nombre'];          // el nombre no se puede ocultar
+let colCfg = { orden: [...COLS], ocultas: [] };
+try{
+  const g = JSON.parse(localStorage.getItem('inv_cols') || 'null');
+  if (g && Array.isArray(g.orden)){
+    const orden = g.orden.filter(c => COLS.includes(c));
+    COLS.forEach((c, i) => { if (!orden.includes(c)) orden.splice(Math.min(i, orden.length), 0, c); });   // columnas nuevas
+    colCfg = { orden, ocultas: (g.ocultas || []).filter(c => COLS.includes(c) && !COLS_FIJAS.includes(c)) };
+  }
+}catch(e){}
+function guardarCols(){ try{ localStorage.setItem('inv_cols', JSON.stringify(colCfg)); }catch(e){} }
+// Marca cada encabezado con su columna (una sola vez, en el orden original del HTML)
+(function(){ const ths = document.querySelectorAll('#devTable thead th'); COLS.forEach((c, i) => { const th = ths[i + 1]; if (th){ th.dataset.col = c; th.draggable = true; } }); })();
+const colLabel = c => { const th = document.querySelector(`#devTable thead th[data-col="${c}"]`); return th ? (th.dataset.i18n ? t(th.dataset.i18n) : th.textContent.replace(/ [▲▼]$/, '')) : c; };
+// Reordena y oculta las celdas después de cada render
+function aplicarColumnas(){
+  const tabla = $('devTable'); if (!tabla) return;
+  const ocultas = new Set(colCfg.ocultas); if (curCliente) ocultas.add('cliente');
+  const pos = COLS.map(c => colCfg.orden.indexOf(c));     // posición nueva de cada columna original
+  const fila = (tr, celdas) => {
+    if (celdas.length !== COLS.length + 2) return;        // filas vacías (colspan) se dejan igual
+    const mov = celdas.slice(1, -1), nuevo = [];
+    mov.forEach((td, i) => { nuevo[pos[i]] = td; td.classList.toggle('col-off', ocultas.has(COLS[i])); });
+    nuevo.forEach(td => tr.insertBefore(td, celdas[celdas.length - 1]));
+  };
+  const hr = tabla.tHead.rows[0], ths = [...hr.children];
+  const orig = COLS.map(c => ths.find(th => th.dataset.col === c));
+  orig.forEach((th, i) => { th.classList.toggle('col-off', ocultas.has(COLS[i])); });
+  colCfg.orden.forEach(c => hr.insertBefore(orig[COLS.indexOf(c)], hr.lastElementChild));
+  for (const tr of $('tbody').rows){ const cs = [...tr.children]; fila(tr, cs); }
+  const n = colCfg.ocultas.length; $('colsN').textContent = n ? t('cols_hidden', { n }) : '';
+  if (!$('colsPop').classList.contains('hidden')) renderColsPop();
+}
+function moverCol(c, destino, despues){
+  const o = colCfg.orden.filter(x => x !== c); let i = o.indexOf(destino); if (i < 0) return;
+  if (despues) i++; o.splice(i, 0, c); colCfg.orden = o; guardarCols(); render();
+}
+function colPaso(c, d){ const o = colCfg.orden, i = o.indexOf(c), j = i + d; if (j < 0 || j >= o.length) return; [o[i], o[j]] = [o[j], o[i]]; guardarCols(); render(); }
+function toggleCol(c, ver){ const s = new Set(colCfg.ocultas); ver ? s.delete(c) : s.add(c); colCfg.ocultas = [...s]; guardarCols(); render(); }
+function resetCols(){ colCfg = { orden: [...COLS], ocultas: [] }; guardarCols(); render(); }
+function verTodasCols(){ colCfg.ocultas = []; guardarCols(); render(); }
+function toggleColsPop(e){ e?.stopPropagation(); const p = $('colsPop'); p.classList.toggle('hidden'); if (!p.classList.contains('hidden')) renderColsPop(); }
+document.addEventListener('click', () => $('colsPop')?.classList.add('hidden'));
+function renderColsPop(){
+  const lista = colCfg.orden.filter(c => !(curCliente && c === 'cliente'));
+  $('colsPop').innerHTML = `<h5>${t('cols_title')}<button class="sm" onclick="toggleColsPop()">✕</button></h5><small>${t('cols_help')}</small>
+    <div class="cols-list">${lista.map((c, i) => { const ver = !colCfg.ocultas.includes(c), fija = COLS_FIJAS.includes(c);
+      return `<div class="col-item ${ver ? '' : 'off'}" draggable="true" data-col="${c}"><span class="hd" title="⠿">⠿</span>
+        <label><input type="checkbox" ${ver ? 'checked' : ''} ${fija ? 'disabled' : ''} onchange="toggleCol('${c}',this.checked)">${esc(colLabel(c))}</label>
+        <span class="mv"><button class="sm" ${i ? '' : 'disabled'} onclick="colPaso('${c}',-1)" title="${t('cols_up')}">▲</button><button class="sm" ${i < lista.length - 1 ? '' : 'disabled'} onclick="colPaso('${c}',1)" title="${t('cols_down')}">▼</button></span></div>`; }).join('')}</div>
+    <div class="cols-foot"><button onclick="verTodasCols()">${t('cols_all')}</button><button onclick="resetCols()">↺ ${t('cols_reset')}</button></div>`;
+}
+// Arrastrar: sirve igual para los encabezados de la tabla y para la lista del menú
+let colArr = null;
+function zonaDrop(el, e){ const r = el.getBoundingClientRect(); return el.classList.contains('col-item') ? e.clientY > r.top + r.height / 2 : e.clientX > r.left + r.width / 2; }
+function limpiarDrop(){ document.querySelectorAll('.drop-l,.drop-r,.drop-t,.drop-b,.dragging').forEach(el => el.classList.remove('drop-l', 'drop-r', 'drop-t', 'drop-b', 'dragging')); }
+document.addEventListener('dragstart', e => {
+  const el = e.target.closest?.('#devTable thead th[data-col], .col-item'); if (!el) return;
+  colArr = el.dataset.col; el.classList.add('dragging');
+  e.dataTransfer.effectAllowed = 'move'; try{ e.dataTransfer.setData('text/plain', colArr); }catch(_){}
+});
+document.addEventListener('dragover', e => {
+  if (!colArr) return;
+  const el = e.target.closest?.('#devTable thead th[data-col], .col-item'); if (!el || el.dataset.col === colArr) return;
+  e.preventDefault(); const lista = el.classList.contains('col-item'), desp = zonaDrop(el, e);
+  document.querySelectorAll('.drop-l,.drop-r,.drop-t,.drop-b').forEach(x => x !== el && x.classList.remove('drop-l', 'drop-r', 'drop-t', 'drop-b'));
+  el.classList.toggle(lista ? 'drop-b' : 'drop-r', desp); el.classList.toggle(lista ? 'drop-t' : 'drop-l', !desp);
+});
+document.addEventListener('drop', e => {
+  if (!colArr) return;
+  const el = e.target.closest?.('#devTable thead th[data-col], .col-item');
+  if (el && el.dataset.col !== colArr){ e.preventDefault(); const c = colArr; colArr = null; limpiarDrop(); moverCol(c, el.dataset.col, zonaDrop(el, e)); }
+});
+document.addEventListener('dragend', () => { colArr = null; limpiarDrop(); });
 function setTipo(t){ fTipo = t; fCat = ''; fAlert = ''; fPred = null; vista = 'list'; render(); }
 /* ---------- Selección múltiple ---------- */
 let sel = new Set();

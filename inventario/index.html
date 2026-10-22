@@ -462,6 +462,19 @@ a.dev-link:hover{color:var(--c1);text-decoration:underline}
 .svc-chk input{width:auto;margin:0}
 .net-telred{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px;padding:10px 14px;border-radius:12px;border:1px solid color-mix(in srgb,#8b5cf6 45%,var(--line));background:color-mix(in srgb,#8b5cf6 8%,var(--card-solid));font-size:13px}
 .svc-unlock{grid-column:1/-1;margin:-4px 0 2px;font-size:12px;color:var(--muted)}
+.site-card{position:relative}
+.site-card[draggable=true]{cursor:grab}
+.site-card.dragging{opacity:.45}
+.site-card.drop-l{box-shadow:inset 4px 0 0 var(--c1)}
+.site-card.drop-r{box-shadow:inset -4px 0 0 var(--c1)}
+.site-card.pinned{border-color:color-mix(in srgb,var(--c1) 55%,var(--line))}
+.sc-pin{position:absolute;top:10px;right:10px;width:28px;height:28px;padding:0;display:grid;place-items:center;border-radius:8px;font-size:14px;
+  background:transparent;border:1px solid transparent;opacity:0;transition:.15s;filter:grayscale(1);box-shadow:none}
+.site-card:hover .sc-pin{opacity:.7}
+.sc-pin:hover{opacity:1!important;border-color:var(--line-strong);filter:none}
+.sc-pin.on{opacity:1;filter:none}
+.site-card h3{padding-right:30px}
+td.actions-col .acts button.ver-btn{width:auto;padding:0 9px;font-size:12px;gap:4px;display:inline-flex;align-items:center}
 /* ===== Inventario de Network ===== */
 #netBox .legacy-isp{display:none}
 .wan-box{margin-top:12px;border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--card)}
@@ -625,7 +638,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v5.7</p>
+    <p class="sub">Network Asset Manager · v5.8</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -641,7 +654,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v5.7</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v5.8</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -666,7 +679,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <!-- ===== Vista: lista de clientes ===== -->
 <div id="clientsView">
   <div class="cv-top">
-    <div><h2 data-i18n="clients_title">Clients</h2><small class="muted" id="cvCount"></small></div>
+    <div><h2 data-i18n="clients_title">Clients</h2><small class="muted" id="cvCount"></small><br><small class="muted solo-roles" data-i18n="clients_drag">Drag the cards to change the order</small></div>
     <div class="row">
       <div class="search"><input id="cq" data-i18n-ph="search_clients" placeholder="Search clients..." oninput="renderClientes()"></div>
       <button class="primary" onclick="abrirClienteModal()">＋ <span data-i18n="new_client">New client</span></button>
@@ -1212,6 +1225,8 @@ es:{
   copied:'Copiado ✓', ask_client:'Algunas filas no tienen cliente. ¿A qué cliente pertenecen estos equipos?'
 }};
 Object.assign(I18N.en, {
+  view:'View', pin:'Pin to the top', unpin:'Unpin', pinned:'📌 {c} pinned to the top', unpinned:'{c} unpinned',
+  orden_missing:'To pin and reorder clients, run supabase-orden.sql in Supabase first.', clients_drag:'Drag the cards to change the order · 📌 pins a client to the top',
   svc_tel_red:'Includes the network for the phones (switch, router, AP…) — not a Network Management service',
   svc_tel_red_inc:'Network already covered by the Network Management service', svc_tel_red_short:'+ phone network',
   net_tel_only:'Phone network only', net_tel_only_sub:'Comes with the Telephony service, just to manage the phones. It is not the Network Management service.',
@@ -1246,7 +1261,7 @@ Object.assign(I18N.en, {
   no_access:'Your user does not have access to any company yet. Ask the administrator to assign one.', no_perm:'You do not have permission for that',
   'ev.user_access_changed':'User Access Changed', 'ad.user_access_changed':'{u} changed the access of {o}',
   cols:'Columns', t_cols:'Show, hide and reorder the columns', cols_title:'Columns', cols_help:'Check to show · drag ⠿ (or the table headers) to reorder · drag a header edge to resize',
-  cols_actions:'Action buttons (Edit, History, Duplicate, Delete)', cols_resize:'Drag to resize · double-click to reset',
+  cols_actions:'“View” button (Edit, History and Delete are inside)', cols_resize:'Drag to resize · double-click to reset',
   cols_reset:'Reset', cols_all:'Show all', cols_hidden:'({n} hidden)', th_group_col:'Group', cols_up:'Move up', cols_down:'Move down',
   svc_title:'Services we provide', svc_add:'Add services', svc_all:'All clients', svc_none:'No services', svc_nota_ph:'Note: plan, contract, extensions, provider…',
   svc_cov:'Covers:', svc_without:'without {x}', svc_uncovered:'{n} not covered', svc_uncovered_t:'Devices not covered by any active service',
@@ -1280,6 +1295,8 @@ Object.assign(I18N.en, {
   'fl.ip':'IP', 'fl.mac':'MAC', 'fl.cliente':'Client', 'fl.direccion':'Address', 'fl.grupo_id':'Group', 'fl.pc_ids':'Linked PCs', 'fl.pc_users':'Users', 'fl.nombre':'Name', 'fl.contacto':'Contact', 'fl.telefono':'Phone', 'fl.email':'Email', 'fl.notas':'Notes',
 });
 Object.assign(I18N.es, {
+  view:'Ver', pin:'Fijar arriba', unpin:'Quitar de arriba', pinned:'📌 {c} fijado arriba', unpinned:'{c} ya no está fijado',
+  orden_missing:'Para fijar y ordenar clientes, primero corre supabase-orden.sql en Supabase.', clients_drag:'Arrastra las tarjetas para cambiar el orden · 📌 fija un cliente arriba',
   svc_tel_red:'Incluye la red para los teléfonos (switch, router, AP…) — no es el servicio de Administración de red',
   svc_tel_red_inc:'La red ya la cubre el servicio de Administración de red', svc_tel_red_short:'+ red de teléfonos',
   net_tel_only:'Red solo de telefonía', net_tel_only_sub:'Viene con el servicio de Telefonía, solo para el manejo de los teléfonos. No es el servicio de Administración de red.',
@@ -1314,7 +1331,7 @@ Object.assign(I18N.es, {
   no_access:'Tu usuario todavía no tiene acceso a ninguna compañía. Pídele al administrador que te asigne una.', no_perm:'No tienes permiso para eso',
   'ev.user_access_changed':'Acceso de usuario cambiado', 'ad.user_access_changed':'{u} cambió el acceso de {o}',
   cols:'Columnas', t_cols:'Mostrar, ocultar y mover las columnas', cols_title:'Columnas', cols_help:'Marca para mostrar · arrastra ⠿ (o los encabezados de la tabla) para mover · arrastra el borde de un encabezado para cambiar el ancho',
-  cols_actions:'Botones de acción (Editar, Historial, Duplicar, Borrar)', cols_resize:'Arrastra para cambiar el ancho · doble clic para restablecer',
+  cols_actions:'Botón “Ver” (Editar, Historial y Borrar están adentro)', cols_resize:'Arrastra para cambiar el ancho · doble clic para restablecer',
   cols_reset:'Restablecer', cols_all:'Mostrar todas', cols_hidden:'({n} ocultas)', th_group_col:'Grupo', cols_up:'Subir', cols_down:'Bajar',
   svc_title:'Servicios que le damos', svc_add:'Agregar servicios', svc_all:'Todos los clientes', svc_none:'Sin servicios', svc_nota_ph:'Nota: plan, contrato, extensiones, proveedor…',
   svc_cov:'Cubre:', svc_without:'sin {x}', svc_uncovered:'{n} sin servicio', svc_uncovered_t:'Equipos que no cubre ningún servicio activo',
@@ -1450,7 +1467,10 @@ async function cargarPerfil(){
     const { data, error } = await db.rpc('mi_perfil');
     if (error || !data || typeof data !== 'object') PERM = { ...PERM_TODO };          // SQL de roles no instalado: todo como antes
     else if (!data.rol) PERM = { admin: false, editar: false, claves: false, clientes: [], roles: true, sinPerfil: true };
-    else PERM = { admin: data.rol === 'admin', editar: !!data.editar, claves: !!data.claves, clientes: data.clientes || [], roles: true, sinPerfil: false };
+    else {
+      PERM = { admin: data.rol === 'admin', editar: !!data.editar, claves: !!data.claves, clientes: data.clientes || [], roles: true, sinPerfil: false };
+      const c = normalizarCols(data.prefs?.cols); if (c){ colCfg = c; try{ localStorage.setItem('inv_cols', JSON.stringify(c)); }catch(e){} }
+    }
   }catch(e){ PERM = { ...PERM_TODO }; }
   const b = document.body.classList;
   b.toggle('p-roles', PERM.roles && PERM.admin); b.toggle('p-noadm', !PERM.admin); b.toggle('p-ro', !PERM.editar); b.toggle('p-nopw', !PERM.claves);
@@ -1771,7 +1791,9 @@ function listaClientes(){
   const m = new Map();
   clientesDB.forEach(c => m.set(nrm(c.nombre), { ...c }));
   items.forEach(x => { const k = nrm(x.cliente); if (k && !m.has(k)) m.set(k, { nombre: x.cliente, direccion: x.direccion || '', _virtual: true }); });
-  return [...m.values()].sort((a, b) => a.nombre.localeCompare(b.nombre, 'es', { sensitivity: 'base' }));
+  // 📌 fijados primero, luego el orden manual, luego por nombre
+  return [...m.values()].sort((a, b) => (b.fijado ? 1 : 0) - (a.fijado ? 1 : 0) || (a.orden ?? 1e9) - (b.orden ?? 1e9)
+    || a.nombre.localeCompare(b.nombre, 'es', { sensitivity: 'base' }));
 }
 const clienteObj = n => listaClientes().find(c => mismoCliente(c.nombre, n));
 const equiposDe = n => items.filter(x => mismoCliente(x.cliente, n));
@@ -1804,7 +1826,8 @@ function renderClientes(){
       : rep ? `<span class="dot warn"></span>${tN('n_devices', d.length)} · ${t('n_repair', { n: rep })}`
       : `<span class="dot"></span>${tN('n_devices', d.length)}${ng ? ' · ' + tN('n_groups', ng) : ''}`;
     const bar = d.length ? `<i style="width:${act / n * 100}%;background:var(--ok)"></i><i style="width:${rep / n * 100}%;background:var(--warn)"></i><i style="width:${cnt('Inactivo') / n * 100}%;background:var(--off)"></i><i style="width:${cnt('Dado de baja') / n * 100}%;background:var(--bad)"></i>` : '';
-    return `<div class="site-card" onclick="abrirCliente(this.dataset.n)" data-n="${esc(c.nombre)}">
+    return `<div class="site-card ${c.fijado ? 'pinned' : ''}" onclick="abrirCliente(this.dataset.n)" data-n="${esc(c.nombre)}" ${PERM.admin ? 'draggable="true"' : ''}>
+      ${PERM.admin ? `<button class="sc-pin ${c.fijado ? 'on' : ''}" onclick="event.stopPropagation();fijarCliente(this.closest('.site-card').dataset.n)" title="${esc(t(c.fijado ? 'unpin' : 'pin'))}">📌</button>` : (c.fijado ? '<span class="sc-pin on">📌</span>' : '')}
       <h3 title="${esc(c.nombre)}">${esc(c.nombre)}</h3>
       <div class="sc-sub">${estado}</div>
       <div class="sc-bar">${bar}</div>
@@ -1942,7 +1965,7 @@ function renderNet(base){
       <td class="stack">${det(x)}</td>
       <td class="mono">${esc(x.serial)}</td>
       <td>${x.estado ? `<span class="badge ${ESTADO_CLS[x.estado] || 'b-off'}">${esc(tEstado(x.estado))}</span>` : ''}</td>
-      <td class="no-print" style="white-space:nowrap">${PERM.editar ? `<button class="sm" onclick="event.stopPropagation();edit('${x.id}')" title="${t('edit')}">✎</button>` : ''}</td></tr>`;
+      <td class="no-print" style="white-space:nowrap"><button class="sm ver-btn" onclick="event.stopPropagation();verDetalle('${x.id}')" title="${t('view')}">👁 ${t('view')}</button></td></tr>`;
   const orden = (a, b) => String(a.nombre).localeCompare(String(b.nombre), 'es', { numeric: true });
   const grupos_ = (netTab ? [netTab] : tipos).map(k => {
     const lista = red.filter(x => x.tipo === k).sort(orden);
@@ -1978,6 +2001,56 @@ function nuevoEquipoRed(){
   ponerModo('net'); resetForm(); if (tiposForm().includes(netTab || 'Router')) $('tipo').value = netTab || 'Router'; updateMarcas();
   abrirDrawer(t('net_add').replace('＋', '').trim()); setTimeout(() => $('nombre').focus(), 50);
 }
+/* ---------- Clientes: 📌 fijar y ordenar arrastrando (se guarda en Supabase) ---------- */
+async function asegurarFilaCliente(c){
+  if (c.id) return c.id;
+  const r = await db.from('clientes').insert({ nombre: c.nombre, direccion: c.direccion || null }).select('id').single();
+  if (r.error) throw r.error; return r.data.id;
+}
+const faltaOrden = e => /fijado|orden|ordenar_clientes|schema cache|function/i.test(e?.message || '');
+async function fijarCliente(nombre){
+  if (!puede('admin')) return;
+  const c = clienteObj(nombre); if (!c) return;
+  try{
+    const id = await asegurarFilaCliente(c);
+    const { error } = await db.from('clientes').update({ fijado: !c.fijado }).eq('id', id);
+    if (error) throw error;
+    toast(t(c.fijado ? 'unpinned' : 'pinned', { c: c.nombre })); await loadData();
+  }catch(e){ faltaOrden(e) ? alert(t('orden_missing')) : fail(e, t('save_fail')); }
+}
+async function moverCliente(origen, destino, despues){
+  const lista = listaClientes(), a = lista.find(c => mismoCliente(c.nombre, origen)), b = lista.find(c => mismoCliente(c.nombre, destino));
+  if (!a || !b || a === b) return;
+  const nueva = lista.filter(c => c !== a); let i = nueva.indexOf(b); if (despues) i++; nueva.splice(i, 0, a);
+  try{
+    // Soltarlo sobre un cliente fijado lo fija; sobre uno sin fijar, lo desfija
+    if (!!a.fijado !== !!b.fijado){ a.id = await asegurarFilaCliente(a); const r = await db.from('clientes').update({ fijado: !!b.fijado }).eq('id', a.id); if (r.error) throw r.error; }
+    for (const c of nueva) if (!c.id) c.id = await asegurarFilaCliente(c);
+    const { error } = await db.rpc('ordenar_clientes', { p_ids: nueva.map(c => c.id) });
+    if (error) throw error;
+    await loadData();
+  }catch(e){ faltaOrden(e) ? alert(t('orden_missing')) : fail(e, t('save_fail')); }
+}
+let cliArr = null;
+document.addEventListener('dragstart', e => {
+  const el = e.target.closest?.('#clientGrid .site-card[data-n][draggable=true]'); if (!el) return;
+  cliArr = el.dataset.n; el.classList.add('dragging'); e.dataTransfer.effectAllowed = 'move'; try{ e.dataTransfer.setData('text/plain', cliArr); }catch(_){}
+});
+document.addEventListener('dragover', e => {
+  if (!cliArr) return;
+  const el = e.target.closest?.('#clientGrid .site-card[data-n]'); if (!el || el.dataset.n === cliArr) return;
+  e.preventDefault(); const r = el.getBoundingClientRect(), desp = e.clientX > r.left + r.width / 2;
+  document.querySelectorAll('#clientGrid .drop-l,#clientGrid .drop-r').forEach(x => x !== el && x.classList.remove('drop-l', 'drop-r'));
+  el.classList.toggle('drop-r', desp); el.classList.toggle('drop-l', !desp);
+});
+document.addEventListener('drop', e => {
+  if (!cliArr) return;
+  const el = e.target.closest?.('#clientGrid .site-card[data-n]'), a = cliArr; cliArr = null;
+  document.querySelectorAll('#clientGrid .drop-l,#clientGrid .drop-r,#clientGrid .dragging').forEach(x => x.classList.remove('drop-l', 'drop-r', 'dragging'));
+  if (!el || el.dataset.n === a) return;
+  e.preventDefault(); const r = el.getBoundingClientRect(); moverCliente(a, el.dataset.n, e.clientX > r.left + r.width / 2);
+});
+document.addEventListener('dragend', () => { if (cliArr){ cliArr = null; document.querySelectorAll('#clientGrid .drop-l,#clientGrid .drop-r,#clientGrid .dragging').forEach(x => x.classList.remove('drop-l', 'drop-r', 'dragging')); } });
 /* ---------- Servicios por cliente ---------- */
 const SVC_PATH = {
   it: '<path d="M4 15v-3a8 8 0 0 1 16 0v3"/><path d="M4 15h3v5H5a1 1 0 0 1-1-1z"/><path d="M20 15h-3v5h2a1 1 0 0 0 1-1z"/>',
@@ -2612,7 +2685,7 @@ function verDetalle(id, keepVis){
       <button class="sm" onclick="cerrarDetalle()">✕</button></div>
     <div class="kv">${html}</div>
     <div class="det-actions">
-      <button onclick="cerrarDetalle();edit('${x.id}')"><span>✏️</span>${t('edit')}</button>
+      <button class="primary" onclick="cerrarDetalle();edit('${x.id}')"><span>✏️</span>${t('edit')}</button>
       <button onclick="cerrarDetalle();dup('${x.id}')"><span>⧉</span>${t('t_dup')}</button>
       <button onclick="showHistory('${x.id}')"><span>🕘</span>${t('det_hist')} (${nh})</button>
       <button onclick="abrirActividad({obj:'${x.id}'})"><span>📜</span>${t('act_dev_hist')}</button>
@@ -3079,10 +3152,7 @@ function render(){
     <td class="stack">${cUser}</td><td class="stack">${cPC}</td><td class="stack">${cAD}</td><td class="stack">${cLog}</td><td class="stack">${cPrn}</td><td class="stack">${cLic}</td><td>${badgeGarantia(x.garantia)}</td>
     <td>${x.estado ? `<span class="badge ${ESTADO_CLS[x.estado] || 'b-off'}">${esc(tEstado(x.estado))}</span>` : ''}</td><td class="notes">${esc(x.notas)}</td>
     <td class="no-print actions-col"><div class="acts">
-      <button class="sm" onclick="edit('${x.id}')" title="${t('edit')}">✎</button>
-      <button class="sm hist-btn ${nh ? '' : 'hist-empty'}" onclick="showHistory('${x.id}')" title="${t('hist_title')}">🕘${nh ? `<b>${nh}</b>` : ''}</button>
-      <button class="sm" onclick="dup('${x.id}')" title="${t('t_dup')}">⧉</button>
-      <button class="sm danger" onclick="del('${x.id}')" title="${t('t_delete')}">✕</button>
+      <button class="sm ver-btn" onclick="verDetalle('${x.id}')" title="${t('view')}">👁 ${t('view')}</button>
     </div></td></tr>`;
   }).join('')
     : `<tr><td colspan="25" class="empty">${(curCliente ? equiposDe(curCliente).length : items.length) ? t('no_results') : t('empty')}</td></tr>`;
@@ -3104,17 +3174,24 @@ function render(){
 const COLS = ['cliente','direccion','tipo','nombre','first_name','last_name','grupo','lugar','modelo','serial','ip','mac','usuario','password',
   'persona','pc','remoto','logins','printers','licencias','garantia','estado','notas'];
 const COLS_FIJAS = ['nombre'];          // el nombre no se puede ocultar
-let colCfg = { orden: [...COLS], ocultas: [], anchos: {}, sinAcciones: false };
-try{
-  const g = JSON.parse(localStorage.getItem('inv_cols') || 'null');
-  if (g && Array.isArray(g.orden)){
-    const orden = g.orden.filter(c => COLS.includes(c));
-    COLS.forEach((c, i) => { if (!orden.includes(c)) orden.splice(Math.min(i, orden.length), 0, c); });   // columnas nuevas
-    colCfg = { orden, ocultas: (g.ocultas || []).filter(c => COLS.includes(c) && !COLS_FIJAS.includes(c)),
-      anchos: g.anchos && typeof g.anchos === 'object' ? g.anchos : {}, sinAcciones: !!g.sinAcciones };
-  }
-}catch(e){}
-function guardarCols(){ try{ localStorage.setItem('inv_cols', JSON.stringify(colCfg)); }catch(e){} }
+// Por defecto solo las columnas más importantes; las demás se activan en ⚙️ Columnas
+const COLS_DEFAULT_OCULTAS = ['direccion','grupo','serial','mac','usuario','password','persona','pc','remoto','logins','printers','licencias','garantia','notas'];
+const colsDefault = () => ({ orden: [...COLS], ocultas: [...COLS_DEFAULT_OCULTAS], anchos: {}, sinAcciones: false });
+function normalizarCols(g){
+  if (!g || !Array.isArray(g.orden)) return null;
+  const orden = g.orden.filter(c => COLS.includes(c));
+  COLS.forEach((c, i) => { if (!orden.includes(c)) orden.splice(Math.min(i, orden.length), 0, c); });   // columnas nuevas
+  return { orden, ocultas: (g.ocultas || []).filter(c => COLS.includes(c) && !COLS_FIJAS.includes(c)),
+    anchos: g.anchos && typeof g.anchos === 'object' ? g.anchos : {}, sinAcciones: !!g.sinAcciones };
+}
+let colCfg = colsDefault();
+try{ colCfg = normalizarCols(JSON.parse(localStorage.getItem('inv_cols') || 'null')) || colCfg; }catch(e){}
+let _prefsT = null;
+function guardarCols(){
+  try{ localStorage.setItem('inv_cols', JSON.stringify(colCfg)); }catch(e){}
+  // También en el perfil del usuario: lo sigue en cualquier computadora
+  if (PERM.roles && db?.rpc){ clearTimeout(_prefsT); _prefsT = setTimeout(() => Promise.resolve(db.rpc('guardar_prefs', { p: { cols: colCfg } })).then(r => { if (r?.error) console.warn('prefs:', r.error.message); }, () => {}), 800); }
+}
 // Marca cada encabezado con su columna (una sola vez, en el orden original del HTML)
 (function(){ const ths = document.querySelectorAll('#devTable thead th'); COLS.forEach((c, i) => { const th = ths[i + 1]; if (th){ th.dataset.col = c; th.draggable = true; } }); })();
 const colLabel = c => { const th = document.querySelector(`#devTable thead th[data-col="${c}"]`); return th ? (th.dataset.i18n ? t(th.dataset.i18n) : th.textContent.replace(/ [▲▼]$/, '')) : c; };
@@ -3135,7 +3212,7 @@ function aplicarColumnas(){
   orig.forEach((th, i) => { th.classList.toggle('col-off', ocultas.has(COLS[i])); });
   colCfg.orden.forEach(c => hr.insertBefore(orig[COLS.indexOf(c)], hr.lastElementChild));
   for (const tr of $('tbody').rows){ const cs = [...tr.children]; fila(tr, cs); }
-  tabla.classList.toggle('no-acciones', !!colCfg.sinAcciones || !PERM.editar && !PERM.claves);
+  tabla.classList.toggle('no-acciones', !!colCfg.sinAcciones);
   // Anchos a gusto
   const anchoDe = c => colCfg.anchos[c];
   orig.forEach((th, i) => { const w = anchoDe(COLS[i]); fijarAncho(th, w); if (!th.querySelector('.col-rs')){ const h = document.createElement('span'); h.className = 'col-rs'; h.title = t('cols_resize'); th.appendChild(h); } });
@@ -3150,7 +3227,7 @@ function moverCol(c, destino, despues){
 }
 function colPaso(c, d){ const o = colCfg.orden, i = o.indexOf(c), j = i + d; if (j < 0 || j >= o.length) return; [o[i], o[j]] = [o[j], o[i]]; guardarCols(); render(); }
 function toggleCol(c, ver){ const s = new Set(colCfg.ocultas); ver ? s.delete(c) : s.add(c); colCfg.ocultas = [...s]; guardarCols(); render(); }
-function resetCols(){ colCfg = { orden: [...COLS], ocultas: [], anchos: {}, sinAcciones: false }; guardarCols(); render(); }
+function resetCols(){ colCfg = colsDefault(); guardarCols(); render(); }
 function toggleAcciones(ver){ colCfg.sinAcciones = !ver; guardarCols(); render(); }
 function verTodasCols(){ colCfg.ocultas = []; colCfg.sinAcciones = false; guardarCols(); render(); }
 // --- Cambiar el ancho arrastrando el borde derecho del encabezado ---

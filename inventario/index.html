@@ -619,7 +619,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v5.3</p>
+    <p class="sub">Network Asset Manager · v5.4</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -635,7 +635,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v5.3</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v5.4</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -1355,7 +1355,7 @@ function applyLang(){
   document.querySelectorAll('[data-i18n-ph]').forEach(el => el.placeholder = t(el.dataset.i18nPh));
   document.querySelectorAll('[data-i18n-title]').forEach(el => el.title = t(el.dataset.i18nTitle));
   document.querySelectorAll('.lang button').forEach(b => b.classList.toggle('on', b.dataset.lang === LANG));
-  fillOptions($('tipo'), TIPOS, tTipo);
+  fillOptions($('tipo'), tiposForm(), tTipo);
   fillOptions($('estado'), ESTADOS, tEstado);
   fillOptions($('splashtop'), SINO, v => v ? t('yn.' + v) : '—');
   ['lbl_conexion','imp_conexion','conexion'].forEach(id => fillOptions($(id), CONEXIONES, v => v ? t('conn.' + v) : '—'));
@@ -1829,9 +1829,13 @@ window.addEventListener('popstate', () => {
 (function(){ const d = document.getElementById('drawer'), app = document.getElementById('app'); if (d && app && d.parentElement !== app) app.appendChild(d); })();
 function abrirDrawer(titulo){ $('drawerTitle').textContent = titulo; $('drawer').classList.remove('hidden'); $('drawer').querySelector('.drawer-panel').scrollTop = 0; }
 function cerrarDrawer(){ $('drawer')?.classList.add('hidden'); }
+// El formulario muestra solo los tipos del botón que se usó: equipos de red o equipos normales
+let formModo = 'dev';
+const tiposForm = () => formModo === 'net' ? NET_TIPOS : TIPOS.filter(k => !NET_TIPOS.includes(k));
+function ponerModo(m){ formModo = m; fillOptions($('tipo'), tiposForm(), tTipo); }
 function nuevoEquipo(){
   if (!puede('editar')) { return; }
-  resetForm(); abrirDrawer(t('add_device'));
+  ponerModo('dev'); resetForm(); updateMarcas(); abrirDrawer(t('add_device'));
   setTimeout(() => $('nombre').focus(), 50);
 }
 // Modal de cliente
@@ -1928,7 +1932,8 @@ function renderNet(base){
 }
 function nuevoEquipoRed(){
   if (!puede('editar')) return;
-  nuevoEquipo(); $('tipo').value = netTab || 'Router'; updateMarcas();
+  ponerModo('net'); resetForm(); $('tipo').value = netTab || 'Router'; updateMarcas();
+  abrirDrawer(t('net_add').replace('＋', '').trim()); setTimeout(() => $('nombre').focus(), 50);
 }
 /* ---------- Servicios por cliente ---------- */
 const SVC_PATH = {
@@ -2281,6 +2286,7 @@ function resetForm(afterSave){
 function edit(id){
   if (!puede('editar')) { return; }
   const x = items.find(i => i.id === id); if(!x) return;
+  ponerModo(NET_TIPOS.includes(x.tipo) ? 'net' : 'dev');
   unlockAll();
   FIELDS.forEach(f => $(f).value = x[f] || '');
   NET_FIELDS.forEach(f => { $(f).value = x[f] || ''; if (f === 'conectado_a') $(f).dataset.v = x[f] || ''; });

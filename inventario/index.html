@@ -475,6 +475,22 @@ a.dev-link:hover{color:var(--c1);text-decoration:underline}
 .sc-pin.on{opacity:1;filter:none}
 .site-card h3{padding-right:30px}
 td.actions-col .acts button.ver-btn{width:auto;padding:0 9px;font-size:12px;gap:4px;display:inline-flex;align-items:center}
+body.p-noborrar [onclick*="del('"],body.p-noborrar [onclick="borrarSel()"],body.p-noborrar #devTable .sel-col,body.p-noborrar #selBar,
+body.p-noborrar [onclick*="borrarGrupo("]{display:none!important}
+body.p-noexport [onclick="exportJSON()"],body.p-noexport [onclick="exportCSV()"],body.p-noexport [onclick*="getElementById('fileIn')"],
+body.p-noexport [onclick="exportActCSV()"],body.p-noexport #migrarBtn{display:none!important}
+.u-online{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--ok);font-weight:600}
+.u-online i{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 3px color-mix(in srgb,var(--ok) 25%,transparent)}
+.u-note{margin-top:10px;font-size:12.5px;color:var(--muted);line-height:1.5}
+.u-ajustes{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.u-ajustes label{flex-direction:row;align-items:center;gap:8px;font-size:13px;color:var(--text);font-weight:500}
+.u-ajustes input[type=checkbox]{width:auto;margin:0}
+.u-ajustes select{width:auto;padding:6px 10px}
+.u-online-list{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.u-online-list span{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;background:var(--card-solid);border:1px solid var(--line);font-size:12.5px}
+#onlineN{display:inline-grid;place-items:center;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--ok);color:#05070f;font:700 10.5px Inter,sans-serif;margin-left:4px}
+.idle-warn{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:120;background:var(--card-solid);border:1px solid var(--warn);border-radius:14px;padding:12px 16px;
+  box-shadow:0 20px 50px -15px rgba(0,0,0,.6);display:flex;gap:12px;align-items:center;font-size:13.5px}
 /* ===== Inventario de Network ===== */
 #netBox .legacy-isp{display:none}
 .wan-box{margin-top:12px;border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--card)}
@@ -638,7 +654,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v5.8</p>
+    <p class="sub">Network Asset Manager · v5.9</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -654,7 +670,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v5.8</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v5.9</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -665,7 +681,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <button id="migrarBtn" class="hidden" onclick="migrarLocal()" data-i18n="upload_local">Upload local data</button>
     <button class="icon-btn" onclick="window.print()" data-i18n-title="t_print">⎙</button>
     <button class="icon-btn" onclick="toggleTheme()" data-i18n-title="t_theme">🌓</button>
-    <button class="solo-roles" onclick="abrirUsuarios()" data-i18n-title="t_users">👥 <span data-i18n="users">Users</span></button>
+    <button class="solo-roles" onclick="abrirUsuarios()" data-i18n-title="t_users">👥 <span data-i18n="users">Users</span><span id="onlineN" class="hidden" title=""></span></button>
     <button onclick="abrirActividad()" data-i18n-title="t_activity">📜 <span data-i18n="activity">Activity</span></button>
     <button onclick="openGrupos()" data-i18n-title="t_groups">🗂 <span data-i18n="groups">Groups</span></button>
     <button class="icon-btn" onclick="cambiarPassword()" data-i18n-title="t_changepw">🔑</button>
@@ -1225,6 +1241,15 @@ es:{
   copied:'Copiado ✓', ask_client:'Algunas filas no tienen cliente. ¿A qué cliente pertenecen estos equipos?'
 }};
 Object.assign(I18N.en, {
+  u_oper:'Operator', role_operador:'operator', role_admin:'admin', role_client:'client',
+  u_oper_desc:'Sees ALL companies and can add and edit devices. Cannot delete, export, import, manage users, or create/edit companies and services.',
+  u_online:'Online', u_seen:'Seen {d}', ago_min:'{n} min ago', ago_h:'{n} h ago', u_online_now:'Connected now', u_online_hint:'Updates every minute',
+  u_online_none:'Nobody else is connected right now.',
+  idle_title:'Automatic sign-out for inactivity', idle_on:'Sign out Operators and Clients after', idle_min:'{n} minutes',
+  idle_hint:'They get a warning 1 minute before. The Super admin is never signed out.', idle_missing:'Run the updated supabase-roles.sql to turn this on.',
+  idle_saved_on:'Automatic sign-out ON: {n} minutes', idle_saved_off:'Automatic sign-out OFF',
+  idle_warn:'You will be signed out for inactivity in {s} s', idle_stay:'Stay signed in', logout_idle:'Your session was closed for inactivity. Sign in again.',
+  'ev.signed_out_idle':'Signed Out (Inactivity)', 'ad.signed_out_idle':'{u} was signed out for inactivity.',
   view:'View', pin:'Pin to the top', unpin:'Unpin', pinned:'📌 {c} pinned to the top', unpinned:'{c} unpinned',
   orden_missing:'To pin and reorder clients, run supabase-orden.sql in Supabase first.', clients_drag:'Drag the cards to change the order · 📌 pins a client to the top',
   svc_tel_red:'Includes the network for the phones (switch, router, AP…) — not a Network Management service',
@@ -1295,6 +1320,15 @@ Object.assign(I18N.en, {
   'fl.ip':'IP', 'fl.mac':'MAC', 'fl.cliente':'Client', 'fl.direccion':'Address', 'fl.grupo_id':'Group', 'fl.pc_ids':'Linked PCs', 'fl.pc_users':'Users', 'fl.nombre':'Name', 'fl.contacto':'Contact', 'fl.telefono':'Phone', 'fl.email':'Email', 'fl.notas':'Notes',
 });
 Object.assign(I18N.es, {
+  u_oper:'Operador', role_operador:'operador', role_admin:'admin', role_client:'cliente',
+  u_oper_desc:'Ve TODAS las compañías y puede agregar y editar equipos. No puede borrar, exportar, importar, administrar usuarios ni crear o editar compañías y servicios.',
+  u_online:'En línea', u_seen:'Visto {d}', ago_min:'hace {n} min', ago_h:'hace {n} h', u_online_now:'Conectados ahora', u_online_hint:'Se actualiza cada minuto',
+  u_online_none:'Nadie más está conectado ahora.',
+  idle_title:'Cierre de sesión por inactividad', idle_on:'Desconectar a Operadores y Clientes después de', idle_min:'{n} minutos',
+  idle_hint:'Les avisa 1 minuto antes. Al Super admin nunca lo desconecta.', idle_missing:'Corre el supabase-roles.sql actualizado para poder activarlo.',
+  idle_saved_on:'Cierre automático ACTIVADO: {n} minutos', idle_saved_off:'Cierre automático APAGADO',
+  idle_warn:'Se cerrará tu sesión por inactividad en {s} s', idle_stay:'Seguir conectado', logout_idle:'Tu sesión se cerró por inactividad. Vuelve a entrar.',
+  'ev.signed_out_idle':'Sesión cerrada (inactividad)', 'ad.signed_out_idle':'{u} fue desconectado por inactividad.',
   view:'Ver', pin:'Fijar arriba', unpin:'Quitar de arriba', pinned:'📌 {c} fijado arriba', unpinned:'{c} ya no está fijado',
   orden_missing:'Para fijar y ordenar clientes, primero corre supabase-orden.sql en Supabase.', clients_drag:'Arrastra las tarjetas para cambiar el orden · 📌 fija un cliente arriba',
   svc_tel_red:'Incluye la red para los teléfonos (switch, router, AP…) — no es el servicio de Administración de red',
@@ -1450,7 +1484,12 @@ async function doLogin(e){
   $('lgPass').value = '';
   showApp(data.session); logAct('signed_in');
 }
-async function logout(){ await db.auth.signOut(); showLogin(); }
+async function logout(motivo){
+  try{ await Promise.race([db.rpc('latido', { p_donde: '__salio__' }), new Promise(r => setTimeout(r, 1500))]); }catch(e){}
+  pararInactividad(); clearInterval(_latT); _latT = null;
+  await db.auth.signOut(); showLogin();
+  if (motivo === 'inactivo') $('lgErr').textContent = t('logout_idle');
+}
 async function cambiarPassword(){
   const p = prompt(t('pw_prompt')); if (!p) return;
   if (p.length < 6) return alert(t('pw_short'));
@@ -1459,26 +1498,105 @@ async function cambiarPassword(){
 }
 
 /* ---------- Permisos (Super admin / usuario de cliente) ---------- */
-const PERM_TODO = { admin: true, editar: true, claves: true, clientes: null, roles: false, sinPerfil: false };
+const PERM_TODO = { rol: 'admin', admin: true, editar: true, borrar: true, claves: true, exportar: true, logout: null, clientes: null, roles: false, sinPerfil: false };
 let PERM = { ...PERM_TODO }, permCargado = false, autoAbierto = false;
 async function cargarPerfil(){
   permCargado = true;
   try{
     const { data, error } = await db.rpc('mi_perfil');
     if (error || !data || typeof data !== 'object') PERM = { ...PERM_TODO };          // SQL de roles no instalado: todo como antes
-    else if (!data.rol) PERM = { admin: false, editar: false, claves: false, clientes: [], roles: true, sinPerfil: true };
+    else if (!data.rol) PERM = { rol: null, admin: false, editar: false, borrar: false, claves: false, exportar: false, logout: null, clientes: [], roles: true, sinPerfil: true };
     else {
-      PERM = { admin: data.rol === 'admin', editar: !!data.editar, claves: !!data.claves, clientes: data.clientes || [], roles: true, sinPerfil: false };
+      PERM = { rol: data.rol, admin: data.rol === 'admin', editar: !!data.editar, claves: !!data.claves, clientes: data.clientes || [], roles: true, sinPerfil: false,
+        borrar: data.borrar ?? !!data.editar, exportar: data.exportar ?? true, logout: data.logout ? Number(data.logout) : null };
       const c = normalizarCols(data.prefs?.cols); if (c){ colCfg = c; try{ localStorage.setItem('inv_cols', JSON.stringify(c)); }catch(e){} }
     }
   }catch(e){ PERM = { ...PERM_TODO }; }
   const b = document.body.classList;
   b.toggle('p-roles', PERM.roles && PERM.admin); b.toggle('p-noadm', !PERM.admin); b.toggle('p-ro', !PERM.editar); b.toggle('p-nopw', !PERM.claves);
-  $('whoRole').textContent = PERM.roles ? t(PERM.admin ? 'role_admin' : 'role_client') : '';
+  b.toggle('p-noborrar', !PERM.borrar); b.toggle('p-noexport', !PERM.exportar);
+  $('whoRole').textContent = PERM.roles ? t('role_' + (PERM.rol === 'cliente' ? 'client' : PERM.rol || 'client')) : '';
+  armarInactividad(); latido(true);
   $('whoRole').classList.toggle('solo-roles', !PERM.roles);
   if (!PERM.claves) $('showPw').checked = false;
 }
-function puede(n){ if (n === 'admin' ? PERM.admin : n === 'claves' ? PERM.claves : PERM.editar) return true; toast(t('no_perm')); return false; }
+function puede(n){ if ({ admin: PERM.admin, claves: PERM.claves, borrar: PERM.borrar, exportar: PERM.exportar }[n] ?? PERM.editar) return true; toast(t('no_perm')); return false; }
+/* ---------- Quién está conectado (señal cada minuto) ---------- */
+let _latT = null, _latDonde = '', _latUlt = 0, ENLINEA = [];
+const enLinea = u => !!u.visto && (Date.now() - new Date(u.visto)) < 120000 && !(ENLINEA.length && !ENLINEA.some(x => x.id === u.id) && (Date.now() - new Date(u.visto)) > 90000);
+function haceCuanto(d){
+  const m = Math.max(0, Math.round((Date.now() - new Date(d)) / 60000));
+  if (m < 60) return t('ago_min', { n: m || 1 });
+  const h = Math.round(m / 60); if (h < 48) return t('ago_h', { n: h });
+  return new Date(d).toLocaleDateString(LANG === 'es' ? 'es-US' : 'en-US', { month: 'short', day: 'numeric' });
+}
+function dondeEstoy(){
+  if (ACT.open) return t('activity');
+  if (!curCliente) return t('clients_title');
+  return curCliente + (vista === 'net' ? ' · Network' : vista === 'list' ? ' · ' + t('all_devices') : '');
+}
+async function latido(forzar){
+  if (!PERM.roles || !db?.rpc) return;
+  if (!_latT) _latT = setInterval(() => latido(true), 60000);
+  const d = dondeEstoy();
+  if (!forzar && d === _latDonde && Date.now() - _latUlt < 55000) return;
+  _latDonde = d; _latUlt = Date.now();
+  try{
+    const { data } = await db.rpc('latido', { p_donde: d });
+    if (PERM.admin && Array.isArray(data)){
+      ENLINEA = data;
+      const otros = data.filter(x => (x.email || '').split('@')[0] !== $('whoami').textContent);
+      $('onlineN').textContent = otros.length; $('onlineN').classList.toggle('hidden', !otros.length);
+      $('onlineN').title = otros.map(x => `${(x.email || '').split('@')[0]} · ${x.donde || ''}`).join('\n');
+      if (!$('modal').classList.contains('hidden') && USR.length && $('modal').querySelector('.modal-card.wide')){
+        USR.forEach(u => { const o = data.find(x => x.id === u.id); if (o){ u.visto = o.visto; u.donde = o.donde; } }); renderUsuarios();
+      }
+    }
+  }catch(e){}
+}
+/* ---------- Cierre de sesión por inactividad (Operador y Cliente) ---------- */
+let _idleT = null, _idleWarn = false;
+const IDLE_KEY = 'inv_last_act';
+function marcarActividad(){ try{ localStorage.setItem(IDLE_KEY, String(Date.now())); }catch(e){} if (_idleWarn) ocultarAvisoIdle(); }
+let _idleThrottle = 0;
+function onActividad(){ const n = Date.now(); if (n - _idleThrottle > 5000){ _idleThrottle = n; marcarActividad(); } }
+function ultimaActividad(){ try{ return Number(localStorage.getItem(IDLE_KEY)) || Date.now(); }catch(e){ return Date.now(); } }
+function pararInactividad(){ clearInterval(_idleT); _idleT = null; ocultarAvisoIdle(); ['mousemove','keydown','click','scroll','touchstart'].forEach(ev => window.removeEventListener(ev, onActividad, true)); }
+function armarInactividad(){
+  pararInactividad();
+  if (!PERM.logout) return;
+  marcarActividad();
+  ['mousemove','keydown','click','scroll','touchstart'].forEach(ev => window.addEventListener(ev, onActividad, true));
+  _idleT = setInterval(() => {
+    const idle = Date.now() - ultimaActividad(), lim = PERM.logout * 60000;
+    if (idle >= lim) logout('inactivo');
+    else if (idle >= lim - 60000) mostrarAvisoIdle(Math.ceil((lim - idle) / 1000));
+  }, 5000);
+}
+function mostrarAvisoIdle(seg){
+  _idleWarn = true; let el = $('idleWarn');
+  if (!el){ el = document.createElement('div'); el.id = 'idleWarn'; el.className = 'idle-warn'; document.body.appendChild(el); }
+  el.innerHTML = `⏳ ${esc(t('idle_warn', { s: seg }))} <button class="primary sm" onclick="marcarActividad()">${t('idle_stay')}</button>`;
+}
+function ocultarAvisoIdle(){ _idleWarn = false; $('idleWarn')?.remove(); }
+/* ---------- Ajustes en la ventana de Usuarios ---------- */
+let AJ = null;
+async function cargarAjustes(){ try{ const { data } = await db.from('ajustes').select('*'); AJ = Array.isArray(data) ? data[0] || null : data; }catch(e){ AJ = null; } }
+function renderAjustesUsuarios(){
+  const online = ENLINEA.filter(x => (x.email || '').split('@')[0] !== $('whoami').textContent);
+  return `<div class="u-card"><div class="u-head"><b>🟢 ${t('u_online_now')}</b><span class="sp"></span><small class="muted">${t('u_online_hint')}</small></div>
+      <div class="u-online-list">${online.length ? online.map(x => `<span>${avatar((x.email || '').split('@')[0])}<b>${esc((x.email || '').split('@')[0])}</b><small class="muted">${esc(x.donde || '')}</small></span>`).join('') : `<small class="muted">${t('u_online_none')}</small>`}</div></div>
+    <div class="u-card"><div class="u-head"><b>⏳ ${t('idle_title')}</b></div>
+      ${AJ ? `<div class="u-ajustes" style="margin-top:10px"><label><input type="checkbox" id="ajOn" ${AJ.auto_logout ? 'checked' : ''} onchange="guardarAjustes()">${t('idle_on')}</label>
+        <select id="ajMin" onchange="guardarAjustes()">${[15, 30, 60, 120].map(m => `<option value="${m}" ${Number(AJ.auto_logout_min) === m ? 'selected' : ''}>${t('idle_min', { n: m })}</option>`).join('')}</select>
+        <small class="muted">${t('idle_hint')}</small></div>` : `<div class="u-note">${t('idle_missing')}</div>`}</div>`;
+}
+async function guardarAjustes(){
+  const on = $('ajOn').checked, min = Number($('ajMin').value);
+  const { error } = await db.rpc('admin_ajustes', { p_auto_logout: on, p_minutos: min });
+  if (error) return fail(error, t('save_fail'));
+  AJ = { ...AJ, auto_logout: on, auto_logout_min: min }; toast(t(on ? 'idle_saved_on' : 'idle_saved_off', { n: min }));
+}
 /* ---------- Administrar usuarios (solo Super admin) ---------- */
 let USR = [];
 async function abrirUsuarios(){
@@ -1487,13 +1605,14 @@ async function abrirUsuarios(){
   $('modal').querySelector('.modal-card').classList.add('wide');
   $('modalBody').innerHTML = `<p class="muted">${t('act_loading')}</p>`;
   $('modal').classList.remove('hidden');
-  const { data, error } = await db.rpc('admin_usuarios');
+  const [{ data, error }] = await Promise.all([db.rpc('admin_usuarios'), cargarAjustes(), latido(true)]);
   if (error) return fail(error, t('load_fail'));
   USR = (data || []).map(u => ({ ...u, rol: u.rol || 'ninguno', clientes: u.clientes || [], _msg: '' }));
   renderUsuarios();
 }
 const miId = () => db?.auth && USR.length ? (USR.find(u => u.email && u.email.split('@')[0] === $('whoami').textContent)?.id) : null;
 function renderUsuarios(){
+  $('modalTitle').textContent = '👥 ' + t('u_title');
   const proj = (SUPABASE_URL.match(/https:\/\/([^.]+)\./) || [])[1] || '';
   const todos = listaClientes().map(c => c.nombre), yo = miId();
   const fecha = d => new Date(d).toLocaleString(LANG === 'es' ? 'es-US' : 'en-US', { dateStyle: 'medium', timeStyle: 'short' });
@@ -1502,7 +1621,8 @@ function renderUsuarios(){
         <label><span>${t('nu_pw')}</span><span class="u-pwrow"><input id="nuPw" value="${esc(NU.password)}" autocomplete="new-password" oninput="NU.password=this.value">
           <button type="button" class="sm" onclick="NU.password=claveAzar();renderUsuarios()" title="${t('nu_gen')}">🎲</button><button type="button" class="sm" onclick="copyText(NU.password)" title="${t('t_copy')}">📋</button></span></label></div>
       <small class="muted">${t('nu_hint')}</small><br>
-      <div class="u-seg">${[['admin', 'u_admin'], ['cliente', 'u_client'], ['ninguno', 'u_none']].map(([r, l]) => `<button class="${NU.rol === r ? 'on' : ''}" onclick="NU.rol='${r}';renderUsuarios()">${t(l)}</button>`).join('')}</div>
+      <div class="u-seg">${[['admin', 'u_admin'], ['operador', 'u_oper'], ['cliente', 'u_client'], ['ninguno', 'u_none']].map(([r, l]) => `<button class="${NU.rol === r ? 'on' : ''}" onclick="NU.rol='${r}';renderUsuarios()">${t(l)}</button>`).join('')}</div>
+      ${NU.rol === 'operador' ? `<div class="u-note">👷 ${t('u_oper_desc')}</div><div class="u-opts"><label><input type="checkbox" ${NU.claves ? 'checked' : ''} onchange="NU.claves=this.checked">${t('u_pw')}</label></div>` : ''}
       ${NU.rol === 'cliente' ? `<div class="muted" style="margin-top:10px">${t('u_pick')}</div><div class="u-cli">${todos.map(c => { const on = NU.clientes.some(x => mismoCliente(x, c));
           return `<button class="${on ? 'on' : ''}" onclick="nuCliente('${jsq(c)}')">${on ? '✓ ' : ''}${esc(c)}</button>`; }).join('')}</div>
         <div class="u-opts"><label><input type="checkbox" ${NU.editar ? 'checked' : ''} onchange="NU.editar=this.checked">${t('u_edit')}</label>
@@ -1510,19 +1630,22 @@ function renderUsuarios(){
       <div class="u-foot"><button class="primary sm" onclick="crearUsuario()">${t('nu_create')}</button><span class="msg ${NU.ok ? 'ok' : NU.msg ? 'bad' : ''}">${esc(NU.msg)}</span></div></div>` : '';
   $('modalBody').innerHTML = (fnFalta ? `<div class="u-warn">⚠️ ${t('u_fn_missing', { url: `https://supabase.com/dashboard/project/${proj}/functions` })}</div>` : '') +
     (USR._aviso ? `<div class="u-warn" style="border-color:var(--ok);background:color-mix(in srgb,var(--ok) 10%,transparent)">✅ ${esc(USR._aviso)}</div>` : '') +
+    renderAjustesUsuarios() +
     `<div class="row" style="justify-content:space-between;margin-bottom:10px">${NU ? '<span></span>' : `<button class="primary" onclick="nuevoUsuarioForm()">${t('nu_btn')}</button>`}<button class="sm" onclick="abrirUsuarios()">${t('u_reload')}</button></div>` + nu +
     USR.map((u, i) => { const esYo = u.id === yo, nom = (u.email || '').replace('@' + DOMINIO_USUARIOS, '');
       const cl = [...new Set([...todos, ...u.clientes.filter(c => !todos.some(x => mismoCliente(x, c)))])];
       return `<div class="u-card">
         <div class="u-head">${avatar(nom)}<b>${esc(nom)}</b>${esYo ? `<span class="role-badge">${t('u_you')}</span>` : ''}<span class="sp"></span>
-          <small>${u.ultimo ? t('u_last', { d: esc(fecha(u.ultimo)) }) : t('u_never')}</small></div>
-        <div class="u-seg">${[['admin', 'u_admin'], ['cliente', 'u_client'], ['ninguno', 'u_none']].map(([r, l]) =>
+          ${enLinea(u) ? `<span class="u-online"><i></i>${t('u_online')}${u.donde ? ' · ' + esc(u.donde) : ''}</span>`
+            : `<small>${u.visto ? t('u_seen', { d: haceCuanto(u.visto) }) : u.ultimo ? t('u_last', { d: esc(fecha(u.ultimo)) }) : t('u_never')}</small>`}</div>
+        <div class="u-seg">${[['admin', 'u_admin'], ['operador', 'u_oper'], ['cliente', 'u_client'], ['ninguno', 'u_none']].map(([r, l]) =>
           `<button class="${u.rol === r ? 'on' : ''}" ${esYo && r !== 'admin' ? 'disabled' : ''} onclick="USR[${i}].rol='${r}';USR[${i}]._msg='';renderUsuarios()">${t(l)}</button>`).join('')}</div>
         ${u.rol === 'cliente' ? `<div class="muted" style="margin-top:10px">${t('u_pick')}</div><div class="u-cli">${cl.map(c => {
             const on = u.clientes.some(x => mismoCliente(x, c));
             return `<button class="${on ? 'on' : ''}" onclick="usrCliente(${i},'${jsq(c)}')">${on ? '✓ ' : ''}${esc(c)}</button>`; }).join('')}</div>
           <div class="u-opts"><label><input type="checkbox" ${u.editar ? 'checked' : ''} onchange="USR[${i}].editar=this.checked">${t('u_edit')}</label>
             <label><input type="checkbox" ${u.claves ? 'checked' : ''} onchange="USR[${i}].claves=this.checked">${t('u_pw')}</label></div>` : ''}
+        ${u.rol === 'operador' ? `<div class="u-note">👷 ${t('u_oper_desc')}</div><div class="u-opts"><label><input type="checkbox" ${u.claves ? 'checked' : ''} onchange="USR[${i}].claves=this.checked">${t('u_pw')}</label></div>` : ''}
         <div class="u-foot"><button class="primary sm" onclick="guardarUsuario(${i})">${t('u_save')}</button><span class="msg ${u._ok ? 'ok' : u._msg ? 'bad' : ''}">${esc(u._msg || '')}</span>
           ${esYo ? '' : `<span class="u-acts"><button class="sm" onclick="claveUsuario(${i})">${t('u_reset')}</button><button class="sm danger" onclick="borrarUsuario(${i})">${t('u_del')}</button></span>`}</div>
       </div>`; }).join('') +
@@ -1546,14 +1669,18 @@ async function llamarUsuarios(body){
     return { error: msg, falta };
   }catch(e){ return { error: String(e?.message || e), falta: true }; }
 }
-function nuevoUsuarioForm(){ NU = { usuario: '', password: claveAzar(), rol: 'cliente', clientes: curCliente ? [curCliente] : [], editar: false, claves: false, msg: '', ok: false }; renderUsuarios(); setTimeout(() => $('nuUser')?.focus(), 30); }
+function nuevoUsuarioForm(){ NU = { usuario: '', password: claveAzar(), rol: 'operador', clientes: curCliente ? [curCliente] : [], editar: false, claves: false, msg: '', ok: false }; renderUsuarios(); setTimeout(() => $('nuUser')?.focus(), 30); }
 function nuCliente(c){ const k = NU.clientes.findIndex(x => mismoCliente(x, c)); k >= 0 ? NU.clientes.splice(k, 1) : NU.clientes.push(c); renderUsuarios(); }
 async function crearUsuario(){
   const u = NU.usuario.trim().toLowerCase().replace('@' + DOMINIO_USUARIOS, '');
   if (!u || NU.password.length < 8){ NU.msg = t('nu_need'); NU.ok = false; return renderUsuarios(); }
   if (NU.rol === 'cliente' && !NU.clientes.length){ NU.msg = t('u_need_client'); NU.ok = false; return renderUsuarios(); }
   NU.msg = t('act_loading'); NU.ok = false; renderUsuarios();
-  const r = await llamarUsuarios({ accion: 'crear', usuario: u, password: NU.password, rol: NU.rol, clientes: NU.clientes, editar: NU.editar, claves: NU.claves });
+  const r = await llamarUsuarios({ accion: 'crear', usuario: u, password: NU.password, rol: NU.rol === 'operador' ? 'ninguno' : NU.rol, clientes: NU.clientes, editar: NU.editar, claves: NU.claves });
+  if (!r.error && NU.rol === 'operador'){
+    const e2 = (await db.rpc('admin_guardar_perfil', { p_user: r.data?.id, p_rol: 'operador', p_clientes: [], p_editar: true, p_claves: !!NU.claves })).error;
+    if (e2){ NU.msg = e2.message; NU.ok = false; return renderUsuarios(); }
+  }
   if (r.error){ fnFalta = !!r.falta; NU.msg = r.falta ? '' : r.error; NU.ok = false; return renderUsuarios(); }
   const pw = NU.password; NU = null; fnFalta = false;
   await abrirUsuarios(); USR._aviso = t('nu_ok', { u, p: pw }); renderUsuarios();
@@ -1581,7 +1708,7 @@ async function guardarUsuario(i){
   const u = USR[i];
   if (u.rol === 'cliente' && !u.clientes.length){ u._ok = false; u._msg = t('u_need_client'); return renderUsuarios(); }
   const { error } = await db.rpc('admin_guardar_perfil', { p_user: u.id, p_rol: u.rol, p_clientes: u.rol === 'cliente' ? u.clientes : [],
-    p_editar: u.rol === 'cliente' && !!u.editar, p_claves: u.rol === 'cliente' && !!u.claves });
+    p_editar: u.rol === 'cliente' && !!u.editar, p_claves: ['cliente', 'operador'].includes(u.rol) && !!u.claves });
   u._ok = !error; u._msg = error ? (error.message || t('save_fail')) : t('u_saved');
   renderUsuarios();
 }
@@ -2270,6 +2397,7 @@ async function renombrarGrupo(gid){
   toast(t('g_saved')); await loadData();
 }
 async function borrarGrupo(gid){
+  if (!puede('borrar')) return;
   const g = grupos.find(x => x.id === gid);
   if (!confirm(t('g_confirm_del', { n: g.nombre }))) return;
   await db.from('equipos').update({ grupo_id: null }).eq('grupo_id', gid);
@@ -2443,7 +2571,7 @@ function edit(id){
   abrirDrawer(t('edit_device') + ' · ' + (x.nombre || ''));
 }
 async function del(id){
-  if (!puede('editar')) { return; }
+  if (!puede('borrar')) { return; }
   const x = items.find(i => i.id === id);
   if (!confirm(t('confirm_del', {n: x.nombre}))) return;
   const { error } = await db.from('equipos').delete().eq('id', id);
@@ -2867,6 +2995,7 @@ function renderActividadTabla(F){
     (F.lista.length > ACT.max ? `<div class="act-more"><button onclick="ACT.max+=300;renderActividadTabla()">${t('act_more')} (${F.lista.length - ACT.max})</button></div>` : '');
 }
 function exportActCSV(){
+  if (!puede('exportar')) return;
   const q = v => `"${String(v ?? '').replace(/"/g, '""')}"`;
   const filas = actFiltrar().lista.map(r => [new Date(r.created_at).toLocaleString(), r.usuario, t('cat.' + r.categoria), t('ev.' + r.evento), t('sev.' + r.severidad), r.cliente, r.objeto, actDesc(r, false),
     /_updated$/.test(r.evento) ? Object.entries(r.cambios || {}).map(([k, v]) => `${campoLbl(k)}: ${Array.isArray(v) ? (v[0] ?? '—') + ' → ' + (v[1] ?? '—') : v}`).join(' | ') : ''].map(q).join(','));
@@ -3168,6 +3297,7 @@ function render(){
     th.textContent = (th.dataset.i18n ? t(th.dataset.i18n) : th.textContent.replace(/ [▲▼]$/,'')) + (th.dataset.k===sortK ? (sortDir>0?' ▲':' ▼') : '');
   });
   aplicarColumnas();
+  latido();
 }
 /* ---------- Columnas de la tabla: mover y ocultar (se guarda en este navegador) ---------- */
 // Orden ORIGINAL de las columnas movibles (entre la casilla de selección y los botones)
@@ -3313,7 +3443,7 @@ function selUno(c){ c.checked ? sel.add(c.dataset.id) : sel.delete(c.dataset.id)
 function selTodos(on){ document.querySelectorAll('#tbody .rowsel').forEach(c => on ? sel.add(c.dataset.id) : sel.delete(c.dataset.id)); actualizarSel(); }
 function limpiarSel(){ sel.clear(); actualizarSel(); }
 async function borrarSel(){
-  if (!puede('editar')) { return; }
+  if (!puede('borrar')) { return; }
   const ids = [...sel].filter(id => items.some(x => x.id === id)); if (!ids.length) return;
   const nombres = ids.map(id => items.find(x => x.id === id)).map(x => `• ${x.nombre} (${tTipo(x.tipo)})`);
   const list = nombres.slice(0, 12).join('\n') + (nombres.length > 12 ? '\n' + t('and_more', { n: nombres.length - 12 }) : '');
@@ -3335,8 +3465,9 @@ function download(name, content, type){
   a.download = name; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
 }
 const stamp = () => new Date().toISOString().slice(0,10);
-function exportJSON(){ logAct('export_backup', null, { n: items.length }); download(`inventario-${stamp()}.json`, JSON.stringify(items.map(x => ({ ...clean(x), pc_users: getUsers(x), pw_history: x.pw_history || [], pc_ids: pcIds(x), grupo: grupoDe(x)?.nombre || null })), null, 2), 'application/json'); }
+function exportJSON(){ if (!puede('exportar')) return; logAct('export_backup', null, { n: items.length }); download(`inventario-${stamp()}.json`, JSON.stringify(items.map(x => ({ ...clean(x), pc_users: getUsers(x), pw_history: x.pw_history || [], pc_ids: pcIds(x), grupo: grupoDe(x)?.nombre || null })), null, 2), 'application/json'); }
 function exportCSV(){
+  if (!puede('exportar')) return;
   const incluirPw = confirm(t('csv_pw'));
   const q = v => `"${String(v ?? '').replace(/"/g,'""')}"`;
   const csv = [FIELDS.join(','), ...filtered().map(x => FIELDS.map(f => q(f==='password' && !incluirPw ? '' : x[f])).join(','))].join('\r\n');
@@ -3401,7 +3532,7 @@ async function subir(lista){
   toast(t('uploaded', {n: rows.length})); loadData(); return true;
 }
 function importFile(e){
-  if (!puede('editar')) { e.target.value = ""; return; }
+  if (!puede('editar') || !puede('exportar')) { e.target.value = ""; return; }
   const file = e.target.files[0]; if(!file) return;
   const nombre = file.name.toLowerCase();
   if (nombre.endsWith('.json')){
@@ -3635,6 +3766,7 @@ function xPreview(){
   $('xGo').disabled = !(p.upd.length || p.ins.length);
 }
 async function xImportar(){
+  if (!puede('exportar')) return;
   const p = xPlan();
   $('xGo').disabled = true;
   // Recordar el mapeo de columnas para la próxima vez

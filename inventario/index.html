@@ -654,7 +654,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v5.9</p>
+    <p class="sub">Network Asset Manager · v6.0</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -670,7 +670,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v5.9</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v6.0</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -1241,12 +1241,13 @@ es:{
   copied:'Copiado ✓', ask_client:'Algunas filas no tienen cliente. ¿A qué cliente pertenecen estos equipos?'
 }};
 Object.assign(I18N.en, {
+  idle_user:'Sign out for inactivity:', idle_off:'Off', idle_user_hint:'Warns 1 minute before', idle_user_on:'{u} will be signed out after {n} min of inactivity', idle_user_off:'Automatic sign-out OFF for {u}',
   u_oper:'Operator', role_operador:'operator', role_admin:'admin', role_client:'client',
   u_oper_desc:'Sees ALL companies and can add and edit devices. Cannot delete, export, import, manage users, or create/edit companies and services.',
   u_online:'Online', u_seen:'Seen {d}', ago_min:'{n} min ago', ago_h:'{n} h ago', u_online_now:'Connected now', u_online_hint:'Updates every minute',
   u_online_none:'Nobody else is connected right now.',
   idle_title:'Automatic sign-out for inactivity', idle_on:'Sign out Operators and Clients after', idle_min:'{n} minutes',
-  idle_hint:'They get a warning 1 minute before. The Super admin is never signed out.', idle_missing:'Run the updated supabase-roles.sql to turn this on.',
+  idle_hint:'They get a warning 1 minute before. The Super admin is never signed out.', idle_missing:'Run the latest supabase-roles.sql in Supabase to use this.',
   idle_saved_on:'Automatic sign-out ON: {n} minutes', idle_saved_off:'Automatic sign-out OFF',
   idle_warn:'You will be signed out for inactivity in {s} s', idle_stay:'Stay signed in', logout_idle:'Your session was closed for inactivity. Sign in again.',
   'ev.signed_out_idle':'Signed Out (Inactivity)', 'ad.signed_out_idle':'{u} was signed out for inactivity.',
@@ -1320,12 +1321,13 @@ Object.assign(I18N.en, {
   'fl.ip':'IP', 'fl.mac':'MAC', 'fl.cliente':'Client', 'fl.direccion':'Address', 'fl.grupo_id':'Group', 'fl.pc_ids':'Linked PCs', 'fl.pc_users':'Users', 'fl.nombre':'Name', 'fl.contacto':'Contact', 'fl.telefono':'Phone', 'fl.email':'Email', 'fl.notas':'Notes',
 });
 Object.assign(I18N.es, {
+  idle_user:'Desconectar por inactividad:', idle_off:'Apagado', idle_user_hint:'Le avisa 1 minuto antes', idle_user_on:'{u} se desconectará tras {n} min sin usar la app', idle_user_off:'Desconexión automática APAGADA para {u}',
   u_oper:'Operador', role_operador:'operador', role_admin:'admin', role_client:'cliente',
   u_oper_desc:'Ve TODAS las compañías y puede agregar y editar equipos. No puede borrar, exportar, importar, administrar usuarios ni crear o editar compañías y servicios.',
   u_online:'En línea', u_seen:'Visto {d}', ago_min:'hace {n} min', ago_h:'hace {n} h', u_online_now:'Conectados ahora', u_online_hint:'Se actualiza cada minuto',
   u_online_none:'Nadie más está conectado ahora.',
   idle_title:'Cierre de sesión por inactividad', idle_on:'Desconectar a Operadores y Clientes después de', idle_min:'{n} minutos',
-  idle_hint:'Les avisa 1 minuto antes. Al Super admin nunca lo desconecta.', idle_missing:'Corre el supabase-roles.sql actualizado para poder activarlo.',
+  idle_hint:'Les avisa 1 minuto antes. Al Super admin nunca lo desconecta.', idle_missing:'Corre el supabase-roles.sql más reciente en Supabase para usar esto.',
   idle_saved_on:'Cierre automático ACTIVADO: {n} minutos', idle_saved_off:'Cierre automático APAGADO',
   idle_warn:'Se cerrará tu sesión por inactividad en {s} s', idle_stay:'Seguir conectado', logout_idle:'Tu sesión se cerró por inactividad. Vuelve a entrar.',
   'ev.signed_out_idle':'Sesión cerrada (inactividad)', 'ad.signed_out_idle':'{u} fue desconectado por inactividad.',
@@ -1585,11 +1587,13 @@ async function cargarAjustes(){ try{ const { data } = await db.from('ajustes').s
 function renderAjustesUsuarios(){
   const online = ENLINEA.filter(x => (x.email || '').split('@')[0] !== $('whoami').textContent);
   return `<div class="u-card"><div class="u-head"><b>🟢 ${t('u_online_now')}</b><span class="sp"></span><small class="muted">${t('u_online_hint')}</small></div>
-      <div class="u-online-list">${online.length ? online.map(x => `<span>${avatar((x.email || '').split('@')[0])}<b>${esc((x.email || '').split('@')[0])}</b><small class="muted">${esc(x.donde || '')}</small></span>`).join('') : `<small class="muted">${t('u_online_none')}</small>`}</div></div>
-    <div class="u-card"><div class="u-head"><b>⏳ ${t('idle_title')}</b></div>
-      ${AJ ? `<div class="u-ajustes" style="margin-top:10px"><label><input type="checkbox" id="ajOn" ${AJ.auto_logout ? 'checked' : ''} onchange="guardarAjustes()">${t('idle_on')}</label>
-        <select id="ajMin" onchange="guardarAjustes()">${[15, 30, 60, 120].map(m => `<option value="${m}" ${Number(AJ.auto_logout_min) === m ? 'selected' : ''}>${t('idle_min', { n: m })}</option>`).join('')}</select>
-        <small class="muted">${t('idle_hint')}</small></div>` : `<div class="u-note">${t('idle_missing')}</div>`}</div>`;
+      <div class="u-online-list">${online.length ? online.map(x => `<span>${avatar((x.email || '').split('@')[0])}<b>${esc((x.email || '').split('@')[0])}</b><small class="muted">${esc(x.donde || '')}</small></span>`).join('') : `<small class="muted">${t('u_online_none')}</small>`}</div></div>`;
+}
+async function logoutUsuario(i, v){
+  const u = USR[i], min = v ? Number(v) : null, nom = (u.email || '').split('@')[0];
+  const { error } = await db.rpc('admin_logout_usuario', { p_user: u.id, p_min: min });
+  if (error){ alert(/admin_logout_usuario|function/i.test(error.message || '') ? t('idle_missing') : error.message); return renderUsuarios(); }
+  u.logout = min; toast(min ? t('idle_user_on', { u: nom, n: min }) : t('idle_user_off', { u: nom }));
 }
 async function guardarAjustes(){
   const on = $('ajOn').checked, min = Number($('ajMin').value);
@@ -1605,9 +1609,9 @@ async function abrirUsuarios(){
   $('modal').querySelector('.modal-card').classList.add('wide');
   $('modalBody').innerHTML = `<p class="muted">${t('act_loading')}</p>`;
   $('modal').classList.remove('hidden');
-  const [{ data, error }] = await Promise.all([db.rpc('admin_usuarios'), cargarAjustes(), latido(true)]);
+  const [{ data, error }] = await Promise.all([db.rpc('admin_usuarios'), latido(true)]);
   if (error) return fail(error, t('load_fail'));
-  USR = (data || []).map(u => ({ ...u, rol: u.rol || 'ninguno', clientes: u.clientes || [], _msg: '' }));
+  USR = (data || []).map(u => ({ ...u, rol: u.rol || 'ninguno', _rolOrig: u.rol || 'ninguno', clientes: u.clientes || [], _msg: '' }));
   renderUsuarios();
 }
 const miId = () => db?.auth && USR.length ? (USR.find(u => u.email && u.email.split('@')[0] === $('whoami').textContent)?.id) : null;
@@ -1646,6 +1650,10 @@ function renderUsuarios(){
           <div class="u-opts"><label><input type="checkbox" ${u.editar ? 'checked' : ''} onchange="USR[${i}].editar=this.checked">${t('u_edit')}</label>
             <label><input type="checkbox" ${u.claves ? 'checked' : ''} onchange="USR[${i}].claves=this.checked">${t('u_pw')}</label></div>` : ''}
         ${u.rol === 'operador' ? `<div class="u-note">👷 ${t('u_oper_desc')}</div><div class="u-opts"><label><input type="checkbox" ${u.claves ? 'checked' : ''} onchange="USR[${i}].claves=this.checked">${t('u_pw')}</label></div>` : ''}
+        ${!esYo && u._rolOrig && u._rolOrig !== 'ninguno' ? `<div class="u-ajustes" style="margin-top:10px"><label>⏳ ${t('idle_user')}
+          <select onchange="logoutUsuario(${i}, this.value)">${[['', t('idle_off')], ...[15, 30, 60, 120].map(m => [String(m), t('idle_min', { n: m })])].map(([v, l]) =>
+            `<option value="${v}" ${String(u.logout ?? '') === v ? 'selected' : ''}>${esc(l)}</option>`).join('')}</select></label>
+          <small class="muted">${t('idle_user_hint')}</small></div>` : ''}
         <div class="u-foot"><button class="primary sm" onclick="guardarUsuario(${i})">${t('u_save')}</button><span class="msg ${u._ok ? 'ok' : u._msg ? 'bad' : ''}">${esc(u._msg || '')}</span>
           ${esYo ? '' : `<span class="u-acts"><button class="sm" onclick="claveUsuario(${i})">${t('u_reset')}</button><button class="sm danger" onclick="borrarUsuario(${i})">${t('u_del')}</button></span>`}</div>
       </div>`; }).join('') +
@@ -1710,6 +1718,7 @@ async function guardarUsuario(i){
   const { error } = await db.rpc('admin_guardar_perfil', { p_user: u.id, p_rol: u.rol, p_clientes: u.rol === 'cliente' ? u.clientes : [],
     p_editar: u.rol === 'cliente' && !!u.editar, p_claves: ['cliente', 'operador'].includes(u.rol) && !!u.claves });
   u._ok = !error; u._msg = error ? (error.message || t('save_fail')) : t('u_saved');
+  if (!error){ u._rolOrig = u.rol; if (u.rol === 'ninguno') u.logout = null; }
   renderUsuarios();
 }
 /* ---------- Datos ---------- */

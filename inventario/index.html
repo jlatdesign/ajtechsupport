@@ -419,6 +419,54 @@ a.dev-link:hover{color:var(--c1);text-decoration:underline}
 .det-actions button{border:0;border-radius:0;border-right:1px solid var(--line);padding:14px 6px;font-size:12px;display:flex;flex-direction:column;align-items:center;gap:4px;background:none}
 .det-actions button:last-child{border-right:0}
 .det-actions button span{font-size:18px}
+/* ===== Historial de actividad ===== */
+.act{display:grid;grid-template-columns:270px minmax(0,1fr);gap:18px;align-items:start}
+@media (max-width:900px){.act{grid-template-columns:1fr}.act-side{position:static!important;max-height:none!important}}
+.act-side{position:sticky;top:84px;background:var(--card-solid);border:1px solid var(--line);border-radius:12px;padding:12px;max-height:calc(100vh - 100px);overflow:auto;display:flex;flex-direction:column;gap:12px}
+.act-side .search{min-width:0}
+.act-seg{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.act-seg button{flex:1;border:0;border-radius:0;padding:7px 0;font:500 12px Inter,sans-serif;background:transparent;color:var(--muted);box-shadow:none}
+.act-seg button.on{color:var(--c1);background:var(--row-hover);font-weight:700}
+.act-sevs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.act-sevs button{padding:9px 0;display:flex;justify-content:center;box-shadow:none}
+.act-sevs button.on{border-color:var(--c1);box-shadow:inset 0 0 0 1px var(--c1)}
+.sev{display:inline-flex;gap:2px;vertical-align:middle}
+.sev i{width:8px;height:3px;border-radius:2px;background:var(--line-strong)}
+.sev.s1 i:nth-child(1){background:var(--ok)}
+.sev.s2 i:nth-child(-n+2){background:var(--warn)}
+.sev.s3 i:nth-child(-n+3){background:#f97316}
+.sev.s4 i{background:var(--bad)}
+.act-h{display:flex;justify-content:space-between;align-items:center;font:600 11px "JetBrains Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);cursor:pointer;padding-top:10px;border-top:1px solid var(--line);user-select:none}
+.act-list{max-height:230px;overflow:auto;display:flex;flex-direction:column}
+.act-list label{flex-direction:row;align-items:center;gap:8px;padding:5px 2px;font-size:13px;color:var(--text);cursor:pointer;font-weight:400}
+.act-list label.zero{color:var(--dim);cursor:default}
+.act-list label .n{margin-left:auto;color:var(--muted);font:500 11px "JetBrains Mono",monospace}
+.act-list input{width:auto;margin:0}
+.act-list .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.act-link{color:var(--c1);cursor:pointer;font-size:13px;background:none;border:0;padding:0;text-align:left}
+.av{width:20px;height:20px;border-radius:50%;display:inline-grid;place-items:center;font:700 10px Inter,sans-serif;color:#fff;flex:none;text-transform:uppercase}
+.act-main{padding:0;overflow:hidden}
+.act-top{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:12px 14px;border-bottom:1px solid var(--line)}
+.act-top .chip{display:inline-flex;align-items:center;gap:6px}
+.act-tbl{min-width:980px}
+.act-wrap{overflow:auto;max-height:calc(100vh - 230px)}
+.act-tbl thead th{cursor:default}
+.act-tbl td{padding:7px 12px;font-size:13px;vertical-align:middle;white-space:nowrap}
+.act-tbl td.d{white-space:normal;min-width:340px}
+.act-tbl td.when{color:var(--muted);font-variant-numeric:tabular-nums}
+.act-tbl tr.r{cursor:pointer}
+.act-tbl a{color:var(--c1);cursor:pointer;text-decoration:none}
+.act-tbl a:hover{text-decoration:underline}
+.act-tbl .cl{color:var(--muted);font-size:12px}
+.act-tbl tr.x>td{background:var(--row-hover);white-space:normal;padding:10px 16px 14px}
+.diff{display:grid;grid-template-columns:max-content fit-content(42%) auto minmax(0,1fr);gap:5px 12px;font-size:12.5px;align-items:baseline;max-width:900px}
+.diff .k{color:var(--muted)}
+.diff .old{color:var(--bad);text-decoration:line-through;word-break:break-word}
+.diff .new{color:var(--ok);word-break:break-word}
+.diff.snap{grid-template-columns:max-content minmax(0,1fr)}
+.diff.snap .v{word-break:break-word}
+.act-empty{padding:40px;text-align:center;color:var(--muted)}
+.act-more{display:flex;justify-content:center;padding:12px}
 </style>
 </head>
 <body>
@@ -430,7 +478,7 @@ a.dev-link:hover{color:var(--c1);text-decoration:underline}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v4.1</p>
+    <p class="sub">Network Asset Manager · v4.2</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -446,7 +494,7 @@ a.dev-link:hover{color:var(--c1);text-decoration:underline}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v4.1</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v4.2</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -457,6 +505,7 @@ a.dev-link:hover{color:var(--c1);text-decoration:underline}
     <button id="migrarBtn" class="hidden" onclick="migrarLocal()" data-i18n="upload_local">Upload local data</button>
     <button class="icon-btn" onclick="window.print()" data-i18n-title="t_print">⎙</button>
     <button class="icon-btn" onclick="toggleTheme()" data-i18n-title="t_theme">🌓</button>
+    <button onclick="abrirActividad()" data-i18n-title="t_activity">📜 <span data-i18n="activity">Activity</span></button>
     <button onclick="openGrupos()" data-i18n-title="t_groups">🗂 <span data-i18n="groups">Groups</span></button>
     <button class="icon-btn" onclick="cambiarPassword()" data-i18n-title="t_changepw">🔑</button>
     <div class="lang"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
@@ -476,6 +525,22 @@ a.dev-link:hover{color:var(--c1);text-decoration:underline}
     </div>
   </div>
   <div id="clientGrid" class="site-grid"></div>
+</div>
+
+<!-- ===== Vista: historial de actividad ===== -->
+<div id="actView" class="hidden">
+  <div class="cl-head">
+    <button class="backbtn" onclick="cerrarActividad()">← <span id="actBack"></span></button>
+    <div class="cl-info"><h2>📜 <span data-i18n="activity">Activity</span></h2><div class="muted" data-i18n="act_sub">Who changed what, and when</div></div>
+    <div class="row no-print">
+      <button onclick="cargarActividad()"><span data-i18n="refresh">↻ Refresh</span></button>
+      <button onclick="exportActCSV()">⊞ CSV</button>
+    </div>
+  </div>
+  <div class="act">
+    <aside id="actSide" class="act-side no-print"></aside>
+    <div class="panel act-main"><div class="act-top" id="actTop"></div><div class="act-wrap" id="actWrap"></div></div>
+  </div>
 </div>
 
 <!-- ===== Vista: un cliente ===== -->
@@ -636,7 +701,7 @@ a.dev-link:hover{color:var(--c1);text-decoration:underline}
       <select id="fCliente" onchange="render()" style="max-width:220px"><option value=""></option></select>
       <select id="fLugar" onchange="render()" style="max-width:200px"><option value=""></option></select>
       <select id="fGrupo" onchange="render()" style="max-width:200px"><option value=""></option></select>
-      <label class="check"><input type="checkbox" id="showPw" onchange="render()"> <span data-i18n="show_pw">Show passwords</span></label>
+      <label class="check"><input type="checkbox" id="showPw" onchange="render(); if (this.checked) logAct('password_viewed', null, { all: true, n: filtered().length }, { cliente: curCliente })"> <span data-i18n="show_pw">Show passwords</span></label>
     </div>
     <div class="stats no-print" id="chips" style="margin-bottom:14px"></div>
     <div id="bulkBar" class="bulk no-print hidden">
@@ -974,6 +1039,58 @@ es:{
   printer_ip_invalid:'IP de impresora no válida. Ej: 192.168.1.50', ip_missing:'Impresora por Ethernet/WiFi: agrega su IP',
   copied:'Copiado ✓', ask_client:'Algunas filas no tienen cliente. ¿A qué cliente pertenecen estos equipos?'
 }};
+Object.assign(I18N.en, {
+  activity:'Activity', t_activity:'Change history: who changed what and when', act_sub:'Who changed what, and when',
+  act_all:'All', act_sev:'Severity', act_events:'Events', act_users:'Users', act_clients:'Clients', act_clear:'Clear filters',
+  act_search:'Search activity...', act_n:'{n} events', act_none:'No activity for these filters.', act_loading:'Loading…', act_more:'Show more',
+  act_missing:'The activity log is not set up yet. Run <b>supabase-actividad.sql</b> in Supabase → SQL Editor, then press Refresh.',
+  act_cat:'Category', act_event:'Event', act_desc:'Description', act_when:'Date / Time', act_today:'Today at {h}', act_yest:'Yesterday at {h}',
+  act_snapshot:'Data at the moment it was deleted (passwords are never stored):', act_secret:'value hidden — passwords are never stored in the log',
+  act_dev_hist:'Activity', act_scope_all:'All clients', act_deleted_group:'(deleted group)', act_nochg:'—', act_pick_none:'Select all', act_noclient:'No client (login, export)',
+  'cat.device':'Device', 'cat.security':'Security', 'cat.client':'Client', 'cat.group':'Group', 'cat.access':'Access', 'cat.data':'Data',
+  'sev.1':'Info', 'sev.2':'Low', 'sev.3':'Medium', 'sev.4':'High',
+  'ev.device_created':'Device Added', 'ev.device_updated':'Device Updated', 'ev.device_deleted':'Device Deleted', 'ev.password_changed':'Password Changed',
+  'ev.client_created':'Client Created', 'ev.client_updated':'Client Updated', 'ev.client_deleted':'Client Deleted',
+  'ev.group_created':'Group Created', 'ev.group_updated':'Group Updated', 'ev.group_deleted':'Group Deleted',
+  'ev.signed_in':'Signed In', 'ev.account_pw_changed':'Login Password Changed', 'ev.password_viewed':'Password Viewed', 'ev.password_copied':'Password Copied',
+  'ev.pw_history_viewed':'Password History Viewed', 'ev.export_backup':'Backup Downloaded', 'ev.export_csv':'CSV Exported', 'ev.import_excel':'Excel Imported',
+  'ad.device_created':'{u} added {o}', 'ad.device_updated':'{u} updated {f} on {o}', 'ad.device_deleted':'{u} deleted {o}',
+  'ad.password_changed':'{u} changed {f} on {o}',
+  'ad.client_created':'{u} created the client {o}', 'ad.client_updated':'{u} updated {f} on the client {o}', 'ad.client_deleted':'{u} deleted the client {o}',
+  'ad.group_created':'{u} created the group {o}', 'ad.group_updated':'{u} updated the group {o} ({f})', 'ad.group_deleted':'{u} deleted the group {o}',
+  'ad.signed_in':'{u} signed in.', 'ad.account_pw_changed':'{u} changed their own login password.',
+  'ad.password_viewed':'{u} viewed the passwords of {o}', 'ad.password_viewed_all':'{u} turned on “Show passwords” for the list ({n} devices)',
+  'ad.password_copied':'{u} copied {f} of {o}', 'ad.pw_history_viewed':'{u} opened the password history of {o}',
+  'ad.export_backup':'{u} downloaded a full backup with passwords ({n} devices)', 'ad.export_csv':'{u} exported {n} devices to CSV', 'ad.export_csv_pw':'{u} exported {n} devices to CSV including passwords',
+  'ad.import_excel':'{u} imported an Excel file: {a} updated, {b} created',
+  'fl.ip':'IP', 'fl.mac':'MAC', 'fl.cliente':'Client', 'fl.direccion':'Address', 'fl.grupo_id':'Group', 'fl.pc_ids':'Linked PCs', 'fl.pc_users':'Users', 'fl.nombre':'Name', 'fl.contacto':'Contact', 'fl.telefono':'Phone', 'fl.email':'Email', 'fl.notas':'Notes',
+});
+Object.assign(I18N.es, {
+  activity:'Actividad', t_activity:'Historial de cambios: quién cambió qué y cuándo', act_sub:'Quién cambió qué, y cuándo',
+  act_all:'Todo', act_sev:'Severidad', act_events:'Eventos', act_users:'Usuarios', act_clients:'Clientes', act_clear:'Limpiar filtros',
+  act_search:'Buscar en la actividad...', act_n:'{n} eventos', act_none:'No hay actividad con estos filtros.', act_loading:'Cargando…', act_more:'Ver más',
+  act_missing:'El historial todavía no está activado. Corre <b>supabase-actividad.sql</b> en Supabase → SQL Editor y luego presiona Actualizar.',
+  act_cat:'Categoría', act_event:'Evento', act_desc:'Descripción', act_when:'Fecha / Hora', act_today:'Hoy a las {h}', act_yest:'Ayer a las {h}',
+  act_snapshot:'Datos que tenía al momento de borrarlo (las contraseñas nunca se guardan):', act_secret:'valor oculto — las contraseñas nunca se guardan en el historial',
+  act_dev_hist:'Actividad', act_scope_all:'Todos los clientes', act_deleted_group:'(grupo borrado)', act_nochg:'—', act_pick_none:'Marcar todos', act_noclient:'Sin cliente (login, exportar)',
+  'cat.device':'Equipo', 'cat.security':'Seguridad', 'cat.client':'Cliente', 'cat.group':'Grupo', 'cat.access':'Acceso', 'cat.data':'Datos',
+  'sev.1':'Info', 'sev.2':'Baja', 'sev.3':'Media', 'sev.4':'Alta',
+  'ev.device_created':'Equipo agregado', 'ev.device_updated':'Equipo modificado', 'ev.device_deleted':'Equipo borrado', 'ev.password_changed':'Contraseña cambiada',
+  'ev.client_created':'Cliente creado', 'ev.client_updated':'Cliente modificado', 'ev.client_deleted':'Cliente borrado',
+  'ev.group_created':'Grupo creado', 'ev.group_updated':'Grupo modificado', 'ev.group_deleted':'Grupo borrado',
+  'ev.signed_in':'Inicio de sesión', 'ev.account_pw_changed':'Clave de acceso cambiada', 'ev.password_viewed':'Contraseña vista', 'ev.password_copied':'Contraseña copiada',
+  'ev.pw_history_viewed':'Historial de claves visto', 'ev.export_backup':'Backup descargado', 'ev.export_csv':'CSV exportado', 'ev.import_excel':'Excel importado',
+  'ad.device_created':'{u} agregó {o}', 'ad.device_updated':'{u} cambió {f} en {o}', 'ad.device_deleted':'{u} borró {o}',
+  'ad.password_changed':'{u} cambió {f} en {o}',
+  'ad.client_created':'{u} creó el cliente {o}', 'ad.client_updated':'{u} cambió {f} del cliente {o}', 'ad.client_deleted':'{u} borró el cliente {o}',
+  'ad.group_created':'{u} creó el grupo {o}', 'ad.group_updated':'{u} modificó el grupo {o} ({f})', 'ad.group_deleted':'{u} borró el grupo {o}',
+  'ad.signed_in':'{u} inició sesión.', 'ad.account_pw_changed':'{u} cambió su propia clave de acceso.',
+  'ad.password_viewed':'{u} vio las contraseñas de {o}', 'ad.password_viewed_all':'{u} activó “Mostrar contraseñas” en la lista ({n} equipos)',
+  'ad.password_copied':'{u} copió {f} de {o}', 'ad.pw_history_viewed':'{u} abrió el historial de contraseñas de {o}',
+  'ad.export_backup':'{u} descargó un backup completo con contraseñas ({n} equipos)', 'ad.export_csv':'{u} exportó {n} equipos a CSV', 'ad.export_csv_pw':'{u} exportó {n} equipos a CSV con contraseñas',
+  'ad.import_excel':'{u} importó un Excel: {a} actualizados, {b} creados',
+  'fl.ip':'IP', 'fl.mac':'MAC', 'fl.cliente':'Cliente', 'fl.direccion':'Dirección', 'fl.grupo_id':'Grupo', 'fl.pc_ids':'PC vinculadas', 'fl.pc_users':'Usuarios', 'fl.nombre':'Nombre', 'fl.contacto':'Contacto', 'fl.telefono':'Teléfono', 'fl.email':'Email', 'fl.notas':'Notas',
+});
 const TIPOS = ['DVR','NVR','Cámara','PC','Laptop','Teléfono','Router','Switch','Access Point','Impresora','Servidor','Control de Acceso','Otro'];
 const ESTADOS = ['Activo','En reparación','Inactivo','Dado de baja'];
 let LANG = 'en';
@@ -1052,14 +1169,14 @@ async function doLogin(e){
   $('lgBtn').disabled = false;
   if (error){ $('lgErr').textContent = t('e_login'); return; }
   $('lgPass').value = '';
-  showApp(data.session);
+  showApp(data.session); logAct('signed_in');
 }
 async function logout(){ await db.auth.signOut(); showLogin(); }
 async function cambiarPassword(){
   const p = prompt(t('pw_prompt')); if (!p) return;
   if (p.length < 6) return alert(t('pw_short'));
   const { error } = await db.auth.updateUser({ password: p });
-  error ? fail(error, t('pw_fail')) : toast(t('pw_ok'));
+  error ? fail(error, t('pw_fail')) : (toast(t('pw_ok')), logAct('account_pw_changed'));
 }
 
 /* ---------- Datos ---------- */
@@ -1201,6 +1318,7 @@ function etiquetaHist(h){
 function showHistory(id){
   const x = items.find(i => i.id === id); if (!x) return;
   const hist = [...(x.pw_history || [])].map((h, i) => ({ ...h, i })).reverse();
+  if (hist.length) logAct('pw_history_viewed', x);
   $('modalTitle').textContent = `🕘 ${t('hist_title')} · ${x.nombre || ''}`;
   $('modalBody').innerHTML = hist.length ? hist.map(h => `<div class="hist-row">
       <div>${etiquetaHist(h)}</div>
@@ -1219,7 +1337,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape'){
   closeGrupos(); cerrarClienteModal(); cerrarDrawer(); cerrarImport(); cerrarDetalle();
   if (!abierto && sel.size) limpiarSel(); } });
 function copyText(v){ navigator.clipboard?.writeText(v || '').then(() => toast(t('copied')), () => toast(t('copy_fail'))); }
-function copyUserPw(id, i){ const x = items.find(k => k.id === id); copyText(getUsers(x)[i]?.pw); }
+function copyUserPw(id, i){ const x = items.find(k => k.id === id), u = getUsers(x)[i]; copyText(u?.pw); logAct('password_copied', x, { f: 'pc_users', u: u?.user || '' }); }
 /* ---------- Vínculo Printer ↔ PC (explícito: se elige con casillas) ---------- */
 const nrm = s => String(s || '').trim().toLowerCase();
 const mismoCliente = (a, b) => nrm(a) && nrm(a) === nrm(b);
@@ -1302,19 +1420,22 @@ function renderClienteHead(){
     c.email ? `✉️ <a href="mailto:${esc(c.email)}">${esc(c.email)}</a>` : ''].filter(Boolean).join(' &nbsp;·&nbsp; ');
 }
 function mostrarVista(){
-  const enCliente = !!curCliente;
-  $('clientsView').classList.toggle('hidden', enCliente);
-  $('clientView').classList.toggle('hidden', !enCliente);
+  const enCliente = !!curCliente, act = ACT.open;
+  $('actView').classList.toggle('hidden', !act);
+  $('clientsView').classList.toggle('hidden', act || enCliente);
+  $('clientView').classList.toggle('hidden', act || !enCliente);
+  if (act) renderActividad();
   $('devTable').classList.toggle('scoped', enCliente);
   $('fCliente').style.display = enCliente ? 'none' : '';
   if (enCliente) renderClienteHead(); else renderClientes();
 }
 function abrirCliente(n){
-  curCliente = n; fTipo = ''; vista = 'ov'; fAlert = ''; fCat = ''; fPred = null; sel.clear(); $('q').value = ''; $('fGrupo').value = ''; $('fLugar').value = '';
+  ACT.open = false; curCliente = n; fTipo = ''; vista = 'ov'; fAlert = ''; fCat = ''; fPred = null; sel.clear(); $('q').value = ''; $('fGrupo').value = ''; $('fLugar').value = '';
   try{ history.pushState({ c: n }, '', '#c=' + encodeURIComponent(n)); }catch(e){}
   render(); window.scrollTo({ top: 0 });
 }
 function volverClientes(){
+  ACT.open = false;
   if (curCliente){ try{ history.pushState({}, '', location.pathname); }catch(e){} }
   curCliente = null; cerrarDrawer(); render(); window.scrollTo({ top: 0 });
 }
@@ -1530,6 +1651,7 @@ function updatePCLists(){
 function copyVal(id, f){
   const x = items.find(i => i.id === id); if (!x || !x[f]) return;
   const v = f === 'anydesk' ? soloDigitos(x[f]) : x[f];
+  if (SECRET_FIELDS.includes(f)) logAct('password_copied', x, { f });
   navigator.clipboard?.writeText(v).then(() => toast(t('copied')), () => toast(t('copy_fail')));
 }
 function togglePwField(){ const p=$('password'); p.type = p.type==='password' ? 'text' : 'password'; }
@@ -1620,10 +1742,11 @@ function dup(id){
   $('nombre').value = x.nombre + t('copy_suffix');
   $('saveBtn').textContent = t('add_device'); $('editMsg').textContent = t('duplicating');
 }
-function reveal(id){ revealed.has(id) ? revealed.delete(id) : revealed.add(id); render(); }
+function reveal(id){ if (revealed.has(id)) revealed.delete(id); else { revealed.add(id); logAct('password_viewed', items.find(i => i.id === id)); } render(); }
 function copyPw(id){
   const x = items.find(i => i.id === id); if(!x || !x.password) return;
   navigator.clipboard?.writeText(x.password).then(() => toast(t('pw_copied')), () => toast(t('copy_fail')));
+  logAct('password_copied', x, { f: 'password' });
 }
 
 /* ---------- Tabla ---------- */
@@ -1700,6 +1823,7 @@ function renderDash(){
     [['dup', '⚠️', A.dup.size], ['war', '📅', A.war.length], ['noip', '🌐', A.noip.length], ['rep', '🔧', A.rep.length]].map(([k, ic, n]) =>
       it(`irA('list',{alert:'${k}'})`, `${ic} ${t('a_' + k)}<span class="n">${n}</span>`, vista === 'list' && fAlert === k, n ? 'alert' : '')).join('') +
     `<div class="ds-sep"></div>` +
+    it('abrirActividad({cliente:curCliente})', `📜 ${t('activity')}`, false) +
     it('nuevoEquipo()', `＋ ${t('add_device')}`, false) +
     it("document.getElementById('fileIn').click()", `📥 ${t('import_excel')}`, false) +
     it('exportCSV()', `⊞ ${t('export_csv')}`, false);
@@ -1822,18 +1946,194 @@ function verDetalle(id, keepVis){
   const nh = (x.pw_history || []).length;
   $('detBody').innerHTML = `<div class="det-head"><span class="det-ic">${TIPO_ICON[x.tipo] || '◆'}</span>
       <div><h3>${esc(x.nombre)}</h3><div class="det-sub">${[x.ip, x.mac].filter(Boolean).map(esc).join(' · ') || esc(tTipo(x.tipo))}</div></div><span class="sp"></span>
-      ${tieneSecretos ? `<button class="sm" onclick="detVis=!detVis;verDetalle('${x.id}',true)" title="${t('t_view')}">👁</button>` : ''}
+      ${tieneSecretos ? `<button class="sm" onclick="detVis=!detVis;if(detVis)logAct('password_viewed',items.find(i=>i.id==='${x.id}'));verDetalle('${x.id}',true)" title="${t('t_view')}">👁</button>` : ''}
       <button class="sm" onclick="cerrarDetalle()">✕</button></div>
     <div class="kv">${html}</div>
     <div class="det-actions">
       <button onclick="cerrarDetalle();edit('${x.id}')"><span>✏️</span>${t('edit')}</button>
       <button onclick="cerrarDetalle();dup('${x.id}')"><span>⧉</span>${t('t_dup')}</button>
       <button onclick="showHistory('${x.id}')"><span>🕘</span>${t('det_hist')} (${nh})</button>
+      <button onclick="abrirActividad({obj:'${x.id}'})"><span>📜</span>${t('act_dev_hist')}</button>
       <button onclick="del('${x.id}')" style="color:var(--bad)"><span>🗑</span>${t('t_delete')}</button>
     </div>`;
   $('detail').classList.remove('hidden');
 }
 function cerrarDetalle(){ $('detail')?.classList.add('hidden'); detId = null; }
+/* ---------- Historial de actividad ---------- */
+const ACT = { open: false, rows: [], dias: 7, loading: false, missing: false, q: '', sev: new Set(), ev: new Set(), us: new Set(), cl: new Set(),
+  cliente: null, obj: null, objNombre: '', abiertos: new Set(), max: 200, secs: { ev: true, us: true, cl: true }, desde: null };
+const ACT_PERIODOS = [[1, '1D'], [3, '3D'], [7, '1W'], [14, '2W'], [30, '1M'], [90, '3M'], [0, 'act_all']];
+const _actReciente = new Map();
+// Manda a Supabase los eventos que no son cambios de datos (login, ver/copiar claves, exportar, importar)
+function logAct(evento, x = null, detalle = null, extra = {}){
+  try{
+    if (!db?.rpc) return;
+    const k = [evento, x?.id || '', JSON.stringify(detalle || {}), extra.cliente || ''].join('|'), ahora = Date.now();
+    if (_actReciente.get(k) > ahora - 60000) return;   // no repetir el mismo evento en 1 minuto
+    _actReciente.set(k, ahora);
+    Promise.resolve(db.rpc('registrar_actividad', { p_evento: evento, p_cliente: x?.cliente ?? extra.cliente ?? null, p_objeto_id: x?.id ?? null,
+      p_objeto: x ? (x.nombre || null) : (extra.objeto || null), p_tipo: x?.tipo ?? null, p_detalle: detalle }))
+      .then(r => { if (r?.error) console.warn('actividad:', r.error.message); }, () => {});
+  }catch(e){}
+}
+function abrirActividad(o = {}){
+  ACT.desde = curCliente; ACT.open = true;
+  ACT.cliente = o.cliente || null; ACT.obj = o.obj || null;
+  const x = ACT.obj && items.find(i => i.id === ACT.obj);
+  ACT.objNombre = x ? x.nombre : ''; if (x && !ACT.cliente) ACT.cliente = x.cliente;
+  ACT.q = ''; ACT.sev.clear(); ACT.ev.clear(); ACT.us.clear(); ACT.cl.clear(); ACT.abiertos.clear(); ACT.max = 200;
+  if (ACT.obj) ACT.dias = 0;
+  cerrarDetalle(); cerrarDrawer?.();
+  mostrarVista(); window.scrollTo({ top: 0 }); cargarActividad();
+}
+function cerrarActividad(){ ACT.open = false; render(); window.scrollTo({ top: 0 }); }
+async function cargarActividad(){
+  ACT.loading = true; renderActividad();
+  let q = db.from('actividad').select('*');
+  if (ACT.dias) q = q.gte('created_at', new Date(Date.now() - ACT.dias * 864e5).toISOString());
+  if (ACT.obj) q = q.eq('objeto_id', ACT.obj);
+  const { data, error } = await q.order('created_at', { ascending: false }).limit(5000);
+  ACT.loading = false;
+  ACT.missing = !!error && /actividad|relation|schema cache|does not exist|42P01|PGRST205/i.test((error.message || '') + (error.code || ''));
+  if (error && !ACT.missing) console.error(error);
+  ACT.rows = data || [];
+  if (ACT.obj && !ACT.objNombre) ACT.objNombre = ACT.rows.find(r => r.objeto)?.objeto || '';
+  renderActividad();
+}
+const actPeriodo = d => { ACT.dias = d; ACT.max = 200; cargarActividad(); };
+function actToggle(set, v){ const S = ACT[set]; S.has(v) ? S.delete(v) : S.add(v); ACT.max = 200; renderActividad(); }
+function actSolo(set, v){ ACT[set].clear(); ACT[set].add(v); ACT.max = 200; renderActividad(); }
+function actLimpiar(){ ACT.q = ''; ACT.sev.clear(); ACT.ev.clear(); ACT.us.clear(); ACT.cl.clear(); ACT.max = 200; renderActividad(); }
+function actQuitar(que){ if (que === 'obj'){ ACT.obj = null; ACT.objNombre = ''; cargarActividad(); } else { ACT.cliente = null; renderActividad(); } }
+function actFila(id){ ACT.abiertos.has(id) ? ACT.abiertos.delete(id) : ACT.abiertos.add(id); renderActividad(); }
+const AV_COL = ['#2a78d6', '#eb6834', '#1baf7a', '#eda100', '#8b5cf6', '#e5484d', '#0ea5a4'];
+const avatar = u => { let h = 0; for (const c of String(u || '?')) h = (h * 31 + c.charCodeAt(0)) >>> 0; return `<span class="av" style="background:${AV_COL[h % AV_COL.length]}">${esc(String(u || '?')[0])}</span>`; };
+const sevHTML = n => `<span class="sev s${n}" title="${esc(t('sev.' + n))}"><i></i><i></i><i></i><i></i></span>`;
+function campoLbl(f){
+  if (I18N.en['fl.' + f]) return t('fl.' + f);
+  const sp = document.getElementById(f)?.closest('label')?.querySelector('span[data-i18n]');
+  return sp ? t(sp.dataset.i18n) : f;
+}
+function valAct(k, v){
+  if (v == null || v === '' || v === '[]') return t('act_nochg');
+  if (k === 'tipo') return esc(tTipo(v));
+  if (k === 'estado') return esc(tEstado(v));
+  if (k === 'grupo_id') return esc(grupos.find(g => g.id === v)?.nombre || t('act_deleted_group'));
+  if (['conexion', 'lbl_conexion', 'imp_conexion'].includes(k)) return esc(t('conn.' + v) === 'conn.' + v ? v : t('conn.' + v));
+  if (k === 'pc_ids'){
+    let ids = v; try{ if (typeof v === 'string') ids = JSON.parse(v); }catch(e){}
+    return Array.isArray(ids) ? (ids.map(id => esc(items.find(i => i.id === id)?.nombre || '?')).join(', ') || t('act_nochg')) : esc(v);
+  }
+  if (typeof v === 'object') return esc(JSON.stringify(v));
+  return esc(String(v));
+}
+function actHora(d){
+  const f = new Date(d), loc = LANG === 'es' ? 'es-US' : 'en-US';
+  const h = f.toLocaleTimeString(loc, { hour: 'numeric', minute: '2-digit', second: '2-digit' });
+  const hoy = new Date(); hoy.setHours(0, 0, 0, 0);
+  const dia = new Date(f); dia.setHours(0, 0, 0, 0);
+  const dd = Math.round((hoy - dia) / 864e5);
+  if (dd === 0) return t('act_today', { h });
+  if (dd === 1) return t('act_yest', { h });
+  return f.toLocaleDateString(loc, { month: 'short', day: 'numeric', ...(f.getFullYear() !== hoy.getFullYear() ? { year: 'numeric' } : {}) }) + ', ' + h;
+}
+// Texto de la descripción (html = con enlaces; si no, texto plano para buscar/exportar)
+function actDesc(r, html = true){
+  const D = r.cambios || {};
+  const U = html ? `<a onclick="event.stopPropagation();actSolo('us','${jsq(r.usuario || '')}')">${esc(r.usuario || 'system')}</a>` : (r.usuario || 'system');
+  const existe = r.objeto_id && items.some(i => i.id === r.objeto_id) && /^(device|security)$/.test(r.categoria) && r.evento !== 'device_deleted';
+  const O = !html ? (r.objeto || '—') : existe ? `<a onclick="event.stopPropagation();verDetalle('${r.objeto_id}')">${esc(r.objeto || '—')}</a>` : `<b>${esc(r.objeto || '—')}</b>`;
+  let F = '';
+  if (r.evento === 'password_copied') F = D.f === 'pc_users' ? `${t('lg_user')} ${D.u || ''} · ${t('password')}` : campoLbl(D.f);
+  else if (/_updated$|password_changed/.test(r.evento)){ const ks = Object.keys(D).map(campoLbl); F = ks.slice(0, 3).join(', ') + (ks.length > 3 ? ` +${ks.length - 3}` : ''); }
+  let key = 'ad.' + r.evento;
+  if (r.evento === 'password_viewed' && D.all) key = 'ad.password_viewed_all';
+  if (r.evento === 'export_csv' && D.pw) key = 'ad.export_csv_pw';
+  let s = t(key, { u: '\u0001', o: '\u0002', f: F, n: D.n ?? '', a: D.a ?? 0, b: D.b ?? 0 });
+  if (s === key) s = `\u0001 · ${r.evento}`;
+  if (html) s = esc(s);
+  s = s.replace('\u0001', U).replace('\u0002', O);
+  const cli = r.cliente && !(ACT.cliente && mismoCliente(r.cliente, ACT.cliente)) && r.categoria !== 'client' ? r.cliente : '';
+  return cli ? s + (html ? ` <span class="cl">· ${esc(cli)}</span>` : ` · ${cli}`) : s;
+}
+function actDetalle(r){
+  const D = r.cambios || {}, ks = Object.keys(D);
+  if (!ks.length) return '';
+  if (r.evento.endsWith('_deleted'))
+    return `<div class="muted" style="margin-bottom:6px">${t('act_snapshot')}</div><div class="diff snap">` +
+      ks.filter(k => !['id', 'created_at', 'updated_at', 'creado_por'].includes(k) && D[k] !== '' && !(Array.isArray(D[k]) && !D[k].length))
+        .map(k => `<span class="k">${esc(campoLbl(k))}</span><span class="v">${valAct(k, D[k])}</span>`).join('') + `</div>`;
+  if (r.evento === 'password_changed')
+    return `<div class="diff snap">` + ks.map(k => `<span class="k">${esc(campoLbl(k))}</span><span class="v muted">🔒 ${t('act_secret')}</span>`).join('') + `</div>`;
+  if (/_updated$/.test(r.evento))
+    return `<div class="diff">` + ks.map(k => { const [a, b] = Array.isArray(D[k]) ? D[k] : [null, D[k]];
+      return `<span class="k">${esc(campoLbl(k))}</span><span class="old">${valAct(k, a)}</span><span class="muted">→</span><span class="new">${valAct(k, b)}</span>`; }).join('') + `</div>`;
+  return '';
+}
+function actFiltrar(){
+  const base = ACT.rows.filter(r => !ACT.cliente || mismoCliente(r.cliente, ACT.cliente));
+  const q = nrm(ACT.q);
+  const pasaQ = r => !q || nrm([r.usuario, r.objeto, r.cliente, t('ev.' + r.evento), t('cat.' + r.categoria), actDesc(r, false), JSON.stringify(r.cambios || '')].join(' ')).includes(q);
+  const pre = base.filter(r => pasaQ(r) && (!ACT.sev.size || ACT.sev.has(r.severidad)));
+  const pasa = (r, sin) => (sin === 'ev' || !ACT.ev.size || ACT.ev.has(r.evento)) && (sin === 'us' || !ACT.us.size || ACT.us.has(r.usuario || 'system'))
+    && (sin === 'cl' || !ACT.cl.size || ACT.cl.has(r.cliente || '—'));
+  const cuenta = (sin, f) => { const m = {}; pre.filter(r => pasa(r, sin)).forEach(r => { const k = f(r); m[k] = (m[k] || 0) + 1; }); return m; };
+  return { base, lista: pre.filter(r => pasa(r)),
+    cEv: cuenta('ev', r => r.evento), cUs: cuenta('us', r => r.usuario || 'system'), cCl: cuenta('cl', r => r.cliente || '—') };
+}
+function renderActividad(){
+  if (!$('actView')) return;
+  $('actBack').textContent = ACT.desde || t('clients_title');
+  const F = actFiltrar();
+  const sec = (k, titulo) => `<div class="act-h" onclick="ACT.secs.${k}=!ACT.secs.${k};renderActividad()">${titulo}<span>${ACT.secs[k] ? '▴' : '▾'}</span></div>`;
+  const lista = (set, todos, cnt, lbl, ico) => {
+    const ks = [...new Set([...todos, ...ACT[set]])];
+    return `<div class="act-list">` + ks.map(k => { const n = cnt[k] || 0, on = ACT[set].has(k);
+      return `<label class="${!n && !on ? 'zero' : ''}"><input type="checkbox" ${on ? 'checked' : ''} ${!n && !on ? 'disabled' : ''} onchange="actToggle('${set}','${jsq(k)}')">${ico ? ico(k) : ''}<span class="nm" title="${esc(lbl(k))}">${esc(lbl(k))}</span><span class="n">${n}</span></label>`; }).join('') + `</div>`;
+  };
+  const EVS = ['device_created','device_updated','device_deleted','password_changed','password_viewed','password_copied','pw_history_viewed',
+    'client_created','client_updated','client_deleted','group_created','group_updated','group_deleted','signed_in','account_pw_changed','export_backup','export_csv','import_excel'];
+  const evs = EVS.filter(e => F.base.some(r => r.evento === e) || ACT.ev.has(e)).concat([...new Set(F.base.map(r => r.evento))].filter(e => !EVS.includes(e)));
+  const uss = [...new Set(F.base.map(r => r.usuario || 'system'))].sort();
+  const cls = [...new Set(F.base.map(r => r.cliente || '—'))].sort((a, b) => a.localeCompare(b));
+  const hayFiltros = ACT.q || ACT.sev.size || ACT.ev.size || ACT.us.size || ACT.cl.size;
+  $('actSide').innerHTML =
+    `<div class="search"><input id="actQ" value="${esc(ACT.q)}" placeholder="${esc(t('act_search'))}" oninput="ACT.q=this.value;ACT.max=200;renderActividadTabla()"></div>
+    <div class="act-seg">${ACT_PERIODOS.map(([d, l]) => `<button class="${ACT.dias === d ? 'on' : ''}" onclick="actPeriodo(${d})">${l.startsWith('act_') ? t(l) : l}</button>`).join('')}</div>
+    <div class="act-sevs" title="${esc(t('act_sev'))}">${[1, 2, 3, 4].map(n => `<button class="${ACT.sev.has(n) ? 'on' : ''}" onclick="actToggle('sev',${n})" title="${esc(t('sev.' + n))}">${sevHTML(n)}</button>`).join('')}</div>` +
+    sec('ev', t('act_events')) + (ACT.secs.ev ? lista('ev', evs, F.cEv, e => t('ev.' + e)) : '') +
+    sec('us', t('act_users')) + (ACT.secs.us ? lista('us', uss, F.cUs, u => u, avatar) : '') +
+    (ACT.cliente ? '' : sec('cl', t('act_clients')) + (ACT.secs.cl ? lista('cl', cls, F.cCl, c => c === '—' ? t('act_noclient') : c) : '')) +
+    (hayFiltros ? `<button class="act-link" onclick="actLimpiar()">${t('act_clear')}</button>` : '');
+  renderActividadTabla(F);
+}
+function renderActividadTabla(F){
+  if (!F){ F = actFiltrar(); }
+  const chips = [
+    ACT.cliente ? `<span class="chip on">🏢 ${esc(ACT.cliente)} <a onclick="actQuitar('cliente')" style="cursor:pointer">✕</a></span>` : '',
+    ACT.obj ? `<span class="chip on">${TIPO_ICON[items.find(i => i.id === ACT.obj)?.tipo] || '◆'} ${esc(ACT.objNombre || '…')} <a onclick="actQuitar('obj')" style="cursor:pointer">✕</a></span>` : ''
+  ].join('');
+  $('actTop').innerHTML = `${chips}<span class="muted">${ACT.loading ? t('act_loading') : t('act_n', { n: F.lista.length })}</span>`;
+  if (ACT.missing){ $('actWrap').innerHTML = `<div class="act-empty">⚙️ ${t('act_missing')}</div>`; return; }
+  if (!F.lista.length){ $('actWrap').innerHTML = `<div class="act-empty">${ACT.loading ? t('act_loading') : t('act_none')}</div>`; return; }
+  const filas = F.lista.slice(0, ACT.max).map(r => {
+    const det = actDetalle(r), abierto = ACT.abiertos.has(r.id);
+    return `<tr class="${det ? 'r' : ''}" ${det ? `onclick="actFila(${typeof r.id === 'number' ? r.id : `'${r.id}'`})"` : ''}>
+      <td>${esc(t('cat.' + r.categoria))}</td><td>${esc(t('ev.' + r.evento) === 'ev.' + r.evento ? r.evento : t('ev.' + r.evento))}</td>
+      <td class="d">${actDesc(r)}${det ? ` <span class="muted">${abierto ? '▴' : '▾'}</span>` : ''}</td>
+      <td>${sevHTML(r.severidad || 1)}</td><td class="when">${esc(actHora(r.created_at))}</td></tr>` +
+      (abierto && det ? `<tr class="x"><td colspan="5">${det}</td></tr>` : '');
+  }).join('');
+  $('actWrap').innerHTML = `<table class="act-tbl"><thead><tr><th>${t('act_cat')}</th><th>${t('act_event')}</th><th>${t('act_desc')}</th><th>${t('act_sev')}</th><th>${t('act_when')}</th></tr></thead><tbody>${filas}</tbody></table>` +
+    (F.lista.length > ACT.max ? `<div class="act-more"><button onclick="ACT.max+=300;renderActividadTabla()">${t('act_more')} (${F.lista.length - ACT.max})</button></div>` : '');
+}
+function exportActCSV(){
+  const q = v => `"${String(v ?? '').replace(/"/g, '""')}"`;
+  const filas = actFiltrar().lista.map(r => [new Date(r.created_at).toLocaleString(), r.usuario, t('cat.' + r.categoria), t('ev.' + r.evento), t('sev.' + r.severidad), r.cliente, r.objeto, actDesc(r, false),
+    /_updated$/.test(r.evento) ? Object.entries(r.cambios || {}).map(([k, v]) => `${campoLbl(k)}: ${Array.isArray(v) ? (v[0] ?? '—') + ' → ' + (v[1] ?? '—') : v}`).join(' | ') : ''].map(q).join(','));
+  const head = ['Date', 'User', 'Category', 'Event', 'Severity', 'Client', 'Object', 'Description', 'Changes'].join(',');
+  download(`actividad-${stamp()}.csv`, '﻿' + [head, ...filas].join('\r\n'), 'text/csv;charset=utf-8');
+}
 function filtered(){
   const q = $('q').value.toLowerCase().trim(), fl = $('fLugar').value, fc = curCliente || $('fCliente').value, fg = $('fGrupo').value;
   return items.filter(x =>
@@ -2166,12 +2466,13 @@ function download(name, content, type){
   a.download = name; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
 }
 const stamp = () => new Date().toISOString().slice(0,10);
-function exportJSON(){ download(`inventario-${stamp()}.json`, JSON.stringify(items.map(x => ({ ...clean(x), pc_users: getUsers(x), pw_history: x.pw_history || [], pc_ids: pcIds(x), grupo: grupoDe(x)?.nombre || null })), null, 2), 'application/json'); }
+function exportJSON(){ logAct('export_backup', null, { n: items.length }); download(`inventario-${stamp()}.json`, JSON.stringify(items.map(x => ({ ...clean(x), pc_users: getUsers(x), pw_history: x.pw_history || [], pc_ids: pcIds(x), grupo: grupoDe(x)?.nombre || null })), null, 2), 'application/json'); }
 function exportCSV(){
   const incluirPw = confirm(t('csv_pw'));
   const q = v => `"${String(v ?? '').replace(/"/g,'""')}"`;
   const csv = [FIELDS.join(','), ...filtered().map(x => FIELDS.map(f => q(f==='password' && !incluirPw ? '' : x[f])).join(','))].join('\r\n');
   download(`inventario-${stamp()}.csv`, '\uFEFF' + csv, 'text/csv;charset=utf-8');
+  logAct('export_csv', null, { n: filtered().length, pw: !!incluirPw }, { cliente: curCliente });
 }
 const HEADER_ALIAS = {
   'first name':'first_name','last name':'last_name','device name':'hostname','processor':'cpu','installed ram':'ram','ram':'ram',
@@ -2477,6 +2778,8 @@ async function xImportar(){
     if (error){ $('xGo').disabled = false; return fail(error, t('save_fail')); }
   }
   cerrarImport(); toast(t('x_done', { u: p.upd.length, n: p.ins.length }));
+  { const cs = [...new Set([...p.ins.map(r => r.cliente), ...p.upd.map(u => items.find(i => i.id === u.id)?.cliente)].filter(Boolean))];
+    logAct('import_excel', null, { a: p.upd.length, b: p.ins.length }, { cliente: cs.length === 1 ? cs[0] : null }); }
   await loadData();
 }
 function cerrarImport(){ $('xModal').classList.add('hidden'); }

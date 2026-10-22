@@ -456,6 +456,32 @@ a.dev-link:hover{color:var(--c1);text-decoration:underline}
 .det-actions button{border:0;border-radius:0;border-right:1px solid var(--line);padding:14px 6px;font-size:12px;display:flex;flex-direction:column;align-items:center;gap:4px;background:none}
 .det-actions button:last-child{border-right:0}
 .det-actions button span{font-size:18px}
+/* ===== Inventario de Network ===== */
+#netBox .legacy-isp{display:none}
+.wan-box{margin-top:12px;border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--card)}
+.wan-row{display:grid;grid-template-columns:80px 1.3fr 1fr 1.2fr 1fr .9fr .9fr 1.2fr auto;gap:6px;align-items:end;padding:8px 0;border-top:1px solid var(--line)}
+.wan-row:first-child{border-top:0}
+.wan-row label{font-size:11px;gap:3px}
+.wan-row input,.wan-row select{padding:7px 8px;font-size:13px}
+.wan-row.sin-via .w-via-l{display:none}
+.wan-row.sin-via{grid-template-columns:80px 1.3fr 1fr 1.2fr 1fr .9fr .9fr auto}
+@media (max-width:1100px){.wan-row,.wan-row.sin-via{grid-template-columns:1fr 1fr 1fr}}
+.wan-tag{display:inline-block;font:600 10.5px "JetBrains Mono",monospace;padding:1px 6px;border-radius:6px;border:1px solid var(--line-strong);margin-right:4px}
+.wan-tag.principal{color:var(--ok);border-color:color-mix(in srgb,var(--ok) 50%,transparent)}
+.wan-tag.respaldo{color:var(--warn);border-color:color-mix(in srgb,var(--warn) 50%,transparent)}
+.wan-tag.balanceo{color:var(--c1);border-color:color-mix(in srgb,var(--c1) 50%,transparent)}
+.mw-badge{display:inline-block;font:700 10.5px Inter,sans-serif;padding:2px 7px;border-radius:999px;background:var(--c1);color:#fff;margin-bottom:3px}
+.net-inet{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:12px 0 0;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--row-hover);font-size:13px}
+.net-inet b{margin-right:4px}
+.net-inet .wl{display:inline-flex;gap:6px;align-items:center;padding:4px 10px;border-radius:999px;background:var(--card-solid);border:1px solid var(--line)}
+.net-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.net-head h3{margin:0 0 2px;font:700 18px "Space Grotesk",sans-serif}
+.net-tbl{min-width:960px}
+.net-tbl td{vertical-align:middle}
+.net-tbl tr.r{cursor:pointer}
+.net-tbl td.stack small{display:block;font-size:12px;line-height:1.5}
+.net-tbl tr.net-grp td{background:var(--row-hover);font:600 12px "JetBrains Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--text);padding:8px 12px}
+.net-wrap{max-height:none}
 /* ===== Permisos por usuario ===== */
 body:not(.p-roles) .solo-roles{display:none!important}
 body.p-noadm [onclick*="abrirClienteModal"],body.p-noadm .site-card.add,body.p-noadm [onclick="abrirUsuarios()"]{display:none!important}
@@ -593,7 +619,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v5.1</p>
+    <p class="sub">Network Asset Manager · v5.3</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -609,7 +635,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v5.1</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v5.3</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -676,6 +702,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
   <aside id="dashSide" class="dash-side no-print"></aside>
   <div class="dash-main">
   <div id="ovView" class="ov"></div>
+  <div id="netView" class="hidden"></div>
   <div id="listView">
   <div class="kpis no-print hidden">
     <div class="kpi"><span data-i18n="k_devices">Devices</span><b id="kTotal">0</b></div>
@@ -732,6 +759,24 @@ details.u-help summary{cursor:pointer;font-weight:600}
           <select id="estado"></select>
         </label>
         <label class="full"><span data-i18n="notes">Notes</span><textarea id="notas" data-i18n-ph="notes_ph" placeholder="Ports, channels, configuration, etc."></textarea></label>
+      </div>
+      <div id="netBox" class="pc-box hidden">
+        <div class="sec"><i>03</i> <span data-i18n="sec_net">Network</span></div>
+        <div class="grid">
+          <label><span data-i18n="conectado_a">Connected to (uplink)</span><select id="conectado_a"></select></label>
+          <label class="legacy-isp"><span data-i18n="isp">Internet provider (ISP)</span><input id="isp" list="ispList" autocomplete="off" data-i18n-ph="isp_ph" placeholder="e.g. Comcast Business"></label>
+          <label class="legacy-isp"><span data-i18n="cuenta_isp">ISP account / circuit #</span><input id="cuenta_isp" autocomplete="off" class="monoin"></label>
+          <label class="legacy-isp"><span data-i18n="ip_publica">Public / static IP</span><input id="ip_publica" autocomplete="off" class="monoin" placeholder="73.12.34.56" inputmode="decimal"></label>
+          <label><span data-i18n="ssid">Wi-Fi name (SSID)</span><input id="ssid" autocomplete="off"></label>
+          <label><span data-i18n="firmware">Firmware</span><input id="firmware" autocomplete="off" class="monoin"></label>
+          <label><span data-i18n="puertos">Ports</span><input id="puertos" autocomplete="off" data-i18n-ph="puertos_ph" placeholder="e.g. 24 + 4 SFP, PoE"></label>
+        </div>
+        <div id="wanBox" class="wan-box hidden">
+          <div class="users-head"><span>🌍 <span data-i18n="wan_title">WAN / Multi-WAN</span> <small class="muted" data-i18n="wan_help">One row per internet line</small></span>
+            <button type="button" class="sm" onclick="addWanRow()" data-i18n="wan_add">＋ Add WAN</button></div>
+          <div id="wanList"></div>
+        </div>
+        <datalist id="ispList"><option value="Comcast / Xfinity Business"><option value="AT&amp;T Business"><option value="Spectrum Business"><option value="Hotwire Communications"><option value="Frontier"><option value="Lumen / CenturyLink"><option value="Verizon"><option value="T-Mobile"><option value="Starlink"><option value="Breezeline"></datalist>
       </div>
       <div id="prnBox" class="pc-box hidden">
         <div class="sec"><i>03</i> <span data-i18n="sec_printer">Printer</span></div>
@@ -1160,6 +1205,18 @@ es:{
   copied:'Copiado ✓', ask_client:'Algunas filas no tienen cliente. ¿A qué cliente pertenecen estos equipos?'
 }};
 Object.assign(I18N.en, {
+  wan_title:'WAN / Multi-WAN', wan_help:'One row per internet line that enters this device', wan_add:'＋ Add WAN', wan_port:'Port', wan_isp:'Provider',
+  wan_conn:'Connection', wan_mode:'Mode', wan_ip:'Public IP', wan_speed:'Speed (down/up)', wan_speed_ph:'1000/35', wan_acct:'Account #', wan_via:'Through modem',
+  'wm.principal':'Primary', 'wm.respaldo':'Failover / backup', 'wm.balanceo':'Load balance',
+  'wc.Fibra':'Fiber', 'wc.Cable':'Cable', 'wc.DSL':'DSL', 'wc.LTE/5G':'LTE / 5G', 'wc.Starlink':'Starlink', 'wc.Inalámbrico fijo':'Fixed wireless', 'wc.Otro':'Other',
+  multiwan:'Multi-WAN', wan_feeds:'Feeds', net_internet:'Internet', wan_none:'No WAN registered yet — edit the router, firewall or modem to add it.', fl_wans:'WAN',
+  wan_missing:'The WAN lines were not saved: run supabase-wan.sql in Supabase first. The rest was saved.', 'fl.wans':'WAN',
+  'tipo.Módem':'Modem', 'tipo.Firewall':'Firewall', 'tipo.Extensor WiFi':'Wi-Fi Extender / Mesh', 'tipo.Antena':'Antenna / PtP', 'tipo.Patch Panel':'Patch Panel',
+  net_inv:'Network', net_title:'Network inventory', net_sub:'Everything that gives connectivity: internet, firewall, routing, switching and Wi-Fi',
+  net_all:'All', net_add:'＋ Add network device', net_empty:'No network devices yet.', sec_net:'Network',
+  isp:'Internet provider (ISP)', isp_ph:'e.g. Comcast Business', cuenta_isp:'ISP account / circuit #', ip_publica:'Public / static IP', ssid:'Wi-Fi name (SSID)',
+  firmware:'Firmware', puertos:'Ports', puertos_ph:'e.g. 24 + 4 SFP, PoE', conectado_a:'Connected to (uplink)', net_none_up:'— Not set —',
+  th_uplink:'Connected to', th_netinfo:'Details', net_missing:'The network fields were not saved: run supabase-network.sql in Supabase first. The rest was saved.',
   nu_btn:'＋ New user', nu_title:'New user', nu_user:'Username', nu_user_ph:'e.g. maria.stock', nu_pw:'Password', nu_gen:'Generate', nu_create:'Create user',
   nu_hint:'They sign in with just the username. Give them the password; they can change it later with 🔑.', nu_ok:'User {u} created ✓ — password: {p}',
   nu_need:'Write a username and a password of at least 8 characters', u_reset:'🔑 Password', u_del:'🗑 Delete', u_reset_prompt:'New password for {u} (minimum 8 characters):',
@@ -1209,6 +1266,18 @@ Object.assign(I18N.en, {
   'fl.ip':'IP', 'fl.mac':'MAC', 'fl.cliente':'Client', 'fl.direccion':'Address', 'fl.grupo_id':'Group', 'fl.pc_ids':'Linked PCs', 'fl.pc_users':'Users', 'fl.nombre':'Name', 'fl.contacto':'Contact', 'fl.telefono':'Phone', 'fl.email':'Email', 'fl.notas':'Notes',
 });
 Object.assign(I18N.es, {
+  wan_title:'WAN / Multi-WAN', wan_help:'Una fila por cada línea de internet que entra a este equipo', wan_add:'＋ Agregar WAN', wan_port:'Puerto', wan_isp:'Proveedor',
+  wan_conn:'Conexión', wan_mode:'Modo', wan_ip:'IP pública', wan_speed:'Velocidad (bajada/subida)', wan_speed_ph:'1000/35', wan_acct:'Cuenta #', wan_via:'Por el módem',
+  'wm.principal':'Principal', 'wm.respaldo':'Respaldo (failover)', 'wm.balanceo':'Balanceo',
+  'wc.Fibra':'Fibra', 'wc.Cable':'Cable', 'wc.DSL':'DSL', 'wc.LTE/5G':'LTE / 5G', 'wc.Starlink':'Starlink', 'wc.Inalámbrico fijo':'Inalámbrico fijo', 'wc.Otro':'Otro',
+  multiwan:'Multi-WAN', wan_feeds:'Alimenta', net_internet:'Internet', wan_none:'Todavía no hay WAN registrado: edita el router, firewall o módem para agregarlo.', fl_wans:'WAN',
+  wan_missing:'Las líneas WAN no se guardaron: primero corre supabase-wan.sql en Supabase. Lo demás sí se guardó.', 'fl.wans':'WAN',
+  'tipo.Módem':'Módem', 'tipo.Firewall':'Firewall', 'tipo.Extensor WiFi':'Extensor WiFi / Mesh', 'tipo.Antena':'Antena / PtP', 'tipo.Patch Panel':'Patch Panel',
+  net_inv:'Network', net_title:'Inventario de Network', net_sub:'Todo lo que da conectividad: internet, firewall, ruteo, switches y Wi-Fi',
+  net_all:'Todos', net_add:'＋ Agregar equipo de red', net_empty:'Todavía no hay equipos de red.', sec_net:'Red',
+  isp:'Proveedor de internet (ISP)', isp_ph:'ej. Comcast Business', cuenta_isp:'Cuenta / circuito del ISP', ip_publica:'IP pública / estática', ssid:'Nombre del Wi-Fi (SSID)',
+  firmware:'Firmware', puertos:'Puertos', puertos_ph:'ej. 24 + 4 SFP, PoE', conectado_a:'Conectado a (uplink)', net_none_up:'— Sin definir —',
+  th_uplink:'Conectado a', th_netinfo:'Detalles', net_missing:'Los campos de red no se guardaron: primero corre supabase-network.sql en Supabase. Lo demás sí se guardó.',
   nu_btn:'＋ Nuevo usuario', nu_title:'Nuevo usuario', nu_user:'Usuario', nu_user_ph:'ej. maria.stock', nu_pw:'Contraseña', nu_gen:'Generar', nu_create:'Crear usuario',
   nu_hint:'Entra solo con el nombre de usuario. Dale la contraseña; después la puede cambiar con 🔑.', nu_ok:'Usuario {u} creado ✓ — contraseña: {p}',
   nu_need:'Escribe un usuario y una contraseña de al menos 8 caracteres', u_reset:'🔑 Contraseña', u_del:'🗑 Borrar', u_reset_prompt:'Contraseña nueva para {u} (mínimo 8 caracteres):',
@@ -1257,7 +1326,13 @@ Object.assign(I18N.es, {
   'ad.import_excel':'{u} importó un Excel: {a} actualizados, {b} creados',
   'fl.ip':'IP', 'fl.mac':'MAC', 'fl.cliente':'Cliente', 'fl.direccion':'Dirección', 'fl.grupo_id':'Grupo', 'fl.pc_ids':'PC vinculadas', 'fl.pc_users':'Usuarios', 'fl.nombre':'Nombre', 'fl.contacto':'Contacto', 'fl.telefono':'Teléfono', 'fl.email':'Email', 'fl.notas':'Notas',
 });
-const TIPOS = ['DVR','NVR','Cámara','PC','Laptop','Teléfono','Router','Switch','Access Point','Impresora','Servidor','Control de Acceso','Otro'];
+// Equipos de red, en orden desde internet hacia adentro
+const NET_TIPOS = ['Módem','Firewall','Router','Switch','Access Point','Extensor WiFi','Antena','Patch Panel'];
+const NET_FIELDS = ['isp','cuenta_isp','ip_publica','ssid','firmware','puertos','conectado_a'];
+const WAN_TIPOS = ['Módem','Firewall','Router'];          // equipos que reciben internet (WAN / Multi-WAN)
+const WAN_CONEX = ['Fibra','Cable','DSL','LTE/5G','Starlink','Inalámbrico fijo','Otro'];
+const WAN_MODOS = ['principal','respaldo','balanceo'];
+const TIPOS = ['DVR','NVR','Cámara','PC','Laptop','Teléfono', ...NET_TIPOS,'Impresora','Servidor','Control de Acceso','Otro'];
 const ESTADOS = ['Activo','En reparación','Inactivo','Dado de baja'];
 let LANG = 'en';
 try{ LANG = localStorage.getItem('inv_lang') || 'en'; }catch(e){}
@@ -1697,7 +1772,7 @@ function renderClientes(){
     SERVICIOS.filter(S => nSvc(S.k) || fSvc === S.k).map(S => `<span class="chip ${fSvc === S.k ? 'on' : ''}" onclick="fSvc='${S.k}';renderClientes()" style="${fSvc === S.k ? '' : 'color:' + S.color}">${svcIcon(S.k)} ${esc(t('svc.' + S.k))} (${nSvc(S.k)})</span>`).join('') +
     (nSvc('-') ? `<span class="chip ${fSvc === '-' ? 'on' : ''}" onclick="fSvc='-';renderClientes()">${t('svc_none')} (${nSvc('-')})</span>` : '') : '';
   $('cvCount').textContent = t('clients_count', { n: todos.length, d: items.length });
-  const orden = ['DVR','NVR','Cámara','PC','Laptop','Servidor','Impresora','Router','Switch','Access Point','Teléfono','Control de Acceso','Otro'];
+  const orden = ['DVR','NVR','Cámara','PC','Laptop','Servidor','Impresora', ...NET_TIPOS,'Teléfono','Control de Acceso','Otro'];
   $('clientGrid').innerHTML = `<div class="site-card add" onclick="abrirClienteModal()">＋ ${t('new_client')}</div>` + lista.map(c => {
     const d = equiposDe(c.nombre), n = d.length || 1;
     const cnt = k => d.filter(x => x.estado === k).length;
@@ -1750,6 +1825,8 @@ window.addEventListener('popstate', () => {
   const m = location.hash.match(/^#c=(.+)$/);
   curCliente = m ? decodeURIComponent(m[1]) : null; cerrarDrawer(); render();
 });
+// El formulario vive fuera de las vistas para abrirse desde cualquiera (Overview, Network, lista)
+(function(){ const d = document.getElementById('drawer'), app = document.getElementById('app'); if (d && app && d.parentElement !== app) app.appendChild(d); })();
 function abrirDrawer(titulo){ $('drawerTitle').textContent = titulo; $('drawer').classList.remove('hidden'); $('drawer').querySelector('.drawer-panel').scrollTop = 0; }
 function cerrarDrawer(){ $('drawer')?.classList.add('hidden'); }
 function nuevoEquipo(){
@@ -1758,6 +1835,101 @@ function nuevoEquipo(){
   setTimeout(() => $('nombre').focus(), 50);
 }
 // Modal de cliente
+/* ---------- WAN / Multi-WAN ---------- */
+const wanDe = x => { let w = x?.wans; if (typeof w === 'string'){ try{ w = JSON.parse(w); }catch(e){ w = []; } } return Array.isArray(w) ? w : []; };
+function modemsDelCliente(){ const cli = $('cliente').value; return items.filter(x => x.tipo === 'Módem' && x.id !== editId && (!cli || mismoCliente(x.cliente, cli))); }
+function addWanRow(w = {}){
+  const list = $('wanList'), n = list.children.length + 1, esModem = $('tipo').value === 'Módem';
+  const opt = (vals, cur, lbl) => vals.map(v => `<option value="${esc(v)}" ${v === cur ? 'selected' : ''}>${esc(lbl(v))}</option>`).join('');
+  const modems = modemsDelCliente();
+  const row = document.createElement('div'); row.className = 'wan-row' + (esModem ? ' sin-via' : '');
+  row.innerHTML = `
+    <label>${t('wan_port')}<input class="w-puerto monoin" value="${esc(w.puerto || 'WAN' + n)}"></label>
+    <label>${t('wan_isp')}<input class="w-isp" list="ispList" value="${esc(w.isp || '')}" autocomplete="off"></label>
+    <label>${t('wan_conn')}<select class="w-conexion"><option value="">—</option>${opt(WAN_CONEX, w.conexion, v => t('wc.' + v))}</select></label>
+    <label>${t('wan_mode')}<select class="w-modo">${opt(WAN_MODOS, w.modo || (n === 1 ? 'principal' : 'respaldo'), v => t('wm.' + v))}</select></label>
+    <label>${t('wan_ip')}<input class="w-ip monoin" value="${esc(w.ip || '')}" inputmode="decimal" autocomplete="off"></label>
+    <label>${t('wan_speed')}<input class="w-vel" value="${esc(w.velocidad || '')}" placeholder="${t('wan_speed_ph')}" autocomplete="off"></label>
+    <label>${t('wan_acct')}<input class="w-cuenta monoin" value="${esc(w.cuenta || '')}" autocomplete="off"></label>
+    <label class="w-via-l">${t('wan_via')}<select class="w-via"><option value="">—</option>${modems.map(m => `<option value="${m.id}" ${m.id === w.via ? 'selected' : ''}>🌐 ${esc(m.nombre)}</option>`).join('')}</select></label>
+    <button type="button" class="sm danger" onclick="this.closest('.wan-row').remove()" title="${t('t_delete')}">✕</button>`;
+  list.appendChild(row);
+}
+function fillWans(x){
+  $('wanList').innerHTML = '';
+  let w = wanDe(x);
+  if (!w.length && x && (x.isp || x.ip_publica || x.cuenta_isp)) w = [{ puerto: 'WAN1', isp: x.isp || '', ip: x.ip_publica || '', cuenta: x.cuenta_isp || '', modo: 'principal' }];   // datos anteriores
+  w.forEach(addWanRow);
+}
+function readWans(){
+  return [...document.querySelectorAll('#wanList .wan-row')].map(r => {
+    const g = c => r.querySelector(c)?.value.trim() || '';
+    const w = { puerto: g('.w-puerto'), isp: g('.w-isp'), conexion: g('.w-conexion'), modo: g('.w-modo'), ip: g('.w-ip'), velocidad: g('.w-vel'), cuenta: g('.w-cuenta') };
+    if (!r.classList.contains('sin-via') && g('.w-via')) w.via = g('.w-via');
+    Object.keys(w).forEach(k => { if (!w[k]) delete w[k]; });
+    return w;
+  }).filter(w => w.isp || w.ip || w.cuenta || w.via || w.velocidad || w.conexion);
+}
+function toggleWan(){
+  const tipo = $('tipo').value, on = WAN_TIPOS.includes(tipo);
+  $('wanBox').classList.toggle('hidden', !on);
+  document.querySelectorAll('#wanList .wan-row').forEach(r => r.classList.toggle('sin-via', tipo === 'Módem'));
+}
+const wanLinea = (w, html = true) => {
+  if (!html) return [w.puerto, w.isp, w.conexion && t('wc.' + w.conexion), w.modo && t('wm.' + w.modo), w.ip, w.velocidad].filter(Boolean).join(' · ');
+  return `<span class="wan-tag ${esc(w.modo || '')}">${esc(w.puerto || 'WAN')}</span>${[w.isp, w.conexion && t('wc.' + w.conexion), w.modo && t('wm.' + w.modo)].filter(Boolean).map(esc).join(' · ')}`
+    + (w.ip ? ` · <span class="mono">${esc(w.ip)}</span>` : '') + (w.velocidad ? ` · ${esc(w.velocidad)}` : '');
+};
+// Qué WAN alimenta un módem (otros equipos que dicen "por el módem X")
+const alimentaDe = m => items.flatMap(x => wanDe(x).filter(w => w.via === m.id).map(w => ({ x, w })));
+/* ---------- Inventario de Network ---------- */
+let netTab = '';
+function renderNet(base){
+  const red = base.filter(x => NET_TIPOS.includes(x.tipo));
+  const cuenta = k => red.filter(x => x.tipo === k).length;
+  const tipos = NET_TIPOS.filter(k => cuenta(k));
+  if (netTab && !cuenta(netTab)) netTab = '';
+  const chips = `<span class="chip ${!netTab ? 'on' : ''}" onclick="netTab='';renderDash()">${t('net_all')} (${red.length})</span>` +
+    tipos.map(k => `<span class="chip ${netTab === k ? 'on' : ''}" onclick="netTab='${jsq(k)}';renderDash()">${TIPO_ICON[k]} ${esc(tTipo(k))} (${cuenta(k)})</span>`).join('');
+  const nombre = id => { const u = items.find(i => i.id === id); return u ? `<a class="dev-link" onclick="event.stopPropagation();verDetalle('${u.id}')">${TIPO_ICON[u.tipo] || '◆'} ${esc(u.nombre)}</a>` : ''; };
+  const det = x => { const ws = wanDe(x), al = x.tipo === 'Módem' ? alimentaDe(x) : [];
+    return [ws.length > 1 ? `<span class="mw-badge">${t('multiwan')} ×${ws.length}</span>` : '', ...ws.map(w => wanLinea(w)),
+    ...al.map(({ x: d, w }) => `↗ ${t('wan_feeds')}: <b>${esc(w.puerto || 'WAN')}</b> · ${esc(d.nombre)}${w.modo ? ` (${esc(t('wm.' + w.modo))})` : ''}`),
+    !ws.length && x.isp ? `🌐 ${esc(x.isp)}` : '', !ws.length && x.ip_publica ? `<span class="mono">${esc(x.ip_publica)}</span>` : '', x.ssid ? `📶 ${esc(x.ssid)}` : '',
+    x.puertos ? `🔌 ${esc(x.puertos)}` : '', x.firmware ? `<span class="muted">fw ${esc(x.firmware)}</span>` : ''].filter(Boolean).map(v => `<small>${v}</small>`).join(''); };
+  const fila = x => `<tr class="r" onclick="verDetalle('${x.id}')">
+      <td><span class="type">${TIPO_ICON[x.tipo] || '◆'} ${esc(tTipo(x.tipo))}</span></td>
+      <td><a class="dev-link" onclick="event.stopPropagation();verDetalle('${x.id}')">${esc(x.nombre)}</a>${x.lugar ? `<small class="muted" style="display:block">📍 ${esc(x.lugar)}</small>` : ''}</td>
+      <td>${esc(x.modelo)}</td>
+      <td class="mono ip">${x.ip ? `<a href="http://${esc(x.ip)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${esc(x.ip)}</a>` : ''}</td>
+      <td class="mono">${esc(x.mac)}</td>
+      <td>${nombre(x.conectado_a)}</td>
+      <td class="stack">${det(x)}</td>
+      <td class="mono">${esc(x.serial)}</td>
+      <td>${x.estado ? `<span class="badge ${ESTADO_CLS[x.estado] || 'b-off'}">${esc(tEstado(x.estado))}</span>` : ''}</td>
+      <td class="no-print" style="white-space:nowrap">${PERM.editar ? `<button class="sm" onclick="event.stopPropagation();edit('${x.id}')" title="${t('edit')}">✎</button>` : ''}</td></tr>`;
+  const orden = (a, b) => String(a.nombre).localeCompare(String(b.nombre), 'es', { numeric: true });
+  const grupos_ = (netTab ? [netTab] : tipos).map(k => {
+    const lista = red.filter(x => x.tipo === k).sort(orden);
+    return (netTab ? '' : `<tr class="net-grp"><td colspan="10">${TIPO_ICON[k]} ${esc(tTipo(k))} <span class="muted">· ${lista.length}</span></td></tr>`) + lista.map(fila).join('');
+  }).join('');
+  $('netView').innerHTML = `<div class="panel net-panel">
+    <div class="net-head"><div><h3>🌐 ${t('net_title')}</h3><small class="muted">${t('net_sub')}</small></div>
+      ${PERM.editar ? `<button class="primary" onclick="nuevoEquipoRed()">${t('net_add')}</button>` : ''}</div>
+    ${(() => { const gw = red.filter(x => WAN_TIPOS.includes(x.tipo) && wanDe(x).length && !(x.tipo === 'Módem' && alimentaDe(x).length));
+        const ws = gw.flatMap(x => wanDe(x).map(w => ({ x, w })));
+        return red.some(x => WAN_TIPOS.includes(x.tipo)) ? `<div class="net-inet"><b>🌍 ${t('net_internet')}${ws.length > 1 ? ` · ${t('multiwan')} ×${ws.length}` : ''}</b>${ws.length
+          ? ws.map(({ x, w }) => `<span class="wl">${wanLinea(w)} <span class="muted">→ ${esc(x.nombre)}</span></span>`).join('') : `<span class="muted">${t('wan_none')}</span>`}</div>` : ''; })()}
+    <div class="stats" style="margin:12px 0">${chips}</div>
+    ${red.length ? `<div class="table-wrap net-wrap"><table class="net-tbl"><thead><tr>
+      <th>${t('type')}</th><th>${t('name')}</th><th>${t('th_model')}</th><th>IP</th><th>MAC</th><th>${t('th_uplink')}</th><th>${t('th_netinfo')}</th><th>${t('serial')}</th><th>${t('status')}</th><th class="no-print"></th>
+    </tr></thead><tbody>${grupos_}</tbody></table></div>` : `<div class="act-empty">🌐 ${t('net_empty')}</div>`}
+  </div>`;
+}
+function nuevoEquipoRed(){
+  if (!puede('editar')) return;
+  nuevoEquipo(); $('tipo').value = netTab || 'Router'; updateMarcas();
+}
 /* ---------- Servicios por cliente ---------- */
 const SVC_PATH = {
   it: '<path d="M4 15v-3a8 8 0 0 1 16 0v3"/><path d="M4 15h3v5H5a1 1 0 0 1-1-1z"/><path d="M20 15h-3v5h2a1 1 0 0 0 1-1z"/>',
@@ -1964,6 +2136,10 @@ async function borrarGrupo(gid){
   toast(t('g_deleted')); await loadData();
 }
 function togglePC(){
+  const esNet = NET_TIPOS.includes($('tipo').value);
+  $('netBox').classList.toggle('hidden', !esNet);
+  toggleWan();
+  if (esNet) llenarUplink();
   const esPrn = $('tipo').value === 'Impresora';
   $('prnBox').classList.toggle('hidden', !esPrn);
   $('prnBox').querySelectorAll('select').forEach(el => el.disabled = !esPrn);
@@ -1972,6 +2148,13 @@ function togglePC(){
   $('pcBox').querySelectorAll('input,select').forEach(el => el.disabled = !on);
   checkPrinterIP();
   actualizarVinculos();
+}
+function llenarUplink(){
+  const sel = $('conectado_a'), cur = sel.value || sel.dataset.v || '', cli = $('cliente').value;
+  const opts = items.filter(x => NET_TIPOS.includes(x.tipo) && x.id !== editId && (!cli || mismoCliente(x.cliente, cli)))
+    .sort((a, b) => NET_TIPOS.indexOf(a.tipo) - NET_TIPOS.indexOf(b.tipo) || String(a.nombre).localeCompare(b.nombre));
+  sel.innerHTML = `<option value="">${esc(t('net_none_up'))}</option>` + opts.map(x => `<option value="${x.id}">${TIPO_ICON[x.tipo] || '◆'} ${esc(x.nombre)}${x.ip ? ' · ' + esc(x.ip) : ''}</option>`).join('');
+  sel.value = opts.some(x => x.id === cur) ? cur : '';
 }
 function checkPrinterIP(){
   const on = !$('pcBox').classList.contains('hidden');
@@ -2051,10 +2234,25 @@ async function save(e){
   if (row.ip && items.some(x => x.ip === row.ip && x.cliente === row.cliente && x.id !== editId) &&
       !confirm(t('dup_ip', {ip: row.ip}))) return;
   if (!PERM.claves) [...SECRET_FIELDS, 'pc_users', 'pw_history', 'pc_user'].forEach(f => delete row[f]);
+  const conRed = NET_TIPOS.includes(row.tipo) || (orig && NET_TIPOS.includes(orig.tipo));
+  if (conRed) NET_FIELDS.forEach(f => row[f] = NET_TIPOS.includes(row.tipo) ? ($(f).value.trim() || null) : null);
+  const conWan = WAN_TIPOS.includes(row.tipo) || (orig && WAN_TIPOS.includes(orig.tipo));
+  if (conWan){
+    row.wans = WAN_TIPOS.includes(row.tipo) ? readWans() : [];
+    const p = row.wans.find(w => w.modo === 'principal') || row.wans[0];      // el principal también queda en los campos sencillos
+    row.isp = p?.isp || null; row.ip_publica = p?.ip || null; row.cuenta_isp = p?.cuenta || null;
+  }
   $('saveBtn').disabled = true;
   let idGuardado = editId, error;
-  if (editId) ({ error } = await db.from('equipos').update(row).eq('id', editId));
-  else { const r = await db.from('equipos').insert(row).select('id').single(); error = r.error; idGuardado = r.data?.id; }
+  const grabarEq = r => editId ? db.from('equipos').update(r).eq('id', editId) : db.from('equipos').insert(r).select('id').single();
+  let r0 = await grabarEq(row);
+  if (r0.error && conWan && /wans/.test(r0.error.message || '')){   // falta supabase-wan.sql
+    delete row.wans; r0 = await grabarEq(row); if (!r0.error) alert(t('wan_missing'));
+  }
+  if (r0.error && conRed && NET_FIELDS.some(f => (r0.error.message || '').includes(f))){   // falta supabase-network.sql
+    NET_FIELDS.forEach(f => delete row[f]); delete row.wans; r0 = await grabarEq(row); if (!r0.error) alert(t('net_missing'));
+  }
+  error = r0.error; if (!editId) idGuardado = r0.data?.id;
   if (error){ $('saveBtn').disabled = false; return fail(error, t('save_fail')); }
   let extra = [];
   if (PC_TIPOS.includes(row.tipo) && idGuardado){
@@ -2067,7 +2265,7 @@ async function save(e){
 function resetForm(afterSave){
   const c = $('cliente').value, dir = $('direccion').value;
   const gKeep = $('grupo_id').value;
-  $('form').reset(); editId = null; linkSel = new Set();
+  $('form').reset(); editId = null; linkSel = new Set(); $('conectado_a').dataset.v = ''; $('wanList').innerHTML = '';
   unlockAll(); fillUsers([], false); $('histBtn').classList.add('hidden');
   document.querySelectorAll('#form input.secret').forEach(el => { el.type = 'password'; delete el.dataset.orig; });
   if (afterSave === true && $('keepClient').checked){ $('cliente').value = c; $('direccion').value = dir; }
@@ -2085,6 +2283,8 @@ function edit(id){
   const x = items.find(i => i.id === id); if(!x) return;
   unlockAll();
   FIELDS.forEach(f => $(f).value = x[f] || '');
+  NET_FIELDS.forEach(f => { $(f).value = x[f] || ''; if (f === 'conectado_a') $(f).dataset.v = x[f] || ''; });
+  editId = id; fillWans(x);
   fillGrupoSelect(); $('grupo_id').value = x.grupo_id || ''; fillGrupoSelect();
   linkSel = new Set(x.tipo === 'Impresora' ? pcIds(x) : PC_TIPOS.includes(x.tipo) ? impresorasDePC(x).map(p => p.id) : []);
   document.querySelectorAll('#form input.secret').forEach(el => { el.type = 'password'; if (el.id) el.dataset.orig = el.value; });
@@ -2131,9 +2331,9 @@ let vista = 'ov', fAlert = '', fCat = '', fPred = null;
 // Filtros exactos de las barras del dashboard: cada barra guarda {label, fn}
 let DASH_F = [];
 const barF = (label, fn) => { DASH_F.push({ label, fn }); return `irA('list',{f:${DASH_F.length - 1}})`; };
-const CATS = { comp:['PC','Laptop','Servidor'], prn:['Impresora'], net:['Router','Switch','Access Point'], cctv:['DVR','NVR','Cámara'], tel:['Teléfono'], acc:['Control de Acceso'] };
-const ORDEN_TIPOS = ['PC','Laptop','Servidor','Impresora','Router','Switch','Access Point','DVR','NVR','Cámara','Teléfono','Control de Acceso','Otro'];
-const necesitaIP = x => ['PC','Laptop','Servidor','Router','Switch','Access Point','DVR','NVR','Cámara'].includes(x.tipo) || (x.tipo === 'Impresora' && usaIP(x.conexion));
+const CATS = { comp:['PC','Laptop','Servidor'], prn:['Impresora'], net:NET_TIPOS, cctv:['DVR','NVR','Cámara'], tel:['Teléfono'], acc:['Control de Acceso'] };
+const ORDEN_TIPOS = ['PC','Laptop','Servidor','Impresora', ...NET_TIPOS,'DVR','NVR','Cámara','Teléfono','Control de Acceso','Otro'];
+const necesitaIP = x => ['PC','Laptop','Servidor','Módem','Firewall','Router','Switch','Access Point','Antena','DVR','NVR','Cámara'].includes(x.tipo) || (x.tipo === 'Impresora' && usaIP(x.conexion));
 const diasHasta = d => (new Date(d + 'T00:00:00') - new Date(new Date().toDateString())) / 864e5;
 function calcAlertas(base){
   const porIP = {}; base.forEach(x => { if (x.ip) (porIP[x.ip] = porIP[x.ip] || []).push(x); });
@@ -2189,6 +2389,7 @@ function renderDash(){
   const listaTodo = vista === 'list' && !fTipo && !fCat && !fAlert && !fgv && !fPred;
   $('dashSide').innerHTML =
     it("irA('ov')", `📊 ${t('ov')}`, vista === 'ov') +
+    it("irA('net')", `🌐 ${t('net_inv')}<span class="n">${base.filter(x => NET_TIPOS.includes(x.tipo)).length}</span>`, vista === 'net') +
     it("irA('list')", `🗂 ${t('all_devices')}<span class="n">${base.length}</span>`, listaTodo) +
     (Object.keys(cuenta).length ? `<div class="ds-sec">${t('d_types')}</div>` + ORDEN_TIPOS.filter(k => cuenta[k]).map(k =>
       it(`irA('list',{tipo:'${jsq(k)}'})`, `${TIPO_ICON[k] || '◆'} ${esc(tTipo(k))}<span class="n">${cuenta[k]}</span>`, vista === 'list' && fTipo === k)).join('') : '') +
@@ -2204,6 +2405,8 @@ function renderDash(){
     it("document.getElementById('fileIn').click()", `📥 ${t('import_excel')}`, false) +
     it('exportCSV()', `⊞ ${t('export_csv')}`, false);
   $('ovView').classList.toggle('hidden', vista !== 'ov');
+  $('netView').classList.toggle('hidden', vista !== 'net');
+  if (vista === 'net') renderNet(base);
   $('listView').classList.toggle('hidden', vista !== 'list');
   // Subtítulo de la lista según el filtro
   const sub = fPred ? fPred.label : fTipo ? tTipo(fTipo) : fCat ? t({ comp:'t_computers', prn:'t_printers', net:'t_network', cctv:'t_cctv', tel:'t_phones', acc:'t_access' }[fCat])
@@ -2225,7 +2428,7 @@ function renderOverview(base){
     tile("irA('list')", '🗂', N, t('t_total')),
     tile("irA('list',{cat:'comp'})", '🖥️', enCat('comp'), t('t_computers')),
     tile("irA('list',{cat:'prn'})", '🖨️', enCat('prn'), t('t_printers')),
-    tile("irA('list',{cat:'net'})", '📡', enCat('net'), t('t_network')),
+    tile("irA('net')", '🌐', enCat('net'), t('t_network')),
     enCat('cctv') ? tile("irA('list',{cat:'cctv'})", '📹', enCat('cctv'), t('t_cctv')) : '',
     enCat('tel') ? tile("irA('list',{cat:'tel'})", '📞', enCat('tel'), t('t_phones')) : '',
     tile("irA('list',{alert:'rep'})", '🔧', A.rep.length, t('a_rep'), A.rep.length ? 'warn' : 'dim'),
@@ -2309,6 +2512,17 @@ function verDetalle(id, keepVis){
     const otras = [['🏷️', x.lbl_modelo, x.lbl_conexion, x.lbl_ip], ['🖨️', x.imp_modelo, x.imp_conexion, x.imp_ip]].filter(p => p[1]);
     if (vp.length || otras.length) html += sec(t('det_linked_prn')) + vp.map(p => fila('🔗 ' + p.nombre, [p.conexion ? t('conn.' + p.conexion) : '', p.ip].filter(Boolean).map(esc).join(' · ') || '—')).join('')
       + otras.map(([ic, m, c, ip]) => fila(ic + ' ' + m, [c ? t('conn.' + c) : '', ip].filter(Boolean).map(esc).join(' · ') || '—')).join('');
+  }
+  if (NET_TIPOS.includes(x.tipo)){
+    const up = x.conectado_a && items.find(i => i.id === x.conectado_a);
+    const abajo = items.filter(i => i.conectado_a === x.id);
+    html += sec(t('sec_net')) + fila(t('conectado_a'), up ? `<a class="dev-link" onclick="verDetalle('${up.id}')">${TIPO_ICON[up.tipo] || '◆'} ${esc(up.nombre)}</a>` : '')
+      + (wanDe(x).length ? wanDe(x).map(w => fila('🌍 WAN', wanLinea(w) + (w.cuenta ? ` · # <span class="mono">${esc(w.cuenta)}</span>` : '')
+          + (w.via ? ` · 🌐 ${(m => m ? `<a class="dev-link" onclick="verDetalle('${m.id}')">${esc(m.nombre)}</a>` : '')(items.find(i => i.id === w.via))}` : ''))).join('')
+          : fila(t('isp'), esc(x.isp)) + fila(t('cuenta_isp'), esc(x.cuenta_isp)) + fila(t('ip_publica'), esc(x.ip_publica)))
+      + (x.tipo === 'Módem' ? alimentaDe(x).map(({ x: d, w }) => fila('↗ ' + t('wan_feeds'), `<b>${esc(w.puerto || 'WAN')}</b> · <a class="dev-link" onclick="verDetalle('${d.id}')">${TIPO_ICON[d.tipo] || '◆'} ${esc(d.nombre)}</a>${w.modo ? ` (${esc(t('wm.' + w.modo))})` : ''}`)).join('') : '')
+      + fila(t('ssid'), esc(x.ssid)) + fila(t('puertos'), esc(x.puertos)) + fila(t('firmware'), esc(x.firmware))
+      + (abajo.length ? fila('↳', abajo.map(i => `<a class="dev-link" onclick="verDetalle('${i.id}')">${TIPO_ICON[i.tipo] || '◆'} ${esc(i.nombre)}</a>`).join(', ')) : '');
   }
   if (x.tipo === 'Impresora'){
     html += sec(t('sec_printer')) + fila(t('prn_kind'), x.prn_tipo ? esc(t('pk.' + x.prn_tipo)) : '') + fila(t('connection'), x.conexion ? esc(t('conn.' + x.conexion)) : '');
@@ -2396,6 +2610,8 @@ function valAct(k, v){
   if (k === 'estado') return esc(tEstado(v));
   if (k === 'grupo_id') return esc(grupos.find(g => g.id === v)?.nombre || t('act_deleted_group'));
   if (['conexion', 'lbl_conexion', 'imp_conexion'].includes(k)) return esc(t('conn.' + v) === 'conn.' + v ? v : t('conn.' + v));
+  if (k === 'wans'){ let a = v; try{ if (typeof a === 'string') a = JSON.parse(a); }catch(e){} return Array.isArray(a) && a.length ? a.map(w => esc(wanLinea(w, false))).join(' | ') : t('act_nochg'); }
+  if (k === 'conectado_a'){ const u = items.find(i => i.id === v); return u ? esc(u.nombre) : '?'; }
   if (k === 'servicios'){ const o = svcDe({ servicios: v }); const ks = SERVICIOS.filter(S => o[S.k]);
     return ks.length ? ks.map(S => esc(t('svc.' + S.k)) + (S.k === 'it' && svcSinIT(o.it) ? ` (${esc(svcSinIT(o.it))})` : '')).join(', ') : esc(t('svc_none')); }
   if (k === 'pc_ids'){
@@ -2530,7 +2746,8 @@ function fillSelect(sel, values, allLabel){
 const uniq = k => [...new Set(items.map(x => x[k]).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'es'));
 
 const TIPO_ICON = { 'DVR':'📹','NVR':'📹','Cámara':'📷','PC':'🖥️','Laptop':'💻','Teléfono':'📞','Router':'📡',
-  'Switch':'🔀','Access Point':'📶','Impresora':'🖨️','Servidor':'🗄️','Control de Acceso':'🔐','Otro':'◆' };
+  'Switch':'🔀','Access Point':'📶','Impresora':'🖨️','Servidor':'🗄️','Control de Acceso':'🔐','Otro':'◆',
+  'Módem':'🌐','Firewall':'🛡️','Extensor WiFi':'🔁','Antena':'🛰️','Patch Panel':'🔌' };
 /* ---------- Dirección: autocompletar (OpenStreetMap / Photon, gratis) + Google Maps ---------- */
 const BIAS = { lat: 25.79, lon: -80.33 }; // Prioriza resultados en el Sur de Florida
 const US_ST = {Alabama:'AL',Alaska:'AK',Arizona:'AZ',Arkansas:'AR',California:'CA',Colorado:'CO',Connecticut:'CT',Delaware:'DE',
@@ -2688,6 +2905,11 @@ const MARCAS = {
   'Teléfono': ['Yealink','Poly (Polycom)','Grandstream','Cisco','Fanvil','Snom','Avaya','Mitel','Panasonic','UniFi','UniFi Talk','Ubiquiti UniFi Talk','Apple iPhone','Samsung Galaxy','Motorola','Google Pixel'],
   'Router': ['Ubiquiti','MikroTik','Cisco','Cisco Meraki','TP-Link','Netgear','Fortinet FortiGate','SonicWall','Sophos','Netgate pfSense','Juniper','Aruba','Linksys','Asus','Peplink','DrayTek','Zyxel','Arris','Technicolor'],
   'Switch': ['Cisco','Cisco Meraki','Ubiquiti UniFi','Aruba (HPE)','Netgear','TP-Link','MikroTik','Juniper','Dell','D-Link','Fortinet FortiSwitch','Extreme Networks','Zyxel'],
+  'Módem': ['Arris','Motorola','Netgear','Technicolor','Hitron','Comcast Xfinity','AT&T','Spectrum','Cradlepoint','Inseego','Starlink','Sagemcom'],
+  'Firewall': ['Fortinet FortiGate','SonicWall','Sophos','Palo Alto','Cisco Meraki MX','WatchGuard','Netgate pfSense','Ubiquiti UniFi Gateway','Check Point','Barracuda'],
+  'Extensor WiFi': ['TP-Link Deco','Eero','Netgear Orbi','Google Nest Wifi','Ubiquiti UniFi Express','Asus ZenWiFi','Linksys Velop','TP-Link RE'],
+  'Antena': ['Ubiquiti airMAX','Ubiquiti UniFi Building Bridge','Ubiquiti LTU','Ubiquiti airFiber','Cambium','MikroTik','Mimosa','TP-Link Pharos','Siklu'],
+  'Patch Panel': ['Panduit','Leviton','Tripp Lite','Belden','CommScope','Monoprice','Cable Matters','StarTech'],
   'Access Point': ['Ubiquiti UniFi','Aruba Instant On','Cisco Meraki','Ruckus','TP-Link Omada','EnGenius','Netgear','Fortinet FortiAP','Grandstream','Cambium'],
   'Impresora': ['HP','Canon','Epson','Brother','Xerox','Lexmark','Ricoh','Kyocera','Konica Minolta','Sharp','Zebra','Dymo'],
   'Servidor': ['Dell PowerEdge','HPE ProLiant','Lenovo ThinkSystem','Supermicro','Synology','QNAP','Cisco UCS','TrueNAS','Asustor'],

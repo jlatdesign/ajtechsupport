@@ -328,6 +328,16 @@ tbody tr:hover td.actions-col{background:var(--card-solid)}
 .cl-info .muted a{color:var(--muted)}
 .backbtn{padding:8px 12px}
 #devTable .col-off{display:none}
+#devTable.no-acciones .actions-col{display:none}
+#devTable thead th[data-col]{position:sticky;top:0}
+#devTable thead th .col-rs{position:absolute;top:0;right:0;width:8px;height:100%;cursor:col-resize;z-index:4}
+#devTable thead th .col-rs::after{content:"";position:absolute;top:25%;bottom:25%;right:2px;width:2px;border-radius:2px;background:var(--line-strong);opacity:0;transition:.15s}
+#devTable thead th:hover .col-rs::after,body.col-resizing #devTable .col-rs::after{opacity:1;background:var(--c1)}
+body.col-resizing{cursor:col-resize;user-select:none}
+#devTable td.col-w{overflow:hidden;text-overflow:ellipsis}
+#devTable td.col-w.stack,#devTable td.col-w.notes{white-space:normal;word-break:break-word}
+#devTable th.col-w{overflow:hidden;text-overflow:ellipsis}
+.col-item.act-opt{margin-top:6px;border-top:1px solid var(--line);border-radius:0;padding-top:10px}
 /* ===== Columnas: mover y ocultar ===== */
 #devTable thead th[draggable=true]{cursor:grab}
 #devTable thead th.dragging{opacity:.45}
@@ -536,7 +546,7 @@ a.dev-link:hover{color:var(--c1);text-decoration:underline}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v4.4</p>
+    <p class="sub">Network Asset Manager · v4.5</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -552,7 +562,7 @@ a.dev-link:hover{color:var(--c1);text-decoration:underline}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v4.4</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v4.5</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -775,10 +785,10 @@ a.dev-link:hover{color:var(--c1);text-decoration:underline}
       <table id="devTable">
         <thead><tr>
           <th class="no-print sel-col"><input type="checkbox" id="selAll" onclick="selTodos(this.checked)" data-i18n-title="t_selall"></th><th data-k="cliente" data-i18n="client">Client</th><th data-k="direccion" data-i18n="address">Address</th>
-          <th data-k="tipo" data-i18n="type">Type</th><th data-k="nombre" data-i18n="name">Name</th><th data-i18n="group">Group</th><th data-k="lugar" data-i18n="th_area">Area</th>
+          <th data-k="tipo" data-i18n="type">Type</th><th data-k="nombre" data-i18n="name">Name</th><th data-k="first_name" data-i18n="first_name">First name</th><th data-k="last_name" data-i18n="last_name">Last name</th><th data-i18n="group">Group</th><th data-k="lugar" data-i18n="th_area">Area</th>
           <th data-k="modelo" data-i18n="th_model">Model</th><th data-k="serial" data-i18n="serial">Serial</th><th data-k="ip">IP</th>
           <th data-k="mac">MAC</th><th data-k="usuario" data-i18n="username">Username</th><th data-i18n="password">Password</th>
-          <th data-k="first_name" data-i18n="th_user">Assigned user</th><th data-k="hostname" data-i18n="th_pc">Computer</th><th data-k="anydesk" data-i18n="th_remote">Remote access</th><th data-k="pc_user" data-i18n="th_logins">PC logins</th><th data-k="lbl_modelo" data-i18n="th_printers">Printers</th><th data-i18n="th_licenses">Licenses</th><th data-k="garantia" data-i18n="th_warranty">Warranty</th>
+          <th data-k="departamento" data-i18n="th_user">Department / contact</th><th data-k="hostname" data-i18n="th_pc">Computer</th><th data-k="anydesk" data-i18n="th_remote">Remote access</th><th data-k="pc_user" data-i18n="th_logins">PC logins</th><th data-k="lbl_modelo" data-i18n="th_printers">Printers</th><th data-i18n="th_licenses">Licenses</th><th data-k="garantia" data-i18n="th_warranty">Warranty</th>
           <th data-k="estado" data-i18n="status">Status</th><th data-i18n="notes">Notes</th><th class="no-print actions-col"></th>
         </tr></thead>
         <tbody id="tbody"></tbody>
@@ -946,7 +956,7 @@ en:{
   sec_pc:'Computer', hostname:'Device name (hostname)', os:'Windows version / OS', cpu:'Processor', ram:'Installed RAM', disk:'Disk',
   win_key:'Windows key', office_key:'Office key', warranty:'Warranty until',
   sec_printers:'Printers used by this PC', lbl_model:'Label printer (model)', reg_model:'Regular printer (model)', connection:'Connection', printer_ip:'Printer IP',
-  th_user:'Assigned user', th_pc:'Computer', th_printers:'Printers', th_licenses:'Licenses', th_warranty:'Warranty',
+  th_user:'Department / contact', th_pc:'Computer', th_printers:'Printers', th_licenses:'Licenses', th_warranty:'Warranty',
   anydesk_pw:'AnyDesk password (unattended)', sec_logins:'PC logins', pc_user:'Regular user', pc_user_pw:'Regular user password',
   pc_admin:'Administrator user', pc_admin_pw:'Administrator password', th_remote:'Remote access', th_logins:'PC logins',
   'yn.Yes':'Yes', 'yn.No':'No', lg_user:'User', lg_admin:'Admin', st_yes:'Splashtop installed', st_no:'No Splashtop',
@@ -1045,7 +1055,7 @@ es:{
   sec_pc:'Computadora', hostname:'Nombre del equipo (hostname)', os:'Versión de Windows / SO', cpu:'Procesador', ram:'RAM instalada', disk:'Disco',
   win_key:'Clave de Windows', office_key:'Clave de Office', warranty:'Garantía hasta',
   sec_printers:'Impresoras que usa esta PC', lbl_model:'Impresora de etiquetas (modelo)', reg_model:'Impresora normal (modelo)', connection:'Conexión', printer_ip:'IP de impresora',
-  th_user:'Usuario asignado', th_pc:'Computadora', th_printers:'Impresoras', th_licenses:'Licencias', th_warranty:'Garantía',
+  th_user:'Departamento / contacto', th_pc:'Computadora', th_printers:'Impresoras', th_licenses:'Licencias', th_warranty:'Garantía',
   anydesk_pw:'Password de AnyDesk (desatendido)', sec_logins:'Accesos de la PC', pc_user:'Usuario regular', pc_user_pw:'Password usuario regular',
   pc_admin:'Usuario administrador', pc_admin_pw:'Password administrador', th_remote:'Acceso remoto', th_logins:'Accesos PC',
   'yn.Yes':'Sí', 'yn.No':'No', lg_user:'Usuario', lg_admin:'Admin', st_yes:'Tiene Splashtop', st_no:'Sin Splashtop',
@@ -1102,7 +1112,8 @@ es:{
   copied:'Copiado ✓', ask_client:'Algunas filas no tienen cliente. ¿A qué cliente pertenecen estos equipos?'
 }};
 Object.assign(I18N.en, {
-  cols:'Columns', t_cols:'Show, hide and reorder the columns', cols_title:'Columns', cols_help:'Check to show · drag ⠿ (or the table headers) to reorder',
+  cols:'Columns', t_cols:'Show, hide and reorder the columns', cols_title:'Columns', cols_help:'Check to show · drag ⠿ (or the table headers) to reorder · drag a header edge to resize',
+  cols_actions:'Action buttons (Edit, History, Duplicate, Delete)', cols_resize:'Drag to resize · double-click to reset',
   cols_reset:'Reset', cols_all:'Show all', cols_hidden:'({n} hidden)', th_group_col:'Group', cols_up:'Move up', cols_down:'Move down',
   svc_title:'Services we provide', svc_add:'Add services', svc_all:'All clients', svc_none:'No services', svc_nota_ph:'Note: plan, contract, extensions, provider…',
   svc_cov:'Covers:', svc_without:'without {x}', svc_uncovered:'{n} not covered', svc_uncovered_t:'Devices not covered by any active service',
@@ -1136,7 +1147,8 @@ Object.assign(I18N.en, {
   'fl.ip':'IP', 'fl.mac':'MAC', 'fl.cliente':'Client', 'fl.direccion':'Address', 'fl.grupo_id':'Group', 'fl.pc_ids':'Linked PCs', 'fl.pc_users':'Users', 'fl.nombre':'Name', 'fl.contacto':'Contact', 'fl.telefono':'Phone', 'fl.email':'Email', 'fl.notas':'Notes',
 });
 Object.assign(I18N.es, {
-  cols:'Columnas', t_cols:'Mostrar, ocultar y mover las columnas', cols_title:'Columnas', cols_help:'Marca para mostrar · arrastra ⠿ (o los encabezados de la tabla) para mover',
+  cols:'Columnas', t_cols:'Mostrar, ocultar y mover las columnas', cols_title:'Columnas', cols_help:'Marca para mostrar · arrastra ⠿ (o los encabezados de la tabla) para mover · arrastra el borde de un encabezado para cambiar el ancho',
+  cols_actions:'Botones de acción (Editar, Historial, Duplicar, Borrar)', cols_resize:'Arrastra para cambiar el ancho · doble clic para restablecer',
   cols_reset:'Restablecer', cols_all:'Mostrar todas', cols_hidden:'({n} ocultas)', th_group_col:'Grupo', cols_up:'Subir', cols_down:'Bajar',
   svc_title:'Servicios que le damos', svc_add:'Agregar servicios', svc_all:'Todos los clientes', svc_none:'Sin servicios', svc_nota_ph:'Nota: plan, contrato, extensiones, proveedor…',
   svc_cov:'Cubre:', svc_without:'sin {x}', svc_uncovered:'{n} sin servicio', svc_uncovered_t:'Equipos que no cubre ningún servicio activo',
@@ -2507,7 +2519,7 @@ function render(){
       : histIcon;
     const sm = v => v ? `<small>${esc(v)}</small>` : '';
     const persona = [x.first_name, x.last_name].filter(Boolean).join(' ');
-    const cUser = (persona ? `<b>${esc(persona)}</b>` : '') + sm(x.departamento)
+    const cUser = (x.departamento ? `<b>${esc(x.departamento)}</b>` : '')
       + (x.email ? `<small><a href="mailto:${esc(x.email)}">${esc(x.email)}</a></small>` : '')
       + (x.celular ? `<small><a href="tel:${esc(String(x.celular).replace(/[^\d+]/g, ''))}">${esc(x.celular)}</a></small>` : '');
     const cPC = (x.hostname ? `<span class="mono">${esc(x.hostname)}</span>` : '') + sm(x.so) + sm(x.cpu) + sm([x.ram, x.disco].filter(Boolean).join(' · '));
@@ -2550,7 +2562,7 @@ function render(){
     return `<tr>
     <td class="no-print sel-col"><input type="checkbox" class="rowsel" data-id="${x.id}" ${sel.has(x.id) ? 'checked' : ''} onclick="selUno(this)"></td>
     <td class="client"><b>${esc(x.cliente)}</b></td><td class="addr">${x.direccion ? `<a href="${mapUrl(x.direccion)}" target="_blank" rel="noopener" title="${esc(x.direccion)} · ${t('t_openmap')}">📍 ${esc(x.direccion)}</a>` : ''}</td>
-    <td><span class="type">${TIPO_ICON[x.tipo] || '◆'} ${esc(tTipo(x.tipo))}</span></td><td><a class="dev-link" onclick="verDetalle('${x.id}')">${esc(x.nombre)}</a></td><td>${grupoDe(x) ? `<span class="g-chip" onclick="openGrupos('${x.grupo_id}')">🗂 ${esc(grupoDe(x).nombre)}</span>` : ''}</td><td>${esc(x.lugar)}</td><td>${esc(x.modelo)}</td>
+    <td><span class="type">${TIPO_ICON[x.tipo] || '◆'} ${esc(tTipo(x.tipo))}</span></td><td><a class="dev-link" onclick="verDetalle('${x.id}')">${esc(x.nombre)}</a></td><td>${esc(x.first_name)}</td><td>${esc(x.last_name)}</td><td>${grupoDe(x) ? `<span class="g-chip" onclick="openGrupos('${x.grupo_id}')">🗂 ${esc(grupoDe(x).nombre)}</span>` : ''}</td><td>${esc(x.lugar)}</td><td>${esc(x.modelo)}</td>
     <td class="mono">${esc(x.serial)}</td>
     <td class="mono ip">${x.ip ? `<a href="http://${esc(x.ip)}" target="_blank" rel="noopener">${esc(x.ip)}</a>` : ''}</td>
     <td class="mono">${esc(x.mac)}</td><td class="mono">${esc(x.usuario)}</td><td class="mono">${pw}</td>
@@ -2563,7 +2575,7 @@ function render(){
       <button class="sm danger" onclick="del('${x.id}')" title="${t('t_delete')}">✕</button>
     </td></tr>`;
   }).join('')
-    : `<tr><td colspan="23" class="empty">${(curCliente ? equiposDe(curCliente).length : items.length) ? t('no_results') : t('empty')}</td></tr>`;
+    : `<tr><td colspan="25" class="empty">${(curCliente ? equiposDe(curCliente).length : items.length) ? t('no_results') : t('empty')}</td></tr>`;
   $('count').textContent = t('count', {n: rows.length, t: base.length});
   $('kTotal').textContent = base.length;
   $('kClientes').textContent = curCliente ? grupos.filter(g => mismoCliente(g.cliente, curCliente)).length : clientes.length;
@@ -2579,16 +2591,17 @@ function render(){
 }
 /* ---------- Columnas de la tabla: mover y ocultar (se guarda en este navegador) ---------- */
 // Orden ORIGINAL de las columnas movibles (entre la casilla de selección y los botones)
-const COLS = ['cliente','direccion','tipo','nombre','grupo','lugar','modelo','serial','ip','mac','usuario','password',
+const COLS = ['cliente','direccion','tipo','nombre','first_name','last_name','grupo','lugar','modelo','serial','ip','mac','usuario','password',
   'persona','pc','remoto','logins','printers','licencias','garantia','estado','notas'];
 const COLS_FIJAS = ['nombre'];          // el nombre no se puede ocultar
-let colCfg = { orden: [...COLS], ocultas: [] };
+let colCfg = { orden: [...COLS], ocultas: [], anchos: {}, sinAcciones: false };
 try{
   const g = JSON.parse(localStorage.getItem('inv_cols') || 'null');
   if (g && Array.isArray(g.orden)){
     const orden = g.orden.filter(c => COLS.includes(c));
     COLS.forEach((c, i) => { if (!orden.includes(c)) orden.splice(Math.min(i, orden.length), 0, c); });   // columnas nuevas
-    colCfg = { orden, ocultas: (g.ocultas || []).filter(c => COLS.includes(c) && !COLS_FIJAS.includes(c)) };
+    colCfg = { orden, ocultas: (g.ocultas || []).filter(c => COLS.includes(c) && !COLS_FIJAS.includes(c)),
+      anchos: g.anchos && typeof g.anchos === 'object' ? g.anchos : {}, sinAcciones: !!g.sinAcciones };
   }
 }catch(e){}
 function guardarCols(){ try{ localStorage.setItem('inv_cols', JSON.stringify(colCfg)); }catch(e){} }
@@ -2603,7 +2616,7 @@ function aplicarColumnas(){
   const fila = (tr, celdas) => {
     if (celdas.length !== COLS.length + 2) return;        // filas vacías (colspan) se dejan igual
     const mov = celdas.slice(1, -1), nuevo = [];
-    mov.forEach((td, i) => { nuevo[pos[i]] = td; td.classList.toggle('col-off', ocultas.has(COLS[i])); });
+    mov.forEach((td, i) => { nuevo[pos[i]] = td; td.dataset.col = COLS[i]; td.classList.toggle('col-off', ocultas.has(COLS[i])); });
     nuevo.forEach(td => tr.insertBefore(td, celdas[celdas.length - 1]));
   };
   const hr = tabla.tHead.rows[0], ths = [...hr.children];
@@ -2611,7 +2624,13 @@ function aplicarColumnas(){
   orig.forEach((th, i) => { th.classList.toggle('col-off', ocultas.has(COLS[i])); });
   colCfg.orden.forEach(c => hr.insertBefore(orig[COLS.indexOf(c)], hr.lastElementChild));
   for (const tr of $('tbody').rows){ const cs = [...tr.children]; fila(tr, cs); }
-  const n = colCfg.ocultas.length; $('colsN').textContent = n ? t('cols_hidden', { n }) : '';
+  tabla.classList.toggle('no-acciones', !!colCfg.sinAcciones);
+  // Anchos a gusto
+  const anchoDe = c => colCfg.anchos[c];
+  orig.forEach((th, i) => { const w = anchoDe(COLS[i]); fijarAncho(th, w); if (!th.querySelector('.col-rs')){ const h = document.createElement('span'); h.className = 'col-rs'; h.title = t('cols_resize'); th.appendChild(h); } });
+  for (const tr of $('tbody').rows){ const cs = [...tr.children]; if (cs.length !== COLS.length + 2) continue;
+    COLS.forEach(c => { const w = anchoDe(c); if (w) fijarAncho(tr.querySelector(`:scope > td[data-col="${c}"]`), w); }); }
+  const n = colCfg.ocultas.length + (colCfg.sinAcciones ? 1 : 0); $('colsN').textContent = n ? t('cols_hidden', { n }) : '';
   if (!$('colsPop').classList.contains('hidden')) renderColsPop();
 }
 function moverCol(c, destino, despues){
@@ -2620,8 +2639,40 @@ function moverCol(c, destino, despues){
 }
 function colPaso(c, d){ const o = colCfg.orden, i = o.indexOf(c), j = i + d; if (j < 0 || j >= o.length) return; [o[i], o[j]] = [o[j], o[i]]; guardarCols(); render(); }
 function toggleCol(c, ver){ const s = new Set(colCfg.ocultas); ver ? s.delete(c) : s.add(c); colCfg.ocultas = [...s]; guardarCols(); render(); }
-function resetCols(){ colCfg = { orden: [...COLS], ocultas: [] }; guardarCols(); render(); }
-function verTodasCols(){ colCfg.ocultas = []; guardarCols(); render(); }
+function resetCols(){ colCfg = { orden: [...COLS], ocultas: [], anchos: {}, sinAcciones: false }; guardarCols(); render(); }
+function toggleAcciones(ver){ colCfg.sinAcciones = !ver; guardarCols(); render(); }
+function verTodasCols(){ colCfg.ocultas = []; colCfg.sinAcciones = false; guardarCols(); render(); }
+// --- Cambiar el ancho arrastrando el borde derecho del encabezado ---
+function fijarAncho(el, w){
+  if (!el) return;
+  if (w){ el.style.width = el.style.minWidth = el.style.maxWidth = w + 'px'; el.classList.add('col-w'); }
+  else { el.style.width = el.style.minWidth = el.style.maxWidth = ''; el.classList.remove('col-w'); }
+}
+let colRs = null, colRsFin = 0;
+document.addEventListener('mousedown', e => {
+  const h = e.target.closest?.('#devTable .col-rs'); if (!h) return;
+  e.preventDefault(); e.stopPropagation();
+  const th = h.parentElement; th.draggable = false;
+  colRs = { th, c: th.dataset.col, x: e.clientX, w: th.getBoundingClientRect().width };
+  document.body.classList.add('col-resizing');
+});
+document.addEventListener('mousemove', e => {
+  if (!colRs) return;
+  const w = Math.max(50, Math.round(colRs.w + e.clientX - colRs.x));
+  colCfg.anchos[colRs.c] = w; fijarAncho(colRs.th, w);
+  document.querySelectorAll(`#tbody td[data-col="${colRs.c}"]`).forEach(td => fijarAncho(td, w));
+});
+document.addEventListener('mouseup', () => {
+  if (!colRs) return;
+  colRs.th.draggable = true; colRs = null; colRsFin = Date.now(); document.body.classList.remove('col-resizing'); guardarCols();
+});
+// Doble clic en el borde: vuelve al ancho automático
+document.addEventListener('dblclick', e => {
+  const h = e.target.closest?.('#devTable .col-rs'); if (!h) return;
+  e.stopPropagation(); delete colCfg.anchos[h.parentElement.dataset.col]; guardarCols(); render();
+});
+// Que soltar el borde no cuente como clic para ordenar
+document.addEventListener('click', e => { if (Date.now() - colRsFin < 250 && e.target.closest?.('#devTable thead')){ e.stopPropagation(); e.preventDefault(); } }, true);
 function toggleColsPop(e){ e?.stopPropagation(); const p = $('colsPop'); p.classList.toggle('hidden'); if (!p.classList.contains('hidden')) renderColsPop(); }
 document.addEventListener('click', () => $('colsPop')?.classList.add('hidden'));
 function renderColsPop(){
@@ -2631,6 +2682,7 @@ function renderColsPop(){
       return `<div class="col-item ${ver ? '' : 'off'}" draggable="true" data-col="${c}"><span class="hd" title="⠿">⠿</span>
         <label><input type="checkbox" ${ver ? 'checked' : ''} ${fija ? 'disabled' : ''} onchange="toggleCol('${c}',this.checked)">${esc(colLabel(c))}</label>
         <span class="mv"><button class="sm" ${i ? '' : 'disabled'} onclick="colPaso('${c}',-1)" title="${t('cols_up')}">▲</button><button class="sm" ${i < lista.length - 1 ? '' : 'disabled'} onclick="colPaso('${c}',1)" title="${t('cols_down')}">▼</button></span></div>`; }).join('')}</div>
+    <div class="col-item act-opt"><label><input type="checkbox" ${colCfg.sinAcciones ? '' : 'checked'} onchange="toggleAcciones(this.checked)">${t('cols_actions')}</label></div>
     <div class="cols-foot"><button onclick="verTodasCols()">${t('cols_all')}</button><button onclick="resetCols()">↺ ${t('cols_reset')}</button></div>`;
 }
 // Arrastrar: sirve igual para los encabezados de la tabla y para la lista del menú

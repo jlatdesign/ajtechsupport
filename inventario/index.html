@@ -267,6 +267,10 @@ input.changing{border-color:var(--warn)!important;box-shadow:0 0 0 3px rgba(255,
 /* Columna de botones fija a la derecha */
 th.actions-col,td.actions-col{position:sticky;right:0;z-index:1;background:var(--card-solid);box-shadow:-12px 0 16px -12px rgba(0,0,0,.6)}
 thead th.actions-col{z-index:3}
+td.actions-col,th.actions-col{padding:6px 6px;width:1%}
+td.actions-col .acts{display:flex;gap:3px;align-items:center}
+td.actions-col .acts button.sm{width:24px;height:24px;padding:0;display:inline-grid;place-items:center;font-size:12px;line-height:1;border-radius:6px;box-shadow:none;position:relative}
+td.actions-col .acts .hist-btn b{position:absolute;top:-5px;right:-5px;min-width:14px;height:14px;padding:0 3px;border-radius:7px;font:700 9px/14px Inter,sans-serif}
 tbody tr:hover td.actions-col{background:var(--card-solid)}
 .hist-btn.hist-empty{opacity:.45}
 .hist-btn.hist-empty:hover{opacity:1}
@@ -546,7 +550,7 @@ a.dev-link:hover{color:var(--c1);text-decoration:underline}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v4.5</p>
+    <p class="sub">Network Asset Manager · v4.6</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -562,7 +566,7 @@ a.dev-link:hover{color:var(--c1);text-decoration:underline}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v4.5</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v4.6</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -2568,12 +2572,12 @@ function render(){
     <td class="mono">${esc(x.mac)}</td><td class="mono">${esc(x.usuario)}</td><td class="mono">${pw}</td>
     <td class="stack">${cUser}</td><td class="stack">${cPC}</td><td class="stack">${cAD}</td><td class="stack">${cLog}</td><td class="stack">${cPrn}</td><td class="stack">${cLic}</td><td>${badgeGarantia(x.garantia)}</td>
     <td>${x.estado ? `<span class="badge ${ESTADO_CLS[x.estado] || 'b-off'}">${esc(tEstado(x.estado))}</span>` : ''}</td><td class="notes">${esc(x.notas)}</td>
-    <td class="no-print actions-col" style="white-space:nowrap">
-      <button class="sm" onclick="edit('${x.id}')">${t('edit')}</button>
+    <td class="no-print actions-col"><div class="acts">
+      <button class="sm" onclick="edit('${x.id}')" title="${t('edit')}">✎</button>
       <button class="sm hist-btn ${nh ? '' : 'hist-empty'}" onclick="showHistory('${x.id}')" title="${t('hist_title')}">🕘${nh ? `<b>${nh}</b>` : ''}</button>
       <button class="sm" onclick="dup('${x.id}')" title="${t('t_dup')}">⧉</button>
       <button class="sm danger" onclick="del('${x.id}')" title="${t('t_delete')}">✕</button>
-    </td></tr>`;
+    </div></td></tr>`;
   }).join('')
     : `<tr><td colspan="25" class="empty">${(curCliente ? equiposDe(curCliente).length : items.length) ? t('no_results') : t('empty')}</td></tr>`;
   $('count').textContent = t('count', {n: rows.length, t: base.length});

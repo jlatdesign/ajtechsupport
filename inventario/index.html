@@ -489,6 +489,15 @@ body.p-nopw #form label:has(.u-pw){display:none!important}
 .u-foot{display:flex;align-items:center;gap:10px;margin-top:12px}
 .u-foot .msg{font-size:12px;color:var(--muted)}
 .u-foot .msg.ok{color:var(--ok)}.u-foot .msg.bad{color:var(--bad)}
+.u-new{border:1px dashed var(--c1);background:color-mix(in srgb,var(--c1) 5%,var(--card-solid))}
+.u-new .grid2c{margin-top:10px}
+.u-pwrow{display:flex;gap:6px}
+.u-pwrow input{flex:1;font-family:"JetBrains Mono",monospace}
+.u-acts{display:flex;gap:6px;margin-left:auto}
+.u-acts button{font-size:12px;padding:5px 9px}
+.u-warn{border:1px solid var(--warn);background:color-mix(in srgb,var(--warn) 10%,transparent);border-radius:12px;padding:12px 14px;font-size:13px;line-height:1.55;margin-bottom:12px}
+.u-warn ol{margin:6px 0 0;padding-left:20px}
+details.u-help summary{cursor:pointer;font-weight:600}
 .no-access{max-width:520px;margin:40px auto;text-align:center;padding:30px}
 /* ===== Servicios por cliente ===== */
 .svc-ic{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
@@ -584,7 +593,7 @@ body.p-nopw #form label:has(.u-pw){display:none!important}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v5.0</p>
+    <p class="sub">Network Asset Manager · v5.1</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -600,7 +609,7 @@ body.p-nopw #form label:has(.u-pw){display:none!important}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v5.0</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v5.1</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -1151,6 +1160,13 @@ es:{
   copied:'Copiado ✓', ask_client:'Algunas filas no tienen cliente. ¿A qué cliente pertenecen estos equipos?'
 }};
 Object.assign(I18N.en, {
+  nu_btn:'＋ New user', nu_title:'New user', nu_user:'Username', nu_user_ph:'e.g. maria.stock', nu_pw:'Password', nu_gen:'Generate', nu_create:'Create user',
+  nu_hint:'They sign in with just the username. Give them the password; they can change it later with 🔑.', nu_ok:'User {u} created ✓ — password: {p}',
+  nu_need:'Write a username and a password of at least 8 characters', u_reset:'🔑 Password', u_del:'🗑 Delete', u_reset_prompt:'New password for {u} (minimum 8 characters):',
+  u_reset_ok:'Password changed for {u}: {p}', u_del_confirm:'Delete the user {u}?\nThey will no longer be able to sign in. Devices and data are NOT deleted.', u_del_ok:'User {u} deleted',
+  u_manual:'Or create it by hand in Supabase', u_fn_missing:'<b>To create users from here, install the “usuarios” Edge Function once:</b><ol><li>Open <a href="{url}" target="_blank" rel="noopener">Supabase → Edge Functions</a> → <b>Deploy a new function → Via Editor</b>.</li><li>Name: <code>usuarios</code>. Delete the sample code, paste all of <b>edge-function-usuarios.ts</b> and press <b>Deploy</b>.</li><li>Come back and try again.</li></ol>',
+  'ev.user_created':'User Created', 'ev.user_deleted':'User Deleted', 'ev.user_pw_reset':'User Password Reset',
+  'ad.user_created':'{u} created the user {o}', 'ad.user_deleted':'{u} deleted the user {o}', 'ad.user_pw_reset':'{u} reset the password of {o}',
   users:'Users', t_users:'Users and permissions', u_title:'Users and permissions', u_admin:'Super admin', u_client:'Client', u_none:'No access',
   u_you:'you', u_last:'Last sign-in: {d}', u_never:'never signed in', u_edit:'Can add / edit / delete devices', u_pw:'Can see passwords and licenses',
   u_save:'Save', u_saved:'Saved ✓', u_need_client:'Pick at least one company', u_pick:'Companies this user can see:', u_reload:'↻ Reload list',
@@ -1193,6 +1209,13 @@ Object.assign(I18N.en, {
   'fl.ip':'IP', 'fl.mac':'MAC', 'fl.cliente':'Client', 'fl.direccion':'Address', 'fl.grupo_id':'Group', 'fl.pc_ids':'Linked PCs', 'fl.pc_users':'Users', 'fl.nombre':'Name', 'fl.contacto':'Contact', 'fl.telefono':'Phone', 'fl.email':'Email', 'fl.notas':'Notes',
 });
 Object.assign(I18N.es, {
+  nu_btn:'＋ Nuevo usuario', nu_title:'Nuevo usuario', nu_user:'Usuario', nu_user_ph:'ej. maria.stock', nu_pw:'Contraseña', nu_gen:'Generar', nu_create:'Crear usuario',
+  nu_hint:'Entra solo con el nombre de usuario. Dale la contraseña; después la puede cambiar con 🔑.', nu_ok:'Usuario {u} creado ✓ — contraseña: {p}',
+  nu_need:'Escribe un usuario y una contraseña de al menos 8 caracteres', u_reset:'🔑 Contraseña', u_del:'🗑 Borrar', u_reset_prompt:'Contraseña nueva para {u} (mínimo 8 caracteres):',
+  u_reset_ok:'Contraseña cambiada para {u}: {p}', u_del_confirm:'¿Borrar el usuario {u}?\nYa no podrá entrar. Los equipos y datos NO se borran.', u_del_ok:'Usuario {u} borrado',
+  u_manual:'O créalo a mano en Supabase', u_fn_missing:'<b>Para crear usuarios desde aquí, instala una vez la Edge Function “usuarios”:</b><ol><li>Abre <a href="{url}" target="_blank" rel="noopener">Supabase → Edge Functions</a> → <b>Deploy a new function → Via Editor</b>.</li><li>Nombre: <code>usuarios</code>. Borra el código de ejemplo, pega todo <b>edge-function-usuarios.ts</b> y presiona <b>Deploy</b>.</li><li>Regresa aquí y vuelve a intentar.</li></ol>',
+  'ev.user_created':'Usuario creado', 'ev.user_deleted':'Usuario borrado', 'ev.user_pw_reset':'Clave de usuario cambiada',
+  'ad.user_created':'{u} creó el usuario {o}', 'ad.user_deleted':'{u} borró el usuario {o}', 'ad.user_pw_reset':'{u} cambió la clave de {o}',
   users:'Usuarios', t_users:'Usuarios y permisos', u_title:'Usuarios y permisos', u_admin:'Super admin', u_client:'Cliente', u_none:'Sin acceso',
   u_you:'tú', u_last:'Último acceso: {d}', u_never:'nunca ha entrado', u_edit:'Puede agregar / editar / borrar equipos', u_pw:'Puede ver contraseñas y licencias',
   u_save:'Guardar', u_saved:'Guardado ✓', u_need_client:'Escoge al menos una compañía', u_pick:'Compañías que puede ver:', u_reload:'↻ Recargar lista',
@@ -1358,8 +1381,20 @@ function renderUsuarios(){
   const proj = (SUPABASE_URL.match(/https:\/\/([^.]+)\./) || [])[1] || '';
   const todos = listaClientes().map(c => c.nombre), yo = miId();
   const fecha = d => new Date(d).toLocaleString(LANG === 'es' ? 'es-US' : 'en-US', { dateStyle: 'medium', timeStyle: 'short' });
-  $('modalBody').innerHTML = `<div class="u-help">${t('u_help', { url: `https://supabase.com/dashboard/project/${proj}/auth/users` })}<div class="muted" style="margin-top:6px">${t('u_new_none')}</div></div>
-    <div class="row" style="justify-content:flex-end;margin-bottom:10px"><button class="sm" onclick="abrirUsuarios()">${t('u_reload')}</button></div>` +
+  const nu = NU ? `<div class="u-card u-new"><div class="u-head"><b>${t('nu_title')}</b><span class="sp"></span><button class="sm" onclick="NU=null;renderUsuarios()">✕</button></div>
+      <div class="grid2c"><label><span>${t('nu_user')}</span><input id="nuUser" value="${esc(NU.usuario)}" placeholder="${esc(t('nu_user_ph'))}" autocomplete="off" autocapitalize="none" spellcheck="false" oninput="NU.usuario=this.value"></label>
+        <label><span>${t('nu_pw')}</span><span class="u-pwrow"><input id="nuPw" value="${esc(NU.password)}" autocomplete="new-password" oninput="NU.password=this.value">
+          <button type="button" class="sm" onclick="NU.password=claveAzar();renderUsuarios()" title="${t('nu_gen')}">🎲</button><button type="button" class="sm" onclick="copyText(NU.password)" title="${t('t_copy')}">📋</button></span></label></div>
+      <small class="muted">${t('nu_hint')}</small><br>
+      <div class="u-seg">${[['admin', 'u_admin'], ['cliente', 'u_client'], ['ninguno', 'u_none']].map(([r, l]) => `<button class="${NU.rol === r ? 'on' : ''}" onclick="NU.rol='${r}';renderUsuarios()">${t(l)}</button>`).join('')}</div>
+      ${NU.rol === 'cliente' ? `<div class="muted" style="margin-top:10px">${t('u_pick')}</div><div class="u-cli">${todos.map(c => { const on = NU.clientes.some(x => mismoCliente(x, c));
+          return `<button class="${on ? 'on' : ''}" onclick="nuCliente('${jsq(c)}')">${on ? '✓ ' : ''}${esc(c)}</button>`; }).join('')}</div>
+        <div class="u-opts"><label><input type="checkbox" ${NU.editar ? 'checked' : ''} onchange="NU.editar=this.checked">${t('u_edit')}</label>
+          <label><input type="checkbox" ${NU.claves ? 'checked' : ''} onchange="NU.claves=this.checked">${t('u_pw')}</label></div>` : ''}
+      <div class="u-foot"><button class="primary sm" onclick="crearUsuario()">${t('nu_create')}</button><span class="msg ${NU.ok ? 'ok' : NU.msg ? 'bad' : ''}">${esc(NU.msg)}</span></div></div>` : '';
+  $('modalBody').innerHTML = (fnFalta ? `<div class="u-warn">⚠️ ${t('u_fn_missing', { url: `https://supabase.com/dashboard/project/${proj}/functions` })}</div>` : '') +
+    (USR._aviso ? `<div class="u-warn" style="border-color:var(--ok);background:color-mix(in srgb,var(--ok) 10%,transparent)">✅ ${esc(USR._aviso)}</div>` : '') +
+    `<div class="row" style="justify-content:space-between;margin-bottom:10px">${NU ? '<span></span>' : `<button class="primary" onclick="nuevoUsuarioForm()">${t('nu_btn')}</button>`}<button class="sm" onclick="abrirUsuarios()">${t('u_reload')}</button></div>` + nu +
     USR.map((u, i) => { const esYo = u.id === yo, nom = (u.email || '').replace('@' + DOMINIO_USUARIOS, '');
       const cl = [...new Set([...todos, ...u.clientes.filter(c => !todos.some(x => mismoCliente(x, c)))])];
       return `<div class="u-card">
@@ -1372,8 +1407,55 @@ function renderUsuarios(){
             return `<button class="${on ? 'on' : ''}" onclick="usrCliente(${i},'${jsq(c)}')">${on ? '✓ ' : ''}${esc(c)}</button>`; }).join('')}</div>
           <div class="u-opts"><label><input type="checkbox" ${u.editar ? 'checked' : ''} onchange="USR[${i}].editar=this.checked">${t('u_edit')}</label>
             <label><input type="checkbox" ${u.claves ? 'checked' : ''} onchange="USR[${i}].claves=this.checked">${t('u_pw')}</label></div>` : ''}
-        <div class="u-foot"><button class="primary sm" onclick="guardarUsuario(${i})">${t('u_save')}</button><span class="msg ${u._ok ? 'ok' : u._msg ? 'bad' : ''}">${esc(u._msg || '')}</span></div>
-      </div>`; }).join('');
+        <div class="u-foot"><button class="primary sm" onclick="guardarUsuario(${i})">${t('u_save')}</button><span class="msg ${u._ok ? 'ok' : u._msg ? 'bad' : ''}">${esc(u._msg || '')}</span>
+          ${esYo ? '' : `<span class="u-acts"><button class="sm" onclick="claveUsuario(${i})">${t('u_reset')}</button><button class="sm danger" onclick="borrarUsuario(${i})">${t('u_del')}</button></span>`}</div>
+      </div>`; }).join('') +
+    `<details class="u-help" style="margin-top:14px"><summary>${t('u_manual')}</summary>${t('u_help', { url: `https://supabase.com/dashboard/project/${proj}/auth/users` })}<div class="muted" style="margin-top:6px">${t('u_new_none')}</div></details>`;
+}
+let NU = null, fnFalta = false;
+const proyecto = () => (SUPABASE_URL.match(/https:\/\/([^.]+)\./) || [])[1] || '';
+function claveAzar(n = 12){
+  const A = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789', E = '!@#$%*-_';
+  const r = new Uint32Array(n); crypto.getRandomValues(r);
+  let s = [...r].map((v, i) => i === 4 ? E[v % E.length] : A[v % A.length]).join('');
+  return s;
+}
+async function llamarUsuarios(body){
+  try{
+    const { data, error } = await db.functions.invoke('usuarios', { body });
+    if (!error) return { data };
+    let msg = error.message || String(error), status = error.context?.status;
+    try{ const j = await error.context?.json?.(); if (j?.error) msg = j.error; }catch(e){}
+    const falta = status === 404 || /Failed to send|FunctionsFetchError|FunctionsRelayError|not found/i.test((error.name || '') + ' ' + msg);
+    return { error: msg, falta };
+  }catch(e){ return { error: String(e?.message || e), falta: true }; }
+}
+function nuevoUsuarioForm(){ NU = { usuario: '', password: claveAzar(), rol: 'cliente', clientes: curCliente ? [curCliente] : [], editar: false, claves: false, msg: '', ok: false }; renderUsuarios(); setTimeout(() => $('nuUser')?.focus(), 30); }
+function nuCliente(c){ const k = NU.clientes.findIndex(x => mismoCliente(x, c)); k >= 0 ? NU.clientes.splice(k, 1) : NU.clientes.push(c); renderUsuarios(); }
+async function crearUsuario(){
+  const u = NU.usuario.trim().toLowerCase().replace('@' + DOMINIO_USUARIOS, '');
+  if (!u || NU.password.length < 8){ NU.msg = t('nu_need'); NU.ok = false; return renderUsuarios(); }
+  if (NU.rol === 'cliente' && !NU.clientes.length){ NU.msg = t('u_need_client'); NU.ok = false; return renderUsuarios(); }
+  NU.msg = t('act_loading'); NU.ok = false; renderUsuarios();
+  const r = await llamarUsuarios({ accion: 'crear', usuario: u, password: NU.password, rol: NU.rol, clientes: NU.clientes, editar: NU.editar, claves: NU.claves });
+  if (r.error){ fnFalta = !!r.falta; NU.msg = r.falta ? '' : r.error; NU.ok = false; return renderUsuarios(); }
+  const pw = NU.password; NU = null; fnFalta = false;
+  await abrirUsuarios(); USR._aviso = t('nu_ok', { u, p: pw }); renderUsuarios();
+}
+async function claveUsuario(i){
+  const u = USR[i], nom = (u.email || '').split('@')[0];
+  const p = prompt(t('u_reset_prompt', { u: nom }), claveAzar()); if (p == null) return;
+  if (p.length < 8) return alert(t('nu_need'));
+  const r = await llamarUsuarios({ accion: 'clave', user_id: u.id, password: p });
+  if (r.error){ fnFalta = !!r.falta; if (!r.falta) alert(r.error); return renderUsuarios(); }
+  USR._aviso = t('u_reset_ok', { u: nom, p }); renderUsuarios();
+}
+async function borrarUsuario(i){
+  const u = USR[i], nom = (u.email || '').split('@')[0];
+  if (!confirm(t('u_del_confirm', { u: nom }))) return;
+  const r = await llamarUsuarios({ accion: 'borrar', user_id: u.id });
+  if (r.error){ fnFalta = !!r.falta; if (!r.falta) alert(r.error); return renderUsuarios(); }
+  await abrirUsuarios(); USR._aviso = t('u_del_ok', { u: nom }); renderUsuarios();
 }
 function usrCliente(i, c){
   const u = USR[i], k = u.clientes.findIndex(x => mismoCliente(x, c));
@@ -2388,7 +2470,7 @@ function renderActividad(){
       return `<label class="${!n && !on ? 'zero' : ''}"><input type="checkbox" ${on ? 'checked' : ''} ${!n && !on ? 'disabled' : ''} onchange="actToggle('${set}','${jsq(k)}')">${ico ? ico(k) : ''}<span class="nm" title="${esc(lbl(k))}">${esc(lbl(k))}</span><span class="n">${n}</span></label>`; }).join('') + `</div>`;
   };
   const EVS = ['device_created','device_updated','device_deleted','password_changed','password_viewed','password_copied','pw_history_viewed',
-    'client_created','client_updated','client_deleted','group_created','group_updated','group_deleted','signed_in','account_pw_changed','user_access_changed','export_backup','export_csv','import_excel'];
+    'client_created','client_updated','client_deleted','group_created','group_updated','group_deleted','signed_in','account_pw_changed','user_access_changed','user_created','user_pw_reset','user_deleted','export_backup','export_csv','import_excel'];
   const evs = EVS.filter(e => F.base.some(r => r.evento === e) || ACT.ev.has(e)).concat([...new Set(F.base.map(r => r.evento))].filter(e => !EVS.includes(e)));
   const uss = [...new Set(F.base.map(r => r.usuario || 'system'))].sort();
   const cls = [...new Set(F.base.map(r => r.cliente || '—'))].sort((a, b) => a.localeCompare(b));

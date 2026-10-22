@@ -357,6 +357,68 @@ tbody tr.is-sel td{background:var(--row-hover)}
 .bulk-clear{border-color:var(--c1)!important;color:var(--c1)!important;font-weight:600}
 .bulk-del{border-color:var(--bad)!important;color:var(--bad)!important;font-weight:600}
 .bulk-del:hover{background:var(--bad)!important;color:#fff!important}
+/* ===== Dashboard del cliente ===== */
+:root{--viz-1:#3987e5}
+:root[data-theme="light"]{--viz-1:#006fff}
+.dash{display:grid;grid-template-columns:232px minmax(0,1fr);gap:18px;align-items:start}
+@media (max-width:900px){.dash{grid-template-columns:1fr}.dash-side{position:static!important;max-height:none!important}}
+.dash-side{position:sticky;top:84px;background:var(--card-solid);border:1px solid var(--line);border-radius:12px;padding:8px;max-height:calc(100vh - 100px);overflow:auto}
+.ds-sec{font:600 10.5px "JetBrains Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:14px 10px 6px}
+.ds-item{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;cursor:pointer;font-size:13.5px;color:var(--text);user-select:none}
+.ds-item:hover{background:var(--row-hover)}
+.ds-item.on{background:var(--row-hover);color:var(--c1);font-weight:600;box-shadow:inset 3px 0 0 var(--c1)}
+.ds-item .n{margin-left:auto;color:var(--muted);font:500 12px "JetBrains Mono",monospace}
+.ds-item.alert .n{color:var(--bad);font-weight:700}
+.ds-sep{height:1px;background:var(--line);margin:8px 6px}
+.ov-tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:12px;margin-bottom:14px}
+.tile{background:var(--card-solid);border:1px solid var(--line);border-radius:12px;padding:16px;cursor:pointer;transition:border-color .15s,transform .15s}
+.tile:hover{border-color:var(--c1);transform:translateY(-1px)}
+.tile .ic{float:right;font-size:22px;opacity:.75}
+.tile b{display:block;font:700 30px/1.15 "Space Grotesk",sans-serif;margin-top:2px}
+.tile span{color:var(--muted);font-size:12.5px}
+.tile.warn b{color:var(--warn)} .tile.bad b{color:var(--bad)} .tile.dim b{color:var(--dim)}
+.ov-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+@media (max-width:1150px){.ov-grid{grid-template-columns:1fr}}
+.panel{background:var(--card-solid);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.panel h4{margin:0 0 12px;font:600 11px "JetBrains Mono",monospace;letter-spacing:.11em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between}
+.panel h4 small{font:500 11px Inter,sans-serif;letter-spacing:0;text-transform:none}
+.hb-row{display:grid;grid-template-columns:minmax(90px,170px) 1fr 40px;gap:10px;align-items:center;padding:4px 0;cursor:pointer;border-radius:6px}
+.hb-row:hover .hb-label{color:var(--c1)}
+.hb-label{font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hb-track{height:14px;display:block}
+.hb-track i{display:block;height:14px;border-radius:0 4px 4px 0;background:var(--viz-1);min-width:3px}
+.hb-row:hover .hb-track i{filter:brightness(1.12)}
+.hb-val{font:600 12.5px "JetBrains Mono",monospace;color:var(--text);text-align:right}
+.lm{display:flex;align-items:center;gap:10px;padding:8px 2px;border-bottom:1px solid var(--line);cursor:pointer;font-size:13px}
+.lm:last-child{border-bottom:0}
+.lm:hover{background:var(--row-hover)}
+.lm .ic{width:22px;text-align:center}
+.lm .nm{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lm .mt{color:var(--muted);font:500 12px "JetBrains Mono",monospace;white-space:nowrap}
+.lm .cnt{font:700 13px "JetBrains Mono",monospace}
+.lm.bad .cnt{color:var(--bad)} .lm.warn .cnt{color:var(--warn)} .lm.off .cnt{color:var(--muted)}
+.ov-empty{text-align:center;padding:50px 20px;color:var(--muted)}
+.ov-empty .row{justify-content:center;margin-top:14px}
+.viz-tip{position:fixed;z-index:80;pointer-events:none;background:var(--card-solid);color:var(--text);border:1px solid var(--line-strong);border-radius:8px;padding:6px 10px;font-size:12.5px;box-shadow:0 8px 24px -8px rgba(0,0,0,.35)}
+.list-sub{font:500 13px Inter,sans-serif;color:var(--c1);margin-left:6px}
+a.dev-link{color:var(--text);cursor:pointer;text-decoration:none;font-weight:500}
+a.dev-link:hover{color:var(--c1);text-decoration:underline}
+/* Ficha del equipo */
+.detail-panel{width:min(480px,100%);height:100%;overflow-y:auto;background:var(--card-solid);border-left:1px solid var(--line)}
+.det-head{display:flex;gap:14px;align-items:center;padding:20px 18px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--card-solid);z-index:2}
+.det-ic{font-size:34px}
+.det-head h3{margin:0;font:700 18px "Space Grotesk",sans-serif}
+.det-sub{font:500 12.5px "JetBrains Mono",monospace;color:var(--muted);margin-top:3px}
+.det-head .sp{flex:1}
+.kv{display:grid;grid-template-columns:150px minmax(0,1fr)}
+.kv div{padding:9px 16px;border-bottom:1px solid var(--line);font-size:13px;word-break:break-word}
+.kv .k{background:var(--bg);color:var(--muted);font-weight:500}
+.kv .mono{font-family:"JetBrains Mono",monospace;font-size:12.5px}
+.det-sec{padding:12px 16px 6px;font:600 10.5px "JetBrains Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);background:var(--card-solid)}
+.det-actions{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);position:sticky;bottom:0;background:var(--card-solid)}
+.det-actions button{border:0;border-radius:0;border-right:1px solid var(--line);padding:14px 6px;font-size:12px;display:flex;flex-direction:column;align-items:center;gap:4px;background:none}
+.det-actions button:last-child{border-right:0}
+.det-actions button span{font-size:18px}
 </style>
 </head>
 <body>
@@ -368,7 +430,7 @@ tbody tr.is-sel td{background:var(--row-hover)}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v3.4</p>
+    <p class="sub">Network Asset Manager · v4.0</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -384,7 +446,7 @@ tbody tr.is-sel td{background:var(--row-hover)}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v3.4</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v4.0</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -428,7 +490,12 @@ tbody tr.is-sel td{background:var(--row-hover)}
       <button class="primary" onclick="nuevoEquipo()">＋ <span data-i18n="add_device">Add device</span></button>
     </div>
   </div>
-  <div class="kpis no-print">
+  <div class="dash">
+  <aside id="dashSide" class="dash-side no-print"></aside>
+  <div class="dash-main">
+  <div id="ovView" class="ov"></div>
+  <div id="listView">
+  <div class="kpis no-print hidden">
     <div class="kpi"><span data-i18n="k_devices">Devices</span><b id="kTotal">0</b></div>
     <div class="kpi"><span data-i18n="k_groups">Groups</span><b id="kClientes">0</b></div>
     <div class="kpi"><span data-i18n="k_active">Active</span><b class="ok" id="kActivos">0</b></div>
@@ -563,7 +630,7 @@ tbody tr.is-sel td{background:var(--row-hover)}
   </div>
 
   <div class="card">
-    <div class="card-title"><h3 data-i18n="registered">Registered devices</h3><span class="muted mono" id="count"></span></div>
+    <div class="card-title"><h3><span data-i18n="registered">Registered devices</span> <span id="listSub" class="list-sub"></span></h3><span class="muted mono" id="count"></span></div>
     <div class="row no-print" style="margin-bottom:12px">
       <div class="search"><input id="q" data-i18n-ph="search_ph" placeholder="Search by client, name, IP, MAC, serial, model, notes..." oninput="render()"></div>
       <select id="fCliente" onchange="render()" style="max-width:220px"><option value=""></option></select>
@@ -593,10 +660,13 @@ tbody tr.is-sel td{background:var(--row-hover)}
       </table>
     </div>
   </div>
+  </div></div></div>
 </div>
 </div>
 </div>
 <div class="toast" id="toast"></div>
+<div id="vizTip" class="viz-tip hidden"></div>
+<div id="detail" class="drawer hidden" onclick="if(event.target===this)cerrarDetalle()"><div class="detail-panel" id="detBody"></div></div>
 <div id="cModal" class="modal hidden" onclick="if(event.target===this)cerrarClienteModal()">
   <div class="modal-card">
     <div class="modal-head"><h3 id="cmTitle"></h3><button class="sm" onclick="cerrarClienteModal()">✕</button></div>
@@ -761,6 +831,13 @@ en:{
   sec_printer:'Printer', prn_kind:'Printer kind', 'pk.Label':'Label printer', 'pk.Regular':'Regular printer',
   used_by:'Used by', link_pcs:'🔗 Used by {n} PC(s) of {c}:', link_none:'No PC of {c} uses this printer yet. In the PC, type this printer\'s name or model in "Printers used by this PC" to link them.',
   link_prn:'🔗 Linked to printer(s) of this client:', confirm_sync_pcs:'This printer is used by {n} PC(s) of {c}:\n{list}\n\nUpdate the connection and IP in those PCs?',
+  ov:'Overview', all_devices:'All devices', d_types:'Device types', d_tools:'Tools', d_alerts:'Alerts', manage_groups:'Manage groups',
+  t_computers:'Computers', t_printers:'Printers', t_network:'Network', t_cctv:'Cameras / DVR', t_phones:'Phones', t_access:'Access control', t_total:'Devices',
+  a_dup:'Duplicate IPs', a_war:'Warranty ≤ 60 days', a_noip:'Missing IP', a_rep:'In repair', no_alerts:'✅ No alerts for this client',
+  ch_types:'Devices by type', ch_status:'Status', ch_os:'Windows / OS versions', ch_dept:'Departments', ch_groups:'Groups', ch_recent:'Recently added',
+  ch_alerts:'Alerts', other:'Other', tip_n:'{n} device(s) · {p}%', export_csv:'Export CSV', print:'Print', dash_empty:'This client has no devices yet.',
+  det_created:'Created', det_updated:'Updated', det_linked_prn:'Printers it uses', det_linked_pc:'Used by', det_users:'Regular users', det_hist:'History',
+  no_data:'No data yet', dup_with:'same IP as {n}', computers_only:'computers',
   selected:'selected', sel_all_visible:'Select all visible', sel_clear:'Clear selection', del_selected:'Delete selected', t_selall:'Select all',
   confirm_del_n:'⚠️ Delete {n} device(s)?\n\n{list}\n\nThis cannot be undone.', deleted_n:'{n} device(s) deleted', and_more:'…and {n} more',
   import_excel:'Import Excel', x_sheet:'Sheet', x_client:'Client', x_match:'Match existing devices by', x_deftype:'Type for new rows',
@@ -853,6 +930,13 @@ es:{
   sec_printer:'Impresora', prn_kind:'Tipo de impresora', 'pk.Label':'Impresora de etiquetas', 'pk.Regular':'Impresora normal',
   used_by:'Usada por', link_pcs:'🔗 La usan {n} PC de {c}:', link_none:'Ninguna PC de {c} usa esta impresora todavía. En la PC, escribe el nombre o modelo de esta impresora en "Impresoras que usa esta PC" para vincularlas.',
   link_prn:'🔗 Vinculada a impresora(s) de este cliente:', confirm_sync_pcs:'Esta impresora la usan {n} PC de {c}:\n{list}\n\n¿Actualizar la conexión y la IP en esas PC?',
+  ov:'Resumen', all_devices:'Todos los equipos', d_types:'Tipos de equipo', d_tools:'Herramientas', d_alerts:'Alertas', manage_groups:'Administrar grupos',
+  t_computers:'Computadoras', t_printers:'Impresoras', t_network:'Red', t_cctv:'Cámaras / DVR', t_phones:'Teléfonos', t_access:'Control de acceso', t_total:'Equipos',
+  a_dup:'IP duplicadas', a_war:'Garantía ≤ 60 días', a_noip:'Sin IP', a_rep:'En reparación', no_alerts:'✅ Sin alertas para este cliente',
+  ch_types:'Equipos por tipo', ch_status:'Estado', ch_os:'Versiones de Windows / SO', ch_dept:'Departamentos', ch_groups:'Grupos', ch_recent:'Agregados recientemente',
+  ch_alerts:'Alertas', other:'Otros', tip_n:'{n} equipo(s) · {p}%', export_csv:'Exportar CSV', print:'Imprimir', dash_empty:'Este cliente todavía no tiene equipos.',
+  det_created:'Creado', det_updated:'Actualizado', det_linked_prn:'Impresoras que usa', det_linked_pc:'Usada por', det_users:'Usuarios regulares', det_hist:'Historial',
+  no_data:'Sin datos todavía', dup_with:'misma IP que {n}', computers_only:'computadoras',
   selected:'seleccionado(s)', sel_all_visible:'Seleccionar todos los visibles', sel_clear:'Quitar selección', del_selected:'Eliminar seleccionados', t_selall:'Seleccionar todos',
   confirm_del_n:'⚠️ ¿Eliminar {n} equipo(s)?\n\n{list}\n\nEsto no se puede deshacer.', deleted_n:'{n} equipo(s) eliminado(s)', and_more:'…y {n} más',
   import_excel:'Importar Excel', x_sheet:'Hoja', x_client:'Cliente', x_match:'Buscar equipos existentes por', x_deftype:'Tipo para filas nuevas',
@@ -983,6 +1067,7 @@ async function loadData(){
   const { data, error } = await db.from('equipos').select('*').order('cliente');
   if (error) return fail(error, t('load_fail'));
   items = data;
+  if (detId && !$('detail').classList.contains('hidden')) setTimeout(() => verDetalle(detId, true), 0);
   const g = await db.from('grupos').select('*').order('nombre');
   grupos = g.error ? [] : (g.data || []); gruposOK = !g.error;
   const cl = await db.from('clientes').select('*').order('nombre');
@@ -1129,8 +1214,9 @@ function showHistory(id){
 }
 function closeModal(){ $('modal').classList.add('hidden'); }
 document.addEventListener('keydown', e => { if (e.key === 'Escape'){
-  const abierto = ['modal','gModal','cModal','xModal','drawer'].some(id => $(id) && !$(id).classList.contains('hidden'));
-  closeModal(); closeGrupos(); cerrarClienteModal(); cerrarDrawer(); cerrarImport();
+  const abierto = ['modal','gModal','cModal','xModal','drawer','detail'].some(id => $(id) && !$(id).classList.contains('hidden'));
+  if (!$('modal').classList.contains('hidden')) { closeModal(); return; }
+  closeGrupos(); cerrarClienteModal(); cerrarDrawer(); cerrarImport(); cerrarDetalle();
   if (!abierto && sel.size) limpiarSel(); } });
 function copyText(v){ navigator.clipboard?.writeText(v || '').then(() => toast(t('copied')), () => toast(t('copy_fail'))); }
 function copyUserPw(id, i){ const x = items.find(k => k.id === id); copyText(getUsers(x)[i]?.pw); }
@@ -1224,7 +1310,7 @@ function mostrarVista(){
   if (enCliente) renderClienteHead(); else renderClientes();
 }
 function abrirCliente(n){
-  curCliente = n; fTipo = ''; sel.clear(); $('q').value = ''; $('fGrupo').value = ''; $('fLugar').value = '';
+  curCliente = n; fTipo = ''; vista = 'ov'; fAlert = ''; fCat = ''; sel.clear(); $('q').value = ''; $('fGrupo').value = ''; $('fLugar').value = '';
   try{ history.pushState({ c: n }, '', '#c=' + encodeURIComponent(n)); }catch(e){}
   render(); window.scrollTo({ top: 0 });
 }
@@ -1523,7 +1609,7 @@ async function del(id){
   if (!confirm(t('confirm_del', {n: x.nombre}))) return;
   const { error } = await db.from('equipos').delete().eq('id', id);
   if (error) return fail(error, t('del_fail'));
-  toast(t('deleted')); loadData();
+  cerrarDetalle(); toast(t('deleted')); loadData();
 }
 function dup(id){
   const x = items.find(i => i.id === id); edit(id);
@@ -1541,10 +1627,210 @@ function copyPw(id){
 }
 
 /* ---------- Tabla ---------- */
+/* ---------- Dashboard del cliente ---------- */
+let vista = 'ov', fAlert = '', fCat = '';
+const CATS = { comp:['PC','Laptop','Servidor'], prn:['Impresora'], net:['Router','Switch','Access Point'], cctv:['DVR','NVR','Cámara'], tel:['Teléfono'], acc:['Control de Acceso'] };
+const ORDEN_TIPOS = ['PC','Laptop','Servidor','Impresora','Router','Switch','Access Point','DVR','NVR','Cámara','Teléfono','Control de Acceso','Otro'];
+const necesitaIP = x => ['PC','Laptop','Servidor','Router','Switch','Access Point','DVR','NVR','Cámara'].includes(x.tipo) || (x.tipo === 'Impresora' && usaIP(x.conexion));
+const diasHasta = d => (new Date(d + 'T00:00:00') - new Date(new Date().toDateString())) / 864e5;
+function calcAlertas(base){
+  const porIP = {}; base.forEach(x => { if (x.ip) (porIP[x.ip] = porIP[x.ip] || []).push(x); });
+  const dupGrupos = Object.entries(porIP).filter(([, v]) => v.length > 1);
+  return {
+    dupGrupos, dup: new Set(dupGrupos.flatMap(([, v]) => v.map(x => x.id))),
+    war: base.filter(x => x.garantia && diasHasta(x.garantia) <= 60),
+    noip: base.filter(x => necesitaIP(x) && !x.ip),
+    rep: base.filter(x => x.estado === 'En reparación')
+  };
+}
+let ALERTAS = null;
+function pasaExtra(x){
+  if (fCat && !CATS[fCat].includes(x.tipo)) return false;
+  if (fAlert && ALERTAS){
+    if (fAlert === 'dup') return ALERTAS.dup.has(x.id);
+    if (fAlert === 'war') return !!x.garantia && diasHasta(x.garantia) <= 60;
+    if (fAlert === 'noip') return necesitaIP(x) && !x.ip;
+    if (fAlert === 'rep') return x.estado === 'En reparación';
+  }
+  return true;
+}
+function irA(v, o = {}){
+  vista = v; fTipo = o.tipo || ''; fCat = o.cat || ''; fAlert = o.alert || '';
+  $('fGrupo').value = o.grupo || ''; $('q').value = o.q || ''; $('fLugar').value = '';
+  render(); window.scrollTo({ top: 0 });
+}
+const pct = (n, t) => t ? Math.round(n / t * 100) : 0;
+function hbars(rows, total){
+  const max = Math.max(1, ...rows.map(r => r.n));
+  return rows.map(r => `<div class="hb-row" onclick="${r.on}" data-tip="${esc(r.label)} — ${esc(t('tip_n', { n: r.n, p: pct(r.n, total) }))}">
+    <span class="hb-label">${r.icon ? r.icon + ' ' : ''}${esc(r.label)}</span>
+    <span class="hb-track"><i style="width:${r.n / max * 100}%${r.color ? ';background:' + r.color : ''}"></i></span>
+    <span class="hb-val">${r.n}</span></div>`).join('');
+}
+// Agrupa valores de texto en top N + "Otros"
+function topN(arr, n){
+  const m = {}; arr.forEach(v => { const k = String(v).trim(); if (k) m[k] = (m[k] || 0) + 1; });
+  const ord = Object.entries(m).sort((a, b) => b[1] - a[1]);
+  const top = ord.slice(0, n), resto = ord.slice(n).reduce((s, [, c]) => s + c, 0);
+  return { top, resto };
+}
+const jsq = s => String(s).replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+function renderDash(){
+  if (!curCliente) return;
+  const base = equiposDe(curCliente);
+  ALERTAS = calcAlertas(base);
+  const A = ALERTAS, fgv = $('fGrupo').value;
+  const cuenta = {}; base.forEach(x => cuenta[x.tipo] = (cuenta[x.tipo] || 0) + 1);
+  const gr = grupos.filter(g => mismoCliente(g.cliente, curCliente));
+  const it = (on, html, act, cls = '') => `<div class="ds-item ${act ? 'on' : ''} ${cls}" onclick="${on}">${html}</div>`;
+  const listaTodo = vista === 'list' && !fTipo && !fCat && !fAlert && !fgv;
+  $('dashSide').innerHTML =
+    it("irA('ov')", `📊 ${t('ov')}`, vista === 'ov') +
+    it("irA('list')", `🗂 ${t('all_devices')}<span class="n">${base.length}</span>`, listaTodo) +
+    (Object.keys(cuenta).length ? `<div class="ds-sec">${t('d_types')}</div>` + ORDEN_TIPOS.filter(k => cuenta[k]).map(k =>
+      it(`irA('list',{tipo:'${jsq(k)}'})`, `${TIPO_ICON[k] || '◆'} ${esc(tTipo(k))}<span class="n">${cuenta[k]}</span>`, vista === 'list' && fTipo === k)).join('') : '') +
+    `<div class="ds-sec">${t('ch_groups')}</div>` + gr.map(g =>
+      it(`irA('list',{grupo:'${g.id}'})`, `🗂 ${esc(g.nombre)}<span class="n">${miembros(g.id).length}</span>`, vista === 'list' && fgv === g.id)).join('') +
+    it('openGrupos()', `⚙️ ${t('manage_groups')}`, false) +
+    `<div class="ds-sec">${t('d_alerts')}</div>` +
+    [['dup', '⚠️', A.dup.size], ['war', '📅', A.war.length], ['noip', '🌐', A.noip.length], ['rep', '🔧', A.rep.length]].map(([k, ic, n]) =>
+      it(`irA('list',{alert:'${k}'})`, `${ic} ${t('a_' + k)}<span class="n">${n}</span>`, vista === 'list' && fAlert === k, n ? 'alert' : '')).join('') +
+    `<div class="ds-sep"></div>` +
+    it('nuevoEquipo()', `＋ ${t('add_device')}`, false) +
+    it("document.getElementById('fileIn').click()", `📥 ${t('import_excel')}`, false) +
+    it('exportCSV()', `⊞ ${t('export_csv')}`, false);
+  $('ovView').classList.toggle('hidden', vista !== 'ov');
+  $('listView').classList.toggle('hidden', vista !== 'list');
+  // Subtítulo de la lista según el filtro
+  const sub = fTipo ? tTipo(fTipo) : fCat ? t({ comp:'t_computers', prn:'t_printers', net:'t_network', cctv:'t_cctv', tel:'t_phones', acc:'t_access' }[fCat])
+    : fAlert ? t('a_' + fAlert) : fgv ? '🗂 ' + (grupoDe({ grupo_id: fgv })?.nombre || '') : '';
+  $('listSub').textContent = sub ? '· ' + sub : '';
+  if (vista === 'ov') renderOverview(base);
+}
+function renderOverview(base){
+  const A = ALERTAS, N = base.length;
+  if (!N){
+    $('ovView').innerHTML = `<div class="panel ov-empty"><div style="font-size:40px">📦</div><p>${t('dash_empty')}</p>
+      <div class="row"><button class="primary" onclick="nuevoEquipo()">＋ ${t('add_device')}</button><button onclick="document.getElementById('fileIn').click()">📥 ${t('import_excel')}</button></div></div>`;
+    return;
+  }
+  const enCat = k => base.filter(x => CATS[k].includes(x.tipo)).length;
+  const nAlert = A.dup.size + A.war.length + A.noip.length;
+  const tile = (on, ic, n, lbl, cls = '') => `<div class="tile ${cls}" onclick="${on}"><span class="ic">${ic}</span><b>${n}</b><span>${lbl}</span></div>`;
+  const tiles = [
+    tile("irA('list')", '🗂', N, t('t_total')),
+    tile("irA('list',{cat:'comp'})", '🖥️', enCat('comp'), t('t_computers')),
+    tile("irA('list',{cat:'prn'})", '🖨️', enCat('prn'), t('t_printers')),
+    tile("irA('list',{cat:'net'})", '📡', enCat('net'), t('t_network')),
+    enCat('cctv') ? tile("irA('list',{cat:'cctv'})", '📹', enCat('cctv'), t('t_cctv')) : '',
+    enCat('tel') ? tile("irA('list',{cat:'tel'})", '📞', enCat('tel'), t('t_phones')) : '',
+    tile("irA('list',{alert:'rep'})", '🔧', A.rep.length, t('a_rep'), A.rep.length ? 'warn' : 'dim'),
+    tile(A.dup.size ? "irA('list',{alert:'dup'})" : A.war.length ? "irA('list',{alert:'war'})" : "irA('list',{alert:'noip'})", '⚠️', nAlert, t('d_alerts'), nAlert ? 'bad' : 'dim')
+  ].join('');
+  // Equipos por tipo
+  const cuenta = {}; base.forEach(x => cuenta[x.tipo] = (cuenta[x.tipo] || 0) + 1);
+  const tiposRows = Object.entries(cuenta).sort((a, b) => b[1] - a[1]).map(([k, n]) => ({ label: tTipo(k), icon: TIPO_ICON[k] || '◆', n, on: `irA('list',{tipo:'${jsq(k)}'})` }));
+  // Estado (colores de estado + ícono + texto)
+  const EST = [['Activo','🟢','var(--ok)'],['En reparación','🟡','var(--warn)'],['Inactivo','⚪','var(--off)'],['Dado de baja','🔴','var(--bad)']];
+  const estRows = EST.map(([k, ic, c]) => ({ label: tEstado(k), icon: ic, color: c, n: base.filter(x => x.estado === k).length, on: k === 'En reparación' ? "irA('list',{alert:'rep'})" : `irA('list',{q:'${jsq(k)}'})` })).filter(r => r.n);
+  // Sistemas operativos (solo computadoras)
+  const comps = base.filter(x => CATS.comp.includes(x.tipo));
+  const os = topN(comps.map(x => x.so || ''), 6);
+  const osRows = os.top.map(([k, n]) => ({ label: k, n, on: `irA('list',{q:'${jsq(k)}'})` }));
+  if (os.resto) osRows.push({ label: t('other'), n: os.resto, on: "irA('list',{cat:'comp'})" });
+  // Departamentos
+  const dp = topN(comps.map(x => titulo(String(x.departamento || '').trim().toLowerCase())), 7);
+  const dpRows = dp.top.map(([k, n]) => ({ label: k, n, on: `irA('list',{q:'${jsq(k)}'})` }));
+  if (dp.resto) dpRows.push({ label: t('other'), n: dp.resto, on: "irA('list',{cat:'comp'})" });
+  // Recientes
+  const recientes = [...base].sort((a, b) => String(b.created_at || '').localeCompare(String(a.created_at || ''))).slice(0, 7);
+  const lmDev = x => `<div class="lm" onclick="verDetalle('${x.id}')"><span class="ic">${TIPO_ICON[x.tipo] || '◆'}</span><span class="nm">${esc(x.nombre)}</span><span class="mt">${esc(x.ip || tTipo(x.tipo))}</span></div>`;
+  // Alertas
+  const lmA = (cls, ic, txt, n, on) => `<div class="lm ${cls}" onclick="${on}"><span class="ic">${ic}</span><span class="nm">${txt}</span><span class="cnt">${n}</span></div>`;
+  const alertas = (A.dup.size || A.war.length || A.noip.length || A.rep.length)
+    ? [A.dup.size ? lmA('bad', '⚠️', t('a_dup'), A.dup.size, "irA('list',{alert:'dup'})") : '',
+       ...A.dupGrupos.slice(0, 4).map(([ip, v]) => `<div class="lm" onclick="irA('list',{q:'${jsq(ip)}'})"><span class="ic"></span><span class="nm mt">${esc(ip)}</span><span class="mt">${v.map(x => esc(x.nombre)).join(', ')}</span></div>`),
+       A.war.length ? lmA('warn', '📅', t('a_war'), A.war.length, "irA('list',{alert:'war'})") : '',
+       A.noip.length ? lmA('off', '🌐', t('a_noip'), A.noip.length, "irA('list',{alert:'noip'})") : '',
+       A.rep.length ? lmA('warn', '🔧', t('a_rep'), A.rep.length, "irA('list',{alert:'rep'})") : ''].join('')
+    : `<p class="muted">${t('no_alerts')}</p>`;
+  const gr = grupos.filter(g => mismoCliente(g.cliente, curCliente));
+  const panel = (titulo, cuerpo, extra = '') => `<div class="panel"><h4>${titulo}${extra}</h4>${cuerpo}</div>`;
+  const vacio = `<p class="muted">${t('no_data')}</p>`;
+  $('ovView').innerHTML = `<div class="ov-tiles">${tiles}</div><div class="ov-grid">
+    ${panel(t('ch_types'), hbars(tiposRows, N), `<small>${N}</small>`)}
+    ${panel(t('ch_alerts'), alertas)}
+    ${panel(t('ch_os'), osRows.length ? hbars(osRows, comps.length) : vacio, `<small>${comps.length} ${t('computers_only')}</small>`)}
+    ${panel(t('ch_dept'), dpRows.length ? hbars(dpRows, comps.length) : vacio)}
+    ${panel(t('ch_status'), hbars(estRows, N))}
+    ${panel(t('ch_recent'), recientes.map(lmDev).join(''))}
+    ${gr.length ? panel(t('ch_groups'), gr.map(g => `<div class="lm" onclick="irA('list',{grupo:'${g.id}'})"><span class="ic">🗂</span><span class="nm">${esc(g.nombre)}</span><span class="mt">${miembros(g.id).map(x => TIPO_ICON[x.tipo] || '◆').slice(0, 12).join('')}</span><span class="cnt">${miembros(g.id).length}</span></div>`).join('')) : ''}
+  </div>`;
+}
+// Tooltip de las gráficas
+document.addEventListener('mousemove', e => {
+  const el = e.target.closest?.('[data-tip]'), tip = $('vizTip'); if (!tip) return;
+  if (!el){ tip.classList.add('hidden'); return; }
+  tip.textContent = el.dataset.tip; tip.classList.remove('hidden');
+  const x = Math.min(e.clientX + 14, innerWidth - tip.offsetWidth - 8);
+  tip.style.left = x + 'px'; tip.style.top = (e.clientY + 14) + 'px';
+});
+/* ---------- Ficha del equipo ---------- */
+let detVis = false, detId = null;
+function verDetalle(id, keepVis){
+  const x = items.find(i => i.id === id); if (!x) return;
+  if (!keepVis) detVis = false; detId = id;
+  const fila = (k, v, mono) => v ? `<div class="k">${esc(k)}</div><div class="v ${mono ? 'mono' : ''}">${v}</div>` : '';
+  const sec = s => `<div class="det-sec" style="grid-column:1/-1">${s}</div>`;
+  const oculto = v => v ? (detVis ? esc(v) : '••••••') : '';
+  const grupo = grupoDe(x);
+  const camposBase = [['tipo', esc(tTipo(x.tipo))], ['estado', x.estado ? `<span class="badge ${ESTADO_CLS[x.estado] || 'b-off'}">${esc(tEstado(x.estado))}</span>` : ''],
+    ['modelo', esc(x.modelo)], ['serial', esc(x.serial), 1], ['ip', x.ip ? `<a href="http://${esc(x.ip)}" target="_blank" rel="noopener">${esc(x.ip)}</a>` : '', 1], ['mac', esc(x.mac), 1],
+    ['lugar', esc(x.lugar)], ['direccion', x.direccion ? `<a href="${mapUrl(x.direccion)}" target="_blank" rel="noopener">📍 ${esc(x.direccion)}</a>` : ''],
+    ['usuario', esc(x.usuario), 1], ['password', oculto(x.password), 1]];
+  let html = camposBase.map(([f, v, m]) => fila(X_LABEL(f), v, m)).join('') + fila(t('group'), grupo ? '🗂 ' + esc(grupo.nombre) : '');
+  if (PC_TIPOS.includes(x.tipo)){
+    const persona = [x.first_name, x.last_name].filter(Boolean).join(' ');
+    html += sec(t('sec_user')) + fila(t('name'), esc(persona)) + fila(t('department'), esc(x.departamento)) + fila('Email', x.email ? `<a href="mailto:${esc(x.email)}">${esc(x.email)}</a>` : '') + fila(t('cell'), esc(x.celular));
+    html += sec(t('sec_pc')) + ['hostname','so','cpu','ram','disco','antivirus'].map(f => fila(X_LABEL(f), esc(x[f]), f === 'hostname')).join('')
+      + fila(t('warranty'), x.garantia ? badgeGarantia(x.garantia) : '')
+      + fila('AnyDesk', x.anydesk ? `<a href="anydesk:${esc(soloDigitos(x.anydesk))}">${esc(fmtAD(x.anydesk))}</a>` : '', 1) + fila(t('anydesk_pw'), oculto(x.anydesk_pw), 1)
+      + fila('Splashtop', x.splashtop ? esc(t('yn.' + x.splashtop)) : '') + fila(t('win_key'), oculto(x.win_key), 1) + fila(t('office_key'), oculto(x.office_key), 1);
+    const us = getUsers(x);
+    if (us.length || x.pc_admin) html += sec(t('sec_logins')) + us.map(u => fila('👤 ' + (u.user || '—'), oculto(u.pw), 1)).join('') + fila('🛡️ ' + (x.pc_admin || 'Admin'), oculto(x.pc_admin_pw) || (x.pc_admin ? '—' : ''), 1);
+    const vp = impresorasDePC(x);
+    const otras = [['🏷️', x.lbl_modelo, x.lbl_conexion, x.lbl_ip], ['🖨️', x.imp_modelo, x.imp_conexion, x.imp_ip]].filter(p => p[1]);
+    if (vp.length || otras.length) html += sec(t('det_linked_prn')) + vp.map(p => fila('🔗 ' + p.nombre, [p.conexion ? t('conn.' + p.conexion) : '', p.ip].filter(Boolean).map(esc).join(' · ') || '—')).join('')
+      + otras.map(([ic, m, c, ip]) => fila(ic + ' ' + m, [c ? t('conn.' + c) : '', ip].filter(Boolean).map(esc).join(' · ') || '—')).join('');
+  }
+  if (x.tipo === 'Impresora'){
+    html += sec(t('sec_printer')) + fila(t('prn_kind'), x.prn_tipo ? esc(t('pk.' + x.prn_tipo)) : '') + fila(t('connection'), x.conexion ? esc(t('conn.' + x.conexion)) : '');
+    const pcs = pcsDeImpresora(x);
+    if (pcs.length) html += fila(t('det_linked_pc'), pcs.map(p => `<a class="dev-link" onclick="verDetalle('${p.id}')">${esc(nombrePC(p))}</a>`).join(', '));
+  }
+  if (x.notas) html += sec(t('notes')) + `<div style="grid-column:1/-1;white-space:pre-wrap">${esc(x.notas)}</div>`;
+  const fecha = d => d ? new Date(d).toLocaleString(LANG === 'es' ? 'es-US' : 'en-US', { dateStyle: 'medium', timeStyle: 'short' }) : '';
+  if (x.created_at || x.updated_at) html += sec('ℹ️') + fila(t('det_created'), esc(fecha(x.created_at))) + fila(t('det_updated'), esc(fecha(x.updated_at)));
+  const tieneSecretos = SECRET_FIELDS.some(f => x[f]) || getUsers(x).some(u => u.pw);
+  const nh = (x.pw_history || []).length;
+  $('detBody').innerHTML = `<div class="det-head"><span class="det-ic">${TIPO_ICON[x.tipo] || '◆'}</span>
+      <div><h3>${esc(x.nombre)}</h3><div class="det-sub">${[x.ip, x.mac].filter(Boolean).map(esc).join(' · ') || esc(tTipo(x.tipo))}</div></div><span class="sp"></span>
+      ${tieneSecretos ? `<button class="sm" onclick="detVis=!detVis;verDetalle('${x.id}',true)" title="${t('t_view')}">👁</button>` : ''}
+      <button class="sm" onclick="cerrarDetalle()">✕</button></div>
+    <div class="kv">${html}</div>
+    <div class="det-actions">
+      <button onclick="cerrarDetalle();edit('${x.id}')"><span>✏️</span>${t('edit')}</button>
+      <button onclick="cerrarDetalle();dup('${x.id}')"><span>⧉</span>${t('t_dup')}</button>
+      <button onclick="showHistory('${x.id}')"><span>🕘</span>${t('det_hist')} (${nh})</button>
+      <button onclick="del('${x.id}')" style="color:var(--bad)"><span>🗑</span>${t('t_delete')}</button>
+    </div>`;
+  $('detail').classList.remove('hidden');
+}
+function cerrarDetalle(){ $('detail')?.classList.add('hidden'); detId = null; }
 function filtered(){
   const q = $('q').value.toLowerCase().trim(), fl = $('fLugar').value, fc = curCliente || $('fCliente').value, fg = $('fGrupo').value;
   return items.filter(x =>
-    (!fTipo || x.tipo === fTipo) && (!fl || x.lugar === fl) && (!fc || mismoCliente(x.cliente, fc)) && (!fg || x.grupo_id === fg) &&
+    (!fTipo || x.tipo === fTipo) && (!fl || x.lugar === fl) && (!fc || mismoCliente(x.cliente, fc)) && (!fg || x.grupo_id === fg) && pasaExtra(x) &&
     (!q || FIELDS.filter(f => !SECRET_FIELDS.includes(f)).some(f => String(x[f]||'').toLowerCase().includes(q)) || nrm(grupoDe(x)?.nombre).includes(q)
         || getUsers(x).some(u => String(u.user || '').toLowerCase().includes(q)))
   ).sort((a,b) => {
@@ -1808,7 +2094,7 @@ function render(){
     return `<tr>
     <td class="no-print sel-col"><input type="checkbox" class="rowsel" data-id="${x.id}" ${sel.has(x.id) ? 'checked' : ''} onclick="selUno(this)"></td>
     <td class="client"><b>${esc(x.cliente)}</b></td><td class="addr">${x.direccion ? `<a href="${mapUrl(x.direccion)}" target="_blank" rel="noopener" title="${esc(x.direccion)} · ${t('t_openmap')}">📍 ${esc(x.direccion)}</a>` : ''}</td>
-    <td><span class="type">${TIPO_ICON[x.tipo] || '◆'} ${esc(tTipo(x.tipo))}</span></td><td>${esc(x.nombre)}</td><td>${grupoDe(x) ? `<span class="g-chip" onclick="openGrupos('${x.grupo_id}')">🗂 ${esc(grupoDe(x).nombre)}</span>` : ''}</td><td>${esc(x.lugar)}</td><td>${esc(x.modelo)}</td>
+    <td><span class="type">${TIPO_ICON[x.tipo] || '◆'} ${esc(tTipo(x.tipo))}</span></td><td><a class="dev-link" onclick="verDetalle('${x.id}')">${esc(x.nombre)}</a></td><td>${grupoDe(x) ? `<span class="g-chip" onclick="openGrupos('${x.grupo_id}')">🗂 ${esc(grupoDe(x).nombre)}</span>` : ''}</td><td>${esc(x.lugar)}</td><td>${esc(x.modelo)}</td>
     <td class="mono">${esc(x.serial)}</td>
     <td class="mono ip">${x.ip ? `<a href="http://${esc(x.ip)}" target="_blank" rel="noopener">${esc(x.ip)}</a>` : ''}</td>
     <td class="mono">${esc(x.mac)}</td><td class="mono">${esc(x.usuario)}</td><td class="mono">${pw}</td>
@@ -1828,12 +2114,13 @@ function render(){
   $('kActivos').textContent = base.filter(x => x.estado === 'Activo').length;
   $('kRep').textContent = base.filter(x => x.estado === 'En reparación').length;
   mostrarVista();
+  renderDash();
   actualizarSel();
   document.querySelectorAll('th[data-k]').forEach(th => {
     th.textContent = (th.dataset.i18n ? t(th.dataset.i18n) : th.textContent.replace(/ [▲▼]$/,'')) + (th.dataset.k===sortK ? (sortDir>0?' ▲':' ▼') : '');
   });
 }
-function setTipo(t){ fTipo = t; render(); }
+function setTipo(t){ fTipo = t; fCat = ''; fAlert = ''; vista = 'list'; render(); }
 /* ---------- Selección múltiple ---------- */
 let sel = new Set();
 function actualizarSel(){

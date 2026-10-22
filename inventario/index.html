@@ -456,6 +456,9 @@ a.dev-link:hover{color:var(--c1);text-decoration:underline}
 .det-actions button{border:0;border-radius:0;border-right:1px solid var(--line);padding:14px 6px;font-size:12px;display:flex;flex-direction:column;align-items:center;gap:4px;background:none}
 .det-actions button:last-child{border-right:0}
 .det-actions button span{font-size:18px}
+#clientView.sin-dev [onclick="nuevoEquipo()"],#clientView.sin-dev .ov-empty [onclick="nuevoEquipo()"]{display:none!important}
+#clientView.sin-net [onclick="nuevoEquipoRed()"]{display:none!important}
+.svc-unlock{grid-column:1/-1;margin:-4px 0 2px;font-size:12px;color:var(--muted)}
 /* ===== Inventario de Network ===== */
 #netBox .legacy-isp{display:none}
 .wan-box{margin-top:12px;border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--card)}
@@ -619,7 +622,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v5.4</p>
+    <p class="sub">Network Asset Manager · v5.6</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -635,7 +638,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v5.4</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v5.6</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -914,6 +917,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
         <label class="full">Email<input id="cm_email" type="email" autocomplete="off" placeholder="name@company.com"></label>
         <label class="full"><span data-i18n="notes">Notes</span><textarea id="cm_notas"></textarea></label>
         <div class="sec full" style="grid-column:1/-1;margin:6px 0 0"><span data-i18n="svc_title">Services we provide</span></div>
+        <div class="svc-unlock" data-i18n="svc_unlock">Each active service unlocks its device types in this client.</div>
         <div id="cm_svc" class="svc-grid"></div>
       </div>
       <div class="row" style="margin-top:16px">
@@ -1205,13 +1209,15 @@ es:{
   copied:'Copiado ✓', ask_client:'Algunas filas no tienen cliente. ¿A qué cliente pertenecen estos equipos?'
 }};
 Object.assign(I18N.en, {
+  svc_unlock:'Each active service unlocks its device types in this client (with no services, everything is allowed).',
+  svc_locked:'No active service for that kind of device. Turn on the service in Edit client.',
   wan_title:'WAN / Multi-WAN', wan_help:'One row per internet line that enters this device', wan_add:'＋ Add WAN', wan_port:'Port', wan_isp:'Provider',
   wan_conn:'Connection', wan_mode:'Mode', wan_ip:'Public IP', wan_speed:'Speed (down/up)', wan_speed_ph:'1000/35', wan_acct:'Account #', wan_via:'Through modem',
   'wm.principal':'Primary', 'wm.respaldo':'Failover / backup', 'wm.balanceo':'Load balance',
   'wc.Fibra':'Fiber', 'wc.Cable':'Cable', 'wc.DSL':'DSL', 'wc.LTE/5G':'LTE / 5G', 'wc.Starlink':'Starlink', 'wc.Inalámbrico fijo':'Fixed wireless', 'wc.Otro':'Other',
   multiwan:'Multi-WAN', wan_feeds:'Feeds', net_internet:'Internet', wan_none:'No WAN registered yet — edit the router, firewall or modem to add it.', fl_wans:'WAN',
   wan_missing:'The WAN lines were not saved: run supabase-wan.sql in Supabase first. The rest was saved.', 'fl.wans':'WAN',
-  'tipo.Módem':'Modem', 'tipo.Firewall':'Firewall', 'tipo.Extensor WiFi':'Wi-Fi Extender / Mesh', 'tipo.Antena':'Antenna / PtP', 'tipo.Patch Panel':'Patch Panel',
+  'tipo.Módem':'Modem', 'tipo.Firewall':'Firewall', 'tipo.Extensor WiFi':'Wi-Fi Extender / Mesh', 'tipo.Antena':'Antenna / PtP',
   net_inv:'Network', net_title:'Network inventory', net_sub:'Everything that gives connectivity: internet, firewall, routing, switching and Wi-Fi',
   net_all:'All', net_add:'＋ Add network device', net_empty:'No network devices yet.', sec_net:'Network',
   isp:'Internet provider (ISP)', isp_ph:'e.g. Comcast Business', cuenta_isp:'ISP account / circuit #', ip_publica:'Public / static IP', ssid:'Wi-Fi name (SSID)',
@@ -1266,13 +1272,15 @@ Object.assign(I18N.en, {
   'fl.ip':'IP', 'fl.mac':'MAC', 'fl.cliente':'Client', 'fl.direccion':'Address', 'fl.grupo_id':'Group', 'fl.pc_ids':'Linked PCs', 'fl.pc_users':'Users', 'fl.nombre':'Name', 'fl.contacto':'Contact', 'fl.telefono':'Phone', 'fl.email':'Email', 'fl.notas':'Notes',
 });
 Object.assign(I18N.es, {
+  svc_unlock:'Cada servicio activo desbloquea sus tipos de equipo en este cliente (sin servicios, se permite todo).',
+  svc_locked:'No hay un servicio activo para ese tipo de equipo. Actívalo en Editar cliente.',
   wan_title:'WAN / Multi-WAN', wan_help:'Una fila por cada línea de internet que entra a este equipo', wan_add:'＋ Agregar WAN', wan_port:'Puerto', wan_isp:'Proveedor',
   wan_conn:'Conexión', wan_mode:'Modo', wan_ip:'IP pública', wan_speed:'Velocidad (bajada/subida)', wan_speed_ph:'1000/35', wan_acct:'Cuenta #', wan_via:'Por el módem',
   'wm.principal':'Principal', 'wm.respaldo':'Respaldo (failover)', 'wm.balanceo':'Balanceo',
   'wc.Fibra':'Fibra', 'wc.Cable':'Cable', 'wc.DSL':'DSL', 'wc.LTE/5G':'LTE / 5G', 'wc.Starlink':'Starlink', 'wc.Inalámbrico fijo':'Inalámbrico fijo', 'wc.Otro':'Otro',
   multiwan:'Multi-WAN', wan_feeds:'Alimenta', net_internet:'Internet', wan_none:'Todavía no hay WAN registrado: edita el router, firewall o módem para agregarlo.', fl_wans:'WAN',
   wan_missing:'Las líneas WAN no se guardaron: primero corre supabase-wan.sql en Supabase. Lo demás sí se guardó.', 'fl.wans':'WAN',
-  'tipo.Módem':'Módem', 'tipo.Firewall':'Firewall', 'tipo.Extensor WiFi':'Extensor WiFi / Mesh', 'tipo.Antena':'Antena / PtP', 'tipo.Patch Panel':'Patch Panel',
+  'tipo.Módem':'Módem', 'tipo.Firewall':'Firewall', 'tipo.Extensor WiFi':'Extensor WiFi / Mesh', 'tipo.Antena':'Antena / PtP',
   net_inv:'Network', net_title:'Inventario de Network', net_sub:'Todo lo que da conectividad: internet, firewall, ruteo, switches y Wi-Fi',
   net_all:'Todos', net_add:'＋ Agregar equipo de red', net_empty:'Todavía no hay equipos de red.', sec_net:'Red',
   isp:'Proveedor de internet (ISP)', isp_ph:'ej. Comcast Business', cuenta_isp:'Cuenta / circuito del ISP', ip_publica:'IP pública / estática', ssid:'Nombre del Wi-Fi (SSID)',
@@ -1327,7 +1335,7 @@ Object.assign(I18N.es, {
   'fl.ip':'IP', 'fl.mac':'MAC', 'fl.cliente':'Cliente', 'fl.direccion':'Dirección', 'fl.grupo_id':'Grupo', 'fl.pc_ids':'PC vinculadas', 'fl.pc_users':'Usuarios', 'fl.nombre':'Nombre', 'fl.contacto':'Contacto', 'fl.telefono':'Teléfono', 'fl.email':'Email', 'fl.notas':'Notas',
 });
 // Equipos de red, en orden desde internet hacia adentro
-const NET_TIPOS = ['Módem','Firewall','Router','Switch','Access Point','Extensor WiFi','Antena','Patch Panel'];
+const NET_TIPOS = ['Módem','Firewall','Router','Switch','Access Point','Extensor WiFi','Antena'];
 const NET_FIELDS = ['isp','cuenta_isp','ip_publica','ssid','firmware','puertos','conectado_a'];
 const WAN_TIPOS = ['Módem','Firewall','Router'];          // equipos que reciben internet (WAN / Multi-WAN)
 const WAN_CONEX = ['Fibra','Cable','DSL','LTE/5G','Starlink','Inalámbrico fijo','Otro'];
@@ -1800,6 +1808,8 @@ function renderClienteHead(){
     c.contacto ? `👤 ${esc(c.contacto)}` : '', c.telefono ? `📞 <a href="tel:${esc(String(c.telefono).replace(/[^\d+]/g, ''))}">${esc(c.telefono)}</a>` : '',
     c.email ? `✉️ <a href="mailto:${esc(c.email)}">${esc(c.email)}</a>` : ''].filter(Boolean).join(' &nbsp;·&nbsp; ');
   renderSvcBar();
+  $('clientView').classList.toggle('sin-dev', !permiteDev(curCliente));
+  $('clientView').classList.toggle('sin-net', !permiteNet(curCliente));
 }
 function mostrarVista(){
   const enCliente = !!curCliente, act = ACT.open;
@@ -1831,10 +1841,18 @@ function abrirDrawer(titulo){ $('drawerTitle').textContent = titulo; $('drawer')
 function cerrarDrawer(){ $('drawer')?.classList.add('hidden'); }
 // El formulario muestra solo los tipos del botón que se usó: equipos de red o equipos normales
 let formModo = 'dev';
-const tiposForm = () => formModo === 'net' ? NET_TIPOS : TIPOS.filter(k => !NET_TIPOS.includes(k));
-function ponerModo(m){ formModo = m; fillOptions($('tipo'), tiposForm(), tTipo); }
+let tipoActual = '';   // al editar: el tipo que ya tiene el equipo siempre aparece
+const tiposForm = () => {
+  const base = formModo === 'net' ? NET_TIPOS : TIPOS.filter(k => !NET_TIPOS.includes(k));
+  const P = tiposPermitidos(curCliente);
+  const l = base.filter(k => !P || P.has(k));
+  if (tipoActual && base.includes(tipoActual) && !l.includes(tipoActual)) l.push(tipoActual);
+  return l.length ? l : base;
+};
+function ponerModo(m, actual = ''){ formModo = m; tipoActual = actual; fillOptions($('tipo'), tiposForm(), tTipo); }
 function nuevoEquipo(){
   if (!puede('editar')) { return; }
+  if (curCliente && !permiteDev(curCliente)) return toast(t('svc_locked'));
   ponerModo('dev'); resetForm(); updateMarcas(); abrirDrawer(t('add_device'));
   setTimeout(() => $('nombre').focus(), 50);
 }
@@ -1932,7 +1950,8 @@ function renderNet(base){
 }
 function nuevoEquipoRed(){
   if (!puede('editar')) return;
-  ponerModo('net'); resetForm(); $('tipo').value = netTab || 'Router'; updateMarcas();
+  if (curCliente && !permiteNet(curCliente)) return toast(t('svc_locked'));
+  ponerModo('net'); resetForm(); if (tiposForm().includes(netTab || 'Router')) $('tipo').value = netTab || 'Router'; updateMarcas();
   abrirDrawer(t('net_add').replace('＋', '').trim()); setTimeout(() => $('nombre').focus(), 50);
 }
 /* ---------- Servicios por cliente ---------- */
@@ -1960,6 +1979,21 @@ function svcCubre(S, conf, x){
   if (S.tipos) return S.tipos.includes(x.tipo);
   return S.cats.includes(catDe(x.tipo));
 }
+// Tipos de equipo que desbloquean los servicios activos del cliente (null = sin servicios: se permite todo)
+function tiposPermitidos(cli){
+  if (!cli) return null;
+  const c = clienteObj(cli) || { nombre: cli }, v = svcDe(c), act = svcActivos(c);
+  if (!act.length) return null;
+  const P = new Set();
+  act.forEach(S => {
+    if (S.k === 'it') TIPOS.forEach(tp => { if (!(v.it?.excl || []).includes(catDe(tp))) P.add(tp); });
+    else if (S.tipos) S.tipos.forEach(tp => P.add(tp));
+    else S.cats.forEach(k => CATS[k].forEach(tp => P.add(tp)));
+  });
+  return P;
+}
+const permiteDev = cli => { const P = tiposPermitidos(cli); return !P || TIPOS.some(k => !NET_TIPOS.includes(k) && P.has(k)); };
+const permiteNet = cli => { const P = tiposPermitidos(cli); return !P || NET_TIPOS.some(k => P.has(k)); };
 function cubierto(c, x){ const v = svcDe(c); return SERVICIOS.some(S => v[S.k] && svcCubre(S, v[S.k], x)); }
 function svcSinIT(conf){ const ex = (conf?.excl || []); return ex.length ? t('svc_without', { x: IT_COV.filter(([k]) => ex.includes(k)).map(([, l]) => t(l).toLowerCase()).join(', ') }) : ''; }
 // Barra de servicios dentro del cliente
@@ -2286,7 +2320,7 @@ function resetForm(afterSave){
 function edit(id){
   if (!puede('editar')) { return; }
   const x = items.find(i => i.id === id); if(!x) return;
-  ponerModo(NET_TIPOS.includes(x.tipo) ? 'net' : 'dev');
+  ponerModo(NET_TIPOS.includes(x.tipo) ? 'net' : 'dev', x.tipo);
   unlockAll();
   FIELDS.forEach(f => $(f).value = x[f] || '');
   NET_FIELDS.forEach(f => { $(f).value = x[f] || ''; if (f === 'conectado_a') $(f).dataset.v = x[f] || ''; });
@@ -2395,7 +2429,7 @@ function renderDash(){
   const listaTodo = vista === 'list' && !fTipo && !fCat && !fAlert && !fgv && !fPred;
   $('dashSide').innerHTML =
     it("irA('ov')", `📊 ${t('ov')}`, vista === 'ov') +
-    it("irA('net')", `🌐 ${t('net_inv')}<span class="n">${base.filter(x => NET_TIPOS.includes(x.tipo)).length}</span>`, vista === 'net') +
+    ((!permiteNet(curCliente) && !base.some(x => NET_TIPOS.includes(x.tipo))) ? '' : it("irA('net')", `🌐 ${t('net_inv')}<span class="n">${base.filter(x => NET_TIPOS.includes(x.tipo)).length}</span>`, vista === 'net')) +
     it("irA('list')", `🗂 ${t('all_devices')}<span class="n">${base.length}</span>`, listaTodo) +
     (Object.keys(cuenta).length ? `<div class="ds-sec">${t('d_types')}</div>` + ORDEN_TIPOS.filter(k => cuenta[k]).map(k =>
       it(`irA('list',{tipo:'${jsq(k)}'})`, `${TIPO_ICON[k] || '◆'} ${esc(tTipo(k))}<span class="n">${cuenta[k]}</span>`, vista === 'list' && fTipo === k)).join('') : '') +
@@ -2430,13 +2464,16 @@ function renderOverview(base){
   const enCat = k => base.filter(x => CATS[k].includes(x.tipo)).length;
   const nAlert = A.dup.size + A.war.length + A.noip.length;
   const tile = (on, ic, n, lbl, cls = '') => `<div class="tile ${cls}" onclick="${on}"><span class="ic">${ic}</span><b>${n}</b><span>${lbl}</span></div>`;
+  // Con servicios: cada mosaico sale si hay equipos o si el servicio lo desbloquea. Sin servicios: como siempre.
+  const PT = tiposPermitidos(curCliente);
+  const verCat = (k, siempre) => enCat(k) > 0 || (PT ? CATS[k].some(tp => PT.has(tp)) : siempre);
   const tiles = [
     tile("irA('list')", '🗂', N, t('t_total')),
-    tile("irA('list',{cat:'comp'})", '🖥️', enCat('comp'), t('t_computers')),
-    tile("irA('list',{cat:'prn'})", '🖨️', enCat('prn'), t('t_printers')),
-    tile("irA('net')", '🌐', enCat('net'), t('t_network')),
-    enCat('cctv') ? tile("irA('list',{cat:'cctv'})", '📹', enCat('cctv'), t('t_cctv')) : '',
-    enCat('tel') ? tile("irA('list',{cat:'tel'})", '📞', enCat('tel'), t('t_phones')) : '',
+    verCat('comp', true) ? tile("irA('list',{cat:'comp'})", '🖥️', enCat('comp'), t('t_computers')) : '',
+    verCat('prn', true) ? tile("irA('list',{cat:'prn'})", '🖨️', enCat('prn'), t('t_printers')) : '',
+    verCat('net', true) ? tile("irA('net')", '🌐', enCat('net'), t('t_network')) : '',
+    verCat('cctv', false) ? tile("irA('list',{cat:'cctv'})", '📹', enCat('cctv'), t('t_cctv')) : '',
+    verCat('tel', false) ? tile("irA('list',{cat:'tel'})", '📞', enCat('tel'), t('t_phones')) : '',
     tile("irA('list',{alert:'rep'})", '🔧', A.rep.length, t('a_rep'), A.rep.length ? 'warn' : 'dim'),
     tile(A.dup.size ? "irA('list',{alert:'dup'})" : A.war.length ? "irA('list',{alert:'war'})" : "irA('list',{alert:'noip'})", '⚠️', nAlert, t('d_alerts'), nAlert ? 'bad' : 'dim')
   ].join('');
@@ -2753,7 +2790,7 @@ const uniq = k => [...new Set(items.map(x => x[k]).filter(Boolean))].sort((a,b)=
 
 const TIPO_ICON = { 'DVR':'📹','NVR':'📹','Cámara':'📷','PC':'🖥️','Laptop':'💻','Teléfono':'📞','Router':'📡',
   'Switch':'🔀','Access Point':'📶','Impresora':'🖨️','Servidor':'🗄️','Control de Acceso':'🔐','Otro':'◆',
-  'Módem':'🌐','Firewall':'🛡️','Extensor WiFi':'🔁','Antena':'🛰️','Patch Panel':'🔌' };
+  'Módem':'🌐','Firewall':'🛡️','Extensor WiFi':'🔁','Antena':'🛰️' };
 /* ---------- Dirección: autocompletar (OpenStreetMap / Photon, gratis) + Google Maps ---------- */
 const BIAS = { lat: 25.79, lon: -80.33 }; // Prioriza resultados en el Sur de Florida
 const US_ST = {Alabama:'AL',Alaska:'AK',Arizona:'AZ',Arkansas:'AR',California:'CA',Colorado:'CO',Connecticut:'CT',Delaware:'DE',
@@ -2915,7 +2952,6 @@ const MARCAS = {
   'Firewall': ['Fortinet FortiGate','SonicWall','Sophos','Palo Alto','Cisco Meraki MX','WatchGuard','Netgate pfSense','Ubiquiti UniFi Gateway','Check Point','Barracuda'],
   'Extensor WiFi': ['TP-Link Deco','Eero','Netgear Orbi','Google Nest Wifi','Ubiquiti UniFi Express','Asus ZenWiFi','Linksys Velop','TP-Link RE'],
   'Antena': ['Ubiquiti airMAX','Ubiquiti UniFi Building Bridge','Ubiquiti LTU','Ubiquiti airFiber','Cambium','MikroTik','Mimosa','TP-Link Pharos','Siklu'],
-  'Patch Panel': ['Panduit','Leviton','Tripp Lite','Belden','CommScope','Monoprice','Cable Matters','StarTech'],
   'Access Point': ['Ubiquiti UniFi','Aruba Instant On','Cisco Meraki','Ruckus','TP-Link Omada','EnGenius','Netgear','Fortinet FortiAP','Grandstream','Cambium'],
   'Impresora': ['HP','Canon','Epson','Brother','Xerox','Lexmark','Ricoh','Kyocera','Konica Minolta','Sharp','Zebra','Dymo'],
   'Servidor': ['Dell PowerEdge','HPE ProLiant','Lenovo ThinkSystem','Supermicro','Synology','QNAP','Cisco UCS','TrueNAS','Asustor'],

@@ -430,7 +430,7 @@ a.dev-link:hover{color:var(--c1);text-decoration:underline}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v4.0</p>
+    <p class="sub">Network Asset Manager · v4.1</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -446,7 +446,7 @@ a.dev-link:hover{color:var(--c1);text-decoration:underline}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v4.0</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v4.1</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -1310,7 +1310,7 @@ function mostrarVista(){
   if (enCliente) renderClienteHead(); else renderClientes();
 }
 function abrirCliente(n){
-  curCliente = n; fTipo = ''; vista = 'ov'; fAlert = ''; fCat = ''; sel.clear(); $('q').value = ''; $('fGrupo').value = ''; $('fLugar').value = '';
+  curCliente = n; fTipo = ''; vista = 'ov'; fAlert = ''; fCat = ''; fPred = null; sel.clear(); $('q').value = ''; $('fGrupo').value = ''; $('fLugar').value = '';
   try{ history.pushState({ c: n }, '', '#c=' + encodeURIComponent(n)); }catch(e){}
   render(); window.scrollTo({ top: 0 });
 }
@@ -1628,7 +1628,10 @@ function copyPw(id){
 
 /* ---------- Tabla ---------- */
 /* ---------- Dashboard del cliente ---------- */
-let vista = 'ov', fAlert = '', fCat = '';
+let vista = 'ov', fAlert = '', fCat = '', fPred = null;
+// Filtros exactos de las barras del dashboard: cada barra guarda {label, fn}
+let DASH_F = [];
+const barF = (label, fn) => { DASH_F.push({ label, fn }); return `irA('list',{f:${DASH_F.length - 1}})`; };
 const CATS = { comp:['PC','Laptop','Servidor'], prn:['Impresora'], net:['Router','Switch','Access Point'], cctv:['DVR','NVR','Cámara'], tel:['Teléfono'], acc:['Control de Acceso'] };
 const ORDEN_TIPOS = ['PC','Laptop','Servidor','Impresora','Router','Switch','Access Point','DVR','NVR','Cámara','Teléfono','Control de Acceso','Otro'];
 const necesitaIP = x => ['PC','Laptop','Servidor','Router','Switch','Access Point','DVR','NVR','Cámara'].includes(x.tipo) || (x.tipo === 'Impresora' && usaIP(x.conexion));
@@ -1646,6 +1649,7 @@ function calcAlertas(base){
 let ALERTAS = null;
 function pasaExtra(x){
   if (fCat && !CATS[fCat].includes(x.tipo)) return false;
+  if (fPred && !fPred.fn(x)) return false;
   if (fAlert && ALERTAS){
     if (fAlert === 'dup') return ALERTAS.dup.has(x.id);
     if (fAlert === 'war') return !!x.garantia && diasHasta(x.garantia) <= 60;
@@ -1655,7 +1659,7 @@ function pasaExtra(x){
   return true;
 }
 function irA(v, o = {}){
-  vista = v; fTipo = o.tipo || ''; fCat = o.cat || ''; fAlert = o.alert || '';
+  vista = v; fTipo = o.tipo || ''; fCat = o.cat || ''; fAlert = o.alert || ''; fPred = o.f != null ? DASH_F[o.f] || null : null;
   $('fGrupo').value = o.grupo || ''; $('q').value = o.q || ''; $('fLugar').value = '';
   render(); window.scrollTo({ top: 0 });
 }
@@ -1683,7 +1687,7 @@ function renderDash(){
   const cuenta = {}; base.forEach(x => cuenta[x.tipo] = (cuenta[x.tipo] || 0) + 1);
   const gr = grupos.filter(g => mismoCliente(g.cliente, curCliente));
   const it = (on, html, act, cls = '') => `<div class="ds-item ${act ? 'on' : ''} ${cls}" onclick="${on}">${html}</div>`;
-  const listaTodo = vista === 'list' && !fTipo && !fCat && !fAlert && !fgv;
+  const listaTodo = vista === 'list' && !fTipo && !fCat && !fAlert && !fgv && !fPred;
   $('dashSide').innerHTML =
     it("irA('ov')", `📊 ${t('ov')}`, vista === 'ov') +
     it("irA('list')", `🗂 ${t('all_devices')}<span class="n">${base.length}</span>`, listaTodo) +
@@ -1702,13 +1706,13 @@ function renderDash(){
   $('ovView').classList.toggle('hidden', vista !== 'ov');
   $('listView').classList.toggle('hidden', vista !== 'list');
   // Subtítulo de la lista según el filtro
-  const sub = fTipo ? tTipo(fTipo) : fCat ? t({ comp:'t_computers', prn:'t_printers', net:'t_network', cctv:'t_cctv', tel:'t_phones', acc:'t_access' }[fCat])
+  const sub = fPred ? fPred.label : fTipo ? tTipo(fTipo) : fCat ? t({ comp:'t_computers', prn:'t_printers', net:'t_network', cctv:'t_cctv', tel:'t_phones', acc:'t_access' }[fCat])
     : fAlert ? t('a_' + fAlert) : fgv ? '🗂 ' + (grupoDe({ grupo_id: fgv })?.nombre || '') : '';
   $('listSub').textContent = sub ? '· ' + sub : '';
   if (vista === 'ov') renderOverview(base);
 }
 function renderOverview(base){
-  const A = ALERTAS, N = base.length;
+  const A = ALERTAS, N = base.length; DASH_F = [];
   if (!N){
     $('ovView').innerHTML = `<div class="panel ov-empty"><div style="font-size:40px">📦</div><p>${t('dash_empty')}</p>
       <div class="row"><button class="primary" onclick="nuevoEquipo()">＋ ${t('add_device')}</button><button onclick="document.getElementById('fileIn').click()">📥 ${t('import_excel')}</button></div></div>`;
@@ -1732,16 +1736,19 @@ function renderOverview(base){
   const tiposRows = Object.entries(cuenta).sort((a, b) => b[1] - a[1]).map(([k, n]) => ({ label: tTipo(k), icon: TIPO_ICON[k] || '◆', n, on: `irA('list',{tipo:'${jsq(k)}'})` }));
   // Estado (colores de estado + ícono + texto)
   const EST = [['Activo','🟢','var(--ok)'],['En reparación','🟡','var(--warn)'],['Inactivo','⚪','var(--off)'],['Dado de baja','🔴','var(--bad)']];
-  const estRows = EST.map(([k, ic, c]) => ({ label: tEstado(k), icon: ic, color: c, n: base.filter(x => x.estado === k).length, on: k === 'En reparación' ? "irA('list',{alert:'rep'})" : `irA('list',{q:'${jsq(k)}'})` })).filter(r => r.n);
+  const estRows = EST.map(([k, ic, c]) => ({ label: tEstado(k), icon: ic, color: c, n: base.filter(x => x.estado === k).length, on: barF(ic + ' ' + tEstado(k), x => x.estado === k) })).filter(r => r.n);
   // Sistemas operativos (solo computadoras)
   const comps = base.filter(x => CATS.comp.includes(x.tipo));
-  const os = topN(comps.map(x => x.so || ''), 6);
-  const osRows = os.top.map(([k, n]) => ({ label: k, n, on: `irA('list',{q:'${jsq(k)}'})` }));
-  if (os.resto) osRows.push({ label: t('other'), n: os.resto, on: "irA('list',{cat:'comp'})" });
+  const esComp = x => CATS.comp.includes(x.tipo);
+  const soDe = x => String(x.so || '').trim();
+  const os = topN(comps.map(soDe), 6), osTop = os.top.map(([k]) => k);
+  const osRows = os.top.map(([k, n]) => ({ label: k, n, on: barF('🪟 ' + k, x => esComp(x) && soDe(x) === k) }));
+  if (os.resto) osRows.push({ label: t('other'), n: os.resto, on: barF('🪟 ' + t('other'), x => esComp(x) && soDe(x) && !osTop.includes(soDe(x))) });
   // Departamentos
-  const dp = topN(comps.map(x => titulo(String(x.departamento || '').trim().toLowerCase())), 7);
-  const dpRows = dp.top.map(([k, n]) => ({ label: k, n, on: `irA('list',{q:'${jsq(k)}'})` }));
-  if (dp.resto) dpRows.push({ label: t('other'), n: dp.resto, on: "irA('list',{cat:'comp'})" });
+  const dpDe = x => titulo(String(x.departamento || '').trim().toLowerCase()).trim();
+  const dp = topN(comps.map(dpDe), 7), dpTop = dp.top.map(([k]) => k);
+  const dpRows = dp.top.map(([k, n]) => ({ label: k, n, on: barF('🏢 ' + k, x => esComp(x) && dpDe(x) === k) }));
+  if (dp.resto) dpRows.push({ label: t('other'), n: dp.resto, on: barF('🏢 ' + t('other'), x => esComp(x) && dpDe(x) && !dpTop.includes(dpDe(x))) });
   // Recientes
   const recientes = [...base].sort((a, b) => String(b.created_at || '').localeCompare(String(a.created_at || ''))).slice(0, 7);
   const lmDev = x => `<div class="lm" onclick="verDetalle('${x.id}')"><span class="ic">${TIPO_ICON[x.tipo] || '◆'}</span><span class="nm">${esc(x.nombre)}</span><span class="mt">${esc(x.ip || tTipo(x.tipo))}</span></div>`;
@@ -2120,7 +2127,7 @@ function render(){
     th.textContent = (th.dataset.i18n ? t(th.dataset.i18n) : th.textContent.replace(/ [▲▼]$/,'')) + (th.dataset.k===sortK ? (sortDir>0?' ▲':' ▼') : '');
   });
 }
-function setTipo(t){ fTipo = t; fCat = ''; fAlert = ''; vista = 'list'; render(); }
+function setTipo(t){ fTipo = t; fCat = ''; fAlert = ''; fPred = null; vista = 'list'; render(); }
 /* ---------- Selección múltiple ---------- */
 let sel = new Set();
 function actualizarSel(){

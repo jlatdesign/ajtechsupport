@@ -456,6 +456,40 @@ a.dev-link:hover{color:var(--c1);text-decoration:underline}
 .det-actions button{border:0;border-radius:0;border-right:1px solid var(--line);padding:14px 6px;font-size:12px;display:flex;flex-direction:column;align-items:center;gap:4px;background:none}
 .det-actions button:last-child{border-right:0}
 .det-actions button span{font-size:18px}
+/* ===== Permisos por usuario ===== */
+body:not(.p-roles) .solo-roles{display:none!important}
+body.p-noadm [onclick*="abrirClienteModal"],body.p-noadm .site-card.add,body.p-noadm [onclick="abrirUsuarios()"]{display:none!important}
+body.p-ro [onclick="nuevoEquipo()"],body.p-ro [onclick*="edit('"],body.p-ro [onclick*="dup('"],body.p-ro [onclick*="del('"],
+body.p-ro [onclick*="getElementById('fileIn')"],body.p-ro [onclick="openGrupos()"],body.p-ro [onclick="borrarSel()"],
+body.p-ro #devTable .sel-col,body.p-ro #selBar,body.p-ro .ov-empty .row{display:none!important}
+body.p-ro .g-chip{pointer-events:none}
+body.p-nopw [onclick*="showHistory("],body.p-nopw [onclick*="reveal("],body.p-nopw [onclick*="copyPw("],body.p-nopw [onclick*="copyUserPw("],
+body.p-nopw [onclick^="detVis"],body.p-nopw label.check:has(#showPw),body.p-nopw #form label:has(input.secret),body.p-nopw #form label:has(#password),
+body.p-nopw #form label:has(.u-pw){display:none!important}
+.role-badge{font:600 10px "JetBrains Mono",monospace;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:999px;background:var(--row-hover);color:var(--c1)}
+.modal-card.wide{max-width:860px}
+.u-help{border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--row-hover);font-size:13px;line-height:1.55;margin-bottom:14px}
+.u-help ol{margin:6px 0 0;padding-left:20px}
+.u-help code{font:12px "JetBrains Mono",monospace;background:var(--card-solid);padding:1px 5px;border-radius:5px;border:1px solid var(--line)}
+.u-card{border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:10px;background:var(--card-solid)}
+.u-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.u-head b{font-size:14px}
+.u-head small{color:var(--muted);font-size:12px}
+.u-head .sp{flex:1}
+.u-seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-top:10px}
+.u-seg button{border:0;border-radius:0;padding:6px 12px;font-size:12.5px;background:transparent;color:var(--muted);box-shadow:none}
+.u-seg button.on{background:var(--c1);color:#fff;font-weight:600}
+.u-seg button:disabled{opacity:.4;cursor:not-allowed}
+.u-cli{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.u-cli button{padding:4px 10px;font-size:12px;border-radius:999px;box-shadow:none;color:var(--muted)}
+.u-cli button.on{border-color:var(--c1);color:var(--c1);background:color-mix(in srgb,var(--c1) 10%,transparent);font-weight:600}
+.u-opts{display:flex;gap:16px;flex-wrap:wrap;margin-top:10px;align-items:center}
+.u-opts label{flex-direction:row;align-items:center;gap:6px;font-size:13px;color:var(--text);font-weight:400}
+.u-opts input{width:auto;margin:0}
+.u-foot{display:flex;align-items:center;gap:10px;margin-top:12px}
+.u-foot .msg{font-size:12px;color:var(--muted)}
+.u-foot .msg.ok{color:var(--ok)}.u-foot .msg.bad{color:var(--bad)}
+.no-access{max-width:520px;margin:40px auto;text-align:center;padding:30px}
 /* ===== Servicios por cliente ===== */
 .svc-ic{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
 .sc-svc{display:flex;gap:6px;min-height:26px;margin-top:10px;flex-wrap:wrap}
@@ -550,7 +584,7 @@ a.dev-link:hover{color:var(--c1);text-decoration:underline}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v4.6</p>
+    <p class="sub">Network Asset Manager · v5.0</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -566,7 +600,7 @@ a.dev-link:hover{color:var(--c1);text-decoration:underline}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v4.6</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v5.0</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -577,11 +611,12 @@ a.dev-link:hover{color:var(--c1);text-decoration:underline}
     <button id="migrarBtn" class="hidden" onclick="migrarLocal()" data-i18n="upload_local">Upload local data</button>
     <button class="icon-btn" onclick="window.print()" data-i18n-title="t_print">⎙</button>
     <button class="icon-btn" onclick="toggleTheme()" data-i18n-title="t_theme">🌓</button>
+    <button class="solo-roles" onclick="abrirUsuarios()" data-i18n-title="t_users">👥 <span data-i18n="users">Users</span></button>
     <button onclick="abrirActividad()" data-i18n-title="t_activity">📜 <span data-i18n="activity">Activity</span></button>
     <button onclick="openGrupos()" data-i18n-title="t_groups">🗂 <span data-i18n="groups">Groups</span></button>
     <button class="icon-btn" onclick="cambiarPassword()" data-i18n-title="t_changepw">🔑</button>
     <div class="lang"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
-    <span class="user-chip"><span class="dot"></span><span id="whoami"></span></span>
+    <span class="user-chip"><span class="dot"></span><span id="whoami"></span><span id="whoRole" class="role-badge solo-roles"></span></span>
     <button onclick="logout()" data-i18n-title="t_logout"><span data-i18n="logout">Log out ⏻</span></button>
   </div>
 </header>
@@ -1116,6 +1151,13 @@ es:{
   copied:'Copiado ✓', ask_client:'Algunas filas no tienen cliente. ¿A qué cliente pertenecen estos equipos?'
 }};
 Object.assign(I18N.en, {
+  users:'Users', t_users:'Users and permissions', u_title:'Users and permissions', u_admin:'Super admin', u_client:'Client', u_none:'No access',
+  u_you:'you', u_last:'Last sign-in: {d}', u_never:'never signed in', u_edit:'Can add / edit / delete devices', u_pw:'Can see passwords and licenses',
+  u_save:'Save', u_saved:'Saved ✓', u_need_client:'Pick at least one company', u_pick:'Companies this user can see:', u_reload:'↻ Reload list',
+  u_help:'<b>To create a new user:</b><ol><li>Open <a href="{url}" target="_blank" rel="noopener">Supabase → Authentication → Users</a> and press <b>Add user → Create new user</b>.</li><li>Email: <code>name@inventario.local</code> (they sign in here with just <code>name</code>), a password, and check <b>Auto Confirm User</b>.</li><li>Come back here, press <b>↻ Reload list</b> and choose what that user can see.</li></ol>',
+  u_new_none:'New users have no access until you assign it here.', role_admin:'admin', role_client:'client',
+  no_access:'Your user does not have access to any company yet. Ask the administrator to assign one.', no_perm:'You do not have permission for that',
+  'ev.user_access_changed':'User Access Changed', 'ad.user_access_changed':'{u} changed the access of {o}',
   cols:'Columns', t_cols:'Show, hide and reorder the columns', cols_title:'Columns', cols_help:'Check to show · drag ⠿ (or the table headers) to reorder · drag a header edge to resize',
   cols_actions:'Action buttons (Edit, History, Duplicate, Delete)', cols_resize:'Drag to resize · double-click to reset',
   cols_reset:'Reset', cols_all:'Show all', cols_hidden:'({n} hidden)', th_group_col:'Group', cols_up:'Move up', cols_down:'Move down',
@@ -1151,6 +1193,13 @@ Object.assign(I18N.en, {
   'fl.ip':'IP', 'fl.mac':'MAC', 'fl.cliente':'Client', 'fl.direccion':'Address', 'fl.grupo_id':'Group', 'fl.pc_ids':'Linked PCs', 'fl.pc_users':'Users', 'fl.nombre':'Name', 'fl.contacto':'Contact', 'fl.telefono':'Phone', 'fl.email':'Email', 'fl.notas':'Notes',
 });
 Object.assign(I18N.es, {
+  users:'Usuarios', t_users:'Usuarios y permisos', u_title:'Usuarios y permisos', u_admin:'Super admin', u_client:'Cliente', u_none:'Sin acceso',
+  u_you:'tú', u_last:'Último acceso: {d}', u_never:'nunca ha entrado', u_edit:'Puede agregar / editar / borrar equipos', u_pw:'Puede ver contraseñas y licencias',
+  u_save:'Guardar', u_saved:'Guardado ✓', u_need_client:'Escoge al menos una compañía', u_pick:'Compañías que puede ver:', u_reload:'↻ Recargar lista',
+  u_help:'<b>Para crear un usuario nuevo:</b><ol><li>Abre <a href="{url}" target="_blank" rel="noopener">Supabase → Authentication → Users</a> y presiona <b>Add user → Create new user</b>.</li><li>Email: <code>nombre@inventario.local</code> (aquí entra solo con <code>nombre</code>), una contraseña, y marca <b>Auto Confirm User</b>.</li><li>Regresa aquí, presiona <b>↻ Recargar lista</b> y escoge qué puede ver ese usuario.</li></ol>',
+  u_new_none:'Los usuarios nuevos no tienen acceso hasta que se lo asignes aquí.', role_admin:'admin', role_client:'cliente',
+  no_access:'Tu usuario todavía no tiene acceso a ninguna compañía. Pídele al administrador que te asigne una.', no_perm:'No tienes permiso para eso',
+  'ev.user_access_changed':'Acceso de usuario cambiado', 'ad.user_access_changed':'{u} cambió el acceso de {o}',
   cols:'Columnas', t_cols:'Mostrar, ocultar y mover las columnas', cols_title:'Columnas', cols_help:'Marca para mostrar · arrastra ⠿ (o los encabezados de la tabla) para mover · arrastra el borde de un encabezado para cambiar el ancho',
   cols_actions:'Botones de acción (Editar, Historial, Duplicar, Borrar)', cols_resize:'Arrastra para cambiar el ancho · doble clic para restablecer',
   cols_reset:'Restablecer', cols_all:'Mostrar todas', cols_hidden:'({n} ocultas)', th_group_col:'Grupo', cols_up:'Subir', cols_down:'Bajar',
@@ -1246,7 +1295,7 @@ async function init(){
   }
 }
 window.addEventListener('error', e => { const el = $('lgErr'); if (el) el.textContent = 'Error: ' + e.message; });
-function showLogin(){ $('app').classList.add('hidden'); $('login').classList.remove('hidden'); items = []; }
+function showLogin(){ $('app').classList.add('hidden'); $('login').classList.remove('hidden'); items = []; permCargado = false; autoAbierto = false; }
 function showApp(session){
   { const m = location.hash.match(/^#c=(.+)$/); curCliente = m ? decodeURIComponent(m[1]) : null; }
   $('login').classList.add('hidden'); $('app').classList.remove('hidden');
@@ -1273,11 +1322,77 @@ async function cambiarPassword(){
   error ? fail(error, t('pw_fail')) : (toast(t('pw_ok')), logAct('account_pw_changed'));
 }
 
+/* ---------- Permisos (Super admin / usuario de cliente) ---------- */
+const PERM_TODO = { admin: true, editar: true, claves: true, clientes: null, roles: false, sinPerfil: false };
+let PERM = { ...PERM_TODO }, permCargado = false, autoAbierto = false;
+async function cargarPerfil(){
+  permCargado = true;
+  try{
+    const { data, error } = await db.rpc('mi_perfil');
+    if (error || !data || typeof data !== 'object') PERM = { ...PERM_TODO };          // SQL de roles no instalado: todo como antes
+    else if (!data.rol) PERM = { admin: false, editar: false, claves: false, clientes: [], roles: true, sinPerfil: true };
+    else PERM = { admin: data.rol === 'admin', editar: !!data.editar, claves: !!data.claves, clientes: data.clientes || [], roles: true, sinPerfil: false };
+  }catch(e){ PERM = { ...PERM_TODO }; }
+  const b = document.body.classList;
+  b.toggle('p-roles', PERM.roles && PERM.admin); b.toggle('p-noadm', !PERM.admin); b.toggle('p-ro', !PERM.editar); b.toggle('p-nopw', !PERM.claves);
+  $('whoRole').textContent = PERM.roles ? t(PERM.admin ? 'role_admin' : 'role_client') : '';
+  $('whoRole').classList.toggle('solo-roles', !PERM.roles);
+  if (!PERM.claves) $('showPw').checked = false;
+}
+function puede(n){ if (n === 'admin' ? PERM.admin : n === 'claves' ? PERM.claves : PERM.editar) return true; toast(t('no_perm')); return false; }
+/* ---------- Administrar usuarios (solo Super admin) ---------- */
+let USR = [];
+async function abrirUsuarios(){
+  if (!puede('admin')) return;
+  $('modalTitle').textContent = '👥 ' + t('u_title');
+  $('modal').querySelector('.modal-card').classList.add('wide');
+  $('modalBody').innerHTML = `<p class="muted">${t('act_loading')}</p>`;
+  $('modal').classList.remove('hidden');
+  const { data, error } = await db.rpc('admin_usuarios');
+  if (error) return fail(error, t('load_fail'));
+  USR = (data || []).map(u => ({ ...u, rol: u.rol || 'ninguno', clientes: u.clientes || [], _msg: '' }));
+  renderUsuarios();
+}
+const miId = () => db?.auth && USR.length ? (USR.find(u => u.email && u.email.split('@')[0] === $('whoami').textContent)?.id) : null;
+function renderUsuarios(){
+  const proj = (SUPABASE_URL.match(/https:\/\/([^.]+)\./) || [])[1] || '';
+  const todos = listaClientes().map(c => c.nombre), yo = miId();
+  const fecha = d => new Date(d).toLocaleString(LANG === 'es' ? 'es-US' : 'en-US', { dateStyle: 'medium', timeStyle: 'short' });
+  $('modalBody').innerHTML = `<div class="u-help">${t('u_help', { url: `https://supabase.com/dashboard/project/${proj}/auth/users` })}<div class="muted" style="margin-top:6px">${t('u_new_none')}</div></div>
+    <div class="row" style="justify-content:flex-end;margin-bottom:10px"><button class="sm" onclick="abrirUsuarios()">${t('u_reload')}</button></div>` +
+    USR.map((u, i) => { const esYo = u.id === yo, nom = (u.email || '').replace('@' + DOMINIO_USUARIOS, '');
+      const cl = [...new Set([...todos, ...u.clientes.filter(c => !todos.some(x => mismoCliente(x, c)))])];
+      return `<div class="u-card">
+        <div class="u-head">${avatar(nom)}<b>${esc(nom)}</b>${esYo ? `<span class="role-badge">${t('u_you')}</span>` : ''}<span class="sp"></span>
+          <small>${u.ultimo ? t('u_last', { d: esc(fecha(u.ultimo)) }) : t('u_never')}</small></div>
+        <div class="u-seg">${[['admin', 'u_admin'], ['cliente', 'u_client'], ['ninguno', 'u_none']].map(([r, l]) =>
+          `<button class="${u.rol === r ? 'on' : ''}" ${esYo && r !== 'admin' ? 'disabled' : ''} onclick="USR[${i}].rol='${r}';USR[${i}]._msg='';renderUsuarios()">${t(l)}</button>`).join('')}</div>
+        ${u.rol === 'cliente' ? `<div class="muted" style="margin-top:10px">${t('u_pick')}</div><div class="u-cli">${cl.map(c => {
+            const on = u.clientes.some(x => mismoCliente(x, c));
+            return `<button class="${on ? 'on' : ''}" onclick="usrCliente(${i},'${jsq(c)}')">${on ? '✓ ' : ''}${esc(c)}</button>`; }).join('')}</div>
+          <div class="u-opts"><label><input type="checkbox" ${u.editar ? 'checked' : ''} onchange="USR[${i}].editar=this.checked">${t('u_edit')}</label>
+            <label><input type="checkbox" ${u.claves ? 'checked' : ''} onchange="USR[${i}].claves=this.checked">${t('u_pw')}</label></div>` : ''}
+        <div class="u-foot"><button class="primary sm" onclick="guardarUsuario(${i})">${t('u_save')}</button><span class="msg ${u._ok ? 'ok' : u._msg ? 'bad' : ''}">${esc(u._msg || '')}</span></div>
+      </div>`; }).join('');
+}
+function usrCliente(i, c){
+  const u = USR[i], k = u.clientes.findIndex(x => mismoCliente(x, c));
+  k >= 0 ? u.clientes.splice(k, 1) : u.clientes.push(c); u._msg = ''; renderUsuarios();
+}
+async function guardarUsuario(i){
+  const u = USR[i];
+  if (u.rol === 'cliente' && !u.clientes.length){ u._ok = false; u._msg = t('u_need_client'); return renderUsuarios(); }
+  const { error } = await db.rpc('admin_guardar_perfil', { p_user: u.id, p_rol: u.rol, p_clientes: u.rol === 'cliente' ? u.clientes : [],
+    p_editar: u.rol === 'cliente' && !!u.editar, p_claves: u.rol === 'cliente' && !!u.claves });
+  u._ok = !error; u._msg = error ? (error.message || t('save_fail')) : t('u_saved');
+  renderUsuarios();
+}
 /* ---------- Datos ---------- */
 async function loadData(){
-  const { data, error } = await db.from('equipos').select('*').order('cliente');
+  if (!permCargado) await cargarPerfil();
+  const { data, error } = PERM.roles ? await db.rpc('equipos_listar') : await db.from('equipos').select('*').order('cliente');
   if (error) return fail(error, t('load_fail'));
-  items = data;
+  items = Array.isArray(data) ? data : [];
   if (detId && !$('detail').classList.contains('hidden')) setTimeout(() => verDetalle(detId, true), 0);
   const g = await db.from('grupos').select('*').order('nombre');
   grupos = g.error ? [] : (g.data || []); gruposOK = !g.error;
@@ -1410,6 +1525,7 @@ function etiquetaHist(h){
   return L[h.f] || h.f;
 }
 function showHistory(id){
+  if (!puede('claves')) { return; }
   const x = items.find(i => i.id === id); if (!x) return;
   const hist = [...(x.pw_history || [])].map((h, i) => ({ ...h, i })).reverse();
   if (hist.length) logAct('pw_history_viewed', x);
@@ -1424,7 +1540,7 @@ function showHistory(id){
     : `<p class="muted">${t('hist_empty')}</p>`;
   $('modal').classList.remove('hidden');
 }
-function closeModal(){ $('modal').classList.add('hidden'); }
+function closeModal(){ $('modal').classList.add('hidden'); $('modal').querySelector('.modal-card').classList.remove('wide'); }
 document.addEventListener('keydown', e => { if (e.key === 'Escape'){
   const abierto = ['modal','gModal','cModal','xModal','drawer','detail'].some(id => $(id) && !$(id).classList.contains('hidden'));
   if (!$('modal').classList.contains('hidden')) { closeModal(); return; }
@@ -1483,6 +1599,14 @@ const clienteObj = n => listaClientes().find(c => mismoCliente(c.nombre, n));
 const equiposDe = n => items.filter(x => mismoCliente(x.cliente, n));
 const tN = (k, n) => n === 1 ? t(k.replace(/s$/, '') === 'n_device' ? 'n_device1' : 'n_group1') : t(k, { n });
 function renderClientes(){
+  if (PERM.sinPerfil){
+    $('svcFilter').innerHTML = ''; $('cvCount').textContent = '';
+    $('clientGrid').innerHTML = `<div class="panel no-access" style="grid-column:1/-1"><div style="font-size:40px">🔒</div><p>${t('no_access')}</p></div>`; return;
+  }
+  if (!PERM.admin && PERM.roles && !autoAbierto && items.length){
+    autoAbierto = true; const cs = listaClientes();
+    if (cs.length === 1 && !curCliente){ setTimeout(() => abrirCliente(cs[0].nombre), 0); }
+  }
   const q = nrm($('cq').value), todos = listaClientes();
   const lista = todos.filter(c => (!q || nrm(c.nombre).includes(q) || nrm(c.direccion).includes(q) || nrm(c.contacto).includes(q))
     && (!fSvc || (fSvc === '-' ? !svcActivos(c).length : !!svcDe(c)[fSvc])));
@@ -1547,6 +1671,7 @@ window.addEventListener('popstate', () => {
 function abrirDrawer(titulo){ $('drawerTitle').textContent = titulo; $('drawer').classList.remove('hidden'); $('drawer').querySelector('.drawer-panel').scrollTop = 0; }
 function cerrarDrawer(){ $('drawer')?.classList.add('hidden'); }
 function nuevoEquipo(){
+  if (!puede('editar')) { return; }
   resetForm(); abrirDrawer(t('add_device'));
   setTimeout(() => $('nombre').focus(), 50);
 }
@@ -1584,7 +1709,7 @@ function renderSvcBar(){
   if (!act.length){ $('clSvc').innerHTML = `<span class="svc-pill add" onclick="abrirClienteModal(curCliente,true)">＋ ${t('svc_add')}</span>`; return; }
   const sin = d.filter(x => !cubierto(c, x)).length;
   $('clSvc').innerHTML = act.map(S => { const n = d.filter(x => svcCubre(S, v[S.k], x)).length, extra = S.k === 'it' ? svcSinIT(v.it) : '';
-      return `<span class="svc-pill" style="--sc:${S.color}" onclick="abrirClienteModal(curCliente,true)" title="${esc(t('svc_n', { n }) + (v[S.k].nota ? ' · ' + v[S.k].nota : ''))}">${svcIcon(S.k)}${esc(t('svc.' + S.k))}${extra ? ` <small>${esc(extra)}</small>` : ''} <b>${n}</b></span>`; }).join('')
+      return `<span class="svc-pill" style="--sc:${S.color}" ${PERM.admin ? `onclick="abrirClienteModal(curCliente,true)"` : 'style="cursor:default"'} title="${esc(t('svc_n', { n }) + (v[S.k].nota ? ' · ' + v[S.k].nota : ''))}">${svcIcon(S.k)}${esc(t('svc.' + S.k))}${extra ? ` <small>${esc(extra)}</small>` : ''} <b>${n}</b></span>`; }).join('')
     + (sin ? `<span class="svc-pill warn" onclick="verSinServicio()" title="${esc(t('svc_uncovered_t'))}">⚠️ ${esc(t('svc_uncovered', { n: sin }))}</span>` : '');
 }
 function verSinServicio(){
@@ -1607,6 +1732,7 @@ function svcExcl(cat){ const e = cmSvc.it.excl = cmSvc.it.excl || []; const i = 
 function svcLimpio(){ const o = {}; for (const S of SERVICIOS) if (cmSvc[S.k]){ const c = {}; if (S.k === 'it' && cmSvc.it.excl?.length) c.excl = [...cmSvc.it.excl]; if (cmSvc[S.k].nota?.trim()) c.nota = cmSvc[S.k].nota.trim(); o[S.k] = c; } return o; }
 let fSvc = '';
 function abrirClienteModal(nombre, enServicios){
+  if (!puede('admin')) { return; }
   if (!clientesOK){ alert(t('clients_missing')); return; }
   const c = nombre ? (clienteObj(nombre) || { nombre }) : null;
   cmEditando = c;
@@ -1690,6 +1816,7 @@ async function nuevoGrupoDesdeForm(){
   if (g){ fillGrupoSelect(); $('grupo_id').value = g.id; }
 }
 function openGrupos(gid){
+  if (!puede('editar')) { return; }
   if (!gruposOK) return alert(t('g_table_missing'));
   const clientes = uniq('cliente');
   const pre = gid ? grupoDe({ grupo_id: gid })?.cliente : (curCliente || $('fCliente').value || $('cliente').value || clientes[0] || '');
@@ -1841,10 +1968,11 @@ async function save(e){
   const nuevos = row.pw_history.length - (orig?.pw_history?.length || 0);
   if (row.ip && items.some(x => x.ip === row.ip && x.cliente === row.cliente && x.id !== editId) &&
       !confirm(t('dup_ip', {ip: row.ip}))) return;
+  if (!PERM.claves) [...SECRET_FIELDS, 'pc_users', 'pw_history', 'pc_user'].forEach(f => delete row[f]);
   $('saveBtn').disabled = true;
   let idGuardado = editId, error;
   if (editId) ({ error } = await db.from('equipos').update(row).eq('id', editId));
-  else { const r = await db.from('equipos').insert(row).select().single(); error = r.error; idGuardado = r.data?.id; }
+  else { const r = await db.from('equipos').insert(row).select('id').single(); error = r.error; idGuardado = r.data?.id; }
   if (error){ $('saveBtn').disabled = false; return fail(error, t('save_fail')); }
   let extra = [];
   if (PC_TIPOS.includes(row.tipo) && idGuardado){
@@ -1871,6 +1999,7 @@ function resetForm(afterSave){
   $('saveBtn').textContent = t('add_device'); $('editMsg').textContent = '';
 }
 function edit(id){
+  if (!puede('editar')) { return; }
   const x = items.find(i => i.id === id); if(!x) return;
   unlockAll();
   FIELDS.forEach(f => $(f).value = x[f] || '');
@@ -1890,6 +2019,7 @@ function edit(id){
   abrirDrawer(t('edit_device') + ' · ' + (x.nombre || ''));
 }
 async function del(id){
+  if (!puede('editar')) { return; }
   const x = items.find(i => i.id === id);
   if (!confirm(t('confirm_del', {n: x.nombre}))) return;
   const { error } = await db.from('equipos').delete().eq('id', id);
@@ -1897,6 +2027,7 @@ async function del(id){
   cerrarDetalle(); toast(t('deleted')); loadData();
 }
 function dup(id){
+  if (!puede('editar')) { return; }
   const x = items.find(i => i.id === id); edit(id);
   editId = null; ['serial','ip','mac','hostname','anydesk','anydesk_pw','win_key','office_key','first_name','last_name','celular','email','pc_user_pw','pc_admin_pw'].forEach(f => $(f).value = '');
   unlockAll(); $('histBtn').classList.add('hidden'); linkSel = new Set(); actualizarVinculos();
@@ -2257,7 +2388,7 @@ function renderActividad(){
       return `<label class="${!n && !on ? 'zero' : ''}"><input type="checkbox" ${on ? 'checked' : ''} ${!n && !on ? 'disabled' : ''} onchange="actToggle('${set}','${jsq(k)}')">${ico ? ico(k) : ''}<span class="nm" title="${esc(lbl(k))}">${esc(lbl(k))}</span><span class="n">${n}</span></label>`; }).join('') + `</div>`;
   };
   const EVS = ['device_created','device_updated','device_deleted','password_changed','password_viewed','password_copied','pw_history_viewed',
-    'client_created','client_updated','client_deleted','group_created','group_updated','group_deleted','signed_in','account_pw_changed','export_backup','export_csv','import_excel'];
+    'client_created','client_updated','client_deleted','group_created','group_updated','group_deleted','signed_in','account_pw_changed','user_access_changed','export_backup','export_csv','import_excel'];
   const evs = EVS.filter(e => F.base.some(r => r.evento === e) || ACT.ev.has(e)).concat([...new Set(F.base.map(r => r.evento))].filter(e => !EVS.includes(e)));
   const uss = [...new Set(F.base.map(r => r.usuario || 'system'))].sort();
   const cls = [...new Set(F.base.map(r => r.cliente || '—'))].sort((a, b) => a.localeCompare(b));
@@ -2616,6 +2747,7 @@ const colLabel = c => { const th = document.querySelector(`#devTable thead th[da
 function aplicarColumnas(){
   const tabla = $('devTable'); if (!tabla) return;
   const ocultas = new Set(colCfg.ocultas); if (curCliente) ocultas.add('cliente');
+  if (!PERM.claves){ ocultas.add('password'); ocultas.add('licencias'); }
   const pos = COLS.map(c => colCfg.orden.indexOf(c));     // posición nueva de cada columna original
   const fila = (tr, celdas) => {
     if (celdas.length !== COLS.length + 2) return;        // filas vacías (colspan) se dejan igual
@@ -2628,7 +2760,7 @@ function aplicarColumnas(){
   orig.forEach((th, i) => { th.classList.toggle('col-off', ocultas.has(COLS[i])); });
   colCfg.orden.forEach(c => hr.insertBefore(orig[COLS.indexOf(c)], hr.lastElementChild));
   for (const tr of $('tbody').rows){ const cs = [...tr.children]; fila(tr, cs); }
-  tabla.classList.toggle('no-acciones', !!colCfg.sinAcciones);
+  tabla.classList.toggle('no-acciones', !!colCfg.sinAcciones || !PERM.editar && !PERM.claves);
   // Anchos a gusto
   const anchoDe = c => colCfg.anchos[c];
   orig.forEach((th, i) => { const w = anchoDe(COLS[i]); fijarAncho(th, w); if (!th.querySelector('.col-rs')){ const h = document.createElement('span'); h.className = 'col-rs'; h.title = t('cols_resize'); th.appendChild(h); } });
@@ -2729,6 +2861,7 @@ function selUno(c){ c.checked ? sel.add(c.dataset.id) : sel.delete(c.dataset.id)
 function selTodos(on){ document.querySelectorAll('#tbody .rowsel').forEach(c => on ? sel.add(c.dataset.id) : sel.delete(c.dataset.id)); actualizarSel(); }
 function limpiarSel(){ sel.clear(); actualizarSel(); }
 async function borrarSel(){
+  if (!puede('editar')) { return; }
   const ids = [...sel].filter(id => items.some(x => x.id === id)); if (!ids.length) return;
   const nombres = ids.map(id => items.find(x => x.id === id)).map(x => `• ${x.nombre} (${tTipo(x.tipo)})`);
   const list = nombres.slice(0, 12).join('\n') + (nombres.length > 12 ? '\n' + t('and_more', { n: nombres.length - 12 }) : '');
@@ -2816,6 +2949,7 @@ async function subir(lista){
   toast(t('uploaded', {n: rows.length})); loadData(); return true;
 }
 function importFile(e){
+  if (!puede('editar')) { e.target.value = ""; return; }
   const file = e.target.files[0]; if(!file) return;
   const nombre = file.name.toLowerCase();
   if (nombre.endsWith('.json')){

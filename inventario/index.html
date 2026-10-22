@@ -458,6 +458,9 @@ a.dev-link:hover{color:var(--c1);text-decoration:underline}
 .det-actions button span{font-size:18px}
 #clientView.sin-dev [onclick="nuevoEquipo()"],#clientView.sin-dev .ov-empty [onclick="nuevoEquipo()"]{display:none!important}
 #clientView.sin-net [onclick="nuevoEquipoRed()"]{display:none!important}
+.svc-chk{flex-direction:row!important;align-items:center;gap:8px;font-size:12.5px!important;color:var(--text)!important;font-weight:500}
+.svc-chk input{width:auto;margin:0}
+.net-telred{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px;padding:10px 14px;border-radius:12px;border:1px solid color-mix(in srgb,#8b5cf6 45%,var(--line));background:color-mix(in srgb,#8b5cf6 8%,var(--card-solid));font-size:13px}
 .svc-unlock{grid-column:1/-1;margin:-4px 0 2px;font-size:12px;color:var(--muted)}
 /* ===== Inventario de Network ===== */
 #netBox .legacy-isp{display:none}
@@ -622,7 +625,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v5.6</p>
+    <p class="sub">Network Asset Manager · v5.7</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -638,7 +641,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v5.6</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v5.7</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -1209,6 +1212,11 @@ es:{
   copied:'Copiado ✓', ask_client:'Algunas filas no tienen cliente. ¿A qué cliente pertenecen estos equipos?'
 }};
 Object.assign(I18N.en, {
+  svc_tel_red:'Includes the network for the phones (switch, router, AP…) — not a Network Management service',
+  svc_tel_red_inc:'Network already covered by the Network Management service', svc_tel_red_short:'+ phone network',
+  net_tel_only:'Phone network only', net_tel_only_sub:'Comes with the Telephony service, just to manage the phones. It is not the Network Management service.',
+  net_convert:'Turn into Network service', net_convert_confirm:'Turn the phone network of {c} into the full Network Management service?\nThe devices stay the same.',
+  net_converted:'Network Management service activated ✓',
   svc_unlock:'Each active service unlocks its device types in this client (with no services, everything is allowed).',
   svc_locked:'No active service for that kind of device. Turn on the service in Edit client.',
   wan_title:'WAN / Multi-WAN', wan_help:'One row per internet line that enters this device', wan_add:'＋ Add WAN', wan_port:'Port', wan_isp:'Provider',
@@ -1272,6 +1280,11 @@ Object.assign(I18N.en, {
   'fl.ip':'IP', 'fl.mac':'MAC', 'fl.cliente':'Client', 'fl.direccion':'Address', 'fl.grupo_id':'Group', 'fl.pc_ids':'Linked PCs', 'fl.pc_users':'Users', 'fl.nombre':'Name', 'fl.contacto':'Contact', 'fl.telefono':'Phone', 'fl.email':'Email', 'fl.notas':'Notes',
 });
 Object.assign(I18N.es, {
+  svc_tel_red:'Incluye la red para los teléfonos (switch, router, AP…) — no es el servicio de Administración de red',
+  svc_tel_red_inc:'La red ya la cubre el servicio de Administración de red', svc_tel_red_short:'+ red de teléfonos',
+  net_tel_only:'Red solo de telefonía', net_tel_only_sub:'Viene con el servicio de Telefonía, solo para el manejo de los teléfonos. No es el servicio de Administración de red.',
+  net_convert:'Convertir en servicio de red', net_convert_confirm:'¿Convertir la red de teléfonos de {c} en el servicio completo de Administración de red?\nLos equipos se quedan igual.',
+  net_converted:'Servicio de Administración de red activado ✓',
   svc_unlock:'Cada servicio activo desbloquea sus tipos de equipo en este cliente (sin servicios, se permite todo).',
   svc_locked:'No hay un servicio activo para ese tipo de equipo. Actívalo en Editar cliente.',
   wan_title:'WAN / Multi-WAN', wan_help:'Una fila por cada línea de internet que entra a este equipo', wan_add:'＋ Agregar WAN', wan_port:'Puerto', wan_isp:'Proveedor',
@@ -1936,6 +1949,8 @@ function renderNet(base){
     return (netTab ? '' : `<tr class="net-grp"><td colspan="10">${TIPO_ICON[k]} ${esc(tTipo(k))} <span class="muted">· ${lista.length}</span></td></tr>`) + lista.map(fila).join('');
   }).join('');
   $('netView').innerHTML = `<div class="panel net-panel">
+    ${telRed(clienteObj(curCliente)) ? `<div class="net-telred"><span>📞 <b>${t('net_tel_only')}</b><br><small class="muted">${t('net_tel_only_sub')}</small></span>
+      ${PERM.admin ? `<button class="sm" onclick="convertirRedEnServicio()">⬆ ${t('net_convert')}</button>` : ''}</div>` : ''}
     <div class="net-head"><div><h3>🌐 ${t('net_title')}</h3><small class="muted">${t('net_sub')}</small></div>
       ${PERM.editar ? `<button class="primary" onclick="nuevoEquipoRed()">${t('net_add')}</button>` : ''}</div>
     ${(() => { const gw = red.filter(x => WAN_TIPOS.includes(x.tipo) && wanDe(x).length && !(x.tipo === 'Módem' && alimentaDe(x).length));
@@ -1947,6 +1962,15 @@ function renderNet(base){
       <th>${t('type')}</th><th>${t('name')}</th><th>${t('th_model')}</th><th>IP</th><th>MAC</th><th>${t('th_uplink')}</th><th>${t('th_netinfo')}</th><th>${t('serial')}</th><th>${t('status')}</th><th class="no-print"></th>
     </tr></thead><tbody>${grupos_}</tbody></table></div>` : `<div class="act-empty">🌐 ${t('net_empty')}</div>`}
   </div>`;
+}
+async function convertirRedEnServicio(){
+  if (!puede('admin')) return;
+  const c = clienteObj(curCliente); if (!c) return;
+  if (!confirm(t('net_convert_confirm', { c: c.nombre }))) return;
+  const v = JSON.parse(JSON.stringify(svcDe(c))); v.net = v.net || {}; if (v.tel) delete v.tel.red;
+  const r = c.id ? await db.from('clientes').update({ servicios: v }).eq('id', c.id) : await db.from('clientes').insert({ nombre: c.nombre, direccion: c.direccion || null, servicios: v });
+  if (r.error) return fail(r.error, t('save_fail'));
+  toast(t('net_converted')); await loadData();
 }
 function nuevoEquipoRed(){
   if (!puede('editar')) return;
@@ -1974,8 +1998,11 @@ const svcIcon = k => `<svg class="svc-ic" viewBox="0 0 24 24" aria-hidden="true"
 const catDe = tipo => Object.keys(CATS).find(c => CATS[c].includes(tipo)) || 'otro';
 function svcDe(c){ let v = c?.servicios; if (typeof v === 'string'){ try{ v = JSON.parse(v); }catch(e){ v = {}; } } return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; }
 const svcActivos = c => { const v = svcDe(c); return SERVICIOS.filter(S => v[S.k]); };
+// ¿Telefonía trae la red de los teléfonos? (solo cuenta si NO está el servicio de red completo)
+const telRed = c => { const v = svcDe(c); return !!(v.tel && v.tel.red && !v.net); };
 function svcCubre(S, conf, x){
   if (S.k === 'it') return !(conf?.excl || []).includes(catDe(x.tipo));
+  if (S.k === 'tel' && conf?.red && NET_TIPOS.includes(x.tipo)) return true;
   if (S.tipos) return S.tipos.includes(x.tipo);
   return S.cats.includes(catDe(x.tipo));
 }
@@ -1989,6 +2016,7 @@ function tiposPermitidos(cli){
     if (S.k === 'it') TIPOS.forEach(tp => { if (!(v.it?.excl || []).includes(catDe(tp))) P.add(tp); });
     else if (S.tipos) S.tipos.forEach(tp => P.add(tp));
     else S.cats.forEach(k => CATS[k].forEach(tp => P.add(tp)));
+    if (S.k === 'tel' && v.tel?.red) NET_TIPOS.forEach(tp => P.add(tp));   // red solo para los teléfonos
   });
   return P;
 }
@@ -2001,7 +2029,7 @@ function renderSvcBar(){
   const c = clienteObj(curCliente) || { nombre: curCliente }, v = svcDe(c), act = svcActivos(c), d = equiposDe(curCliente);
   if (!act.length){ $('clSvc').innerHTML = `<span class="svc-pill add" onclick="abrirClienteModal(curCliente,true)">＋ ${t('svc_add')}</span>`; return; }
   const sin = d.filter(x => !cubierto(c, x)).length;
-  $('clSvc').innerHTML = act.map(S => { const n = d.filter(x => svcCubre(S, v[S.k], x)).length, extra = S.k === 'it' ? svcSinIT(v.it) : '';
+  $('clSvc').innerHTML = act.map(S => { const n = d.filter(x => svcCubre(S, v[S.k], x)).length, extra = S.k === 'it' ? svcSinIT(v.it) : (S.k === 'tel' && telRed(c)) ? t('svc_tel_red_short') : '';
       return `<span class="svc-pill" style="--sc:${S.color}" ${PERM.admin ? `onclick="abrirClienteModal(curCliente,true)"` : 'style="cursor:default"'} title="${esc(t('svc_n', { n }) + (v[S.k].nota ? ' · ' + v[S.k].nota : ''))}">${svcIcon(S.k)}${esc(t('svc.' + S.k))}${extra ? ` <small>${esc(extra)}</small>` : ''} <b>${n}</b></span>`; }).join('')
     + (sin ? `<span class="svc-pill warn" onclick="verSinServicio()" title="${esc(t('svc_uncovered_t'))}">⚠️ ${esc(t('svc_uncovered', { n: sin }))}</span>` : '');
 }
@@ -2018,11 +2046,12 @@ function renderSvcForm(){
     return `<div class="svc-card ${on ? 'on' : ''}" style="--sc:${S.color}">
       <div class="svc-row" onclick="svcToggle('${S.k}')" role="switch" aria-checked="${on}"><span class="ib">${svcIcon(S.k)}</span>
         <span class="tx"><b>${esc(t('svc.' + S.k))}</b><small>${esc(t('svcd.' + S.k))}</small></span><span class="sw"></span></div>
-      <div class="svc-more">${cov}<input value="${esc(conf.nota || '')}" placeholder="${esc(t('svc_nota_ph'))}" oninput="cmSvc['${S.k}'].nota=this.value"></div></div>`; }).join('');
+      <div class="svc-more">${cov}${S.k === 'tel' ? `<label class="svc-chk"><input type="checkbox" ${conf.red || cmSvc.net ? 'checked' : ''} ${cmSvc.net ? 'disabled' : ''} onchange="cmSvc.tel.red=this.checked">🌐 ${t(cmSvc.net ? 'svc_tel_red_inc' : 'svc_tel_red')}</label>` : ''}<input value="${esc(conf.nota || '')}" placeholder="${esc(t('svc_nota_ph'))}" oninput="cmSvc['${S.k}'].nota=this.value"></div></div>`; }).join('');
 }
 function svcToggle(k){ if (cmSvc[k]) delete cmSvc[k]; else cmSvc[k] = k === 'it' ? { excl: [] } : {}; renderSvcForm(); }
 function svcExcl(cat){ const e = cmSvc.it.excl = cmSvc.it.excl || []; const i = e.indexOf(cat); i >= 0 ? e.splice(i, 1) : e.push(cat); renderSvcForm(); }
-function svcLimpio(){ const o = {}; for (const S of SERVICIOS) if (cmSvc[S.k]){ const c = {}; if (S.k === 'it' && cmSvc.it.excl?.length) c.excl = [...cmSvc.it.excl]; if (cmSvc[S.k].nota?.trim()) c.nota = cmSvc[S.k].nota.trim(); o[S.k] = c; } return o; }
+function svcLimpio(){ const o = {}; for (const S of SERVICIOS) if (cmSvc[S.k]){ const c = {}; if (S.k === 'it' && cmSvc.it.excl?.length) c.excl = [...cmSvc.it.excl];
+    if (S.k === 'tel' && cmSvc.tel.red && !cmSvc.net) c.red = true; if (cmSvc[S.k].nota?.trim()) c.nota = cmSvc[S.k].nota.trim(); o[S.k] = c; } return o; }
 let fSvc = '';
 function abrirClienteModal(nombre, enServicios){
   if (!puede('admin')) { return; }

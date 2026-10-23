@@ -495,6 +495,22 @@ body.p-noexport [onclick="exportActCSV()"],body.p-noexport #migrarBtn{display:no
 #onlineN{display:inline-grid;place-items:center;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--ok);color:#05070f;font:700 10.5px Inter,sans-serif;margin-left:4px}
 .idle-warn{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:120;background:var(--card-solid);border:1px solid var(--warn);border-radius:14px;padding:12px 16px;
   box-shadow:0 20px 50px -15px rgba(0,0,0,.6);display:flex;gap:12px;align-items:center;font-size:13.5px}
+body.p-noadm [onclick^="abrirUnifi"]{display:none!important}
+.uf-list{display:flex;flex-direction:column;gap:6px;margin:10px 0}
+.uf-host{display:flex;align-items:center;gap:10px;padding:8px 10px;border:1px solid var(--line);border-radius:10px;cursor:pointer;font-size:13px}
+.uf-host input{width:auto;margin:0}
+.uf-host small{color:var(--muted)}
+.uf-host.otro{opacity:.75}
+.uf-tbl{min-width:900px}
+.uf-tbl td,.uf-tbl th{padding:6px 8px;font-size:12.5px;vertical-align:middle}
+.uf-tbl select{padding:4px 6px;font-size:12px;width:auto}
+.uf-tbl input[type=checkbox]{width:auto;margin:0}
+.uf-tag{font:600 10.5px Inter,sans-serif;padding:2px 7px;border-radius:999px;border:1px solid var(--line-strong);white-space:nowrap}
+.uf-tag.nuevo{color:var(--ok);border-color:color-mix(in srgb,var(--ok) 50%,transparent)}
+.uf-tag.act{color:var(--c1);border-color:color-mix(in srgb,var(--c1) 50%,transparent)}
+.uf-tag.igual{color:var(--muted)}
+.uf-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;vertical-align:middle}
+.uf-dot.on{background:var(--ok)}.uf-dot.off{background:var(--bad)}
 /* ===== Inventario de Network ===== */
 #netBox .legacy-isp{display:none}
 .wan-box{margin-top:12px;border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--card)}
@@ -658,7 +674,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v6.1</p>
+    <p class="sub">Network Asset Manager · v6.2</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -674,7 +690,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v6.1</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v6.2</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -731,6 +747,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <button class="backbtn" onclick="volverClientes()">← <span data-i18n="clients_title">Clients</span></button>
     <div class="cl-info"><h2 id="clNombre"></h2><div id="clMeta" class="muted"></div><div id="clSvc" class="svc-bar no-print"></div></div>
     <div class="row no-print">
+      <button onclick="abrirUnifi()" data-i18n-title="t_unifi">🔗 <span>UniFi</span></button>
       <button onclick="abrirClienteModal(curCliente)">✏️ <span data-i18n="edit_client">Edit client</span></button>
       <button onclick="openGrupos()">🗂 <span data-i18n="groups">Groups</span></button>
       <button onclick="document.getElementById('fileIn').click()">📥 <span data-i18n="import_excel">Import Excel</span></button>
@@ -1245,6 +1262,13 @@ es:{
   copied:'Copiado ✓', ask_client:'Algunas filas no tienen cliente. ¿A qué cliente pertenecen estos equipos?'
 }};
 Object.assign(I18N.en, {
+  t_unifi:'Bring this client’s devices from UniFi', uf_pick_help:'Check ONLY the UniFi consoles that belong to <b>{c}</b>. Consoles you don’t check are never read.',
+  uf_used_by:'already linked to {c}', uf_no_hosts:'Your API key does not see any console.', uf_save_hosts:'Save consoles', uf_change_hosts:'Change consoles',
+  uf_linked:'{n} console(s) linked', uf_summary:'{n} new · {a} to update · {i} already up to date', uf_online:'Online', uf_offline:'Offline',
+  uf_nuevo:'New', uf_act:'Update', uf_igual:'Up to date', uf_import:'Import selected ({n})', uf_import_help:'Existing devices (same MAC) only get IP, firmware and status updated; their name stays.',
+  uf_no_devices:'Those consoles returned no devices.', uf_nothing:'Nothing selected', uf_done:'UniFi: {n} added, {a} updated', uf_update:'update available', uf_synced:'Last sync',
+  uf_sql_missing:'Run supabase-unifi.sql in Supabase first so the UniFi data can be saved.',
+  uf_fn_missing:'The <b>unifi</b> Edge Function is not installed yet. In Supabase: 1) Edge Functions → Secrets → add <code>UNIFI_API_KEY</code> with your key; 2) Deploy a new function → Via Editor → name <code>unifi</code> → paste edge-function-unifi.ts → Deploy.',
   idle_user:'Sign out for inactivity:', idle_off:'Off', idle_user_hint:'Warns 1 minute before', idle_user_on:'{u} will be signed out after {n} min of inactivity', idle_user_off:'Automatic sign-out OFF for {u}',
   u_oper:'Operator', role_operador:'operator', role_admin:'admin', role_client:'client',
   u_oper_desc:'Sees ALL companies and can add and edit devices. Cannot delete, export, import, manage users, or create/edit companies and services.',
@@ -1325,6 +1349,13 @@ Object.assign(I18N.en, {
   'fl.ip':'IP', 'fl.mac':'MAC', 'fl.cliente':'Client', 'fl.direccion':'Address', 'fl.grupo_id':'Group', 'fl.pc_ids':'Linked PCs', 'fl.pc_users':'Users', 'fl.nombre':'Name', 'fl.contacto':'Contact', 'fl.telefono':'Phone', 'fl.email':'Email', 'fl.notas':'Notes',
 });
 Object.assign(I18N.es, {
+  t_unifi:'Traer los equipos de este cliente desde UniFi', uf_pick_help:'Marca SOLO las consolas UniFi que son de <b>{c}</b>. Las que no marques nunca se leen.',
+  uf_used_by:'ya está conectada a {c}', uf_no_hosts:'Tu API key no ve ninguna consola.', uf_save_hosts:'Guardar consolas', uf_change_hosts:'Cambiar consolas',
+  uf_linked:'{n} consola(s) conectada(s)', uf_summary:'{n} nuevos · {a} por actualizar · {i} ya al día', uf_online:'En línea', uf_offline:'Fuera de línea',
+  uf_nuevo:'Nuevo', uf_act:'Actualiza', uf_igual:'Al día', uf_import:'Importar seleccionados ({n})', uf_import_help:'Los que ya existen (misma MAC) solo actualizan IP, firmware y estado; su nombre no cambia.',
+  uf_no_devices:'Esas consolas no devolvieron equipos.', uf_nothing:'No hay nada seleccionado', uf_done:'UniFi: {n} agregados, {a} actualizados', uf_update:'actualización disponible', uf_synced:'Última sincronización',
+  uf_sql_missing:'Primero corre supabase-unifi.sql en Supabase para poder guardar los datos de UniFi.',
+  uf_fn_missing:'La Edge Function <b>unifi</b> todavía no está instalada. En Supabase: 1) Edge Functions → Secrets → agrega <code>UNIFI_API_KEY</code> con tu llave; 2) Deploy a new function → Via Editor → nombre <code>unifi</code> → pega edge-function-unifi.ts → Deploy.',
   idle_user:'Desconectar por inactividad:', idle_off:'Apagado', idle_user_hint:'Le avisa 1 minuto antes', idle_user_on:'{u} se desconectará tras {n} min sin usar la app', idle_user_off:'Desconexión automática APAGADA para {u}',
   u_oper:'Operador', role_operador:'operador', role_admin:'admin', role_client:'cliente',
   u_oper_desc:'Ve TODAS las compañías y puede agregar y editar equipos. No puede borrar, exportar, importar, administrar usuarios ni crear o editar compañías y servicios.',
@@ -2097,7 +2128,7 @@ function renderNet(base){
     x.puertos ? `🔌 ${esc(x.puertos)}` : '', x.firmware ? `<span class="muted">fw ${esc(x.firmware)}</span>` : ''].filter(Boolean).map(v => `<small>${v}</small>`).join(''); };
   const fila = x => `<tr class="r" onclick="verDetalle('${x.id}')">
       <td><button type="button" class="type type-btn" onclick="event.stopPropagation();verDetalle('${x.id}')" title="${t('view')}">${TIPO_ICON[x.tipo] || '◆'} ${esc(tTipo(x.tipo))}</button></td>
-      <td><a class="dev-link" onclick="event.stopPropagation();verDetalle('${x.id}')">${esc(x.nombre)}</a>${x.lugar ? `<small class="muted" style="display:block">📍 ${esc(x.lugar)}</small>` : ''}</td>
+      <td>${x.unifi_estado ? `<span class="uf-dot ${x.unifi_estado === 'online' ? 'on' : 'off'}" title="UniFi: ${esc(x.unifi_estado)}"></span>` : ''}<a class="dev-link" onclick="event.stopPropagation();verDetalle('${x.id}')">${esc(x.nombre)}</a>${x.lugar ? `<small class="muted" style="display:block">📍 ${esc(x.lugar)}</small>` : ''}</td>
       <td>${esc(x.modelo)}</td>
       <td class="mono ip">${x.ip ? `<a href="http://${esc(x.ip)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${esc(x.ip)}</a>` : ''}</td>
       <td class="mono">${esc(x.mac)}</td>
@@ -2140,6 +2171,135 @@ function nuevoEquipoRed(){
   if (curCliente && !permiteNet(curCliente)) return toast(t('svc_locked'));
   ponerModo('net'); resetForm(); if (tiposForm().includes(netTab || 'Router')) $('tipo').value = netTab || 'Router'; updateMarcas();
   abrirDrawer(t('net_add').replace('＋', '').trim()); setTimeout(() => $('nombre').focus(), 50);
+}
+/* ---------- UniFi: conectar consolas a un cliente e importar sus equipos ---------- */
+let UF = { consolas: [], equipos: [], sel: new Set(), tipos: {}, paso: '', cargando: false, msg: '' };
+const macNorm = m => String(m || '').toUpperCase().replace(/[^0-9A-F]/g, '').replace(/(..)(?!$)/g, '$1:');
+const hostsDe = c => { let v = c?.unifi_hosts; if (typeof v === 'string'){ try{ v = JSON.parse(v); }catch(e){ v = []; } } return Array.isArray(v) ? v : []; };
+function tipoUnifi(d){
+  const m = `${d.corto} ${d.modelo} ${d.nombre}`.toUpperCase();
+  if (d.linea === 'protect') return /NVR|UNVR|ENVR|\bCK|CLOUD KEY|AI KEY/.test(m) ? 'NVR' : 'Cámara';
+  if (d.linea === 'talk') return 'Teléfono';
+  if (d.linea === 'access') return 'Control de Acceso';
+  if (/UBB|BUILDING BRIDGE|LTU|AIRMAX|NANOSTATION|LITEBEAM|POWERBEAM|AIRFIBER|\bAF-|UDB|DEVICE BRIDGE/.test(m)) return 'Antena';
+  if (/LTE|UMR|MOBILE ROUTER/.test(m)) return 'Módem';
+  if (/UCK|CLOUD KEY/.test(m)) return 'Otro';
+  if (/\bUDM|\bUDR|\bUCG|\bUXG|\bUDW|\bUSG|\bEFG|DREAM MACHINE|DREAM ROUTER|CLOUD GATEWAY|GATEWAY|\bUX\b|EXPRESS/.test(m) || d.consola) return 'Router';
+  if (/\bUAP|\bUAL|\bU6|\bU7|ACCESS POINT|NANOHD|NANO HD|\bIW\b|IN-WALL|\bAC-|MESH/.test(m)) return 'Access Point';
+  if (/\bUSW|\bUS-|\bUSL|SWITCH|\bUSM|\bUSP|\bECS/.test(m)) return 'Switch';
+  return 'Otro';
+}
+async function llamarUnifi(body){
+  try{
+    const { data, error } = await db.functions.invoke('unifi', { body });
+    if (!error) return { data };
+    let msg = error.message || String(error), st = error.context?.status;
+    try{ const j = await error.context?.json?.(); if (j?.error) msg = j.error; }catch(e){}
+    return { error: msg, falta: st === 404 || /Failed to send|FunctionsFetchError|FunctionsRelayError/i.test((error.name || '') + ' ' + msg) };
+  }catch(e){ return { error: String(e?.message || e), falta: true }; }
+}
+async function abrirUnifi(){
+  if (!puede('admin')) return;
+  UF = { consolas: [], equipos: [], sel: new Set(), tipos: {}, paso: '', cargando: false, msg: '' };
+  $('modal').querySelector('.modal-card').classList.add('wide');
+  $('modal').classList.remove('hidden');
+  const c = clienteObj(curCliente) || {};
+  if (hostsDe(c).length) await buscarUnifi(); else await elegirConsolas();
+}
+async function elegirConsolas(){
+  UF.paso = 'consolas'; UF.cargando = true; UF.msg = ''; renderUnifi();
+  const r = await llamarUnifi({ accion: 'consolas' });
+  UF.cargando = false;
+  if (r.error){ UF.msg = r.falta ? t('uf_fn_missing') : r.error; return renderUnifi(); }
+  UF.consolas = r.data?.consolas || [];
+  UF.selHosts = new Set(hostsDe(clienteObj(curCliente)).map(h => String(h.id || h)));
+  renderUnifi();
+}
+async function guardarConsolas(){
+  const c = clienteObj(curCliente); if (!c) return;
+  const elegidas = UF.consolas.filter(h => UF.selHosts.has(String(h.id))).map(h => ({ id: h.id, nombre: h.nombre }));
+  try{
+    const id = c.id || await asegurarFilaCliente(c);
+    const { error } = await db.from('clientes').update({ unifi_hosts: elegidas }).eq('id', id);
+    if (error) throw error;
+  }catch(e){ return /unifi_hosts|schema cache/i.test(e?.message || '') ? alert(t('uf_sql_missing')) : fail(e, t('save_fail')); }
+  await loadData(); toast(t('uf_linked', { n: elegidas.length }));
+  if (elegidas.length) await buscarUnifi(); else closeModal();
+}
+async function buscarUnifi(){
+  UF.paso = 'equipos'; UF.cargando = true; UF.msg = ''; renderUnifi();
+  const r = await llamarUnifi({ accion: 'equipos', cliente: curCliente });
+  UF.cargando = false;
+  if (r.error){ UF.msg = r.falta ? t('uf_fn_missing') : r.error; return renderUnifi(); }
+  const mios = equiposDe(curCliente), P = tiposPermitidos(curCliente);
+  UF.equipos = (r.data?.equipos || []).map(d => {
+    const mac = macNorm(d.mac), tipo = tipoUnifi(d);
+    const ya = mios.find(x => (d.id && x.unifi_id === d.id) || (mac && macNorm(x.mac) === mac));
+    const cambia = ya && (String(ya.ip || '') !== String(d.ip || '') || String(ya.firmware || '') !== String(d.firmware || '') || ya.unifi_estado !== d.estado || !ya.unifi_id);
+    return { ...d, mac, tipo, ya, accion: !ya ? 'nuevo' : cambia ? 'act' : 'igual' };
+  });
+  UF.sel = new Set(UF.equipos.filter(d => d.accion === 'act' || (d.accion === 'nuevo' && (!P || P.has(d.tipo)))).map(d => d.id));
+  renderUnifi();
+}
+function renderUnifi(){
+  const c = clienteObj(curCliente) || { nombre: curCliente }, hosts = hostsDe(c);
+  $('modalTitle').textContent = `🔗 UniFi · ${c.nombre}`;
+  const otrosDuenos = {}; listaClientes().forEach(o => { if (!mismoCliente(o.nombre, c.nombre)) hostsDe(o).forEach(h => otrosDuenos[String(h.id || h)] = o.nombre); });
+  let html = '';
+  if (UF.msg) html += `<div class="u-warn">⚠️ ${UF.msg}</div>`;
+  if (UF.cargando) html += `<p class="muted">${t('act_loading')}</p>`;
+  else if (UF.paso === 'consolas'){
+    html += `<p class="muted">${t('uf_pick_help', { c: esc(c.nombre) })}</p><div class="uf-list">` + (UF.consolas.length ? UF.consolas.map(h => {
+      const id = String(h.id), dueno = otrosDuenos[id];
+      return `<label class="uf-host ${dueno ? 'otro' : ''}"><input type="checkbox" ${UF.selHosts.has(id) ? 'checked' : ''} onchange="this.checked ? UF.selHosts.add('${jsq(id)}') : UF.selHosts.delete('${jsq(id)}')">
+        <span><b>${esc(h.nombre)}</b><br><small>${esc([h.modelo, h.ip].filter(Boolean).join(' · '))}${dueno ? ` · ⚠️ ${esc(t('uf_used_by', { c: dueno }))}` : ''}</small></span></label>`; }).join('') : `<p class="muted">${t('uf_no_hosts')}</p>`) + `</div>
+      <div class="row"><button class="primary" onclick="guardarConsolas()">${t('uf_save_hosts')}</button>${hosts.length ? `<button onclick="buscarUnifi()">${t('cancel')}</button>` : ''}</div>`;
+  } else if (UF.paso === 'equipos'){
+    const n = k => UF.equipos.filter(d => d.accion === k).length;
+    html += `<div class="row" style="justify-content:space-between;align-items:center;margin-bottom:10px">
+        <div class="muted">🖥️ ${hosts.map(h => esc(h.nombre || h.id)).join(', ')} · <a class="dev-link" onclick="elegirConsolas()">${t('uf_change_hosts')}</a></div>
+        <button class="sm" onclick="buscarUnifi()">↻ ${t('refresh').replace(/^\W+/, '')}</button></div>
+      <div class="muted" style="margin-bottom:8px">${t('uf_summary', { n: n('nuevo'), a: n('act'), i: n('igual') })}</div>` +
+      (UF.equipos.length ? `<div class="table-wrap" style="max-height:52vh"><table class="uf-tbl"><thead><tr>
+        <th><input type="checkbox" ${UF.equipos.every(d => d.accion === 'igual' || UF.sel.has(d.id)) ? 'checked' : ''} onchange="UF.equipos.forEach(d => d.accion !== 'igual' && (this.checked ? UF.sel.add(d.id) : UF.sel.delete(d.id))); renderUnifi()"></th>
+        <th>${t('type')}</th><th>${t('name')}</th><th>${t('th_model')}</th><th>MAC</th><th>IP</th><th>${t('status')}</th><th>Firmware</th><th></th></tr></thead><tbody>` +
+        UF.equipos.map((d, i) => `<tr>
+          <td><input type="checkbox" ${UF.sel.has(d.id) ? 'checked' : ''} ${d.accion === 'igual' ? 'disabled' : ''} onchange="this.checked ? UF.sel.add('${jsq(d.id)}') : UF.sel.delete('${jsq(d.id)}'); renderUnifi()"></td>
+          <td>${d.ya ? `${TIPO_ICON[d.ya.tipo] || '◆'} ${esc(tTipo(d.ya.tipo))}` : `<select onchange="UF.equipos[${i}].tipo=this.value">${TIPOS.map(k => `<option value="${esc(k)}" ${k === d.tipo ? 'selected' : ''}>${esc(tTipo(k))}</option>`).join('')}</select>`}</td>
+          <td><b>${esc(d.nombre)}</b>${d.ya && d.ya.nombre !== d.nombre ? `<br><small class="muted">→ ${esc(d.ya.nombre)}</small>` : ''}</td>
+          <td>${esc(d.modelo)}</td><td class="mono">${esc(d.mac)}</td><td class="mono">${esc(d.ip)}</td>
+          <td><span class="uf-dot ${d.estado === 'online' ? 'on' : 'off'}"></span>${esc(d.estado === 'online' ? t('uf_online') : t('uf_offline'))}</td>
+          <td class="mono">${esc(d.firmware)}${d.actualizar ? ' ⬆' : ''}</td>
+          <td><span class="uf-tag ${d.accion}">${t('uf_' + d.accion)}</span></td></tr>`).join('') + `</tbody></table></div>
+        <div class="row" style="margin-top:12px"><button class="primary" onclick="importarUnifi()">${t('uf_import', { n: UF.sel.size })}</button>
+          <small class="muted">${t('uf_import_help')}</small></div>` : `<p class="muted">${t('uf_no_devices')}</p>`);
+  }
+  $('modalBody').innerHTML = html;
+}
+async function importarUnifi(){
+  const c = clienteObj(curCliente) || { nombre: curCliente };
+  const elegidos = UF.equipos.filter(d => UF.sel.has(d.id) && d.accion !== 'igual');
+  if (!elegidos.length) return toast(t('uf_nothing'));
+  const ahora = new Date().toISOString();
+  const extra = d => ({ unifi_id: d.id, unifi_estado: d.estado || null, unifi_update: !!d.actualizar, unifi_sync_at: ahora });
+  const nuevos = elegidos.filter(d => d.accion === 'nuevo').map(d => ({ cliente: c.nombre, direccion: c.direccion || null, tipo: d.tipo, nombre: d.nombre,
+    modelo: d.modelo || null, mac: d.mac || null, ip: d.ip || null, firmware: d.firmware || null, estado: 'Activo', ...extra(d) }));
+  const cambios = elegidos.filter(d => d.accion === 'act').map(d => ({ id: d.ya.id, patch: { ip: d.ip || d.ya.ip || null, firmware: d.firmware || null,
+    mac: d.ya.mac || d.mac || null, modelo: d.ya.modelo || d.modelo || null, ...extra(d) } }));
+  const quitar = (r, campos) => campos.forEach(k => delete r[k]);
+  let avisoSql = false;
+  const grabar = async (fn) => {   // si faltan columnas (SQL sin correr), guarda lo demás
+    let { error } = await fn();
+    if (error && /unifi_/i.test(error.message || '')){ avisoSql = true; nuevos.forEach(r => quitar(r, ['unifi_id','unifi_estado','unifi_update','unifi_sync_at'])); cambios.forEach(r => quitar(r.patch, ['unifi_id','unifi_estado','unifi_update','unifi_sync_at'])); ({ error } = await fn()); }
+    if (error && /firmware/i.test(error.message || '')){ nuevos.forEach(r => quitar(r, ['firmware'])); cambios.forEach(r => quitar(r.patch, ['firmware'])); ({ error } = await fn()); }
+    return error;
+  };
+  if (nuevos.length){ const e = await grabar(() => db.from('equipos').insert(nuevos)); if (e) return fail(e, t('save_fail')); }
+  for (const x of cambios){ const e = await grabar(() => db.from('equipos').update(x.patch).eq('id', x.id)); if (e) return fail(e, t('save_fail')); }
+  logAct('import_excel', null, { a: cambios.length, b: nuevos.length, origen: 'unifi' }, { cliente: c.nombre });
+  if (avisoSql) alert(t('uf_sql_missing'));
+  toast(t('uf_done', { n: nuevos.length, a: cambios.length }));
+  await loadData(); await buscarUnifi();
 }
 /* ---------- Clientes: 📌 fijar y ordenar arrastrando (se guarda en Supabase) ---------- */
 async function asegurarFilaCliente(c){
@@ -2798,6 +2958,11 @@ function verDetalle(id, keepVis){
     const otras = [['🏷️', x.lbl_modelo, x.lbl_conexion, x.lbl_ip], ['🖨️', x.imp_modelo, x.imp_conexion, x.imp_ip]].filter(p => p[1]);
     if (vp.length || otras.length) html += sec(t('det_linked_prn')) + vp.map(p => fila('🔗 ' + p.nombre, [p.conexion ? t('conn.' + p.conexion) : '', p.ip].filter(Boolean).map(esc).join(' · ') || '—')).join('')
       + otras.map(([ic, m, c, ip]) => fila(ic + ' ' + m, [c ? t('conn.' + c) : '', ip].filter(Boolean).map(esc).join(' · ') || '—')).join('');
+  }
+  if (x.unifi_id || x.unifi_estado){
+    html += sec('🔗 UniFi') + fila(t('status'), `<span class="uf-dot ${x.unifi_estado === 'online' ? 'on' : 'off'}"></span>${esc(x.unifi_estado === 'online' ? t('uf_online') : t('uf_offline'))}`)
+      + fila('Firmware', esc(x.firmware || '') + (x.unifi_update ? ` · ⬆ ${t('uf_update')}` : ''))
+      + (x.unifi_sync_at ? fila(t('uf_synced'), esc(new Date(x.unifi_sync_at).toLocaleString(LANG === 'es' ? 'es-US' : 'en-US', { dateStyle: 'medium', timeStyle: 'short' }))) : '');
   }
   if (NET_TIPOS.includes(x.tipo)){
     const up = x.conectado_a && items.find(i => i.id === x.conectado_a);

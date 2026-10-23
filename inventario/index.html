@@ -715,7 +715,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v6.7</p>
+    <p class="sub">Network Asset Manager · v6.8</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -731,7 +731,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v6.7</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v6.8</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -2236,7 +2236,7 @@ function elegirSede(id){ fSede = id; render(); }
 function renderSedeBar(){
   const el = $('clSedes'); if (!el) return;
   const lista = sedesDe(curCliente), todos = equiposDe(curCliente);
-  if (!sedesOK){ el.innerHTML = ''; return; }
+  if (!sedesOK){ el.innerHTML = PERM.editar ? `<span class="sede-tab add" onclick="nuevaSede()">＋ ${t('sede_add_first')}</span>` : ''; return; }
   if (fSede && fSede !== '-' && !lista.some(x => x.id === fSede)) fSede = '';
   const sinSede = todos.filter(x => !x.sede_id || !sedes.some(s => s.id === x.sede_id)).length;
   const chip = (id, txt, n, extra = '') => `<span class="sede-tab ${fSede === id ? 'on' : ''}" onclick="elegirSede('${jsq(id)}')">${txt} <b>${n}</b>${extra}</span>`;

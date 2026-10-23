@@ -746,7 +746,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v6.9</p>
+    <p class="sub">Network Asset Manager · v7.0</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -762,7 +762,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v6.9</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v7.0</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -916,7 +916,15 @@ details.u-help summary{cursor:pointer;font-weight:600}
           <label><span data-i18n="puertos">Ports</span><input id="puertos" autocomplete="off" data-i18n-ph="puertos_ph" placeholder="e.g. 24 + 4 SFP, PoE"></label>
         </div>
         <div id="modemBox" class="wan-box hidden">
-          <div class="users-head"><span>📦 <span data-i18n="mdm_title">Modem mode</span> <small class="muted" data-i18n="mdm_help">How the modem hands internet to the router</small></span></div>
+          <div class="users-head"><span>📦 <span data-i18n="mdm_title2">Modem: provider and mode</span> <small class="muted" data-i18n="mdm_help">How the modem hands internet to the router</small></span></div>
+          <div class="mdm-grid">
+            <label><span data-i18n="wan_isp">Provider</span><input id="mdm_isp" list="ispList" autocomplete="off" data-i18n-ph="mdm_isp_ph" placeholder="AT&amp;T, Comcast, Verizon…"></label>
+            <label><span data-i18n="mdm_con">Connection type</span><select id="mdm_con"><option value="">—</option></select></label>
+            <label><span data-i18n="mdm_ip">Public IP</span><input id="mdm_ip" class="monoin" autocomplete="off" inputmode="decimal"></label>
+            <label><span data-i18n="wan_speed">Speed (down/up)</span><input id="mdm_vel" autocomplete="off" placeholder="1000/1000"></label>
+            <label><span data-i18n="wan_acct">Account #</span><input id="mdm_cta" class="monoin" autocomplete="off"></label>
+          </div>
+          <div class="mdm-sub" data-i18n="mdm_modo_t">Modem mode</div>
           <input type="hidden" id="mdm_modo">
           <div id="mdmOps" class="mdm-ops"></div>
           <p id="mdmAyuda" class="muted mdm-ayuda"></p>
@@ -954,7 +962,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
             <button type="button" class="sm" onclick="addWanRow()" data-i18n="wan_add">＋ Add WAN</button></div>
           <div id="wanList"></div>
         </div>
-        <datalist id="ispList"><option value="Comcast / Xfinity Business"><option value="AT&amp;T Business"><option value="Spectrum Business"><option value="Hotwire Communications"><option value="Frontier"><option value="Lumen / CenturyLink"><option value="Verizon"><option value="T-Mobile"><option value="Starlink"><option value="Breezeline"></datalist>
+        <datalist id="ispList"><option value="Comcast / Xfinity Business"><option value="AT&amp;T Business"><option value="Spectrum Business"><option value="Hotwire Communications"><option value="Frontier"><option value="Lumen / CenturyLink"><option value="Verizon"><option value="T-Mobile"><option value="Starlink"><option value="Breezeline"><option value="Cox Business"><option value="Optimum Business"><option value="Google Fiber"><option value="Windstream"><option value="Comcastel"><option value="Crown Castle"><option value="Zayo"><option value="Verizon Fios"><option value="Verizon 5G Business"><option value="AT&amp;T Fiber"><option value="AT&amp;T Wireless (5G)"></datalist>
       </div>
       <div id="prnBox" class="pc-box hidden">
         <div class="sec"><i>03</i> <span data-i18n="sec_printer">Printer</span></div>
@@ -1601,7 +1609,7 @@ Object.assign(I18N.es, {
 const NET_TIPOS = ['Módem','Firewall','Router','Switch','Access Point','Extensor WiFi','Antena'];
 const NET_FIELDS = ['isp','cuenta_isp','ip_publica','ssid','firmware','puertos','conectado_a'];
 const WAN_TIPOS = ['Módem','Firewall','Router'];          // equipos que reciben internet (WAN / Multi-WAN)
-const WAN_CONEX = ['Fibra','Cable','DSL','LTE/5G','Starlink','Inalámbrico fijo','Otro'];
+const WAN_CONEX = ['Fibra','Cable','DSL','LTE/5G','Starlink','Inalámbrico fijo','Satélite','Otro'];
 const WAN_MODOS = ['principal','respaldo','balanceo'];
 /* ---------- 📦 Modo del módem (Router / Passthrough / IP fija / Bridge) ---------- */
 const MDM_MODOS = ['router','passthrough','ipfija','bridge'];
@@ -1625,6 +1633,8 @@ Object.assign(I18N.en, {
   mdm_block:'Block {n} IPs', mdm_lan:'LAN', mdm_otros_lbl:'Also connected', mdm_mac_of:'MAC of {d}', mdm_no_mac:'Passthrough MAC missing',
   mdm_dnat:'Double NAT (gets a private IP)', mdm_gets_pub:'gets the public IP', mdm_gets_priv:'gets a PRIVATE IP from the modem — double NAT',
   mdm_gets_fija:'uses one of the static IPs', mdm_no_rtr:'No router linked', mdm_no_rtr_h:'Edit the router → WAN → "Through modem"',
+  mdm_title2:'Modem: provider and mode', mdm_con:'Connection type', mdm_ip:'Public IP', mdm_isp_ph:'AT&T, Comcast, Verizon…', mdm_modo_t:'Modem mode',
+  'wc.Cable':'Coaxial cable', 'wc.Inalámbrico fijo':'Wireless / antenna', 'wc.Satélite':'Satellite', 'wc.DSL':'DSL (phone line)',
   mdm_chain:'Internet path', fl_modem:'Modem mode', 'fl.modem':'Modem mode', mdm_feeds_by:'via',
 });
 Object.assign(I18N.es, {
@@ -1645,6 +1655,8 @@ Object.assign(I18N.es, {
   mdm_block:'Bloque {n} IPs', mdm_lan:'LAN', mdm_otros_lbl:'También conectado', mdm_mac_of:'MAC de {d}', mdm_no_mac:'Falta la MAC del passthrough',
   mdm_dnat:'Doble NAT (recibe IP privada)', mdm_gets_pub:'recibe la IP pública', mdm_gets_priv:'recibe una IP PRIVADA del módem — doble NAT',
   mdm_gets_fija:'usa una de las IPs fijas', mdm_no_rtr:'Sin router asociado', mdm_no_rtr_h:'Edita el router → WAN → "Por el módem"',
+  mdm_title2:'Módem: proveedor y modo', mdm_con:'Tipo de conexión', mdm_ip:'IP pública', mdm_isp_ph:'AT&T, Comcast, Verizon…', mdm_modo_t:'Modo del módem',
+  'wc.Cable':'Cable coaxial', 'wc.Inalámbrico fijo':'Inalámbrico / antena', 'wc.Satélite':'Satélite', 'wc.DSL':'DSL (línea de teléfono)',
   mdm_chain:'Camino del internet', fl_modem:'Modo del módem', 'fl.modem':'Modo del módem', mdm_feeds_by:'por',
   wan_ip:'IP WAN',
 });
@@ -1652,11 +1664,20 @@ I18N.en.wan_ip = 'WAN IP';
 const mdmDe = x => { let m = x?.modem; if (typeof m === 'string'){ try{ m = JSON.parse(m); }catch(e){ m = {}; } } return m && typeof m === 'object' && !Array.isArray(m) ? m : {}; };
 const MDM_F = { pt_asig: 'mdm_pt_asig', pt_mac: 'mdm_pt_mac', pt_ip: 'mdm_pt_ip', n: 'mdm_n', ini: 'mdm_ini', fin: 'mdm_fin', gw: 'mdm_gw', mask: 'mdm_mask',
   uso: 'mdm_uso', lan_ip: 'mdm_lan_ip', dhcp: 'mdm_dhcp', wifi: 'mdm_wifi', otros: 'mdm_otros', otros_nota: 'mdm_otros_nota' };
+let mdmWansExtra = [];
 function fillModem(x){
-  const m = mdmDe(x);
+  const m = mdmDe(x), ws = wanDe(x), w = ws[0] || (x && (x.isp || x.ip_publica || x.cuenta_isp) ? { isp: x.isp, ip: x.ip_publica, cuenta: x.cuenta_isp } : {});
+  mdmWansExtra = ws.slice(1);
+  $('mdm_con').innerHTML = '<option value="">—</option>' + WAN_CONEX.map(v => `<option value="${esc(v)}">${esc(t('wc.' + v))}</option>`).join('');
+  $('mdm_isp').value = w.isp || ''; $('mdm_con').value = w.conexion || ''; $('mdm_ip').value = w.ip || ''; $('mdm_vel').value = w.velocidad || ''; $('mdm_cta').value = w.cuenta || '';
   $('mdm_modo').value = m.modo || ''; $('mdm_fija').checked = !!m.fija;
   Object.entries(MDM_F).forEach(([k, id]) => { $(id).value = m[k] || ''; delete $(id).dataset.auto; });
   mdmUI();
+}
+function wansModem(){
+  const w = { puerto: 'WAN1', isp: $('mdm_isp').value.trim(), conexion: $('mdm_con').value, modo: 'principal', ip: $('mdm_ip').value.trim(), velocidad: $('mdm_vel').value.trim(), cuenta: $('mdm_cta').value.trim() };
+  Object.keys(w).forEach(k => { if (!w[k]) delete w[k]; });
+  return [...(w.isp || w.ip || w.cuenta || w.conexion || w.velocidad ? [w] : []), ...mdmWansExtra];
 }
 function readModem(){
   const m = { modo: $('mdm_modo').value };
@@ -2429,7 +2450,7 @@ function readWans(){
 }
 function toggleWan(){
   const tipo = $('tipo').value, on = WAN_TIPOS.includes(tipo);
-  $('wanBox').classList.toggle('hidden', !on);
+  $('wanBox').classList.toggle('hidden', !on || tipo === 'Módem');
   $('modemBox').classList.toggle('hidden', tipo !== 'Módem'); mdmUI();
   document.querySelectorAll('#wanList .wan-row').forEach(r => { r.classList.toggle('sin-via', tipo === 'Módem'); viaInfo(r); });
 }
@@ -3252,7 +3273,7 @@ async function save(e){
   if (conRed) NET_FIELDS.forEach(f => row[f] = NET_TIPOS.includes(row.tipo) ? ($(f).value.trim() || null) : null);
   const conWan = WAN_TIPOS.includes(row.tipo) || (orig && WAN_TIPOS.includes(orig.tipo));
   if (conWan){
-    row.wans = WAN_TIPOS.includes(row.tipo) ? readWans() : [];
+    row.wans = row.tipo === 'Módem' ? wansModem() : WAN_TIPOS.includes(row.tipo) ? readWans() : [];
     const p = row.wans.find(w => w.modo === 'principal') || row.wans[0];      // el principal también queda en los campos sencillos
     row.isp = p?.isp || null; row.ip_publica = p?.ip || null; row.cuenta_isp = p?.cuenta || null;
   }

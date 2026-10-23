@@ -497,7 +497,15 @@ body.p-noexport [onclick="exportActCSV()"],body.p-noexport #migrarBtn{display:no
   box-shadow:0 20px 50px -15px rgba(0,0,0,.6);display:flex;gap:12px;align-items:center;font-size:13.5px}
 body.p-noadm [onclick^="abrirUnifi"]{display:none!important}
 .uf-list{display:flex;flex-direction:column;gap:6px;margin:10px 0}
-.uf-host{display:flex;align-items:center;gap:10px;padding:8px 10px;border:1px solid var(--line);border-radius:10px;cursor:pointer;font-size:13px}
+.uf-host{display:flex;flex-direction:row!important;align-items:center;justify-content:flex-start;gap:12px;padding:9px 12px;border:1px solid var(--line);border-radius:10px;cursor:pointer;font-size:13px;color:var(--text)!important;text-align:left}
+.uf-host:hover{background:var(--row-hover)}
+.uf-host.on{border-color:var(--c1);background:color-mix(in srgb,var(--c1) 8%,transparent)}
+.uf-host .tx{flex:1;min-width:0}
+.uf-host b{font-size:13.5px}
+.uf-host .sug{font:600 10.5px Inter,sans-serif;color:var(--warn);margin-left:6px}
+.uf-search{position:sticky;top:-20px;z-index:3;background:var(--card-solid);padding:6px 0 8px;margin-top:-6px}
+.uf-foot{position:sticky;bottom:-20px;z-index:3;background:var(--card-solid);border-top:1px solid var(--line);margin:10px -20px -20px;padding:12px 20px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.uf-foot .muted{margin-left:auto}
 .uf-host input{width:auto;margin:0}
 .uf-host small{color:var(--muted)}
 .uf-host.otro{opacity:.75}
@@ -674,7 +682,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v6.2</p>
+    <p class="sub">Network Asset Manager · v6.4</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -690,7 +698,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v6.2</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v6.4</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -747,10 +755,10 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <button class="backbtn" onclick="volverClientes()">← <span data-i18n="clients_title">Clients</span></button>
     <div class="cl-info"><h2 id="clNombre"></h2><div id="clMeta" class="muted"></div><div id="clSvc" class="svc-bar no-print"></div></div>
     <div class="row no-print">
-      <button onclick="abrirUnifi()" data-i18n-title="t_unifi">🔗 <span>UniFi</span></button>
       <button onclick="abrirClienteModal(curCliente)">✏️ <span data-i18n="edit_client">Edit client</span></button>
       <button onclick="openGrupos()">🗂 <span data-i18n="groups">Groups</span></button>
       <button onclick="document.getElementById('fileIn').click()">📥 <span data-i18n="import_excel">Import Excel</span></button>
+      <button onclick="abrirUnifi()" data-i18n-title="t_unifi">🔗 <span>UniFi</span></button>
       <button class="primary" onclick="nuevoEquipo()">＋ <span data-i18n="add_device">Add device</span></button>
     </div>
   </div>
@@ -1262,6 +1270,7 @@ es:{
   copied:'Copiado ✓', ask_client:'Algunas filas no tienen cliente. ¿A qué cliente pertenecen estos equipos?'
 }};
 Object.assign(I18N.en, {
+  uf_search:'Search console by name, model or IP…', uf_suggested:'suggested', uf_no_match:'No console matches that search.', uf_checked:'{n} checked',
   t_unifi:'Bring this client’s devices from UniFi', uf_pick_help:'Check ONLY the UniFi consoles that belong to <b>{c}</b>. Consoles you don’t check are never read.',
   uf_used_by:'already linked to {c}', uf_no_hosts:'Your API key does not see any console.', uf_save_hosts:'Save consoles', uf_change_hosts:'Change consoles',
   uf_linked:'{n} console(s) linked', uf_summary:'{n} new · {a} to update · {i} already up to date', uf_online:'Online', uf_offline:'Offline',
@@ -1349,6 +1358,7 @@ Object.assign(I18N.en, {
   'fl.ip':'IP', 'fl.mac':'MAC', 'fl.cliente':'Client', 'fl.direccion':'Address', 'fl.grupo_id':'Group', 'fl.pc_ids':'Linked PCs', 'fl.pc_users':'Users', 'fl.nombre':'Name', 'fl.contacto':'Contact', 'fl.telefono':'Phone', 'fl.email':'Email', 'fl.notas':'Notes',
 });
 Object.assign(I18N.es, {
+  uf_search:'Buscar consola por nombre, modelo o IP…', uf_suggested:'sugerida', uf_no_match:'Ninguna consola coincide con esa búsqueda.', uf_checked:'{n} marcada(s)',
   t_unifi:'Traer los equipos de este cliente desde UniFi', uf_pick_help:'Marca SOLO las consolas UniFi que son de <b>{c}</b>. Las que no marques nunca se leen.',
   uf_used_by:'ya está conectada a {c}', uf_no_hosts:'Tu API key no ve ninguna consola.', uf_save_hosts:'Guardar consolas', uf_change_hosts:'Cambiar consolas',
   uf_linked:'{n} consola(s) conectada(s)', uf_summary:'{n} nuevos · {a} por actualizar · {i} ya al día', uf_online:'En línea', uf_offline:'Fuera de línea',
@@ -2200,14 +2210,16 @@ async function llamarUnifi(body){
 }
 async function abrirUnifi(){
   if (!puede('admin')) return;
-  UF = { consolas: [], equipos: [], sel: new Set(), tipos: {}, paso: '', cargando: false, msg: '' };
+  UF = { consolas: [], equipos: [], sel: new Set(), selHosts: new Set(), tipos: {}, paso: '', cargando: false, msg: '' };
   $('modal').querySelector('.modal-card').classList.add('wide');
   $('modal').classList.remove('hidden');
   const c = clienteObj(curCliente) || {};
   if (hostsDe(c).length) await buscarUnifi(); else await elegirConsolas();
 }
 async function elegirConsolas(){
-  UF.paso = 'consolas'; UF.cargando = true; UF.msg = ''; renderUnifi();
+  UF.paso = 'consolas'; UF.cargando = true; UF.msg = '';
+  UF.selHosts = new Set(hostsDe(clienteObj(curCliente)).map(h => String(h.id || h)));
+  renderUnifi();
   const r = await llamarUnifi({ accion: 'consolas' });
   UF.cargando = false;
   if (r.error){ UF.msg = r.falta ? t('uf_fn_missing') : r.error; return renderUnifi(); }
@@ -2249,11 +2261,18 @@ function renderUnifi(){
   if (UF.msg) html += `<div class="u-warn">⚠️ ${UF.msg}</div>`;
   if (UF.cargando) html += `<p class="muted">${t('act_loading')}</p>`;
   else if (UF.paso === 'consolas'){
-    html += `<p class="muted">${t('uf_pick_help', { c: esc(c.nombre) })}</p><div class="uf-list">` + (UF.consolas.length ? UF.consolas.map(h => {
-      const id = String(h.id), dueno = otrosDuenos[id];
-      return `<label class="uf-host ${dueno ? 'otro' : ''}"><input type="checkbox" ${UF.selHosts.has(id) ? 'checked' : ''} onchange="this.checked ? UF.selHosts.add('${jsq(id)}') : UF.selHosts.delete('${jsq(id)}')">
-        <span><b>${esc(h.nombre)}</b><br><small>${esc([h.modelo, h.ip].filter(Boolean).join(' · '))}${dueno ? ` · ⚠️ ${esc(t('uf_used_by', { c: dueno }))}` : ''}</small></span></label>`; }).join('') : `<p class="muted">${t('uf_no_hosts')}</p>`) + `</div>
-      <div class="row"><button class="primary" onclick="guardarConsolas()">${t('uf_save_hosts')}</button>${hosts.length ? `<button onclick="buscarUnifi()">${t('cancel')}</button>` : ''}</div>`;
+    const pal = nrm(c.nombre).split(/[^a-z0-9áéíóúñ]+/).filter(w => w.length > 2 && !['and','the','inc','llc','corp','group','center','de','del','los','las'].includes(w));
+    const sugerida = h => pal.some(w => nrm(h.nombre).includes(w));
+    const lista = [...UF.consolas].sort((a, b) => (UF.selHosts.has(String(b.id)) - UF.selHosts.has(String(a.id))) || (sugerida(b) - sugerida(a)) || String(a.nombre).localeCompare(String(b.nombre)));
+    html += `<p class="muted" style="margin-top:0">${t('uf_pick_help', { c: esc(c.nombre) })}</p>
+      <div class="uf-search search"><input id="ufQ" value="${esc(UF.q || '')}" placeholder="${esc(t('uf_search'))}" oninput="UF.q=this.value;filtrarConsolas()" autocomplete="off"></div>
+      <div class="uf-list" id="ufList">` + (lista.length ? lista.map(h => {
+      const id = String(h.id), dueno = otrosDuenos[id], on = UF.selHosts.has(id);
+      return `<label class="uf-host ${dueno ? 'otro' : ''} ${on ? 'on' : ''}" data-q="${esc(nrm([h.nombre, h.modelo, h.ip].join(' ')))}"><input type="checkbox" ${on ? 'checked' : ''} onchange="toggleConsola(this,'${jsq(id)}')">
+        <span class="tx"><b>${esc(h.nombre)}</b>${sugerida(h) ? `<span class="sug">⭐ ${t('uf_suggested')}</span>` : ''}<br><small class="muted">${esc([h.modelo, h.ip].filter(Boolean).join(' · '))}${dueno ? ` · ⚠️ ${esc(t('uf_used_by', { c: dueno }))}` : ''}</small></span></label>`; }).join('')
+        + `<p class="muted hidden" id="ufNone">${t('uf_no_match')}</p>` : `<p class="muted">${t('uf_no_hosts')}</p>`) + `</div>
+      <div class="uf-foot"><button class="primary" onclick="guardarConsolas()">${t('uf_save_hosts')}</button>${hosts.length ? `<button onclick="buscarUnifi()">${t('cancel')}</button>` : ''}
+        <span class="muted" id="ufCount">${t('uf_checked', { n: UF.selHosts.size })}</span></div>`;
   } else if (UF.paso === 'equipos'){
     const n = k => UF.equipos.filter(d => d.accion === k).length;
     html += `<div class="row" style="justify-content:space-between;align-items:center;margin-bottom:10px">
@@ -2271,10 +2290,21 @@ function renderUnifi(){
           <td><span class="uf-dot ${d.estado === 'online' ? 'on' : 'off'}"></span>${esc(d.estado === 'online' ? t('uf_online') : t('uf_offline'))}</td>
           <td class="mono">${esc(d.firmware)}${d.actualizar ? ' ⬆' : ''}</td>
           <td><span class="uf-tag ${d.accion}">${t('uf_' + d.accion)}</span></td></tr>`).join('') + `</tbody></table></div>
-        <div class="row" style="margin-top:12px"><button class="primary" onclick="importarUnifi()">${t('uf_import', { n: UF.sel.size })}</button>
+        <div class="uf-foot"><button class="primary" onclick="importarUnifi()">${t('uf_import', { n: UF.sel.size })}</button>
           <small class="muted">${t('uf_import_help')}</small></div>` : `<p class="muted">${t('uf_no_devices')}</p>`);
   }
   $('modalBody').innerHTML = html;
+  if (UF.paso === 'consolas'){ filtrarConsolas(); const q = $('ufQ'); if (q && document.activeElement !== q && !UF._enfocado){ UF._enfocado = true; q.focus(); } }
+}
+function toggleConsola(el, id){
+  el.checked ? UF.selHosts.add(id) : UF.selHosts.delete(id);
+  el.closest('.uf-host').classList.toggle('on', el.checked);
+  $('ufCount').textContent = t('uf_checked', { n: UF.selHosts.size });
+}
+function filtrarConsolas(){
+  const q = nrm(UF.q || ''); let n = 0;
+  document.querySelectorAll('#ufList .uf-host').forEach(el => { const ok = !q || el.dataset.q.includes(q); el.classList.toggle('hidden', !ok); if (ok) n++; });
+  $('ufNone')?.classList.toggle('hidden', n > 0);
 }
 async function importarUnifi(){
   const c = clienteObj(curCliente) || { nombre: curCliente };

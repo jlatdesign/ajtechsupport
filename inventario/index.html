@@ -746,7 +746,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v7.0</p>
+    <p class="sub">Network Asset Manager · v7.1</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -762,7 +762,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v7.0</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v7.1</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -1635,6 +1635,7 @@ Object.assign(I18N.en, {
   mdm_gets_fija:'uses one of the static IPs', mdm_no_rtr:'No router linked', mdm_no_rtr_h:'Edit the router → WAN → "Through modem"',
   mdm_title2:'Modem: provider and mode', mdm_con:'Connection type', mdm_ip:'Public IP', mdm_isp_ph:'AT&T, Comcast, Verizon…', mdm_modo_t:'Modem mode',
   'wc.Cable':'Coaxial cable', 'wc.Inalámbrico fijo':'Wireless / antenna', 'wc.Satélite':'Satellite', 'wc.DSL':'DSL (phone line)',
+  up_modem:'— The modem is the first one (provider goes in the modem box) —', up_otras:'Other locations',
   mdm_chain:'Internet path', fl_modem:'Modem mode', 'fl.modem':'Modem mode', mdm_feeds_by:'via',
 });
 Object.assign(I18N.es, {
@@ -1657,6 +1658,7 @@ Object.assign(I18N.es, {
   mdm_gets_fija:'usa una de las IPs fijas', mdm_no_rtr:'Sin router asociado', mdm_no_rtr_h:'Edita el router → WAN → "Por el módem"',
   mdm_title2:'Módem: proveedor y modo', mdm_con:'Tipo de conexión', mdm_ip:'IP pública', mdm_isp_ph:'AT&T, Comcast, Verizon…', mdm_modo_t:'Modo del módem',
   'wc.Cable':'Cable coaxial', 'wc.Inalámbrico fijo':'Inalámbrico / antena', 'wc.Satélite':'Satélite', 'wc.DSL':'DSL (línea de teléfono)',
+  up_modem:'— El módem es el primero (el proveedor va en la caja del módem) —', up_otras:'Otras ubicaciones',
   mdm_chain:'Camino del internet', fl_modem:'Modo del módem', 'fl.modem':'Modo del módem', mdm_feeds_by:'por',
   wan_ip:'IP WAN',
 });
@@ -2492,7 +2494,7 @@ function fillSedeSelect(cur){
   sel.innerHTML = `<option value="">${t('sede_none_opt')}</option>` + lista.map(x => `<option value="${x.id}">📍 ${esc(x.nombre)}</option>`).join('');
   sel.value = lista.some(x => x.id === cur) ? cur : '';
 }
-function sedeElegida(){ const sd = sedes.find(x => x.id === $('sede_id').value); if (sd?.direccion) $('direccion').value = sd.direccion; }
+function sedeElegida(){ const sd = sedes.find(x => x.id === $('sede_id').value); if (sd?.direccion) $('direccion').value = sd.direccion; if (NET_TIPOS.includes($('tipo').value)) llenarUplink(); }
 let sedeEdit = null;
 function nuevaSede(){ if (!puede('editar')) return; if (!sedesOK) return alert(t('sede_missing')); sedeEdit = { cliente: curCliente }; formSede(); }
 function editarSede(id){ if (!puede('editar')) return; sedeEdit = { ...sedes.find(x => x.id === id) }; formSede(); }
@@ -3183,12 +3185,32 @@ function togglePC(){
   checkPrinterIP();
   actualizarVinculos();
 }
+// A qué se puede conectar cada tipo hacia arriba (uplink)
+const UPLINK_DE = {
+  'Switch':        ['Firewall', 'Router', 'Switch', 'Módem'],
+  'Access Point':  ['Switch', 'Router', 'Firewall', 'Access Point'],      // AP → AP = mesh / wireless uplink
+  'Extensor WiFi': ['Access Point', 'Router', 'Extensor WiFi', 'Switch'],
+  'Antena':        ['Switch', 'Router', 'Firewall', 'Antena'],            // antena → antena = enlace punto a punto
+  'Router':        ['Firewall', 'Router', 'Switch'],                      // el módem va en WAN → "Por el módem"
+  'Firewall':      ['Firewall', 'Router', 'Switch'],
+  'Módem':         [],
+};
 function llenarUplink(){
-  const sel = $('conectado_a'), cur = sel.value || sel.dataset.v || '', cli = $('cliente').value;
-  const opts = items.filter(x => NET_TIPOS.includes(x.tipo) && x.id !== editId && (!cli || mismoCliente(x.cliente, cli)))
-    .sort((a, b) => NET_TIPOS.indexOf(a.tipo) - NET_TIPOS.indexOf(b.tipo) || String(a.nombre).localeCompare(b.nombre));
-  sel.innerHTML = `<option value="">${esc(t('net_none_up'))}</option>` + opts.map(x => `<option value="${x.id}">${TIPO_ICON[x.tipo] || '◆'} ${esc(x.nombre)}${x.ip ? ' · ' + esc(x.ip) : ''}</option>`).join('');
-  sel.value = opts.some(x => x.id === cur) ? cur : '';
+  const sel = $('conectado_a'), cur = sel.value || sel.dataset.v || '', cli = $('cliente').value, tipo = $('tipo').value, sede = $('sede_id')?.value || '';
+  const ok = UPLINK_DE[tipo] || NET_TIPOS;
+  const todos = items.filter(x => x.id !== editId && (!cli || mismoCliente(x.cliente, cli)));
+  const opts = todos.filter(x => ok.includes(x.tipo));
+  const actual = !opts.some(x => x.id === cur) && todos.find(x => x.id === cur);       // un uplink viejo que ya no aplica: se respeta
+  const ord = (a, b) => String(a.nombre).localeCompare(String(b.nombre), 'es', { numeric: true });
+  const op = x => `<option value="${x.id}">${TIPO_ICON[x.tipo] || '◆'} ${esc(x.nombre)}${x.ip ? ' · ' + esc(x.ip) : ''}</option>`;
+  const otrasSedes = sede && opts.some(x => x.sede_id && x.sede_id !== sede);
+  const aqui = otrasSedes ? opts.filter(x => !x.sede_id || x.sede_id === sede) : opts, fuera = otrasSedes ? opts.filter(x => x.sede_id && x.sede_id !== sede) : [];
+  const grupos = ok.filter(k => aqui.some(x => x.tipo === k)).map(k => `<optgroup label="${esc(tTipo(k))}">${aqui.filter(x => x.tipo === k).sort(ord).map(op).join('')}</optgroup>`).join('');
+  sel.disabled = tipo === 'Módem';
+  sel.title = tipo === 'Módem' ? t('up_modem') : '';
+  sel.innerHTML = `<option value="">${esc(tipo === 'Módem' ? t('up_modem') : t('net_none_up'))}</option>` + (actual ? op(actual) : '') + grupos
+    + (fuera.length ? `<optgroup label="📍 ${esc(t('up_otras'))}">${fuera.sort(ord).map(op).join('')}</optgroup>` : '');
+  sel.value = tipo === 'Módem' ? '' : (opts.some(x => x.id === cur) || actual ? cur : '');
 }
 function checkPrinterIP(){
   const on = !$('pcBox').classList.contains('hidden');

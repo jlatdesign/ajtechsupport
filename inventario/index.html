@@ -497,6 +497,7 @@ body.p-noexport [onclick="exportActCSV()"],body.p-noexport #migrarBtn{display:no
   box-shadow:0 20px 50px -15px rgba(0,0,0,.6);display:flex;gap:12px;align-items:center;font-size:13.5px}
 body.p-noadm [onclick^="abrirUnifi"]{display:none!important}
 .uf-list{display:flex;flex-direction:column;gap:6px;margin:10px 0}
+.uf-sede select{padding:5px 8px;font-size:12px;width:auto;max-width:220px}
 .uf-host{display:flex;flex-direction:row!important;align-items:center;justify-content:flex-start;gap:12px;padding:9px 12px;border:1px solid var(--line);border-radius:10px;cursor:pointer;font-size:13px;color:var(--text)!important;text-align:left}
 .uf-host:hover{background:var(--row-hover)}
 .uf-host.on{border-color:var(--c1);background:color-mix(in srgb,var(--c1) 8%,transparent)}
@@ -519,6 +520,38 @@ body.p-noadm [onclick^="abrirUnifi"]{display:none!important}
 .uf-tag.igual{color:var(--muted)}
 .uf-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;vertical-align:middle}
 .uf-dot.on{background:var(--ok)}.uf-dot.off{background:var(--bad)}
+.sede-bar{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.sede-tab{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;border:1px solid var(--line);background:var(--card-solid);font-size:12.5px;cursor:pointer;user-select:none}
+.sede-tab b{font:600 11px "JetBrains Mono",monospace;color:var(--muted)}
+.sede-tab:hover{border-color:var(--c1)}
+.sede-tab.on{background:var(--c1);border-color:var(--c1);color:#fff}
+.sede-tab.on b,.sede-tab.on .muted{color:#fff}
+.sede-tab.add{border-style:dashed;color:var(--muted)}
+.sede-edit{font-style:normal;opacity:.55;padding:0 2px;margin-right:-4px}
+.sede-edit:hover{opacity:1}
+.sede-chip{display:inline-block;font-size:12px;padding:2px 8px;border-radius:999px;background:var(--row-hover);white-space:nowrap}
+.sc-sedes{font-weight:600;color:var(--c1);font-size:11.5px;white-space:nowrap}
+.vpn-box{margin:12px 0 0;border:1px solid var(--line);border-radius:12px;padding:10px 14px;background:var(--card)}
+.vpn-head{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.vpn-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:8px 0;border-top:1px solid var(--line)}
+.vpn-row.off{opacity:.65}
+.vpn-ends{display:flex;align-items:center;gap:8px;font-weight:600;font-size:13.5px;min-width:260px}
+.vpn-arrow{color:var(--c1);font-size:16px}
+.vpn-meta{display:flex;gap:12px;flex-wrap:wrap;align-items:center;font-size:12.5px;flex:1}
+.vpn-tag{font:600 11px Inter,sans-serif;padding:2px 8px;border-radius:999px;border:1px solid color-mix(in srgb,var(--c1) 45%,var(--line));color:var(--c1)}
+.vpn-form{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:start}
+.vpn-side{display:flex;flex-direction:column;gap:10px;border:1px solid var(--line);border-radius:12px;padding:12px}
+.vpn-mid{align-self:center;font-size:26px;color:var(--c1)}
+@media (max-width:700px){.vpn-form{grid-template-columns:1fr}.vpn-mid{justify-self:center}}
+body.p-ro [onclick="nuevaSede()"],body.p-ro [onclick^="editarSede("],body.p-ro [onclick="nuevaVpn()"],body.p-ro [onclick^="editarVpn("]{display:none!important}
+body.p-noborrar [onclick^="borrarSede("],body.p-noborrar [onclick^="borrarVpn("]{display:none!important}
+.cl-sede{font-weight:500;color:var(--c1)}
+.sc-edit{opacity:0;filter:none!important;font-size:13px}
+.site-card:hover .sc-edit{opacity:.8}
+.sc-vpn{font:600 11px Inter,sans-serif;color:var(--c1);margin-left:6px;white-space:nowrap}
+.site-card.sede-all{border-style:dashed;border-color:color-mix(in srgb,var(--c1) 45%,var(--line))}
+.site-card.sede-none{opacity:.8}
+#sedesView .cv-top .search{max-width:320px}
 /* ===== Inventario de Network ===== */
 #netBox .legacy-isp{display:none}
 .wan-box{margin-top:12px;border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--card)}
@@ -682,7 +715,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v6.4</p>
+    <p class="sub">Network Asset Manager · v6.7</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -698,7 +731,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v6.4</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v6.7</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -749,11 +782,26 @@ details.u-help summary{cursor:pointer;font-weight:600}
   </div>
 </div>
 
+<!-- ===== Vista: ubicaciones de un cliente ===== -->
+<div id="sedesView" class="hidden">
+  <div class="cl-head">
+    <button class="backbtn" onclick="volverClientes()">← <span data-i18n="clients_title">Clients</span></button>
+    <div class="cl-info"><h2 id="sdvNombre"></h2><div id="sdvMeta" class="muted"></div><div id="sdvSvc" class="svc-bar no-print"></div></div>
+    <div class="row no-print">
+      <button onclick="abrirClienteModal(curCliente)">✏️ <span data-i18n="edit_client">Edit client</span></button>
+      <button class="primary" onclick="nuevaSede()">＋ <span data-i18n="sede_add">Add location</span></button>
+    </div>
+  </div>
+  <div class="cv-top" style="margin-bottom:12px"><div><h2 style="font-size:18px">📍 <span data-i18n="sede_title">Locations</span></h2><small class="muted" id="sdvCount"></small></div>
+    <div class="search"><input id="sdq" data-i18n-ph="sede_search" placeholder="Search locations..." oninput="renderSedesGrid()"></div></div>
+  <div id="sedeGrid" class="site-grid"></div>
+</div>
+
 <!-- ===== Vista: un cliente ===== -->
 <div id="clientView" class="hidden">
   <div class="cl-head">
-    <button class="backbtn" onclick="volverClientes()">← <span data-i18n="clients_title">Clients</span></button>
-    <div class="cl-info"><h2 id="clNombre"></h2><div id="clMeta" class="muted"></div><div id="clSvc" class="svc-bar no-print"></div></div>
+    <button class="backbtn" id="clBack" onclick="atrasCliente()">← <span id="clBackTxt" data-i18n="clients_title">Clients</span></button>
+    <div class="cl-info"><h2 id="clNombre"></h2><div id="clMeta" class="muted"></div><div id="clSedes" class="sede-bar no-print"></div><div id="clSvc" class="svc-bar no-print"></div></div>
     <div class="row no-print">
       <button onclick="abrirClienteModal(curCliente)">✏️ <span data-i18n="edit_client">Edit client</span></button>
       <button onclick="openGrupos()">🗂 <span data-i18n="groups">Groups</span></button>
@@ -816,6 +864,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
             <button type="button" class="sm" onclick="togglePwField()" data-i18n-title="t_showhide">👁</button>
           </span>
         </label>
+        <label id="sedeLbl"><span data-i18n="sede">Location</span><select id="sede_id" onchange="sedeElegida()"></select></label>
         <label><span data-i18n="group">Group</span>
           <span class="pw"><select id="grupo_id"></select><button type="button" class="sm" onclick="nuevoGrupoDesdeForm()" data-i18n-title="t_newgroup">＋</button></span>
         </label>
@@ -942,7 +991,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
       <table id="devTable">
         <thead><tr>
           <th class="no-print sel-col"><input type="checkbox" id="selAll" onclick="selTodos(this.checked)" data-i18n-title="t_selall"></th><th data-k="cliente" data-i18n="client">Client</th><th data-k="direccion" data-i18n="address">Address</th>
-          <th data-k="tipo" data-i18n="type">Type</th><th data-k="nombre" data-i18n="name">Name</th><th data-k="first_name" data-i18n="first_name">First name</th><th data-k="last_name" data-i18n="last_name">Last name</th><th data-i18n="group">Group</th><th data-k="lugar" data-i18n="th_area">Area</th>
+          <th data-k="tipo" data-i18n="type">Type</th><th data-k="nombre" data-i18n="name">Name</th><th data-k="first_name" data-i18n="first_name">First name</th><th data-k="last_name" data-i18n="last_name">Last name</th><th data-i18n="group">Group</th><th data-i18n="sede">Location</th><th data-k="lugar" data-i18n="th_area">Area</th>
           <th data-k="modelo" data-i18n="th_model">Model</th><th data-k="serial" data-i18n="serial">Serial</th><th data-k="ip">IP</th>
           <th data-k="mac">MAC</th><th data-k="usuario" data-i18n="username">Username</th><th data-i18n="password">Password</th>
           <th data-k="departamento" data-i18n="th_user">Department / contact</th><th data-k="hostname" data-i18n="th_pc">Computer</th><th data-k="anydesk" data-i18n="th_remote">Remote access</th><th data-k="pc_user" data-i18n="th_logins">PC logins</th><th data-k="lbl_modelo" data-i18n="th_printers">Printers</th><th data-i18n="th_licenses">Licenses</th><th data-k="garantia" data-i18n="th_warranty">Warranty</th>
@@ -1270,6 +1319,25 @@ es:{
   copied:'Copiado ✓', ask_client:'Algunas filas no tienen cliente. ¿A qué cliente pertenecen estos equipos?'
 }};
 Object.assign(I18N.en, {
+  uf_pick_sede:'Then choose which <b>location</b> each console belongs to.', uf_hidden:'{n} from other locations hidden', uf_hidden_help:'Devices from consoles assigned to other locations. Open “All locations” to see them all.',
+  sede_title:'Locations', sede_search:'Search locations...', sede_count:'{n} locations · {d} devices',
+  sede:'Location', sede_all:'All locations', sede_none:'No location', sede_none_opt:'— No location —', sede_add:'Add location', sede_add_first:'Add locations (if this client has more than one)',
+  sede_edit:'Edit location', sede_name:'Location name', sede_name_ph:'e.g. Main office, Doral warehouse', sede_main:'Main office',
+  sede_first_help:'The first location gets all the devices this client already has. Then add the others and move devices with Edit → Location.',
+  sede_exists:'There is already a location called "{n}"', sede_saved:'📍 {n} saved', sede_deleted:'Location deleted', sede_delete:'Delete location',
+  sede_confirm_del:'Delete the location "{s}"?\n{n} device(s) stay in the client without a location. Nothing else is deleted.',
+  sede_missing:'Run supabase-ubicaciones.sql in Supabase first to use locations and VPNs.', sede_more:'locations', sede_more1:'location',
+  vpn_title:'VPN between locations', vpn_add:'Add VPN', vpn_edit:'Edit VPN', vpn_save:'Save VPN', vpn_delete:'Delete VPN', vpn_saved:'VPN saved', vpn_deleted:'VPN deleted',
+  vpn_none:'No VPN registered between these locations yet.', vpn_none_one:'No VPN registered. Add one to another location of this client or to an outside destination (cloud, another company).',
+  vpn_side_a:'Side A', vpn_side_b:'Side B', vpn_device:'Gateway / device', vpn_net:'Network (subnet)', vpn_type:'VPN type', vpn_external:'Outside destination (cloud, another company)',
+  vpn_external_name:'Destination name', vpn_other_co:'another company', vpn_notes_ph:'Pre-shared key location, provider, phase 1/2, schedule…',
+  vpn_need:'Choose at least one side', vpn_same:'Both sides are the same location', vpn_confirm_del:'Delete this VPN?',
+  'vs.Activa':'Active', 'vs.Inactiva':'Inactive', 'vs.En prueba':'Testing', 'cat.location':'Location', 'cat.vpn':'VPN',
+  'ev.location_created':'Location Added', 'ev.location_updated':'Location Updated', 'ev.location_deleted':'Location Deleted',
+  'ev.vpn_created':'VPN Added', 'ev.vpn_updated':'VPN Updated', 'ev.vpn_deleted':'VPN Deleted',
+  'ad.location_created':'{u} added the location {o}', 'ad.location_updated':'{u} updated {f} on the location {o}', 'ad.location_deleted':'{u} deleted the location {o}',
+  'ad.vpn_created':'{u} added the VPN {o}', 'ad.vpn_updated':'{u} updated {f} on the VPN {o}', 'ad.vpn_deleted':'{u} deleted the VPN {o}',
+  'fl.sede_id':'Location', 'fl.sede_a':'Side A', 'fl.sede_b':'Side B', 'fl.equipo_a':'Device A', 'fl.equipo_b':'Device B', 'fl.red_a':'Network A', 'fl.red_b':'Network B', 'fl.externo':'Destination',
   uf_search:'Search console by name, model or IP…', uf_suggested:'suggested', uf_no_match:'No console matches that search.', uf_checked:'{n} checked',
   t_unifi:'Bring this client’s devices from UniFi', uf_pick_help:'Check ONLY the UniFi consoles that belong to <b>{c}</b>. Consoles you don’t check are never read.',
   uf_used_by:'already linked to {c}', uf_no_hosts:'Your API key does not see any console.', uf_save_hosts:'Save consoles', uf_change_hosts:'Change consoles',
@@ -1358,6 +1426,25 @@ Object.assign(I18N.en, {
   'fl.ip':'IP', 'fl.mac':'MAC', 'fl.cliente':'Client', 'fl.direccion':'Address', 'fl.grupo_id':'Group', 'fl.pc_ids':'Linked PCs', 'fl.pc_users':'Users', 'fl.nombre':'Name', 'fl.contacto':'Contact', 'fl.telefono':'Phone', 'fl.email':'Email', 'fl.notas':'Notes',
 });
 Object.assign(I18N.es, {
+  uf_pick_sede:'Luego escoge a qué <b>ubicación</b> pertenece cada consola.', uf_hidden:'{n} de otras ubicaciones ocultos', uf_hidden_help:'Equipos de consolas asignadas a otras ubicaciones. Abre “Todas las ubicaciones” para verlos todos.',
+  sede_title:'Ubicaciones', sede_search:'Buscar ubicaciones...', sede_count:'{n} ubicaciones · {d} equipos',
+  sede:'Ubicación', sede_all:'Todas las ubicaciones', sede_none:'Sin ubicación', sede_none_opt:'— Sin ubicación —', sede_add:'Agregar ubicación', sede_add_first:'Agregar ubicaciones (si este cliente tiene más de una)',
+  sede_edit:'Editar ubicación', sede_name:'Nombre de la ubicación', sede_name_ph:'ej. Oficina principal, Bodega Doral', sede_main:'Oficina principal',
+  sede_first_help:'La primera ubicación se queda con todos los equipos que ya tiene este cliente. Después agregas las otras y mueves equipos con Editar → Ubicación.',
+  sede_exists:'Ya existe una ubicación llamada "{n}"', sede_saved:'📍 {n} guardada', sede_deleted:'Ubicación borrada', sede_delete:'Borrar ubicación',
+  sede_confirm_del:'¿Borrar la ubicación "{s}"?\n{n} equipo(s) se quedan en el cliente sin ubicación. No se borra nada más.',
+  sede_missing:'Primero corre supabase-ubicaciones.sql en Supabase para usar ubicaciones y VPN.', sede_more:'ubicaciones', sede_more1:'ubicación',
+  vpn_title:'VPN entre ubicaciones', vpn_add:'Agregar VPN', vpn_edit:'Editar VPN', vpn_save:'Guardar VPN', vpn_delete:'Borrar VPN', vpn_saved:'VPN guardada', vpn_deleted:'VPN borrada',
+  vpn_none:'Todavía no hay VPN registradas entre estas ubicaciones.', vpn_none_one:'No hay VPN registradas. Agrega una hacia otra ubicación de este cliente o hacia afuera (nube, otra compañía).',
+  vpn_side_a:'Lado A', vpn_side_b:'Lado B', vpn_device:'Gateway / equipo', vpn_net:'Red (subred)', vpn_type:'Tipo de VPN', vpn_external:'Destino externo (nube, otra compañía)',
+  vpn_external_name:'Nombre del destino', vpn_other_co:'otra compañía', vpn_notes_ph:'Dónde está la clave compartida, proveedor, fase 1/2, horario…',
+  vpn_need:'Escoge al menos un lado', vpn_same:'Los dos lados son la misma ubicación', vpn_confirm_del:'¿Borrar esta VPN?',
+  'vs.Activa':'Activa', 'vs.Inactiva':'Inactiva', 'vs.En prueba':'En prueba', 'cat.location':'Ubicación', 'cat.vpn':'VPN',
+  'ev.location_created':'Ubicación agregada', 'ev.location_updated':'Ubicación modificada', 'ev.location_deleted':'Ubicación borrada',
+  'ev.vpn_created':'VPN agregada', 'ev.vpn_updated':'VPN modificada', 'ev.vpn_deleted':'VPN borrada',
+  'ad.location_created':'{u} agregó la ubicación {o}', 'ad.location_updated':'{u} cambió {f} de la ubicación {o}', 'ad.location_deleted':'{u} borró la ubicación {o}',
+  'ad.vpn_created':'{u} agregó la VPN {o}', 'ad.vpn_updated':'{u} cambió {f} de la VPN {o}', 'ad.vpn_deleted':'{u} borró la VPN {o}',
+  'fl.sede_id':'Ubicación', 'fl.sede_a':'Lado A', 'fl.sede_b':'Lado B', 'fl.equipo_a':'Equipo A', 'fl.equipo_b':'Equipo B', 'fl.red_a':'Red A', 'fl.red_b':'Red B', 'fl.externo':'Destino',
   uf_search:'Buscar consola por nombre, modelo o IP…', uf_suggested:'sugerida', uf_no_match:'Ninguna consola coincide con esa búsqueda.', uf_checked:'{n} marcada(s)',
   t_unifi:'Traer los equipos de este cliente desde UniFi', uf_pick_help:'Marca SOLO las consolas UniFi que son de <b>{c}</b>. Las que no marques nunca se leen.',
   uf_used_by:'ya está conectada a {c}', uf_no_hosts:'Tu API key no ve ninguna consola.', uf_save_hosts:'Guardar consolas', uf_change_hosts:'Cambiar consolas',
@@ -1514,7 +1601,7 @@ async function init(){
 window.addEventListener('error', e => { const el = $('lgErr'); if (el) el.textContent = 'Error: ' + e.message; });
 function showLogin(){ $('app').classList.add('hidden'); $('login').classList.remove('hidden'); items = []; permCargado = false; autoAbierto = false; }
 function showApp(session){
-  { const m = location.hash.match(/^#c=(.+)$/); curCliente = m ? decodeURIComponent(m[1]) : null; }
+  leerHash();
   $('login').classList.add('hidden'); $('app').classList.remove('hidden');
   $('whoami').textContent = (session.user.email || '').replace('@' + DOMINIO_USUARIOS, '');
   try{ const local = JSON.parse(localStorage.getItem(LOCAL_KEY)); if (Array.isArray(local) && local.length) $('migrarBtn').classList.remove('hidden'); }catch(e){}
@@ -1777,6 +1864,10 @@ async function loadData(){
   grupos = g.error ? [] : (g.data || []); gruposOK = !g.error;
   const cl = await db.from('clientes').select('*').order('nombre');
   clientesDB = cl.error ? [] : (cl.data || []); clientesOK = !cl.error;
+  const sd = await db.from('sedes').select('*').order('nombre');
+  sedes = sd.error ? [] : (sd.data || []); sedesOK = !sd.error;
+  const vp = await db.from('vpns').select('*').order('nombre');
+  vpns = vp.error ? [] : (vp.data || []);
   render();
   if (!$('gModal').classList.contains('hidden')) renderGrupos();
 }
@@ -2006,13 +2097,14 @@ function renderClientes(){
     const estado = !d.length ? `<span class="dot off"></span>${t('no_devices_yet')}`
       : rep ? `<span class="dot warn"></span>${tN('n_devices', d.length)} · ${t('n_repair', { n: rep })}`
       : `<span class="dot"></span>${tN('n_devices', d.length)}${ng ? ' · ' + tN('n_groups', ng) : ''}`;
+    const nSd = sedesDe(c.nombre).length;
     const bar = d.length ? `<i style="width:${act / n * 100}%;background:var(--ok)"></i><i style="width:${rep / n * 100}%;background:var(--warn)"></i><i style="width:${cnt('Inactivo') / n * 100}%;background:var(--off)"></i><i style="width:${cnt('Dado de baja') / n * 100}%;background:var(--bad)"></i>` : '';
     return `<div class="site-card ${c.fijado ? 'pinned' : ''}" onclick="abrirCliente(this.dataset.n)" data-n="${esc(c.nombre)}" ${PERM.admin ? 'draggable="true"' : ''}>
       ${PERM.admin ? `<button class="sc-pin ${c.fijado ? 'on' : ''}" onclick="event.stopPropagation();fijarCliente(this.closest('.site-card').dataset.n)" title="${esc(t(c.fijado ? 'unpin' : 'pin'))}">📌</button>` : (c.fijado ? '<span class="sc-pin on">📌</span>' : '')}
       <h3 title="${esc(c.nombre)}">${esc(c.nombre)}</h3>
       <div class="sc-sub">${estado}</div>
       <div class="sc-bar">${bar}</div>
-      <div class="sc-addr">${c.direccion ? `📍 ${esc(c.direccion)}` : '&nbsp;'}</div>
+      <div class="sc-addr">${c.direccion ? `📍 ${esc(c.direccion)}` : '&nbsp;'}${nSd > 1 ? ` <b class="sc-sedes">+${nSd - 1} ${t(nSd - 1 === 1 ? 'sede_more1' : 'sede_more')}</b>` : ''}</div>
       <div class="sc-svc">${svcActivos(c).map(S => `<span style="--sc:${S.color}" title="${esc(t('svc.' + S.k) + (S.k === 'it' && svcSinIT(svcDe(c).it) ? ' · ' + svcSinIT(svcDe(c).it) : ''))}">${svcIcon(S.k)}</span>`).join('')}</div>
       <div class="sc-icons">${Object.keys(tipos).length ? Object.keys(tipos).sort((a, b) => orden.indexOf(a) - orden.indexOf(b)).map(k => `<span title="${esc(tTipo(k))}">${TIPO_ICON[k] || '◆'} ${tipos[k]}</span>`).join('') : `<span class="empty">＋ ${t('add_device')}</span>`}</div>
     </div>`;
@@ -2020,26 +2112,33 @@ function renderClientes(){
 }
 function renderClienteHead(){
   const c = clienteObj(curCliente) || { nombre: curCliente };
-  $('clNombre').textContent = c.nombre;
+  const sd = fSede && fSede !== '-' ? sedes.find(x => x.id === fSede) : null, varias = sedesDe(curCliente).length >= 2;
+  $('clNombre').innerHTML = esc(c.nombre) + (sd ? ` <span class="cl-sede">› 📍 ${esc(sd.nombre)}</span>` : varias ? ` <span class="cl-sede">› ${esc(fSede === '-' ? t('sede_none') : t('sede_all'))}</span>` : '');
+  $('clBackTxt').textContent = varias ? t('sede_title') : t('clients_title');
   $('clMeta').innerHTML = [c.direccion ? `<a href="${mapUrl(c.direccion)}" target="_blank" rel="noopener">📍 ${esc(c.direccion)}</a>` : '',
     c.contacto ? `👤 ${esc(c.contacto)}` : '', c.telefono ? `📞 <a href="tel:${esc(String(c.telefono).replace(/[^\d+]/g, ''))}">${esc(c.telefono)}</a>` : '',
     c.email ? `✉️ <a href="mailto:${esc(c.email)}">${esc(c.email)}</a>` : ''].filter(Boolean).join(' &nbsp;·&nbsp; ');
   renderSvcBar();
+  renderSedeBar();
   $('clientView').classList.toggle('sin-dev', !permiteDev(curCliente));
   $('clientView').classList.toggle('sin-net', !permiteNet(curCliente));
 }
 function mostrarVista(){
-  const enCliente = !!curCliente, act = ACT.open;
+  if (curCliente && enSedes === null) enSedes = sedesDe(curCliente).length >= 2;   // desde un enlace: decidir al cargar
+  if (curCliente && enSedes && sedesDe(curCliente).length < 2) enSedes = false;
+  const enCliente = !!curCliente, act = ACT.open, verSedes = enCliente && !!enSedes;
   $('actView').classList.toggle('hidden', !act);
   $('clientsView').classList.toggle('hidden', act || enCliente);
-  $('clientView').classList.toggle('hidden', act || !enCliente);
+  $('sedesView').classList.toggle('hidden', act || !verSedes);
+  $('clientView').classList.toggle('hidden', act || !enCliente || verSedes);
   if (act) renderActividad();
   $('devTable').classList.toggle('scoped', enCliente);
   $('fCliente').style.display = enCliente ? 'none' : '';
-  if (enCliente) renderClienteHead(); else renderClientes();
+  if (verSedes) renderSedesGrid(); else if (enCliente) renderClienteHead(); else renderClientes();
 }
 function abrirCliente(n){
-  ACT.open = false; curCliente = n; fTipo = ''; vista = 'ov'; fAlert = ''; fCat = ''; fPred = null; sel.clear(); $('q').value = ''; $('fGrupo').value = ''; $('fLugar').value = '';
+  enSedes = sedesDe(n).length >= 2;
+  ACT.open = false; fSede = ''; curCliente = n; fTipo = ''; vista = 'ov'; fAlert = ''; fCat = ''; fPred = null; sel.clear(); $('q').value = ''; $('fGrupo').value = ''; $('fLugar').value = '';
   try{ history.pushState({ c: n }, '', '#c=' + encodeURIComponent(n)); }catch(e){}
   render(); window.scrollTo({ top: 0 });
 }
@@ -2049,9 +2148,14 @@ function volverClientes(){
   curCliente = null; cerrarDrawer(); render(); window.scrollTo({ top: 0 });
 }
 window.addEventListener('popstate', () => {
-  const m = location.hash.match(/^#c=(.+)$/);
-  curCliente = m ? decodeURIComponent(m[1]) : null; cerrarDrawer(); render();
+  leerHash(); cerrarDrawer(); render();
 });
+// Enlaces: #c=Cliente  (ubicaciones)  ·  #c=Cliente&s=<id|all>  (dentro de una ubicación)
+function leerHash(){
+  const m = location.hash.match(/^#c=([^&]+)(?:&s=(.+))?$/);
+  curCliente = m ? decodeURIComponent(m[1]) : null;
+  if (m && m[2]){ enSedes = false; fSede = m[2] === 'all' ? '' : decodeURIComponent(m[2]); } else { enSedes = null; fSede = ''; }
+}
 // El formulario vive fuera de las vistas para abrirse desde cualquiera (Overview, Network, lista)
 (function(){ const d = document.getElementById('drawer'), app = document.getElementById('app'); if (d && app && d.parentElement !== app) app.appendChild(d); })();
 function abrirDrawer(titulo){ $('drawerTitle').textContent = titulo; $('drawer').classList.remove('hidden'); $('drawer').querySelector('.drawer-panel').scrollTop = 0; }
@@ -2121,6 +2225,210 @@ const wanLinea = (w, html = true) => {
 };
 // Qué WAN alimenta un módem (otros equipos que dicen "por el módem X")
 const alimentaDe = m => items.flatMap(x => wanDe(x).filter(w => w.via === m.id).map(w => ({ x, w })));
+/* ---------- 📍 Ubicaciones (sedes) del cliente ---------- */
+let sedes = [], sedesOK = true, fSede = '', vpns = [];
+const sedesDe = cli => sedes.filter(x => mismoCliente(x.cliente, cli)).sort((a, b) => (a.orden ?? 1e9) - (b.orden ?? 1e9)
+  || String(a.created_at || '').localeCompare(String(b.created_at || '')) || String(a.nombre).localeCompare(String(b.nombre), 'es', { numeric: true }));   // la primera creada va primero
+const sedeDe = x => x?.sede_id ? sedes.find(s => s.id === x.sede_id) : null;
+const pasaSede = x => !fSede || (fSede === '-' ? !x.sede_id || !sedes.some(s => s.id === x.sede_id) : x.sede_id === fSede);
+const baseCliente = () => equiposDe(curCliente).filter(pasaSede);
+function elegirSede(id){ fSede = id; render(); }
+function renderSedeBar(){
+  const el = $('clSedes'); if (!el) return;
+  const lista = sedesDe(curCliente), todos = equiposDe(curCliente);
+  if (!sedesOK){ el.innerHTML = ''; return; }
+  if (fSede && fSede !== '-' && !lista.some(x => x.id === fSede)) fSede = '';
+  const sinSede = todos.filter(x => !x.sede_id || !sedes.some(s => s.id === x.sede_id)).length;
+  const chip = (id, txt, n, extra = '') => `<span class="sede-tab ${fSede === id ? 'on' : ''}" onclick="elegirSede('${jsq(id)}')">${txt} <b>${n}</b>${extra}</span>`;
+  el.innerHTML = !lista.length ? (PERM.editar ? `<span class="sede-tab add" onclick="nuevaSede()">＋ ${t('sede_add_first')}</span>` : '') :
+    chip('', `📍 ${t('sede_all')}`, todos.length) +
+    lista.map(x => chip(x.id, esc(x.nombre), todos.filter(e => e.sede_id === x.id).length,
+      PERM.editar ? `<i class="sede-edit" onclick="event.stopPropagation();editarSede('${x.id}')" title="${esc(t('edit'))}">✎</i>` : '')).join('') +
+    (sinSede ? chip('-', `<span class="muted">${t('sede_none')}</span>`, sinSede) : '') +
+    (PERM.editar ? `<span class="sede-tab add" onclick="nuevaSede()" title="${esc(t('sede_add'))}">＋</span>` : '');
+  const actual = lista.find(x => x.id === fSede);
+  if (actual) $('clMeta').innerHTML = [actual.direccion ? `<a href="${mapUrl(actual.direccion)}" target="_blank" rel="noopener">📍 ${esc(actual.direccion)}</a>` : '',
+    actual.contacto ? `👤 ${esc(actual.contacto)}` : '', actual.telefono ? `📞 <a href="tel:${esc(String(actual.telefono).replace(/[^\d+]/g, ''))}">${esc(actual.telefono)}</a>` : ''].filter(Boolean).join(' &nbsp;·&nbsp; ') || $('clMeta').innerHTML;
+}
+function fillSedeSelect(cur){
+  const sel = $('sede_id'), cli = $('cliente').value || curCliente, lista = sedesDe(cli);
+  $('sedeLbl').classList.toggle('hidden', !sedesOK || !lista.length);
+  sel.innerHTML = `<option value="">${t('sede_none_opt')}</option>` + lista.map(x => `<option value="${x.id}">📍 ${esc(x.nombre)}</option>`).join('');
+  sel.value = lista.some(x => x.id === cur) ? cur : '';
+}
+function sedeElegida(){ const sd = sedes.find(x => x.id === $('sede_id').value); if (sd?.direccion) $('direccion').value = sd.direccion; }
+let sedeEdit = null;
+function nuevaSede(){ if (!puede('editar')) return; if (!sedesOK) return alert(t('sede_missing')); sedeEdit = { cliente: curCliente }; formSede(); }
+function editarSede(id){ if (!puede('editar')) return; sedeEdit = { ...sedes.find(x => x.id === id) }; formSede(); }
+function formSede(){
+  const x = sedeEdit, primera = !x.id && !sedesDe(curCliente).length, c = clienteObj(curCliente) || {};
+  $('modalTitle').textContent = (x.id ? '✎ ' : '📍 ') + t(x.id ? 'sede_edit' : 'sede_add') + ' · ' + curCliente;
+  $('modalBody').innerHTML = `${primera ? `<div class="u-note" style="margin:0 0 12px">${t('sede_first_help')}</div>` : ''}
+    <div class="grid2c">
+      <label class="full"><span>${t('sede_name')}</span><input id="sd_nombre" value="${esc(x.nombre || (primera ? t('sede_main') : ''))}" placeholder="${esc(t('sede_name_ph'))}" autocomplete="off"></label>
+      <label class="full"><span>${t('address')}</span><div class="addr-wrap"><input id="sd_direccion" value="${esc(x.direccion || (primera ? c.direccion || '' : ''))}" autocomplete="off" placeholder="${esc(t('address_ph'))}"
+        oninput="buscarDireccion(this.value,this)" onkeydown="navDireccion(event)" onblur="setTimeout(cerrarSugerencias,150)">
+        <button type="button" class="maps-btn" onclick="abrirMapa($('sd_direccion').value)">📍 Maps</button><div class="suggest hidden"></div></div></label>
+      <label><span>${t('cm_contact')}</span><input id="sd_contacto" value="${esc(x.contacto || '')}" autocomplete="off"></label>
+      <label><span>${t('cm_phone')}</span><input id="sd_telefono" value="${esc(x.telefono || '')}" type="tel" autocomplete="off" oninput="formatPhone(this)"></label>
+      <label class="full"><span>${t('notes')}</span><textarea id="sd_notas">${esc(x.notas || '')}</textarea></label>
+    </div>
+    <div class="row" style="margin-top:14px"><button class="primary" onclick="guardarSede()">${t('u_save')}</button><button onclick="closeModal()">${t('cancel')}</button>
+      <span style="flex:1"></span>${x.id ? `<button class="danger" onclick="borrarSede('${x.id}')">🗑 ${t('sede_delete')}</button>` : ''}</div>`;
+  $('modal').classList.remove('hidden'); setTimeout(() => $('sd_nombre').focus(), 50);
+}
+async function guardarSede(){
+  const x = sedeEdit, nombre = $('sd_nombre').value.trim();
+  if (!nombre) return $('sd_nombre').focus();
+  if (sedesDe(x.cliente).some(o => o.id !== x.id && nrm(o.nombre) === nrm(nombre))) return alert(t('sede_exists', { n: nombre }));
+  const row = { cliente: x.cliente, nombre, direccion: $('sd_direccion').value.trim() || null, contacto: $('sd_contacto').value.trim() || null,
+    telefono: $('sd_telefono').value.trim() || null, notas: $('sd_notas').value.trim() || null };
+  const primera = !x.id && !sedesDe(x.cliente).length;
+  const r = x.id ? await db.from('sedes').update(row).eq('id', x.id) : await db.from('sedes').insert(row).select('id').single();
+  if (r.error) return fail(r.error, t('save_fail'));
+  // Primera ubicación: los equipos que ya existen pasan a ella
+  if (primera && r.data?.id){
+    const ids = equiposDe(x.cliente).filter(e => !e.sede_id).map(e => e.id);
+    for (let i = 0; i < ids.length; i += 100){ const u = await db.from('equipos').update({ sede_id: r.data.id }).in('id', ids.slice(i, i + 100)); if (u.error) break; }
+  }
+  closeModal(); toast(t('sede_saved', { n: nombre })); await loadData();
+}
+async function borrarSede(id){
+  if (!puede('borrar')) return;
+  const x = sedes.find(s => s.id === id), n = items.filter(e => e.sede_id === id).length;
+  if (!confirm(t('sede_confirm_del', { s: x.nombre, n }))) return;
+  const { error } = await db.from('sedes').delete().eq('id', id);
+  if (error) return fail(error, t('del_fail'));
+  if (fSede === id) fSede = '';
+  closeModal(); toast(t('sede_deleted')); await loadData();
+}
+/* ---------- Ubicaciones como tarjetas (igual que los clientes) ---------- */
+let enSedes = false;
+const ORDEN_TARJETA = ['DVR','NVR','Cámara','PC','Laptop','Servidor','Impresora', ...NET_TIPOS,'Teléfono','Control de Acceso','Otro'];
+function cuerpoTarjeta(d){
+  const n = d.length || 1, cnt = k => d.filter(x => x.estado === k).length, rep = cnt('En reparación'), act = cnt('Activo');
+  const tipos = {}; d.forEach(x => tipos[x.tipo] = (tipos[x.tipo] || 0) + 1);
+  const estado = !d.length ? `<span class="dot off"></span>${t('no_devices_yet')}`
+    : rep ? `<span class="dot warn"></span>${tN('n_devices', d.length)} · ${t('n_repair', { n: rep })}` : `<span class="dot"></span>${tN('n_devices', d.length)}`;
+  const bar = d.length ? `<i style="width:${act / n * 100}%;background:var(--ok)"></i><i style="width:${rep / n * 100}%;background:var(--warn)"></i><i style="width:${cnt('Inactivo') / n * 100}%;background:var(--off)"></i><i style="width:${cnt('Dado de baja') / n * 100}%;background:var(--bad)"></i>` : '';
+  const iconos = Object.keys(tipos).length ? Object.keys(tipos).sort((a, b) => ORDEN_TARJETA.indexOf(a) - ORDEN_TARJETA.indexOf(b)).map(k => `<span title="${esc(tTipo(k))}">${TIPO_ICON[k] || '◆'} ${tipos[k]}</span>`).join('') : `<span class="empty">＋ ${t('add_device')}</span>`;
+  return { estado, bar, iconos };
+}
+function renderSedesGrid(){
+  const c = clienteObj(curCliente) || { nombre: curCliente }, lista = sedesDe(curCliente), todos = equiposDe(curCliente);
+  $('sdvNombre').textContent = c.nombre;
+  $('sdvMeta').innerHTML = [c.contacto ? `👤 ${esc(c.contacto)}` : '', c.telefono ? `📞 ${esc(c.telefono)}` : '', c.email ? `✉️ ${esc(c.email)}` : ''].filter(Boolean).join(' &nbsp;·&nbsp; ');
+  $('sdvSvc').innerHTML = svcActivos(c).map(S => `<span class="svc-pill" style="--sc:${S.color};cursor:default">${svcIcon(S.k)}${esc(t('svc.' + S.k))}</span>`).join('');
+  $('sdvCount').textContent = t('sede_count', { n: lista.length, d: todos.length });
+  const q = nrm($('sdq').value);
+  const vpnN = id => vpns.filter(v => v.sede_a === id || v.sede_b === id).length;
+  const tarjeta = (onclick, titulo, d, dir, extra = '', cls = '') => { const b = cuerpoTarjeta(d);
+    return `<div class="site-card ${cls}" onclick="${onclick}">${extra}<h3>${titulo}</h3><div class="sc-sub">${b.estado}</div><div class="sc-bar">${b.bar}</div>
+      <div class="sc-addr">${dir ? `📍 ${esc(dir)}` : '&nbsp;'}</div><div class="sc-icons">${b.iconos}</div></div>`; };
+  const sinSede = todos.filter(x => !x.sede_id || !sedes.some(s => s.id === x.sede_id));
+  $('sedeGrid').innerHTML =
+    (PERM.editar ? `<div class="site-card add" onclick="nuevaSede()">＋ ${t('sede_add')}</div>` : '') +
+    lista.filter(x => !q || nrm([x.nombre, x.direccion, x.contacto].join(' ')).includes(q)).map(x => {
+      const d = todos.filter(e => e.sede_id === x.id), nv = vpnN(x.id);
+      return tarjeta(`entrarSede('${x.id}')`, esc(x.nombre) + (nv ? ` <span class="sc-vpn" title="VPN">🔐 ${nv}</span>` : ''), d, x.direccion,
+        PERM.editar ? `<button class="sc-pin sc-edit" onclick="event.stopPropagation();editarSede('${x.id}')" title="${esc(t('sede_edit'))}">✎</button>` : '');
+    }).join('') +
+    (!q ? tarjeta(`entrarSede('')`, `🌐 ${t('sede_all')}`, todos, '', '', 'sede-all') : '') +
+    (!q && sinSede.length ? tarjeta(`entrarSede('-')`, `<span class="muted">${t('sede_none')}</span>`, sinSede, '', '', 'sede-none') : '');
+}
+function entrarSede(id){
+  enSedes = false; fSede = id; vista = 'ov'; fTipo = ''; fAlert = ''; fCat = ''; fPred = null; sel.clear(); $('q').value = ''; $('fGrupo').value = ''; $('fLugar').value = '';
+  try{ history.pushState({}, '', '#c=' + encodeURIComponent(curCliente) + '&s=' + (id === '' ? 'all' : encodeURIComponent(id))); }catch(e){}
+  render(); window.scrollTo({ top: 0 });
+}
+function atrasCliente(){
+  if (sedesDe(curCliente).length >= 2){
+    enSedes = true; fSede = ''; cerrarDrawer();
+    try{ history.pushState({}, '', '#c=' + encodeURIComponent(curCliente)); }catch(e){}
+    render(); window.scrollTo({ top: 0 });
+  } else volverClientes();
+}
+/* ---------- 🔐 VPN entre ubicaciones ---------- */
+const VPN_TIPOS = ['IPsec site-to-site', 'WireGuard', 'OpenVPN', 'Site Magic (UniFi SD-WAN)', 'Teleport (UniFi)', 'SSL VPN', 'L2TP', 'Otro'];
+const VPN_ESTADOS = ['Activa', 'Inactiva', 'En prueba'];
+const vpnsDe = cli => vpns.filter(v => mismoCliente(v.cliente, cli) && (!fSede || fSede === '-' || v.sede_a === fSede || v.sede_b === fSede));
+const ladoVpn = (sid, ext) => { const s = sedes.find(x => x.id === sid); return s ? '📍 ' + esc(s.nombre) : ext ? '☁️ ' + esc(ext) : '—'; };
+function renderVpns(){
+  const lista = vpnsDe(curCliente);
+  if (!lista.length && !PERM.editar) return '';
+  const eq = id => { const u = items.find(i => i.id === id); return u ? `<a class="dev-link" onclick="verDetalle('${u.id}')">${TIPO_ICON[u.tipo] || '◆'} ${esc(u.nombre)}</a>` : ''; };
+  return `<div class="vpn-box"><div class="vpn-head"><b>🔐 ${t('vpn_title')}</b>${lista.length ? `<span class="muted">· ${lista.length}</span>` : ''}<span style="flex:1"></span>
+      ${PERM.editar ? `<button class="sm" onclick="nuevaVpn()">＋ ${t('vpn_add')}</button>` : ''}</div>` +
+    (lista.length ? lista.map(v => `<div class="vpn-row ${v.estado === 'Activa' ? '' : 'off'}">
+        <div class="vpn-ends"><span>${ladoVpn(v.sede_a)}</span><span class="vpn-arrow">⇄</span><span>${ladoVpn(v.sede_b, v.externo)}</span></div>
+        <div class="vpn-meta">${v.tipo ? `<span class="vpn-tag">${esc(v.tipo)}</span>` : ''}
+          <span class="vpn-st"><span class="uf-dot ${v.estado === 'Activa' ? 'on' : 'off'}"></span>${esc(t('vs.' + (v.estado || 'Activa')))}</span>
+          ${v.red_a || v.red_b ? `<span class="mono">${esc(v.red_a || '?')} ⇄ ${esc(v.red_b || '?')}</span>` : ''}
+          ${v.equipo_a || v.equipo_b ? `<span>${eq(v.equipo_a) || '—'} ⇄ ${eq(v.equipo_b) || '—'}</span>` : ''}
+          ${v.notas ? `<span class="muted">${esc(v.notas)}</span>` : ''}</div>
+        ${PERM.editar ? `<button class="sm" onclick="editarVpn('${v.id}')" title="${esc(t('edit'))}">✎</button>` : ''}</div>`).join('')
+      : `<div class="muted" style="font-size:12.5px;padding:4px 2px">${t(sedesDe(curCliente).length > 1 ? 'vpn_none' : 'vpn_none_one')}</div>`) + `</div>`;
+}
+let vpnEdit = null;
+function nuevaVpn(){ if (!puede('editar')) return; if (!sedesOK) return alert(t('sede_missing')); const ls = sedesDe(curCliente);
+  vpnEdit = { cliente: curCliente, sede_a: (fSede && fSede !== '-') ? fSede : ls[0]?.id || '', sede_b: ls.find(x => x.id !== ((fSede && fSede !== '-') ? fSede : ls[0]?.id))?.id || '', tipo: 'IPsec site-to-site', estado: 'Activa' }; formVpn(); }
+function editarVpn(id){ if (!puede('editar')) return; vpnEdit = { ...vpns.find(v => v.id === id) }; formVpn(); }
+function formVpn(){
+  const v = vpnEdit, ls = sedesDe(curCliente);
+  const gws = equiposDe(curCliente).filter(x => ['Router', 'Firewall', 'Módem'].includes(x.tipo));
+  const optS = (cur, ext) => `<option value="">—</option>` + ls.map(x => `<option value="${x.id}" ${x.id === cur ? 'selected' : ''}>📍 ${esc(x.nombre)}</option>`).join('') + (ext ? `<option value="__ext" ${!cur && v.externo ? 'selected' : ''}>☁️ ${esc(t('vpn_external'))}</option>` : '');
+  const optE = cur => `<option value="">—</option>` + gws.map(x => `<option value="${x.id}" ${x.id === cur ? 'selected' : ''}>${TIPO_ICON[x.tipo]} ${esc(x.nombre)}${sedeDe(x) ? ' · ' + esc(sedeDe(x).nombre) : ''}</option>`).join('');
+  $('modalTitle').textContent = '🔐 ' + t(v.id ? 'vpn_edit' : 'vpn_add') + ' · ' + curCliente;
+  $('modalBody').innerHTML = `<div class="vpn-form">
+      <div class="vpn-side"><b>${t('vpn_side_a')}</b>
+        <label><span>${t('sede')}</span><select id="vp_sede_a" onchange="autoGw('a')">${optS(v.sede_a)}</select></label>
+        <label><span>${t('vpn_device')}</span><select id="vp_equipo_a">${optE(v.equipo_a)}</select></label>
+        <label><span>${t('vpn_net')}</span><input id="vp_red_a" class="monoin" value="${esc(v.red_a || '')}" placeholder="192.168.1.0/24"></label></div>
+      <div class="vpn-mid">⇄</div>
+      <div class="vpn-side"><b>${t('vpn_side_b')}</b>
+        <label><span>${t('sede')}</span><select id="vp_sede_b" onchange="$('vpExt').classList.toggle('hidden', this.value !== '__ext'); autoGw('b')">${optS(v.sede_b, true)}</select></label>
+        <label id="vpExt" class="${!v.sede_b && v.externo ? '' : 'hidden'}"><span>${t('vpn_external_name')}</span><input id="vp_externo" value="${esc(v.externo || '')}" placeholder="Azure, AWS, ${esc(t('vpn_other_co'))}…"></label>
+        <label><span>${t('vpn_device')}</span><select id="vp_equipo_b">${optE(v.equipo_b)}</select></label>
+        <label><span>${t('vpn_net')}</span><input id="vp_red_b" class="monoin" value="${esc(v.red_b || '')}" placeholder="192.168.2.0/24"></label></div>
+    </div>
+    <div class="grid2c" style="margin-top:12px">
+      <label><span>${t('vpn_type')}</span><select id="vp_tipo">${VPN_TIPOS.map(k => `<option ${k === v.tipo ? 'selected' : ''}>${esc(k)}</option>`).join('')}</select></label>
+      <label><span>${t('status')}</span><select id="vp_estado">${VPN_ESTADOS.map(k => `<option value="${k}" ${k === (v.estado || 'Activa') ? 'selected' : ''}>${esc(t('vs.' + k))}</option>`).join('')}</select></label>
+      <label class="full"><span>${t('notes')}</span><textarea id="vp_notas" placeholder="${esc(t('vpn_notes_ph'))}">${esc(v.notas || '')}</textarea></label>
+    </div>
+    <div class="row" style="margin-top:14px"><button class="primary" onclick="guardarVpn()">${t('vpn_save')}</button><button onclick="closeModal()">${t('cancel')}</button>
+      <span style="flex:1"></span>${v.id ? `<button class="danger" onclick="borrarVpn('${v.id}')">🗑 ${t('vpn_delete')}</button>` : ''}</div>`;
+  $('modal').querySelector('.modal-card').classList.add('wide'); $('modal').classList.remove('hidden');
+  if (!v.id){ autoGw('a'); autoGw('b'); }
+}
+// Al escoger la ubicación, sugiere el gateway que está en esa ubicación
+function autoGw(lado){
+  const sid = $('vp_sede_' + lado).value, sel = $('vp_equipo_' + lado);
+  const gws = equiposDe(curCliente).filter(x => ['Firewall', 'Router', 'Módem'].includes(x.tipo) && x.sede_id === sid)
+    .sort((a, b) => ['Firewall', 'Router', 'Módem'].indexOf(a.tipo) - ['Firewall', 'Router', 'Módem'].indexOf(b.tipo));
+  const actual = items.find(x => x.id === sel.value);
+  if (gws.length && (!actual || actual.sede_id !== sid)) sel.value = gws[0].id;
+}
+async function guardarVpn(){
+  const v = vpnEdit, sa = $('vp_sede_a').value || null, sbRaw = $('vp_sede_b').value, ext = sbRaw === '__ext' ? $('vp_externo').value.trim() : '';
+  const sb = sbRaw && sbRaw !== '__ext' ? sbRaw : null;
+  if (!sa && !sb && !ext) return alert(t('vpn_need'));
+  if (sa && sa === sb) return alert(t('vpn_same'));
+  const nom = s => sedes.find(x => x.id === s)?.nombre;
+  const row = { cliente: v.cliente, sede_a: sa, sede_b: sb, externo: ext || null, tipo: $('vp_tipo').value, estado: $('vp_estado').value,
+    equipo_a: $('vp_equipo_a').value || null, equipo_b: $('vp_equipo_b').value || null, red_a: $('vp_red_a').value.trim() || null, red_b: $('vp_red_b').value.trim() || null,
+    notas: $('vp_notas').value.trim() || null, nombre: `${nom(sa) || '—'} ⇄ ${nom(sb) || ext || '—'}` };
+  const r = v.id ? await db.from('vpns').update(row).eq('id', v.id) : await db.from('vpns').insert(row);
+  if (r.error) return fail(r.error, t('save_fail'));
+  closeModal(); toast(t('vpn_saved')); await loadData();
+}
+async function borrarVpn(id){
+  if (!puede('borrar')) return;
+  if (!confirm(t('vpn_confirm_del'))) return;
+  const { error } = await db.from('vpns').delete().eq('id', id);
+  if (error) return fail(error, t('del_fail'));
+  closeModal(); toast(t('vpn_deleted')); await loadData();
+}
 /* ---------- Inventario de Network ---------- */
 let netTab = '';
 function renderNet(base){
@@ -2161,6 +2469,7 @@ function renderNet(base){
         const ws = gw.flatMap(x => wanDe(x).map(w => ({ x, w })));
         return red.some(x => WAN_TIPOS.includes(x.tipo)) ? `<div class="net-inet"><b>🌍 ${t('net_internet')}${ws.length > 1 ? ` · ${t('multiwan')} ×${ws.length}` : ''}</b>${ws.length
           ? ws.map(({ x, w }) => `<span class="wl">${wanLinea(w)} <span class="muted">→ ${esc(x.nombre)}</span></span>`).join('') : `<span class="muted">${t('wan_none')}</span>`}</div>` : ''; })()}
+    ${renderVpns()}
     <div class="stats" style="margin:12px 0">${chips}</div>
     ${red.length ? `<div class="table-wrap net-wrap"><table class="net-tbl"><thead><tr>
       <th>${t('type')}</th><th>${t('name')}</th><th>${t('th_model')}</th><th>IP</th><th>MAC</th><th>${t('th_uplink')}</th><th>${t('th_netinfo')}</th><th>${t('serial')}</th><th>${t('status')}</th>
@@ -2210,26 +2519,32 @@ async function llamarUnifi(body){
 }
 async function abrirUnifi(){
   if (!puede('admin')) return;
-  UF = { consolas: [], equipos: [], sel: new Set(), selHosts: new Set(), tipos: {}, paso: '', cargando: false, msg: '' };
+  UF = { consolas: [], equipos: [], sel: new Set(), selHosts: new Set(), hostSede: {}, tipos: {}, paso: '', cargando: false, msg: '' };
   $('modal').querySelector('.modal-card').classList.add('wide');
   $('modal').classList.remove('hidden');
-  const c = clienteObj(curCliente) || {};
-  if (hostsDe(c).length) await buscarUnifi(); else await elegirConsolas();
+  const c = clienteObj(curCliente) || {}, hs = hostsDe(c), aqui = sedeEnUbicacion();
+  if (!hs.length || (aqui && !hs.some(h => h.sede === aqui || !h.sede))) await elegirConsolas(); else await buscarUnifi();
 }
+// ¿En qué ubicación está cada consola?  (unifi_hosts: [{id, nombre, sede}])
+const sedeEnUbicacion = () => fSede && fSede !== '-' ? fSede : '';
+const hostSedeDe = (hosts, d) => { const h = hosts.find(x => String(x.id) === String(d.hostId)) || hosts.find(x => x.nombre && x.nombre === d.host); return h?.sede || ''; };
 async function elegirConsolas(){
   UF.paso = 'consolas'; UF.cargando = true; UF.msg = '';
   UF.selHosts = new Set(hostsDe(clienteObj(curCliente)).map(h => String(h.id || h)));
+  UF.hostSede = Object.fromEntries(hostsDe(clienteObj(curCliente)).map(h => [String(h.id || h), h.sede || '']));
   renderUnifi();
   const r = await llamarUnifi({ accion: 'consolas' });
   UF.cargando = false;
   if (r.error){ UF.msg = r.falta ? t('uf_fn_missing') : r.error; return renderUnifi(); }
   UF.consolas = r.data?.consolas || [];
-  UF.selHosts = new Set(hostsDe(clienteObj(curCliente)).map(h => String(h.id || h)));
+  const ya = hostsDe(clienteObj(curCliente));
+  UF.selHosts = new Set(ya.map(h => String(h.id || h)));
+  UF.hostSede = Object.fromEntries(ya.map(h => [String(h.id || h), h.sede || '']));
   renderUnifi();
 }
 async function guardarConsolas(){
   const c = clienteObj(curCliente); if (!c) return;
-  const elegidas = UF.consolas.filter(h => UF.selHosts.has(String(h.id))).map(h => ({ id: h.id, nombre: h.nombre }));
+  const elegidas = UF.consolas.filter(h => UF.selHosts.has(String(h.id))).map(h => ({ id: h.id, nombre: h.nombre, ...(UF.hostSede?.[String(h.id)] ? { sede: UF.hostSede[String(h.id)] } : {}) }));
   try{
     const id = c.id || await asegurarFilaCliente(c);
     const { error } = await db.from('clientes').update({ unifi_hosts: elegidas }).eq('id', id);
@@ -2243,13 +2558,16 @@ async function buscarUnifi(){
   const r = await llamarUnifi({ accion: 'equipos', cliente: curCliente });
   UF.cargando = false;
   if (r.error){ UF.msg = r.falta ? t('uf_fn_missing') : r.error; return renderUnifi(); }
-  const mios = equiposDe(curCliente), P = tiposPermitidos(curCliente);
-  UF.equipos = (r.data?.equipos || []).map(d => {
-    const mac = macNorm(d.mac), tipo = tipoUnifi(d);
+  const mios = equiposDe(curCliente), P = tiposPermitidos(curCliente), hosts = hostsDe(clienteObj(curCliente)), aqui = sedeEnUbicacion();
+  const todos = (r.data?.equipos || []).map(d => {
+    const mac = macNorm(d.mac), tipo = tipoUnifi(d), sede = hostSedeDe(hosts, d) || aqui;
     const ya = mios.find(x => (d.id && x.unifi_id === d.id) || (mac && macNorm(x.mac) === mac));
-    const cambia = ya && (String(ya.ip || '') !== String(d.ip || '') || String(ya.firmware || '') !== String(d.firmware || '') || ya.unifi_estado !== d.estado || !ya.unifi_id);
-    return { ...d, mac, tipo, ya, accion: !ya ? 'nuevo' : cambia ? 'act' : 'igual' };
+    const cambia = ya && (String(ya.ip || '') !== String(d.ip || '') || String(ya.firmware || '') !== String(d.firmware || '') || ya.unifi_estado !== d.estado || !ya.unifi_id || (!ya.sede_id && sede));
+    return { ...d, mac, tipo, ya, sede, sedeConsola: hostSedeDe(hosts, d), accion: !ya ? 'nuevo' : cambia ? 'act' : 'igual' };
   });
+  // Dentro de una ubicación: solo los equipos de las consolas de esa ubicación (o sin ubicación asignada)
+  UF.ocultos = aqui ? todos.filter(d => d.sedeConsola && d.sedeConsola !== aqui).length : 0;
+  UF.equipos = aqui ? todos.filter(d => !d.sedeConsola || d.sedeConsola === aqui) : todos;
   UF.sel = new Set(UF.equipos.filter(d => d.accion === 'act' || (d.accion === 'nuevo' && (!P || P.has(d.tipo)))).map(d => d.id));
   renderUnifi();
 }
@@ -2263,13 +2581,16 @@ function renderUnifi(){
   else if (UF.paso === 'consolas'){
     const pal = nrm(c.nombre).split(/[^a-z0-9áéíóúñ]+/).filter(w => w.length > 2 && !['and','the','inc','llc','corp','group','center','de','del','los','las'].includes(w));
     const sugerida = h => pal.some(w => nrm(h.nombre).includes(w));
+    const ls = sedesDe(curCliente);
     const lista = [...UF.consolas].sort((a, b) => (UF.selHosts.has(String(b.id)) - UF.selHosts.has(String(a.id))) || (sugerida(b) - sugerida(a)) || String(a.nombre).localeCompare(String(b.nombre)));
-    html += `<p class="muted" style="margin-top:0">${t('uf_pick_help', { c: esc(c.nombre) })}</p>
+    html += `<p class="muted" style="margin-top:0">${t('uf_pick_help', { c: esc(c.nombre) })}${ls.length ? ' ' + t('uf_pick_sede') : ''}</p>
       <div class="uf-search search"><input id="ufQ" value="${esc(UF.q || '')}" placeholder="${esc(t('uf_search'))}" oninput="UF.q=this.value;filtrarConsolas()" autocomplete="off"></div>
       <div class="uf-list" id="ufList">` + (lista.length ? lista.map(h => {
       const id = String(h.id), dueno = otrosDuenos[id], on = UF.selHosts.has(id);
       return `<label class="uf-host ${dueno ? 'otro' : ''} ${on ? 'on' : ''}" data-q="${esc(nrm([h.nombre, h.modelo, h.ip].join(' ')))}"><input type="checkbox" ${on ? 'checked' : ''} onchange="toggleConsola(this,'${jsq(id)}')">
-        <span class="tx"><b>${esc(h.nombre)}</b>${sugerida(h) ? `<span class="sug">⭐ ${t('uf_suggested')}</span>` : ''}<br><small class="muted">${esc([h.modelo, h.ip].filter(Boolean).join(' · '))}${dueno ? ` · ⚠️ ${esc(t('uf_used_by', { c: dueno }))}` : ''}</small></span></label>`; }).join('')
+        <span class="tx"><b>${esc(h.nombre)}</b>${sugerida(h) ? `<span class="sug">⭐ ${t('uf_suggested')}</span>` : ''}<br><small class="muted">${esc([h.modelo, h.ip].filter(Boolean).join(' · '))}${dueno ? ` · ⚠️ ${esc(t('uf_used_by', { c: dueno }))}` : ''}</small></span>
+        ${ls.length ? `<span class="uf-sede ${on ? '' : 'hidden'}" onclick="event.preventDefault();event.stopPropagation()"><select onchange="UF.hostSede['${jsq(id)}']=this.value" title="${esc(t('sede'))}">
+          <option value="">— ${esc(t('sede_none'))} —</option>${ls.map(x => `<option value="${x.id}" ${UF.hostSede?.[id] === x.id ? 'selected' : ''}>📍 ${esc(x.nombre)}</option>`).join('')}</select></span>` : ''}</label>`; }).join('')
         + `<p class="muted hidden" id="ufNone">${t('uf_no_match')}</p>` : `<p class="muted">${t('uf_no_hosts')}</p>`) + `</div>
       <div class="uf-foot"><button class="primary" onclick="guardarConsolas()">${t('uf_save_hosts')}</button>${hosts.length ? `<button onclick="buscarUnifi()">${t('cancel')}</button>` : ''}
         <span class="muted" id="ufCount">${t('uf_checked', { n: UF.selHosts.size })}</span></div>`;
@@ -2278,14 +2599,15 @@ function renderUnifi(){
     html += `<div class="row" style="justify-content:space-between;align-items:center;margin-bottom:10px">
         <div class="muted">🖥️ ${hosts.map(h => esc(h.nombre || h.id)).join(', ')} · <a class="dev-link" onclick="elegirConsolas()">${t('uf_change_hosts')}</a></div>
         <button class="sm" onclick="buscarUnifi()">↻ ${t('refresh').replace(/^\W+/, '')}</button></div>
-      <div class="muted" style="margin-bottom:8px">${t('uf_summary', { n: n('nuevo'), a: n('act'), i: n('igual') })}</div>` +
+      <div class="muted" style="margin-bottom:8px">${t('uf_summary', { n: n('nuevo'), a: n('act'), i: n('igual') })}${UF.ocultos ? ` · <span title="${esc(t('uf_hidden_help'))}">${t('uf_hidden', { n: UF.ocultos })}</span>` : ''}</div>` +
       (UF.equipos.length ? `<div class="table-wrap" style="max-height:52vh"><table class="uf-tbl"><thead><tr>
         <th><input type="checkbox" ${UF.equipos.every(d => d.accion === 'igual' || UF.sel.has(d.id)) ? 'checked' : ''} onchange="UF.equipos.forEach(d => d.accion !== 'igual' && (this.checked ? UF.sel.add(d.id) : UF.sel.delete(d.id))); renderUnifi()"></th>
-        <th>${t('type')}</th><th>${t('name')}</th><th>${t('th_model')}</th><th>MAC</th><th>IP</th><th>${t('status')}</th><th>Firmware</th><th></th></tr></thead><tbody>` +
+        <th>${t('type')}</th><th>${t('name')}</th>${sedesDe(curCliente).length ? `<th>${t('sede')}</th>` : ''}<th>${t('th_model')}</th><th>MAC</th><th>IP</th><th>${t('status')}</th><th>Firmware</th><th></th></tr></thead><tbody>` +
         UF.equipos.map((d, i) => `<tr>
           <td><input type="checkbox" ${UF.sel.has(d.id) ? 'checked' : ''} ${d.accion === 'igual' ? 'disabled' : ''} onchange="this.checked ? UF.sel.add('${jsq(d.id)}') : UF.sel.delete('${jsq(d.id)}'); renderUnifi()"></td>
           <td>${d.ya ? `${TIPO_ICON[d.ya.tipo] || '◆'} ${esc(tTipo(d.ya.tipo))}` : `<select onchange="UF.equipos[${i}].tipo=this.value">${TIPOS.map(k => `<option value="${esc(k)}" ${k === d.tipo ? 'selected' : ''}>${esc(tTipo(k))}</option>`).join('')}</select>`}</td>
           <td><b>${esc(d.nombre)}</b>${d.ya && d.ya.nombre !== d.nombre ? `<br><small class="muted">→ ${esc(d.ya.nombre)}</small>` : ''}</td>
+          ${sedesDe(curCliente).length ? `<td>${(s => s ? `<span class="sede-chip">📍 ${esc(s.nombre)}</span>` : `<small class="muted">—</small>`)(sedes.find(x => x.id === ((d.ya && d.ya.sede_id) || d.sede)))}</td>` : ''}
           <td>${esc(d.modelo)}</td><td class="mono">${esc(d.mac)}</td><td class="mono">${esc(d.ip)}</td>
           <td><span class="uf-dot ${d.estado === 'online' ? 'on' : 'off'}"></span>${esc(d.estado === 'online' ? t('uf_online') : t('uf_offline'))}</td>
           <td class="mono">${esc(d.firmware)}${d.actualizar ? ' ⬆' : ''}</td>
@@ -2298,6 +2620,8 @@ function renderUnifi(){
 }
 function toggleConsola(el, id){
   el.checked ? UF.selHosts.add(id) : UF.selHosts.delete(id);
+  if (el.checked && !UF.hostSede[id] && sedeEnUbicacion()){ UF.hostSede[id] = sedeEnUbicacion(); const s = el.closest('.uf-host').querySelector('select'); if (s) s.value = UF.hostSede[id]; }
+  el.closest('.uf-host').querySelector('.uf-sede')?.classList.toggle('hidden', !el.checked);
   el.closest('.uf-host').classList.toggle('on', el.checked);
   $('ufCount').textContent = t('uf_checked', { n: UF.selHosts.size });
 }
@@ -2313,14 +2637,16 @@ async function importarUnifi(){
   const ahora = new Date().toISOString();
   const extra = d => ({ unifi_id: d.id, unifi_estado: d.estado || null, unifi_update: !!d.actualizar, unifi_sync_at: ahora });
   const nuevos = elegidos.filter(d => d.accion === 'nuevo').map(d => ({ cliente: c.nombre, direccion: c.direccion || null, tipo: d.tipo, nombre: d.nombre,
-    modelo: d.modelo || null, mac: d.mac || null, ip: d.ip || null, firmware: d.firmware || null, estado: 'Activo', ...extra(d) }));
+    modelo: d.modelo || null, mac: d.mac || null, ip: d.ip || null, firmware: d.firmware || null, estado: 'Activo', ...extra(d),
+    ...(d.sede ? { sede_id: d.sede, direccion: sedes.find(x => x.id === d.sede)?.direccion || c.direccion || null } : {}) }));
   const cambios = elegidos.filter(d => d.accion === 'act').map(d => ({ id: d.ya.id, patch: { ip: d.ip || d.ya.ip || null, firmware: d.firmware || null,
-    mac: d.ya.mac || d.mac || null, modelo: d.ya.modelo || d.modelo || null, ...extra(d) } }));
+    mac: d.ya.mac || d.mac || null, modelo: d.ya.modelo || d.modelo || null, ...extra(d), ...(!d.ya.sede_id && d.sede ? { sede_id: d.sede } : {}) } }));
   const quitar = (r, campos) => campos.forEach(k => delete r[k]);
   let avisoSql = false;
   const grabar = async (fn) => {   // si faltan columnas (SQL sin correr), guarda lo demás
     let { error } = await fn();
     if (error && /unifi_/i.test(error.message || '')){ avisoSql = true; nuevos.forEach(r => quitar(r, ['unifi_id','unifi_estado','unifi_update','unifi_sync_at'])); cambios.forEach(r => quitar(r.patch, ['unifi_id','unifi_estado','unifi_update','unifi_sync_at'])); ({ error } = await fn()); }
+    if (error && /sede_id/i.test(error.message || '')){ nuevos.forEach(r => quitar(r, ['sede_id'])); cambios.forEach(r => quitar(r.patch, ['sede_id'])); ({ error } = await fn()); }
     if (error && /firmware/i.test(error.message || '')){ nuevos.forEach(r => quitar(r, ['firmware'])); cambios.forEach(r => quitar(r.patch, ['firmware'])); ({ error } = await fn()); }
     return error;
   };
@@ -2492,6 +2818,8 @@ async function guardarCliente(e){
     if (viejo.nombre !== row.nombre){
       for (const n of [...new Set(equiposDe(viejo.nombre).map(x => x.cliente))]) await db.from('equipos').update({ cliente: row.nombre }).eq('cliente', n);
       for (const g of grupos.filter(g => mismoCliente(g.cliente, viejo.nombre))) await db.from('grupos').update({ cliente: row.nombre }).eq('id', g.id);
+      for (const x of sedes.filter(x => mismoCliente(x.cliente, viejo.nombre))) await db.from('sedes').update({ cliente: row.nombre }).eq('id', x.id);
+      for (const x of vpns.filter(x => mismoCliente(x.cliente, viejo.nombre))) await db.from('vpns').update({ cliente: row.nombre }).eq('id', x.id);
       if (curCliente && mismoCliente(curCliente, viejo.nombre)){ curCliente = row.nombre; try{ history.replaceState({ c: row.nombre }, '', '#c=' + encodeURIComponent(row.nombre)); }catch(e){} }
     }
     // Dirección cambiada: ofrecer actualizar equipos con la dirección vieja o vacía
@@ -2698,6 +3026,7 @@ async function save(e){
   if (d.tipo !== 'Impresora') PRN_FIELDS.forEach(f => d[f] = '');
   const row = clean(d);
   row.grupo_id = $('grupo_id').value || null;
+  if (sedesOK && sedes.length){ row.sede_id = $('sede_id').value || null; const sd = sedes.find(x => x.id === row.sede_id); if (sd?.direccion && !row.direccion) row.direccion = sd.direccion; }
   row.pc_ids = d.tipo === 'Impresora' ? [...linkSel].filter(id => items.some(x => x.id === id && PC_TIPOS.includes(x.tipo))) : [];
   const orig = editId ? items.find(i => i.id === editId) : null;
   row.pc_users = users;
@@ -2718,6 +3047,7 @@ async function save(e){
   let idGuardado = editId, error;
   const grabarEq = r => editId ? db.from('equipos').update(r).eq('id', editId) : db.from('equipos').insert(r).select('id').single();
   let r0 = await grabarEq(row);
+  if (r0.error && 'sede_id' in row && /sede_id/.test(r0.error.message || '')){ delete row.sede_id; r0 = await grabarEq(row); if (!r0.error) alert(t('sede_missing')); }
   if (r0.error && conWan && /wans/.test(r0.error.message || '')){   // falta supabase-wan.sql
     delete row.wans; r0 = await grabarEq(row); if (!r0.error) alert(t('wan_missing'));
   }
@@ -2745,6 +3075,7 @@ function resetForm(afterSave){
     $('cliente').value = co.nombre; if (!$('direccion').value) $('direccion').value = co.direccion || ''; }
   $('cliente').readOnly = !!curCliente; $('cliente').classList.toggle('client-lock', !!curCliente);
   fillGrupoSelect(); if (afterSave === true && $('keepClient').checked && gKeep) $('grupo_id').value = gKeep;
+  fillSedeSelect(fSede && fSede !== '-' ? fSede : '');
   actualizarVinculos();
   $('password').type = 'password';
   updateMarcas();
@@ -2759,6 +3090,7 @@ function edit(id){
   NET_FIELDS.forEach(f => { $(f).value = x[f] || ''; if (f === 'conectado_a') $(f).dataset.v = x[f] || ''; });
   editId = id; fillWans(x);
   fillGrupoSelect(); $('grupo_id').value = x.grupo_id || ''; fillGrupoSelect();
+  fillSedeSelect(x.sede_id || '');
   linkSel = new Set(x.tipo === 'Impresora' ? pcIds(x) : PC_TIPOS.includes(x.tipo) ? impresorasDePC(x).map(p => p.id) : []);
   document.querySelectorAll('#form input.secret').forEach(el => { el.type = 'password'; if (el.id) el.dataset.orig = el.value; });
   fillUsers(getUsers(x), true);
@@ -2853,7 +3185,7 @@ function topN(arr, n){
 const jsq = s => String(s).replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/"/g, '&quot;');
 function renderDash(){
   if (!curCliente) return;
-  const base = equiposDe(curCliente);
+  const base = baseCliente();
   ALERTAS = calcAlertas(base);
   const A = ALERTAS, fgv = $('fGrupo').value;
   const cuenta = {}; base.forEach(x => cuenta[x.tipo] = (cuenta[x.tipo] || 0) + 1);
@@ -2974,7 +3306,7 @@ function verDetalle(id, keepVis){
     ['modelo', esc(x.modelo)], ['serial', esc(x.serial), 1], ['ip', x.ip ? `<a href="http://${esc(x.ip)}" target="_blank" rel="noopener">${esc(x.ip)}</a>` : '', 1], ['mac', esc(x.mac), 1],
     ['lugar', esc(x.lugar)], ['direccion', x.direccion ? `<a href="${mapUrl(x.direccion)}" target="_blank" rel="noopener">📍 ${esc(x.direccion)}</a>` : ''],
     ['usuario', esc(x.usuario), 1], ['password', oculto(x.password), 1]];
-  let html = camposBase.map(([f, v, m]) => fila(X_LABEL(f), v, m)).join('') + fila(t('group'), grupo ? '🗂 ' + esc(grupo.nombre) : '');
+  let html = camposBase.map(([f, v, m]) => fila(X_LABEL(f), v, m)).join('') + fila(t('group'), grupo ? '🗂 ' + esc(grupo.nombre) : '') + fila(t('sede'), sedeDe(x) ? '📍 ' + esc(sedeDe(x).nombre) + (sedeDe(x).direccion ? ` <small class="muted">· ${esc(sedeDe(x).direccion)}</small>` : '') : '');
   if (PC_TIPOS.includes(x.tipo)){
     const persona = [x.first_name, x.last_name].filter(Boolean).join(' ');
     html += sec(t('sec_user')) + fila(t('name'), esc(persona)) + fila(t('department'), esc(x.departamento)) + fila('Email', x.email ? `<a href="mailto:${esc(x.email)}">${esc(x.email)}</a>` : '') + fila(t('cell'), esc(x.celular));
@@ -3092,6 +3424,8 @@ function valAct(k, v){
   if (k === 'grupo_id') return esc(grupos.find(g => g.id === v)?.nombre || t('act_deleted_group'));
   if (['conexion', 'lbl_conexion', 'imp_conexion'].includes(k)) return esc(t('conn.' + v) === 'conn.' + v ? v : t('conn.' + v));
   if (k === 'wans'){ let a = v; try{ if (typeof a === 'string') a = JSON.parse(a); }catch(e){} return Array.isArray(a) && a.length ? a.map(w => esc(wanLinea(w, false))).join(' | ') : t('act_nochg'); }
+  if (['sede_id', 'sede_a', 'sede_b'].includes(k)){ const u = sedes.find(i => i.id === v); return u ? '📍 ' + esc(u.nombre) : '—'; }
+  if (['equipo_a', 'equipo_b'].includes(k)){ const u = items.find(i => i.id === v); return u ? esc(u.nombre) : '—'; }
   if (k === 'conectado_a'){ const u = items.find(i => i.id === v); return u ? esc(u.nombre) : '?'; }
   if (k === 'servicios'){ const o = svcDe({ servicios: v }); const ks = SERVICIOS.filter(S => o[S.k]);
     return ks.length ? ks.map(S => esc(t('svc.' + S.k)) + (S.k === 'it' && svcSinIT(o.it) ? ` (${esc(svcSinIT(o.it))})` : '')).join(', ') : esc(t('svc_none')); }
@@ -3167,7 +3501,7 @@ function renderActividad(){
       return `<label class="${!n && !on ? 'zero' : ''}"><input type="checkbox" ${on ? 'checked' : ''} ${!n && !on ? 'disabled' : ''} onchange="actToggle('${set}','${jsq(k)}')">${ico ? ico(k) : ''}<span class="nm" title="${esc(lbl(k))}">${esc(lbl(k))}</span><span class="n">${n}</span></label>`; }).join('') + `</div>`;
   };
   const EVS = ['device_created','device_updated','device_deleted','password_changed','password_viewed','password_copied','pw_history_viewed',
-    'client_created','client_updated','client_deleted','group_created','group_updated','group_deleted','signed_in','account_pw_changed','user_access_changed','user_created','user_pw_reset','user_deleted','export_backup','export_csv','import_excel'];
+    'client_created','client_updated','client_deleted','location_created','location_updated','location_deleted','vpn_created','vpn_updated','vpn_deleted','group_created','group_updated','group_deleted','signed_in','account_pw_changed','user_access_changed','user_created','user_pw_reset','user_deleted','export_backup','export_csv','import_excel'];
   const evs = EVS.filter(e => F.base.some(r => r.evento === e) || ACT.ev.has(e)).concat([...new Set(F.base.map(r => r.evento))].filter(e => !EVS.includes(e)));
   const uss = [...new Set(F.base.map(r => r.usuario || 'system'))].sort();
   const cls = [...new Set(F.base.map(r => r.cliente || '—'))].sort((a, b) => a.localeCompare(b));
@@ -3213,7 +3547,7 @@ function exportActCSV(){
 function filtered(){
   const q = $('q').value.toLowerCase().trim(), fl = $('fLugar').value, fc = curCliente || $('fCliente').value, fg = $('fGrupo').value;
   return items.filter(x =>
-    (!fTipo || x.tipo === fTipo) && (!fl || x.lugar === fl) && (!fc || mismoCliente(x.cliente, fc)) && (!fg || x.grupo_id === fg) && pasaExtra(x) &&
+    (!fTipo || x.tipo === fTipo) && (!fl || x.lugar === fl) && (!fc || mismoCliente(x.cliente, fc)) && (!fg || x.grupo_id === fg) && pasaExtra(x) && (!curCliente || pasaSede(x)) &&
     (!q || FIELDS.filter(f => !SECRET_FIELDS.includes(f)).some(f => String(x[f]||'').toLowerCase().includes(q)) || nrm(grupoDe(x)?.nombre).includes(q)
         || getUsers(x).some(u => String(u.user || '').toLowerCase().includes(q)))
   ).sort((a,b) => {
@@ -3423,7 +3757,7 @@ function render(){
   updateMarcas();
   updatePCLists();
 
-  const base = curCliente ? equiposDe(curCliente) : items;
+  const base = curCliente ? baseCliente() : items;
   const counts = {}; base.forEach(x => counts[x.tipo] = (counts[x.tipo]||0)+1);
   $('chips').innerHTML = `<span class="chip ${!fTipo?'on':''}" onclick="setTipo('')">${t('all')} (${base.length})</span>` +
     Object.keys(counts).sort().map(k => `<span class="chip ${fTipo===k?'on':''}" onclick="setTipo('${esc(k)}')">${esc(tTipo(k))} (${counts[k]})</span>`).join('');
@@ -3482,7 +3816,7 @@ function render(){
     return `<tr>
     <td class="no-print sel-col"><input type="checkbox" class="rowsel" data-id="${x.id}" ${sel.has(x.id) ? 'checked' : ''} onclick="selUno(this)"></td>
     <td class="client"><b>${esc(x.cliente)}</b></td><td class="addr">${x.direccion ? `<a href="${mapUrl(x.direccion)}" target="_blank" rel="noopener" title="${esc(x.direccion)} · ${t('t_openmap')}">📍 ${esc(x.direccion)}</a>` : ''}</td>
-    <td><button type="button" class="type type-btn" onclick="verDetalle('${x.id}')" title="${t('view')}">${TIPO_ICON[x.tipo] || '◆'} ${esc(tTipo(x.tipo))}</button></td><td><a class="dev-link" onclick="verDetalle('${x.id}')">${esc(x.nombre)}</a></td><td>${esc(x.first_name)}</td><td>${esc(x.last_name)}</td><td>${grupoDe(x) ? `<span class="g-chip" onclick="openGrupos('${x.grupo_id}')">🗂 ${esc(grupoDe(x).nombre)}</span>` : ''}</td><td>${esc(x.lugar)}</td><td>${esc(x.modelo)}</td>
+    <td><button type="button" class="type type-btn" onclick="verDetalle('${x.id}')" title="${t('view')}">${TIPO_ICON[x.tipo] || '◆'} ${esc(tTipo(x.tipo))}</button></td><td><a class="dev-link" onclick="verDetalle('${x.id}')">${esc(x.nombre)}</a></td><td>${esc(x.first_name)}</td><td>${esc(x.last_name)}</td><td>${grupoDe(x) ? `<span class="g-chip" onclick="openGrupos('${x.grupo_id}')">🗂 ${esc(grupoDe(x).nombre)}</span>` : ''}</td><td>${sedeDe(x) ? `<span class="sede-chip">📍 ${esc(sedeDe(x).nombre)}</span>` : ''}</td><td>${esc(x.lugar)}</td><td>${esc(x.modelo)}</td>
     <td class="mono">${esc(x.serial)}</td>
     <td class="mono ip">${x.ip ? `<a href="http://${esc(x.ip)}" target="_blank" rel="noopener">${esc(x.ip)}</a>` : ''}</td>
     <td class="mono">${esc(x.mac)}</td><td class="mono">${esc(x.usuario)}</td><td class="mono">${pw}</td>
@@ -3492,7 +3826,7 @@ function render(){
       <button class="sm ver-btn" onclick="verDetalle('${x.id}')" title="${t('view')}">👁 ${t('view')}</button>
     </div></td></tr>`;
   }).join('')
-    : `<tr><td colspan="25" class="empty">${(curCliente ? equiposDe(curCliente).length : items.length) ? t('no_results') : t('empty')}</td></tr>`;
+    : `<tr><td colspan="26" class="empty">${(curCliente ? equiposDe(curCliente).length : items.length) ? t('no_results') : t('empty')}</td></tr>`;
   $('count').textContent = t('count', {n: rows.length, t: base.length});
   $('kTotal').textContent = base.length;
   $('kClientes').textContent = curCliente ? grupos.filter(g => mismoCliente(g.cliente, curCliente)).length : clientes.length;
@@ -3509,7 +3843,7 @@ function render(){
 }
 /* ---------- Columnas de la tabla: mover y ocultar (se guarda en este navegador) ---------- */
 // Orden ORIGINAL de las columnas movibles (entre la casilla de selección y los botones)
-const COLS = ['cliente','direccion','tipo','nombre','first_name','last_name','grupo','lugar','modelo','serial','ip','mac','usuario','password',
+const COLS = ['cliente','direccion','tipo','nombre','first_name','last_name','grupo','sede','lugar','modelo','serial','ip','mac','usuario','password',
   'persona','pc','remoto','logins','printers','licencias','garantia','estado','notas'];
 const COLS_FIJAS = ['nombre'];          // el nombre no se puede ocultar
 // Por defecto solo las columnas más importantes; las demás se activan en ⚙️ Columnas
@@ -3537,6 +3871,7 @@ const colLabel = c => { const th = document.querySelector(`#devTable thead th[da
 function aplicarColumnas(){
   const tabla = $('devTable'); if (!tabla) return;
   const ocultas = new Set(colCfg.ocultas); if (curCliente) ocultas.add('cliente');
+  if (curCliente && (!sedesDe(curCliente).length || (fSede && fSede !== '-'))) ocultas.add('sede');   // la columna Ubicación sale cuando hace falta
   if (!PERM.claves){ ocultas.add('password'); ocultas.add('licencias'); }
   const pos = COLS.map(c => colCfg.orden.indexOf(c));     // posición nueva de cada columna original
   const fila = (tr, celdas) => {

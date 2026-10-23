@@ -569,6 +569,37 @@ body.p-noborrar [onclick^="borrarSede("],body.p-noborrar [onclick^="borrarVpn("]
 .mw-badge{display:inline-block;font:700 10.5px Inter,sans-serif;padding:2px 7px;border-radius:999px;background:var(--c1);color:#fff;margin-bottom:3px}
 .net-inet{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:12px 0 0;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--row-hover);font-size:13px}
 .net-inet b{margin-right:4px}
+.mdm-ops{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+.mdm-op{padding:7px 12px;font-size:13px;border-radius:10px}
+.mdm-op.on{background:var(--c1);color:#fff;border-color:transparent}
+.mdm-ayuda{font-size:12.5px;margin:4px 0 8px}
+.mdm-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px 10px;margin:6px 0 10px}
+.mdm-grid label{font-size:12px;gap:3px}
+.mdm-grid input,.mdm-grid select{padding:7px 8px;font-size:13px}
+@media (max-width:760px){.mdm-grid{grid-template-columns:1fr 1fr}}
+.mdm-sub{font:600 12px Inter,sans-serif;margin:8px 0 2px;color:var(--muted)}
+.mdm-chk{display:flex!important;flex-direction:row!important;align-items:center;gap:8px;font-size:13px;margin:4px 0}
+.mdm-chk input{width:auto}
+.mdm-badge{display:inline-block;font:600 10.5px Inter,sans-serif;padding:2px 7px;border-radius:999px;margin-left:6px;border:1px solid;vertical-align:middle}
+.mdm-badge.router{color:var(--warn);border-color:color-mix(in srgb,var(--warn) 50%,transparent)}
+.mdm-badge.passthrough{color:var(--c1);border-color:color-mix(in srgb,var(--c1) 50%,transparent)}
+.mdm-badge.ipfija{color:#a78bfa;border-color:#a78bfa80}
+.mdm-badge.bridge{color:var(--ok);border-color:color-mix(in srgb,var(--ok) 50%,transparent)}
+.wan-row .w-info{grid-column:1/-1;font-size:12px;margin-top:-2px}
+.wan-row .w-info:empty{display:none}
+.cad-box{margin:12px 0 0;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--row-hover);font-size:13px}
+.cad-box>b{display:block;margin-bottom:6px}
+.cad{display:flex;align-items:stretch;gap:6px;flex-wrap:wrap;padding:8px 0;border-top:1px dashed var(--line)}
+.cad:first-of-type{border-top:0}
+.cad-n{display:flex;flex-direction:column;gap:2px;padding:7px 11px;border-radius:10px;background:var(--card-solid);border:1px solid var(--line);min-width:150px;max-width:340px}
+.cad-n small{color:var(--muted);font-size:11.5px;line-height:1.35}
+.cad-n.dev{cursor:pointer}
+.cad-n.dev:hover{border-color:var(--c1)}
+.cad-n.vacio{border-style:dashed;color:var(--muted);justify-content:center}
+.cad-ar{align-self:center;color:var(--muted);font-weight:700}
+.cad-col{display:flex;flex-direction:column;gap:6px}
+.cad-warn{color:var(--warn);font-size:11.5px;font-weight:600}
+.cad-ok{color:var(--ok);font-size:11.5px}
 .net-inet .wl{display:inline-flex;gap:6px;align-items:center;padding:4px 10px;border-radius:999px;background:var(--card-solid);border:1px solid var(--line)}
 .net-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
 .net-head h3{margin:0 0 2px;font:700 18px "Space Grotesk",sans-serif}
@@ -715,7 +746,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v6.8</p>
+    <p class="sub">Network Asset Manager · v6.9</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -731,7 +762,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v6.8</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v6.9</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -883,6 +914,40 @@ details.u-help summary{cursor:pointer;font-weight:600}
           <label><span data-i18n="ssid">Wi-Fi name (SSID)</span><input id="ssid" autocomplete="off"></label>
           <label><span data-i18n="firmware">Firmware</span><input id="firmware" autocomplete="off" class="monoin"></label>
           <label><span data-i18n="puertos">Ports</span><input id="puertos" autocomplete="off" data-i18n-ph="puertos_ph" placeholder="e.g. 24 + 4 SFP, PoE"></label>
+        </div>
+        <div id="modemBox" class="wan-box hidden">
+          <div class="users-head"><span>📦 <span data-i18n="mdm_title">Modem mode</span> <small class="muted" data-i18n="mdm_help">How the modem hands internet to the router</small></span></div>
+          <input type="hidden" id="mdm_modo">
+          <div id="mdmOps" class="mdm-ops"></div>
+          <p id="mdmAyuda" class="muted mdm-ayuda"></p>
+          <div id="mdmPT" class="mdm-grid hidden">
+            <label><span data-i18n="mdm_pt_asig">Allocation</span><select id="mdm_pt_asig"><option value="">—</option><option value="fixed" data-i18n="mdm_pt.fixed">DHCPS-fixed (by MAC)</option><option value="dynamic" data-i18n="mdm_pt.dynamic">DHCPS-dynamic (first device)</option><option value="manual" data-i18n="mdm_pt.manual">Manual</option></select></label>
+            <label><span data-i18n="mdm_pt_mac">Passthrough MAC (router WAN)</span><input id="mdm_pt_mac" class="monoin" autocomplete="off" placeholder="AA:BB:CC:DD:EE:FF"></label>
+            <label><span data-i18n="mdm_pt_ip">Public IP it passes</span><input id="mdm_pt_ip" class="monoin" autocomplete="off" inputmode="decimal"></label>
+          </div>
+          <label id="mdmFijaL" class="mdm-chk"><input type="checkbox" id="mdm_fija" onchange="mdmUI()"> <span data-i18n="mdm_fija_chk">Also has a static IP block</span></label>
+          <div id="mdmFija" class="hidden">
+            <div class="mdm-sub">📌 <span data-i18n="mdm_fija_t">Static IP block from the provider</span></div>
+            <div class="mdm-grid">
+              <label><span data-i18n="mdm_n">How many IPs</span><select id="mdm_n" onchange="mdmIps()"><option value="">—</option><option>1</option><option>5</option><option>13</option><option>29</option><option>61</option><option value="otro" data-i18n="mdm_n_otro">Other</option></select></label>
+              <label><span data-i18n="mdm_ini">First usable IP</span><input id="mdm_ini" class="monoin" autocomplete="off" inputmode="decimal" oninput="mdmIps()"></label>
+              <label><span data-i18n="mdm_fin">Last usable IP</span><input id="mdm_fin" class="monoin" autocomplete="off" inputmode="decimal"></label>
+              <label><span data-i18n="mdm_gw">Gateway</span><input id="mdm_gw" class="monoin" autocomplete="off" inputmode="decimal"></label>
+              <label><span data-i18n="mdm_mask">Subnet mask</span><input id="mdm_mask" class="monoin" autocomplete="off" inputmode="decimal"></label>
+              <label><span data-i18n="mdm_uso">Used for</span><input id="mdm_uso" autocomplete="off" data-i18n-ph="mdm_uso_ph" placeholder="e.g. .9 router, .10 PBX, .11 VPN"></label>
+            </div>
+          </div>
+          <div id="mdmLan" class="hidden">
+            <div class="mdm-sub">🏠 <span data-i18n="mdm_lan_t">Private side (the modem still hands out private IPs)</span></div>
+            <div class="mdm-grid">
+              <label><span data-i18n="mdm_lan_ip">Modem LAN IP</span><input id="mdm_lan_ip" class="monoin" autocomplete="off" inputmode="decimal" placeholder="192.168.1.254"></label>
+              <label><span data-i18n="mdm_dhcp">DHCP range</span><input id="mdm_dhcp" class="monoin" autocomplete="off" placeholder="192.168.1.64 – .253"></label>
+              <label><span data-i18n="mdm_wifi">Modem Wi-Fi</span><select id="mdm_wifi"><option value="">—</option><option value="on" data-i18n="mdm_wifi.on">On</option><option value="off" data-i18n="mdm_wifi.off">Off</option></select></label>
+              <label><span data-i18n="mdm_otros">Anything else plugged into the modem?</span><select id="mdm_otros"><option value="">—</option><option value="no" data-i18n="mdm_otros.no">No, only the router</option><option value="si" data-i18n="mdm_otros.si">Yes</option></select></label>
+              <label style="grid-column:span 2"><span data-i18n="mdm_otros_q">What is connected?</span><input id="mdm_otros_nota" autocomplete="off" data-i18n-ph="mdm_otros_ph" placeholder="e.g. AT&amp;T phones, TV box, cameras"></label>
+            </div>
+            <small class="muted" data-i18n="mdm_ssid_hint">The Wi-Fi name goes in the "Wi-Fi name (SSID)" field above.</small>
+          </div>
         </div>
         <div id="wanBox" class="wan-box hidden">
           <div class="users-head"><span>🌍 <span data-i18n="wan_title">WAN / Multi-WAN</span> <small class="muted" data-i18n="wan_help">One row per internet line</small></span>
@@ -1538,6 +1603,155 @@ const NET_FIELDS = ['isp','cuenta_isp','ip_publica','ssid','firmware','puertos',
 const WAN_TIPOS = ['Módem','Firewall','Router'];          // equipos que reciben internet (WAN / Multi-WAN)
 const WAN_CONEX = ['Fibra','Cable','DSL','LTE/5G','Starlink','Inalámbrico fijo','Otro'];
 const WAN_MODOS = ['principal','respaldo','balanceo'];
+/* ---------- 📦 Modo del módem (Router / Passthrough / IP fija / Bridge) ---------- */
+const MDM_MODOS = ['router','passthrough','ipfija','bridge'];
+const MDM_ICON = { router: '🏠', passthrough: '➡️', ipfija: '📌', bridge: '🌉' };
+const MDM_MASK = { '5': '255.255.255.248', '13': '255.255.255.240', '29': '255.255.255.224', '61': '255.255.255.192' };
+Object.assign(I18N.en, {
+  mdm_title:'Modem mode', mdm_help:'How the modem hands internet to the router', mdm_pick:'Choose the mode the modem is in.',
+  'mdm.router':'Router (NAT)', 'mdm.passthrough':'IP Passthrough', 'mdm.ipfija':'Static IP', 'mdm.bridge':'Bridge',
+  'mdm_h.router':'The modem routes and hands out private IPs. The router behind it gets a PRIVATE IP (double NAT).',
+  'mdm_h.passthrough':'The modem passes its public IP to one device (by MAC). It still hands out private IPs and Wi-Fi to everything else. Typical on AT&T.',
+  'mdm_h.ipfija':'The provider gives a block of static public IPs (1, 5, 13…). They are configured on the router/firewall.',
+  'mdm_h.bridge':'The modem only passes internet: no private IPs, no Wi-Fi. The router gets the public IP directly.',
+  mdm_pt_asig:'Allocation', 'mdm_pt.fixed':'DHCPS-fixed (by MAC)', 'mdm_pt.dynamic':'DHCPS-dynamic (first device)', 'mdm_pt.manual':'Manual',
+  mdm_pt_mac:'Passthrough MAC (router WAN)', mdm_pt_ip:'Public IP it passes', mdm_fija_chk:'Also has a static IP block',
+  mdm_fija_t:'Static IP block from the provider', mdm_n:'How many IPs', mdm_n_otro:'Other', mdm_ini:'First usable IP', mdm_fin:'Last usable IP',
+  mdm_gw:'Gateway', mdm_mask:'Subnet mask', mdm_uso:'Used for', mdm_uso_ph:'e.g. .9 router, .10 PBX, .11 VPN',
+  mdm_lan_t:'Private side (the modem still hands out private IPs)', mdm_lan_ip:'Modem LAN IP', mdm_dhcp:'DHCP range', mdm_wifi:'Modem Wi-Fi',
+  'mdm_wifi.on':'On', 'mdm_wifi.off':'Off', mdm_otros:'Anything else plugged into the modem?', 'mdm_otros.no':'No, only the router', 'mdm_otros.si':'Yes',
+  mdm_otros_q:'What is connected?', mdm_otros_ph:'e.g. AT&T phones, TV box, cameras', mdm_ssid_hint:'The Wi-Fi name goes in the "Wi-Fi name (SSID)" field above.',
+  mdm_missing:'The modem mode was not saved: run supabase-modem.sql in Supabase first. The rest was saved.',
+  mdm_block:'Block {n} IPs', mdm_lan:'LAN', mdm_otros_lbl:'Also connected', mdm_mac_of:'MAC of {d}', mdm_no_mac:'Passthrough MAC missing',
+  mdm_dnat:'Double NAT (gets a private IP)', mdm_gets_pub:'gets the public IP', mdm_gets_priv:'gets a PRIVATE IP from the modem — double NAT',
+  mdm_gets_fija:'uses one of the static IPs', mdm_no_rtr:'No router linked', mdm_no_rtr_h:'Edit the router → WAN → "Through modem"',
+  mdm_chain:'Internet path', fl_modem:'Modem mode', 'fl.modem':'Modem mode', mdm_feeds_by:'via',
+});
+Object.assign(I18N.es, {
+  mdm_title:'Modo del módem', mdm_help:'Cómo el módem le entrega el internet al router', mdm_pick:'Escoge el modo en que está el módem.',
+  'mdm.router':'Router (NAT)', 'mdm.passthrough':'IP Passthrough', 'mdm.ipfija':'IP fija', 'mdm.bridge':'Bridge',
+  'mdm_h.router':'El módem enruta y da IP privada. El router detrás recibe una IP PRIVADA (doble NAT).',
+  'mdm_h.passthrough':'El módem pasa su IP pública a un solo equipo (por MAC). Sigue dando IP privada y WiFi a lo demás. Típico de AT&T.',
+  'mdm_h.ipfija':'El proveedor da un bloque de IPs públicas fijas (1, 5, 13…). Se configuran en el router o firewall.',
+  'mdm_h.bridge':'El módem solo pasa el internet: no da IP privada ni WiFi. El router recibe la IP pública directo.',
+  mdm_pt_asig:'Asignación', 'mdm_pt.fixed':'DHCPS-fixed (por MAC)', 'mdm_pt.dynamic':'DHCPS-dynamic (primer equipo)', 'mdm_pt.manual':'Manual',
+  mdm_pt_mac:'MAC del passthrough (WAN del router)', mdm_pt_ip:'IP pública que pasa', mdm_fija_chk:'También tiene bloque de IP fija',
+  mdm_fija_t:'Bloque de IP fija del proveedor', mdm_n:'Cuántas IPs', mdm_n_otro:'Otra', mdm_ini:'Primera IP usable', mdm_fin:'Última IP usable',
+  mdm_gw:'Gateway', mdm_mask:'Máscara', mdm_uso:'En qué se usan', mdm_uso_ph:'ej. .9 router, .10 PBX, .11 VPN',
+  mdm_lan_t:'Lado privado (el módem sigue dando IP privada)', mdm_lan_ip:'IP LAN del módem', mdm_dhcp:'Rango DHCP', mdm_wifi:'WiFi del módem',
+  'mdm_wifi.on':'Encendido', 'mdm_wifi.off':'Apagado', mdm_otros:'¿Hay algo más conectado al módem?', 'mdm_otros.no':'No, solo el router', 'mdm_otros.si':'Sí',
+  mdm_otros_q:'¿Qué está conectado?', mdm_otros_ph:'ej. teléfonos AT&T, cajita de TV, cámaras', mdm_ssid_hint:'El nombre del WiFi va en el campo "Nombre del WiFi (SSID)" de arriba.',
+  mdm_missing:'El modo del módem no se guardó: primero corre supabase-modem.sql en Supabase. Lo demás sí se guardó.',
+  mdm_block:'Bloque {n} IPs', mdm_lan:'LAN', mdm_otros_lbl:'También conectado', mdm_mac_of:'MAC de {d}', mdm_no_mac:'Falta la MAC del passthrough',
+  mdm_dnat:'Doble NAT (recibe IP privada)', mdm_gets_pub:'recibe la IP pública', mdm_gets_priv:'recibe una IP PRIVADA del módem — doble NAT',
+  mdm_gets_fija:'usa una de las IPs fijas', mdm_no_rtr:'Sin router asociado', mdm_no_rtr_h:'Edita el router → WAN → "Por el módem"',
+  mdm_chain:'Camino del internet', fl_modem:'Modo del módem', 'fl.modem':'Modo del módem', mdm_feeds_by:'por',
+  wan_ip:'IP WAN',
+});
+I18N.en.wan_ip = 'WAN IP';
+const mdmDe = x => { let m = x?.modem; if (typeof m === 'string'){ try{ m = JSON.parse(m); }catch(e){ m = {}; } } return m && typeof m === 'object' && !Array.isArray(m) ? m : {}; };
+const MDM_F = { pt_asig: 'mdm_pt_asig', pt_mac: 'mdm_pt_mac', pt_ip: 'mdm_pt_ip', n: 'mdm_n', ini: 'mdm_ini', fin: 'mdm_fin', gw: 'mdm_gw', mask: 'mdm_mask',
+  uso: 'mdm_uso', lan_ip: 'mdm_lan_ip', dhcp: 'mdm_dhcp', wifi: 'mdm_wifi', otros: 'mdm_otros', otros_nota: 'mdm_otros_nota' };
+function fillModem(x){
+  const m = mdmDe(x);
+  $('mdm_modo').value = m.modo || ''; $('mdm_fija').checked = !!m.fija;
+  Object.entries(MDM_F).forEach(([k, id]) => { $(id).value = m[k] || ''; delete $(id).dataset.auto; });
+  mdmUI();
+}
+function readModem(){
+  const m = { modo: $('mdm_modo').value };
+  if (m.modo === 'ipfija' || $('mdm_fija').checked) m.fija = true;
+  Object.entries(MDM_F).forEach(([k, id]) => { m[k] = $(id).value.trim(); });
+  if (m.modo !== 'passthrough') ['pt_asig', 'pt_mac', 'pt_ip'].forEach(k => delete m[k]);
+  if (!m.fija) ['n', 'ini', 'fin', 'gw', 'mask', 'uso'].forEach(k => delete m[k]);
+  if (m.modo === 'bridge') ['lan_ip', 'dhcp', 'wifi', 'otros', 'otros_nota'].forEach(k => delete m[k]);
+  Object.keys(m).forEach(k => { if (m[k] === '' || m[k] == null) delete m[k]; });
+  return m;
+}
+function mdmSet(v){ $('mdm_modo').value = $('mdm_modo').value === v ? '' : v; mdmUI(); }
+function mdmUI(){
+  const v = $('mdm_modo').value;
+  $('mdmOps').innerHTML = MDM_MODOS.map(k => `<button type="button" class="mdm-op ${v === k ? 'on' : ''}" onclick="mdmSet('${k}')">${MDM_ICON[k]} ${esc(t('mdm.' + k))}</button>`).join('');
+  $('mdmAyuda').textContent = v ? t('mdm_h.' + v) : t('mdm_pick');
+  $('mdmPT').classList.toggle('hidden', v !== 'passthrough');
+  $('mdmFijaL').classList.toggle('hidden', !v || v === 'ipfija');
+  $('mdmFija').classList.toggle('hidden', !(v === 'ipfija' || (v && $('mdm_fija').checked)));
+  $('mdmLan').classList.toggle('hidden', !v || v === 'bridge');
+}
+const ipNumV = s => { const p = String(s || '').trim().split('.'); if (p.length !== 4 || p.some(x => !/^\d{1,3}$/.test(x) || +x > 255)) return null; return p.reduce((a, x) => a * 256 + +x, 0); };
+const numIp = n => [24, 16, 8, 0].map(b => Math.floor(n / 2 ** b) % 256).join('.');
+function mdmIps(){
+  const n = parseInt($('mdm_n').value, 10), ini = ipNumV($('mdm_ini').value);
+  const auto = (id, v) => { const el = $(id); if (v && (!el.value || el.dataset.auto === el.value)){ el.value = v; el.dataset.auto = v; } };
+  if (MDM_MASK[$('mdm_n').value]) auto('mdm_mask', MDM_MASK[$('mdm_n').value]);
+  if (ini != null && n > 0){ auto('mdm_fin', numIp(ini + n - 1)); if (n > 1) auto('mdm_gw', numIp(ini + n)); }   // el gateway del proveedor es la IP siguiente a la última usable
+}
+const macN = s => String(s || '').toLowerCase().replace(/[^0-9a-f]/g, '');
+const mdmBadge = m => m.modo ? `<span class="mdm-badge ${esc(m.modo)}">${MDM_ICON[m.modo] || ''} ${esc(t('mdm.' + m.modo))}${m.fija && m.modo !== 'ipfija' ? ' + 📌' : ''}</span>` : '';
+const mdmBloque = m => m.fija && (m.n || m.ini) ? `${t('mdm_block', { n: m.n && m.n !== 'otro' ? m.n : '?' })}${m.ini ? ` <span class="mono">${esc(m.ini)}${m.fin ? ' – ' + esc(m.fin.split('.').pop() === m.fin ? m.fin : '.' + m.fin.split('.').pop()) : ''}</span>` : ''}${m.gw ? ` · gw <span class="mono">${esc(m.gw)}</span>` : ''}` : '';
+const mdmMacDe = m => { const k = macN(m.pt_mac); return k.length >= 12 ? items.find(i => macN(i.mac) === k) : null; };
+// Qué recibe el WAN de un router según el modo del módem
+const viaTexto = md => md.modo === 'router' ? ['cad-warn', '⚠ ' + t('mdm_gets_priv')] : md.modo === 'passthrough' || md.modo === 'bridge' ? ['cad-ok', '✓ ' + t('mdm_gets_pub')]
+  : md.modo === 'ipfija' ? ['cad-ok', '✓ ' + t('mdm_gets_fija')] : null;
+function viaInfo(r){
+  const el = r.querySelector('.w-info'); if (!el) return;
+  const m = items.find(i => i.id === r.querySelector('.w-via')?.value);
+  const vt = m && !r.classList.contains('sin-via') ? viaTexto(mdmDe(m)) : null;
+  el.innerHTML = m && mdmDe(m).modo ? `📦 ${esc(m.nombre)} ${mdmBadge(mdmDe(m))} ${vt ? `<span class="${vt[0]}">${esc(vt[1])}</span>` : ''}` : '';
+}
+function viaCambio(sel){
+  const r = sel.closest('.wan-row'), m = items.find(i => i.id === sel.value);
+  if (m){
+    const mw = wanDe(m)[0] || { isp: m.isp, ip: m.ip_publica, cuenta: m.cuenta_isp }, md = mdmDe(m);
+    const put = (c, v) => { const el = r.querySelector(c); if (el && !el.value && v) el.value = v; };
+    put('.w-isp', mw.isp); put('.w-conexion', mw.conexion); put('.w-cuenta', mw.cuenta); put('.w-vel', mw.velocidad);
+    put('.w-ip', md.modo === 'passthrough' ? (md.pt_ip || mw.ip) : md.modo === 'bridge' ? mw.ip : (md.modo === 'ipfija' || md.fija) ? md.ini : '');
+  }
+  viaInfo(r);
+}
+function mdmFilas(x, fila){
+  const m = mdmDe(x); if (!m.modo && !m.fija) return '';
+  const dueño = mdmMacDe(m);
+  return fila('📦 ' + t('mdm_title'), mdmBadge(m) + `<small class="muted" style="display:block">${esc(m.modo ? t('mdm_h.' + m.modo) : '')}</small>`)
+    + (m.modo === 'passthrough' ? fila('➡️ Passthrough', [m.pt_asig && esc(t('mdm_pt.' + m.pt_asig)), m.pt_mac && `MAC <span class="mono">${esc(m.pt_mac)}</span>`,
+        dueño ? `→ <a class="dev-link" onclick="verDetalle('${dueño.id}')">${TIPO_ICON[dueño.tipo] || '◆'} ${esc(dueño.nombre)}</a>` : '', m.pt_ip && `<span class="mono">${esc(m.pt_ip)}</span>`].filter(Boolean).join(' · ') || '—') : '')
+    + (m.fija ? fila('📌 ' + t('mdm.ipfija'), [mdmBloque(m), m.mask && `<span class="mono">${esc(m.mask)}</span>`, m.uso && esc(m.uso)].filter(Boolean).join(' · ') || '—') : '')
+    + (m.modo && m.modo !== 'bridge' ? fila('🏠 ' + t('mdm_lan'), [m.lan_ip && `<span class="mono">${esc(m.lan_ip)}</span>`, m.dhcp && `DHCP <span class="mono">${esc(m.dhcp)}</span>`,
+        m.wifi && `📶 ${esc(t('mdm_wifi.' + m.wifi))}${m.wifi === 'on' && x.ssid ? ` "${esc(x.ssid)}"` : ''}`,
+        m.otros && `🔌 ${esc(t('mdm_otros.' + m.otros))}${m.otros_nota ? ': ' + esc(m.otros_nota) : ''}`].filter(Boolean).join(' · ') || '—') : '');
+}
+// Camino del internet: Proveedor → Módem (modo) → Router WAN
+function cadenaNet(red){
+  const modems = red.filter(x => x.tipo === 'Módem'), lineas = [];
+  modems.forEach(M => lineas.push({ isp: wanDe(M)[0] || { isp: M.isp, ip: M.ip_publica, cuenta: M.cuenta_isp }, M, feeds: alimentaDe(M) }));
+  red.filter(x => x.tipo !== 'Módem' && WAN_TIPOS.includes(x.tipo)).forEach(R => wanDe(R).forEach(w => {
+    if (!w.via || !modems.some(m => m.id === w.via)) lineas.push({ isp: w, feeds: [{ x: R, w }] });
+  }));
+  const pto = l => String(l.feeds[0]?.w?.puerto || 'zz'); lineas.sort((a, b) => pto(a).localeCompare(pto(b), 'es', { numeric: true }));
+  if (!lineas.length) return red.some(x => WAN_TIPOS.includes(x.tipo)) ? `<div class="cad-box"><b>🌍 ${t('net_internet')}</b><span class="muted">${t('wan_none')}</span></div>` : '';
+  const ar = '<span class="cad-ar">→</span>';
+  const nodoIsp = w => `<div class="cad-n"><b>🌍 ${esc(w.isp || t('net_internet'))}</b><small>${[w.conexion && t('wc.' + w.conexion), w.velocidad, w.cuenta && '# ' + w.cuenta].filter(Boolean).map(esc).join(' · ')}</small></div>`;
+  const nodoRtr = (x, w, md) => { const vt = md ? viaTexto(md) : null;
+    return `<div class="cad-n dev" onclick="verDetalle('${x.id}')"><b>${TIPO_ICON[x.tipo] || '◆'} ${esc(x.nombre)} <span class="wan-tag ${esc(w.modo || '')}">${esc(w.puerto || 'WAN')}</span></b>
+      <small>${[w.ip && `<span class="mono">${esc(w.ip)}</span>`, w.modo && esc(t('wm.' + w.modo))].filter(Boolean).join(' · ')}</small>${vt && vt[0] === 'cad-warn' ? `<small class="cad-warn">⚠ ${esc(t('mdm_dnat'))}</small>` : ''}</div>`; };
+  const filas = lineas.map(({ isp, M, feeds }) => {
+    if (!M) return `<div class="cad">${nodoIsp(isp)}${ar}${nodoRtr(feeds[0].x, feeds[0].w)}</div>`;
+    const md = mdmDe(M), dueño = mdmMacDe(md);
+    const extra = [
+      (md.modo === 'passthrough' || md.modo === 'bridge' || !md.modo) && isp.ip ? `<span class="mono">${esc(isp.ip)}</span>` : '',
+      md.modo === 'passthrough' ? (md.pt_mac ? `➡️ MAC <span class="mono">${esc(md.pt_mac)}</span>${dueño ? ` <span class="cad-ok">(${esc(t('mdm_mac_of', { d: dueño.nombre }))})</span>` : ''}`
+        : (md.pt_asig !== 'dynamic' ? `<span class="cad-warn">⚠ ${esc(t('mdm_no_mac'))}</span>` : '')) : '',
+      mdmBloque(md)].filter(Boolean);
+    const lan = md.modo && md.modo !== 'bridge' ? [md.lan_ip && `🏠 <span class="mono">${esc(md.lan_ip)}</span>`,
+      md.wifi && `📶 ${esc(t('mdm_wifi.' + md.wifi))}${md.wifi === 'on' && M.ssid ? ` "${esc(M.ssid)}"` : ''}`,
+      md.otros === 'si' ? `🔌 ${esc(t('mdm_otros_lbl'))}${md.otros_nota ? ': ' + esc(md.otros_nota) : ''}` : ''].filter(Boolean) : [];
+    const nodoM = `<div class="cad-n dev" onclick="verDetalle('${M.id}')"><b>📦 ${esc(M.nombre)}${mdmBadge(md)}</b>${extra.map(v => `<small>${v}</small>`).join('')}${lan.length ? `<small>${lan.join(' · ')}</small>` : ''}</div>`;
+    const der = feeds.length ? `<div class="cad-col">${feeds.map(({ x, w }) => nodoRtr(x, w, md)).join('')}</div>`
+      : `<div class="cad-n vacio">${esc(t('mdm_no_rtr'))}<small>${esc(t('mdm_no_rtr_h'))}</small></div>`;
+    return `<div class="cad">${nodoIsp(isp)}${ar}${nodoM}${ar}${der}</div>`;
+  });
+  return `<div class="cad-box"><b>🌍 ${t('mdm_chain')}${lineas.length > 1 ? ` · ${t('multiwan')} ×${lineas.length}` : ''}</b>${filas.join('')}</div>`;
+}
 const TIPOS = ['DVR','NVR','Cámara','PC','Laptop','Teléfono', ...NET_TIPOS,'Impresora','Servidor','Control de Acceso','Otro'];
 const ESTADOS = ['Activo','En reparación','Inactivo','Dado de baja'];
 let LANG = 'en';
@@ -2194,9 +2408,9 @@ function addWanRow(w = {}){
     <label>${t('wan_ip')}<input class="w-ip monoin" value="${esc(w.ip || '')}" inputmode="decimal" autocomplete="off"></label>
     <label>${t('wan_speed')}<input class="w-vel" value="${esc(w.velocidad || '')}" placeholder="${t('wan_speed_ph')}" autocomplete="off"></label>
     <label>${t('wan_acct')}<input class="w-cuenta monoin" value="${esc(w.cuenta || '')}" autocomplete="off"></label>
-    <label class="w-via-l">${t('wan_via')}<select class="w-via"><option value="">—</option>${modems.map(m => `<option value="${m.id}" ${m.id === w.via ? 'selected' : ''}>🌐 ${esc(m.nombre)}</option>`).join('')}</select></label>
-    <button type="button" class="sm danger" onclick="this.closest('.wan-row').remove()" title="${t('t_delete')}">✕</button>`;
-  list.appendChild(row);
+    <label class="w-via-l">${t('wan_via')}<select class="w-via" onchange="viaCambio(this)"><option value="">—</option>${modems.map(m => `<option value="${m.id}" ${m.id === w.via ? 'selected' : ''}>🌐 ${esc(m.nombre)}</option>`).join('')}</select></label>
+    <button type="button" class="sm danger" onclick="this.closest('.wan-row').remove()" title="${t('t_delete')}">✕</button><div class="w-info"></div>`;
+  list.appendChild(row); viaInfo(row);
 }
 function fillWans(x){
   $('wanList').innerHTML = '';
@@ -2216,7 +2430,8 @@ function readWans(){
 function toggleWan(){
   const tipo = $('tipo').value, on = WAN_TIPOS.includes(tipo);
   $('wanBox').classList.toggle('hidden', !on);
-  document.querySelectorAll('#wanList .wan-row').forEach(r => r.classList.toggle('sin-via', tipo === 'Módem'));
+  $('modemBox').classList.toggle('hidden', tipo !== 'Módem'); mdmUI();
+  document.querySelectorAll('#wanList .wan-row').forEach(r => { r.classList.toggle('sin-via', tipo === 'Módem'); viaInfo(r); });
 }
 const wanLinea = (w, html = true) => {
   if (!html) return [w.puerto, w.isp, w.conexion && t('wc.' + w.conexion), w.modo && t('wm.' + w.modo), w.ip, w.velocidad].filter(Boolean).join(' · ');
@@ -2441,6 +2656,7 @@ function renderNet(base){
   const nombre = id => { const u = items.find(i => i.id === id); return u ? `<a class="dev-link" onclick="event.stopPropagation();verDetalle('${u.id}')">${TIPO_ICON[u.tipo] || '◆'} ${esc(u.nombre)}</a>` : ''; };
   const det = x => { const ws = wanDe(x), al = x.tipo === 'Módem' ? alimentaDe(x) : [];
     return [ws.length > 1 ? `<span class="mw-badge">${t('multiwan')} ×${ws.length}</span>` : '', ...ws.map(w => wanLinea(w)),
+    x.tipo === 'Módem' ? mdmBadge(mdmDe(x)) : '',
     ...al.map(({ x: d, w }) => `↗ ${t('wan_feeds')}: <b>${esc(w.puerto || 'WAN')}</b> · ${esc(d.nombre)}${w.modo ? ` (${esc(t('wm.' + w.modo))})` : ''}`),
     !ws.length && x.isp ? `🌐 ${esc(x.isp)}` : '', !ws.length && x.ip_publica ? `<span class="mono">${esc(x.ip_publica)}</span>` : '', x.ssid ? `📶 ${esc(x.ssid)}` : '',
     x.puertos ? `🔌 ${esc(x.puertos)}` : '', x.firmware ? `<span class="muted">fw ${esc(x.firmware)}</span>` : ''].filter(Boolean).map(v => `<small>${v}</small>`).join(''); };
@@ -2465,10 +2681,7 @@ function renderNet(base){
       ${PERM.admin ? `<button class="sm" onclick="convertirRedEnServicio()">⬆ ${t('net_convert')}</button>` : ''}</div>` : ''}
     <div class="net-head"><div><h3>🌐 ${t('net_title')}</h3><small class="muted">${t('net_sub')}</small></div>
       ${PERM.editar ? `<button class="primary" onclick="nuevoEquipoRed()">${t('net_add')}</button>` : ''}</div>
-    ${(() => { const gw = red.filter(x => WAN_TIPOS.includes(x.tipo) && wanDe(x).length && !(x.tipo === 'Módem' && alimentaDe(x).length));
-        const ws = gw.flatMap(x => wanDe(x).map(w => ({ x, w })));
-        return red.some(x => WAN_TIPOS.includes(x.tipo)) ? `<div class="net-inet"><b>🌍 ${t('net_internet')}${ws.length > 1 ? ` · ${t('multiwan')} ×${ws.length}` : ''}</b>${ws.length
-          ? ws.map(({ x, w }) => `<span class="wl">${wanLinea(w)} <span class="muted">→ ${esc(x.nombre)}</span></span>`).join('') : `<span class="muted">${t('wan_none')}</span>`}</div>` : ''; })()}
+    ${cadenaNet(red)}
     ${renderVpns()}
     <div class="stats" style="margin:12px 0">${chips}</div>
     ${red.length ? `<div class="table-wrap net-wrap"><table class="net-tbl"><thead><tr>
@@ -3043,16 +3256,21 @@ async function save(e){
     const p = row.wans.find(w => w.modo === 'principal') || row.wans[0];      // el principal también queda en los campos sencillos
     row.isp = p?.isp || null; row.ip_publica = p?.ip || null; row.cuenta_isp = p?.cuenta || null;
   }
+  const conMdm = row.tipo === 'Módem' || orig?.tipo === 'Módem';
+  if (conMdm) row.modem = row.tipo === 'Módem' ? readModem() : {};
   $('saveBtn').disabled = true;
   let idGuardado = editId, error;
   const grabarEq = r => editId ? db.from('equipos').update(r).eq('id', editId) : db.from('equipos').insert(r).select('id').single();
   let r0 = await grabarEq(row);
   if (r0.error && 'sede_id' in row && /sede_id/.test(r0.error.message || '')){ delete row.sede_id; r0 = await grabarEq(row); if (!r0.error) alert(t('sede_missing')); }
+  if (r0.error && conMdm && /\bmodem\b/.test(r0.error.message || '')){   // falta supabase-modem.sql
+    delete row.modem; r0 = await grabarEq(row); if (!r0.error) alert(t('mdm_missing'));
+  }
   if (r0.error && conWan && /wans/.test(r0.error.message || '')){   // falta supabase-wan.sql
     delete row.wans; r0 = await grabarEq(row); if (!r0.error) alert(t('wan_missing'));
   }
   if (r0.error && conRed && NET_FIELDS.some(f => (r0.error.message || '').includes(f))){   // falta supabase-network.sql
-    NET_FIELDS.forEach(f => delete row[f]); delete row.wans; r0 = await grabarEq(row); if (!r0.error) alert(t('net_missing'));
+    NET_FIELDS.forEach(f => delete row[f]); delete row.wans; delete row.modem; r0 = await grabarEq(row); if (!r0.error) alert(t('net_missing'));
   }
   error = r0.error; if (!editId) idGuardado = r0.data?.id;
   if (error){ $('saveBtn').disabled = false; return fail(error, t('save_fail')); }
@@ -3067,7 +3285,7 @@ async function save(e){
 function resetForm(afterSave){
   const c = $('cliente').value, dir = $('direccion').value;
   const gKeep = $('grupo_id').value;
-  $('form').reset(); editId = null; linkSel = new Set(); $('conectado_a').dataset.v = ''; $('wanList').innerHTML = '';
+  $('form').reset(); editId = null; linkSel = new Set(); $('conectado_a').dataset.v = ''; $('wanList').innerHTML = ''; fillModem({});
   unlockAll(); fillUsers([], false); $('histBtn').classList.add('hidden');
   document.querySelectorAll('#form input.secret').forEach(el => { el.type = 'password'; delete el.dataset.orig; });
   if (afterSave === true && $('keepClient').checked){ $('cliente').value = c; $('direccion').value = dir; }
@@ -3088,7 +3306,7 @@ function edit(id){
   unlockAll();
   FIELDS.forEach(f => $(f).value = x[f] || '');
   NET_FIELDS.forEach(f => { $(f).value = x[f] || ''; if (f === 'conectado_a') $(f).dataset.v = x[f] || ''; });
-  editId = id; fillWans(x);
+  editId = id; fillWans(x); fillModem(x);
   fillGrupoSelect(); $('grupo_id').value = x.grupo_id || ''; fillGrupoSelect();
   fillSedeSelect(x.sede_id || '');
   linkSel = new Set(x.tipo === 'Impresora' ? pcIds(x) : PC_TIPOS.includes(x.tipo) ? impresorasDePC(x).map(p => p.id) : []);
@@ -3333,6 +3551,7 @@ function verDetalle(id, keepVis){
       + (wanDe(x).length ? wanDe(x).map(w => fila('🌍 WAN', wanLinea(w) + (w.cuenta ? ` · # <span class="mono">${esc(w.cuenta)}</span>` : '')
           + (w.via ? ` · 🌐 ${(m => m ? `<a class="dev-link" onclick="verDetalle('${m.id}')">${esc(m.nombre)}</a>` : '')(items.find(i => i.id === w.via))}` : ''))).join('')
           : fila(t('isp'), esc(x.isp)) + fila(t('cuenta_isp'), esc(x.cuenta_isp)) + fila(t('ip_publica'), esc(x.ip_publica)))
+      + (x.tipo === 'Módem' ? mdmFilas(x, fila) : '')
       + (x.tipo === 'Módem' ? alimentaDe(x).map(({ x: d, w }) => fila('↗ ' + t('wan_feeds'), `<b>${esc(w.puerto || 'WAN')}</b> · <a class="dev-link" onclick="verDetalle('${d.id}')">${TIPO_ICON[d.tipo] || '◆'} ${esc(d.nombre)}</a>${w.modo ? ` (${esc(t('wm.' + w.modo))})` : ''}`)).join('') : '')
       + fila(t('ssid'), esc(x.ssid)) + fila(t('puertos'), esc(x.puertos)) + fila(t('firmware'), esc(x.firmware))
       + (abajo.length ? fila('↳', abajo.map(i => `<a class="dev-link" onclick="verDetalle('${i.id}')">${TIPO_ICON[i.tipo] || '◆'} ${esc(i.nombre)}</a>`).join(', ')) : '');
@@ -3423,6 +3642,8 @@ function valAct(k, v){
   if (k === 'estado') return esc(tEstado(v));
   if (k === 'grupo_id') return esc(grupos.find(g => g.id === v)?.nombre || t('act_deleted_group'));
   if (['conexion', 'lbl_conexion', 'imp_conexion'].includes(k)) return esc(t('conn.' + v) === 'conn.' + v ? v : t('conn.' + v));
+  if (k === 'modem'){ let m = v; try{ if (typeof m === 'string') m = JSON.parse(m); }catch(e){} m = m || {};
+    return m.modo || m.fija ? esc([m.modo && t('mdm.' + m.modo), m.fija && m.modo !== 'ipfija' && t('mdm.ipfija'), m.pt_mac && 'MAC ' + m.pt_mac, m.ini && m.ini + (m.fin ? ' – ' + m.fin : ''), m.lan_ip && 'LAN ' + m.lan_ip, m.wifi && 'WiFi ' + t('mdm_wifi.' + m.wifi)].filter(Boolean).join(' · ')) : t('act_nochg'); }
   if (k === 'wans'){ let a = v; try{ if (typeof a === 'string') a = JSON.parse(a); }catch(e){} return Array.isArray(a) && a.length ? a.map(w => esc(wanLinea(w, false))).join(' | ') : t('act_nochg'); }
   if (['sede_id', 'sede_a', 'sede_b'].includes(k)){ const u = sedes.find(i => i.id === v); return u ? '📍 ' + esc(u.nombre) : '—'; }
   if (['equipo_a', 'equipo_b'].includes(k)){ const u = items.find(i => i.id === v); return u ? esc(u.nombre) : '—'; }

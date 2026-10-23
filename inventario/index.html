@@ -555,12 +555,16 @@ body.p-noborrar [onclick^="borrarSede("],body.p-noborrar [onclick^="borrarVpn("]
 /* ===== Inventario de Network ===== */
 #netBox .legacy-isp{display:none}
 .wan-box{margin-top:12px;border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--card)}
-.wan-row{display:grid;grid-template-columns:80px 1.3fr 1fr 1.2fr 1fr .9fr .9fr 1.2fr auto;gap:6px;align-items:end;padding:8px 0;border-top:1px solid var(--line)}
+.wan-row{display:grid;grid-template-columns:72px 1.4fr 1.2fr 1fr 1.1fr 1fr .9fr .9fr auto;gap:6px;align-items:end;padding:8px 0;border-top:1px solid var(--line)}
 .wan-row:first-child{border-top:0}
 .wan-row label{font-size:11px;gap:3px}
 .wan-row input,.wan-row select{padding:7px 8px;font-size:13px}
 .wan-row.sin-via .w-via-l{display:none}
 .wan-row.sin-via{grid-template-columns:80px 1.3fr 1fr 1.2fr 1fr .9fr .9fr auto}
+.wan-mdm{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:4px 0 6px;font-size:12.5px}
+.wan-mdm:empty{display:none}
+.wan-mdm .chip{cursor:pointer}
+.wan-mdm .chip.usado{opacity:.55}
 @media (max-width:1100px){.wan-row,.wan-row.sin-via{grid-template-columns:1fr 1fr 1fr}}
 .wan-tag{display:inline-block;font:600 10.5px "JetBrains Mono",monospace;padding:1px 6px;border-radius:6px;border:1px solid var(--line-strong);margin-right:4px}
 .wan-tag.principal{color:var(--ok);border-color:color-mix(in srgb,var(--ok) 50%,transparent)}
@@ -746,7 +750,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v7.1</p>
+    <p class="sub">Network Asset Manager · v7.2</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -762,7 +766,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v7.1</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v7.2</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -960,6 +964,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
         <div id="wanBox" class="wan-box hidden">
           <div class="users-head"><span>🌍 <span data-i18n="wan_title">WAN / Multi-WAN</span> <small class="muted" data-i18n="wan_help">One row per internet line</small></span>
             <button type="button" class="sm" onclick="addWanRow()" data-i18n="wan_add">＋ Add WAN</button></div>
+          <div id="wanMdm" class="wan-mdm"></div>
           <div id="wanList"></div>
         </div>
         <datalist id="ispList"><option value="Comcast / Xfinity Business"><option value="AT&amp;T Business"><option value="Spectrum Business"><option value="Hotwire Communications"><option value="Frontier"><option value="Lumen / CenturyLink"><option value="Verizon"><option value="T-Mobile"><option value="Starlink"><option value="Breezeline"><option value="Cox Business"><option value="Optimum Business"><option value="Google Fiber"><option value="Windstream"><option value="Comcastel"><option value="Crown Castle"><option value="Zayo"><option value="Verizon Fios"><option value="Verizon 5G Business"><option value="AT&amp;T Fiber"><option value="AT&amp;T Wireless (5G)"></datalist>
@@ -1635,6 +1640,7 @@ Object.assign(I18N.en, {
   mdm_gets_fija:'uses one of the static IPs', mdm_no_rtr:'No router linked', mdm_no_rtr_h:'Edit the router → WAN → "Through modem"',
   mdm_title2:'Modem: provider and mode', mdm_con:'Connection type', mdm_ip:'Public IP', mdm_isp_ph:'AT&T, Comcast, Verizon…', mdm_modo_t:'Modem mode',
   'wc.Cable':'Coaxial cable', 'wc.Inalámbrico fijo':'Wireless / antenna', 'wc.Satélite':'Satellite', 'wc.DSL':'DSL (phone line)',
+  wan_mdm_pick:'Connect a modem:', wan_mdm_none:'This client has no modems yet — add the modem first and it will show here.',
   up_modem:'— The modem is the first one (provider goes in the modem box) —', up_otras:'Other locations',
   mdm_chain:'Internet path', fl_modem:'Modem mode', 'fl.modem':'Modem mode', mdm_feeds_by:'via',
 });
@@ -1658,6 +1664,7 @@ Object.assign(I18N.es, {
   mdm_gets_fija:'usa una de las IPs fijas', mdm_no_rtr:'Sin router asociado', mdm_no_rtr_h:'Edita el router → WAN → "Por el módem"',
   mdm_title2:'Módem: proveedor y modo', mdm_con:'Tipo de conexión', mdm_ip:'IP pública', mdm_isp_ph:'AT&T, Comcast, Verizon…', mdm_modo_t:'Modo del módem',
   'wc.Cable':'Cable coaxial', 'wc.Inalámbrico fijo':'Inalámbrico / antena', 'wc.Satélite':'Satélite', 'wc.DSL':'DSL (línea de teléfono)',
+  wan_mdm_pick:'Conectar un módem:', wan_mdm_none:'Este cliente todavía no tiene módems: agrega primero el módem y saldrá aquí.',
   up_modem:'— El módem es el primero (el proveedor va en la caja del módem) —', up_otras:'Otras ubicaciones',
   mdm_chain:'Camino del internet', fl_modem:'Modo del módem', 'fl.modem':'Modo del módem', mdm_feeds_by:'por',
   wan_ip:'IP WAN',
@@ -1730,7 +1737,7 @@ function viaCambio(sel){
     put('.w-isp', mw.isp); put('.w-conexion', mw.conexion); put('.w-cuenta', mw.cuenta); put('.w-vel', mw.velocidad);
     put('.w-ip', md.modo === 'passthrough' ? (md.pt_ip || mw.ip) : md.modo === 'bridge' ? mw.ip : (md.modo === 'ipfija' || md.fija) ? md.ini : '');
   }
-  viaInfo(r);
+  viaInfo(r); wanMdmChips();
 }
 function mdmFilas(x, fila){
   const m = mdmDe(x); if (!m.modo && !m.fija) return '';
@@ -2417,7 +2424,26 @@ function nuevoEquipo(){
 // Modal de cliente
 /* ---------- WAN / Multi-WAN ---------- */
 const wanDe = x => { let w = x?.wans; if (typeof w === 'string'){ try{ w = JSON.parse(w); }catch(e){ w = []; } } return Array.isArray(w) ? w : []; };
-function modemsDelCliente(){ const cli = $('cliente').value; return items.filter(x => x.tipo === 'Módem' && x.id !== editId && (!cli || mismoCliente(x.cliente, cli))); }
+function modemsDelCliente(){ const cli = $('cliente').value, sd = $('sede_id')?.value || '';
+  return items.filter(x => x.tipo === 'Módem' && x.id !== editId && (!cli || mismoCliente(x.cliente, cli)))
+    .sort((a, b) => (sd ? (a.sede_id === sd ? 0 : 1) - (b.sede_id === sd ? 0 : 1) : 0) || String(a.nombre).localeCompare(String(b.nombre), 'es', { numeric: true })); }
+// Botones rápidos: cada módem del cliente → una línea WAN ya conectada
+function wanMdmChips(){
+  const box = $('wanMdm'); if (!box) return;
+  if ($('tipo').value === 'Módem' || !WAN_TIPOS.includes($('tipo').value)){ box.innerHTML = ''; return; }
+  const ms = modemsDelCliente(), usados = [...document.querySelectorAll('#wanList .w-via')].map(x => x.value).filter(Boolean);
+  const sd = $('sede_id')?.value || '';
+  box.innerHTML = ms.length ? `<span class="muted">${esc(t('wan_mdm_pick'))}</span>` + ms.map(m => { const w = wanDe(m)[0] || {}, md = mdmDe(m), u = usados.includes(m.id);
+    return `<span class="chip ${u ? 'usado' : ''}" onclick="wanDesdeModem('${m.id}')" title="${esc([w.isp, w.conexion && t('wc.' + w.conexion), md.modo && t('mdm.' + md.modo)].filter(Boolean).join(' · '))}">${u ? '✓' : '＋'} 📦 ${esc(m.nombre)}${w.isp ? ` <span class="muted">· ${esc(w.isp)}</span>` : ''}${sd && m.sede_id && m.sede_id !== sd ? ` <span class="muted">📍</span>` : ''}</span>`; }).join('')
+    : `<span class="muted">${esc(t('wan_mdm_none'))}</span>`;
+}
+function wanDesdeModem(id){
+  const ya = [...document.querySelectorAll('#wanList .wan-row')].find(r => r.querySelector('.w-via')?.value === id);
+  if (ya){ ya.querySelector('.w-via').focus(); return; }
+  let r = [...document.querySelectorAll('#wanList .wan-row')].find(r => !['.w-isp', '.w-ip', '.w-cuenta', '.w-via', '.w-vel'].some(c => r.querySelector(c)?.value.trim()));
+  if (!r){ addWanRow(); r = $('wanList').lastElementChild; }
+  const sel = r.querySelector('.w-via'); sel.value = id; viaCambio(sel); wanMdmChips();
+}
 function addWanRow(w = {}){
   const list = $('wanList'), n = list.children.length + 1, esModem = $('tipo').value === 'Módem';
   const opt = (vals, cur, lbl) => vals.map(v => `<option value="${esc(v)}" ${v === cur ? 'selected' : ''}>${esc(lbl(v))}</option>`).join('');
@@ -2425,15 +2451,15 @@ function addWanRow(w = {}){
   const row = document.createElement('div'); row.className = 'wan-row' + (esModem ? ' sin-via' : '');
   row.innerHTML = `
     <label>${t('wan_port')}<input class="w-puerto monoin" value="${esc(w.puerto || 'WAN' + n)}"></label>
+    <label class="w-via-l">${t('wan_via')}<select class="w-via" onchange="viaCambio(this)"><option value="">—</option>${modems.map(m => `<option value="${m.id}" ${m.id === w.via ? 'selected' : ''}>📦 ${esc(m.nombre)}</option>`).join('')}</select></label>
     <label>${t('wan_isp')}<input class="w-isp" list="ispList" value="${esc(w.isp || '')}" autocomplete="off"></label>
     <label>${t('wan_conn')}<select class="w-conexion"><option value="">—</option>${opt(WAN_CONEX, w.conexion, v => t('wc.' + v))}</select></label>
     <label>${t('wan_mode')}<select class="w-modo">${opt(WAN_MODOS, w.modo || (n === 1 ? 'principal' : 'respaldo'), v => t('wm.' + v))}</select></label>
     <label>${t('wan_ip')}<input class="w-ip monoin" value="${esc(w.ip || '')}" inputmode="decimal" autocomplete="off"></label>
     <label>${t('wan_speed')}<input class="w-vel" value="${esc(w.velocidad || '')}" placeholder="${t('wan_speed_ph')}" autocomplete="off"></label>
     <label>${t('wan_acct')}<input class="w-cuenta monoin" value="${esc(w.cuenta || '')}" autocomplete="off"></label>
-    <label class="w-via-l">${t('wan_via')}<select class="w-via" onchange="viaCambio(this)"><option value="">—</option>${modems.map(m => `<option value="${m.id}" ${m.id === w.via ? 'selected' : ''}>🌐 ${esc(m.nombre)}</option>`).join('')}</select></label>
-    <button type="button" class="sm danger" onclick="this.closest('.wan-row').remove()" title="${t('t_delete')}">✕</button><div class="w-info"></div>`;
-  list.appendChild(row); viaInfo(row);
+    <button type="button" class="sm danger" onclick="this.closest('.wan-row').remove();wanMdmChips()" title="${t('t_delete')}">✕</button><div class="w-info"></div>`;
+  list.appendChild(row); viaInfo(row); wanMdmChips();
 }
 function fillWans(x){
   $('wanList').innerHTML = '';
@@ -2455,6 +2481,7 @@ function toggleWan(){
   $('wanBox').classList.toggle('hidden', !on || tipo === 'Módem');
   $('modemBox').classList.toggle('hidden', tipo !== 'Módem'); mdmUI();
   document.querySelectorAll('#wanList .wan-row').forEach(r => { r.classList.toggle('sin-via', tipo === 'Módem'); viaInfo(r); });
+  wanMdmChips();
 }
 const wanLinea = (w, html = true) => {
   if (!html) return [w.puerto, w.isp, w.conexion && t('wc.' + w.conexion), w.modo && t('wm.' + w.modo), w.ip, w.velocidad].filter(Boolean).join(' · ');
@@ -2494,7 +2521,7 @@ function fillSedeSelect(cur){
   sel.innerHTML = `<option value="">${t('sede_none_opt')}</option>` + lista.map(x => `<option value="${x.id}">📍 ${esc(x.nombre)}</option>`).join('');
   sel.value = lista.some(x => x.id === cur) ? cur : '';
 }
-function sedeElegida(){ const sd = sedes.find(x => x.id === $('sede_id').value); if (sd?.direccion) $('direccion').value = sd.direccion; if (NET_TIPOS.includes($('tipo').value)) llenarUplink(); }
+function sedeElegida(){ const sd = sedes.find(x => x.id === $('sede_id').value); if (sd?.direccion) $('direccion').value = sd.direccion; if (NET_TIPOS.includes($('tipo').value)){ llenarUplink(); wanMdmChips(); } }
 let sedeEdit = null;
 function nuevaSede(){ if (!puede('editar')) return; if (!sedesOK) return alert(t('sede_missing')); sedeEdit = { cliente: curCliente }; formSede(); }
 function editarSede(id){ if (!puede('editar')) return; sedeEdit = { ...sedes.find(x => x.id === id) }; formSede(); }

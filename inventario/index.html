@@ -341,7 +341,11 @@ body.col-resizing{cursor:col-resize;user-select:none}
 #devTable td.col-w{overflow:hidden;text-overflow:ellipsis}
 #devTable td.col-w.stack,#devTable td.col-w.notes{white-space:normal;word-break:break-word}
 #devTable th.col-w{overflow:hidden;text-overflow:ellipsis}
-.col-item.act-opt{margin-top:6px;border-top:1px solid var(--line);border-radius:0;padding-top:10px}
+.col-item.act-opt{display:none}
+#devTable th.actions-col,#devTable td.actions-col{display:none}
+button.type-btn{cursor:pointer;font:inherit;font-size:12px;color:var(--text);box-shadow:none;transition:.15s}
+button.type-btn:hover{border-color:var(--c1);background:color-mix(in srgb,var(--c1) 14%,transparent);transform:translateY(-1px)}
+button.type-btn:focus-visible{outline:2px solid var(--c1);outline-offset:2px}
 /* ===== Columnas: mover y ocultar ===== */
 #devTable thead th[draggable=true]{cursor:grab}
 #devTable thead th.dragging{opacity:.45}
@@ -654,7 +658,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v6.0</p>
+    <p class="sub">Network Asset Manager · v6.1</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -670,7 +674,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v6.0</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v6.1</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -2092,7 +2096,7 @@ function renderNet(base){
     !ws.length && x.isp ? `🌐 ${esc(x.isp)}` : '', !ws.length && x.ip_publica ? `<span class="mono">${esc(x.ip_publica)}</span>` : '', x.ssid ? `📶 ${esc(x.ssid)}` : '',
     x.puertos ? `🔌 ${esc(x.puertos)}` : '', x.firmware ? `<span class="muted">fw ${esc(x.firmware)}</span>` : ''].filter(Boolean).map(v => `<small>${v}</small>`).join(''); };
   const fila = x => `<tr class="r" onclick="verDetalle('${x.id}')">
-      <td><span class="type">${TIPO_ICON[x.tipo] || '◆'} ${esc(tTipo(x.tipo))}</span></td>
+      <td><button type="button" class="type type-btn" onclick="event.stopPropagation();verDetalle('${x.id}')" title="${t('view')}">${TIPO_ICON[x.tipo] || '◆'} ${esc(tTipo(x.tipo))}</button></td>
       <td><a class="dev-link" onclick="event.stopPropagation();verDetalle('${x.id}')">${esc(x.nombre)}</a>${x.lugar ? `<small class="muted" style="display:block">📍 ${esc(x.lugar)}</small>` : ''}</td>
       <td>${esc(x.modelo)}</td>
       <td class="mono ip">${x.ip ? `<a href="http://${esc(x.ip)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${esc(x.ip)}</a>` : ''}</td>
@@ -2101,11 +2105,11 @@ function renderNet(base){
       <td class="stack">${det(x)}</td>
       <td class="mono">${esc(x.serial)}</td>
       <td>${x.estado ? `<span class="badge ${ESTADO_CLS[x.estado] || 'b-off'}">${esc(tEstado(x.estado))}</span>` : ''}</td>
-      <td class="no-print" style="white-space:nowrap"><button class="sm ver-btn" onclick="event.stopPropagation();verDetalle('${x.id}')" title="${t('view')}">👁 ${t('view')}</button></td></tr>`;
+</tr>`;
   const orden = (a, b) => String(a.nombre).localeCompare(String(b.nombre), 'es', { numeric: true });
   const grupos_ = (netTab ? [netTab] : tipos).map(k => {
     const lista = red.filter(x => x.tipo === k).sort(orden);
-    return (netTab ? '' : `<tr class="net-grp"><td colspan="10">${TIPO_ICON[k]} ${esc(tTipo(k))} <span class="muted">· ${lista.length}</span></td></tr>`) + lista.map(fila).join('');
+    return (netTab ? '' : `<tr class="net-grp"><td colspan="9">${TIPO_ICON[k]} ${esc(tTipo(k))} <span class="muted">· ${lista.length}</span></td></tr>`) + lista.map(fila).join('');
   }).join('');
   $('netView').innerHTML = `<div class="panel net-panel">
     ${telRed(clienteObj(curCliente)) ? `<div class="net-telred"><span>📞 <b>${t('net_tel_only')}</b><br><small class="muted">${t('net_tel_only_sub')}</small></span>
@@ -2118,7 +2122,7 @@ function renderNet(base){
           ? ws.map(({ x, w }) => `<span class="wl">${wanLinea(w)} <span class="muted">→ ${esc(x.nombre)}</span></span>`).join('') : `<span class="muted">${t('wan_none')}</span>`}</div>` : ''; })()}
     <div class="stats" style="margin:12px 0">${chips}</div>
     ${red.length ? `<div class="table-wrap net-wrap"><table class="net-tbl"><thead><tr>
-      <th>${t('type')}</th><th>${t('name')}</th><th>${t('th_model')}</th><th>IP</th><th>MAC</th><th>${t('th_uplink')}</th><th>${t('th_netinfo')}</th><th>${t('serial')}</th><th>${t('status')}</th><th class="no-print"></th>
+      <th>${t('type')}</th><th>${t('name')}</th><th>${t('th_model')}</th><th>IP</th><th>MAC</th><th>${t('th_uplink')}</th><th>${t('th_netinfo')}</th><th>${t('serial')}</th><th>${t('status')}</th>
     </tr></thead><tbody>${grupos_}</tbody></table></div>` : `<div class="act-empty">🌐 ${t('net_empty')}</div>`}
   </div>`;
 }
@@ -3283,7 +3287,7 @@ function render(){
     return `<tr>
     <td class="no-print sel-col"><input type="checkbox" class="rowsel" data-id="${x.id}" ${sel.has(x.id) ? 'checked' : ''} onclick="selUno(this)"></td>
     <td class="client"><b>${esc(x.cliente)}</b></td><td class="addr">${x.direccion ? `<a href="${mapUrl(x.direccion)}" target="_blank" rel="noopener" title="${esc(x.direccion)} · ${t('t_openmap')}">📍 ${esc(x.direccion)}</a>` : ''}</td>
-    <td><span class="type">${TIPO_ICON[x.tipo] || '◆'} ${esc(tTipo(x.tipo))}</span></td><td><a class="dev-link" onclick="verDetalle('${x.id}')">${esc(x.nombre)}</a></td><td>${esc(x.first_name)}</td><td>${esc(x.last_name)}</td><td>${grupoDe(x) ? `<span class="g-chip" onclick="openGrupos('${x.grupo_id}')">🗂 ${esc(grupoDe(x).nombre)}</span>` : ''}</td><td>${esc(x.lugar)}</td><td>${esc(x.modelo)}</td>
+    <td><button type="button" class="type type-btn" onclick="verDetalle('${x.id}')" title="${t('view')}">${TIPO_ICON[x.tipo] || '◆'} ${esc(tTipo(x.tipo))}</button></td><td><a class="dev-link" onclick="verDetalle('${x.id}')">${esc(x.nombre)}</a></td><td>${esc(x.first_name)}</td><td>${esc(x.last_name)}</td><td>${grupoDe(x) ? `<span class="g-chip" onclick="openGrupos('${x.grupo_id}')">🗂 ${esc(grupoDe(x).nombre)}</span>` : ''}</td><td>${esc(x.lugar)}</td><td>${esc(x.modelo)}</td>
     <td class="mono">${esc(x.serial)}</td>
     <td class="mono ip">${x.ip ? `<a href="http://${esc(x.ip)}" target="_blank" rel="noopener">${esc(x.ip)}</a>` : ''}</td>
     <td class="mono">${esc(x.mac)}</td><td class="mono">${esc(x.usuario)}</td><td class="mono">${pw}</td>

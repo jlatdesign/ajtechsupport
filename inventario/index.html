@@ -555,11 +555,11 @@ body.p-noborrar [onclick^="borrarSede("],body.p-noborrar [onclick^="borrarVpn("]
 /* ===== Inventario de Network ===== */
 #netBox .legacy-isp{display:none}
 .wan-box{margin-top:12px;border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--card)}
-.wan-row{display:grid;grid-template-columns:72px 1.4fr 1.2fr 1fr 1.1fr 1fr .9fr .9fr auto;gap:6px;align-items:end;padding:8px 0;border-top:1px solid var(--line)}
+.wan-row{display:grid;grid-template-columns:66px 74px 1.4fr 1.2fr 1fr 1.1fr 1fr .9fr .9fr auto;gap:6px;align-items:end;padding:8px 0;border-top:1px solid var(--line)}
 .wan-row:first-child{border-top:0}
 .wan-row label{font-size:11px;gap:3px}
 .wan-row input,.wan-row select{padding:7px 8px;font-size:13px}
-.wan-row.sin-via .w-via-l{display:none}
+.wan-row.sin-via .w-via-l,.wan-row.sin-via .w-fis-l{display:none}
 .wan-row.sin-via{grid-template-columns:80px 1.3fr 1fr 1.2fr 1fr .9fr .9fr auto}
 .wan-mdm{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:4px 0 6px;font-size:12.5px}
 .wan-mdm:empty{display:none}
@@ -690,6 +690,11 @@ body.p-noborrar [onclick^="borrarSede("],body.p-noborrar [onclick^="borrarVpn("]
 .pt.on.t-wifi{background:#4c1d95;border-color:#a855f7}
 .pt.on.t-cobre{background:#3f4a62;border-color:#9aa3b8}
 .pt.upl{outline:2px solid var(--c1);outline-offset:1px}
+.pt.dup{outline:2px solid #ef4444!important;outline-offset:1px}
+.pt.on.wan{background:#14532d;border-color:#22c55e;color:#fff}
+.pt-ley i.wan{background:#22c55e}
+.pt-prev{grid-column:1/-1;margin:10px 0 0;border:1px dashed var(--line-strong);border-radius:12px;padding:10px}
+.pt-prev-h{font-size:12px;color:var(--muted);margin-bottom:6px}
 .pt.sfp{width:52px}
 .kv .pt-wrap{padding:10px 16px!important}
 .kv .pt-wrap div{padding:0;border-bottom:0;word-break:normal}
@@ -910,7 +915,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v8.2</p>
+    <p class="sub">Network Asset Manager · v8.3</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -926,7 +931,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v8.2</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v8.3</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -1076,15 +1081,16 @@ details.u-help summary{cursor:pointer;font-weight:600}
         <div class="grid">
           <label><span data-i18n="conectado_a">Connected to (uplink)</span><select id="conectado_a"></select></label>
           <label><span data-i18n="up_puerto">Port on the uplink</span><input id="up_puerto" class="monoin" autocomplete="off" data-i18n-ph="up_puerto_ph" placeholder="e.g. 8, SFP+ 1"></label>
-          <label><span data-i18n="mi_puerto">My port</span><input id="mi_puerto" class="monoin" autocomplete="off" data-i18n-ph="mi_puerto_ph" placeholder="e.g. 25, SFP 1"></label>
+          <label><span data-i18n="mi_puerto">My port</span><input id="mi_puerto" class="monoin" autocomplete="off" oninput="ptPreview()" data-i18n-ph="mi_puerto_ph" placeholder="e.g. 25, SFP 1"></label>
           <label><span data-i18n="up_tipo">Link type</span><select id="up_tipo"><option value="">—</option><option value="cobre" data-i18n="ut.cobre">Copper</option><option value="poe" data-i18n="ut.poe">PoE</option><option value="fibra" data-i18n="ut.fibra">Fiber / SFP</option><option value="wifi" data-i18n="ut.wifi">Wireless (mesh)</option></select></label>
           <label class="legacy-isp"><span data-i18n="isp">Internet provider (ISP)</span><input id="isp" list="ispList" autocomplete="off" data-i18n-ph="isp_ph" placeholder="e.g. Comcast Business"></label>
           <label class="legacy-isp"><span data-i18n="cuenta_isp">ISP account / circuit #</span><input id="cuenta_isp" autocomplete="off" class="monoin"></label>
           <label class="legacy-isp"><span data-i18n="ip_publica">Public / static IP</span><input id="ip_publica" autocomplete="off" class="monoin" placeholder="73.12.34.56" inputmode="decimal"></label>
           <label><span data-i18n="ssid">Wi-Fi name (SSID)</span><input id="ssid" autocomplete="off"></label>
           <label><span data-i18n="firmware">Firmware</span><input id="firmware" autocomplete="off" class="monoin"></label>
-          <label><span data-i18n="puertos">Ports</span><input id="puertos" autocomplete="off" data-i18n-ph="puertos_ph" placeholder="e.g. 24 + 4 SFP, PoE"></label>
+          <label><span data-i18n="puertos">Ports</span><input id="puertos" autocomplete="off" data-i18n-ph="puertos_ph" placeholder="e.g. 24 + 4 SFP, PoE" oninput="ptPreview()"></label>
         </div>
+        <div id="ptPrev" class="pt-prev hidden" oninput="event.stopPropagation()"></div>
         <div id="modemBox" class="wan-box hidden">
           <div class="users-head"><span>📦 <span data-i18n="mdm_title2">Modem: provider and mode</span> <small class="muted" data-i18n="mdm_help">How the modem hands internet to the router</small></span></div>
           <div class="mdm-grid">
@@ -1900,6 +1906,7 @@ Object.assign(I18N.en, {
   'pl_m.cable':'Connect', pl_h_cab:'Click a device and then the switch (or device) it is connected to.', pl_h_cab2:'Now click where "{n}" is connected.', pl_cab_ok:'Cable drawn', pl_cab_ya:'They are already connected',
   pl_cab_inv:'{a} is now connected to {b} in the inventory too', pl_cab_del:'Delete cable', pl_no_cab:'no cables yet: use 🔌 Connect and click the two devices',
   move_to_sede:'Move to location…', move_confirm:'Move {n} devices to "{s}"?', moved_n:'{n} devices moved to {s}',
+  pt_dup:'two connections on the same port', pt_dups:'Port used twice: {p}', wan_fis:'Router port', wan_fis_ph:'9, SFP+ 1', wan_fis_s:'port', pt_fuera:'Ports used that do not exist with this count: {p} — check "Ports"', pt_preview:'Preview of the ports (changes as you type)',
   pl_scale:'Scale', pl_delete_plan:'Delete plan', pl_config:'Name, location, image', pl_rescale:'Set the scale again', pl_change_img:'Replace the image (same floor)', pl_clear_walls:'Delete the {n} walls drawn', pl_delete:'Delete floor',
   pl_confirm_del:'Delete the plan "{n}"? The image, walls and positions are deleted. The devices stay in the inventory.',
   'mat.drywall':'Drywall', 'mat.vidrio':'Glass', 'mat.madera':'Wood / door', 'mat.ladrillo':'Brick', 'mat.concreto':'Concrete / block', 'mat.metal':'Metal / rack',
@@ -1927,6 +1934,7 @@ Object.assign(I18N.es, {
   'pl_m.cable':'Conectar', pl_h_cab:'Haz clic en un equipo y luego en el switch (o equipo) al que va conectado.', pl_h_cab2:'Ahora haz clic donde va conectado "{n}".', pl_cab_ok:'Cable dibujado', pl_cab_ya:'Ya están conectados',
   pl_cab_inv:'{a} quedó conectado a {b} también en el inventario', pl_cab_del:'Borrar cable', pl_no_cab:'todavía no hay cables: usa 🔌 Conectar y haz clic en los dos equipos',
   move_to_sede:'Mover a ubicación…', move_confirm:'¿Mover {n} equipos a "{s}"?', moved_n:'{n} equipos movidos a {s}',
+  pt_dup:'dos conexiones en el mismo puerto', pt_dups:'Puerto usado dos veces: {p}', wan_fis:'Puerto del router', wan_fis_ph:'9, SFP+ 1', wan_fis_s:'puerto', pt_fuera:'Puertos usados que no existen con esta cantidad: {p}. Revisa "Puertos"', pt_preview:'Vista previa de los puertos (cambia mientras escribes)',
   pl_scale:'Escala', pl_delete_plan:'Eliminar plano', pl_config:'Nombre, ubicación, imagen', pl_rescale:'Poner la escala otra vez', pl_change_img:'Cambiar la imagen (mismo piso)', pl_clear_walls:'Borrar las {n} paredes dibujadas', pl_delete:'Borrar piso',
   pl_confirm_del:'¿Eliminar el plano "{n}"? Se borra la imagen, las paredes y las posiciones. Los equipos se quedan en el inventario.',
   'mat.drywall':'Drywall', 'mat.vidrio':'Vidrio', 'mat.madera':'Madera / puerta', 'mat.ladrillo':'Ladrillo', 'mat.concreto':'Concreto / bloque', 'mat.metal':'Metal / rack',
@@ -2113,7 +2121,7 @@ function cadenaNet(red){
   const ar = '<span class="cad-ar">→</span>';
   const nodoIsp = w => `<div class="cad-n"><b>🌍 ${esc(w.isp || t('net_internet'))}</b><small>${[w.conexion && t('wc.' + w.conexion), w.velocidad, w.cuenta && '# ' + w.cuenta].filter(Boolean).map(esc).join(' · ')}</small>${ctTexto(w) ? `<small>${ctTexto(w)}</small>` : ''}</div>`;
   const nodoRtr = (x, w, md) => { const vt = md ? viaTexto(md) : null;
-    return `<div class="cad-n dev" onclick="verDetalle('${x.id}')"><b>${TIPO_ICON[x.tipo] || '◆'} ${esc(x.nombre)} <span class="wan-tag ${esc(w.modo || '')}">${esc(w.puerto || 'WAN')}</span></b>
+    return `<div class="cad-n dev" onclick="verDetalle('${x.id}')"><b>${TIPO_ICON[x.tipo] || '◆'} ${esc(x.nombre)} <span class="wan-tag ${esc(w.modo || '')}">${esc(w.puerto || 'WAN')}</span>${w.fis ? ` <span class="muted mono" style="font-size:11px">${esc(t('wan_fis_s'))} ${esc(w.fis)}</span>` : ''}</b>
       <small>${[w.ip && `<span class="mono">${esc(w.ip)}</span>`, w.modo && esc(t('wm.' + w.modo))].filter(Boolean).join(' · ')}</small>${vt && vt[0] === 'cad-warn' ? `<small class="cad-warn">⚠ ${esc(t('mdm_dnat'))}</small>` : ''}</div>`; };
   const filas = lineas.map(({ isp, M, feeds }) => {
     if (!M) return `<div class="cad">${nodoIsp(isp)}${ar}${nodoRtr(feeds[0].x, feeds[0].w)}</div>`;
@@ -2806,6 +2814,7 @@ function addWanRow(w = {}){
   const row = document.createElement('div'); row.className = 'wan-row' + (esModem ? ' sin-via' : '');
   row.innerHTML = `
     <label>${t('wan_port')}<input class="w-puerto monoin" value="${esc(w.puerto || 'WAN' + n)}"></label>
+    <label class="w-fis-l">${t('wan_fis')}<input class="w-fis monoin" value="${esc(w.fis || '')}" placeholder="${esc(t('wan_fis_ph'))}" oninput="ptPreview()" autocomplete="off"></label>
     <label class="w-via-l">${t('wan_via')}<select class="w-via" onchange="viaCambio(this)"><option value="">—</option>${modems.map(m => `<option value="${m.id}" ${m.id === w.via ? 'selected' : ''}>📦 ${esc(m.nombre)}</option>`).join('')}</select></label>
     <label>${t('wan_isp')}<input class="w-isp" list="ispList" value="${esc(w.isp || '')}" autocomplete="off"></label>
     <label>${t('wan_conn')}<select class="w-conexion"><option value="">—</option>${opt(WAN_CONEX, w.conexion, v => t('wc.' + v))}</select></label>
@@ -2814,7 +2823,7 @@ function addWanRow(w = {}){
     <label>${t('wan_speed')}<input class="w-vel" value="${esc(w.velocidad || '')}" placeholder="${t('wan_speed_ph')}" autocomplete="off"></label>
     <label>${t('wan_acct')}<input class="w-cuenta monoin" value="${esc(w.cuenta || '')}" autocomplete="off"></label>
     <button type="button" class="sm danger" onclick="this.closest('.wan-row').remove();wanMdmChips()" title="${t('t_delete')}">✕</button><div class="w-info"></div>`;
-  list.appendChild(row); viaInfo(row); wanMdmChips();
+  list.appendChild(row); viaInfo(row); wanMdmChips(); ptPreview();
 }
 function fillWans(x){
   $('wanList').innerHTML = '';
@@ -2825,7 +2834,7 @@ function fillWans(x){
 function readWans(){
   return [...document.querySelectorAll('#wanList .wan-row')].map(r => {
     const g = c => r.querySelector(c)?.value.trim() || '';
-    const w = { puerto: g('.w-puerto'), isp: g('.w-isp'), conexion: g('.w-conexion'), modo: g('.w-modo'), ip: g('.w-ip'), velocidad: g('.w-vel'), cuenta: g('.w-cuenta') };
+    const w = { puerto: g('.w-puerto'), fis: g('.w-fis'), isp: g('.w-isp'), conexion: g('.w-conexion'), modo: g('.w-modo'), ip: g('.w-ip'), velocidad: g('.w-vel'), cuenta: g('.w-cuenta') };
     if (!r.classList.contains('sin-via') && g('.w-via')) w.via = g('.w-via');
     Object.keys(w).forEach(k => { if (!w[k]) delete w[k]; });
     return w;
@@ -3532,36 +3541,63 @@ const pk = p => { const s = nrm(p).replace(/\s+/g, ''); if (!s) return ''; const
 const pLbl = k => !k ? '' : k[0] === 'S' ? 'SFP ' + k.slice(1) : k[0] === 'W' ? 'WAN ' + k.slice(1) : k;
 function puertosDe(x){
   const txt = nrm(x.puertos), mod = nrm(x.modelo + ' ' + x.nombre);
-  let rj = +(txt.match(/^\D*(\d+)/) || [])[1] || 0, sfp = +((txt.match(/(\d+)\s*(x\s*)?sfp/) || [])[1]) || 0;
-  if (!rj){ const m = mod.match(/(?:usw|switch|pro|max|lite|poe|enterprise|ultra|flex|\b)[^\d]{0,12}(5|8|16|24|48)\b/); rj = m ? +m[1] : 0; }
-  if (!rj && /udm|dream machine|ucg|gateway|router/.test(mod)) rj = /pro|se/.test(mod) ? 8 : 4;
-  if (!sfp && rj >= 16) sfp = /pro|enterprise|max/.test(mod) ? 4 : 2;
-  if (!sfp && /udm.?pro|dream machine pro|udm.?se/.test(mod)) sfp = 2;
-  const usados = items.filter(i => i.conectado_a === x.id).map(i => pk(i.up_puerto)).concat(pk(x.mi_puerto)).filter(Boolean);
-  usados.forEach(k => { if (/^\d+$/.test(k)) rj = Math.max(rj, +k); else if (k[0] === 'S') sfp = Math.max(sfp, +k.slice(1) || 1); });
-  return { rj, sfp };
+  const fijo = /\d/.test(txt);                       // si escribiste los puertos, se respeta exacto
+  let rj = +(txt.match(/^\D*(\d+)/) || [])[1] || 0, sfp = +((txt.match(/(\d+)\s*(x\s*)?(sfp|xg|qsfp)/) || [])[1]) || 0;
+  if (/^\D*\d+\s*(x\s*)?(sfp|xg|qsfp)/.test(txt)) rj = 0;   // "4 SFP" solo
+  if (!fijo){
+    if (!rj){ const m = mod.match(/(?:usw|switch|pro|max|lite|poe|enterprise|ultra|flex|\b)[^\d]{0,12}(5|8|16|24|48)\b/); rj = m ? +m[1] : 0; }
+    if (!rj && /udm|dream machine|ucg|gateway|router/.test(mod)) rj = /pro|se/.test(mod) ? 9 : 4;
+    if (!sfp && rj >= 16) sfp = /pro|enterprise|max/.test(mod) ? 4 : 2;
+    if (!sfp && /udm.?pro|dream machine pro|udm.?se/.test(mod)) sfp = 2;
+  }
+  const r = { rj, sfp, fijo };
+  if (!fijo) usadosDe(x).forEach(k0 => { const k = ptKey(r, k0); if (/^\d+$/.test(k)) r.rj = Math.max(r.rj, +k); else if (k[0] === 'S') r.sfp = Math.max(r.sfp, +k.slice(1) || 1); });
+  return r;
 }
+// Puertos que usan: los equipos conectados, mi uplink y las líneas WAN que entran
+const usadosDe = x => items.filter(i => i.conectado_a === x.id).map(i => i.up_puerto).concat(x.mi_puerto, wanDe(x).map(w => w.fis)).filter(Boolean);
+// Como en UniFi, los SFP siguen la numeración: en "9 + 2 SFP" el puerto 10 es SFP 1 y el 11 es SFP 2
+const ptKey = (r, p) => { const k = pk(p); if (r.fijo && /^\d+$/.test(k) && +k > r.rj && +k <= r.rj + r.sfp) return 'S' + (+k - r.rj); return k; };
 function puertosHTML(x, compacto){
-  const { rj, sfp } = puertosDe(x);
+  const r = puertosDe(x), { rj, sfp } = r;
   if (!rj && !sfp) return '';
-  const hijos = items.filter(i => i.conectado_a === x.id), up = items.find(i => i.id === x.conectado_a);
-  const en = {}; hijos.forEach(h => { const k = pk(h.up_puerto); if (k) (en[k] = en[k] || []).push(h); });
-  const miK = pk(x.mi_puerto);
-  const caja = k => { const hs = en[k] || [], uplink = miK === k && up, tp = hs[0]?.up_tipo || (uplink ? x.up_tipo : '');
-    const tit = uplink ? `↑ ${t('topo_uplink')}: ${up.nombre}` : hs.map(h => `${tTipo(h.tipo)} · ${h.nombre}${h.ip ? ' · ' + h.ip : ''}`).join('\n');
-    return `<div class="pt ${hs.length || uplink ? 'on' : ''} ${uplink ? 'upl' : ''} ${tp ? 't-' + tp : ''} ${k[0] === 'S' ? 'sfp' : ''}" title="${esc(tit || pLbl(k) + ' · ' + t('topo_free'))}"
-      ${hs.length ? `onclick="verDetalle('${hs[0].id}')"` : uplink ? `onclick="verDetalle('${up.id}')"` : ''}><b>${esc(k[0] === 'S' ? 'S' + k.slice(1) : k)}</b>${compacto ? '' : `<small>${esc(uplink ? '↑ ' + corto(up.nombre, 9) : hs.length ? corto(hs[0].nombre, 9) + (hs.length > 1 ? ' +' + (hs.length - 1) : '') : '')}</small>`}</div>`; };
+  const hijos = items.filter(i => i.conectado_a === x.id && i.id !== x.id), up = items.find(i => i.id === x.conectado_a);
+  const en = {}; hijos.forEach(h => { const k = ptKey(r, h.up_puerto); if (k) (en[k] = en[k] || []).push(h); });
+  const wan = {}; wanDe(x).forEach(w => { const k = ptKey(r, w.fis); if (k) wan[k] = w; });
+  const miK = ptKey(r, x.mi_puerto);
   const nums = Array.from({ length: rj }, (_, i) => String(i + 1)), sfps = Array.from({ length: sfp }, (_, i) => 'S' + (i + 1));
+  const existe = new Set(nums.concat(sfps));
+  const caja = k => { const hs = en[k] || [], uplink = miK === k && up, w = wan[k], tp = hs[0]?.up_tipo || (uplink ? x.up_tipo : '');
+    const dup = hs.length + (w ? 1 : 0) + (uplink ? 1 : 0) > 1;
+    const tit = [w && `🌍 ${w.puerto || 'WAN'}${w.isp ? ' · ' + w.isp : ''}${w.ip ? ' · ' + w.ip : ''}`, uplink && `↑ ${t('topo_uplink')}: ${up.nombre}`, ...hs.map(h => `${tTipo(h.tipo)} · ${h.nombre}${h.ip ? ' · ' + h.ip : ''}`)].filter(Boolean).join('\n') + (dup ? '\n⚠ ' + t('pt_dup') : '');
+    const num = k[0] === 'S' ? (r.fijo ? String(rj + +k.slice(1)) : 'S' + k.slice(1)) : k;
+    return `<div class="pt ${hs.length || uplink || w ? 'on' : ''} ${dup ? 'dup' : ''} ${uplink ? 'upl' : ''} ${w ? 'wan' : ''} ${tp ? 't-' + tp : ''} ${k[0] === 'S' ? 'sfp' : ''}" title="${esc((k[0] === 'S' ? 'SFP ' + k.slice(1) + (r.fijo ? ' (' + num + ')' : '') : t('det_ports').replace(/s$/, '') + ' ' + k) + '\n' + (tit || t('topo_free')))}"
+      ${hs.length ? `onclick="verDetalle('${hs[0].id}')"` : uplink ? `onclick="verDetalle('${up.id}')"` : ''}><b>${esc(num)}</b>${compacto ? '' : `<small>${esc(w ? '🌍 ' + (w.puerto || 'WAN') : uplink ? '↑ ' + corto(up.nombre, 9) : hs.length ? corto(hs[0].nombre, 9) + (hs.length > 1 ? ' +' + (hs.length - 1) : '') : '')}</small>`}</div>`; };
   const bloques = []; for (let i = 0; i < nums.length; i += 12) bloques.push(nums.slice(i, i + 12));
   const sinP = hijos.filter(h => !pk(h.up_puerto));
-  const libres = nums.concat(sfps).filter(k => !en[k] && miK !== k).length;
+  const fuera = [...new Set(Object.keys(en).concat(Object.keys(wan), miK ? [miK] : []))].filter(k => !existe.has(k));
+  const libres = nums.concat(sfps).filter(k => !en[k] && !wan[k] && miK !== k).length;
+  const dups = nums.concat(sfps).filter(k => (en[k]?.length || 0) + (wan[k] ? 1 : 0) + (miK === k && up ? 1 : 0) > 1);
   return `<div class="pt-panel">${rj > 8 ? bloques.map(bq => `<div class="pt-rows"><div class="pt-row">${bq.filter((_, i) => i % 2 === 0).map(caja).join('')}</div><div class="pt-row">${bq.filter((_, i) => i % 2 === 1).map(caja).join('')}</div></div>`).join('')
-      : `<div class="pt-rows"><div class="pt-row">${nums.map(caja).join('')}</div></div>`}
+      : rj ? `<div class="pt-rows"><div class="pt-row">${nums.map(caja).join('')}</div></div>` : ''}
     ${sfp ? `<div class="pt-rows pt-sfp"><div class="pt-row">${sfps.map(caja).join('')}</div></div>` : ''}</div>
-    <div class="pt-ley"><span>${t('topo_ports_n', { n: rj, s: sfp, l: libres })}</span>${UP_TIPOS.map(k => `<span><i style="background:${UP_COLOR[k]}"></i>${esc(t('ut.' + k))}</span>`).join('')}<span><i class="upl"></i>${t('topo_uplink')}</span></div>
+    <div class="pt-ley"><span>${t('topo_ports_n', { n: rj, s: sfp, l: libres })}</span>${UP_TIPOS.map(k => `<span><i style="background:${UP_COLOR[k]}"></i>${esc(t('ut.' + k))}</span>`).join('')}<span><i class="upl"></i>${t('topo_uplink')}</span><span><i class="wan"></i>WAN</span></div>
+    ${dups.length ? `<div class="pt-sinp">⚠ ${t('pt_dups', { p: dups.map(k => k[0] === 'S' && r.fijo ? String(rj + +k.slice(1)) : pLbl(k)).join(', ') })}</div>` : ''}
+    ${fuera.length ? `<div class="pt-sinp">⚠ ${t('pt_fuera', { p: fuera.map(pLbl).join(', ') })}</div>` : ''}
     ${sinP.length ? `<div class="pt-sinp">⚠ ${t('topo_noport')}: ${sinP.map(h => `<a class="dev-link" onclick="verDetalle('${h.id}')">${TIPO_ICON[h.tipo] || '◆'} ${esc(h.nombre)}</a>`).join(', ')}</div>` : ''}`;
 }
-
+// Vista previa del panel de puertos dentro del formulario (cambia mientras escribes)
+function ptPreview(){
+  const el = $('ptPrev'); if (!el) return;
+  const tipo = $('tipo').value;
+  if (!['Switch', 'Router', 'Firewall'].includes(tipo)){ el.innerHTML = ''; el.classList.add('hidden'); return; }
+  const base = (editId && items.find(i => i.id === editId)) || {};
+  const x = { ...base, id: editId || '__nuevo', tipo, modelo: $('modelo').value, nombre: $('nombre').value, puertos: $('puertos').value, mi_puerto: $('mi_puerto').value,
+    conectado_a: $('conectado_a').value, up_tipo: $('up_tipo').value, wans: WAN_TIPOS.includes(tipo) && tipo !== 'Módem' ? readWans() : [] };
+  const h = puertosHTML(x, false);
+  el.classList.toggle('hidden', !h);
+  el.innerHTML = h ? `<div class="pt-prev-h">👁 ${t('pt_preview')}</div>${h}` : '';
+}
 /* ---------- Mapa de red (árbol) ---------- */
 const TOPO_W = 168, TOPO_H = 62, TOPO_GX = 22, TOPO_GY = 74;
 function topoArbol(base){
@@ -3574,7 +3610,7 @@ function topoArbol(base){
     let padre = null, enl = null;
     if (x.conectado_a && ids.has(x.conectado_a) && x.conectado_a !== x.id) { padre = x.conectado_a; enl = { up: x.up_puerto, mi: x.mi_puerto, tipo: x.up_tipo }; }
     const ws = wanDe(x).filter(w => w.via && ids.has(w.via));
-    if (!padre && ws.length){ padre = ws[0].via; enl = { up: '', mi: ws[0].puerto || 'WAN', tipo: 'cobre', wan: ws[0] }; ws.slice(1).forEach(w => nodo[w.via].extra.push({ id: x.id, w })); }
+    if (!padre && ws.length){ padre = ws[0].via; enl = { up: '', mi: (ws[0].puerto || 'WAN') + (ws[0].fis ? ' · p' + ws[0].fis : ''), tipo: 'cobre', wan: ws[0] }; ws.slice(1).forEach(w => nodo[w.via].extra.push({ id: x.id, w })); }
     else ws.forEach(w => nodo[w.via].extra.push({ id: x.id, w }));
     nodo[x.id].padre = padre; nodo[x.id].enl = enl;
   });
@@ -3647,7 +3683,7 @@ function renderTopo(base){
   Object.values(T.nodo).forEach(n => n.extra.forEach(e => {
     if (T.nodo[e.id]?.padre === n.x.id && T.nodo[e.id]?.enl?.wan === e.w) return;
     const p1 = P[n.x.id], p2 = P[e.id]; if (!p1 || !p2) return;
-    lineas += `<path class="t-ln tp-cobre wan2" style="stroke:${UP_COLOR.cobre}" d="${curva(p1.x, p1.y + TOPO_H, p2.x + 52, p2.y)}"/>`; etiquetas += etq(p2.x + 52, p2.y - 12, e.w.puerto || 'WAN', 'mi');
+    lineas += `<path class="t-ln tp-cobre wan2" style="stroke:${UP_COLOR.cobre}" d="${curva(p1.x, p1.y + TOPO_H, p2.x + 52, p2.y)}"/>`; etiquetas += etq(p2.x + 52, p2.y - 12, (e.w.puerto || 'WAN') + (e.w.fis ? ' · p' + e.w.fis : ''), 'mi');
   }));
   const card = x => { const p = P[x.id]; if (!p) return '';
     const sub = [x.modelo, x.ip].filter(Boolean).join(' · ');
@@ -4624,6 +4660,7 @@ function togglePC(){
   $('netBox').classList.toggle('hidden', !esNet);
   toggleWan();
   if (esNet) llenarUplink();
+  ptPreview();
   const esPrn = $('tipo').value === 'Impresora';
   $('prnBox').classList.toggle('hidden', !esPrn);
   $('prnBox').querySelectorAll('select').forEach(el => el.disabled = !esPrn);
@@ -4802,7 +4839,7 @@ function edit(id){
   FIELDS.forEach(f => $(f).value = x[f] || '');
   NET_FIELDS.forEach(f => { $(f).value = x[f] || ''; if (f === 'conectado_a') $(f).dataset.v = x[f] || ''; });
   RED2.forEach(f => { $(f).value = x[f] || ''; });
-  editId = id; fillWans(x); fillModem(x);
+  editId = id; fillWans(x); fillModem(x); setTimeout(ptPreview, 0);
   fillGrupoSelect(); $('grupo_id').value = x.grupo_id || ''; fillGrupoSelect();
   fillSedeSelect(x.sede_id || '');
   linkSel = new Set(x.tipo === 'Impresora' ? pcIds(x) : PC_TIPOS.includes(x.tipo) ? impresorasDePC(x).map(p => p.id) : []);

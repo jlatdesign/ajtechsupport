@@ -4474,7 +4474,7 @@ const PRESU_DEF = {
   pp: { drop_pared: 225, drop_techo: 250, cam_int: 300, cam_ext: 350, switch: 200, nvr: 250, rack: 450, fibra: 650 },
   recargo_alt: { 14: 0, 20: 35, 30: 60, 99: 90 },
   mat: { cat6: 0.35, cat6p: 0.55, cat6a: 0.75, jack: 6, placa: 3, caja: 6, patch24: 95, cordon: 4, jhook: 1.5, emt: 1.2, fibra_pie: 1.5, fibra_term: 150, rack: 260, misc: 5, desperdicio: 10 },
-  renta: { tijera: 450, boom: 1200 },
+  renta: { tijera: 600, boom: 1200 },
   equipos: [
     { m: 'U7 Pro', c: 'ap', p: 189 }, { m: 'U7 Pro Max', c: 'ap', p: 279 }, { m: 'U7 Lite', c: 'ap', p: 99 }, { m: 'U7 Long-Range', c: 'ap', p: 159 }, { m: 'U7 Outdoor', c: 'ap', p: 249 },
     { m: 'U6+', c: 'ap', p: 129 }, { m: 'U6 Mesh', c: 'ap', p: 179 },
@@ -4965,10 +4965,10 @@ async function prConfigGuardar(reset){
 const PR_TT = {
   desmontaje: { tarifa: 75, items: [
     ['cables', .35, 0, 'fa'], ['soportes', .1, 0, 'fa'], ['ap', .3, 0, 'fa'], ['cam', .4, 0, 'fa'], ['acceso', .75, 0], ['tv', .75, 0], ['rack', 2.5, 0], ['rack_eq', .3, 0],
-    ['pc', .25, 4], ['monitor', .15, 0], ['impresora', .4, 0], ['telefono', .1, 0], ['placas', .15, 2], ['rec_pc', .05, 15], ['rec_monitor', .05, 25], ['discos', .1, 15], ['viajes', 1, 175],
-    ['levantamiento', 2, 0], ['conduit', .02, 0, 'fa'], ['plafones', .1, 8, 'fa'], ['firestop', .5, 15, 'fa'], ['ups_bat', .1, 20], ['isp', 1, 0], ['contenedor', 0, 450], ['reporte', 2, 0]] },
+    ['pc', .25, 4], ['monitor', .15, 0], ['impresora', .4, 0], ['telefono', .1, 0], ['placas', .15, 2], ['rec_pc', .05, 15], ['rec_monitor', .05, 25], ['discos', .1, 15], ['viajes', 1, 300],
+    ['levantamiento', 2, 0], ['conduit', .02, 0, 'fa'], ['plafones', .1, 12, 'fa'], ['firestop', .5, 15, 'fa'], ['ups_bat', .1, 20], ['isp', 1, 0], ['contenedor', 0, 650], ['reporte', 2, 0]] },
   mudanza: { tarifa: 75, items: [
-    ['pc', .75, 4], ['monitor', .2, 1], ['impresora', 1, 0], ['servidor', 2.5, 0], ['rack_red', 6, 0], ['telefono', .25, 0], ['tv', 1, 0], ['otros', .5, 0], ['red_h', 1, 0], ['isp', 2, 0], ['viajes', 1, 175]] },
+    ['pc', .75, 4], ['monitor', .2, 1], ['impresora', 1, 0], ['servidor', 2.5, 0], ['rack_red', 6, 0], ['telefono', .25, 0], ['tv', 1, 0], ['otros', .5, 0], ['red_h', 1, 0], ['isp', 2, 0], ['viajes', 1, 300]] },
   reparacion: { tarifa: 85, items: [
     ['diag', .5, 0], ['virus', 1.5, 0], ['os', 2.5, 0], ['datos', 1, 0], ['recuperacion', 1, 300], ['ssd', 1.5, 0], ['pieza', .5, 0], ['pantalla', 1.5, 0], ['limpieza', 1, 0],
     ['imp_mant', 1.5, 0], ['imp_rep', 2, 0], ['imp_cfg', .75, 0], ['servidor', 3, 0], ['red', 1.5, 0], ['correo', 1, 0], ['visitas', .5, 75]] },

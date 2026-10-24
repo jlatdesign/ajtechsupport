@@ -1227,6 +1227,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
       <button class="sm" onclick="selTodos(true)" data-i18n="sel_all_visible">Select all visible</button>
       <button class="sm bulk-clear" onclick="limpiarSel()">✕ <span data-i18n="sel_clear">Clear selection</span></button>
       <span style="flex:1"></span>
+      <select id="bulkSede" class="sm-sel bulk-sede hidden" onchange="moverSel(this.value);this.value=''"></select>
       <button class="danger bulk-del" onclick="borrarSel()">🗑 <span data-i18n="del_selected">Delete selected</span></button>
     </div>
     <div class="table-wrap">
@@ -1898,6 +1899,7 @@ Object.assign(I18N.en, {
   pl_pdf_scale:'Drawing scale (written on the plan)', pl_pdf_scale_no:'I don\'t know — I\'ll mark it', pl_pdf_scale_h:'e.g. 3/32" = 1\'-0" under the plan title. The size comes out exact.',
   'pl_m.cable':'Connect', pl_h_cab:'Click a device and then the switch (or device) it is connected to.', pl_h_cab2:'Now click where "{n}" is connected.', pl_cab_ok:'Cable drawn', pl_cab_ya:'They are already connected',
   pl_cab_inv:'{a} is now connected to {b} in the inventory too', pl_cab_del:'Delete cable', pl_no_cab:'no cables yet: use 🔌 Connect and click the two devices',
+  move_to_sede:'Move to location…', move_confirm:'Move {n} devices to "{s}"?', moved_n:'{n} devices moved to {s}',
   pl_scale:'Scale', pl_delete_plan:'Delete plan', pl_config:'Name, location, image', pl_rescale:'Set the scale again', pl_change_img:'Replace the image (same floor)', pl_clear_walls:'Delete the {n} walls drawn', pl_delete:'Delete floor',
   pl_confirm_del:'Delete the plan "{n}"? The image, walls and positions are deleted. The devices stay in the inventory.',
   'mat.drywall':'Drywall', 'mat.vidrio':'Glass', 'mat.madera':'Wood / door', 'mat.ladrillo':'Brick', 'mat.concreto':'Concrete / block', 'mat.metal':'Metal / rack',
@@ -1924,6 +1926,7 @@ Object.assign(I18N.es, {
   pl_pdf_scale:'Escala del dibujo (escrita en el plano)', pl_pdf_scale_no:'No sé — la marco yo', pl_pdf_scale_h:'ej. 3/32" = 1\'-0" debajo del título del plano. La medida sale exacta.',
   'pl_m.cable':'Conectar', pl_h_cab:'Haz clic en un equipo y luego en el switch (o equipo) al que va conectado.', pl_h_cab2:'Ahora haz clic donde va conectado "{n}".', pl_cab_ok:'Cable dibujado', pl_cab_ya:'Ya están conectados',
   pl_cab_inv:'{a} quedó conectado a {b} también en el inventario', pl_cab_del:'Borrar cable', pl_no_cab:'todavía no hay cables: usa 🔌 Conectar y haz clic en los dos equipos',
+  move_to_sede:'Mover a ubicación…', move_confirm:'¿Mover {n} equipos a "{s}"?', moved_n:'{n} equipos movidos a {s}',
   pl_scale:'Escala', pl_delete_plan:'Eliminar plano', pl_config:'Nombre, ubicación, imagen', pl_rescale:'Poner la escala otra vez', pl_change_img:'Cambiar la imagen (mismo piso)', pl_clear_walls:'Borrar las {n} paredes dibujadas', pl_delete:'Borrar piso',
   pl_confirm_del:'¿Eliminar el plano "{n}"? Se borra la imagen, las paredes y las posiciones. Los equipos se quedan en el inventario.',
   'mat.drywall':'Drywall', 'mat.vidrio':'Vidrio', 'mat.madera':'Madera / puerta', 'mat.ladrillo':'Ladrillo', 'mat.concreto':'Concreto / bloque', 'mat.metal':'Metal / rack',
@@ -5705,6 +5708,23 @@ function actualizarSel(){
   all.indeterminate = !all.checked && vis.some(c => c.checked);
   $('selN').textContent = sel.size; $('selBar').checked = true;
   $('bulkBar').classList.toggle('hidden', !sel.size);
+  // Mover los seleccionados a otra ubicación
+  const bs = $('bulkSede'), cli = curCliente || items.find(x => sel.has(x.id))?.cliente, ls = cli ? sedesDe(cli) : [];
+  bs.classList.toggle('hidden', !sel.size || !ls.length || !PERM.editar);
+  if (sel.size && ls.length) bs.innerHTML = `<option value="">📍 ${esc(t('move_to_sede'))}</option>` + ls.map(x => `<option value="${x.id}">📍 ${esc(x.nombre)}</option>`).join('') + `<option value="-">${esc(t('sede_none_opt'))}</option>`;
+}
+async function moverSel(destino){
+  if (!destino || !puede('editar')) return;
+  const ids = [...sel].filter(id => items.some(x => x.id === id)); if (!ids.length) return;
+  const nombre = destino === '-' ? t('sede_none') : sedes.find(x => x.id === destino)?.nombre || '';
+  if (!confirm(t('move_confirm', { n: ids.length, s: nombre }))) return;
+  const sd = destino === '-' ? null : sedes.find(x => x.id === destino);
+  for (let i = 0; i < ids.length; i += 100){
+    const row = { sede_id: sd ? sd.id : null }; if (sd?.direccion) row.direccion = sd.direccion;
+    const { error } = await db.from('equipos').update(row).in('id', ids.slice(i, i + 100));
+    if (error) return fail(error, t('save_fail'));
+  }
+  sel.clear(); toast(t('moved_n', { n: ids.length, s: nombre })); await loadData();
 }
 function selUno(c){ c.checked ? sel.add(c.dataset.id) : sel.delete(c.dataset.id); actualizarSel(); }
 function selTodos(on){ document.querySelectorAll('#tbody .rowsel').forEach(c => on ? sel.add(c.dataset.id) : sel.delete(c.dataset.id)); actualizarSel(); }

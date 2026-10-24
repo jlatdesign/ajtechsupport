@@ -720,7 +720,10 @@ body.p-noborrar [onclick^="borrarSede("],body.p-noborrar [onclick^="borrarVpn("]
 .pl-blank{fill:#fff} .pl-gridln{fill:none;stroke:#cbd5e1} .pl-load{fill:#e5e7eb}
 .pl-muro{stroke-linecap:round;cursor:pointer}
 .pl-muro.sel{stroke:var(--c1)!important}
-.pl-cab{stroke-dasharray:none;opacity:.9}
+.pl-cab{stroke-dasharray:none;opacity:.9;pointer-events:none}
+.pl-cab.man{stroke-dasharray:none}
+.pl-cab.sel{opacity:1}
+.pl-cab-hit{stroke:transparent;cursor:pointer}
 .pl-len{font:600 10px "JetBrains Mono",monospace;fill:#111827;text-anchor:middle;paint-order:stroke;stroke:#fff;stroke-width:3px}
 .pl-dev{cursor:grab}
 .pl-dot{fill:#fff;stroke:#0f172a;stroke-width:1.5px;vector-effect:non-scaling-stroke}
@@ -907,7 +910,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v8.1</p>
+    <p class="sub">Network Asset Manager · v8.2</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -923,7 +926,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v8.1</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v8.2</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -1879,7 +1882,7 @@ Object.assign(I18N.en, {
   'ut.cobre':'Copper', 'ut.poe':'PoE', 'ut.fibra':'Fiber / SFP', 'ut.wifi':'Wireless (mesh)',
   topo_uplink:'uplink', topo_free:'free', topo_ports_n:'{n} ports + {s} SFP · {l} free', topo_noport:'Connected without a port number', topo_empty:'No network devices yet.',
   topo_loose:'Without uplink — edit them and set "Connected to"', topo_fit:'Fit', topo_nolink:'Link type not set', topo_help:'Click a router or switch to see its ports. Drag to move, wheel to zoom.',
-  topo_noports:'Set the number of ports in "Ports" (e.g. 24 + 4 SFP) to see the panel.', det_ports:'Ports',
+  topo_err:'The map could not be drawn. Send a screenshot of this message.', topo_noports:'Set the number of ports in "Ports" (e.g. 24 + 4 SFP) to see the panel.', det_ports:'Ports',
   pl_missing:'Run supabase-diseno.sql in Supabase first to use floor plans.', pl_new:'Floor', pl_empty:'No floor plans yet for this location.', pl_up:'Upload a floor plan',
   pl_up_h:'(image or PDF — a PDF exported from UniFi Design works too)', pl_draw:'Draw from scratch', pl_draw_h:'(blank plan with a grid; draw the walls)',
   pl_w_ft:'Width (ft)', pl_h_ft:'Depth (ft)', pl_name:'Name', pl_level:'Level {n}', pl_pick_file:'Choose the image or PDF of the plan.', pl_processing:'Processing…',
@@ -1893,6 +1896,8 @@ Object.assign(I18N.en, {
   pl_cable:'cable ≈ {n} ft straight (≈ {r} ft with the run)', pl_cab_sel:'click a device to see its cable length', pl_need_scale:'Set the scale to see the estimated coverage.',
   pl_l1:'excellent', pl_l2:'good', pl_l3:'fair', pl_l4:'weak', pl_l5:'very weak', pl_est_note:'Estimate (AP model, distance and walls). Confirm with a site survey.',
   pl_pdf_scale:'Drawing scale (written on the plan)', pl_pdf_scale_no:'I don\'t know — I\'ll mark it', pl_pdf_scale_h:'e.g. 3/32" = 1\'-0" under the plan title. The size comes out exact.',
+  'pl_m.cable':'Connect', pl_h_cab:'Click a device and then the switch (or device) it is connected to.', pl_h_cab2:'Now click where "{n}" is connected.', pl_cab_ok:'Cable drawn', pl_cab_ya:'They are already connected',
+  pl_cab_inv:'{a} is now connected to {b} in the inventory too', pl_cab_del:'Delete cable', pl_no_cab:'no cables yet: use 🔌 Connect and click the two devices',
   pl_scale:'Scale', pl_delete_plan:'Delete plan', pl_config:'Name, location, image', pl_rescale:'Set the scale again', pl_change_img:'Replace the image (same floor)', pl_clear_walls:'Delete the {n} walls drawn', pl_delete:'Delete floor',
   pl_confirm_del:'Delete the plan "{n}"? The image, walls and positions are deleted. The devices stay in the inventory.',
   'mat.drywall':'Drywall', 'mat.vidrio':'Glass', 'mat.madera':'Wood / door', 'mat.ladrillo':'Brick', 'mat.concreto':'Concrete / block', 'mat.metal':'Metal / rack',
@@ -1903,7 +1908,7 @@ Object.assign(I18N.es, {
   'ut.cobre':'Cobre', 'ut.poe':'PoE', 'ut.fibra':'Fibra / SFP', 'ut.wifi':'Inalámbrico (mesh)',
   topo_uplink:'uplink', topo_free:'libre', topo_ports_n:'{n} puertos + {s} SFP · {l} libres', topo_noport:'Conectados sin número de puerto', topo_empty:'Todavía no hay equipos de red.',
   topo_loose:'Sin uplink: edítalos y pon "Conectado a"', topo_fit:'Ajustar', topo_nolink:'Sin tipo de enlace', topo_help:'Clic en un router o switch para ver sus puertos. Arrastra para mover, rueda para zoom.',
-  topo_noports:'Pon la cantidad de puertos en "Puertos" (ej. 24 + 4 SFP) para ver el panel.', det_ports:'Puertos',
+  topo_err:'No se pudo dibujar el mapa. Mándame una captura de este mensaje.', topo_noports:'Pon la cantidad de puertos en "Puertos" (ej. 24 + 4 SFP) para ver el panel.', det_ports:'Puertos',
   pl_missing:'Primero corre supabase-diseno.sql en Supabase para usar los planos.', pl_new:'Piso', pl_empty:'Todavía no hay planos en esta ubicación.', pl_up:'Subir un plano',
   pl_up_h:'(imagen o PDF; también sirve un PDF exportado de UniFi Design)', pl_draw:'Dibujar desde cero', pl_draw_h:'(plano en blanco con cuadrícula; dibujas las paredes)',
   pl_w_ft:'Ancho (ft)', pl_h_ft:'Fondo (ft)', pl_name:'Nombre', pl_level:'Nivel {n}', pl_pick_file:'Escoge la imagen o el PDF del plano.', pl_processing:'Procesando…',
@@ -1917,6 +1922,8 @@ Object.assign(I18N.es, {
   pl_cable:'cable ≈ {n} ft en línea recta (≈ {r} ft con el recorrido)', pl_cab_sel:'clic en un equipo para ver el largo de su cable', pl_need_scale:'Pon la escala para ver la cobertura estimada.',
   pl_l1:'excelente', pl_l2:'buena', pl_l3:'regular', pl_l4:'débil', pl_l5:'muy débil', pl_est_note:'Estimado (modelo del AP, distancia y paredes). Confírmalo con un site survey.',
   pl_pdf_scale:'Escala del dibujo (escrita en el plano)', pl_pdf_scale_no:'No sé — la marco yo', pl_pdf_scale_h:'ej. 3/32" = 1\'-0" debajo del título del plano. La medida sale exacta.',
+  'pl_m.cable':'Conectar', pl_h_cab:'Haz clic en un equipo y luego en el switch (o equipo) al que va conectado.', pl_h_cab2:'Ahora haz clic donde va conectado "{n}".', pl_cab_ok:'Cable dibujado', pl_cab_ya:'Ya están conectados',
+  pl_cab_inv:'{a} quedó conectado a {b} también en el inventario', pl_cab_del:'Borrar cable', pl_no_cab:'todavía no hay cables: usa 🔌 Conectar y haz clic en los dos equipos',
   pl_scale:'Escala', pl_delete_plan:'Eliminar plano', pl_config:'Nombre, ubicación, imagen', pl_rescale:'Poner la escala otra vez', pl_change_img:'Cambiar la imagen (mismo piso)', pl_clear_walls:'Borrar las {n} paredes dibujadas', pl_delete:'Borrar piso',
   pl_confirm_del:'¿Eliminar el plano "{n}"? Se borra la imagen, las paredes y las posiciones. Los equipos se quedan en el inventario.',
   'mat.drywall':'Drywall', 'mat.vidrio':'Vidrio', 'mat.madera':'Madera / puerta', 'mat.ladrillo':'Ladrillo', 'mat.concreto':'Concreto / bloque', 'mat.metal':'Metal / rack',
@@ -3583,7 +3590,7 @@ function topoLayout(T){
     const nl = n.hijos.filter(h => h.hijos.length), lf = n.hijos.filter(h => !h.hijos.length);
     const grid = lf.length > 6, cols = grid ? Math.min(5, Math.ceil(Math.sqrt(lf.length * 1.6))) : 0;
     n._grid = grid ? { cols, rows: Math.ceil(lf.length / cols), lf } : null;
-    const partes = nl.map(ancho).concat(grid ? [cols * (TOPO_W + TOPO_GX)] : lf.map(() => TOPO_W + TOPO_GX));
+    const partes = nl.map(ancho).concat(grid ? [cols * (TOPO_W + TOPO_GX)] : lf.map(ancho));
     n._partes = { nl, lf, grid };
     n._w = Math.max(TOPO_W + TOPO_GX, partes.reduce((a, b) => a + b, 0));
     return n._w;
@@ -3598,7 +3605,7 @@ function topoLayout(T){
     if (grid) lf.forEach((h, i) => { const c = i % n._grid.cols, r = Math.floor(i / n._grid.cols);
       pos[h.x.id] = { x: cx + c * (TOPO_W + TOPO_GX) + (TOPO_W + TOPO_GX) / 2, y: cy + r * (TOPO_H + 34) }; maxY = Math.max(maxY, pos[h.x.id].y + TOPO_H);
       aristas.push({ de: n.x.id, a: h.x.id, enl: h.enl, grid: true }); });
-    else lf.forEach(h => { h._w = TOPO_W + TOPO_GX; colocar(h, cx, cy); cx += h._w; aristas.push({ de: n.x.id, a: h.x.id, enl: h.enl }); });
+    else lf.forEach(h => { if (!h._partes) ancho(h); colocar(h, cx, cy); cx += h._w; aristas.push({ de: n.x.id, a: h.x.id, enl: h.enl }); });
   };
   const y0 = 110; let x = 0;
   T.tops.forEach(n => { ancho(n); colocar(n, x, y0); x += n._w + 30; });
@@ -3699,7 +3706,8 @@ function renderDisenoBody(base){
   $('disTools').innerHTML = `<button class="sm" onclick="topoPZ?.zoom(1/1.25)" title="Zoom +">＋</button><button class="sm" onclick="topoPZ?.zoom(1.25)" title="Zoom −">−</button>
     <button class="sm" onclick="topoAjustar()">⤢ ${t('topo_fit')}</button><button class="sm" onclick="svgAPng($('topoSvg'),'mapa-red-'+curCliente)">⬇ PNG</button>`;
   const x = topoSel && items.find(i => i.id === topoSel);
-  b.innerHTML = `<div class="topo-wrap">${renderTopo(base)}</div>
+  let mapa; try{ mapa = renderTopo(base); }catch(e){ console.error(e); mapa = `<div class="act-empty">⚠ ${esc(t('topo_err'))}<br><small class="muted">${esc(e.message)}</small></div>`; }
+  b.innerHTML = `<div class="topo-wrap">${mapa}</div>
     <div class="topo-ley">${UP_TIPOS.map(k => `<span><i style="background:${UP_COLOR[k]}"></i>${esc(t('ut.' + k))}</span>`).join('')}<span><i class="dash"></i>${t('topo_nolink')}</span><span class="muted">${t('topo_help')}</span></div>
     ${x ? `<div class="topo-det"><div class="topo-det-h"><b>${TIPO_ICON[x.tipo] || '◆'} ${esc(x.nombre)}</b> <span class="muted">${esc([x.modelo, x.ip].filter(Boolean).join(' · '))}</span>
         <span style="flex:1"></span><button class="sm" onclick="verDetalle('${x.id}')">${t('view')}</button>${PERM.editar ? `<button class="sm" onclick="edit('${x.id}')">✎ ${t('edit')}</button>` : ''}<button class="sm" onclick="topoSel=null;renderDisenoBody()">✕</button></div>
@@ -3721,7 +3729,8 @@ const PL_FILTROS = { wifi: ['Access Point', 'Extensor WiFi', 'Antena'], red: ['S
 const plDe = () => planos.filter(p => mismoCliente(p.cliente, curCliente) && (!fSede || fSede === '-' || !p.sede_id || p.sede_id === fSede))
   .sort((a, b) => (a.orden ?? 1e9) - (b.orden ?? 1e9) || String(a.nombre).localeCompare(String(b.nombre), 'es', { numeric: true }));
 const plAct = () => planos.find(p => p.id === planoAct);
-const plDatos = p => { const d = jObj(p?.datos); d.eq = jArr(d.eq); d.muros = jArr(d.muros); d.plan = jArr(d.plan); return d; };
+const plDatos = p => { const d = jObj(p?.datos); d.eq = jArr(d.eq); d.muros = jArr(d.muros); d.plan = jArr(d.plan); d.cab = jArr(d.cab); return d; };
+let plCabIni = null;
 const plColocados = () => { const s = new Set(); planos.filter(p => mismoCliente(p.cliente, curCliente)).forEach(p => plDatos(p).eq.forEach(e => s.add(e.id))); return s; };
 const plPisoDe = id => planos.find(p => mismoCliente(p.cliente, curCliente) && plDatos(p).eq.some(e => e.id === id));
 const plR = p => { const m = Math.max(p.ancho, p.alto); return p.escala ? Math.min(Math.max(p.escala * 2.6, m / 260), m / 60) : m / 75; };   // ~2.6 ft de radio
@@ -3772,7 +3781,7 @@ function renderPlanos(base){
   b.innerHTML = `<div class="pl-wrap">
     <aside class="pl-side">${plLista(p)}</aside>
     <div class="pl-main">
-      <div class="pl-bar">${ed ? modo('mover', '🖐') + modo('escala', '📏') + modo('muro', '🧱') + (plModo === 'muro' ? `<select class="sm-sel" onchange="plMat=this.value">${Object.keys(PL_MAT).map(k => `<option value="${k}" ${k === plMat ? 'selected' : ''}>${esc(t('mat.' + k))} (−${PL_MAT[k].db} dB)</option>`).join('')}</select>` : '') + '<span class="pl-sep"></span>' : ''}
+      <div class="pl-bar">${ed ? modo('mover', '🖐') + modo('escala', '📏') + modo('muro', '🧱') + modo('cable', '🔌') + (plModo === 'muro' ? `<select class="sm-sel" onchange="plMat=this.value">${Object.keys(PL_MAT).map(k => `<option value="${k}" ${k === plMat ? 'selected' : ''}>${esc(t('mat.' + k))} (−${PL_MAT[k].db} dB)</option>`).join('')}</select>` : '') + '<span class="pl-sep"></span>' : ''}
         ${capa('cob', '📶')}${plCapas.cob ? `<select class="sm-sel" onchange="plBanda=this.value;plDibujar()">${['2.4', '5', '6'].map(b => `<option ${b === plBanda ? 'selected' : ''} value="${b}">${b} GHz</option>`).join('')}</select>` : ''}${capa('cab', '🔌')}${capa('nom', '🏷')}
         <span class="pl-sep"></span><button class="sm" onclick="plPZ?.zoom(1/1.25)">＋</button><button class="sm" onclick="plPZ?.zoom(1.25)">−</button><button class="sm" onclick="plAjustar()">⤢</button>
         <button class="sm" onclick="svgAPng($('plSvg'),'plano-'+curCliente+'-'+(plAct()?.nombre||''),{x:0,y:0,w:plAct().ancho,h:plAct().alto})">⬇ PNG</button>
@@ -3788,6 +3797,7 @@ function plHint(p){
   if (!p.escala) return `📏 ${t('pl_h_noscale')}`;
   if (plModo === 'escala') return `📏 ${t('pl_h_scale')}`;
   if (plModo === 'muro') return `🧱 ${t('pl_h_wall')}`;
+  if (plModo === 'cable') return plCabIni ? `🔌 ${t('pl_h_cab2', { n: plPos(p).find(o => o.key === plCabIni)?.nombre || '' })} <a class="dev-link" onclick="plCabIni=null;plDibujar();$('plHint').innerHTML=plHint(plAct())">${t('cancel')}</a>` : `🔌 ${t('pl_h_cab')}`;
   return `🖐 ${t('pl_h_move')}`;
 }
 function plLista(p){
@@ -3810,7 +3820,7 @@ function plListaItems(cand){
       ${TIPO_ICON[x.tipo] || '◆'} ${esc(x.nombre)}${x.modelo ? ` <small class="muted">${esc(corto(x.modelo, 18))}</small>` : ''}</div>`).join('') : `<div class="muted pl-none">${t('pl_all_placed')}</div>`;
 }
 function plIr(id){ planoAct = id; plVB = null; plSel = null; plColocar = null; plTmp = null; renderDisenoBody(); }
-function plSetModo(m){ plModo = m; plTmp = null; plColocar = null; renderDisenoBody(); }
+function plSetModo(m){ plModo = m; plTmp = null; plColocar = null; plCabIni = null; if (m === 'cable') plCapas.cab = true; renderDisenoBody(); }
 function plElegir(id){
   if (!PERM.editar) return;
   plColocar = id.startsWith('plan:') ? { plan: id.slice(5), nombre: id.slice(5) } : { id, nombre: items.find(i => i.id === id)?.nombre || '' };
@@ -3891,13 +3901,18 @@ function plDibujar(){
   const muros = d.muros.map((m, i) => `<line class="pl-muro ${plSel === 'm' + i ? 'sel' : ''}" data-i="${i}" x1="${m.x1}" y1="${m.y1}" x2="${m.x2}" y2="${m.y2}" style="stroke:${PL_MAT[m.m]?.c || '#64748b'};stroke-width:${r * .38}" onclick="plSelMuro(event,${i})"><title>${esc(t('mat.' + m.m))} −${PL_MAT[m.m]?.db || 0} dB</title></line>`).join('');
   // Cables (cada equipo a su uplink, si los dos están en este piso)
   let cables = '', totalFt = 0;
-  const conCable = pos.filter(o => o.eq?.conectado_a && porId[o.eq.conectado_a]), todasEtq = conCable.length <= 6;
-  if (plCapas.cab) conCable.forEach(o => {
-    const u = porId[o.eq.conectado_a], col = UP_COLOR[o.eq.up_tipo] || UP_COLOR.poe, ft = p.escala ? Math.hypot(o.x - u.x, o.y - u.y) / p.escala : 0; totalFt += ft;
-    cables += `<line class="pl-cab" data-a="${o.key}" data-b="${u.key}" x1="${u.x}" y1="${u.y}" x2="${o.x}" y2="${o.y}" style="stroke:${col};stroke-width:${r * .14}"/>`
-      + (ft && (todasEtq || plSel === o.key || plSel === u.key) ? `<text class="pl-len" data-a="${o.key}" data-b="${u.key}" x="${(o.x + u.x) / 2}" y="${(o.y + u.y) / 2 - r * .3}" style="font-size:${r * .75}px">${Math.round(ft)} ft${o.eq.up_puerto ? ' · p' + esc(pLbl(pk(o.eq.up_puerto))) : ''}</text>` : '');
+  // automáticos (Conectado a del inventario) + los que se dibujan a mano en el plano
+  const lista = pos.filter(o => o.eq?.conectado_a && porId[o.eq.conectado_a]).map(o => ({ o, u: porId[o.eq.conectado_a], tp: o.eq.up_tipo, pt: o.eq.up_puerto }))
+    .concat(d.cab.map((c, i) => ({ o: porId[c.a], u: porId[c.b], tp: c.tp, man: i })).filter(c => c.o && c.u));
+  const todasEtq = lista.length <= 6;
+  if (plCapas.cab) lista.forEach(({ o, u, tp, pt, man }) => {
+    const col = UP_COLOR[tp] || UP_COLOR.poe, ft = p.escala ? Math.hypot(o.x - u.x, o.y - u.y) / p.escala : 0; totalFt += ft;
+    const sel = man != null && plSel === 'c' + man;
+    cables += `<line class="pl-cab ${man != null ? 'man' : ''} ${sel ? 'sel' : ''}" data-a="${o.key}" data-b="${u.key}" x1="${u.x}" y1="${u.y}" x2="${o.x}" y2="${o.y}" style="stroke:${col};stroke-width:${r * (sel ? .3 : .14)}" ${man != null ? `onclick="plSelCab(event,${man})"` : ''}/>`
+      + (man != null ? `<line class="pl-cab-hit" x1="${u.x}" y1="${u.y}" x2="${o.x}" y2="${o.y}" style="stroke-width:${r * .7}" onclick="plSelCab(event,${man})"/>` : '')
+      + (ft && (todasEtq || plSel === o.key || plSel === u.key || sel) ? `<text class="pl-len" data-a="${o.key}" data-b="${u.key}" x="${(o.x + u.x) / 2}" y="${(o.y + u.y) / 2 - r * .3}" style="font-size:${r * .75}px">${Math.round(ft)} ft${pt ? ' · p' + esc(pLbl(pk(pt))) : ''}</text>` : '');
   });
-  const devs = pos.map(o => `<g class="pl-dev ${o.plan ? 'plan' : ''} ${plSel === o.key ? 'sel' : ''} ${o.eq?.unifi_estado === 'offline' ? 'off' : ''}" data-k="${o.key}" transform="translate(${o.x},${o.y})">
+  const devs = pos.map(o => `<g class="pl-dev ${o.plan ? 'plan' : ''} ${plSel === o.key || plCabIni === o.key ? 'sel' : ''} ${o.eq?.unifi_estado === 'offline' ? 'off' : ''}" data-k="${o.key}" transform="translate(${o.x},${o.y})">
       <circle r="${r}" class="pl-dot ty-${esc(o.tipo).replace(/\s/g, '')}"/><text class="pl-ic" style="font-size:${r * 1.05}px" y="${r * .37}">${o.plan && esAP(o.tipo) ? '📶' : TIPO_ICON[o.tipo] || '◆'}</text>
       ${plCapas.nom ? `<g class="pl-lbl" transform="translate(0,${r * 1.75})"><rect x="${-(String(o.nombre).length * r * .3 + r * .4)}" y="${-r * .62}" width="${String(o.nombre).length * r * .6 + r * .8}" height="${r * 1.25}" rx="${r * .3}"/><text style="font-size:${r * .8}px" y="${r * .28}">${svgEsc(o.nombre)}</text></g>` : ''}
       <title>${svgEsc([tTipo(o.tipo), o.nombre, o.modelo, o.eq?.ip, o.plan ? t('pl_planned_1') : ''].filter(Boolean).join('\n'))}</title></g>`).join('');
@@ -3907,21 +3922,28 @@ function plDibujar(){
   if (PERM.editar) svg.querySelectorAll('.pl-dev').forEach(g => g.addEventListener('pointerdown', e => plArrastre(e, g)));
   else svg.querySelectorAll('.pl-dev').forEach(g => g.addEventListener('click', () => { plSel = g.dataset.k; plDibujar(); }));
   // Pie: selección, totales y leyenda
-  const sel = plSel && porId[plSel], selM = plSel?.startsWith('m') && d.muros[+plSel.slice(1)];
+  const sel = plSel && porId[plSel], selM = /^m\d+$/.test(plSel || '') && d.muros[+plSel.slice(1)], selC = /^c\d+$/.test(plSel || '') && d.cab[+plSel.slice(1)];
   const planRes = Object.entries(d.plan.reduce((a, z) => (a[z.modelo] = (a[z.modelo] || 0) + 1, a), {})).map(([m, n]) => `${n} × ${esc(m)}`).join(', ');
   $('plFoot').innerHTML = (sel ? `<div class="pl-selbar"><b>${sel.plan ? '📶' : TIPO_ICON[sel.tipo] || '◆'} ${esc(sel.nombre)}</b> <span class="muted">${esc([tTipo(sel.tipo), sel.modelo, sel.eq?.ip].filter(Boolean).join(' · '))}</span>
       ${sel.plan && PERM.editar ? `<input class="pl-ren" value="${esc(sel.nombre)}" onchange="plRenPlan('${sel.key}',this.value)">` : ''}
       <span style="flex:1"></span>${sel.eq ? `<button class="sm" onclick="verDetalle('${sel.eq.id}')">${t('view')}</button>` : ''}${PERM.editar ? `<button class="sm danger" onclick="plQuitar('${sel.key}')">✕ ${t('pl_remove')}</button>` : ''}</div>`
+    : selC ? `<div class="pl-selbar"><b>🔌 ${esc(porId[selC.a]?.nombre || '')} → ${esc(porId[selC.b]?.nombre || '')}</b>
+      ${p.escala && porId[selC.a] && porId[selC.b] ? `<span class="muted">${Math.round(Math.hypot(porId[selC.a].x - porId[selC.b].x, porId[selC.a].y - porId[selC.b].y) / p.escala)} ft</span>` : ''}
+      ${PERM.editar ? `<select class="sm-sel" onchange="plTipoCab(${plSel.slice(1)},this.value)">${UP_TIPOS.map(k => `<option value="${k}" ${k === selC.tp ? 'selected' : ''}>${esc(t('ut.' + k))}</option>`).join('')}</select>` : ''}
+      <span style="flex:1"></span>${PERM.editar ? `<button class="sm danger" onclick="plQuitar('${plSel}')">✕ ${t('pl_cab_del')}</button>` : ''}</div>`
     : selM ? `<div class="pl-selbar"><b>🧱 ${esc(t('mat.' + selM.m))}</b> <span class="muted">−${PL_MAT[selM.m]?.db} dB${p.escala ? ' · ' + (Math.hypot(selM.x2 - selM.x1, selM.y2 - selM.y1) / p.escala).toFixed(1) + ' ft' : ''}</span>
       ${PERM.editar ? `<select class="sm-sel" onchange="plMatMuro(${plSel.slice(1)},this.value)">${Object.keys(PL_MAT).map(k => `<option value="${k}" ${k === selM.m ? 'selected' : ''}>${esc(t('mat.' + k))}</option>`).join('')}</select>` : ''}
       <span style="flex:1"></span>${PERM.editar ? `<button class="sm danger" onclick="plQuitar('${plSel}')">✕ ${t('pl_remove')}</button>` : ''}</div>` : '')
     + `<div class="pl-tot">${p.escala ? `📏 ${t('pl_size', { w: Math.round(p.ancho / p.escala), h: Math.round(p.alto / p.escala) })}` : ''}
+      ${plCapas.cab && !lista.length && pos.length > 1 ? ` · <span class="cad-warn">🔌 ${t('pl_no_cab')}</span>` : ''}
       ${totalFt ? ` · 🔌 ${t('pl_cable', { n: Math.round(totalFt), r: Math.round(totalFt * 1.25) })}${todasEtq ? '' : ` <span class="muted">(${t('pl_cab_sel')})</span>`}` : ''}${planRes ? ` · 🆕 ${t('pl_planned')}: ${planRes}` : ''}</div>`
     + (cob ? `<div class="pl-ley"><b>📶 ${plBanda} GHz</b>${[[-60, '#16a34a', 'pl_l1'], [-67, '#84cc16', 'pl_l2'], [-72, '#facc15', 'pl_l3'], [-78, '#f97316', 'pl_l4'], [-85, '#ef4444', 'pl_l5']].map(([v, c, k]) => `<span><i style="background:${c}"></i>${v} dBm ${t(k)}</span>`).join('')}<span class="muted">${t('pl_est_note')}</span></div>`
       : plCapas.cob && aps.length && !p.escala ? `<div class="pl-ley muted">📶 ${t('pl_need_scale')}</div>` : '');
 }
 function plArrastre(e, g){
-  e.stopPropagation(); if (plModo !== 'mover' || plColocar) return;
+  e.stopPropagation();
+  if (plModo === 'cable'){ plCable(g.dataset.k); return; }
+  if (plModo !== 'mover' || plColocar) return;
   const p = plAct(), k = g.dataset.k, d = plDatos(p), ref = d.eq.find(z => z.id === k) || d.plan.find(z => z.k === k); if (!ref) return;
   const svg = $('plSvg'), q0 = plPZ.pto(e), x0 = ref.x, y0 = ref.y; let mov = false;
   g.setPointerCapture(e.pointerId);
@@ -3933,13 +3955,31 @@ function plArrastre(e, g){
     if (mov){ p.datos = d; plGuardar(p); } plSel = k; plDibujar(); };
   g.addEventListener('pointermove', mueve); g.addEventListener('pointerup', suelta);
 }
+async function plCable(k){
+  const p = plAct(), d = plDatos(p);
+  if (!plCabIni || plCabIni === k){ plCabIni = plCabIni === k ? null : k; plDibujar(); $('plHint').innerHTML = plHint(p); return; }
+  const a = plCabIni, b = k; plCabIni = null;
+  const A = items.find(i => i.id === a), B = items.find(i => i.id === b);
+  const yaExiste = (A?.conectado_a === b) || (B?.conectado_a === a) || d.cab.some(c => (c.a === a && c.b === b) || (c.a === b && c.b === a));
+  if (yaExiste){ toast(t('pl_cab_ya')); plDibujar(); $('plHint').innerHTML = plHint(p); return; }
+  // Si es equipo de red sin uplink, el cable también queda en el inventario (Conectado a) y sale en el mapa de red
+  if (A && B && NET_TIPOS.includes(A.tipo) && NET_TIPOS.includes(B.tipo) && !A.conectado_a && PERM.editar){
+    const r = await db.from('equipos').update({ conectado_a: b }).eq('id', a);
+    if (!r.error){ A.conectado_a = b; toast(t('pl_cab_inv', { a: A.nombre, b: B.nombre })); plDibujar(); $('plHint').innerHTML = plHint(p); return; }
+  }
+  d.cab.push({ a, b, tp: esAP(A?.tipo) || A?.tipo === 'Cámara' || A?.tipo === 'Teléfono' ? 'poe' : 'cobre' }); p.datos = d; plGuardar(p);
+  toast(t('pl_cab_ok')); plDibujar(); $('plHint').innerHTML = plHint(p);
+}
+function plSelCab(e, i){ e.stopPropagation(); plSel = 'c' + i; plDibujar(); }
 function plSelMuro(e, i){ if (plModo !== 'mover') return; e.stopPropagation(); plSel = 'm' + i; plDibujar(); }
 function plMatMuro(i, m){ const p = plAct(), d = plDatos(p); if (!d.muros[i]) return; d.muros[i].m = m; p.datos = d; plGuardar(p); plDibujar(); }
+function plTipoCab(i, v){ const p = plAct(), d = plDatos(p); if (!d.cab[i]) return; d.cab[i].tp = v; p.datos = d; plGuardar(p); plDibujar(); }
 function plRenPlan(k, v){ const p = plAct(), d = plDatos(p), z = d.plan.find(z => z.k === k); if (!z || !v.trim()) return; z.nombre = v.trim(); p.datos = d; plGuardar(p); plDibujar(); }
 function plQuitar(k){
   const p = plAct(), d = plDatos(p);
-  if (k.startsWith('m') && /^m\d+$/.test(k)) d.muros.splice(+k.slice(1), 1);
-  else { d.eq = d.eq.filter(z => z.id !== k); d.plan = d.plan.filter(z => z.k !== k); }
+  if (/^m\d+$/.test(k)) d.muros.splice(+k.slice(1), 1);
+  else if (/^c\d+$/.test(k) && d.cab[+k.slice(1)]) d.cab.splice(+k.slice(1), 1);
+  else { d.eq = d.eq.filter(z => z.id !== k); d.plan = d.plan.filter(z => z.k !== k); d.cab = d.cab.filter(c => c.a !== k && c.b !== k); }
   p.datos = d; plSel = null; plGuardar(p); renderDisenoBody();
 }
 document.addEventListener('keydown', e => {

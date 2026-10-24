@@ -2115,7 +2115,11 @@ Object.assign(I18N.es, {
   pr_rec:'Recurrente', pr_mes:'mes', pr_anio:'año', pr_mensual:'Mensual', pr_anual_extra:'Además, anual', pr_primer_anio:'Primer año completo: {v}', pr_total_unico:'Total (pago único)',
   'prg.g_retirar':'🧹 Retirar', 'prg.g_equipos':'🖥️ Equipos a desconectar', 'prg.g_reciclar':'♻️ Reciclaje, destrucción y transporte', 'prg.g_mover':'🖥️ Equipos a mover', 'prg.g_infra':'🗄️ Servidores, red y transporte',
   'prg.g_pc':'💻 PC y laptop', 'prg.g_imp':'🖨️ Impresoras', 'prg.g_otros':'🛠 Otros y visitas',
-  'pti.desmontaje.cables':'Cables a retirar (corridas)', 'pti.desmontaje.soportes':'Retirar J-hooks y soportes', 'pti.desmontaje.ap':'AP / antenas', 'pti.desmontaje.cam':'Cámaras', 'pti.desmontaje.acceso':'Lectores / controladoras de acceso',
+  'pti.desmontaje.cables':'Cantidad de cables (1 por cámara, AP o punto de red)', 'pti.desmontaje.soportes':'J-hooks y soportes (≈ 1 cada 5 ft de recorrido)',
+  'pti.desmontaje.levantamiento':'Visita previa (contar cables, fotos, verificar cuáles están activos)', 'pti.desmontaje.isp':'Bajas de internet / devolver equipos del ISP',
+  'pti.desmontaje.conduit':'Tubería (conduit) a retirar (pies)', 'pti.desmontaje.plafones':'Plafones del techo a reemplazar', 'pti.desmontaje.firestop':'Huecos en paredes cortafuego a sellar (firestop)',
+  'pti.desmontaje.ups_bat':'Baterías de UPS a reciclar', 'pti.desmontaje.contenedor':'Contenedor de basura (dumpster)', 'pti.desmontaje.reporte':'Reporte final (fotos, lista de lo retirado, certificados)',
+  'prg.g_prep':'📋 Antes de empezar', 'prg.g_reparar':'🧱 Dejar el lugar en orden', 'pti.desmontaje.ap':'AP / antenas', 'pti.desmontaje.cam':'Cámaras', 'pti.desmontaje.acceso':'Lectores / controladoras de acceso',
   'pti.desmontaje.tv':'TV / pantallas de pared', 'pti.desmontaje.rack':'Racks a desarmar', 'pti.desmontaje.rack_eq':'Switches / servidores / UPS del rack', 'pti.desmontaje.pc':'PCs / laptops (desconectar y empacar)',
   'pti.desmontaje.monitor':'Monitores', 'pti.desmontaje.impresora':'Impresoras', 'pti.desmontaje.telefono':'Teléfonos', 'pti.desmontaje.placas':'Placas de pared (quitar y tapar)',
   'pti.desmontaje.rec_pc':'Reciclar PC / servidor', 'pti.desmontaje.rec_monitor':'Reciclar monitor / TV', 'pti.desmontaje.discos':'Discos a destruir (con certificado)', 'pti.desmontaje.viajes':'Viajes de camión',
@@ -2153,7 +2157,7 @@ Object.assign(I18N.es, {
   'pr_alcance_ph.web':'Objetivo del sitio, páginas, funciones, quién da textos y fotos, plazos…', 'pr_alcance_ph.software':'Qué problema resuelve, usuarios, módulos, entregas por fases…',
   'pr_alcance_ph.msp':'Qué cubre el servicio, horario de soporte, tiempos de respuesta, visitas…', 'pr_alcance_ph.libre':'Qué incluye el trabajo…',
   'pr_excl_def.instalacion':'Permisos de la ciudad, trabajos eléctricos de alto voltaje, reparación de paredes/techos (pintura), trabajos no descritos en el alcance.',
-  'pr_excl_def.desmontaje':'Reparación de paredes y techos (resane, pintura), retiro de cableado eléctrico, mobiliario, trabajos no descritos en el alcance.',
+  'pr_excl_def.desmontaje':'Resane y pintura de paredes, retiro de cableado eléctrico, mobiliario, manejo de asbesto o plomo (si se encuentra se detiene el trabajo y se cotiza aparte), cables que el dueño marque para uso futuro, trabajos no descritos en el alcance.',
   'pr_excl_def.mudanza':'Muebles, cableado nuevo en el sitio de destino (se cotiza aparte), equipos dañados antes de la mudanza, costos del proveedor de internet.',
   'pr_excl_def.reparacion':'Piezas no listadas, recuperación de datos de laboratorio si el disco no responde, licencias de software, daños por líquidos.',
   'pr_excl_def.web':'Fotografía profesional, licencias pagadas de plugins o temas, publicidad (Google/Meta Ads), cambios fuera de las rondas incluidas.',
@@ -2177,7 +2181,11 @@ Object.assign(I18N.en, {
   pr_rec:'Recurring', pr_mes:'mo', pr_anio:'yr', pr_mensual:'Monthly', pr_anual_extra:'Plus, yearly', pr_primer_anio:'First full year: {v}', pr_total_unico:'Total (one-time)',
   'prg.g_retirar':'🧹 Remove', 'prg.g_equipos':'🖥️ Equipment to disconnect', 'prg.g_reciclar':'♻️ Recycling, destruction and transport', 'prg.g_mover':'🖥️ Equipment to move', 'prg.g_infra':'🗄️ Servers, network and transport',
   'prg.g_pc':'💻 PC and laptop', 'prg.g_imp':'🖨️ Printers', 'prg.g_otros':'🛠 Other and visits',
-  'pti.desmontaje.cables':'Cables to remove (runs)', 'pti.desmontaje.soportes':'Remove J-hooks and supports', 'pti.desmontaje.ap':'APs / antennas', 'pti.desmontaje.cam':'Cameras', 'pti.desmontaje.acceso':'Access readers / controllers',
+  'pti.desmontaje.cables':'Number of cables (1 per camera, AP or network jack)', 'pti.desmontaje.soportes':'J-hooks and supports (≈ 1 every 5 ft of pathway)',
+  'pti.desmontaje.levantamiento':'Site survey (count cables, photos, check which are live)', 'pti.desmontaje.isp':'Internet disconnects / return ISP equipment',
+  'pti.desmontaje.conduit':'Conduit to remove (feet)', 'pti.desmontaje.plafones':'Ceiling tiles to replace', 'pti.desmontaje.firestop':'Fire-rated wall penetrations to seal (firestop)',
+  'pti.desmontaje.ups_bat':'UPS batteries to recycle', 'pti.desmontaje.contenedor':'Dumpster', 'pti.desmontaje.reporte':'Final report (photos, removal log, certificates)',
+  'prg.g_prep':'📋 Before starting', 'prg.g_reparar':'🧱 Leave the site in order', 'pti.desmontaje.ap':'APs / antennas', 'pti.desmontaje.cam':'Cameras', 'pti.desmontaje.acceso':'Access readers / controllers',
   'pti.desmontaje.tv':'Wall TVs / displays', 'pti.desmontaje.rack':'Racks to dismantle', 'pti.desmontaje.rack_eq':'Rack switches / servers / UPS', 'pti.desmontaje.pc':'PCs / laptops (disconnect and pack)',
   'pti.desmontaje.monitor':'Monitors', 'pti.desmontaje.impresora':'Printers', 'pti.desmontaje.telefono':'Phones', 'pti.desmontaje.placas':'Wall plates (remove and cover)',
   'pti.desmontaje.rec_pc':'Recycle PC / server', 'pti.desmontaje.rec_monitor':'Recycle monitor / TV', 'pti.desmontaje.discos':'Drives to destroy (with certificate)', 'pti.desmontaje.viajes':'Truck trips',
@@ -2215,7 +2223,7 @@ Object.assign(I18N.en, {
   'pr_alcance_ph.web':'Site goal, pages, features, who provides text and photos, timeline…', 'pr_alcance_ph.software':'Problem it solves, users, modules, phased deliveries…',
   'pr_alcance_ph.msp':'What the service covers, support hours, response times, visits…', 'pr_alcance_ph.libre':'What the job includes…',
   'pr_excl_def.instalacion':'City permits, high-voltage electrical work, wall/ceiling repair (paint), work not described in the scope.',
-  'pr_excl_def.desmontaje':'Wall and ceiling repair (patching, paint), removal of electrical wiring, furniture, work not described in the scope.',
+  'pr_excl_def.desmontaje':'Wall patching and paint, removal of electrical wiring, furniture, asbestos or lead handling (if found, work stops and it is quoted separately), cables the owner tags for future use, work not described in the scope.',
   'pr_excl_def.mudanza':'Furniture, new cabling at the destination (quoted separately), equipment damaged before the move, internet provider fees.',
   'pr_excl_def.reparacion':'Parts not listed, lab data recovery if the drive does not respond, software licenses, liquid damage.',
   'pr_excl_def.web':'Professional photography, paid plugin or theme licenses, advertising (Google/Meta Ads), changes beyond the included rounds.',
@@ -4957,7 +4965,8 @@ async function prConfigGuardar(reset){
 const PR_TT = {
   desmontaje: { tarifa: 75, items: [
     ['cables', .35, 0, 'fa'], ['soportes', .1, 0, 'fa'], ['ap', .3, 0, 'fa'], ['cam', .4, 0, 'fa'], ['acceso', .75, 0], ['tv', .75, 0], ['rack', 2.5, 0], ['rack_eq', .3, 0],
-    ['pc', .25, 4], ['monitor', .15, 0], ['impresora', .4, 0], ['telefono', .1, 0], ['placas', .15, 2], ['rec_pc', .05, 15], ['rec_monitor', .05, 25], ['discos', .1, 10], ['viajes', 1, 175]] },
+    ['pc', .25, 4], ['monitor', .15, 0], ['impresora', .4, 0], ['telefono', .1, 0], ['placas', .15, 2], ['rec_pc', .05, 15], ['rec_monitor', .05, 25], ['discos', .1, 15], ['viajes', 1, 175],
+    ['levantamiento', 2, 0], ['conduit', .02, 0, 'fa'], ['plafones', .1, 8, 'fa'], ['firestop', .5, 15, 'fa'], ['ups_bat', .1, 20], ['isp', 1, 0], ['contenedor', 0, 450], ['reporte', 2, 0]] },
   mudanza: { tarifa: 75, items: [
     ['pc', .75, 4], ['monitor', .2, 1], ['impresora', 1, 0], ['servidor', 2.5, 0], ['rack_red', 6, 0], ['telefono', .25, 0], ['tv', 1, 0], ['otros', .5, 0], ['red_h', 1, 0], ['isp', 2, 0], ['viajes', 1, 175]] },
   reparacion: { tarifa: 85, items: [
@@ -4975,7 +4984,8 @@ const PR_TRABAJOS = [['instalacion', '🏗'], ['desmontaje', '📦'], ['mudanza'
 const PR_CAMPO = ['instalacion', 'desmontaje', 'mudanza'];   // trabajos en sitio (con plano, altura, cuadrilla)
 const prTipo = d => d?.tipo || 'instalacion';
 const prIc = tp => (PR_TRABAJOS.find(x => x[0] === tp) || ['', '📄'])[1];
-const PR_GRUPOS = { desmontaje: [['g_retirar', ['cables', 'soportes', 'ap', 'cam', 'acceso', 'tv', 'placas']], ['g_equipos', ['rack', 'rack_eq', 'pc', 'monitor', 'impresora', 'telefono']], ['g_reciclar', ['rec_pc', 'rec_monitor', 'discos', 'viajes']]],
+const PR_GRUPOS = { desmontaje: [['g_prep', ['levantamiento', 'isp']], ['g_retirar', ['cables', 'soportes', 'conduit', 'ap', 'cam', 'acceso', 'tv', 'placas']], ['g_equipos', ['rack', 'rack_eq', 'pc', 'monitor', 'impresora', 'telefono']],
+    ['g_reparar', ['plafones', 'firestop']], ['g_reciclar', ['rec_pc', 'rec_monitor', 'ups_bat', 'discos', 'viajes', 'contenedor', 'reporte']]],
   mudanza: [['g_mover', ['pc', 'monitor', 'impresora', 'telefono', 'tv', 'otros']], ['g_infra', ['servidor', 'rack_red', 'red_h', 'isp', 'viajes']]],
   reparacion: [['g_pc', ['diag', 'virus', 'os', 'datos', 'recuperacion', 'ssd', 'pieza', 'pantalla', 'limpieza']], ['g_imp', ['imp_mant', 'imp_rep', 'imp_cfg']], ['g_otros', ['servidor', 'red', 'correo', 'visitas']]] };
 const prTT = (C, tp) => { const d = PR_TT[tp] || {}, c = jObj(jObj(C.tt)[tp]); const m = (a, b) => ({ ...(a || {}), ...jObj(b) });

@@ -5283,7 +5283,7 @@ async function buscarUnifi(){
   const todos = (r.data?.equipos || []).map(d => {
     const mac = macNorm(d.mac), tipo = tipoUnifi(d), sede = hostSedeDe(hosts, d) || aqui;
     const ya = mios.find(x => (d.id && x.unifi_id === d.id) || (mac && macNorm(x.mac) === mac));
-    const cambia = ya && (String(ya.ip || '') !== String(d.ip || '') || String(ya.firmware || '') !== String(d.firmware || '') || ya.unifi_estado !== d.estado || !ya.unifi_id || (!ya.sede_id && sede));
+    const cambia = ya && (String(ya.ip || '') !== String(d.ip || '') || String(ya.firmware || '') !== String(d.firmware || '') || ya.unifi_estado !== d.estado || !ya.unifi_id || !UF_MARCA.test(ya.modelo || '') || (!ya.sede_id && sede));
     return { ...d, mac, tipo, ya, sede, sedeConsola: hostSedeDe(hosts, d), accion: !ya ? 'nuevo' : cambia ? 'act' : 'igual' };
   });
   // Dentro de una ubicación: solo los equipos de las consolas de esa ubicación (o sin ubicación asignada)
@@ -5351,6 +5351,9 @@ function filtrarConsolas(){
   document.querySelectorAll('#ufList .uf-host').forEach(el => { const ok = !q || el.dataset.q.includes(q); el.classList.toggle('hidden', !ok); if (ok) n++; });
   $('ufNone')?.classList.toggle('hidden', n > 0);
 }
+// Los equipos de UniFi llevan la marca en "Marca / Modelo" (U6+ → UniFi U6+)
+const UF_MARCA = /unifi|ubiquiti|ubnt/i;
+const conUnifi = m => { m = String(m || '').trim(); return !m ? 'UniFi' : UF_MARCA.test(m) ? m : 'UniFi ' + m; };
 async function importarUnifi(){
   const c = clienteObj(curCliente) || { nombre: curCliente };
   const elegidos = UF.equipos.filter(d => UF.sel.has(d.id) && d.accion !== 'igual');
@@ -5358,10 +5361,10 @@ async function importarUnifi(){
   const ahora = new Date().toISOString();
   const extra = d => ({ unifi_id: d.id, unifi_estado: d.estado || null, unifi_update: !!d.actualizar, unifi_sync_at: ahora });
   const nuevos = elegidos.filter(d => d.accion === 'nuevo').map(d => ({ cliente: c.nombre, direccion: c.direccion || null, tipo: d.tipo, nombre: d.nombre,
-    modelo: d.modelo || null, mac: d.mac || null, ip: d.ip || null, firmware: d.firmware || null, estado: 'Activo', ...extra(d),
+    modelo: conUnifi(d.modelo), mac: d.mac || null, ip: d.ip || null, firmware: d.firmware || null, estado: 'Activo', ...extra(d),
     ...(d.sede ? { sede_id: d.sede, direccion: sedes.find(x => x.id === d.sede)?.direccion || c.direccion || null } : {}) }));
   const cambios = elegidos.filter(d => d.accion === 'act').map(d => ({ id: d.ya.id, patch: { ip: d.ip || d.ya.ip || null, firmware: d.firmware || null,
-    mac: d.ya.mac || d.mac || null, modelo: d.ya.modelo || d.modelo || null, ...extra(d), ...(!d.ya.sede_id && d.sede ? { sede_id: d.sede } : {}) } }));
+    mac: d.ya.mac || d.mac || null, modelo: conUnifi(d.ya.modelo || d.modelo), ...extra(d), ...(!d.ya.sede_id && d.sede ? { sede_id: d.sede } : {}) } }));
   const quitar = (r, campos) => campos.forEach(k => delete r[k]);
   let avisoSql = false;
   const grabar = async (fn) => {   // si faltan columnas (SQL sin correr), guarda lo demás

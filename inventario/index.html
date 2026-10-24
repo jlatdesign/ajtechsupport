@@ -589,6 +589,63 @@ body.p-noborrar [onclick^="borrarSede("],body.p-noborrar [onclick^="borrarVpn("]
 .mdm-badge.passthrough{color:var(--c1);border-color:color-mix(in srgb,var(--c1) 50%,transparent)}
 .mdm-badge.ipfija{color:#a78bfa;border-color:#a78bfa80}
 .mdm-badge.bridge{color:var(--ok);border-color:color-mix(in srgb,var(--ok) 50%,transparent)}
+.cl-wan .cl-wan-l{display:flex;flex-wrap:wrap;gap:6px}
+.cl-wan .wl{display:inline-flex;gap:6px;align-items:center;padding:4px 6px 4px 10px;border-radius:999px;background:var(--card-solid);border:1px solid var(--line);cursor:pointer;font-size:12.5px}
+.cl-cp{padding:1px 6px!important;font-size:11px!important;min-height:0}
+.cl-rol{display:inline-block;font:600 10.5px Inter,sans-serif;padding:1px 7px;border-radius:999px;margin:2px 4px 0 0;color:#0ea5e9;border:1px solid #0ea5e966}
+.cl-tbl td{vertical-align:top}
+.cl-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin:12px 0}
+.cl-card{border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--card-solid);cursor:pointer;display:flex;flex-direction:column;gap:5px}
+.cl-card:hover{border-color:var(--c1)}
+.cl-card small{color:var(--muted);font-size:12px}
+.cl-alerts{border:1px solid color-mix(in srgb,var(--warn) 45%,transparent);background:color-mix(in srgb,var(--warn) 8%,transparent);border-radius:12px;padding:8px 12px;font-size:13px;display:flex;flex-direction:column;gap:3px}
+.panel h4.cl-h4,.cl-h4{margin:18px 0 8px;font:600 14px Inter,sans-serif;letter-spacing:0;text-transform:none;color:var(--text);justify-content:flex-start;gap:10px;align-items:baseline}
+.cl-log{border:1px solid var(--line);border-radius:10px;padding:8px 12px;margin-bottom:8px;background:var(--card-solid)}
+.cl-log-h{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:12.5px}
+.cl-log-t{margin-top:4px;font-size:13.5px}
+.cl-del{margin-left:auto;padding:1px 7px!important}
+.cl-logcat{font:600 11px Inter,sans-serif;padding:2px 8px;border-radius:999px;border:1px solid var(--line-strong)}
+.cl-logcat.incidente{color:var(--bad);border-color:color-mix(in srgb,var(--bad) 50%,transparent)}
+.cl-logcat.backup,.cl-logcat.mantenimiento{color:var(--ok);border-color:color-mix(in srgb,var(--ok) 50%,transparent)}
+.cl-logcat.llamada,.cl-logcat.cambio{color:var(--c1);border-color:color-mix(in srgb,var(--c1) 50%,transparent)}
+.cl-logform{border:1px dashed var(--line-strong);border-radius:12px;padding:10px 12px;margin-bottom:12px}
+.cl-logform textarea{width:100%}
+.cl-acc{font:600 11px Inter,sans-serif;padding:1px 7px;border-radius:6px;border:1px solid var(--line-strong)}
+.cl-acc.permitir,.cl-acc.nat{color:var(--ok)} .cl-acc.bloquear{color:var(--bad)}
+.cl-form .full{grid-column:1/-1}
+.cl-multi>span{display:block;font-size:12px;color:var(--muted);margin-bottom:4px}
+.cl-multi>div{display:flex;flex-wrap:wrap;gap:4px 14px}
+.cl-pcs{max-height:170px;overflow:auto;border:1px solid var(--line);border-radius:10px;padding:6px 10px}
+.cl-clv-row{display:grid;grid-template-columns:1.2fr 1fr 1.3fr auto;gap:6px;margin-top:6px;align-items:center}
+.cl-clv-row .pw-wrap{display:flex;gap:4px}
+.cl-clv-row input{padding:7px 8px;font-size:13px}
+@media (max-width:700px){.cl-clv-row{grid-template-columns:1fr 1fr}}
+.cl-claves{display:flex;flex-direction:column;gap:6px}
+.cl-clave{display:grid;grid-template-columns:1fr 1fr 1fr auto auto;gap:8px;align-items:center;font-size:13px;border:1px solid var(--line);border-radius:10px;padding:6px 10px}
+@media (max-width:700px){.cl-clave{grid-template-columns:1fr 1fr}}
+.cl-kv{border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.cl-opts-h{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+.cl-opts-h>span{font-size:12px;color:var(--muted)}
+.cl-opts-h .dev-link{font-size:12px;cursor:pointer}
+.cl-opts-q{margin-left:auto;max-width:200px;padding:5px 8px!important;font-size:12.5px!important}
+.cl-opts{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:6px;max-height:240px;overflow:auto;padding:2px}
+.cl-opt{display:flex!important;flex-direction:row!important;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--line);border-radius:10px;cursor:pointer;background:var(--card-solid);position:relative;user-select:none}
+.cl-opt:hover{border-color:color-mix(in srgb,var(--c1) 50%,var(--line))}
+.cl-opt input{position:absolute;opacity:0;pointer-events:none;width:1px;height:1px}
+.cl-opt-ic{font-size:18px;line-height:1}
+.cl-opt-t{display:flex;flex-direction:column;min-width:0;flex:1}
+.cl-opt-t b{font:600 13px Inter,sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cl-opt-t small{color:var(--muted);font-size:11.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cl-opt-ok{font-style:normal;width:20px;height:20px;border-radius:50%;border:1.5px solid var(--line-strong);display:grid;place-items:center;font-size:12px;color:transparent;flex:none}
+.cl-opt:has(input:checked){border-color:var(--c1);background:color-mix(in srgb,var(--c1) 9%,var(--card-solid))}
+.cl-opt:has(input:checked) .cl-opt-ok{background:var(--c1);border-color:var(--c1);color:#fff}
+.cl-opt:has(input:focus-visible){outline:2px solid var(--c1);outline-offset:1px}
+.cl-opt.hidden{display:none!important}
+.cl-chip{display:inline-block;font-size:12px;padding:2px 8px;border-radius:999px;border:1px solid var(--line);margin:2px 4px 2px 0;cursor:pointer;color:var(--text);white-space:nowrap}
+.cl-chip:hover{border-color:var(--c1);color:var(--c1)}
+.cl-pwc{display:inline-flex;gap:4px;align-items:center}
+.cl-pwin{display:flex;gap:4px}.cl-pwin input{flex:1}
+
 .mdm-calc{border:1px dashed var(--line-strong);border-radius:10px;padding:8px 10px;font-size:12.5px;margin:0 0 10px}
 .mdm-calc:empty{display:none}
 .mdm-calc .kvs{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:4px 12px;margin-bottom:6px}
@@ -757,7 +814,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v7.4</p>
+    <p class="sub">Network Asset Manager · v7.8</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -773,7 +830,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v7.4</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v7.8</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -857,6 +914,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
   <div class="dash-main">
   <div id="ovView" class="ov"></div>
   <div id="netView" class="hidden"></div>
+  <div id="cloudView" class="hidden"></div>
   <div id="listView">
   <div class="kpis no-print hidden">
     <div class="kpi"><span data-i18n="k_devices">Devices</span><b id="kTotal">0</b></div>
@@ -1621,6 +1679,100 @@ const NET_FIELDS = ['isp','cuenta_isp','ip_publica','ssid','firmware','puertos',
 const WAN_TIPOS = ['Módem','Firewall','Router'];          // equipos que reciben internet (WAN / Multi-WAN)
 const WAN_CONEX = ['Fibra','Cable','DSL','LTE/5G','Starlink','Inalámbrico fijo','Satélite','Otro'];
 const WAN_MODOS = ['principal','respaldo','balanceo'];
+Object.assign(I18N.en, {
+  cl_sub:'Logbook of the servers in the data center: printers, software, firewall, contacts and every job done.',
+  cl_missing:'Run supabase-cloud.sql in Supabase first to use Cloud Server.', cl_search:'Search…', cl_copy:'Copy', cl_close:'Close',
+  'cl_tab.carpeta':'Shared folders', 'cl_add.carpeta':'Add folder', 'cl_empty.carpeta':'No shared folders yet.', 'cf.nombre.carpeta':'Folder name',
+  'cf.share':'Path (share)', 'cf.unidad':'Mapped drive', 'cf.carpetas':'Folders', 'cf.cargo':'Position / department', 'cf.ext':'Extension', 'cl_none.carpeta':'Add the folders in the Shared folders tab first.',
+  cl_scans_falta:'Every client has a Scans folder.', cl_scans_crear:'Create Scans', 'cf_ph.share':'\\\\SRV-RDS01\\Scans', 'cf_ph.unidad':'e.g. S:', 'cf_ph.cargo':'e.g. Warehouse, Accounting',
+  'cl_tab.usuario':'RDP users', 'cl_add.usuario':'Add RDP user', 'cl_empty.usuario':'No RDP users yet.', 'cf.nombre.usuario':'Person (full name)',
+  'cf.login':'RDP user', 'cf.pw':'Password', 'cf.estado':'Status', 'cf.impresoras':'Printers they use', 'cf.prn_def':'Default printer', 'cf.software':'Software they use',
+  'cf.copiar':'Copy printers, software and folders from…', 'cl_est.activo':'Active', 'cl_est.inactivo':'Inactive', cl_persona:'Person', cl_usuarios:'Users',
+  'cl_none.printer':'Add the printers in the Printers tab first.', 'cl_none.software':'Add the software in the Software tab first.',
+  cl_copiado:'Copied from {n}', cl_sel_n:'{n} of {t} selected', cl_all:'All', cl_none_sel:'None', cl_login_dup:'The user "{u}" already exists on this server. Save anyway?',
+  'cl_tab.ov':'Summary', 'cl_tab.server':'Servers', 'cl_tab.printer':'Printers', 'cl_tab.software':'Software', 'cl_tab.firewall':'Firewall', 'cl_tab.contacto':'Contacts', 'cl_tab.log':'Logbook',
+  'cl_add.server':'Add server', 'cl_add.printer':'Add printer', 'cl_add.software':'Add software', 'cl_add.firewall':'Add rule', 'cl_add.contacto':'Add contact',
+  'cl_empty.server':'No servers yet.', 'cl_empty.printer':'No remote printers yet.', 'cl_empty.software':'No software yet.', 'cl_empty.firewall':'No firewall notes yet.', 'cl_empty.contacto':'No contacts yet.',
+  'cf.nombre.server':'Server name', 'cf.nombre.printer':'Printer name', 'cf.nombre.software':'Software', 'cf.nombre.firewall':'Description', 'cf.nombre.contacto':'Company',
+  'cf.roles':'Roles', 'cf.dc':'Data center / hosting', 'cf.os':'Operating system', 'cf.hostname':'Hostname', 'cf.dominio':'Domain', 'cf.ip_pub':'Public IP', 'cf.ip_priv':'Private IP',
+  'cf.rdp':'RDP port / access', 'cf.url':'RD Gateway / RD Web / panel URL', 'cf.cpu':'CPU', 'cf.ram':'RAM', 'cf.disco':'Disk', 'cf.cals':'RDS licenses (CALs)',
+  'cf.backup':'Backup', 'cf.backup_prueba':'Last restore test', 'cf.backup_det':'Backup details', 'cf.av':'Antivirus / EDR', 'cf.parches':'Patch window', 'cf.monitoreo':'Monitoring',
+  'cf.ssl_vence':'SSL certificate expires', 'cf.renueva':'Renewal / contract ends', 'cf.notas':'Notes',
+  'cf.sede_id':'Office (location)', 'cf.equipo':'Printer in the inventory', 'cf.modelo':'Model', 'cf.ip_local':'Printer local IP', 'cf.puerto_local':'Local port', 'cf.protocolo':'Protocol',
+  'cf.router_ip':'Office public IP (router)', 'cf.puerto_ext':'External port (forward)', 'cf.permitido':'Allowed only from (IP)', 'cf.servidor':'Server', 'cf.cola':'Printer name on the server',
+  'cf.driver':'Driver', 'cf.pcs':'Office PCs (optional)', 'cf.version':'Version', 'cf.fabricante':'Vendor', 'cf.licencias':'Licenses', 'cf.cuenta':'Customer / account #',
+  'cf.ruta':'Data path / database', 'cf.soporte_nombre':'Support contact', 'cf.soporte_tel':'Support phone', 'cf.soporte_email':'Support email', 'cf.soporte_web':'Support portal',
+  'cf.lado':'Side', 'cf.equipo_fw':'Firewall / router', 'cf.direccion':'Direction', 'cf.accion':'Action', 'cf.origen':'Source', 'cf.destino':'Destination', 'cf.puerto':'Port(s)', 'cf.proto':'Protocol',
+  'cf.rol':'Type', 'cf.persona':'Person', 'cf.telefono':'Phone', 'cf.email':'Email', 'cf.horario':'Hours', 'cf.web':'Website / portal',
+  'cf_ph.rdp':'3389 or 33891', 'cf_ph.url':'https://rdweb.company.com', 'cf_ph.backup_det':'e.g. Veeam every night 11pm → Wasabi, 30 days retention', 'cf_ph.cals':'e.g. 15 user CALs',
+  'cf_ph.permitido':'Server public IP', 'cf_ph.puerto_ext':'e.g. 9101', 'cf_ph.cola':'e.g. HP Warehouse (400)', 'cf_ph.origen':'IP, network or "any"', 'cf_ph.destino':'IP or network',
+  'cf_ph.puerto':'e.g. 3389, 443, 9100-9105', 'cf_ph.parches':'e.g. Sunday 2am', 'cf_ph.licencias':'e.g. 10 users', 'cf_ph.horario':'e.g. Mon–Fri 8am–6pm',
+  'cl_rol.rds':'Remote Desktop (RDS)', 'cl_rol.ad':'Active Directory / DC', 'cl_rol.file':'File server', 'cl_rol.sql':'SQL / database', 'cl_rol.app':'App server', 'cl_rol.backup':'Backup', 'cl_rol.web':'Web', 'cl_rol.otro':'Other',
+  'cl_yn.si':'Yes', 'cl_yn.no':'No', 'cl_lado.server':'Server (data center)', 'cl_lado.cliente':'Client office', 'cl_dir.entrada':'Inbound', 'cl_dir.salida':'Outbound',
+  'cl_acc.permitir':'Allow', 'cl_acc.nat':'Port forward (NAT)', 'cl_acc.bloquear':'Block',
+  'cl_crol.datacenter':'Data center / hosting', 'cl_crol.isp':'Internet provider', 'cl_crol.software':'Software vendor', 'cl_crol.cliente':'Client staff', 'cl_crol.otro':'Other',
+  cl_local:'Local', cl_fwd:'Port forward', cl_open:'Forward open to any IP — limit it to the server IP', cl_suggest:'use', cl_soporte:'Support', cl_claves:'Users and passwords', cl_desc:'Description', cl_empresa:'Company',
+  cl_wan_t:'Office public IPs', cl_wan_sub:'(from Network — routers, modems and static blocks)', cl_wan_none:'No public IPs in Network yet: add them in the modem or router WAN.', cl_wan_ph:'pick or type',
+  cl_fw_prn:'Port forwards for the printers', cl_fw_prn_sub:'(set these on the office router)', cl_fw_wan:'Office router (WAN:port)', cl_fw_to:'Goes to (printer)',
+  cl_see_all:'see all', cl_log_empty:'Nothing in the logbook yet.', cl_lcat:'Type', cl_lsobre:'About', cl_lfecha:'Date (blank = now)', cl_ltxt_ph:'What was done, what changed, who was called…',
+  cl_ladd:'Add to logbook', cl_lhelp:'Saved with your user, date and time. It cannot be edited.', cl_log_saved:'Added to logbook', cl_log_del:'Delete this logbook entry?',
+  'cl_lc.cambio':'Change', 'cl_lc.mantenimiento':'Maintenance', 'cl_lc.incidente':'Incident', 'cl_lc.backup':'Backup', 'cl_lc.actualizacion':'Update', 'cl_lc.llamada':'Provider call', 'cl_lc.nota':'Note',
+  cl_al_nobk:'no backup', cl_al_bkprueba:'restore not tested in 90+ days', cl_al_ssl:'SSL expires', cl_al_renueva:'renewal',
+  cl_claves_nop:'You do not have permission to see passwords.', cl_claves_none:'No users saved.', cl_clave_add:'Add user', cl_clave_nota:'What for (admin, app, SQL…)',
+  'cl_claves_help.server':'admin and service accounts (RDP users go in their tab)', 'cl_claves_help.software':'logins for this software',
+  cl_no_pcs:'This client has no PCs in the inventory yet.', cl_confirm_del:'Delete "{n}"?', cl_deleted:'Deleted',
+  cl_prn_help:'The printer is installed on the server and each RDP user gets the printers they use (RDP users tab). The server prints to the office public IP + external port, and the office router forwards it to the printer. Limit the forward to the server IP.',
+  'cat.cloud':'Cloud', 'ev.cloud_created':'Cloud Item Added', 'ev.cloud_updated':'Cloud Item Updated', 'ev.cloud_deleted':'Cloud Item Deleted',
+  'ad.cloud_created':'{u} added {o} to Cloud Server', 'ad.cloud_updated':'{u} updated {f} on {o}', 'ad.cloud_deleted':'{u} deleted {o} from Cloud Server',
+  'fl.datos':'Details', 'fl.claves':'Users and passwords', 'fl.clase':'Kind',
+});
+Object.assign(I18N.es, {
+  cl_sub:'Bitácora de los servidores en el data center: impresoras, software, firewall, contactos y cada trabajo realizado.',
+  cl_missing:'Primero corre supabase-cloud.sql en Supabase para usar Cloud Server.', cl_search:'Buscar…', cl_copy:'Copiar', cl_close:'Cerrar',
+  'cl_tab.carpeta':'Carpetas compartidas', 'cl_add.carpeta':'Agregar carpeta', 'cl_empty.carpeta':'Todavía no hay carpetas compartidas.', 'cf.nombre.carpeta':'Nombre de la carpeta',
+  'cf.share':'Ruta (recurso compartido)', 'cf.unidad':'Unidad mapeada', 'cf.carpetas':'Carpetas', 'cf.cargo':'Cargo / departamento', 'cf.ext':'Extensión', 'cl_none.carpeta':'Primero agrega las carpetas en la pestaña Carpetas compartidas.',
+  cl_scans_falta:'Todo cliente lleva la carpeta Scans.', cl_scans_crear:'Crear Scans', 'cf_ph.share':'\\\\SRV-RDS01\\Scans', 'cf_ph.unidad':'ej. S:', 'cf_ph.cargo':'ej. Almacén, Contabilidad',
+  'cl_tab.usuario':'Usuarios RDP', 'cl_add.usuario':'Agregar usuario RDP', 'cl_empty.usuario':'Todavía no hay usuarios RDP.', 'cf.nombre.usuario':'Persona (nombre completo)',
+  'cf.login':'Usuario RDP', 'cf.pw':'Contraseña', 'cf.estado':'Estado', 'cf.impresoras':'Impresoras que usa', 'cf.prn_def':'Impresora predeterminada', 'cf.software':'Software que usa',
+  'cf.copiar':'Copiar impresoras, software y carpetas de…', 'cl_est.activo':'Activo', 'cl_est.inactivo':'Inactivo', cl_persona:'Persona', cl_usuarios:'Usuarios',
+  'cl_none.printer':'Primero agrega las impresoras en la pestaña Impresoras.', 'cl_none.software':'Primero agrega el software en la pestaña Software.',
+  cl_copiado:'Copiado de {n}', cl_sel_n:'{n} de {t} marcadas', cl_all:'Todas', cl_none_sel:'Ninguna', cl_login_dup:'El usuario "{u}" ya existe en este servidor. ¿Guardar igual?',
+  'cl_tab.ov':'Resumen', 'cl_tab.server':'Servidores', 'cl_tab.printer':'Impresoras', 'cl_tab.software':'Software', 'cl_tab.firewall':'Firewall', 'cl_tab.contacto':'Contactos', 'cl_tab.log':'Bitácora',
+  'cl_add.server':'Agregar servidor', 'cl_add.printer':'Agregar impresora', 'cl_add.software':'Agregar software', 'cl_add.firewall':'Agregar regla', 'cl_add.contacto':'Agregar contacto',
+  'cl_empty.server':'Todavía no hay servidores.', 'cl_empty.printer':'Todavía no hay impresoras remotas.', 'cl_empty.software':'Todavía no hay software.', 'cl_empty.firewall':'Todavía no hay notas de firewall.', 'cl_empty.contacto':'Todavía no hay contactos.',
+  'cf.nombre.server':'Nombre del servidor', 'cf.nombre.printer':'Nombre de la impresora', 'cf.nombre.software':'Software', 'cf.nombre.firewall':'Descripción', 'cf.nombre.contacto':'Compañía',
+  'cf.roles':'Funciones', 'cf.dc':'Data center / hosting', 'cf.os':'Sistema operativo', 'cf.hostname':'Hostname', 'cf.dominio':'Dominio', 'cf.ip_pub':'IP pública', 'cf.ip_priv':'IP privada',
+  'cf.rdp':'Puerto RDP / acceso', 'cf.url':'URL de RD Gateway / RD Web / panel', 'cf.cpu':'CPU', 'cf.ram':'RAM', 'cf.disco':'Disco', 'cf.cals':'Licencias RDS (CALs)',
+  'cf.backup':'Backup', 'cf.backup_prueba':'Última prueba de restauración', 'cf.backup_det':'Detalle del backup', 'cf.av':'Antivirus / EDR', 'cf.parches':'Ventana de actualizaciones', 'cf.monitoreo':'Monitoreo',
+  'cf.ssl_vence':'Vence el certificado SSL', 'cf.renueva':'Renovación / vence el contrato', 'cf.notas':'Notas',
+  'cf.sede_id':'Oficina (ubicación)', 'cf.equipo':'Impresora del inventario', 'cf.modelo':'Modelo', 'cf.ip_local':'IP local de la impresora', 'cf.puerto_local':'Puerto local', 'cf.protocolo':'Protocolo',
+  'cf.router_ip':'IP pública de la oficina (router)', 'cf.puerto_ext':'Puerto externo (forward)', 'cf.permitido':'Permitido solo desde (IP)', 'cf.servidor':'Servidor', 'cf.cola':'Nombre de la impresora en el server',
+  'cf.driver':'Driver', 'cf.pcs':'PCs de la oficina (opcional)', 'cf.version':'Versión', 'cf.fabricante':'Fabricante', 'cf.licencias':'Licencias', 'cf.cuenta':'Cliente / cuenta #',
+  'cf.ruta':'Ruta de datos / base de datos', 'cf.soporte_nombre':'Contacto de soporte', 'cf.soporte_tel':'Teléfono de soporte', 'cf.soporte_email':'Email de soporte', 'cf.soporte_web':'Portal de soporte',
+  'cf.lado':'Lado', 'cf.equipo_fw':'Firewall / router', 'cf.direccion':'Dirección', 'cf.accion':'Acción', 'cf.origen':'Origen', 'cf.destino':'Destino', 'cf.puerto':'Puerto(s)', 'cf.proto':'Protocolo',
+  'cf.rol':'Tipo', 'cf.persona':'Persona', 'cf.telefono':'Teléfono', 'cf.email':'Email', 'cf.horario':'Horario', 'cf.web':'Web / portal',
+  'cf_ph.rdp':'3389 o 33891', 'cf_ph.url':'https://rdweb.compania.com', 'cf_ph.backup_det':'ej. Veeam todas las noches 11pm → Wasabi, 30 días', 'cf_ph.cals':'ej. 15 CALs por usuario',
+  'cf_ph.permitido':'IP pública del server', 'cf_ph.puerto_ext':'ej. 9101', 'cf_ph.cola':'ej. HP Almacén (400)', 'cf_ph.origen':'IP, red o "cualquiera"', 'cf_ph.destino':'IP o red',
+  'cf_ph.puerto':'ej. 3389, 443, 9100-9105', 'cf_ph.parches':'ej. domingo 2am', 'cf_ph.licencias':'ej. 10 usuarios', 'cf_ph.horario':'ej. lun–vie 8am–6pm',
+  'cl_rol.rds':'Escritorio remoto (RDS)', 'cl_rol.ad':'Active Directory / DC', 'cl_rol.file':'Archivos', 'cl_rol.sql':'SQL / base de datos', 'cl_rol.app':'Aplicaciones', 'cl_rol.backup':'Backup', 'cl_rol.web':'Web', 'cl_rol.otro':'Otro',
+  'cl_yn.si':'Sí', 'cl_yn.no':'No', 'cl_lado.server':'Server (data center)', 'cl_lado.cliente':'Oficina del cliente', 'cl_dir.entrada':'Entrada', 'cl_dir.salida':'Salida',
+  'cl_acc.permitir':'Permitir', 'cl_acc.nat':'Port forward (NAT)', 'cl_acc.bloquear':'Bloquear',
+  'cl_crol.datacenter':'Data center / hosting', 'cl_crol.isp':'Proveedor de internet', 'cl_crol.software':'Proveedor de software', 'cl_crol.cliente':'Personal del cliente', 'cl_crol.otro':'Otro',
+  cl_local:'Local', cl_fwd:'Port forward', cl_open:'Forward abierto a cualquier IP: limítalo a la IP del server', cl_suggest:'usa', cl_soporte:'Soporte', cl_claves:'Usuarios y contraseñas', cl_desc:'Descripción', cl_empresa:'Compañía',
+  cl_wan_t:'IPs públicas de las oficinas', cl_wan_sub:'(sale de Network: routers, módems y bloques de IP fija)', cl_wan_none:'Todavía no hay IPs públicas en Network: ponlas en el módem o en el WAN del router.', cl_wan_ph:'escoge o escribe',
+  cl_fw_prn:'Port forwards de las impresoras', cl_fw_prn_sub:'(esto va en el router de la oficina)', cl_fw_wan:'Router de la oficina (WAN:puerto)', cl_fw_to:'Va a (impresora)',
+  cl_see_all:'ver todo', cl_log_empty:'Todavía no hay nada en la bitácora.', cl_lcat:'Tipo', cl_lsobre:'Sobre', cl_lfecha:'Fecha (vacío = ahora)', cl_ltxt_ph:'Qué se hizo, qué se cambió, a quién se llamó…',
+  cl_ladd:'Agregar a la bitácora', cl_lhelp:'Se guarda con tu usuario, fecha y hora. No se puede editar.', cl_log_saved:'Agregado a la bitácora', cl_log_del:'¿Borrar esta entrada de la bitácora?',
+  'cl_lc.cambio':'Cambio', 'cl_lc.mantenimiento':'Mantenimiento', 'cl_lc.incidente':'Incidente', 'cl_lc.backup':'Backup', 'cl_lc.actualizacion':'Actualización', 'cl_lc.llamada':'Llamada al proveedor', 'cl_lc.nota':'Nota',
+  cl_al_nobk:'no tiene backup', cl_al_bkprueba:'el backup no se ha probado en más de 90 días', cl_al_ssl:'vence el SSL', cl_al_renueva:'renovación',
+  cl_claves_nop:'No tienes permiso para ver contraseñas.', cl_claves_none:'No hay usuarios guardados.', cl_clave_add:'Agregar usuario', cl_clave_nota:'Para qué (admin, app, SQL…)',
+  'cl_claves_help.server':'admin y cuentas de servicio (los usuarios RDP van en su pestaña)', 'cl_claves_help.software':'accesos de este software',
+  cl_no_pcs:'Este cliente todavía no tiene PCs en el inventario.', cl_confirm_del:'¿Borrar "{n}"?', cl_deleted:'Borrado',
+  cl_prn_help:'La impresora se instala en el server y a cada usuario RDP se le asignan las que usa (pestaña Usuarios RDP). El server imprime a la IP pública de la oficina + el puerto externo, y el router de la oficina lo pasa a la impresora. Limita el forward a la IP del server.',
+  'cat.cloud':'Cloud', 'ev.cloud_created':'Cloud: agregado', 'ev.cloud_updated':'Cloud: modificado', 'ev.cloud_deleted':'Cloud: borrado',
+  'ad.cloud_created':'{u} agregó {o} en Cloud Server', 'ad.cloud_updated':'{u} cambió {f} en {o}', 'ad.cloud_deleted':'{u} borró {o} de Cloud Server',
+  'fl.datos':'Datos', 'fl.claves':'Usuarios y contraseñas', 'fl.clase':'Clase',
+});
 /* ---------- 📦 Modo del módem (Router / Passthrough / IP fija / Bridge) ---------- */
 const MDM_MODOS = ['router','passthrough','ipfija','bridge'];
 const MDM_ICON = { router: '🏠', passthrough: '➡️', ipfija: '📌', bridge: '🌉' };
@@ -1952,7 +2104,7 @@ function haceCuanto(d){
 function dondeEstoy(){
   if (ACT.open) return t('activity');
   if (!curCliente) return t('clients_title');
-  return curCliente + (vista === 'net' ? ' · Network' : vista === 'list' ? ' · ' + t('all_devices') : '');
+  return curCliente + (vista === 'net' ? ' · Network' : vista === 'cloud' ? ' · Cloud Server' : vista === 'list' ? ' · ' + t('all_devices') : '');
 }
 async function latido(forzar){
   if (!PERM.roles || !db?.rpc) return;
@@ -2153,6 +2305,8 @@ async function loadData(){
   sedes = sd.error ? [] : (sd.data || []); sedesOK = !sd.error;
   const vp = await db.from('vpns').select('*').order('nombre');
   vpns = vp.error ? [] : (vp.data || []);
+  const cr = PERM.roles ? await db.rpc('cloud_listar') : await db.from('cloud_items').select('*');
+  cloud = cr.error ? [] : (Array.isArray(cr.data) ? cr.data : []); cloudOK = !cr.error;
   render();
   if (!$('gModal').classList.contains('hidden')) renderGrupos();
 }
@@ -2736,6 +2890,428 @@ async function borrarVpn(id){
   if (error) return fail(error, t('del_fail'));
   closeModal(); toast(t('vpn_deleted')); await loadData();
 }
+/* ================== ☁️ CLOUD SERVER: bitácora de los servidores en el data center ================== */
+let cloud = [], cloudOK = true, cloudLog = [], cloudLogCli = null, cloudLogOK = true, cloudTab = 'ov', cloudQ = '', cloudEdit = null;
+const jObj = v => { if (typeof v === 'string'){ try{ v = JSON.parse(v); }catch(e){ v = {}; } } return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; };
+const jArr = v => { if (typeof v === 'string'){ try{ v = JSON.parse(v); }catch(e){ v = []; } } return Array.isArray(v) ? v : []; };
+const CL_ROLES = ['rds', 'ad', 'file', 'sql', 'app', 'backup', 'web', 'otro'];
+const CL_DC = ['Microsoft Azure', 'AWS', 'Google Cloud', 'OVHcloud', 'Vultr', 'DigitalOcean', 'IONOS', 'Hetzner', 'Rackspace', 'Liquid Web', 'Data center propio / colocation'];
+const CL_OS = ['Windows Server 2025', 'Windows Server 2022', 'Windows Server 2019', 'Windows Server 2016', 'Ubuntu Server', 'Debian', 'Rocky / Alma Linux', 'VMware ESXi', 'Proxmox', 'Otro'];
+const CL_PROTO = ['RAW 9100', 'LPR 515', 'IPP 631', 'Otro'];
+const CL_LOGCAT = ['cambio', 'mantenimiento', 'incidente', 'backup', 'actualizacion', 'llamada', 'nota'];
+const CL_LOGIC = { cambio: '✏️', mantenimiento: '🛠', incidente: '🚨', backup: '💾', actualizacion: '⬆️', llamada: '📞', nota: '📝' };
+// Campos de cada clase: [clave, tipo, opciones]
+const CL = {
+  server: { ic: '🗄️', claves: true, campos: [
+    ['nombre', 'txt'], ['roles', 'multi', CL_ROLES], ['dc', 'list', CL_DC], ['os', 'list', CL_OS], ['hostname', 'txt'], ['dominio', 'txt'],
+    ['ip_pub', 'ip'], ['ip_priv', 'ip'], ['rdp', 'txt'], ['url', 'txt'], ['cpu', 'txt'], ['ram', 'txt'], ['disco', 'txt'], ['cals', 'txt'],
+    ['backup', 'sel', ['si', 'no']], ['backup_prueba', 'date'], ['backup_det', 'area'], ['av', 'txt'], ['parches', 'txt'], ['monitoreo', 'txt'],
+    ['ssl_vence', 'date'], ['renueva', 'date'], ['notas', 'area']] },
+  printer: { ic: '🖨️', campos: [
+    ['nombre', 'txt'], ['sede_id', 'sede'], ['equipo', 'prn'], ['modelo', 'txt'], ['ip_local', 'ip'], ['puerto_local', 'txt'], ['protocolo', 'sel', CL_PROTO],
+    ['router_ip', 'wan'], ['puerto_ext', 'txt'], ['permitido', 'txt'], ['servidor', 'server'], ['cola', 'txt'], ['driver', 'txt'],
+    ['pcs', 'pcs'], ['notas', 'area']] },
+  software: { ic: '💿', claves: true, campos: [
+    ['nombre', 'txt'], ['version', 'txt'], ['fabricante', 'txt'], ['servidor', 'server'], ['licencias', 'txt'], ['cuenta', 'txt'], ['ruta', 'txt'],
+    ['soporte_nombre', 'txt'], ['soporte_tel', 'tel'], ['soporte_email', 'txt'], ['soporte_web', 'txt'], ['renueva', 'date'], ['notas', 'area']] },
+  firewall: { ic: '🧱', campos: [
+    ['nombre', 'txt'], ['lado', 'sel', ['server', 'cliente']], ['equipo_fw', 'txt'], ['direccion', 'sel', ['entrada', 'salida']], ['accion', 'sel', ['permitir', 'nat', 'bloquear']],
+    ['origen', 'txt'], ['destino', 'txt'], ['puerto', 'txt'], ['proto', 'sel', ['TCP', 'UDP', 'TCP+UDP', 'ICMP', 'Cualquiera']], ['notas', 'area']] },
+  usuario: { ic: '👤', claves: true, campos: [
+    ['nombre', 'txt'], ['login', 'txt'], ['pw', 'pw'], ['servidor', 'server'], ['cargo', 'txt'], ['telefono', 'tel'], ['ext', 'txt'], ['email', 'txt'],
+    ['estado', 'sel', ['activo', 'inactivo']], ['copiar', 'copiar'],
+    ['impresoras', 'cprn'], ['prn_def', 'cprndef'], ['software', 'csoft'], ['carpetas', 'cfold'], ['notas', 'area']] },
+  carpeta: { ic: '📁', campos: [
+    ['nombre', 'txt'], ['servidor', 'server'], ['share', 'txt'], ['unidad', 'txt'], ['notas', 'area']] },
+  contacto: { ic: '📇', campos: [
+    ['nombre', 'txt'], ['rol', 'sel', ['datacenter', 'isp', 'software', 'cliente', 'otro']], ['persona', 'txt'], ['telefono', 'tel'], ['email', 'txt'],
+    ['horario', 'txt'], ['cuenta', 'txt'], ['web', 'txt'], ['notas', 'area']] },
+};
+const CL_TABS = ['ov', 'server', 'usuario', 'printer', 'software', 'carpeta', 'firewall', 'contacto', 'log'];
+const CL_FULL = ['notas', 'backup_det', 'roles', 'pcs', 'impresoras', 'software', 'carpetas', 'copiar'];
+// Usuarios RDP que tienen una impresora o un software
+const usuariosCon = (campo, id) => cloudDe(curCliente, 'usuario').filter(u => jArr(cd(u)[campo]).includes(id)).sort(ordN);
+const chipsItems = ids => jArr(ids).map(i => cloudItem(i)).filter(Boolean).map(i => `<a class="cl-chip" onclick="event.stopPropagation();cloudVer('${i.id}')">${CL[i.clase].ic} ${esc(i.nombre)}</a>`).join('');
+const pwCelda = x => { const c = jArr(x.claves)[0];
+  if (x.claves === undefined && PERM.roles && !PERM.claves) return '🔒';
+  return c?.password ? `<span class="cl-pwc" onclick="event.stopPropagation()"><span class="mono cl-pw">••••••</span><button class="sm cl-cp" onclick="verClave('${x.id}',0,this)">👁</button><button class="sm cl-cp" onclick="copiarClave('${x.id}',0)">📋</button></span>` : ''; };
+const cloudDe = (cli, clase) => cloud.filter(x => mismoCliente(x.cliente, cli) && (!clase || x.clase === clase) &&
+  (!fSede || fSede === '-' || !x.sede_id || x.sede_id === fSede));
+const cd = x => jObj(x?.datos);
+const verCloud = cli => { const c = clienteObj(cli); return !!svcDe(c).cloud || cloud.some(x => mismoCliente(x.cliente, cli)); };
+const cloudItem = id => cloud.find(x => x.id === id);
+const ordN = (a, b) => (a.orden ?? 1e9) - (b.orden ?? 1e9) || String(a.nombre).localeCompare(String(b.nombre), 'es', { numeric: true });
+
+// IPs públicas de las oficinas del cliente, tomadas de Network (router/firewall WAN + bloques de IP fija de los módems)
+function wanOficinas(cli = curCliente){
+  const out = [], vistos = new Set(), eq = equiposDe(cli);
+  const sedeN = x => sedes.find(s => s.id === x.sede_id)?.nombre || '';
+  eq.filter(x => ['Router', 'Firewall'].includes(x.tipo)).forEach(x => wanDe(x).forEach(w => {
+    if (!w.ip || vistos.has(w.ip)) return; vistos.add(w.ip);
+    out.push({ ip: w.ip, sede: sedeN(x), equipo: x.nombre, puerto: w.puerto || 'WAN', isp: w.isp || '', modo: w.modo || '', id: x.id });
+  }));
+  eq.filter(x => x.tipo === 'Módem').forEach(m => {
+    const w = wanDe(m)[0] || {}, md = mdmDe(m);
+    if (w.ip && !vistos.has(w.ip)){ vistos.add(w.ip); out.push({ ip: w.ip, sede: sedeN(m), equipo: m.nombre, puerto: '📦', isp: w.isp || '', id: m.id }); }
+    if (md.fija && md.ini) out.push({ ip: md.ini + (md.fin ? ' – ' + md.fin : ''), bloque: true, sede: sedeN(m), equipo: m.nombre, puerto: '📌', isp: w.isp || '', gw: md.gw, id: m.id });
+  });
+  return out;
+}
+function cloudWanStrip(){
+  const ws = wanOficinas();
+  return `<div class="cad-box cl-wan"><b>🌍 ${t('cl_wan_t')} <small class="muted">${t('cl_wan_sub')}</small></b>${ws.length ? `<div class="cl-wan-l">${ws.map(w =>
+    `<span class="wl" onclick="verDetalle('${w.id}')"><span class="mono">${esc(w.ip)}</span> <span class="muted">${esc([w.sede, w.equipo, w.puerto, w.isp].filter(Boolean).join(' · '))}${w.gw ? ' · gw ' + esc(w.gw) : ''}</span>
+     <button type="button" class="sm cl-cp" onclick="event.stopPropagation();copyText('${jsq(w.bloque ? w.ip.split(' ')[0] : w.ip)}')" title="${esc(t('cl_copy'))}">📋</button></span>`).join('')}</div>`
+    : `<span class="muted">${t('cl_wan_none')}</span>`}</div>`;
+}
+
+/* ---------- Vista ---------- */
+async function cargarCloudLog(forzar){
+  if (!forzar && cloudLogCli === curCliente) return;
+  cloudLogCli = curCliente;
+  const r = await db.from('cloud_log').select('*').eq('cliente', curCliente).order('fecha', { ascending: false }).limit(500);
+  cloudLog = r.error ? [] : (r.data || []); cloudLogOK = !r.error;
+  if (vista === 'cloud') renderCloud();
+}
+function irCloud(tab){ cloudTab = tab || cloudTab || 'ov'; cloudQ = ''; irA('cloud'); }
+function renderCloud(){
+  const el = $('cloudView'); if (!el) return;
+  if (!cloudOK){ el.innerHTML = `<div class="panel act-empty">☁️ ${t('cl_missing')}</div>`; return; }
+  cargarCloudLog();
+  const n = k => k === 'log' ? cloudLog.length : k === 'ov' ? '' : cloudDe(curCliente, k).length;
+  const tabs = CL_TABS.map(k => `<span class="chip ${cloudTab === k ? 'on' : ''}" onclick="cloudTab='${k}';cloudQ='';renderCloud()">${k === 'ov' ? '📊' : k === 'log' ? '📒' : CL[k].ic} ${t('cl_tab.' + k)}${n(k) !== '' ? ` (${n(k)})` : ''}</span>`).join('');
+  const add = cloudTab !== 'ov' && cloudTab !== 'log' && PERM.editar ? `<button class="primary" onclick="cloudNuevo('${cloudTab}')">＋ ${t('cl_add.' + cloudTab)}</button>` : '';
+  const buscar = cloudTab !== 'ov' ? `<div class="search"><input id="clq" value="${esc(cloudQ)}" placeholder="${esc(t('cl_search'))}" oninput="cloudQ=this.value;renderCloudBody()"></div>` : '';
+  el.innerHTML = `<div class="panel net-panel">
+    <div class="net-head"><div><h3>☁️ Cloud Server</h3><small class="muted">${t('cl_sub')}</small></div><div class="row">${buscar}${add}</div></div>
+    <div class="stats" style="margin:12px 0">${tabs}</div><div id="cloudBody"></div></div>`;
+  renderCloudBody();
+}
+function renderCloudBody(){
+  const b = $('cloudBody'); if (!b) return;
+  const q = nrm(cloudQ), pasa = x => !q || nrm(JSON.stringify([x.nombre, cd(x)])).includes(q);
+  if (cloudTab === 'ov') b.innerHTML = cloudResumen();
+  else if (cloudTab === 'log') b.innerHTML = cloudBitacora(q);
+  else {
+    const lista = cloudDe(curCliente, cloudTab).filter(pasa).sort(ordN);
+    const sinScans = cloudTab === 'carpeta' && PERM.editar && !cloudDe(curCliente, 'carpeta').some(f => nrm(f.nombre) === 'scans');
+    b.innerHTML = (cloudTab === 'printer' ? cloudWanStrip() : '') + (sinScans ? `<div class="u-note" style="margin:0 0 10px">📁 ${t('cl_scans_falta')} <button class="sm" onclick="crearScans()">＋ ${t('cl_scans_crear')}</button></div>` : '')
+      + (lista.length ? cloudTabla(cloudTab, lista) : `<div class="act-empty">${CL[cloudTab].ic} ${t('cl_empty.' + cloudTab)}</div>`)
+      + (cloudTab === 'firewall' ? cloudReglasPrn() : '');
+  }
+}
+const clV = (x, k) => cd(x)[k] || '';
+const servNom = id => { const s = cloudItem(id); return s ? `<a class="dev-link" onclick="event.stopPropagation();cloudVer('${s.id}')">🗄️ ${esc(s.nombre)}</a>` : ''; };
+const sedeNom = id => { const s = sedes.find(x => x.id === id); return s ? `📍 ${esc(s.nombre)}` : ''; };
+const mono = v => v ? `<span class="mono">${esc(v)}</span>` : '';
+function fwdTexto(x){
+  const d = cd(x); if (!d.router_ip && !d.puerto_ext) return '';
+  return `<span class="mono">${esc(d.router_ip || '?')}:${esc(d.puerto_ext || '?')}</span> → <span class="mono">${esc(d.ip_local || '?')}:${esc(d.puerto_local || '9100')}</span>`;
+}
+function cloudTabla(clase, lista){
+  const C = {
+    server: [['name', x => `<b>${esc(x.nombre)}</b><div>${jArr(cd(x).roles).map(r => `<span class="cl-rol">${esc(t('cl_rol.' + r))}</span>`).join('')}</div>`],
+      ['cf.dc', x => esc(clV(x, 'dc'))], ['cf.ip_pub', x => mono(clV(x, 'ip_pub'))], ['cf.ip_priv', x => mono(clV(x, 'ip_priv'))], ['cf.rdp', x => mono(clV(x, 'rdp'))],
+      ['cf.os', x => esc(clV(x, 'os'))], ['cf.backup', x => clV(x, 'backup') ? (clV(x, 'backup') === 'si' ? '✅ ' + esc(t('cl_yn.si')) : '<span class="cad-warn">⚠ ' + esc(t('cl_yn.no')) + '</span>') : ''],
+      ['cf.ssl_vence', x => venceTxt(clV(x, 'ssl_vence'))]],
+    printer: [['name', x => `<b>${esc(x.nombre)}</b>${clV(x, 'modelo') ? `<small class="muted" style="display:block">${esc(clV(x, 'modelo'))}</small>` : ''}`],
+      ['sede', x => sedeNom(x.sede_id)], ['cl_local', x => clV(x, 'ip_local') ? mono(clV(x, 'ip_local') + ':' + (clV(x, 'puerto_local') || '9100')) : ''],
+      ['cl_fwd', x => fwdTexto(x) + (fwdTexto(x) && !clV(x, 'permitido') ? `<small class="cad-warn" style="display:block">⚠ ${esc(t('cl_open'))}</small>` : '')],
+      ['cf.servidor', x => servNom(clV(x, 'servidor'))], ['cf.cola', x => esc(clV(x, 'cola'))], ['cl_usuarios', x => { const u = usuariosCon('impresoras', x.id); return u.length ? '👤 ' + u.length : ''; }]],
+    software: [['name', x => `<b>${esc(x.nombre)}</b>${clV(x, 'version') ? ` <span class="muted">${esc(clV(x, 'version'))}</span>` : ''}`],
+      ['cf.fabricante', x => esc(clV(x, 'fabricante'))], ['cf.servidor', x => servNom(clV(x, 'servidor'))], ['cf.licencias', x => esc(clV(x, 'licencias'))],
+      ['cl_soporte', x => [clV(x, 'soporte_nombre') && esc(clV(x, 'soporte_nombre')), clV(x, 'soporte_tel') && '📞 ' + telLink(clV(x, 'soporte_tel'))].filter(Boolean).join(' · ')],
+      ['cl_usuarios', x => { const u = usuariosCon('software', x.id); return u.length ? '👤 ' + u.length : ''; }],
+      ['cl_claves', x => { const c = jArr(x.claves); return c.length ? '🔑 ' + c.length : (x.claves === undefined && PERM.roles && !PERM.claves ? '🔒' : ''); }]],
+    firewall: [['cf.lado', x => esc(t('cl_lado.' + clV(x, 'lado')) === 'cl_lado.' ? '' : t('cl_lado.' + clV(x, 'lado')))], ['cf.direccion', x => clV(x, 'direccion') ? esc(t('cl_dir.' + clV(x, 'direccion'))) : ''],
+      ['cf.origen', x => mono(clV(x, 'origen'))], ['cf.destino', x => mono(clV(x, 'destino'))], ['cf.puerto', x => mono([clV(x, 'puerto'), clV(x, 'proto')].filter(Boolean).join(' / '))],
+      ['cf.accion', x => clV(x, 'accion') ? `<span class="cl-acc ${esc(clV(x, 'accion'))}">${esc(t('cl_acc.' + clV(x, 'accion')))}</span>` : ''], ['cl_desc', x => esc(x.nombre)]],
+    usuario: [['cl_persona', x => `<b>${esc(x.nombre)}</b>${clV(x, 'cargo') ? `<small class="muted" style="display:block">${esc(clV(x, 'cargo'))}</small>` : ''}${clV(x, 'estado') === 'inactivo' ? ` <span class="cad-warn">${esc(t('cl_est.inactivo'))}</span>` : ''}`],
+      ['cf.login', x => clV(x, 'login') ? `${mono(clV(x, 'login'))} <button class="sm cl-cp" onclick="event.stopPropagation();copyText('${jsq(clV(x, 'login'))}')">📋</button>` : ''],
+      ['cf.pw', pwCelda], ['cf.servidor', x => servNom(clV(x, 'servidor'))],
+      ['cf.impresoras', x => jArr(cd(x).impresoras).map(i => cloudItem(i)).filter(Boolean).map(i => `<a class="cl-chip" onclick="event.stopPropagation();cloudVer('${i.id}')">${i.id === clV(x, 'prn_def') ? '⭐' : '🖨️'} ${esc(i.nombre)}</a>`).join('')],
+      ['cf.software', x => chipsItems(cd(x).software)], ['cf.carpetas', x => chipsItems(cd(x).carpetas)],
+      ['cf.telefono', x => [telLink(clV(x, 'telefono')), clV(x, 'ext') && 'ext ' + esc(clV(x, 'ext'))].filter(Boolean).join(' · ')]],
+    carpeta: [['name', x => `<b>📁 ${esc(x.nombre)}</b>`], ['cf.servidor', x => servNom(clV(x, 'servidor'))],
+      ['cf.share', x => clV(x, 'share') ? `${mono(clV(x, 'share'))} <button class="sm cl-cp" onclick="event.stopPropagation();copyText('${jsq(clV(x, 'share'))}')">📋</button>` : ''],
+      ['cf.unidad', x => mono(clV(x, 'unidad'))], ['cl_usuarios', x => { const u = usuariosCon('carpetas', x.id); return u.length ? '👤 ' + u.length : ''; }]],
+    contacto: [['cl_empresa', x => `<b>${esc(x.nombre)}</b>`], ['cf.rol', x => clV(x, 'rol') ? esc(t('cl_crol.' + clV(x, 'rol'))) : ''], ['cf.persona', x => esc(clV(x, 'persona'))],
+      ['cf.telefono', x => telLink(clV(x, 'telefono'))], ['cf.email', x => clV(x, 'email') ? `<a href="mailto:${esc(clV(x, 'email'))}" onclick="event.stopPropagation()">${esc(clV(x, 'email'))}</a>` : ''],
+      ['cf.horario', x => esc(clV(x, 'horario'))], ['cf.cuenta', x => mono(clV(x, 'cuenta'))]],
+  }[clase];
+  return `<div class="table-wrap net-wrap"><table class="net-tbl cl-tbl"><thead><tr>${C.map(([k]) => `<th>${esc(t(k))}</th>`).join('')}</tr></thead>
+    <tbody>${lista.map(x => `<tr class="r" onclick="cloudVer('${x.id}')">${C.map(([, f]) => `<td>${f(x)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+}
+function venceTxt(d){
+  if (!d) return '';
+  const dias = Math.round((new Date(d + 'T12:00:00') - new Date()) / 864e5);
+  const f = new Date(d + 'T12:00:00').toLocaleDateString(LANG === 'es' ? 'es-US' : 'en-US', { dateStyle: 'medium' });
+  return dias < 0 ? `<span class="cad-warn">⛔ ${esc(f)}</span>` : dias <= 30 ? `<span class="cad-warn">⚠ ${esc(f)} (${dias} d)</span>` : esc(f);
+}
+// Reglas de port forward que salen de las impresoras (para el router de la oficina)
+function cloudReglasPrn(){
+  const ps = cloudDe(curCliente, 'printer').filter(x => clV(x, 'puerto_ext') || clV(x, 'router_ip'));
+  if (!ps.length) return '';
+  return `<h4 class="cl-h4">🖨️ ${t('cl_fw_prn')} <small class="muted">${t('cl_fw_prn_sub')}</small></h4>
+    <div class="table-wrap net-wrap"><table class="net-tbl cl-tbl"><thead><tr><th>${t('sede')}</th><th>${t('cl_fw_wan')}</th><th>${t('cl_fw_to')}</th><th>${t('cf.permitido')}</th><th>${t('name')}</th></tr></thead><tbody>
+    ${ps.map(x => { const d = cd(x), s = cloudItem(d.servidor), perm = d.permitido || '';
+      return `<tr class="r" onclick="cloudVer('${x.id}')"><td>${sedeNom(x.sede_id)}</td><td>${mono((d.router_ip || '?') + ':' + (d.puerto_ext || '?'))} <span class="muted">TCP</span></td>
+        <td>${mono((d.ip_local || '?') + ':' + (d.puerto_local || '9100'))}</td>
+        <td>${perm ? mono(perm) : `<span class="cad-warn">⚠ ${esc(t('cl_open'))}${s && cd(s).ip_pub ? ` → ${esc(t('cl_suggest'))} <span class="mono">${esc(cd(s).ip_pub)}</span>` : ''}</span>`}</td><td>${esc(x.nombre)}</td></tr>`; }).join('')}
+    </tbody></table></div>`;
+}
+function cloudResumen(){
+  const U = cloudDe(curCliente, 'usuario'), S = cloudDe(curCliente, 'server').sort(ordN), P = cloudDe(curCliente, 'printer'), W = cloudDe(curCliente, 'software'), F = cloudDe(curCliente, 'firewall'), K = cloudDe(curCliente, 'contacto');
+  const tile = (k, ic, n) => `<div class="tile" onclick="cloudTab='${k}';renderCloud()"><span class="ic">${ic}</span><b>${n}</b><span>${t('cl_tab.' + k)}</span></div>`;
+  const al = [];
+  S.forEach(s => { const d = cd(s);
+    if (d.backup === 'no') al.push(`💾 ${esc(s.nombre)}: ${t('cl_al_nobk')}`);
+    if (d.backup === 'si' && (!d.backup_prueba || (new Date() - new Date(d.backup_prueba)) > 90 * 864e5)) al.push(`💾 ${esc(s.nombre)}: ${t('cl_al_bkprueba')}`);
+    [['ssl_vence', 'cl_al_ssl'], ['renueva', 'cl_al_renueva']].forEach(([k, m]) => { if (d[k] && (new Date(d[k] + 'T12:00:00') - new Date()) / 864e5 <= 30) al.push(`📅 ${esc(s.nombre)}: ${t(m)} ${venceTxt(d[k])}`); });
+  });
+  W.forEach(w => { const d = cd(w); if (d.renueva && (new Date(d.renueva + 'T12:00:00') - new Date()) / 864e5 <= 30) al.push(`💿 ${esc(w.nombre)}: ${t('cl_al_renueva')} ${venceTxt(d.renueva)}`); });
+  P.forEach(p => { if ((clV(p, 'puerto_ext') || clV(p, 'router_ip')) && !clV(p, 'permitido')) al.push(`🖨️ ${esc(p.nombre)}: ${t('cl_open')}`); });
+  const tarj = s => { const d = cd(s), sw = W.filter(w => clV(w, 'servidor') === s.id), ps = P.filter(p => clV(p, 'servidor') === s.id);
+    return `<div class="cl-card" onclick="cloudVer('${s.id}')"><div class="cl-card-h">🗄️ <b>${esc(s.nombre)}</b>${d.dc ? ` <span class="muted">· ${esc(d.dc)}</span>` : ''}</div>
+      <div>${jArr(d.roles).map(r => `<span class="cl-rol">${esc(t('cl_rol.' + r))}</span>`).join('')}</div>
+      <small>${[d.ip_pub && `🌍 ${mono(d.ip_pub)}`, d.ip_priv && `🏠 ${mono(d.ip_priv)}`, d.rdp && `🖥️ RDP ${mono(d.rdp)}`].filter(Boolean).join(' · ')}</small>
+      <small>${[d.os && esc(d.os), [d.cpu, d.ram, d.disco].filter(Boolean).map(esc).join(' / ')].filter(Boolean).join(' · ')}</small>
+      <small>${[d.backup ? (d.backup === 'si' ? '💾 ✅' : '<span class="cad-warn">💾 ⚠</span>') : '', U.filter(u => clV(u, 'servidor') === s.id).length ? `👤 ${U.filter(u => clV(u, 'servidor') === s.id).length}` : '', sw.length ? `💿 ${sw.length}` : '', ps.length ? `🖨️ ${ps.length}` : '', jArr(s.claves).length ? `🔑 ${jArr(s.claves).length}` : ''].filter(Boolean).join(' · ')}</small></div>`; };
+  const ult = cloudLog.slice(0, 5);
+  return `<div class="ov-tiles cl-tiles">${tile('server', '🗄️', S.length)}${tile('usuario', '👤', U.length)}${tile('printer', '🖨️', P.length)}${tile('software', '💿', W.length)}${tile('carpeta', '📁', cloudDe(curCliente, 'carpeta').length)}${tile('firewall', '🧱', F.length)}${tile('contacto', '📇', K.length)}${tile('log', '📒', cloudLog.length)}</div>
+    ${al.length ? `<div class="cl-alerts">${al.map(a => `<div>⚠ ${a}</div>`).join('')}</div>` : ''}
+    ${S.length ? `<div class="cl-cards">${S.map(tarj).join('')}</div>` : `<div class="act-empty">🗄️ ${t('cl_empty.server')}${PERM.editar ? `<br><button class="primary" style="margin-top:10px" onclick="cloudNuevo('server')">＋ ${t('cl_add.server')}</button>` : ''}</div>`}
+    ${cloudWanStrip()}
+    <h4 class="cl-h4">📒 ${t('cl_tab.log')} <a class="dev-link" onclick="cloudTab='log';renderCloud()">${t('cl_see_all')}</a></h4>
+    ${ult.length ? ult.map(logFila).join('') : `<div class="muted">${t('cl_log_empty')}</div>`}`;
+}
+function logFila(l){
+  const it = l.item_id && cloudItem(l.item_id);
+  const fd = new Date(l.fecha || l.created_at || Date.now()), f = (isNaN(fd) ? new Date() : fd).toLocaleString(LANG === 'es' ? 'es-US' : 'en-US', { dateStyle: 'medium', timeStyle: 'short' });
+  return `<div class="cl-log"><div class="cl-log-h"><span class="cl-logcat ${esc(l.categoria || '')}">${CL_LOGIC[l.categoria] || '📝'} ${esc(t('cl_lc.' + (l.categoria || 'nota')))}</span>
+    <b>${esc(l.usuario || '')}</b> <span class="muted">${esc(f)}</span>${it ? ` · ${CL[it.clase]?.ic || ''} <a class="dev-link" onclick="cloudVer('${it.id}')">${esc(it.nombre)}</a>` : ''}
+    ${PERM.borrar ? `<button class="sm cl-del" onclick="borrarLog('${l.id}')" title="${esc(t('t_delete'))}">✕</button>` : ''}</div><div class="cl-log-t">${esc(l.texto).replace(/\n/g, '<br>')}</div></div>`;
+}
+function cloudBitacora(q){
+  const opts = cloudDe(curCliente).filter(x => ['server', 'usuario', 'software', 'printer', 'carpeta'].includes(x.clase)).sort(ordN);
+  const lista = cloudLog.filter(l => !q || nrm([l.texto, l.usuario, t('cl_lc.' + l.categoria), cloudItem(l.item_id)?.nombre].join(' ')).includes(q));
+  return (!cloudLogOK ? `<div class="u-note">${t('cl_missing')}</div>` : '') + (PERM.editar ? `<div class="cl-logform">
+      <div class="mdm-grid"><label><span>${t('cl_lcat')}</span><select id="lg_cat">${CL_LOGCAT.map(c => `<option value="${c}">${CL_LOGIC[c]} ${esc(t('cl_lc.' + c))}</option>`).join('')}</select></label>
+        <label><span>${t('cl_lsobre')}</span><select id="lg_item"><option value="">—</option>${opts.map(x => `<option value="${x.id}">${CL[x.clase].ic} ${esc(x.nombre)}</option>`).join('')}</select></label>
+        <label><span>${t('cl_lfecha')}</span><input id="lg_fecha" type="datetime-local"></label></div>
+      <textarea id="lg_txt" rows="3" placeholder="${esc(t('cl_ltxt_ph'))}"></textarea>
+      <div class="row" style="margin-top:8px"><button class="primary" onclick="guardarLog()">＋ ${t('cl_ladd')}</button><small class="muted">${t('cl_lhelp')}</small></div></div>` : '')
+    + (lista.length ? lista.map(logFila).join('') : `<div class="act-empty">📒 ${t('cl_log_empty')}</div>`);
+}
+async function guardarLog(){
+  if (!puede('editar')) return;
+  const texto = $('lg_txt').value.trim(); if (!texto) return $('lg_txt').focus();
+  const f = $('lg_fecha').value;
+  const row = { cliente: curCliente, categoria: $('lg_cat').value, item_id: $('lg_item').value || null, texto, usuario: $('whoami')?.textContent || null };
+  row.fecha = f ? new Date(f).toISOString() : new Date().toISOString();
+  const r = await db.from('cloud_log').insert(row);
+  if (r.error) return fail(r.error, t('save_fail'));
+  toast(t('cl_log_saved')); await cargarCloudLog(true);
+}
+async function borrarLog(id){
+  if (!puede('borrar')) return;
+  if (!confirm(t('cl_log_del'))) return;
+  const r = await db.from('cloud_log').delete().eq('id', id);
+  if (r.error) return fail(r.error, t('del_fail'));
+  await cargarCloudLog(true);
+}
+
+/* ---------- Ver una ficha ---------- */
+function cloudVer(id){
+  const x = cloudItem(id); if (!x) return;
+  const d = cd(x), def = CL[x.clase];
+  const fila = (k, v) => v ? `<div class="k">${esc(t(k.startsWith('cl_') ? k : 'cf.' + k))}</div><div class="v">${v}</div>` : '';
+  const val = ([k, tp]) => { const v = k === 'sede_id' ? x.sede_id : d[k];
+    if (v == null || v === '' || (Array.isArray(v) && !v.length)) return '';
+    if (tp === 'multi') return jArr(v).map(r => `<span class="cl-rol">${esc(t('cl_rol.' + r))}</span>`).join('');
+    if (tp === 'cprn' || tp === 'csoft' || tp === 'cfold') return chipsItems(v);
+    if (tp === 'cprndef') return chipsItems([v]);
+    if (tp === 'pw' || tp === 'copiar') return '';
+    if (k === 'estado') return esc(t('cl_est.' + v));
+    if (k === 'login') return `${mono(v)} <button class="sm cl-cp" onclick="copyText('${jsq(v)}')">📋</button>`;
+    if (tp === 'server') return servNom(v);
+    if (tp === 'sede') return sedeNom(v);
+    if (tp === 'prn'){ const e = items.find(i => i.id === v); return e ? `<a class="dev-link" onclick="closeModal();verDetalle('${e.id}')">🖨️ ${esc(e.nombre)}</a>` : ''; }
+    if (tp === 'pcs') return jArr(v).map(pid => { const e = items.find(i => i.id === pid); return e ? `<a class="dev-link" onclick="closeModal();verDetalle('${e.id}')">${TIPO_ICON[e.tipo] || '🖥️'} ${esc(e.nombre)}</a>` : ''; }).filter(Boolean).join(', ');
+    if (tp === 'tel') return telLink(v);
+    if (tp === 'date') return venceTxt(v);
+    if (tp === 'sel') return esc(({ backup: 'cl_yn.', lado: 'cl_lado.', direccion: 'cl_dir.', accion: 'cl_acc.', rol: 'cl_crol.' }[k] ? t({ backup: 'cl_yn.', lado: 'cl_lado.', direccion: 'cl_dir.', accion: 'cl_acc.', rol: 'cl_crol.' }[k] + v) : v));
+    if (tp === 'ip' || ['rdp', 'puerto_local', 'puerto_ext', 'permitido', 'origen', 'destino', 'puerto', 'cuenta'].includes(k)) return `${mono(v)} <button class="sm cl-cp" onclick="copyText('${jsq(v)}')">📋</button>`;
+    if (/^https?:\/\//i.test(v) || k === 'url' || k === 'web' || k === 'soporte_web') return `<a href="${esc(/^https?:/i.test(v) ? v : 'https://' + v)}" target="_blank" rel="noopener">${esc(v)}</a>`;
+    if (k === 'email' || k === 'soporte_email') return `<a href="mailto:${esc(v)}">${esc(v)}</a>`;
+    return esc(v).replace(/\n/g, '<br>'); };
+  const claves = jArr(x.claves);
+  const sinPermiso = def.claves && x.claves === undefined;
+  const logs = cloudLog.filter(l => l.item_id === x.id).slice(0, 10);
+  $('modalTitle').textContent = `${def.ic} ${x.nombre}`;
+  $('modal').querySelector('.modal-card').classList.add('wide');
+  $('modalBody').innerHTML = `<div class="kv cl-kv">${def.campos.filter(([k]) => k !== 'nombre').map(f => fila(f[0], val(f))).join('')}
+      ${x.clase === 'printer' && fwdTexto(x) ? fila('cl_fwd', fwdTexto(x)) : ''}
+      ${['printer', 'software', 'carpeta'].includes(x.clase) ? fila('cl_usuarios', usuariosCon({ printer: 'impresoras', software: 'software', carpeta: 'carpetas' }[x.clase], x.id).map(u => `<a class="cl-chip" onclick="cloudVer('${u.id}')">👤 ${esc(u.nombre)}${clV(u, 'login') ? ` <span class="muted mono">${esc(clV(u, 'login'))}</span>` : ''}</a>`).join('')) : ''}</div>
+    ${def.claves ? `<h4 class="cl-h4">🔑 ${t('cl_claves')}</h4>${sinPermiso ? `<div class="muted">🔒 ${t('cl_claves_nop')}</div>` : claves.length ? `<div class="cl-claves">${claves.map((c, i) =>
+      `<div class="cl-clave"><span>${esc(c.nota || '')}</span><span class="mono">${esc(c.usuario || '')}</span>
+        <span class="mono cl-pw" data-i="${i}">••••••••</span>
+        <button class="sm" onclick="verClave('${x.id}',${i},this)">👁</button><button class="sm" onclick="copiarClave('${x.id}',${i})">📋</button></div>`).join('')}</div>` : `<div class="muted">${t('cl_claves_none')}</div>`}` : ''}
+    ${logs.length ? `<h4 class="cl-h4">📒 ${t('cl_tab.log')}</h4>${logs.map(logFila).join('')}` : ''}
+    <div class="row" style="margin-top:14px">${PERM.editar ? `<button class="primary" onclick="cloudEditar('${x.id}')">✎ ${t('edit')}</button>` : ''}<button onclick="closeModal()">${t('cl_close')}</button></div>`;
+  $('modal').classList.remove('hidden');
+}
+function verClave(id, i, btn){
+  const x = cloudItem(id), c = jArr(x?.claves)[i]; if (!c) return;
+  const el = btn.parentElement.querySelector('.cl-pw');
+  if (el.dataset.on){ el.textContent = '••••••••'; delete el.dataset.on; return; }
+  el.textContent = c.password || '—'; el.dataset.on = 1;
+  logAct('password_viewed', { id: x.id, cliente: x.cliente, nombre: x.nombre + (c.nota ? ' · ' + c.nota : ''), tipo: x.clase });
+}
+function copiarClave(id, i){
+  const x = cloudItem(id), c = jArr(x?.claves)[i]; if (!c) return;
+  copyText(c.password || ''); logAct('password_copied', { id: x.id, cliente: x.cliente, nombre: x.nombre + (c.nota ? ' · ' + c.nota : ''), tipo: x.clase });
+}
+
+/* ---------- Formulario ---------- */
+function cloudNuevo(clase){ if (!puede('editar')) return; if (!cloudOK) return alert(t('cl_missing'));
+  cloudEdit = { clase, cliente: curCliente, sede_id: fSede && fSede !== '-' ? fSede : null, datos: clase === 'printer' ? { puerto_local: '9100', protocolo: 'RAW 9100' } : clase === 'usuario' ? { estado: 'activo', servidor: cloudDe(curCliente, 'server').length === 1 ? cloudDe(curCliente, 'server')[0].id : undefined,
+      carpetas: cloudDe(curCliente, 'carpeta').filter(f => nrm(f.nombre) === 'scans').map(f => f.id) } : clase === 'carpeta' ? { servidor: cloudDe(curCliente, 'server').length === 1 ? cloudDe(curCliente, 'server')[0].id : undefined } : {}, claves: [] }; cloudForm(); }
+function cloudEditar(id){ if (!puede('editar')) return; const x = cloudItem(id); if (!x) return; cloudEdit = JSON.parse(JSON.stringify(x)); cloudForm(); }
+function cloudForm(){
+  const x = cloudEdit, d = cd(x), def = CL[x.clase], cli = x.cliente;
+  const servers = cloudDe(cli, 'server').sort(ordN), wans = wanOficinas(cli);
+  const prns = equiposDe(cli).filter(e => e.tipo === 'Impresora'), pcs = equiposDe(cli).filter(e => PC_TIPOS.includes(e.tipo)).sort(ordN);
+  const op = (vals, cur, lbl) => '<option value="">—</option>' + vals.map(v => `<option value="${esc(v)}" ${v === cur ? 'selected' : ''}>${esc(lbl ? lbl(v) : v)}</option>`).join('');
+  const lblSel = { backup: 'cl_yn.', lado: 'cl_lado.', direccion: 'cl_dir.', accion: 'cl_acc.', rol: 'cl_crol.', estado: 'cl_est.' };
+  const campo = ([k, tp, ops]) => {
+    const v = k === 'sede_id' ? (x.sede_id || '') : (d[k] ?? ''), id = 'cf_' + k, L = `<span>${esc(t('cf.' + k))}</span>`;
+    const full = CL_FULL.includes(k) ? ' class="full"' : '';
+    if (k === 'nombre') return `<label class="full"><span>${esc(t('cf.nombre.' + x.clase))}</span><input id="cf_nombre" value="${esc(x.nombre || '')}" autocomplete="off"></label>`;
+    if (tp === 'area') return `<label class="full">${L}<textarea id="${id}" rows="${k === 'notas' ? 3 : 2}" placeholder="${esc(t('cf_ph.' + k) === 'cf_ph.' + k ? '' : t('cf_ph.' + k))}">${esc(v)}</textarea></label>`;
+    if (tp === 'sel') return `<label>${L}<select id="${id}">${op(ops, v, lblSel[k] ? o => t(lblSel[k] + o) : null)}</select></label>`;
+    if (tp === 'list') return `<label>${L}<input id="${id}" list="${id}_l" value="${esc(v)}" autocomplete="off"><datalist id="${id}_l">${ops.map(o => `<option value="${esc(o)}">`).join('')}</datalist></label>`;
+    if (tp === 'multi') return `<div class="full cl-multi">${L}<div>${ops.map(o => `<label class="mdm-chk"><input type="checkbox" data-multi="${k}" value="${o}" ${jArr(v).includes(o) ? 'checked' : ''}> ${esc(t('cl_rol.' + o))}</label>`).join('')}</div></div>`;
+    if (tp === 'date') return `<label>${L}<input id="${id}" type="date" value="${esc(v)}"></label>`;
+    if (tp === 'sede') return `<label>${L}<select id="${id}">${'<option value="">—</option>' + sedesDe(cli).map(s => `<option value="${s.id}" ${s.id === v ? 'selected' : ''}>📍 ${esc(s.nombre)}</option>`).join('')}</select></label>`;
+    if (tp === 'server') return `<label>${L}<select id="${id}">${'<option value="">—</option>' + servers.map(s => `<option value="${s.id}" ${s.id === v ? 'selected' : ''}>🗄️ ${esc(s.nombre)}</option>`).join('')}</select></label>`;
+    if (tp === 'prn') return `<label>${L}<select id="${id}" onchange="cloudPrnElegida(this.value)">${'<option value="">—</option>' + prns.map(e => `<option value="${e.id}" ${e.id === v ? 'selected' : ''}>🖨️ ${esc(e.nombre)}${e.ip ? ' · ' + esc(e.ip) : ''}</option>`).join('')}</select></label>`;
+    if (tp === 'wan') return `<label>${L}<input id="${id}" class="monoin" list="${id}_l" value="${esc(v)}" autocomplete="off" placeholder="${esc(t('cl_wan_ph'))}"><datalist id="${id}_l">${wans.filter(w => !w.bloque).map(w => `<option value="${esc(w.ip)}">${esc([w.sede, w.equipo, w.puerto, w.isp].filter(Boolean).join(' · '))}</option>`).join('')}</datalist></label>`;
+    if (tp === 'pw'){ const pv = jArr(x.claves)[0]?.password || '';
+      if (!(PERM.claves || !PERM.roles)) return `<label>${L}<input disabled value="🔒 ${esc(t('cl_claves_nop'))}"></label>`;
+      return `<label>${L}<span class="pw-wrap cl-pwin"><input id="cf_pw" class="monoin" type="password" value="${esc(pv)}" autocomplete="new-password"><button type="button" class="sm" onclick="const i=$('cf_pw');i.type=i.type==='password'?'text':'password'">👁</button></span></label>`; }
+    if (tp === 'copiar'){ const us = cloudDe(cli, 'usuario').filter(u => u.id !== x.id).sort(ordN);
+      return us.length ? `<label class="full"><span>${esc(t('cf.copiar'))}</span><select id="cf_copiar" onchange="copiarAccesos(this.value)"><option value="">—</option>${us.map(u => `<option value="${u.id}">👤 ${esc(u.nombre)}</option>`).join('')}</select></label>` : ''; }
+    if (tp === 'cprn' || tp === 'csoft' || tp === 'cfold'){ const cl = { cprn: 'printer', csoft: 'software', cfold: 'carpeta' }[tp], lista = cloudDe(cli, cl).sort(ordN);
+      const sub = e => { const d = cd(e), sd = sedes.find(z => z.id === e.sede_id)?.nombre;
+        return (cl === 'printer' ? [sd && '📍 ' + sd, d.modelo, d.cola && nrm(d.cola) !== nrm(e.nombre) && '“' + d.cola + '”']
+          : cl === 'software' ? [d.version, d.fabricante] : [d.unidad, d.share]).filter(Boolean).join(' · '); };
+      const sel = lista.filter(e => jArr(v).includes(e.id)).length;
+      return `<div class="full cl-multi" data-grp="${k}"><div class="cl-opts-h">${L}<small class="muted cl-cnt">${lista.length ? t('cl_sel_n', { n: sel, t: lista.length }) : ''}</small>
+          ${lista.length > 1 ? `<a class="dev-link" onclick="clMarcar('${k}',true)">${t('cl_all')}</a><a class="dev-link" onclick="clMarcar('${k}',false)">${t('cl_none_sel')}</a>` : ''}
+          ${lista.length > 8 ? `<input class="cl-opts-q" placeholder="${esc(t('cl_search'))}" oninput="clFiltrar('${k}',this.value)">` : ''}</div>
+        ${lista.length ? `<div class="cl-opts">${lista.map(e => `<label class="cl-opt" data-q="${esc(nrm(e.nombre + ' ' + sub(e)))}"><input type="checkbox" data-multi="${k}" value="${e.id}" ${jArr(v).includes(e.id) ? 'checked' : ''} onchange="clContar('${k}')${tp === 'cprn' ? ';prnDefOpts()' : ''}">
+            <span class="cl-opt-ic">${CL[cl].ic}</span><span class="cl-opt-t"><b>${esc(e.nombre)}</b>${sub(e) ? `<small>${esc(sub(e))}</small>` : ''}</span><i class="cl-opt-ok">✓</i></label>`).join('')}</div>`
+          : `<div class="cl-pcs"><span class="muted">${esc(t('cl_none.' + cl))}</span></div>`}</div>`; }
+    if (tp === 'cprndef') return `<label>${L}<select id="cf_prn_def" data-v="${esc(v)}"></select></label>`;
+    if (tp === 'pcs') return `<div class="full cl-multi">${L}<div class="cl-pcs">${pcs.length ? pcs.map(e => `<label class="mdm-chk"><input type="checkbox" data-multi="pcs" value="${e.id}" ${jArr(v).includes(e.id) ? 'checked' : ''}> ${TIPO_ICON[e.tipo] || '🖥️'} ${esc(e.nombre)}${e.ip ? ` <span class="muted mono">${esc(e.ip)}</span>` : ''}</label>`).join('') : `<span class="muted">${t('cl_no_pcs')}</span>`}</div></div>`;
+    const ph = t('cf_ph.' + k) === 'cf_ph.' + k ? '' : t('cf_ph.' + k);
+    return `<label${full}>${L}<input id="${id}" ${tp === 'ip' || ['rdp', 'puerto_local', 'puerto_ext', 'permitido', 'origen', 'destino', 'puerto', 'cuenta'].includes(k) ? 'class="monoin"' : ''} ${tp === 'tel' ? 'type="tel"' : ''} value="${esc(v)}" placeholder="${esc(ph)}" autocomplete="off"></label>`;
+  };
+  const claves = jArr(x.claves), puedeClaves = def.claves && x.clase !== 'usuario' && (PERM.claves || !PERM.roles);
+  $('modalTitle').textContent = `${def.ic} ${t(x.id ? 'edit' : 'cl_add.' + x.clase)}${x.id ? ' · ' + x.nombre : ''}`;
+  $('modal').querySelector('.modal-card').classList.add('wide');
+  $('modalBody').innerHTML = `${x.clase === 'printer' ? `<div class="u-note" style="margin:0 0 10px">${t('cl_prn_help')}</div>` : ''}
+    <div class="mdm-grid cl-form">${def.campos.map(campo).join('')}</div>
+    ${puedeClaves ? `<div class="wan-box"><div class="users-head"><span>🔑 ${t('cl_claves')} <small class="muted">${t('cl_claves_help.' + x.clase)}</small></span><button type="button" class="sm" onclick="claveFila()">＋ ${t('cl_clave_add')}</button></div><div id="clvList"></div></div>` : ''}
+    <div class="row" style="margin-top:14px"><button class="primary" onclick="guardarCloud()">${t('u_save')}</button><button onclick="closeModal()">${t('cancel')}</button>
+      <span style="flex:1"></span>${x.id && PERM.borrar ? `<button class="danger" onclick="borrarCloud('${x.id}')">🗑 ${t('t_delete')}</button>` : ''}</div>`;
+  $('modal').classList.remove('hidden');
+  if (puedeClaves) (claves.length ? claves : [{}]).forEach(claveFila);
+  if (x.clase === 'usuario') prnDefOpts();
+  if (x.clase === 'printer'){ const pe = $('cf_permitido'), sv = $('cf_servidor');
+    const sugerir = () => { const s = cloudItem(sv.value); pe.placeholder = s && cd(s).ip_pub ? t('cl_suggest') + ' ' + cd(s).ip_pub : t('cf_ph.permitido'); };
+    sv.addEventListener('change', sugerir); sugerir(); }
+  setTimeout(() => $('cf_nombre')?.focus(), 50);
+}
+function clContar(k){
+  const g = document.querySelector(`[data-grp="${k}"]`); if (!g) return;
+  const all = g.querySelectorAll(`[data-multi="${k}"]`), on = g.querySelectorAll(`[data-multi="${k}"]:checked`);
+  const el = g.querySelector('.cl-cnt'); if (el) el.textContent = t('cl_sel_n', { n: on.length, t: all.length });
+}
+function clMarcar(k, v){
+  document.querySelectorAll(`[data-grp="${k}"] .cl-opt:not(.hidden) [data-multi="${k}"]`).forEach(c => c.checked = v);
+  clContar(k); if (k === 'impresoras') prnDefOpts();
+}
+function clFiltrar(k, q){ q = nrm(q); document.querySelectorAll(`[data-grp="${k}"] .cl-opt`).forEach(o => o.classList.toggle('hidden', !!q && !o.dataset.q.includes(q))); }
+function prnDefOpts(){
+  const sel = $('cf_prn_def'); if (!sel) return;
+  const cur = sel.value || sel.dataset.v || '', ids = [...document.querySelectorAll('[data-multi="impresoras"]:checked')].map(c => c.value);
+  sel.innerHTML = '<option value="">—</option>' + ids.map(i => cloudItem(i)).filter(Boolean).map(i => `<option value="${i.id}">⭐ ${esc(i.nombre)}</option>`).join('');
+  sel.value = ids.includes(cur) ? cur : (ids.length === 1 ? ids[0] : '');
+}
+function copiarAccesos(id){
+  const u = cloudItem(id); if (!u) return; const d = cd(u);
+  ['impresoras', 'software', 'carpetas'].forEach(k => { document.querySelectorAll(`[data-multi="${k}"]`).forEach(c => { c.checked = jArr(d[k]).includes(c.value); }); clContar(k); });
+  if (!$('cf_servidor').value && d.servidor) $('cf_servidor').value = d.servidor;
+  $('cf_prn_def').dataset.v = d.prn_def || ''; $('cf_prn_def').value = ''; prnDefOpts();
+  toast(t('cl_copiado', { n: u.nombre }));
+}
+function claveFila(c = {}){
+  const r = document.createElement('div'); r.className = 'cl-clv-row';
+  r.innerHTML = `<input class="c-nota" value="${esc(c.nota || '')}" placeholder="${esc(t('cl_clave_nota'))}" autocomplete="off">
+    <input class="c-user monoin" value="${esc(c.usuario || '')}" placeholder="${esc(t('username'))}" autocomplete="off">
+    <span class="pw-wrap"><input class="c-pw monoin secret-in" type="password" value="${esc(c.password || '')}" placeholder="${esc(t('password'))}" autocomplete="new-password">
+      <button type="button" class="sm" onclick="const i=this.previousElementSibling;i.type=i.type==='password'?'text':'password'">👁</button></span>
+    <button type="button" class="sm danger" onclick="this.parentElement.remove()">✕</button>`;
+  $('clvList').appendChild(r);
+}
+function cloudPrnElegida(id){
+  const e = items.find(i => i.id === id); if (!e) return;
+  const put = (k, v) => { const el = $('cf_' + k); if (el && !el.value && v) el.value = v; };
+  put('nombre', e.nombre); put('modelo', e.modelo || e.marca || ''); put('ip_local', e.ip);
+  if (e.sede_id && $('cf_sede_id') && !$('cf_sede_id').value) $('cf_sede_id').value = e.sede_id;
+  const ids = jArr(e.pc_ids); document.querySelectorAll('[data-multi="pcs"]').forEach(c => { if (ids.includes(c.value)) c.checked = true; });
+}
+async function guardarCloud(){
+  const x = cloudEdit, def = CL[x.clase], nombre = $('cf_nombre').value.trim();
+  if (!nombre) return $('cf_nombre').focus();
+  const datos = { ...cd(x) };
+  def.campos.forEach(([k, tp]) => {
+    if (k === 'nombre' || k === 'sede_id') return;
+    if (tp === 'pw' || tp === 'copiar') return;
+    if (['multi', 'pcs', 'cprn', 'csoft', 'cfold'].includes(tp)) datos[k] = [...document.querySelectorAll(`[data-multi="${k}"]:checked`)].map(c => c.value);
+    else { const el = $('cf_' + k); if (el) datos[k] = el.value.trim(); }
+    if (datos[k] === '' || (Array.isArray(datos[k]) && !datos[k].length)) delete datos[k];
+  });
+  if (x.clase === 'usuario' && datos.login && cloudDe(x.cliente, 'usuario').some(u => u.id !== x.id && nrm(cd(u).login) === nrm(datos.login) && cd(u).servidor === datos.servidor)
+      && !confirm(t('cl_login_dup', { u: datos.login }))) return;
+  const row = { cliente: x.cliente, clase: x.clase, nombre, datos, sede_id: $('cf_sede_id') ? ($('cf_sede_id').value || null) : (x.sede_id || null) };
+  if (x.clase === 'usuario' && $('cf_pw')){ const pw = $('cf_pw').value; row.claves = pw ? [{ nota: 'RDP', usuario: datos.login || '', password: pw }] : []; }
+  if ($('clvList')) row.claves = [...document.querySelectorAll('#clvList .cl-clv-row')].map(r => ({ nota: r.querySelector('.c-nota').value.trim(), usuario: r.querySelector('.c-user').value.trim(), password: r.querySelector('.c-pw').value }))
+    .filter(c => c.usuario || c.password || c.nota).map(c => { Object.keys(c).forEach(k => { if (!c[k]) delete c[k]; }); return c; });
+  const r = x.id ? await db.from('cloud_items').update(row).eq('id', x.id) : await db.from('cloud_items').insert(row).select('id').single();
+  if (r.error) return fail(r.error, /cloud_items/.test(r.error.message || '') ? t('cl_missing') : t('save_fail'));
+  // Toda instalación lleva la carpeta Scans: se crea sola con el primer servidor
+  if (!x.id && x.clase === 'server' && r.data?.id && !cloudDe(x.cliente, 'carpeta').some(f => nrm(f.nombre) === 'scans')){
+    await db.from('cloud_items').insert({ cliente: x.cliente, clase: 'carpeta', nombre: 'Scans', datos: { servidor: r.data.id, share: '\\\\' + (datos.hostname || nombre) + '\\Scans' } });
+  }
+  closeModal(); toast(t('saved')); await loadData();
+}
+async function crearScans(){
+  if (!puede('editar')) return;
+  const sv = cloudDe(curCliente, 'server').sort(ordN)[0];
+  const r = await db.from('cloud_items').insert({ cliente: curCliente, clase: 'carpeta', nombre: 'Scans', datos: sv ? { servidor: sv.id, share: '\\\\' + (cd(sv).hostname || sv.nombre) + '\\Scans' } : {} });
+  if (r.error) return fail(r.error, t('save_fail'));
+  toast(t('saved')); await loadData();
+}
+async function borrarCloud(id){
+  if (!puede('borrar')) return;
+  const x = cloudItem(id); if (!confirm(t('cl_confirm_del', { n: x?.nombre || '' }))) return;
+  const r = await db.from('cloud_items').delete().eq('id', id);
+  if (r.error) return fail(r.error, t('del_fail'));
+  closeModal(); toast(t('cl_deleted')); await loadData();
+}
 /* ---------- Inventario de Network ---------- */
 let netTab = '';
 function renderNet(base){
@@ -3063,8 +3639,8 @@ function renderSvcBar(){
   const c = clienteObj(curCliente) || { nombre: curCliente }, v = svcDe(c), act = svcActivos(c), d = equiposDe(curCliente);
   if (!act.length){ $('clSvc').innerHTML = `<span class="svc-pill add" onclick="abrirClienteModal(curCliente,true)">＋ ${t('svc_add')}</span>`; return; }
   const sin = d.filter(x => !cubierto(c, x)).length;
-  $('clSvc').innerHTML = act.map(S => { const n = d.filter(x => svcCubre(S, v[S.k], x)).length, extra = S.k === 'it' ? svcSinIT(v.it) : (S.k === 'tel' && telRed(c)) ? t('svc_tel_red_short') : '';
-      return `<span class="svc-pill" style="--sc:${S.color}" ${PERM.admin ? `onclick="abrirClienteModal(curCliente,true)"` : 'style="cursor:default"'} title="${esc(t('svc_n', { n }) + (v[S.k].nota ? ' · ' + v[S.k].nota : ''))}">${svcIcon(S.k)}${esc(t('svc.' + S.k))}${extra ? ` <small>${esc(extra)}</small>` : ''} <b>${n}</b></span>`; }).join('')
+  $('clSvc').innerHTML = act.map(S => { const n = d.filter(x => svcCubre(S, v[S.k], x)).length + (S.k === 'cloud' ? cloudDe(curCliente).length : 0), extra = S.k === 'it' ? svcSinIT(v.it) : (S.k === 'tel' && telRed(c)) ? t('svc_tel_red_short') : '';
+      return `<span class="svc-pill" style="--sc:${S.color}" ${S.k === 'cloud' ? `onclick="irCloud('ov')"` : PERM.admin ? `onclick="abrirClienteModal(curCliente,true)"` : 'style="cursor:default"'} title="${esc(t('svc_n', { n }) + (v[S.k].nota ? ' · ' + v[S.k].nota : ''))}">${svcIcon(S.k)}${esc(t('svc.' + S.k))}${extra ? ` <small>${esc(extra)}</small>` : ''} <b>${n}</b></span>`; }).join('')
     + (sin ? `<span class="svc-pill warn" onclick="verSinServicio()" title="${esc(t('svc_uncovered_t'))}">⚠️ ${esc(t('svc_uncovered', { n: sin }))}</span>` : '');
 }
 function verSinServicio(){
@@ -3525,6 +4101,7 @@ function renderDash(){
   $('dashSide').innerHTML =
     it("irA('ov')", `📊 ${t('ov')}`, vista === 'ov') +
     ((!permiteNet(curCliente) && !base.some(x => NET_TIPOS.includes(x.tipo))) ? '' : it("irA('net')", `🌐 ${t('net_inv')}<span class="n">${base.filter(x => NET_TIPOS.includes(x.tipo)).length}</span>`, vista === 'net')) +
+    (verCloud(curCliente) ? it("irCloud()", `☁️ Cloud Server<span class="n">${cloudDe(curCliente).length}</span>`, vista === 'cloud') : '') +
     it("irA('list')", `🗂 ${t('all_devices')}<span class="n">${base.length}</span>`, listaTodo) +
     (Object.keys(cuenta).length ? `<div class="ds-sec">${t('d_types')}</div>` + ORDEN_TIPOS.filter(k => cuenta[k]).map(k =>
       it(`irA('list',{tipo:'${jsq(k)}'})`, `${TIPO_ICON[k] || '◆'} ${esc(tTipo(k))}<span class="n">${cuenta[k]}</span>`, vista === 'list' && fTipo === k)).join('') : '') +
@@ -3542,6 +4119,8 @@ function renderDash(){
   $('ovView').classList.toggle('hidden', vista !== 'ov');
   $('netView').classList.toggle('hidden', vista !== 'net');
   if (vista === 'net') renderNet(base);
+  $('cloudView').classList.toggle('hidden', vista !== 'cloud');
+  if (vista === 'cloud') renderCloud();
   $('listView').classList.toggle('hidden', vista !== 'list');
   // Subtítulo de la lista según el filtro
   const sub = fPred ? fPred.label : fTipo ? tTipo(fTipo) : fCat ? t({ comp:'t_computers', prn:'t_printers', net:'t_network', cctv:'t_cctv', tel:'t_phones', acc:'t_access' }[fCat])
@@ -3750,6 +4329,8 @@ function campoLbl(f){
 }
 function valAct(k, v){
   if (v == null || v === '' || v === '[]') return t('act_nochg');
+  if (k === 'datos'){ const o = jObj(v); const ks = Object.keys(o); return ks.length ? ks.map(x => esc(t('cf.' + x) === 'cf.' + x ? x : t('cf.' + x)) + ': ' + esc(Array.isArray(o[x]) ? o[x].length : String(o[x]).slice(0, 60))).join(' · ') : t('act_nochg'); }
+  if (k === 'claves') return '•••';
   if (k === 'tipo') return esc(tTipo(v));
   if (k === 'estado') return esc(tEstado(v));
   if (k === 'grupo_id') return esc(grupos.find(g => g.id === v)?.nombre || t('act_deleted_group'));

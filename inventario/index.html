@@ -2006,7 +2006,8 @@ Object.assign(I18N.es, {
   pr_cable:'Cable', pr_conduit:'% en tubo (conduit)', pr_racks:'Racks / IDF', pr_corrida:'Largo promedio por punto (ft)', pr_auto:'auto',
   'prt.oficina':'Oficina', 'prt.almacen':'Almacén (WH)', 'prt.mixto':'Almacén + oficina', 'prt.retail':'Tienda / retail', 'prt.exterior':'Exterior / patio',
   'prc.falso':'Techo falso (drop ceiling)', 'prc.drywall':'Drywall / techo duro', 'prc.abierto':'Estructura abierta (vigas)', 'prc.concreto':'Concreto',
-  'prd.facil':'Fácil', 'prd.normal':'Normal', 'prd.dificil':'Difícil (obstáculos, operación activa)', 'prh.normal':'Horario normal', 'prh.fuera':'Fuera de horario / fin de semana',
+  'prd.facil':'Fácil', 'prd.normal':'Normal', 'prd.dificil':'Difícil (obstáculos, operación activa)', 'prh.normal':'Horario normal', 'prh.fuera':'Fuera de horario / fin de semana', 'prh.mixto':'Las dos (parte normal, parte fuera de horario)', prh_pct:'% de horas fuera de horario', prh_pdf:'Horario mixto ({f}% de las horas fuera de horario)',
+  prh_hint:'{n}% en horario ({hn} h) + {f}% fuera de horario ({hf} h × {x}) → tarifa promedio {t}/h',
   'prk.cat6':'Cat6', 'prk.cat6p':'Cat6 plenum', 'prk.cat6a':'Cat6A',
   pr_fact:'Factores: altura ×{a} · techo ×{t} · dificultad ×{d}', 'prl.escalera':'escalera', 'prl.escalera_ext':'escalera de extensión', 'prl.tijera':'lift de tijera', 'prl.boom':'boom lift', pr_renta:'se suma la renta',
   pr_puntos:'Puntos y trabajos', 'prp.drop_pared':'Puntos de red en pared', 'prp.drop_techo':'Puntos en techo para AP', 'prp.cam_int':'Cámaras interior', 'prp.cam_ext':'Cámaras exterior',
@@ -2061,7 +2062,8 @@ Object.assign(I18N.en, {
   pr_cable:'Cable', pr_conduit:'% in conduit', pr_racks:'Racks / IDF', pr_corrida:'Average run per point (ft)', pr_auto:'auto',
   'prt.oficina':'Office', 'prt.almacen':'Warehouse', 'prt.mixto':'Warehouse + office', 'prt.retail':'Store / retail', 'prt.exterior':'Outdoor / yard',
   'prc.falso':'Drop ceiling', 'prc.drywall':'Drywall / hard lid', 'prc.abierto':'Open structure (joists)', 'prc.concreto':'Concrete',
-  'prd.facil':'Easy', 'prd.normal':'Normal', 'prd.dificil':'Hard (obstacles, active operation)', 'prh.normal':'Business hours', 'prh.fuera':'After hours / weekend',
+  'prd.facil':'Easy', 'prd.normal':'Normal', 'prd.dificil':'Hard (obstacles, active operation)', 'prh.normal':'Business hours', 'prh.fuera':'After hours / weekend', 'prh.mixto':'Both (part business hours, part after hours)', prh_pct:'% of hours after hours', prh_pdf:'Mixed schedule ({f}% of hours after hours)',
+  prh_hint:'{n}% business hours ({hn} h) + {f}% after hours ({hf} h × {x}) → average rate {t}/h',
   'prk.cat6':'Cat6', 'prk.cat6p':'Cat6 plenum', 'prk.cat6a':'Cat6A',
   pr_fact:'Factors: height ×{a} · ceiling ×{t} · difficulty ×{d}', 'prl.escalera':'ladder', 'prl.escalera_ext':'extension ladder', 'prl.tijera':'scissor lift', 'prl.boom':'boom lift', pr_renta:'rental added',
   pr_puntos:'Points and tasks', 'prp.drop_pared':'Wall network drops', 'prp.drop_techo':'Ceiling drops for APs', 'prp.cam_int':'Indoor cameras', 'prp.cam_ext':'Outdoor cameras',
@@ -4523,10 +4525,10 @@ function prCalcInst(d, C){
   let pers = n0(d.personas); if (!pers){ pers = minP; while (pers < 6 && diasCon(pers) > 10) pers++; }
   const dias = diasCon(pers), semanas = dias / 5;
   // Precio de la mano de obra: por hora y por punto
-  const tarifa = n0(C.tarifa) * (s.horario === 'fuera' ? n0(C.extra) || 1.5 : 1);
+  const fH = prHorario(s, C).f, tarifa = n0(C.tarifa) * fH;
   const porHora = total * tarifa;
   const recargo = escalon(C.recargo_alt, alt);
-  const lineasPunto = PR_PUNTOS.filter(([k]) => q[k]).map(([k]) => ({ k, qty: q[k], p: n0(C.pp[k]) + (['drop_techo', 'cam_int', 'cam_ext'].includes(k) ? recargo : 0) }));
+  const lineasPunto = PR_PUNTOS.filter(([k]) => q[k]).map(([k]) => ({ k, qty: q[k], p: (n0(C.pp[k]) + (['drop_techo', 'cam_int', 'cam_ext'].includes(k) ? recargo : 0)) * fH }));
   const porPunto = lineasPunto.reduce((a, l) => a + l.qty * l.p, 0) + (q.extra_h + q.red_h) * tarifa;
   const modo = d.modo === 'punto' ? 'punto' : 'hora', mano = modo === 'punto' ? porPunto : porHora;
   // Materiales
@@ -4547,7 +4549,7 @@ function prCalcInst(d, C){
   const impuesto = (matVenta + eqVenta) * n0(C.impuesto) / 100;
   const total$ = mano + matVenta + eqVenta + renta + conting + impuesto;
   const costo = total * n0(C.tarifa) * .55 + matCosto + eqCosto + renta;   // costo aproximado (técnico ≈ 55% de la tarifa)
-  return { s, q, runs, corrida, corridaAuto, pies, fA, fT, fD, h, base, total, pers, minP, dias, semanas, lift, tarifa, porHora, porPunto, lineasPunto, recargo, modo, mano,
+  return { s, q, runs, corrida, corridaAuto, pies, fA, fT, fD, h, base, total, pers, minP, dias, semanas, lift, tarifa, tarifaBase: C.tarifa, porHora, porPunto, lineasPunto, recargo, modo, mano,
     mats, matSub, matMisc, matCosto, matVenta, eqs, eqCosto, eqVenta, renta, conting, impuesto, total$, costo, ganancia: total$ - impuesto - costo, ap,
     tablaP: [1, 2, 3, 4, 5, 6].filter(p => p >= minP).map(p => ({ p, dias: diasCon(p) })) };
 }
@@ -4647,7 +4649,7 @@ function renderPrTab(){
         <label><span>${t('pr_altura')}</span>${prNum('s.altura', s.altura)}</label>
         <label><span>${t('pr_techo')}</span>${sel('techo', PR_TECHOS, o => t('prc.' + o))}</label>
         <label><span>${t('pr_dif')}</span>${sel('dificultad', ['facil', 'normal', 'dificil'], o => t('prd.' + o))}</label>
-        <label><span>${t('pr_horario')}</span>${sel('horario', ['normal', 'fuera'], o => t('prh.' + o))}</label>
+        ${prHorarioCampos(s)}
         <label><span>${t('pr_cable')}</span>${sel('cable', ['cat6', 'cat6p', 'cat6a'], o => t('prk.' + o))}</label>
         <label><span>${t('pr_conduit')}</span>${prNum('s.conduit', s.conduit, 'max="100"')}</label>
         <label><span>${t('pr_racks')}</span>${prNum('s.racks', s.racks)}</label>
@@ -4715,10 +4717,23 @@ function prLeer(){
   PR._sucio = true; prCliInfo(); prFactores(); prResumen();
   clearTimeout(prLeer.tm); if (PR.id) prLeer.tm = setTimeout(() => prGuardar(true), 1500);
 }
+// Horario: normal, mixto (parte en horario y parte fuera) o todo fuera de horario
+function prHorario(s, C){
+  const x = n0(C.extra) || 1.5, h = s.horario || 'normal';
+  const pct = h === 'fuera' ? 100 : h === 'mixto' ? Math.min(100, Math.max(0, s.pct_fuera === '' || s.pct_fuera == null ? 50 : n0(s.pct_fuera))) : 0;
+  return { h, pct, x, f: 1 + pct / 100 * (x - 1) };
+}
+function prHorarioCampos(s){
+  const ops = ['normal', 'mixto', 'fuera'], h = s.horario || 'normal';
+  return `<label><span>${t('pr_horario')}</span><select data-pk="s.horario" onchange="prLeer()">${ops.map(o => `<option value="${o}" ${h === o ? 'selected' : ''}>${esc(t('prh.' + o))}</option>`).join('')}</select></label>
+    <label id="prPctFuera" style="${h === 'mixto' ? '' : 'display:none'}"><span>${t('prh_pct')}</span>${prNum('s.pct_fuera', s.pct_fuera ?? 50, 'max="100" placeholder="50"')}</label>`;
+}
 function prFactores(){
   const el = $('prFactores'); if (!el) return; const R = prCalcular(PR.d);
   const ic = document.querySelector('[data-pk="s.corrida"]'); if (ic && R.corridaAuto) ic.placeholder = `${t('pr_auto')}: ${R.corridaAuto} ft`;
-  el.innerHTML = R.fA != null ? `${t('pr_fact', { a: (R.fA || 1).toFixed(2), t: (R.fT || 1).toFixed(2), d: (R.fD || 1).toFixed(2) })}${R.lift ? ' · ' + t('prl.' + R.lift) + (R.lift === 'tijera' || R.lift === 'boom' ? ' (' + t('pr_renta') + ')' : '') : ''}` : '';
+  const H = prHorario(PR.d.sitio || {}, prConf()), pf = $('prPctFuera'); if (pf) pf.style.display = H.h === 'mixto' ? '' : 'none';
+  const hor = H.h === 'mixto' && R.tarifaBase ? t('prh_hint', { n: 100 - H.pct, f: H.pct, hn: (R.total * (100 - H.pct) / 100).toFixed(1), hf: (R.total * H.pct / 100).toFixed(1), x: H.x, t: money(R.tarifa) }) : '';
+  el.innerHTML = (R.fA != null ? `${t('pr_fact', { a: (R.fA || 1).toFixed(2), t: (R.fT || 1).toFixed(2), d: (R.fD || 1).toFixed(2) })}${R.lift ? ' · ' + t('prl.' + R.lift) + (R.lift === 'tijera' || R.lift === 'boom' ? ' (' + t('pr_renta') + ')' : '') : ''}` : '') + (hor ? (R.fA != null ? '<br>' : '') + '🕒 ' + hor : '');
 }
 function prResumen(){
   const el = $('prSide'); if (!el) return; const R = prCalcular(PR.d), C = prConf(), d = PR.d, tp = R.tipo;
@@ -4880,7 +4895,7 @@ async function prPdf(){
     <div class="top"><div><h1>AJ Tech Support</h1><div class="muted">ajtechsupport.net</div></div><div style="text-align:right"><h1>${esc(t('pr_doc'))} #${PR.numero || '—'}</h1>
       <div class="muted">${fecha.toLocaleDateString(LANG === 'es' ? 'es-US' : 'en-US', { dateStyle: 'long' })} · ${t('pr_valid', { n: C.validez })}</div></div></div>
     <div class="box"><b>${esc(PR.cliente)}</b>${d.contacto ? '<br>' + esc(d.contacto) : ''}${d.telefono ? ' · ' + esc(d.telefono) : ''}${d.direccion ? '<br>' + esc(d.direccion) : ''}
-      <br><span class="muted">${prIc(tp)} ${esc(t('ptt.' + tp))}${PR.titulo ? ' · ' + esc(PR.titulo) : ''}</span></div>
+      <br><span class="muted">${prIc(tp)} ${esc(t('ptt.' + tp))}${PR.titulo ? ' · ' + esc(PR.titulo) : ''}${(() => { const H = prHorario(d.sitio || {}, C); return ['instalacion', 'desmontaje', 'mudanza', 'reparacion'].includes(tp) && H.pct ? ' · 🕒 ' + esc(H.h === 'mixto' ? t('prh_pdf', { f: H.pct }) : t('prh.fuera')) : ''; })()}</span></div>
     ${d.alcance ? `<h2>${t('pr_alcance')}</h2><div>${esc(d.alcance).replace(/\n/g, '<br>')}</div>` : ''}
     ${tp === 'software' && jArr(d.modulos).length ? `<h2>${t('psw_modulos')}</h2><ul>${jArr(d.modulos).map(m => `<li>${esc(m.n)}</li>`).join('')}</ul>` : ''}
     ${trabajo || cargosHtml ? `<h2>${t(tp === 'msp' ? 'pms_onb' : 'pr_trabajo')}</h2><table><tr><th>${t('pr_item')}</th><th class="n">${t('pr_cant')}</th><th class="n">${t('pr_unit')}</th><th class="n">${t('pr_total')}</th></tr>${trabajo}${cargosHtml}</table>` : ''}
@@ -5005,7 +5020,7 @@ function prCalcular(d, C = prConf()){
     const cw = tp === 'reparacion' ? { pers: 1, dias: Math.ceil(total / 7), semanas: Math.ceil(total / 7) / 5, tablaP: [] } : prCrew(total, tp === 'desmontaje' && alt > 14 ? 2 : (total > 16 ? 2 : 1), d, C);
     const renta = lift === 'tijera' || lift === 'boom' ? Math.max(1, Math.ceil(cw.semanas)) * n0(C.renta[lift]) : 0; if (renta) cargos.push([t('pr_renta_l', { l: t('prl.' + lift) }), renta]);
     const urg = tp === 'reparacion' ? ({ normal: 1, mismo_dia: 1.25, emergencia: 1.5 }[s.urgencia || 'normal'] || 1) : 1;
-    const tarifa = n0(T.tarifa) * (s.horario === 'fuera' ? n0(C.extra) || 1.5 : 1) * urg;
+    const tarifa = n0(T.tarifa) * prHorario(s, C).f * urg;
     return fin({ hl, base, total, ...cw, minP: tp === 'desmontaje' && alt > 14 ? 2 : 1, lift, fA, fT, fD, tarifa, tarifaBase: T.tarifa, mano: total * tarifa, cargos, campo: tp !== 'reparacion' }, tp === 'reparacion' ? 0 : undefined);
   }
   if (tp === 'web'){
@@ -5069,7 +5084,7 @@ function renderPrDatosTipo(b){
         <label><span>${t('pr_altura')}</span>${prNum('s.altura', s.altura)}</label><label><span>${t('pr_techo')}</span>${sel('techo', PR_TECHOS, o => t('prc.' + o))}</label>` : '';
     const rep = tp === 'reparacion' ? `<label><span>${t('prr_modo')}</span>${sel('modalidad', ['sitio', 'taller', 'remoto'], o => t('prr.' + o))}</label><label><span>${t('prr_urg')}</span>${sel('urgencia', ['normal', 'mismo_dia', 'emergencia'], o => t('prr.' + o))}</label>` : '';
     b.innerHTML = `<div class="panel"><h4 class="cl-h4">${prIc(tp)} ${t('ptt.' + tp)}</h4><div class="mdm-grid">${sitio}${rep}
-        <label><span>${t('pr_dif')}</span>${sel('dificultad', ['facil', 'normal', 'dificil'], o => t('prd.' + o))}</label><label><span>${t('pr_horario')}</span>${sel('horario', ['normal', 'fuera'], o => t('prh.' + o))}</label></div>
+        <label><span>${t('pr_dif')}</span>${sel('dificultad', ['facil', 'normal', 'dificil'], o => t('prd.' + o))}</label>${prHorarioCampos(s)}</div>
         <div class="pr-hint" id="prFactores"></div>${tp === 'mudanza' ? `<div class="pr-hint">💡 ${t('prm_tip')}</div>` : ''}${tp === 'reparacion' ? `<div class="pr-hint">💡 ${t('prr_tip')}</div>` : ''}</div>
       ${PR_GRUPOS[tp].map(([g, ks]) => `<div class="panel"><h4 class="cl-h4">${t('prg.' + g)}</h4><div class="pr-puntos">${ks.filter(k => its[k]).map(k => { const [, hu, fee] = its[k];
           return num(k, t('pti.' + tp + '.' + k), [hu ? h(hu) : '', fee ? '$' + fee : ''].filter(Boolean).join(' + ') + ' ' + t('pr_c_u')); }).join('')}</div></div>`).join('')}

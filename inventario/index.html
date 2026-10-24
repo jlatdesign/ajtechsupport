@@ -747,6 +747,54 @@ body.p-noborrar [onclick^="borrarSede("],body.p-noborrar [onclick^="borrarVpn("]
 .pl-ren{width:160px!important;padding:4px 6px!important;font-size:12.5px!important}
 .pl-tot{font-size:12.5px;color:var(--muted);margin:6px 2px}
 
+body.p-nostaff .solo-staff{display:none!important}
+.pr-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:8px}
+.pr-learn{font-size:12.5px;color:var(--muted);margin:4px 0 10px}
+.pr-est{font:600 11px Inter,sans-serif;padding:2px 9px;border-radius:999px;border:1px solid var(--line-strong)}
+.pr-est.aprobado,.pr-est.completado{color:var(--ok);border-color:color-mix(in srgb,var(--ok) 50%,transparent)}
+.pr-est.enviado{color:var(--c1);border-color:color-mix(in srgb,var(--c1) 50%,transparent)}
+.pr-est.perdido{color:var(--bad);border-color:color-mix(in srgb,var(--bad) 50%,transparent)}
+.pr-prosp{font:600 10px Inter,sans-serif;color:#a855f7;border:1px solid #a855f766;border-radius:999px;padding:1px 6px}
+.pr-grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:14px;align-items:start}
+@media (max-width:1100px){.pr-grid{grid-template-columns:1fr}}
+.pr-main .panel{margin-bottom:12px}
+.pr-side{position:sticky;top:12px}
+.pr-hint{font-size:12px;color:var(--muted);margin-top:6px}
+.pr-puntos{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px}
+.pr-pt{display:flex!important;flex-direction:column;gap:3px;border:1px solid var(--line);border-radius:10px;padding:8px 10px;background:var(--card-solid)}
+.pr-pt span{font-weight:600;font-size:13px}.pr-pt input{font:600 18px "JetBrains Mono",monospace;padding:6px 8px}
+.pr-pt small{font-size:11px}
+.pr-sum .pr-r{display:flex;justify-content:space-between;gap:10px;font-size:13px;padding:4px 0;border-bottom:1px dashed var(--line)}
+.pr-sum .pr-r b{font-family:"JetBrains Mono",monospace;white-space:nowrap}
+.pr-sum .pr-r.big{font-size:15px;border-bottom:0;padding-top:8px}
+.pr-sum .pr-r.total b{font-size:20px;color:var(--c1)}
+.pr-sum .pr-r.learn b{color:var(--warn)}
+.pr-crew{border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin:8px 0;background:var(--card-solid)}
+.pr-crew label{display:flex!important;flex-direction:row!important;align-items:center;gap:8px;font-size:12.5px}
+.pr-crew select{width:auto!important;padding:4px 6px!important}
+.pr-crew-big{font:600 15px Inter,sans-serif;margin:6px 0}
+.pr-crew-t{display:flex;flex-wrap:wrap;gap:4px;font-size:11.5px}
+.pr-crew-t span{border:1px solid var(--line);border-radius:6px;padding:1px 6px;color:var(--muted)}
+.pr-crew-t span.on{border-color:var(--c1);color:var(--c1)}
+.pr-modo{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px}
+.pr-modo label{display:flex!important;flex-direction:column!important;gap:2px;border:1px solid var(--line);border-radius:10px;padding:8px;cursor:pointer;font-size:12.5px}
+.pr-modo label.on{border-color:var(--c1);background:color-mix(in srgb,var(--c1) 8%,transparent)}
+.pr-modo b{font:700 16px "JetBrains Mono",monospace}.pr-modo small{color:var(--muted);font-size:11px}.pr-modo input{display:none}
+.pr-gan{font-size:12.5px;margin-top:8px}.pr-real{font-size:12.5px;margin-top:6px;color:var(--ok)}
+.pr-eq{display:grid;grid-template-columns:minmax(0,2fr) 70px 100px 90px auto;gap:6px;align-items:center;margin-top:6px}
+.pr-eq input,.pr-eq select{padding:6px 8px!important;font-size:13px!important}
+.pr-eq .e-t{text-align:right}
+.pr-mat td{font-size:12.5px}
+.pr-tipos{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
+.pr-tipo{display:flex;flex-direction:column;align-items:flex-start;gap:4px;text-align:left;padding:14px;border-radius:12px;height:auto;white-space:normal}
+.pr-tipo span{font-size:26px}.pr-tipo b{font-size:14px}.pr-tipo small{color:var(--muted);font-size:12px;font-weight:400;line-height:1.35}
+.pr-tipo:hover{border-color:var(--c1)}
+.pr-chks{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:4px 14px}
+.pr-chk{font-size:13px}
+.pr-recbox{border:1px solid color-mix(in srgb,var(--c1) 40%,var(--line));border-radius:10px;padding:8px 10px;margin-top:10px;background:color-mix(in srgb,var(--c1) 5%,transparent)}
+.pr-mod{grid-template-columns:minmax(0,1fr) 80px 0 0 auto}
+.pr-par{grid-template-columns:minmax(0,2fr) 80px 100px 50px auto}
+.pr-par .mdm-chk{font-size:12px}
 .mdm-calc{border:1px dashed var(--line-strong);border-radius:10px;padding:8px 10px;font-size:12.5px;margin:0 0 10px}
 .mdm-calc:empty{display:none}
 .mdm-calc .kvs{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:4px 12px;margin-bottom:6px}
@@ -915,7 +963,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v8.3</p>
+    <p class="sub">Network Asset Manager · v8.5</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -931,7 +979,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v8.3</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v8.5</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -943,6 +991,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <button class="icon-btn" onclick="window.print()" data-i18n-title="t_print">⎙</button>
     <button class="icon-btn" onclick="toggleTheme()" data-i18n-title="t_theme">🌓</button>
     <button class="solo-roles" onclick="abrirUsuarios()" data-i18n-title="t_users">👥 <span data-i18n="users">Users</span><span id="onlineN" class="hidden" title=""></span></button>
+    <button class="solo-staff" onclick="abrirPresupuestos()">💰 <span data-i18n="pr_btn">Quotes</span></button>
     <button onclick="abrirActividad()" data-i18n-title="t_activity">📜 <span data-i18n="activity">Activity</span></button>
     <button onclick="openGrupos()" data-i18n-title="t_groups">🗂 <span data-i18n="groups">Groups</span></button>
     <button class="icon-btn" onclick="cambiarPassword()" data-i18n-title="t_changepw">🔑</button>
@@ -981,6 +1030,9 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <div class="panel act-main"><div class="act-top" id="actTop"></div><div class="act-wrap" id="actWrap"></div></div>
   </div>
 </div>
+
+<!-- ===== Vista: presupuestos ===== -->
+<div id="presuView" class="hidden"></div>
 
 <!-- ===== Vista: ubicaciones de un cliente ===== -->
 <div id="sedesView" class="hidden">
@@ -1939,6 +1991,240 @@ Object.assign(I18N.es, {
   pl_confirm_del:'¿Eliminar el plano "{n}"? Se borra la imagen, las paredes y las posiciones. Los equipos se quedan en el inventario.',
   'mat.drywall':'Drywall', 'mat.vidrio':'Vidrio', 'mat.madera':'Madera / puerta', 'mat.ladrillo':'Ladrillo', 'mat.concreto':'Concreto / bloque', 'mat.metal':'Metal / rack',
 });
+Object.assign(I18N.es, {
+  pr_btn:'Presupuestos', pr_title:'Presupuestos', pr_sub:'Cableado, cámaras y WiFi: horas hombre, personas, semanas y precio. Aprende de cada trabajo cerrado.',
+  pr_missing:'Primero corre supabase-presupuestos.sql en Supabase para usar los presupuestos.', pr_new:'Nuevo presupuesto', pr_cfg:'Precios y tiempos', pr_all:'Todos',
+  'pre.borrador':'Borrador', 'pre.enviado':'Enviado', 'pre.aprobado':'Aprobado', 'pre.perdido':'Perdido', 'pre.completado':'Completado',
+  pr_learn:'Aprendido de {n} trabajos cerrados: los trabajos reales toman {p}% más que el cálculo base. Ya se aplica en los nuevos presupuestos.',
+  pr_learn_m:'Aprendido de {n} trabajos cerrados: los trabajos reales toman {p}% menos que el cálculo base. Ya se aplica en los nuevos presupuestos.',
+  pr_learn0:'Cuando cierres trabajos con sus horas reales, la app ajusta sola los tiempos de los próximos presupuestos.',
+  pr_titulo:'Título del trabajo', pr_titulo_ph:'ej. Cableado almacén + 14 AP + 8 cámaras', pr_horas:'Horas', pr_total:'Total', pr_fecha:'Fecha', pr_real:'reales', pr_prospect:'prospecto',
+  pr_empty:'Todavía no hay presupuestos.', pr_unsaved:'Hay cambios sin guardar. ¿Salir igual?', pr_pdf:'PDF para el cliente', pr_close:'Cerrar trabajo', pr_to_client:'Crear cliente',
+  'pr_tab.datos':'Sitio y puntos', 'pr_tab.equipos':'Equipos y materiales', 'pr_tab.plano':'Plano', 'pr_tab.cliente':'Texto para el cliente',
+  pr_existing:'Cliente del inventario', pr_prospect_msg:'Cliente nuevo (prospecto). Si lo ganas, con "Crear cliente" pasa al inventario.',
+  pr_sitio:'El sitio', pr_tipo:'Tipo de lugar', pr_area:'Tamaño (pies²)', pr_altura:'Altura del techo (ft)', pr_techo:'Tipo de techo', pr_dif:'Dificultad', pr_horario:'Horario',
+  pr_cable:'Cable', pr_conduit:'% en tubo (conduit)', pr_racks:'Racks / IDF', pr_corrida:'Largo promedio por punto (ft)', pr_auto:'auto',
+  'prt.oficina':'Oficina', 'prt.almacen':'Almacén (WH)', 'prt.mixto':'Almacén + oficina', 'prt.retail':'Tienda / retail', 'prt.exterior':'Exterior / patio',
+  'prc.falso':'Techo falso (drop ceiling)', 'prc.drywall':'Drywall / techo duro', 'prc.abierto':'Estructura abierta (vigas)', 'prc.concreto':'Concreto',
+  'prd.facil':'Fácil', 'prd.normal':'Normal', 'prd.dificil':'Difícil (obstáculos, operación activa)', 'prh.normal':'Horario normal', 'prh.fuera':'Fuera de horario / fin de semana',
+  'prk.cat6':'Cat6', 'prk.cat6p':'Cat6 plenum', 'prk.cat6a':'Cat6A',
+  pr_fact:'Factores: altura ×{a} · techo ×{t} · dificultad ×{d}', 'prl.escalera':'escalera', 'prl.escalera_ext':'escalera de extensión', 'prl.tijera':'lift de tijera', 'prl.boom':'boom lift', pr_renta:'se suma la renta',
+  pr_puntos:'Puntos y trabajos', 'prp.drop_pared':'Puntos de red en pared', 'prp.drop_techo':'Puntos en techo para AP', 'prp.cam_int':'Cámaras interior', 'prp.cam_ext':'Cámaras exterior',
+  'prp.switch':'Switches a instalar', 'prp.nvr':'NVR a instalar', 'prp.rack':'Racks / gabinetes', 'prp.fibra':'Enlaces de fibra',
+  'prp_h.drop_pared':'cable + jack + placa + prueba', 'prp_h.drop_techo':'cable + montaje del AP + configuración', 'prp_h.cam_int':'cable + montaje + configuración', 'prp_h.cam_ext':'cable + montaje exterior + configuración',
+  'prp_h.switch':'instalar y configurar', 'prp_h.nvr':'instalar, discos y cámaras', 'prp_h.rack':'montar rack', 'prp_h.fibra':'tirar y terminar fibra',
+  pr_red_h:'Configuración de red (h)', pr_red_h_s:'firewall, VLAN, WiFi, VPN', pr_extra_h:'Horas extra', pr_extra_h_s:'cualquier trabajo adicional',
+  pr_equipos:'Equipos', pr_margen:'(margen {p}%)', pr_eq_add:'Agregar equipo', pr_eq_sug:'Sugerir según los puntos', pr_eq_sug_ok:'Equipos sugeridos según los puntos', pr_modelo:'Modelo',
+  pr_mat:'Materiales', pr_mat_s:'(calculados solos · margen {p}%)', pr_item:'Concepto', pr_cant:'Cant.', pr_unit:'Unitario', pr_costo:'Costo', pr_misc:'Misceláneos ({p}%: amarres, etiquetas, tornillería)',
+  pr_mat_extra:'Materiales adicionales', pr_mat_add:'Agregar material', pr_mat_d:'Descripción',
+  m_cable:'Cable', m_jack:'Jacks RJ45', m_placa:'Placas de pared', m_caja:'Cajas de superficie', m_patch:'Patch panels 24p', m_cordon:'Patch cords', m_jhook:'J-hooks (cada 5 ft, ~8 cables por gancho)',
+  m_emt:'Tubo EMT', m_fibra:'Fibra', m_fibra_term:'Terminaciones de fibra', m_rack:'Racks / gabinetes',
+  pr_plan_save:'Guarda el presupuesto primero para poder hacer el plano.', pr_plan_help:'Sube el plano o dibújalo, pon los AP, cámaras, puntos de red y el rack (lista "Planificados"). Luego toma las cantidades con un clic.',
+  pr_from_plan:'Usar cantidades del plano', pr_no_plan:'Este presupuesto todavía no tiene plano.', pr_from_plan_ok:'{n} puntos tomados del plano', pr_from_plan_info:'Largo promedio calculado: {c}',
+  pr_alcance:'Alcance del trabajo', pr_alcance_ph:'Qué incluye el trabajo, cómo se hará, marcas, garantía…', pr_excl:'No incluye', pr_excl_ph:'Lo que no está incluido',
+  pr_excl_def:'Permisos de la ciudad, trabajos eléctricos de alto voltaje, reparación de paredes/techos (pintura), trabajos no descritos en el alcance.',
+  pr_notas_int:'Notas internas (no salen en el PDF)', pr_pdf_horas:'Mostrar las horas en el PDF', pr_pdf_mat:'Detallar los materiales en el PDF',
+  pr_mo:'Mano de obra', pr_h_cable:'Cableado ({n} puntos × {f} ft)', pr_h_mont:'Montaje y configuración', pr_h_eq:'Racks, switches, NVR, red', pr_h_survey:'Visita y planificación',
+  pr_h_pm:'Gestión del proyecto ({p}%)', pr_h_learn:'ajuste aprendido ({n})', pr_h_total:'Horas hombre', pr_personas:'Personas', pr_dias:'días', pr_sem:'semanas', pr_menos_sem:'menos de 1 semana',
+  pr_min2:'Con altura mayor a 14 ft se recomiendan mínimo 2 personas (seguridad).', pr_precio:'Precio', pr_por_hora:'Por hora', pr_por_punto:'Por punto', pr_tipos_p:'tipos de punto', pr_recargo:'por altura',
+  pr_mano:'Mano de obra', pr_renta_l:'Renta de {l}', pr_conting:'Contingencia ({p}%)', pr_conting_c:'Imprevistos', pr_imp:'Impuesto ({p}%) sobre materiales y equipos',
+  pr_gan:'Ganancia estimada', pr_gan_s:'técnico ≈ 55% de la tarifa', pr_real_h:'Trabajo real: {r} h (estimado base {e} h)', pr_need_client:'Escribe el cliente o el prospecto.',
+  pr_del_q:'¿Borrar el presupuesto #{n} y su plano?', pr_close_help:'Pon las horas hombre reales (todas las personas sumadas). El estimado fue {h} h. Con esto la app corrige sola los próximos presupuestos.',
+  pr_h_reales:'Horas hombre reales', pr_p_reales:'Personas', pr_d_reales:'Días', pr_c_notas:'Qué pasó (para la próxima vez)', pr_closed:'Trabajo cerrado. Diferencia contra el cálculo: {p}%',
+  pr_conv_q:'¿Crear el cliente "{c}"? Los {n} equipos planificados del plano pasan al inventario.', pr_conv_ok:'Cliente {c} creado · {n} equipos al inventario',
+  pr_doc:'Presupuesto', pr_valid:'válido {n} días', pr_trabajo:'Trabajo', pr_mano_inst:'Mano de obra e instalación', pr_mat_inst:'Materiales de instalación', pr_resumen:'Resumen', pr_plano:'Plano',
+  pr_dur:'Duración estimada: {s} ({d} días hábiles) con un equipo de {p} técnico(s).', pr_firma:'Aceptado por: ____________________________   Fecha: ____________', pr_popup:'Permite las ventanas emergentes para ver el PDF.',
+  pr_cfg_help:'Estos valores se usan en todos los presupuestos. Las horas son por unidad; los factores multiplican las horas.', pr_cfg_t:'Horas por tarea', pr_cfg_alt:'Factor por altura',
+  pr_cfg_techo:'Factor por tipo de techo', pr_cfg_dif:'Factor por dificultad', pr_cfg_pp:'Precio por punto', pr_cfg_rec:'Recargo por punto según altura', pr_cfg_mat:'Precios de materiales',
+  pr_cfg_renta:'Renta por semana', pr_cfg_eq:'Lista de precios de equipos (costo)', pr_cfg_reset:'Volver a los valores iniciales', pr_cfg_reset_q:'¿Volver a los valores iniciales?',
+  'pcf.tarifa':'Tarifa por hora ($)', 'pcf.extra':'Multiplicador fuera de horario', 'pcf.horas_dia':'Horas por día', 'pcf.eficiencia':'Eficiencia (0–1)', 'pcf.margen_mat':'Margen materiales %',
+  'pcf.margen_eq':'Margen equipos %', 'pcf.impuesto':'Impuesto %', 'pcf.contingencia':'Contingencia %', 'pcf.validez':'Validez (días)',
+  'pct.drop':'Por punto: terminar y probar (h)', 'pct.pies_hora':'Pies de cable por hora', 'pct.conduit_pies_hora':'Pies por hora en tubo', 'pct.prueba':'Prueba por punto (h)', 'pct.ap':'Montar AP (h)',
+  'pct.ap_cfg':'Configurar AP (h)', 'pct.cam_int':'Montar cámara interior (h)', 'pct.cam_ext':'Montar cámara exterior (h)', 'pct.cam_cfg':'Configurar cámara (h)', 'pct.rack':'Montar rack (h)',
+  'pct.patch':'Peinar patch panel 24p (h)', 'pct.switch':'Instalar switch (h)', 'pct.nvr':'Instalar NVR (h)', 'pct.fibra':'Tirar fibra (h)', 'pct.fibra_term':'Terminar fibra (h)', 'pct.survey':'Visita (h)', 'pct.pm':'Gestión %',
+  'pcm.cat6':'Cat6 por pie', 'pcm.cat6p':'Cat6 plenum por pie', 'pcm.cat6a':'Cat6A por pie', 'pcm.jack':'Jack', 'pcm.placa':'Placa', 'pcm.caja':'Caja de superficie', 'pcm.patch24':'Patch panel 24p',
+  'pcm.cordon':'Patch cord', 'pcm.jhook':'J-hook', 'pcm.emt':'EMT por pie', 'pcm.fibra_pie':'Fibra por pie', 'pcm.fibra_term':'Terminación fibra', 'pcm.rack':'Rack', 'pcm.misc':'Misceláneos %', 'pcm.desperdicio':'Desperdicio de cable %',
+  'pcc.ap':'AP', 'pcc.cam':'Cámara', 'pcc.sw':'Switch', 'pcc.gw':'Router/Gateway', 'pcc.nvr':'NVR', 'pcc.otro':'Otro', dup:'Duplicar',
+});
+Object.assign(I18N.en, {
+  pr_btn:'Quotes', pr_title:'Quotes', pr_sub:'Cabling, cameras and WiFi: man-hours, crew, weeks and price. It learns from every closed job.',
+  pr_missing:'Run supabase-presupuestos.sql in Supabase first to use quotes.', pr_new:'New quote', pr_cfg:'Prices and times', pr_all:'All',
+  'pre.borrador':'Draft', 'pre.enviado':'Sent', 'pre.aprobado':'Approved', 'pre.perdido':'Lost', 'pre.completado':'Completed',
+  pr_learn:'Learned from {n} closed jobs: real jobs take {p}% more than the base calculation. Already applied to new quotes.',
+  pr_learn_m:'Learned from {n} closed jobs: real jobs take {p}% less than the base calculation. Already applied to new quotes.',
+  pr_learn0:'When you close jobs with their real hours, the app adjusts the times of the next quotes by itself.',
+  pr_titulo:'Job title', pr_titulo_ph:'e.g. Warehouse cabling + 14 APs + 8 cameras', pr_horas:'Hours', pr_total:'Total', pr_fecha:'Date', pr_real:'real', pr_prospect:'prospect',
+  pr_empty:'No quotes yet.', pr_unsaved:'There are unsaved changes. Leave anyway?', pr_pdf:'PDF for the client', pr_close:'Close job', pr_to_client:'Create client',
+  'pr_tab.datos':'Site and points', 'pr_tab.equipos':'Equipment and materials', 'pr_tab.plano':'Floor plan', 'pr_tab.cliente':'Text for the client',
+  pr_existing:'Client from the inventory', pr_prospect_msg:'New client (prospect). If you win it, "Create client" moves it to the inventory.',
+  pr_sitio:'The site', pr_tipo:'Type of place', pr_area:'Size (sq ft)', pr_altura:'Ceiling height (ft)', pr_techo:'Ceiling type', pr_dif:'Difficulty', pr_horario:'Schedule',
+  pr_cable:'Cable', pr_conduit:'% in conduit', pr_racks:'Racks / IDF', pr_corrida:'Average run per point (ft)', pr_auto:'auto',
+  'prt.oficina':'Office', 'prt.almacen':'Warehouse', 'prt.mixto':'Warehouse + office', 'prt.retail':'Store / retail', 'prt.exterior':'Outdoor / yard',
+  'prc.falso':'Drop ceiling', 'prc.drywall':'Drywall / hard lid', 'prc.abierto':'Open structure (joists)', 'prc.concreto':'Concrete',
+  'prd.facil':'Easy', 'prd.normal':'Normal', 'prd.dificil':'Hard (obstacles, active operation)', 'prh.normal':'Business hours', 'prh.fuera':'After hours / weekend',
+  'prk.cat6':'Cat6', 'prk.cat6p':'Cat6 plenum', 'prk.cat6a':'Cat6A',
+  pr_fact:'Factors: height ×{a} · ceiling ×{t} · difficulty ×{d}', 'prl.escalera':'ladder', 'prl.escalera_ext':'extension ladder', 'prl.tijera':'scissor lift', 'prl.boom':'boom lift', pr_renta:'rental added',
+  pr_puntos:'Points and tasks', 'prp.drop_pared':'Wall network drops', 'prp.drop_techo':'Ceiling drops for APs', 'prp.cam_int':'Indoor cameras', 'prp.cam_ext':'Outdoor cameras',
+  'prp.switch':'Switches to install', 'prp.nvr':'NVRs to install', 'prp.rack':'Racks / cabinets', 'prp.fibra':'Fiber links',
+  'prp_h.drop_pared':'cable + jack + plate + test', 'prp_h.drop_techo':'cable + AP mount + setup', 'prp_h.cam_int':'cable + mount + setup', 'prp_h.cam_ext':'cable + outdoor mount + setup',
+  'prp_h.switch':'install and configure', 'prp_h.nvr':'install, drives and cameras', 'prp_h.rack':'mount rack', 'prp_h.fibra':'pull and terminate fiber',
+  pr_red_h:'Network setup (h)', pr_red_h_s:'firewall, VLAN, WiFi, VPN', pr_extra_h:'Extra hours', pr_extra_h_s:'any additional work',
+  pr_equipos:'Equipment', pr_margen:'(margin {p}%)', pr_eq_add:'Add equipment', pr_eq_sug:'Suggest from the points', pr_eq_sug_ok:'Equipment suggested from the points', pr_modelo:'Model',
+  pr_mat:'Materials', pr_mat_s:'(calculated automatically · margin {p}%)', pr_item:'Item', pr_cant:'Qty', pr_unit:'Unit', pr_costo:'Cost', pr_misc:'Miscellaneous ({p}%: ties, labels, hardware)',
+  pr_mat_extra:'Additional materials', pr_mat_add:'Add material', pr_mat_d:'Description',
+  m_cable:'Cable', m_jack:'RJ45 jacks', m_placa:'Wall plates', m_caja:'Surface boxes', m_patch:'24-port patch panels', m_cordon:'Patch cords', m_jhook:'J-hooks (every 5 ft, ~8 cables per hook)',
+  m_emt:'EMT conduit', m_fibra:'Fiber', m_fibra_term:'Fiber terminations', m_rack:'Racks / cabinets',
+  pr_plan_save:'Save the quote first to be able to draw the plan.', pr_plan_help:'Upload or draw the plan and place the APs, cameras, network drops and the rack ("Planned" list). Then take the quantities with one click.',
+  pr_from_plan:'Use quantities from the plan', pr_no_plan:'This quote has no plan yet.', pr_from_plan_ok:'{n} points taken from the plan', pr_from_plan_info:'Average run calculated: {c}',
+  pr_alcance:'Scope of work', pr_alcance_ph:'What the job includes, how it will be done, brands, warranty…', pr_excl:'Not included', pr_excl_ph:'What is not included',
+  pr_excl_def:'City permits, high-voltage electrical work, wall/ceiling repair (paint), work not described in the scope.',
+  pr_notas_int:'Internal notes (not in the PDF)', pr_pdf_horas:'Show the hours in the PDF', pr_pdf_mat:'Itemize the materials in the PDF',
+  pr_mo:'Labor', pr_h_cable:'Cabling ({n} points × {f} ft)', pr_h_mont:'Mounting and setup', pr_h_eq:'Racks, switches, NVR, network', pr_h_survey:'Site visit and planning',
+  pr_h_pm:'Project management ({p}%)', pr_h_learn:'learned adjustment ({n})', pr_h_total:'Man-hours', pr_personas:'Crew', pr_dias:'days', pr_sem:'weeks', pr_menos_sem:'less than 1 week',
+  pr_min2:'Above 14 ft at least 2 people are recommended (safety).', pr_precio:'Price', pr_por_hora:'Hourly', pr_por_punto:'Per point', pr_tipos_p:'point types', pr_recargo:'for height',
+  pr_mano:'Labor', pr_renta_l:'{l} rental', pr_conting:'Contingency ({p}%)', pr_conting_c:'Contingency', pr_imp:'Tax ({p}%) on materials and equipment',
+  pr_gan:'Estimated profit', pr_gan_s:'tech ≈ 55% of the rate', pr_real_h:'Real job: {r} h (base estimate {e} h)', pr_need_client:'Type the client or prospect.',
+  pr_del_q:'Delete quote #{n} and its plan?', pr_close_help:'Enter the real man-hours (all people added up). The estimate was {h} h. The app uses it to correct the next quotes.',
+  pr_h_reales:'Real man-hours', pr_p_reales:'Crew', pr_d_reales:'Days', pr_c_notas:'What happened (for next time)', pr_closed:'Job closed. Difference vs. calculation: {p}%',
+  pr_conv_q:'Create the client "{c}"? The {n} planned devices of the plan go to the inventory.', pr_conv_ok:'Client {c} created · {n} devices to the inventory',
+  pr_doc:'Quote', pr_valid:'valid {n} days', pr_trabajo:'Work', pr_mano_inst:'Labor and installation', pr_mat_inst:'Installation materials', pr_resumen:'Summary', pr_plano:'Floor plan',
+  pr_dur:'Estimated duration: {s} ({d} business days) with a crew of {p} technician(s).', pr_firma:'Accepted by: ____________________________   Date: ____________', pr_popup:'Allow pop-ups to see the PDF.',
+  pr_cfg_help:'These values are used in every quote. Hours are per unit; factors multiply the hours.', pr_cfg_t:'Hours per task', pr_cfg_alt:'Height factor',
+  pr_cfg_techo:'Ceiling type factor', pr_cfg_dif:'Difficulty factor', pr_cfg_pp:'Price per point', pr_cfg_rec:'Surcharge per point by height', pr_cfg_mat:'Material prices',
+  pr_cfg_renta:'Rental per week', pr_cfg_eq:'Equipment price list (cost)', pr_cfg_reset:'Back to the initial values', pr_cfg_reset_q:'Go back to the initial values?',
+  'pcf.tarifa':'Hourly rate ($)', 'pcf.extra':'After-hours multiplier', 'pcf.horas_dia':'Hours per day', 'pcf.eficiencia':'Efficiency (0–1)', 'pcf.margen_mat':'Materials margin %',
+  'pcf.margen_eq':'Equipment margin %', 'pcf.impuesto':'Tax %', 'pcf.contingencia':'Contingency %', 'pcf.validez':'Valid (days)',
+  'pct.drop':'Per point: terminate and test (h)', 'pct.pies_hora':'Cable feet per hour', 'pct.conduit_pies_hora':'Feet per hour in conduit', 'pct.prueba':'Test per point (h)', 'pct.ap':'Mount AP (h)',
+  'pct.ap_cfg':'Configure AP (h)', 'pct.cam_int':'Mount indoor camera (h)', 'pct.cam_ext':'Mount outdoor camera (h)', 'pct.cam_cfg':'Configure camera (h)', 'pct.rack':'Mount rack (h)',
+  'pct.patch':'Dress 24p patch panel (h)', 'pct.switch':'Install switch (h)', 'pct.nvr':'Install NVR (h)', 'pct.fibra':'Pull fiber (h)', 'pct.fibra_term':'Terminate fiber (h)', 'pct.survey':'Site visit (h)', 'pct.pm':'Management %',
+  'pcm.cat6':'Cat6 per ft', 'pcm.cat6p':'Cat6 plenum per ft', 'pcm.cat6a':'Cat6A per ft', 'pcm.jack':'Jack', 'pcm.placa':'Plate', 'pcm.caja':'Surface box', 'pcm.patch24':'24p patch panel',
+  'pcm.cordon':'Patch cord', 'pcm.jhook':'J-hook', 'pcm.emt':'EMT per ft', 'pcm.fibra_pie':'Fiber per ft', 'pcm.fibra_term':'Fiber termination', 'pcm.rack':'Rack', 'pcm.misc':'Miscellaneous %', 'pcm.desperdicio':'Cable waste %',
+  'pcc.ap':'AP', 'pcc.cam':'Camera', 'pcc.sw':'Switch', 'pcc.gw':'Router/Gateway', 'pcc.nvr':'NVR', 'pcc.otro':'Other', dup:'Duplicate',
+});
+Object.assign(I18N.es, {
+  pr_trabajo_t:'Tipo de trabajo', 'pr_tab.productos':'Productos y piezas', pr_productos:'Productos / piezas / licencias', pr_mat_s2:'(materiales u otros cargos · margen {p}%)',
+  'ptt.instalacion':'Instalación (cableado, cámaras, WiFi)', 'ptt.desmontaje':'Desmontaje / desocupar WH u oficina', 'ptt.mudanza':'Mudanza / reubicación de oficina',
+  'ptt.reparacion':'Reparación (PC, laptop, impresora, servidor)', 'ptt.web':'Diseño web', 'ptt.software':'Desarrollo de software / app', 'ptt.msp':'Soporte mensual (servicios administrados)', 'ptt.libre':'Presupuesto libre',
+  'ptd.instalacion':'Puntos de red, AP, cámaras, racks. Altura, techo, lift, materiales y plano.', 'ptd.desmontaje':'Retirar cableado, AP, cámaras y racks, empacar, reciclar y destruir discos.',
+  'ptd.mudanza':'Desconectar, empacar, transportar e instalar PCs, impresoras, servidores y red.', 'ptd.reparacion':'Diagnóstico, virus, Windows, SSD, pantallas, impresoras, servidores. En sitio, taller o remoto.',
+  'ptd.web':'Páginas, idiomas, tienda, formularios, SEO, hosting, dominio y mantenimiento mensual.', 'ptd.software':'Módulos por tamaño, plataforma, integraciones, QA, gestión, contingencia y soporte anual.',
+  'ptd.msp':'Precio mensual por usuario, servidores, red, backup y licencias + puesta en marcha.', 'ptd.libre':'Escribes las partidas a mano: horas, servicios y productos.',
+  pr_c_u:'c/u', pr_minimo:'Cargo mínimo (1 hora)', pr_sin_horas:'Llena las cantidades para ver las horas.', pr_sem_dev:'Semana = {h} h productivas por persona.', pr_cargos:'Otros cargos',
+  pr_rec:'Recurrente', pr_mes:'mes', pr_anio:'año', pr_mensual:'Mensual', pr_anual_extra:'Además, anual', pr_primer_anio:'Primer año completo: {v}', pr_total_unico:'Total (pago único)',
+  'prg.g_retirar':'🧹 Retirar', 'prg.g_equipos':'🖥️ Equipos a desconectar', 'prg.g_reciclar':'♻️ Reciclaje, destrucción y transporte', 'prg.g_mover':'🖥️ Equipos a mover', 'prg.g_infra':'🗄️ Servidores, red y transporte',
+  'prg.g_pc':'💻 PC y laptop', 'prg.g_imp':'🖨️ Impresoras', 'prg.g_otros':'🛠 Otros y visitas',
+  'pti.desmontaje.cables':'Cables a retirar (corridas)', 'pti.desmontaje.soportes':'Retirar J-hooks y soportes', 'pti.desmontaje.ap':'AP / antenas', 'pti.desmontaje.cam':'Cámaras', 'pti.desmontaje.acceso':'Lectores / controladoras de acceso',
+  'pti.desmontaje.tv':'TV / pantallas de pared', 'pti.desmontaje.rack':'Racks a desarmar', 'pti.desmontaje.rack_eq':'Switches / servidores / UPS del rack', 'pti.desmontaje.pc':'PCs / laptops (desconectar y empacar)',
+  'pti.desmontaje.monitor':'Monitores', 'pti.desmontaje.impresora':'Impresoras', 'pti.desmontaje.telefono':'Teléfonos', 'pti.desmontaje.placas':'Placas de pared (quitar y tapar)',
+  'pti.desmontaje.rec_pc':'Reciclar PC / servidor', 'pti.desmontaje.rec_monitor':'Reciclar monitor / TV', 'pti.desmontaje.discos':'Discos a destruir (con certificado)', 'pti.desmontaje.viajes':'Viajes de camión',
+  'pti.mudanza.pc':'PCs / laptops (desconectar, mover, instalar, probar)', 'pti.mudanza.monitor':'Monitores', 'pti.mudanza.impresora':'Impresoras (mover e instalar en red)', 'pti.mudanza.servidor':'Servidores',
+  'pti.mudanza.rack_red':'Rack de red (desarmar y armar)', 'pti.mudanza.telefono':'Teléfonos', 'pti.mudanza.tv':'TV / pantallas', 'pti.mudanza.otros':'Otros equipos (NAS, DVR, escáner)',
+  'pti.mudanza.red_h':'Configurar red en el sitio nuevo (h)', 'pti.mudanza.isp':'Coordinar traslado del internet (ISP)', 'pti.mudanza.viajes':'Viajes de camión',
+  'pti.reparacion.diag':'Diagnóstico', 'pti.reparacion.virus':'Limpieza de virus / malware', 'pti.reparacion.os':'Reinstalar Windows + programas', 'pti.reparacion.datos':'Respaldo / migración de datos',
+  'pti.reparacion.recuperacion':'Recuperación de datos (disco dañado)', 'pti.reparacion.ssd':'Cambio a SSD + clonar', 'pti.reparacion.pieza':'Cambio de RAM / pieza', 'pti.reparacion.pantalla':'Cambio de pantalla de laptop',
+  'pti.reparacion.limpieza':'Limpieza interna / pasta térmica', 'pti.reparacion.imp_mant':'Mantenimiento de impresora', 'pti.reparacion.imp_rep':'Reparación de impresora (fusor, rodillos)',
+  'pti.reparacion.imp_cfg':'Instalar / configurar impresora en red', 'pti.reparacion.servidor':'Servidor (diagnóstico / reparación)', 'pti.reparacion.red':'Red / WiFi (diagnóstico)', 'pti.reparacion.correo':'Correo / Microsoft 365',
+  'pti.reparacion.visitas':'Visitas al sitio',
+  prr_modo:'Modalidad', 'prr.sitio':'En el sitio', 'prr.taller':'En el taller', 'prr.remoto':'Remoto', prr_urg:'Urgencia', 'prr.normal':'Normal', 'prr.mismo_dia':'Mismo día (+25%)', 'prr.emergencia':'Emergencia (+50%)',
+  prr_tip:'Las piezas (SSD, RAM, pantalla, fusor) van en la pestaña "Productos y piezas" con su margen.', prm_tip:'Si en el sitio nuevo hay que tirar cables o poner AP, haz además un presupuesto de Instalación.',
+  pw_tipo:'Tipo de sitio', 'pw_base.landing':'Landing page (1 página)', 'pw_base.corporativo':'Sitio corporativo', 'pw_base.ecommerce':'Tienda en línea', 'pw_base.webapp':'Web app / portal',
+  pw_pag:'Páginas', pw_idi:'Idiomas', pw_prod:'Productos a cargar', pw_int:'Integraciones (CRM, reservas, API)', pw_revs:'Rondas de cambios', pw_por_idioma:'por idioma adicional', pw_por_ronda:'por ronda', pw_x_pag:'por página',
+  pw_paginas:'Diseño y armado de {n} páginas', pw_productos:'Cargar {n} productos', pw_integ:'{n} integraciones', pw_idiomas:'{n} idiomas', pw_rev:'{n} rondas de cambios', pw_qa:'Pruebas y QA ({p}%)', pw_feat:'Funciones',
+  'pwf.contacto':'Formulario de contacto', 'pwf.blog':'Blog / noticias', 'pwf.galeria':'Galería', 'pwf.citas':'Reservas / citas', 'pwf.whatsapp':'Botón de WhatsApp / chat', 'pwf.mapa':'Mapa',
+  'pwf.newsletter':'Newsletter', 'pwf.login':'Área de clientes (login)', 'pwf.seo':'SEO básico', 'pwf.analytics':'Google Analytics', 'pwf.accesibilidad':'Accesibilidad (ADA)', 'pwf.branding':'Logo / identidad',
+  'pwf.copy':'Redacción de textos', 'pwf.migracion':'Migrar contenido del sitio viejo', 'pwf.pagos':'Pagos en línea', 'pwf.envios':'Envíos e impuestos', 'pwf.traduccion':'Traducción incluida',
+  'pwr.hosting':'Hosting', 'pwr.mant':'Mantenimiento y actualizaciones', 'pwr.dominio':'Dominio',
+  psw_plat:'Plataforma', 'pswp.web':'Web', 'pswp.movil':'Móvil (iOS/Android)', 'pswp.escritorio':'Escritorio', 'pswp.ambas':'Web + móvil', psw_inc:'Qué tan claro está el alcance',
+  'pswi.baja':'Muy claro', 'pswi.media':'Más o menos', 'pswi.alta':'Poco claro', psw_modulos:'Módulos / pantallas', psw_mod_add:'Agregar módulo', psw_mod_ph:'ej. Inventario, Facturación, Reportes de ventas',
+  psw_tip:'S = pantalla sencilla · M = módulo con formularios y listas · L = módulo con reglas y flujos · XL = módulo complejo (motor, sincronización).',
+  psw_extras:'Extras', 'pswe.roles':'Usuarios, roles y permisos', 'pswe.admin':'Panel de administración', 'pswe.notif':'Notificaciones (email / push)', 'pswe.pagos':'Pagos en línea', 'pswe.reporte':'Reportes',
+  'pswe.integracion':'Integraciones (API)', 'pswe.deploy':'Publicación e infraestructura', 'pswe.docs':'Documentación y capacitación',
+  psw_mods:'{n} módulos (plataforma ×{p})', psw_dis:'Diseño y arquitectura ({p}%)', psw_cont:'Contingencia ({p}%)', psw_soporte:'Soporte y mantenimiento ({p}% anual)', psw_soporte_c:'Soporte y mantenimiento', psw_anual:'anual del desarrollo',
+  pms_nivel:'Nivel de servicio', 'pmsn.basico':'Básico', 'pmsn.estandar':'Estándar', 'pmsn.premium':'Premium', pms_usuario:'usuario',
+  'pmsn_d.basico':'Monitoreo, parches y soporte remoto en horario.', 'pmsn_d.estandar':'Help desk ilimitado, parches, antivirus, Microsoft 365, red, visitas incluidas y reportes.',
+  'pmsn_d.premium':'Todo lo estándar + EDR/MDR, backup verificado, seguridad de identidad (MFA), soporte prioritario y vCIO.',
+  'pms.usuarios':'👤 Usuarios', 'pms.pcs':'🖥️ PCs / laptops', 'pms.servidores':'🗄️ Servidores', 'pms.red':'🔀 Equipos de red', 'pms.impresoras':'🖨️ Impresoras', 'pms.sitios':'📍 Sitios',
+  'pms.backup':'💾 Backup en la nube (TB)', 'pms.backup_tb':'💾 Backup en la nube (TB)', 'pms.m365':'✉️ Licencias Microsoft 365', pms_onb:'Puesta en marcha (una vez)', pms_onb_c:'Cobrar la puesta en marcha (documentar, instalar agentes, limpiar)',
+  pl_libre_h:'Una línea por cada cosa. Marca "h" si es mano de obra por horas (tarifa {t}/h).', pl_libre_add:'Agregar partida', pl_libre_hh:'Es mano de obra por horas',
+  'pr_alcance_ph.instalacion':'Qué incluye: tirar y certificar los cables, montar AP y cámaras, configurar, etiquetar…', 'pr_alcance_ph.desmontaje':'Qué se retira, qué se recicla, cómo se entregan techos y paredes…',
+  'pr_alcance_ph.mudanza':'Origen y destino, fecha, qué se mueve, quién empaca…', 'pr_alcance_ph.reparacion':'Equipos, síntomas, qué se hará, garantía de la reparación…',
+  'pr_alcance_ph.web':'Objetivo del sitio, páginas, funciones, quién da textos y fotos, plazos…', 'pr_alcance_ph.software':'Qué problema resuelve, usuarios, módulos, entregas por fases…',
+  'pr_alcance_ph.msp':'Qué cubre el servicio, horario de soporte, tiempos de respuesta, visitas…', 'pr_alcance_ph.libre':'Qué incluye el trabajo…',
+  'pr_excl_def.instalacion':'Permisos de la ciudad, trabajos eléctricos de alto voltaje, reparación de paredes/techos (pintura), trabajos no descritos en el alcance.',
+  'pr_excl_def.desmontaje':'Reparación de paredes y techos (resane, pintura), retiro de cableado eléctrico, mobiliario, trabajos no descritos en el alcance.',
+  'pr_excl_def.mudanza':'Muebles, cableado nuevo en el sitio de destino (se cotiza aparte), equipos dañados antes de la mudanza, costos del proveedor de internet.',
+  'pr_excl_def.reparacion':'Piezas no listadas, recuperación de datos de laboratorio si el disco no responde, licencias de software, daños por líquidos.',
+  'pr_excl_def.web':'Fotografía profesional, licencias pagadas de plugins o temas, publicidad (Google/Meta Ads), cambios fuera de las rondas incluidas.',
+  'pr_excl_def.software':'Cambios de alcance después de aprobado (se cotizan aparte), costos de servidores y servicios de terceros, licencias de tiendas de apps.',
+  'pr_excl_def.msp':'Proyectos nuevos (instalaciones, migraciones grandes), hardware y licencias, soporte a equipos personales no listados.', 'pr_excl_def.libre':'Trabajos no descritos en el alcance.',
+  'pcg.base':'Base', 'pcg.feat':'Función', 'pcg.tam':'Módulo', 'pcg.plat':'Plataforma ×', 'pcg.extra':'Extra (h)', 'pcg.incert':'Contingencia %', 'pcg.nivel':'Por usuario $', 'pcg.servidor':'Por servidor $',
+  'pcx.pagina':'Horas por página', 'pcx.idioma':'% por idioma', 'pcx.producto':'Horas por producto', 'pcx.pagos':'Pagos (h)', 'pcx.envios':'Envíos (h)', 'pcx.integracion':'Integración (h)', 'pcx.revision':'% por ronda',
+  'pcx.pm':'Gestión %', 'pcx.qa':'QA %', 'pcx.hosting':'Hosting $/mes', 'pcx.dominio':'Dominio $/año', 'pcx.mant':'Mantenimiento $/mes', 'pcx.diseno':'Diseño %', 'pcx.soporte':'Soporte % anual', 'pcx.horas_sem':'Horas por semana',
+  'pcx.red':'Equipo de red $/mes', 'pcx.impresora':'Impresora $/mes', 'pcx.sitio':'Sitio adicional $/mes', 'pcx.backup_tb':'Backup $/TB/mes', 'pcx.m365':'Licencia M365 $/mes',
+  'pcx.onb_u':'Puesta en marcha h/usuario', 'pcx.onb_pc':'Puesta en marcha h/PC', 'pcx.onb_s':'Puesta en marcha h/servidor', 'pcx.onb_base':'Puesta en marcha base (h)',
+});
+Object.assign(I18N.en, {
+  pr_trabajo_t:'Type of job', 'pr_tab.productos':'Products and parts', pr_productos:'Products / parts / licenses', pr_mat_s2:'(materials or other charges · margin {p}%)',
+  'ptt.instalacion':'Installation (cabling, cameras, WiFi)', 'ptt.desmontaje':'Decommission / vacate warehouse or office', 'ptt.mudanza':'Office move / IT relocation',
+  'ptt.reparacion':'Repair (PC, laptop, printer, server)', 'ptt.web':'Web design', 'ptt.software':'Software / app development', 'ptt.msp':'Monthly support (managed services)', 'ptt.libre':'Free-form quote',
+  'ptd.instalacion':'Network drops, APs, cameras, racks. Height, ceiling, lift, materials and plan.', 'ptd.desmontaje':'Remove cabling, APs, cameras and racks, pack, recycle and destroy drives.',
+  'ptd.mudanza':'Disconnect, pack, move and install PCs, printers, servers and network.', 'ptd.reparacion':'Diagnostics, viruses, Windows, SSD, screens, printers, servers. On-site, shop or remote.',
+  'ptd.web':'Pages, languages, store, forms, SEO, hosting, domain and monthly maintenance.', 'ptd.software':'Modules by size, platform, integrations, QA, management, contingency and yearly support.',
+  'ptd.msp':'Monthly price per user, servers, network, backup and licenses + onboarding.', 'ptd.libre':'Type the line items yourself: hours, services and products.',
+  pr_c_u:'each', pr_minimo:'Minimum charge (1 hour)', pr_sin_horas:'Fill in the quantities to see the hours.', pr_sem_dev:'Week = {h} productive h per person.', pr_cargos:'Other charges',
+  pr_rec:'Recurring', pr_mes:'mo', pr_anio:'yr', pr_mensual:'Monthly', pr_anual_extra:'Plus, yearly', pr_primer_anio:'First full year: {v}', pr_total_unico:'Total (one-time)',
+  'prg.g_retirar':'🧹 Remove', 'prg.g_equipos':'🖥️ Equipment to disconnect', 'prg.g_reciclar':'♻️ Recycling, destruction and transport', 'prg.g_mover':'🖥️ Equipment to move', 'prg.g_infra':'🗄️ Servers, network and transport',
+  'prg.g_pc':'💻 PC and laptop', 'prg.g_imp':'🖨️ Printers', 'prg.g_otros':'🛠 Other and visits',
+  'pti.desmontaje.cables':'Cables to remove (runs)', 'pti.desmontaje.soportes':'Remove J-hooks and supports', 'pti.desmontaje.ap':'APs / antennas', 'pti.desmontaje.cam':'Cameras', 'pti.desmontaje.acceso':'Access readers / controllers',
+  'pti.desmontaje.tv':'Wall TVs / displays', 'pti.desmontaje.rack':'Racks to dismantle', 'pti.desmontaje.rack_eq':'Rack switches / servers / UPS', 'pti.desmontaje.pc':'PCs / laptops (disconnect and pack)',
+  'pti.desmontaje.monitor':'Monitors', 'pti.desmontaje.impresora':'Printers', 'pti.desmontaje.telefono':'Phones', 'pti.desmontaje.placas':'Wall plates (remove and cover)',
+  'pti.desmontaje.rec_pc':'Recycle PC / server', 'pti.desmontaje.rec_monitor':'Recycle monitor / TV', 'pti.desmontaje.discos':'Drives to destroy (with certificate)', 'pti.desmontaje.viajes':'Truck trips',
+  'pti.mudanza.pc':'PCs / laptops (disconnect, move, install, test)', 'pti.mudanza.monitor':'Monitors', 'pti.mudanza.impresora':'Printers (move and network install)', 'pti.mudanza.servidor':'Servers',
+  'pti.mudanza.rack_red':'Network rack (take down and rebuild)', 'pti.mudanza.telefono':'Phones', 'pti.mudanza.tv':'TVs / displays', 'pti.mudanza.otros':'Other equipment (NAS, DVR, scanner)',
+  'pti.mudanza.red_h':'Network setup at the new site (h)', 'pti.mudanza.isp':'Coordinate internet move (ISP)', 'pti.mudanza.viajes':'Truck trips',
+  'pti.reparacion.diag':'Diagnostics', 'pti.reparacion.virus':'Virus / malware removal', 'pti.reparacion.os':'Reinstall Windows + programs', 'pti.reparacion.datos':'Data backup / migration',
+  'pti.reparacion.recuperacion':'Data recovery (failed drive)', 'pti.reparacion.ssd':'SSD upgrade + clone', 'pti.reparacion.pieza':'RAM / part replacement', 'pti.reparacion.pantalla':'Laptop screen replacement',
+  'pti.reparacion.limpieza':'Internal cleaning / thermal paste', 'pti.reparacion.imp_mant':'Printer maintenance', 'pti.reparacion.imp_rep':'Printer repair (fuser, rollers)',
+  'pti.reparacion.imp_cfg':'Install / configure network printer', 'pti.reparacion.servidor':'Server (diagnostics / repair)', 'pti.reparacion.red':'Network / WiFi (diagnostics)', 'pti.reparacion.correo':'Email / Microsoft 365',
+  'pti.reparacion.visitas':'On-site visits',
+  prr_modo:'Mode', 'prr.sitio':'On-site', 'prr.taller':'In the shop', 'prr.remoto':'Remote', prr_urg:'Urgency', 'prr.normal':'Normal', 'prr.mismo_dia':'Same day (+25%)', 'prr.emergencia':'Emergency (+50%)',
+  prr_tip:'Parts (SSD, RAM, screen, fuser) go in the "Products and parts" tab with their margin.', prm_tip:'If cables or APs are needed at the new site, also make an Installation quote.',
+  pw_tipo:'Site type', 'pw_base.landing':'Landing page (1 page)', 'pw_base.corporativo':'Business website', 'pw_base.ecommerce':'Online store', 'pw_base.webapp':'Web app / portal',
+  pw_pag:'Pages', pw_idi:'Languages', pw_prod:'Products to load', pw_int:'Integrations (CRM, booking, API)', pw_revs:'Revision rounds', pw_por_idioma:'per extra language', pw_por_ronda:'per round', pw_x_pag:'per page',
+  pw_paginas:'Design and build of {n} pages', pw_productos:'Load {n} products', pw_integ:'{n} integrations', pw_idiomas:'{n} languages', pw_rev:'{n} revision rounds', pw_qa:'Testing and QA ({p}%)', pw_feat:'Features',
+  'pwf.contacto':'Contact form', 'pwf.blog':'Blog / news', 'pwf.galeria':'Gallery', 'pwf.citas':'Booking / appointments', 'pwf.whatsapp':'WhatsApp / chat button', 'pwf.mapa':'Map',
+  'pwf.newsletter':'Newsletter', 'pwf.login':'Client area (login)', 'pwf.seo':'Basic SEO', 'pwf.analytics':'Google Analytics', 'pwf.accesibilidad':'Accessibility (ADA)', 'pwf.branding':'Logo / brand',
+  'pwf.copy':'Copywriting', 'pwf.migracion':'Migrate content from the old site', 'pwf.pagos':'Online payments', 'pwf.envios':'Shipping and taxes', 'pwf.traduccion':'Translation included',
+  'pwr.hosting':'Hosting', 'pwr.mant':'Maintenance and updates', 'pwr.dominio':'Domain',
+  psw_plat:'Platform', 'pswp.web':'Web', 'pswp.movil':'Mobile (iOS/Android)', 'pswp.escritorio':'Desktop', 'pswp.ambas':'Web + mobile', psw_inc:'How clear the scope is',
+  'pswi.baja':'Very clear', 'pswi.media':'Somewhat', 'pswi.alta':'Unclear', psw_modulos:'Modules / screens', psw_mod_add:'Add module', psw_mod_ph:'e.g. Inventory, Invoicing, Sales reports',
+  psw_tip:'S = simple screen · M = module with forms and lists · L = module with rules and workflows · XL = complex module (engine, sync).',
+  psw_extras:'Extras', 'pswe.roles':'Users, roles and permissions', 'pswe.admin':'Admin panel', 'pswe.notif':'Notifications (email / push)', 'pswe.pagos':'Online payments', 'pswe.reporte':'Reports',
+  'pswe.integracion':'Integrations (API)', 'pswe.deploy':'Deployment and infrastructure', 'pswe.docs':'Documentation and training',
+  psw_mods:'{n} modules (platform ×{p})', psw_dis:'Design and architecture ({p}%)', psw_cont:'Contingency ({p}%)', psw_soporte:'Support and maintenance ({p}% yearly)', psw_soporte_c:'Support and maintenance', psw_anual:'of the build, yearly',
+  pms_nivel:'Service level', 'pmsn.basico':'Basic', 'pmsn.estandar':'Standard', 'pmsn.premium':'Premium', pms_usuario:'user',
+  'pmsn_d.basico':'Monitoring, patching and remote support during business hours.', 'pmsn_d.estandar':'Unlimited help desk, patching, antivirus, Microsoft 365, network, included visits and reports.',
+  'pmsn_d.premium':'All of standard + EDR/MDR, verified backup, identity security (MFA), priority support and vCIO.',
+  'pms.usuarios':'👤 Users', 'pms.pcs':'🖥️ PCs / laptops', 'pms.servidores':'🗄️ Servers', 'pms.red':'🔀 Network devices', 'pms.impresoras':'🖨️ Printers', 'pms.sitios':'📍 Sites',
+  'pms.backup':'💾 Cloud backup (TB)', 'pms.backup_tb':'💾 Cloud backup (TB)', 'pms.m365':'✉️ Microsoft 365 licenses', pms_onb:'Onboarding (one-time)', pms_onb_c:'Charge onboarding (document, install agents, clean up)',
+  pl_libre_h:'One line per item. Check "h" if it is labor by the hour (rate {t}/h).', pl_libre_add:'Add line', pl_libre_hh:'Labor by the hour',
+  'pr_alcance_ph.instalacion':'What is included: pull and certify cables, mount APs and cameras, configure, label…', 'pr_alcance_ph.desmontaje':'What is removed, what is recycled, how walls and ceilings are left…',
+  'pr_alcance_ph.mudanza':'From/to, date, what moves, who packs…', 'pr_alcance_ph.reparacion':'Devices, symptoms, what will be done, repair warranty…',
+  'pr_alcance_ph.web':'Site goal, pages, features, who provides text and photos, timeline…', 'pr_alcance_ph.software':'Problem it solves, users, modules, phased deliveries…',
+  'pr_alcance_ph.msp':'What the service covers, support hours, response times, visits…', 'pr_alcance_ph.libre':'What the job includes…',
+  'pr_excl_def.instalacion':'City permits, high-voltage electrical work, wall/ceiling repair (paint), work not described in the scope.',
+  'pr_excl_def.desmontaje':'Wall and ceiling repair (patching, paint), removal of electrical wiring, furniture, work not described in the scope.',
+  'pr_excl_def.mudanza':'Furniture, new cabling at the destination (quoted separately), equipment damaged before the move, internet provider fees.',
+  'pr_excl_def.reparacion':'Parts not listed, lab data recovery if the drive does not respond, software licenses, liquid damage.',
+  'pr_excl_def.web':'Professional photography, paid plugin or theme licenses, advertising (Google/Meta Ads), changes beyond the included rounds.',
+  'pr_excl_def.software':'Scope changes after approval (quoted separately), servers and third-party services, app store fees.',
+  'pr_excl_def.msp':'New projects (installs, large migrations), hardware and licenses, support for personal devices not listed.', 'pr_excl_def.libre':'Work not described in the scope.',
+  'pcg.base':'Base', 'pcg.feat':'Feature', 'pcg.tam':'Module', 'pcg.plat':'Platform ×', 'pcg.extra':'Extra (h)', 'pcg.incert':'Contingency %', 'pcg.nivel':'Per user $', 'pcg.servidor':'Per server $',
+  'pcx.pagina':'Hours per page', 'pcx.idioma':'% per language', 'pcx.producto':'Hours per product', 'pcx.pagos':'Payments (h)', 'pcx.envios':'Shipping (h)', 'pcx.integracion':'Integration (h)', 'pcx.revision':'% per round',
+  'pcx.pm':'Management %', 'pcx.qa':'QA %', 'pcx.hosting':'Hosting $/mo', 'pcx.dominio':'Domain $/yr', 'pcx.mant':'Maintenance $/mo', 'pcx.diseno':'Design %', 'pcx.soporte':'Support % yearly', 'pcx.horas_sem':'Hours per week',
+  'pcx.red':'Network device $/mo', 'pcx.impresora':'Printer $/mo', 'pcx.sitio':'Extra site $/mo', 'pcx.backup_tb':'Backup $/TB/mo', 'pcx.m365':'M365 license $/mo',
+  'pcx.onb_u':'Onboarding h/user', 'pcx.onb_pc':'Onboarding h/PC', 'pcx.onb_s':'Onboarding h/server', 'pcx.onb_base':'Onboarding base (h)',
+});
 /* ---------- 📦 Modo del módem (Router / Passthrough / IP fija / Bridge) ---------- */
 const MDM_MODOS = ['router','passthrough','ipfija','bridge'];
 const MDM_ICON = { router: '🏠', passthrough: '➡️', ipfija: '📌', bridge: '🌉' };
@@ -2250,7 +2536,7 @@ async function cargarPerfil(){
     }
   }catch(e){ PERM = { ...PERM_TODO }; }
   const b = document.body.classList;
-  b.toggle('p-roles', PERM.roles && PERM.admin); b.toggle('p-noadm', !PERM.admin); b.toggle('p-ro', !PERM.editar); b.toggle('p-nopw', !PERM.claves);
+  b.toggle('p-roles', PERM.roles && PERM.admin); b.toggle('p-nostaff', PERM.roles && !PERM.admin && PERM.rol !== 'operador'); b.toggle('p-noadm', !PERM.admin); b.toggle('p-ro', !PERM.editar); b.toggle('p-nopw', !PERM.claves);
   b.toggle('p-noborrar', !PERM.borrar); b.toggle('p-noexport', !PERM.exportar);
   $('whoRole').textContent = PERM.roles ? t('role_' + (PERM.rol === 'cliente' ? 'client' : PERM.rol || 'client')) : '';
   armarInactividad(); latido(true);
@@ -2733,12 +3019,14 @@ function renderClienteHead(){
 function mostrarVista(){
   if (curCliente && enSedes === null) enSedes = sedesDe(curCliente).length >= 2;   // desde un enlace: decidir al cargar
   if (curCliente && enSedes && sedesDe(curCliente).length < 2) enSedes = false;
-  const enCliente = !!curCliente, act = ACT.open, verSedes = enCliente && !!enSedes;
-  $('actView').classList.toggle('hidden', !act);
+  const enCliente = !!curCliente, pres = PRES.open && !ACT.open, act = ACT.open || pres, verSedes = enCliente && !!enSedes;
+  $('presuView').classList.toggle('hidden', !pres);
+  $('actView').classList.toggle('hidden', !ACT.open);
+  if (pres){ $('clientsView').classList.add('hidden'); $('sedesView').classList.add('hidden'); $('clientView').classList.add('hidden'); renderPresupuestos(); return; }
   $('clientsView').classList.toggle('hidden', act || enCliente);
   $('sedesView').classList.toggle('hidden', act || !verSedes);
   $('clientView').classList.toggle('hidden', act || !enCliente || verSedes);
-  if (act) renderActividad();
+  if (ACT.open) renderActividad();
   $('devTable').classList.toggle('scoped', enCliente);
   $('fCliente').style.display = enCliente ? 'none' : '';
   if (verSedes) renderSedesGrid(); else if (enCliente) renderClienteHead(); else renderClientes();
@@ -2750,7 +3038,7 @@ function abrirCliente(n){
   render(); window.scrollTo({ top: 0 });
 }
 function volverClientes(){
-  ACT.open = false;
+  ACT.open = false; PRES.open = false; plCtx = null;
   if (curCliente){ try{ history.pushState({}, '', location.pathname); }catch(e){} }
   curCliente = null; cerrarDrawer(); render(); window.scrollTo({ top: 0 });
 }
@@ -3714,8 +4002,12 @@ let topoPZ = null;
 function topoAjustar(){ const svg = $('topoSvg'); if (!svg) return; ajustarVB(topoVB, topoCaja, svg); topoPZ?.aplicar(); }
 
 /* ---------- Exportar el mapa como imagen ---------- */
-async function svgAPng(svg, nombre, caja){
+async function svgAPng(svg, nombre, caja, devolver){
   const clon = svg.cloneNode(true); const vb = caja || topoCaja;
+  for (const im of clon.querySelectorAll('image')){   // las imágenes del plano se incrustan para que salgan en el PNG
+    const h = im.getAttribute('href') || ''; if (!/^https?:/.test(h)) continue;
+    try{ const b = await (await fetch(h)).blob(); im.setAttribute('href', await new Promise(ok => { const r = new FileReader(); r.onload = () => ok(r.result); r.readAsDataURL(b); })); }catch(e){}
+  }
   clon.setAttribute('viewBox', `${vb.x} ${vb.y} ${vb.w} ${vb.h}`); clon.setAttribute('width', vb.w); clon.setAttribute('height', vb.h);
   const css = [...document.styleSheets].map(ss => { try{ return [...ss.cssRules].map(r => r.cssText).filter(c => /\.t-|\.pl-|\.cov|svg/.test(c)).join('\n'); }catch(e){ return ''; } }).join('\n');
   const st = document.createElementNS('http://www.w3.org/2000/svg', 'style'); st.textContent = css + `svg{font-family:Inter,Arial,sans-serif;background:${getComputedStyle(document.body).backgroundColor}}`;
@@ -3725,7 +4017,8 @@ async function svgAPng(svg, nombre, caja){
   const k = Math.min(2, 8000 / Math.max(vb.w, vb.h)), c = document.createElement('canvas'); c.width = vb.w * k; c.height = vb.h * k;
   const g = c.getContext('2d'); g.fillStyle = getComputedStyle(document.body).backgroundColor; g.fillRect(0, 0, c.width, c.height); g.drawImage(img, 0, 0, c.width, c.height);
   URL.revokeObjectURL(url);
-  const a = document.createElement('a'); a.download = nombre + '.png'; a.href = c.toDataURL('image/png'); a.click();
+  const data = c.toDataURL(devolver ? 'image/jpeg' : 'image/png', .85); if (devolver) return data;
+  const a = document.createElement('a'); a.download = nombre + '.png'; a.href = data; a.click();
 }
 
 /* ---------- Vista Diseño ---------- */
@@ -3754,6 +4047,10 @@ function renderDisenoBody(base){
   topoMontar();
 }
 /* ---------- 📐 Planos: pisos con equipos, cables y cobertura WiFi ---------- */
+let plCtx = null;   // cuando el plano es de un presupuesto: { presu, cliente, body, tools, refrescar }
+const plCli = () => plCtx ? plCtx.cliente : curCliente;
+const plB = () => $(plCtx ? plCtx.body : 'disBody'), plT = () => $(plCtx ? plCtx.tools : 'disTools');
+function plRefrescar(){ plCtx ? plCtx.refrescar() : renderDisenoBody(); }
 let planos = [], planosOK = true, planoAct = null, plVB = null, plPZ = null, plModo = 'mover', plSel = null, plColocar = null, plTmp = null;
 let plCapas = { cob: true, cab: true, nom: true }, plBanda = '5', plMat = 'drywall', plFiltro = 'wifi', plQ = '';
 const plUrls = {}, PL_POR_PIE = 20;
@@ -3763,15 +4060,17 @@ const PL_ESCALAS = [['1/32"', 72 / 32], ['1/16"', 72 / 16], ['3/32"', 72 * 3 / 3
   ['1"=10\'', 72 / 10], ['1"=20\'', 72 / 20], ['1"=30\'', 72 / 30], ['1"=40\'', 72 / 40], ['1"=50\'', 72 / 50], ['1"=100\'', 72 / 100],
   ['1:50', 304.8 / 50 / 25.4 * 72], ['1:100', 304.8 / 100 / 25.4 * 72], ['1:200', 304.8 / 200 / 25.4 * 72], ['1:500', 304.8 / 500 / 25.4 * 72]];
 const plEscLbl = k => /[:=]/.test(k) ? k : k + " = 1'-0\"";
-const PL_PLAN = ['U7 Pro', 'U7 Pro Max', 'U7 Lite', 'U7 Long-Range', 'U7 Outdoor', 'U6+', 'U6 Pro', 'U6 Mesh', 'Switch', 'Cámara'];
+const PL_PLAN = ['U7 Pro', 'U7 Pro Max', 'U7 Lite', 'U7 Long-Range', 'U7 Outdoor', 'U6+', 'U6 Pro', 'U6 Mesh', 'Switch', 'Rack / IDF', 'Punto de red', 'Cámara', 'Cámara exterior', 'G5 Bullet', 'G5 Turret Ultra', 'G5 Dome', 'G5 Pro'];
+const plPlanTipo = m => m === 'Switch' ? 'Switch' : m === 'Rack / IDF' ? 'Rack' : m === 'Punto de red' ? 'Punto de red' : /^cámara|^g5|^ai /i.test(m) ? 'Cámara' : 'Access Point';
+const PL_IC = { 'Rack': '🗄️', 'Punto de red': '🔌' };
 const PL_FILTROS = { wifi: ['Access Point', 'Extensor WiFi', 'Antena'], red: ['Switch', 'Router', 'Firewall', 'Módem'], cctv: ['Cámara', 'NVR', 'DVR'], otros: ['Impresora', 'Teléfono', 'Control de Acceso', 'PC', 'Servidor'] };
-const plDe = () => planos.filter(p => mismoCliente(p.cliente, curCliente) && (!fSede || fSede === '-' || !p.sede_id || p.sede_id === fSede))
+const plDe = () => planos.filter(p => plCtx ? p.presupuesto_id === plCtx.presu : (!p.presupuesto_id && mismoCliente(p.cliente, plCli()) && (!fSede || fSede === '-' || !p.sede_id || p.sede_id === fSede)))
   .sort((a, b) => (a.orden ?? 1e9) - (b.orden ?? 1e9) || String(a.nombre).localeCompare(String(b.nombre), 'es', { numeric: true }));
 const plAct = () => planos.find(p => p.id === planoAct);
 const plDatos = p => { const d = jObj(p?.datos); d.eq = jArr(d.eq); d.muros = jArr(d.muros); d.plan = jArr(d.plan); d.cab = jArr(d.cab); return d; };
 let plCabIni = null;
-const plColocados = () => { const s = new Set(); planos.filter(p => mismoCliente(p.cliente, curCliente)).forEach(p => plDatos(p).eq.forEach(e => s.add(e.id))); return s; };
-const plPisoDe = id => planos.find(p => mismoCliente(p.cliente, curCliente) && plDatos(p).eq.some(e => e.id === id));
+const plColocados = () => { const s = new Set(); planos.filter(p => !p.presupuesto_id && mismoCliente(p.cliente, plCli())).forEach(p => plDatos(p).eq.forEach(e => s.add(e.id))); return s; };
+const plPisoDe = id => planos.find(p => !p.presupuesto_id && mismoCliente(p.cliente, curCliente) && plDatos(p).eq.some(e => e.id === id));
 const plR = p => { const m = Math.max(p.ancho, p.alto); return p.escala ? Math.min(Math.max(p.escala * 2.6, m / 260), m / 60) : m / 75; };   // ~2.6 ft de radio
 const esAP = tipo => ['Access Point', 'Extensor WiFi'].includes(tipo);
 
@@ -3807,11 +4106,11 @@ async function plImgUrl(path){
 
 /* ---------- Vista ---------- */
 function renderPlanos(base){
-  const b = $('disBody'), lista = plDe();
-  if (!planosOK){ $('disTools').innerHTML = ''; b.innerHTML = `<div class="act-empty">📐 ${t('pl_missing')}</div>`; return; }
+  const b = plB(), lista = plDe();
+  if (!planosOK){ plT().innerHTML = ''; b.innerHTML = `<div class="act-empty">📐 ${t('pl_missing')}</div>`; return; }
   if (!lista.some(p => p.id === planoAct)) planoAct = lista[0]?.id || null;
   const p = plAct();
-  $('disTools').innerHTML = lista.map(x => `<span class="chip ${x.id === planoAct ? 'on' : ''}" onclick="plIr('${x.id}')">${esc(x.nombre)}${!fSede && x.sede_id ? ` <small class="muted">· ${esc(sedes.find(s => s.id === x.sede_id)?.nombre || '')}</small>` : ''}</span>`).join('')
+  plT().innerHTML = lista.map(x => `<span class="chip ${x.id === planoAct ? 'on' : ''}" onclick="plIr('${x.id}')">${esc(x.nombre)}${!fSede && x.sede_id ? ` <small class="muted">· ${esc(sedes.find(s => s.id === x.sede_id)?.nombre || '')}</small>` : ''}</span>`).join('')
     + (PERM.editar ? `<button class="sm" onclick="plNuevo()">＋ ${t('pl_new')}</button>` : '');
   if (!p){ b.innerHTML = `<div class="act-empty">📐 ${t('pl_empty')}${PERM.editar ? `<br><div class="row" style="justify-content:center;margin-top:12px"><button class="primary" onclick="plNuevo('img')">📤 ${t('pl_up')}</button><button onclick="plNuevo('blank')">✏️ ${t('pl_draw')}</button></div>` : ''}</div>`; return; }
   const ed = PERM.editar;
@@ -3823,7 +4122,7 @@ function renderPlanos(base){
       <div class="pl-bar">${ed ? modo('mover', '🖐') + modo('escala', '📏') + modo('muro', '🧱') + modo('cable', '🔌') + (plModo === 'muro' ? `<select class="sm-sel" onchange="plMat=this.value">${Object.keys(PL_MAT).map(k => `<option value="${k}" ${k === plMat ? 'selected' : ''}>${esc(t('mat.' + k))} (−${PL_MAT[k].db} dB)</option>`).join('')}</select>` : '') + '<span class="pl-sep"></span>' : ''}
         ${capa('cob', '📶')}${plCapas.cob ? `<select class="sm-sel" onchange="plBanda=this.value;plDibujar()">${['2.4', '5', '6'].map(b => `<option ${b === plBanda ? 'selected' : ''} value="${b}">${b} GHz</option>`).join('')}</select>` : ''}${capa('cab', '🔌')}${capa('nom', '🏷')}
         <span class="pl-sep"></span><button class="sm" onclick="plPZ?.zoom(1/1.25)">＋</button><button class="sm" onclick="plPZ?.zoom(1.25)">−</button><button class="sm" onclick="plAjustar()">⤢</button>
-        <button class="sm" onclick="svgAPng($('plSvg'),'plano-'+curCliente+'-'+(plAct()?.nombre||''),{x:0,y:0,w:plAct().ancho,h:plAct().alto})">⬇ PNG</button>
+        <button class="sm" onclick="svgAPng($('plSvg'),'plano-'+plCli()+'-'+(plAct()?.nombre||''),{x:0,y:0,w:plAct().ancho,h:plAct().alto})">⬇ PNG</button>
         ${ed ? `<button class="sm" onclick="plConfig()" title="${esc(t('pl_config'))}">⚙</button>` : ''}${PERM.borrar ? `<button class="sm danger" onclick="plBorrar()">🗑 ${t('pl_delete_plan')}</button>` : ''}<span class="muted pl-est" id="plEstado"></span></div>
       <div class="pl-hint" id="plHint">${plHint(p)}</div>
       <div class="pl-canvas"><svg id="plSvg" class="pl-svg" xmlns="http://www.w3.org/2000/svg"></svg></div>
@@ -3832,7 +4131,7 @@ function renderPlanos(base){
   plMontar(p);
 }
 function plHint(p){
-  if (plColocar) return `📍 ${t('pl_h_place', { n: plColocar.nombre })} <a class="dev-link" onclick="plColocar=null;renderDisenoBody()">${t('cancel')}</a>`;
+  if (plColocar) return `📍 ${t('pl_h_place', { n: plColocar.nombre })} <a class="dev-link" onclick="plColocar=null;plRefrescar()">${t('cancel')}</a>`;
   if (!p.escala) return `📏 ${t('pl_h_noscale')}`;
   if (plModo === 'escala') return `📏 ${t('pl_h_scale')}`;
   if (plModo === 'muro') return `🧱 ${t('pl_h_wall')}`;
@@ -3843,14 +4142,14 @@ function plLista(p){
   const col = plColocados(), aqui = new Set(plDatos(p).eq.map(e => e.id));
   const tipos = PL_FILTROS[plFiltro] || [];
   const q = nrm(plQ);
-  const cand = equiposDe(curCliente).filter(x => tipos.includes(x.tipo) && !col.has(x.id) && (!p.sede_id || !x.sede_id || x.sede_id === p.sede_id) && (!q || nrm(x.nombre + ' ' + x.modelo + ' ' + x.ip).includes(q)))
+  const cand = equiposDe(plCli()).filter(x => tipos.includes(x.tipo) && !col.has(x.id) && (!p.sede_id || !x.sede_id || x.sede_id === p.sede_id) && (!q || nrm(x.nombre + ' ' + x.modelo + ' ' + x.ip).includes(q)))
     .sort((a, b) => tipos.indexOf(a.tipo) - tipos.indexOf(b.tipo) || String(a.nombre).localeCompare(String(b.nombre), 'es', { numeric: true }));
   const ed = PERM.editar;
   return `<div class="pl-side-h"><b>${t('pl_unplaced')}</b> <span class="muted">${cand.length}</span></div>
-    <div class="pl-fil">${Object.keys(PL_FILTROS).map(k => `<span class="chip ${plFiltro === k ? 'on' : ''}" onclick="plFiltro='${k}';renderDisenoBody()">${t('pl_f.' + k)}</span>`).join('')}</div>
+    <div class="pl-fil">${Object.keys(PL_FILTROS).map(k => `<span class="chip ${plFiltro === k ? 'on' : ''}" onclick="plFiltro='${k}';plRefrescar()">${t('pl_f.' + k)}</span>`).join('')}</div>
     <input class="pl-q" placeholder="${esc(t('cl_search'))}" value="${esc(plQ)}" oninput="plQ=this.value;$('plItems').innerHTML=plListaItems()">
     <div id="plItems" class="pl-items">${plListaItems(cand)}</div>
-    ${ed ? `<div class="pl-side-h" style="margin-top:12px"><b>${t('pl_planned')}</b></div><div class="pl-items">${PL_PLAN.map(m => `<div class="pl-it plan" draggable="true" ondragstart="plDrag(event,'plan:${jsq(m)}')" onclick="plElegir('plan:${jsq(m)}')">${m === 'Switch' ? '🔀' : m === 'Cámara' ? '📷' : '📶'} ${esc(m)} <small class="muted">${t('pl_new_s')}</small></div>`).join('')}</div>` : ''}
+    ${ed ? `<div class="pl-side-h" style="margin-top:12px"><b>${t('pl_planned')}</b></div><div class="pl-items">${PL_PLAN.map(m => `<div class="pl-it plan" draggable="true" ondragstart="plDrag(event,'plan:${jsq(m)}')" onclick="plElegir('plan:${jsq(m)}')">${PL_IC[plPlanTipo(m)] || (plPlanTipo(m) === 'Switch' ? '🔀' : plPlanTipo(m) === 'Cámara' ? '📷' : '📶')} ${esc(m)} <small class="muted">${t('pl_new_s')}</small></div>`).join('')}</div>` : ''}
     <div class="muted pl-aqui">${t('pl_here', { n: aqui.size + plDatos(p).plan.length })}</div>`;
 }
 function plListaItems(cand){
@@ -3858,8 +4157,8 @@ function plListaItems(cand){
   return cand.length ? cand.map(x => `<div class="pl-it" draggable="${PERM.editar}" ondragstart="plDrag(event,'${x.id}')" onclick="plElegir('${x.id}')" title="${esc([x.modelo, x.ip].filter(Boolean).join(' · '))}">
       ${TIPO_ICON[x.tipo] || '◆'} ${esc(x.nombre)}${x.modelo ? ` <small class="muted">${esc(corto(x.modelo, 18))}</small>` : ''}</div>`).join('') : `<div class="muted pl-none">${t('pl_all_placed')}</div>`;
 }
-function plIr(id){ planoAct = id; plVB = null; plSel = null; plColocar = null; plTmp = null; renderDisenoBody(); }
-function plSetModo(m){ plModo = m; plTmp = null; plColocar = null; plCabIni = null; if (m === 'cable') plCapas.cab = true; renderDisenoBody(); }
+function plIr(id){ planoAct = id; plVB = null; plSel = null; plColocar = null; plTmp = null; plRefrescar(); }
+function plSetModo(m){ plModo = m; plTmp = null; plColocar = null; plCabIni = null; if (m === 'cable') plCapas.cab = true; plRefrescar(); }
 function plElegir(id){
   if (!PERM.editar) return;
   plColocar = id.startsWith('plan:') ? { plan: id.slice(5), nombre: id.slice(5) } : { id, nombre: items.find(i => i.id === id)?.nombre || '' };
@@ -3868,11 +4167,11 @@ function plElegir(id){
 function plDrag(e, id){ e.dataTransfer.setData('text/plain', id); e.dataTransfer.effectAllowed = 'copy'; }
 function plPoner(id, x, y){
   const p = plAct(); if (!p) return; const d = plDatos(p);
-  if (id.startsWith('plan:')){ const m = id.slice(5), tp = m === 'Switch' ? 'Switch' : m === 'Cámara' ? 'Cámara' : 'Access Point';
+  if (id.startsWith('plan:')){ const m = id.slice(5), tp = plPlanTipo(m);
     const n = d.plan.filter(z => z.modelo === m).length + 1;
     d.plan.push({ k: 'p' + Date.now().toString(36), tipo: tp, modelo: m, nombre: `${m} ${n}`, x, y }); }
   else { if (plColocados().has(id)) return; d.eq.push({ id, x, y }); }
-  p.datos = d; plColocar = null; plGuardar(p); renderDisenoBody();
+  p.datos = d; plColocar = null; plGuardar(p); plRefrescar();
 }
 
 /* ---------- Dibujo del plano ---------- */
@@ -3900,7 +4199,7 @@ function plClick(e){
     if (dist < 5) return;
     const v = prompt(t('pl_scale_q')), ft = parseFloat(String(v || '').replace(',', '.'));
     if (!(ft > 0)) return;
-    p.escala = dist / ft; plGuardar(p); plModo = 'mover'; toast(t('pl_scale_ok', { f: ft })); renderDisenoBody(); return;
+    p.escala = dist / ft; plGuardar(p); plModo = 'mover'; toast(t('pl_scale_ok', { f: ft })); plRefrescar(); return;
   }
   if (plModo === 'muro'){
     if (!plTmp){ plTmp = { x: q.x, y: q.y, mx: q.x, my: q.y }; plDibujarTmp(); return; }
@@ -3952,7 +4251,7 @@ function plDibujar(){
       + (ft && (todasEtq || plSel === o.key || plSel === u.key || sel) ? `<text class="pl-len" data-a="${o.key}" data-b="${u.key}" x="${(o.x + u.x) / 2}" y="${(o.y + u.y) / 2 - r * .3}" style="font-size:${r * .75}px">${Math.round(ft)} ft${pt ? ' · p' + esc(pLbl(pk(pt))) : ''}</text>` : '');
   });
   const devs = pos.map(o => `<g class="pl-dev ${o.plan ? 'plan' : ''} ${plSel === o.key || plCabIni === o.key ? 'sel' : ''} ${o.eq?.unifi_estado === 'offline' ? 'off' : ''}" data-k="${o.key}" transform="translate(${o.x},${o.y})">
-      <circle r="${r}" class="pl-dot ty-${esc(o.tipo).replace(/\s/g, '')}"/><text class="pl-ic" style="font-size:${r * 1.05}px" y="${r * .37}">${o.plan && esAP(o.tipo) ? '📶' : TIPO_ICON[o.tipo] || '◆'}</text>
+      <circle r="${r}" class="pl-dot ty-${esc(o.tipo).replace(/\s/g, '')}"/><text class="pl-ic" style="font-size:${r * 1.05}px" y="${r * .37}">${o.plan && esAP(o.tipo) ? '📶' : PL_IC[o.tipo] || TIPO_ICON[o.tipo] || '◆'}</text>
       ${plCapas.nom ? `<g class="pl-lbl" transform="translate(0,${r * 1.75})"><rect x="${-(String(o.nombre).length * r * .3 + r * .4)}" y="${-r * .62}" width="${String(o.nombre).length * r * .6 + r * .8}" height="${r * 1.25}" rx="${r * .3}"/><text style="font-size:${r * .8}px" y="${r * .28}">${svgEsc(o.nombre)}</text></g>` : ''}
       <title>${svgEsc([tTipo(o.tipo), o.nombre, o.modelo, o.eq?.ip, o.plan ? t('pl_planned_1') : ''].filter(Boolean).join('\n'))}</title></g>`).join('');
   svg.innerHTML = `${fondo}${cob}${muros}${cables}${devs}<g id="plTmpG"></g>`;
@@ -3963,7 +4262,7 @@ function plDibujar(){
   // Pie: selección, totales y leyenda
   const sel = plSel && porId[plSel], selM = /^m\d+$/.test(plSel || '') && d.muros[+plSel.slice(1)], selC = /^c\d+$/.test(plSel || '') && d.cab[+plSel.slice(1)];
   const planRes = Object.entries(d.plan.reduce((a, z) => (a[z.modelo] = (a[z.modelo] || 0) + 1, a), {})).map(([m, n]) => `${n} × ${esc(m)}`).join(', ');
-  $('plFoot').innerHTML = (sel ? `<div class="pl-selbar"><b>${sel.plan ? '📶' : TIPO_ICON[sel.tipo] || '◆'} ${esc(sel.nombre)}</b> <span class="muted">${esc([tTipo(sel.tipo), sel.modelo, sel.eq?.ip].filter(Boolean).join(' · '))}</span>
+  $('plFoot').innerHTML = (sel ? `<div class="pl-selbar"><b>${PL_IC[sel.tipo] || (sel.plan && esAP(sel.tipo) ? '📶' : TIPO_ICON[sel.tipo] || '◆')} ${esc(sel.nombre)}</b> <span class="muted">${esc([tTipo(sel.tipo), sel.modelo, sel.eq?.ip].filter(Boolean).join(' · '))}</span>
       ${sel.plan && PERM.editar ? `<input class="pl-ren" value="${esc(sel.nombre)}" onchange="plRenPlan('${sel.key}',this.value)">` : ''}
       <span style="flex:1"></span>${sel.eq ? `<button class="sm" onclick="verDetalle('${sel.eq.id}')">${t('view')}</button>` : ''}${PERM.editar ? `<button class="sm danger" onclick="plQuitar('${sel.key}')">✕ ${t('pl_remove')}</button>` : ''}</div>`
     : selC ? `<div class="pl-selbar"><b>🔌 ${esc(porId[selC.a]?.nombre || '')} → ${esc(porId[selC.b]?.nombre || '')}</b>
@@ -4019,11 +4318,11 @@ function plQuitar(k){
   if (/^m\d+$/.test(k)) d.muros.splice(+k.slice(1), 1);
   else if (/^c\d+$/.test(k) && d.cab[+k.slice(1)]) d.cab.splice(+k.slice(1), 1);
   else { d.eq = d.eq.filter(z => z.id !== k); d.plan = d.plan.filter(z => z.k !== k); d.cab = d.cab.filter(c => c.a !== k && c.b !== k); }
-  p.datos = d; plSel = null; plGuardar(p); renderDisenoBody();
+  p.datos = d; plSel = null; plGuardar(p); plRefrescar();
 }
 document.addEventListener('keydown', e => {
-  if (vista !== 'dis' || disTab !== 'planos' || /input|textarea|select/i.test(e.target.tagName) || !$('modal').classList.contains('hidden')) return;
-  if (e.key === 'Escape' && (plTmp || plColocar)){ plTmp = null; plColocar = null; renderDisenoBody(); }
+  if (!(plCtx ? !$('presuView')?.classList.contains('hidden') : vista === 'dis' && disTab === 'planos') || /input|textarea|select/i.test(e.target.tagName) || !$('modal').classList.contains('hidden')) return;
+  if (e.key === 'Escape' && (plTmp || plColocar)){ plTmp = null; plColocar = null; plRefrescar(); }
   if ((e.key === 'Delete' || e.key === 'Backspace') && plSel && PERM.editar){ e.preventDefault(); plQuitar(plSel); }
 });
 function plAjustar(){ const p = plAct(), svg = $('plSvg'); if (!p || !svg) return; ajustarVB(plVB, { x: 0, y: 0, w: p.ancho, h: p.alto }, svg); plPZ?.aplicar(); }
@@ -4060,11 +4359,11 @@ function plCobertura(p, aps, muros){
 /* ---------- Nuevo piso / configuración ---------- */
 function plNuevo(modo){
   if (!puede('editar')) return; if (!planosOK) return alert(t('pl_missing'));
-  const n = plDe().length + 1, sds = sedesDe(curCliente);
+  const n = plDe().length + 1, sds = sedesDe(plCli());
   $('modalTitle').textContent = '📐 ' + t('pl_new');
   $('modalBody').innerHTML = `<div class="grid2c">
       <label><span>${t('pl_name')}</span><input id="pn_nombre" value="${esc(t('pl_level', { n }))}" autocomplete="off"></label>
-      ${sds.length ? `<label><span>${t('sede')}</span><select id="pn_sede"><option value="">—</option>${sds.map(s => `<option value="${s.id}" ${s.id === fSede ? 'selected' : ''}>📍 ${esc(s.nombre)}</option>`).join('')}</select></label>` : '<span></span>'}
+      ${sds.length ? `<label><span>${t('sede')}</span><select id="pn_sede"><option value="">—</option>${sds.map(s => `<option value="${s.id}" ${!plCtx && s.id === fSede ? 'selected' : ''}>📍 ${esc(s.nombre)}</option>`).join('')}</select></label>` : '<span></span>'}
       <label class="full mdm-chk"><input type="radio" name="pn_m" value="img" ${modo !== 'blank' ? 'checked' : ''} onchange="$('pnImg').classList.remove('hidden');$('pnBlank').classList.add('hidden')"> 📤 ${t('pl_up')} <small class="muted">${t('pl_up_h')}</small></label>
       <div id="pnImg" class="full grid2c ${modo === 'blank' ? 'hidden' : ''}"><input id="pn_file" type="file" accept="image/png,image/jpeg,image/webp,application/pdf,.pdf" onchange="$('pnEscL').classList.toggle('hidden', !/pdf/i.test(this.files[0]?.type || this.files[0]?.name || ''))">
         <label id="pnEscL" class="hidden"><span>${t('pl_pdf_scale')}</span><select id="pn_esc"><option value="">${esc(t('pl_pdf_scale_no'))}</option>${PL_ESCALAS.map(([k], i) => `<option value="${i}">${esc(plEscLbl(k))}</option>`).join('')}</select>
@@ -4098,7 +4397,8 @@ async function plPrepararArchivo(f){
 async function plCrear(){
   const nombre = $('pn_nombre').value.trim() || t('pl_level', { n: plDe().length + 1 }), sede_id = $('pn_sede')?.value || null;
   const img = document.querySelector('input[name="pn_m"]:checked').value === 'img';
-  const row = { cliente: curCliente, sede_id, nombre, datos: {}, orden: plDe().length + 1 };
+  const row = { cliente: plCli(), sede_id, nombre, datos: {}, orden: plDe().length + 1 };
+  if (plCtx) row.presupuesto_id = plCtx.presu;
   let arch = null;
   if (img){ const f = $('pn_file').files[0]; if (!f) return alert(t('pl_pick_file'));
     $('pnBtn').disabled = true; $('pnEst').textContent = t('pl_processing');
@@ -4118,7 +4418,7 @@ async function plCrear(){
   closeModal(); toast(t('saved')); await loadData();
 }
 function plConfig(){
-  const p = plAct(); if (!p || !puede('editar')) return; const sds = sedesDe(curCliente);
+  const p = plAct(); if (!p || !puede('editar')) return; const sds = sedesDe(plCli());
   $('modalTitle').textContent = '⚙ ' + p.nombre;
   $('modalBody').innerHTML = `<div class="grid2c">
       <label><span>${t('pl_name')}</span><input id="pc_nombre" value="${esc(p.nombre)}"></label>
@@ -4150,6 +4450,682 @@ async function plBorrar(){
   if (p.imagen) await db.storage.from('planos').remove([p.imagen]);
   const r = await db.from('planos').delete().eq('id', p.id); if (r.error) return fail(r.error, t('del_fail'));
   planoAct = null; closeModal(); toast(t('cl_deleted')); await loadData();
+}
+/* ================== 💰 PRESUPUESTOS ================== */
+// Valores de partida (todos se cambian en ⚙ Precios y tiempos). Horas por tarea basadas en estándares de la industria
+// (IPVM: ~1.85 h por corrida de 50 ft en techo falso, ~2.5 h en techo duro de 12 ft; ~50–60 ft de cable por hora).
+const PRESU_DEF = {
+  tarifa: 85, extra: 1.5, horas_dia: 8, eficiencia: 0.85, margen_mat: 20, margen_eq: 15, impuesto: 7, contingencia: 10, validez: 30,
+  t: { drop: 0.75, pies_hora: 80, conduit_pies_hora: 30, prueba: 0.1, ap: 0.5, ap_cfg: 0.15, cam_int: 0.75, cam_ext: 1.25, cam_cfg: 0.25,
+       rack: 3, patch: 1, switch: 1.5, nvr: 2, fibra: 3, fibra_term: 1.5, survey: 2, pm: 8 },
+  f_alt: { 10: 1, 14: 1.15, 20: 1.25, 30: 1.4, 99: 1.7 },
+  f_techo: { falso: 1, drywall: 1.35, abierto: 1.1, concreto: 1.5 },
+  f_dif: { facil: 0.9, normal: 1, dificil: 1.3 },
+  pp: { drop_pared: 225, drop_techo: 250, cam_int: 300, cam_ext: 350, switch: 200, nvr: 250, rack: 450, fibra: 650 },
+  recargo_alt: { 14: 0, 20: 35, 30: 60, 99: 90 },
+  mat: { cat6: 0.35, cat6p: 0.55, cat6a: 0.75, jack: 6, placa: 3, caja: 6, patch24: 95, cordon: 4, jhook: 1.5, emt: 1.2, fibra_pie: 1.5, fibra_term: 150, rack: 260, misc: 5, desperdicio: 10 },
+  renta: { tijera: 450, boom: 1200 },
+  equipos: [
+    { m: 'U7 Pro', c: 'ap', p: 189 }, { m: 'U7 Pro Max', c: 'ap', p: 279 }, { m: 'U7 Lite', c: 'ap', p: 99 }, { m: 'U7 Long-Range', c: 'ap', p: 159 }, { m: 'U7 Outdoor', c: 'ap', p: 249 },
+    { m: 'U6+', c: 'ap', p: 129 }, { m: 'U6 Mesh', c: 'ap', p: 179 },
+    { m: 'G5 Bullet', c: 'cam', p: 129 }, { m: 'G5 Turret Ultra', c: 'cam', p: 129 }, { m: 'G5 Dome', c: 'cam', p: 179 }, { m: 'G5 Pro', c: 'cam', p: 379 }, { m: 'AI Pro', c: 'cam', p: 499 },
+    { m: 'USW Lite 16 PoE', c: 'sw', p: 199 }, { m: 'USW Pro Max 24 PoE', c: 'sw', p: 799 }, { m: 'USW Pro Max 48 PoE', c: 'sw', p: 1199 }, { m: 'USW Enterprise 24 PoE', c: 'sw', p: 899 },
+    { m: 'UDM Pro Max', c: 'gw', p: 599 }, { m: 'UCG Fiber', c: 'gw', p: 279 }, { m: 'UNVR', c: 'nvr', p: 299 }, { m: 'UNVR Pro', c: 'nvr', p: 499 }, { m: 'HDD 8TB Surveillance', c: 'otro', p: 199 },
+    { m: 'UPS 1500VA rack', c: 'otro', p: 650 }, { m: 'Rack 12U pared', c: 'otro', p: 260 } ] };
+const PR_TIPOS = ['oficina', 'almacen', 'mixto', 'retail', 'exterior'];
+const PR_TECHOS = ['falso', 'drywall', 'abierto', 'concreto'];
+const PR_PUNTOS = [['drop_pared', '🔌'], ['drop_techo', '📶'], ['cam_int', '📷'], ['cam_ext', '🎥'], ['switch', '🔀'], ['nvr', '📹'], ['rack', '🗄️'], ['fibra', '🧵']];
+const PR_ESTADOS = ['borrador', 'enviado', 'aprobado', 'perdido', 'completado'];
+let presus = [], presuOK = true, PRC = null, PR = null, PRES = { open: false, edit: false, q: '', estado: '' };
+const prConf = () => { const c = jObj(PRC?.datos), d = PRESU_DEF, m = (a, b) => ({ ...a, ...jObj(b) });
+  return { ...d, ...c, t: m(d.t, c.t), f_alt: m(d.f_alt, c.f_alt), f_techo: m(d.f_techo, c.f_techo), f_dif: m(d.f_dif, c.f_dif), pp: m(d.pp, c.pp),
+    recargo_alt: m(d.recargo_alt, c.recargo_alt), mat: m(d.mat, c.mat), renta: m(d.renta, c.renta), equipos: Array.isArray(c.equipos) && c.equipos.length ? c.equipos : d.equipos }; };
+const escalon = (tabla, v) => { const ks = Object.keys(tabla).map(Number).sort((a, b) => a - b); for (const k of ks) if (v <= k) return tabla[k]; return tabla[ks[ks.length - 1]]; };
+const money = v => (v < 0 ? '−' : '') + '$' + Math.abs(Math.round(v)).toLocaleString('en-US');
+const n0 = v => +v || 0;
+const prVer = () => !PERM.roles || PERM.admin || PERM.rol === 'operador';
+
+/* ---------- Aprender de los trabajos cerrados ---------- */
+function prAprendido(sitio, tipo = prTipo(PR?.d)){
+  const hechos = presus.filter(p => p.estado === 'completado' && +p.horas_est > 0 && +p.horas_real > 0 && (!PR || p.id !== PR.id) && prTipo(jObj(p.datos)) === tipo);
+  // cada trabajo cuenta según su tamaño; un trabajo raro (más del doble o menos de la mitad) no puede mover todo
+  const suave = (arr) => { if (!arr.length) return null; const r = arr.reduce((a, p) => a + Math.min(2, Math.max(.5, p.horas_real / p.horas_est)) * p.horas_est, 0) / arr.reduce((a, p) => a + +p.horas_est, 0), n = arr.length;
+    return { f: Math.min(1.8, Math.max(.6, (n * r + 3) / (n + 3))), n, r }; };
+  const todo = suave(hechos); if (!todo) return { f: 1, n: 0 };
+  if (!PR_CAMPO.includes(tipo)) return todo;
+  const alt = n0(sitio?.altura), grupo = hechos.filter(p => { const s = jObj(p.datos).sitio || {}; return escalon({ 14: 1, 20: 2, 30: 3, 99: 4 }, n0(s.altura)) === escalon({ 14: 1, 20: 2, 30: 3, 99: 4 }, alt) && (s.tipo || '') === (sitio?.tipo || ''); });
+  const g = grupo.length >= 2 ? suave(grupo) : null;
+  return g ? { ...g, grupo: true } : todo;
+}
+
+/* ---------- Motor de cálculo ---------- */
+function prCalcInst(d, C){
+  const s = { tipo: 'oficina', area: 0, altura: 10, techo: 'falso', dificultad: 'normal', horario: 'normal', cable: 'cat6', conduit: 0, corrida: '', racks: 1, ...(d.sitio || {}) };
+  const q = { ...(d.q || {}) }; PR_PUNTOS.forEach(([k]) => q[k] = n0(q[k])); q.extra_h = n0(q.extra_h); q.red_h = n0(q.red_h);
+  const T = C.t, alt = Math.max(6, n0(s.altura) || 10), area = Math.max(0, n0(s.area)), racks = Math.max(1, n0(s.racks) || 1);
+  const runs = q.drop_pared + q.drop_techo + q.cam_int + q.cam_ext;
+  const corridaAuto = Math.round(Math.min(295, Math.max(30, Math.sqrt(area / racks || 400) * .55 + alt + 15)));
+  const corrida = n0(s.corrida) || corridaAuto, cond = Math.min(100, Math.max(0, n0(s.conduit))) / 100;
+  const fA = escalon(C.f_alt, alt), fT = C.f_techo[s.techo] ?? 1, fD = C.f_dif[s.dificultad] ?? 1, fS = fA * fT * fD;
+  const h = {};
+  h.cable = runs * (T.drop + corrida * (1 - cond) / T.pies_hora + corrida * cond / T.conduit_pies_hora + T.prueba) * fS;
+  h.montaje = (q.drop_techo * (T.ap + T.ap_cfg) + q.cam_int * (T.cam_int + T.cam_cfg) + q.cam_ext * (T.cam_ext + T.cam_cfg)) * fA * fD;
+  const paneles = Math.ceil(runs / 24);
+  h.equipos = q.switch * T.switch + q.nvr * T.nvr + q.rack * T.rack + paneles * T.patch + q.fibra * (T.fibra * fA + T.fibra_term) + q.red_h;
+  h.survey = runs || q.switch || q.nvr ? T.survey : 0; h.extra = q.extra_h;
+  const base = h.cable + h.montaje + h.equipos + h.survey + h.extra; h.pm = base * T.pm / 100;
+  const ap = d.aprendido || { f: 1, n: 0 };
+  const total = (base + h.pm) * (ap.f || 1);
+  // Personas y tiempo
+  const lift = alt > 30 ? 'boom' : alt > 20 ? 'tijera' : alt > 14 ? 'escalera_ext' : 'escalera';
+  const minP = alt > 14 ? 2 : 1, hd = n0(C.horas_dia) || 8, ef = n0(C.eficiencia) || .85;
+  const diasCon = p => total ? Math.ceil(total / (p * hd * ef)) : 0;
+  let pers = n0(d.personas); if (!pers){ pers = minP; while (pers < 6 && diasCon(pers) > 10) pers++; }
+  const dias = diasCon(pers), semanas = dias / 5;
+  // Precio de la mano de obra: por hora y por punto
+  const tarifa = n0(C.tarifa) * (s.horario === 'fuera' ? n0(C.extra) || 1.5 : 1);
+  const porHora = total * tarifa;
+  const recargo = escalon(C.recargo_alt, alt);
+  const lineasPunto = PR_PUNTOS.filter(([k]) => q[k]).map(([k]) => ({ k, qty: q[k], p: n0(C.pp[k]) + (['drop_techo', 'cam_int', 'cam_ext'].includes(k) ? recargo : 0) }));
+  const porPunto = lineasPunto.reduce((a, l) => a + l.qty * l.p, 0) + (q.extra_h + q.red_h) * tarifa;
+  const modo = d.modo === 'punto' ? 'punto' : 'hora', mano = modo === 'punto' ? porPunto : porHora;
+  // Materiales
+  const M = C.mat, pieCable = n0(M[s.cable] ?? M.cat6), pies = Math.ceil(runs * corrida * (1 + n0(M.desperdicio) / 100));
+  const mats = [
+    ['m_cable', pies, pieCable, 'ft'], ['m_jack', runs, M.jack], ['m_placa', q.drop_pared, M.placa], ['m_caja', q.drop_techo + q.cam_int + q.cam_ext, M.caja],
+    ['m_patch', paneles, M.patch24], ['m_cordon', runs * 2, M.cordon], ['m_jhook', s.techo === 'falso' || s.techo === 'abierto' ? Math.ceil(runs * corrida * (1 - cond) / 5 / 8) : 0, M.jhook],
+    ['m_emt', Math.ceil(runs * corrida * cond), M.emt, 'ft'], ['m_fibra', q.fibra * Math.max(150, corrida * 2), M.fibra_pie, 'ft'], ['m_fibra_term', q.fibra * 2, M.fibra_term], ['m_rack', q.rack, M.rack]
+  ].filter(m => m[1] > 0).map(([k, qty, p, u]) => ({ k, qty, p: n0(p), u: u || 'u', tot: qty * n0(p) }));
+  jArr(d.mat_extra).forEach(m => { if (n0(m.qty) && m.d) mats.push({ k: '', d: m.d, qty: n0(m.qty), p: n0(m.p), u: 'u', tot: n0(m.qty) * n0(m.p) }); });
+  const matSub = mats.reduce((a, m) => a + m.tot, 0), matMisc = matSub * n0(M.misc) / 100, matCosto = matSub + matMisc, matVenta = matCosto * (1 + n0(C.margen_mat) / 100);
+  // Equipos
+  const eqs = jArr(d.equipos).filter(e => e.m && n0(e.qty)).map(e => ({ ...e, qty: n0(e.qty), p: n0(e.p), tot: n0(e.qty) * n0(e.p) }));
+  const eqCosto = eqs.reduce((a, e) => a + e.tot, 0), eqVenta = eqCosto * (1 + n0(C.margen_eq) / 100);
+  // Renta de lift
+  const renta = lift === 'tijera' || lift === 'boom' ? Math.max(1, Math.ceil(semanas)) * n0(C.renta[lift]) : 0;
+  const conting = (mano + matVenta) * n0(C.contingencia) / 100;
+  const impuesto = (matVenta + eqVenta) * n0(C.impuesto) / 100;
+  const total$ = mano + matVenta + eqVenta + renta + conting + impuesto;
+  const costo = total * n0(C.tarifa) * .55 + matCosto + eqCosto + renta;   // costo aproximado (técnico ≈ 55% de la tarifa)
+  return { s, q, runs, corrida, corridaAuto, pies, fA, fT, fD, h, base, total, pers, minP, dias, semanas, lift, tarifa, porHora, porPunto, lineasPunto, recargo, modo, mano,
+    mats, matSub, matMisc, matCosto, matVenta, eqs, eqCosto, eqVenta, renta, conting, impuesto, total$, costo, ganancia: total$ - impuesto - costo, ap,
+    tablaP: [1, 2, 3, 4, 5, 6].filter(p => p >= minP).map(p => ({ p, dias: diasCon(p) })) };
+}
+
+/* ---------- Vista de lista ---------- */
+function abrirPresupuestos(){
+  if (!prVer()) return toast(t('no_perm'));
+  PRES.open = true; PRES.edit = false; ACT.open = false; plCtx = null; cerrarDetalle?.(); cerrarDrawer?.();
+  mostrarVista(); window.scrollTo({ top: 0 }); cargarPresupuestos();
+}
+function cerrarPresupuestos(){ PRES.open = false; PRES.edit = false; plCtx = null; PR = null; render(); window.scrollTo({ top: 0 }); }
+async function cargarPresupuestos(){
+  const [a, b] = await Promise.all([db.from('presupuestos').select('*').order('created_at', { ascending: false }), db.from('presu_config').select('*')]);
+  presuOK = !a.error; presus = a.error ? [] : (a.data || []); PRC = b.error ? null : (b.data || [])[0] || null;
+  if (PRES.edit && PR?.id){ const f = presus.find(p => p.id === PR.id); if (f && !PR._sucio) PR = prAbrirObj(f); }
+  renderPresupuestos();
+}
+function renderPresupuestos(){
+  const el = $('presuView'); if (!el || !PRES.open) return;
+  if (PRES.edit && PR) return renderPresuEditor();
+  const q = nrm(PRES.q), lista = presus.filter(p => (!PRES.estado || p.estado === PRES.estado) && (!q || nrm([p.numero, p.cliente, p.titulo].join(' ')).includes(q)));
+  const cerr = presus.filter(p => p.estado === 'completado' && +p.horas_est > 0 && +p.horas_real > 0), ap = cerr.length ? (() => { const r = cerr.reduce((a, p) => a + Math.min(2, Math.max(.5, p.horas_real / p.horas_est)) * p.horas_est, 0) / cerr.reduce((a, p) => a + +p.horas_est, 0), n = cerr.length; return { n, f: (n * r + 3) / (n + 3) }; })() : { n: 0, f: 1 }, tot = e => presus.filter(p => !e || p.estado === e).length;
+  el.innerHTML = `<div class="cl-head"><button class="backbtn" onclick="cerrarPresupuestos()">← ${t('clients_title')}</button>
+      <div class="cl-info"><h2>💰 ${t('pr_title')}</h2><div class="muted">${t('pr_sub')}</div></div>
+      <div class="row no-print">${PERM.admin || !PERM.roles ? `<button onclick="prConfigAbrir()">⚙ ${t('pr_cfg')}</button>` : ''}<button class="primary" onclick="prElegirTipo()">＋ ${t('pr_new')}</button></div></div>
+    ${!presuOK ? `<div class="panel act-empty">💰 ${t('pr_missing')}</div>` : `<div class="panel">
+      <div class="pr-top"><div class="stats">${['', ...PR_ESTADOS].map(e => `<span class="chip ${PRES.estado === e ? 'on' : ''}" onclick="PRES.estado='${e}';renderPresupuestos()">${e ? esc(t('pre.' + e)) : t('pr_all')} (${tot(e)})</span>`).join('')}</div>
+        <div class="search"><input value="${esc(PRES.q)}" placeholder="${esc(t('cl_search'))}" oninput="PRES.q=this.value;renderPresupuestos();this.focus();this.setSelectionRange(this.value.length,this.value.length)"></div></div>
+      <div class="pr-learn">📈 ${ap.n ? t(ap.f >= 1 ? 'pr_learn' : 'pr_learn_m', { n: ap.n, p: Math.abs(Math.round((ap.f - 1) * 100)) }) : t('pr_learn0')}</div>
+      ${lista.length ? `<div class="table-wrap"><table class="net-tbl pr-tbl"><thead><tr><th>#</th><th>${t('client')}</th><th>${t('pr_titulo')}</th><th>${t('status')}</th><th>${t('pr_horas')}</th><th>${t('pr_total')}</th><th>${t('pr_fecha')}</th></tr></thead><tbody>
+        ${lista.map(p => { const tt = jObj(p.totales); return `<tr class="r" onclick="prAbrir('${p.id}')"><td class="mono">${p.numero ?? ''}</td>
+          <td><span title="${esc(t('ptt.' + prTipo(jObj(p.datos))))}">${prIc(prTipo(jObj(p.datos)))}</span> <b>${esc(p.cliente)}</b>${p.prospecto ? ` <span class="pr-prosp">${t('pr_prospect')}</span>` : ''}</td><td>${esc(p.titulo || '')}</td>
+          <td><span class="pr-est ${esc(p.estado)}">${esc(t('pre.' + p.estado))}</span></td>
+          <td class="mono">${tt.horas ? Math.round(tt.horas) + ' h' : ''}${p.horas_real ? ` <span class="muted">/ ${Math.round(p.horas_real)} ${t('pr_real')}</span>` : ''}</td>
+          <td class="mono"><b>${tt.total ? money(tt.total) : ''}</b>${tt.mensual ? `<small class="muted" style="display:block">+ ${money(tt.mensual)}/${t('pr_mes')}</small>` : ''}</td><td class="muted">${esc(new Date(p.created_at).toLocaleDateString(LANG === 'es' ? 'es-US' : 'en-US'))}</td></tr>`; }).join('')}
+      </tbody></table></div>` : `<div class="act-empty">💰 ${t('pr_empty')}<br><button class="primary" style="margin-top:10px" onclick="prElegirTipo()">＋ ${t('pr_new')}</button></div>`}</div>`}`;
+}
+
+/* ---------- Editor ---------- */
+function prAbrirObj(p){ const d = jObj(p.datos); return { ...p, d: { sitio: {}, q: {}, equipos: [], mat_extra: [], modo: 'hora', ...d } }; }
+function prAbrir(id){ const p = presus.find(x => x.id === id); if (!p) return; PR = prAbrirObj(p); PRES.edit = true; PR.tab = 'datos'; renderPresupuestos(); window.scrollTo({ top: 0 }); }
+function prNuevo(cliente, tipo){
+  if (!tipo) return prElegirTipo(cliente);
+  const sitios = { instalacion: { tipo: 'almacen', altura: 24, techo: 'abierto', dificultad: 'normal', horario: 'normal', cable: 'cat6', conduit: 0, racks: 1, area: '' },
+    desmontaje: { tipo: 'almacen', altura: 24, techo: 'abierto', dificultad: 'normal', horario: 'normal' }, mudanza: { dificultad: 'normal', horario: 'normal' },
+    reparacion: { modalidad: 'sitio', urgencia: 'normal', dificultad: 'normal', horario: 'normal' }, web: { tipo_sitio: 'corporativo' }, software: { plataforma: 'web', incertidumbre: 'media' }, msp: { nivel: 'estandar' }, libre: {} };
+  const q = tipo === 'web' ? { paginas: 5, idiomas: 2, revisiones: 2, f_contacto: true, f_seo: true, f_analytics: true, f_mapa: true, f_whatsapp: true } : tipo === 'reparacion' ? { diag: 1 } : tipo === 'msp' ? { sitios: 1 } : {};
+  PR = { id: null, cliente: cliente || (curCliente || ''), prospecto: false, titulo: '', estado: 'borrador', d: { tipo, sitio: sitios[tipo] || {}, q, equipos: [], mat_extra: [], modo: 'hora', modulos: [], partidas: [] }, tab: 'datos' };
+  PR.prospecto = !!PR.cliente && !clienteObj(PR.cliente);
+  PRES.open = true; PRES.edit = true; ACT.open = false; mostrarVista(); renderPresupuestos(); window.scrollTo({ top: 0 });
+  if (!presus.length && !PRC) cargarPresupuestos();
+}
+function prVolverLista(){ if (PR?._sucio && !confirm(t('pr_unsaved'))) return; PRES.edit = false; plCtx = null; PR = null; renderPresupuestos(); }
+const prNum = (k, v, extra = '') => `<input type="number" min="0" step="any" data-pk="${k}" value="${esc(v ?? '')}" oninput="prLeer()" ${extra}>`;
+function renderPresuEditor(){
+  const el = $('presuView'), d = PR.d, C = prConf(); d.aprendido = prAprendido(d.sitio);
+  const s = d.sitio, ed = true;
+  const clientes = clientesDB.map(c => c.nombre);
+  const sel = (k, ops, lbl) => `<select data-pk="${k}" onchange="prLeer()">${ops.map(o => `<option value="${o}" ${String(s[k.split('.')[1]] ?? '') === String(o) ? 'selected' : ''}>${esc(lbl(o))}</option>`).join('')}</select>`;
+  const tab = (k, ic) => `<span class="chip ${PR.tab === k ? 'on' : ''}" onclick="prTab('${k}')">${ic} ${t('pr_tab.' + k)}</span>`;
+  el.innerHTML = `<div class="cl-head"><button class="backbtn" onclick="prVolverLista()">← ${t('pr_title')}</button>
+      <div class="cl-info"><h2>💰 ${PR.numero ? '#' + PR.numero + ' · ' : ''}${esc(PR.cliente || t('pr_new'))}</h2><div class="muted">${esc(PR.titulo || '')}</div></div>
+      <div class="row no-print"><span class="muted" id="prEstadoG"></span><button class="primary" onclick="prGuardar()">💾 ${t('u_save')}</button><button onclick="prPdf()">🖨 ${t('pr_pdf')}</button>
+        ${PR.id ? `<button onclick="prDuplicar()">⧉ ${t('dup')}</button>` : ''}${PR.id && (PR.estado === 'aprobado' || PR.estado === 'completado') ? `<button onclick="prCerrarAbrir()">✅ ${t('pr_close')}</button>` : ''}
+        ${PR.id && PR.prospecto && (PERM.admin || !PERM.roles) ? `<button onclick="prConvertir()">➕ ${t('pr_to_client')}</button>` : ''}${PR.id && (PERM.admin || !PERM.roles) ? `<button class="danger" onclick="prBorrar()">🗑</button>` : ''}</div></div>
+    <div class="pr-grid">
+      <div class="pr-main">
+        <div class="panel pr-head"><div class="mdm-grid">
+          <label><span>${t('client')} / ${t('pr_prospect')}</span><input data-pk="cliente" list="prCli" value="${esc(PR.cliente)}" oninput="prLeer()" autocomplete="off"><datalist id="prCli">${clientes.map(c => `<option value="${esc(c)}">`).join('')}</datalist></label>
+          <label style="grid-column:span 2"><span>${t('pr_titulo')}</span><input data-pk="titulo" value="${esc(PR.titulo || '')}" oninput="prLeer()" placeholder="${esc(t('pr_titulo_ph'))}"></label>
+          <label><span>${t('pr_trabajo_t')}</span><select data-pk="d.tipo" onchange="prLeer();renderPresuEditor()">${PR_TRABAJOS.map(([k, ic]) => `<option value="${k}" ${k === prTipo(d) ? 'selected' : ''}>${ic} ${esc(t('ptt.' + k))}</option>`).join('')}</select></label>
+          <label><span>${t('status')}</span><select data-pk="estado" onchange="prLeer()">${PR_ESTADOS.map(e => `<option value="${e}" ${e === PR.estado ? 'selected' : ''}>${esc(t('pre.' + e))}</option>`).join('')}</select></label>
+          <label><span>${t('cm_contact')}</span><input data-pk="d.contacto" value="${esc(d.contacto || '')}" oninput="prLeer()"></label>
+          <label><span>${t('cm_phone')}</span><input data-pk="d.telefono" value="${esc(d.telefono || '')}" oninput="prLeer()" type="tel"></label>
+          <label style="grid-column:span 2"><span>${t('address')}</span><input data-pk="d.direccion" value="${esc(d.direccion || clienteObj(PR.cliente)?.direccion || '')}" oninput="prLeer()"></label>
+        </div><div class="muted" id="prCliInfo"></div></div>
+        <div class="stats" style="margin:10px 0">${prTipo(d) === 'instalacion' ? tab('datos', '🏗') : `<span class="chip ${PR.tab === 'datos' ? 'on' : ''}" onclick="prTab('datos')">${prIc(prTipo(d))} ${t('ptt.' + prTipo(d))}</span>`}${prTipo(d) === 'instalacion' ? tab('equipos', '📦') : `<span class="chip ${PR.tab === 'equipos' ? 'on' : ''}" onclick="prTab('equipos')">📦 ${t('pr_tab.productos')}</span>`}${PR_CAMPO.includes(prTipo(d)) ? tab('plano', '📐') : ''}${tab('cliente', '📝')}</div>
+        <div id="prTabBody"></div>
+      </div>
+      <aside class="pr-side" id="prSide"></aside>
+    </div>`;
+  renderPrTab(); prResumen(); prCliInfo();
+}
+function prTab(k){ PR.tab = k; if (k !== 'plano') plCtx = null; renderPresuEditor(); }
+function prCliInfo(){ const el = $('prCliInfo'); if (!el) return; const ex = clienteObj(PR.cliente);
+  el.innerHTML = PR.cliente ? (ex ? `✓ ${t('pr_existing')}` : `🆕 ${t('pr_prospect_msg')}`) : ''; }
+function renderPrTab(){
+  const b = $('prTabBody'), d = PR.d, s = d.sitio, C = prConf();
+  if (PR.tab === 'plano' && !PR_CAMPO.includes(prTipo(d))) PR.tab = 'datos';
+  if (PR.tab === 'datos' && prTipo(d) !== 'instalacion') return renderPrDatosTipo(b);
+  if (PR.tab === 'datos'){
+    const sel = (k, ops, lbl) => `<select data-pk="s.${k}" onchange="prLeer()">${ops.map(o => `<option value="${o}" ${String(s[k] ?? '') === String(o) ? 'selected' : ''}>${esc(lbl(o))}</option>`).join('')}</select>`;
+    const R = prCalcular(d, C);
+    b.innerHTML = `<div class="panel"><h4 class="cl-h4">🏗 ${t('pr_sitio')}</h4><div class="mdm-grid">
+        <label><span>${t('pr_tipo')}</span>${sel('tipo', PR_TIPOS, o => t('prt.' + o))}</label>
+        <label><span>${t('pr_area')}</span>${prNum('s.area', s.area, 'placeholder="20000"')}</label>
+        <label><span>${t('pr_altura')}</span>${prNum('s.altura', s.altura)}</label>
+        <label><span>${t('pr_techo')}</span>${sel('techo', PR_TECHOS, o => t('prc.' + o))}</label>
+        <label><span>${t('pr_dif')}</span>${sel('dificultad', ['facil', 'normal', 'dificil'], o => t('prd.' + o))}</label>
+        <label><span>${t('pr_horario')}</span>${sel('horario', ['normal', 'fuera'], o => t('prh.' + o))}</label>
+        <label><span>${t('pr_cable')}</span>${sel('cable', ['cat6', 'cat6p', 'cat6a'], o => t('prk.' + o))}</label>
+        <label><span>${t('pr_conduit')}</span>${prNum('s.conduit', s.conduit, 'max="100"')}</label>
+        <label><span>${t('pr_racks')}</span>${prNum('s.racks', s.racks)}</label>
+        <label><span>${t('pr_corrida')}</span>${prNum('s.corrida', s.corrida, `placeholder="${esc(t('pr_auto'))}: ${R.corridaAuto} ft"`)}</label>
+      </div><div class="pr-hint" id="prFactores"></div></div>
+      <div class="panel"><h4 class="cl-h4">🔌 ${t('pr_puntos')}</h4><div class="pr-puntos">
+        ${PR_PUNTOS.map(([k, ic]) => `<label class="pr-pt"><span>${ic} ${t('prp.' + k)}</span>${prNum('q.' + k, d.q[k])}<small class="muted">${t('prp_h.' + k)}</small></label>`).join('')}
+        <label class="pr-pt"><span>🛠 ${t('pr_red_h')}</span>${prNum('q.red_h', d.q.red_h)}<small class="muted">${t('pr_red_h_s')}</small></label>
+        <label class="pr-pt"><span>⏱ ${t('pr_extra_h')}</span>${prNum('q.extra_h', d.q.extra_h)}<small class="muted">${t('pr_extra_h_s')}</small></label>
+      </div></div>`;
+    prFactores();
+  } else if (PR.tab === 'equipos'){
+    const R = prCalcular(d, C), L = C.equipos;
+    b.innerHTML = `<div class="panel"><h4 class="cl-h4">📦 ${t(prTipo(d) === 'instalacion' ? 'pr_equipos' : 'pr_productos')} <small class="muted">${t('pr_margen', { p: C.margen_eq })}</small></h4>
+        <datalist id="prEqList">${L.map(e => `<option value="${esc(e.m)}" label="${esc(money(e.p))}">`).join('')}</datalist>
+        <div id="prEqRows">${jArr(d.equipos).map((e, i) => prEqFila(e, i)).join('')}</div>
+        <div class="row" style="margin-top:8px"><button class="sm" onclick="prEqAdd()">＋ ${t('pr_eq_add')}</button>${prTipo(d) === 'instalacion' ? `<button class="sm" onclick="prEqSugerir()">✨ ${t('pr_eq_sug')}</button>` : ''}</div></div>
+      <div class="panel"><h4 class="cl-h4">🧰 ${t('pr_mat')} <small class="muted">${t(prTipo(d) === 'instalacion' ? 'pr_mat_s' : 'pr_mat_s2', { p: C.margen_mat })}</small></h4>
+        ${prTipo(d) !== 'instalacion' ? '' : `<table class="net-tbl pr-mat"><thead><tr><th>${t('pr_item')}</th><th>${t('pr_cant')}</th><th>${t('pr_unit')}</th><th>${t('pr_costo')}</th></tr></thead><tbody>
+        ${R.mats.filter(m => m.k).map(m => `<tr><td>${esc(t(m.k))}</td><td class="mono">${m.qty.toLocaleString('en-US')} ${m.u === 'ft' ? 'ft' : ''}</td><td class="mono">${money(m.p * 100) === '$0' ? '' : '$' + m.p.toFixed(2)}</td><td class="mono">${money(m.tot)}</td></tr>`).join('')}
+        <tr><td>${t('pr_misc', { p: C.mat.misc })}</td><td></td><td></td><td class="mono">${money(R.matMisc)}</td></tr></tbody></table>`}
+        <div class="muted" style="margin:10px 0 4px">${t('pr_mat_extra')}</div><div id="prMatRows">${jArr(d.mat_extra).map((m, i) => prMatFila(m, i)).join('')}</div>
+        <button class="sm" onclick="prMatAdd()">＋ ${t('pr_mat_add')}</button></div>`;
+  } else if (PR.tab === 'plano'){
+    if (!PR.id){ b.innerHTML = `<div class="panel act-empty">📐 ${t('pr_plan_save')}<br><button class="primary" style="margin-top:10px" onclick="prGuardar().then(()=>prTab('plano'))">💾 ${t('u_save')}</button></div>`; return; }
+    b.innerHTML = `<div class="panel dis-panel"><div class="net-head"><div><small class="muted">${t('pr_plan_help')}</small></div><div class="row" id="prPlTools"></div></div>
+      <div class="row" style="margin:6px 0 10px"><button class="sm primary" onclick="prDelPlano()">📥 ${t('pr_from_plan')}</button><span class="muted" id="prPlInfo"></span></div><div id="prPlBody"></div></div>`;
+    plCtx = { presu: PR.id, cliente: PR.cliente || ('#' + PR.numero), body: 'prPlBody', tools: 'prPlTools', refrescar: () => renderPlanos() };
+    plFiltro = 'wifi'; renderPlanos();
+  } else {
+    b.innerHTML = `<div class="panel"><h4 class="cl-h4">📝 ${t('pr_alcance')}</h4><textarea data-pk="d.alcance" rows="7" oninput="prLeer()" placeholder="${esc(t('pr_alcance_ph.' + prTipo(d)))}">${esc(d.alcance || '')}</textarea>
+      <h4 class="cl-h4">${t('pr_excl')}</h4><textarea data-pk="d.exclusiones" rows="4" oninput="prLeer()" placeholder="${esc(t('pr_excl_ph'))}">${esc(d.exclusiones ?? t('pr_excl_def.' + prTipo(d)))}</textarea>
+      <h4 class="cl-h4">${t('pr_notas_int')}</h4><textarea data-pk="d.notas" rows="3" oninput="prLeer()">${esc(d.notas || '')}</textarea>
+      <label class="mdm-chk" style="margin-top:10px"><input type="checkbox" data-pk="d.pdf_horas" ${d.pdf_horas ? 'checked' : ''} onchange="prLeer()"> ${t('pr_pdf_horas')}</label>
+      <label class="mdm-chk"><input type="checkbox" data-pk="d.pdf_mat" ${d.pdf_mat ? 'checked' : ''} onchange="prLeer()"> ${t('pr_pdf_mat')}</label></div>`;
+  }
+}
+const prEqFila = (e, i) => `<div class="pr-eq" data-i="${i}"><input class="e-m" list="prEqList" value="${esc(e.m || '')}" placeholder="${esc(t('pr_modelo'))}" oninput="prEqModelo(this)">
+  <input class="e-q" type="number" min="0" value="${esc(e.qty ?? 1)}" oninput="prLeer()"><input class="e-p" type="number" min="0" step="any" value="${esc(e.p ?? '')}" placeholder="$" oninput="prLeer()">
+  <span class="mono e-t">${money(n0(e.qty) * n0(e.p))}</span><button class="sm danger" onclick="this.parentElement.remove();prLeer()">✕</button></div>`;
+const prMatFila = (m, i) => `<div class="pr-eq pr-mx"><input class="x-d" value="${esc(m.d || '')}" placeholder="${esc(t('pr_mat_d'))}" oninput="prLeer()">
+  <input class="x-q" type="number" min="0" value="${esc(m.qty ?? 1)}" oninput="prLeer()"><input class="x-p" type="number" min="0" step="any" value="${esc(m.p ?? '')}" placeholder="$" oninput="prLeer()">
+  <span></span><button class="sm danger" onclick="this.parentElement.remove();prLeer()">✕</button></div>`;
+function prEqAdd(e = {}){ $('prEqRows').insertAdjacentHTML('beforeend', prEqFila({ qty: 1, ...e }, $('prEqRows').children.length)); prLeer(); }
+function prMatAdd(){ $('prMatRows').insertAdjacentHTML('beforeend', prMatFila({ qty: 1 }, 0)); }
+function prEqModelo(inp){ const e = prConf().equipos.find(x => nrm(x.m) === nrm(inp.value)), p = inp.parentElement.querySelector('.e-p'); if (e && !p.value) p.value = e.p; prLeer(); }
+function prEqSugerir(){
+  const q = PR.d.q, L = prConf().equipos, add = (c, n) => { if (!n) return; const e = L.find(x => x.c === c); if (e && !jArr(PR.d.equipos).some(x => prConf().equipos.find(y => y.m === x.m)?.c === c)) prEqAdd({ m: e.m, qty: n, p: e.p }); };
+  add('ap', n0(q.drop_techo)); add('cam', n0(q.cam_int) + n0(q.cam_ext)); add('nvr', n0(q.nvr)); add('sw', n0(q.switch));
+  toast(t('pr_eq_sug_ok'));
+}
+// Lee todo el formulario a PR (y recalcula)
+function prLeer(){
+  const d = PR.d;
+  document.querySelectorAll('#presuView [data-pk]').forEach(el => {
+    const k = el.dataset.pk, v = el.type === 'checkbox' ? el.checked : el.value;
+    if (k.startsWith('s.')) d.sitio[k.slice(2)] = v; else if (k.startsWith('q.')) d.q[k.slice(2)] = v; else if (k.startsWith('d.')) d[k.slice(2)] = v; else PR[k] = v;
+  });
+  if ($('prEqRows')) d.equipos = [...document.querySelectorAll('#prEqRows .pr-eq')].map(r => { const o = { m: r.querySelector('.e-m').value.trim(), qty: r.querySelector('.e-q').value, p: r.querySelector('.e-p').value };
+    r.querySelector('.e-t').textContent = money(n0(o.qty) * n0(o.p)); return o; }).filter(o => o.m || o.p);
+  if ($('prMatRows')) d.mat_extra = [...document.querySelectorAll('#prMatRows .pr-eq')].map(r => ({ d: r.querySelector('.x-d').value.trim(), qty: r.querySelector('.x-q').value, p: r.querySelector('.x-p').value })).filter(o => o.d);
+  if ($('prModRows')) d.modulos = [...document.querySelectorAll('#prModRows .pr-mod')].map(r => ({ n: r.querySelector('.m-n').value.trim(), t: r.querySelector('.m-t').value })).filter(m => m.n);
+  if ($('prParRows')) d.partidas = [...document.querySelectorAll('#prParRows .pr-par')].map(r => ({ d: r.querySelector('.p-d').value.trim(), qty: r.querySelector('.p-q').value, p: r.querySelector('.p-p').value, h: r.querySelector('.p-h').checked })).filter(p => p.d);
+  PR.prospecto = !!PR.cliente && !clienteObj(PR.cliente);
+  PR._sucio = true; prCliInfo(); prFactores(); prResumen();
+  clearTimeout(prLeer.tm); if (PR.id) prLeer.tm = setTimeout(() => prGuardar(true), 1500);
+}
+function prFactores(){
+  const el = $('prFactores'); if (!el) return; const R = prCalcular(PR.d);
+  const ic = document.querySelector('[data-pk="s.corrida"]'); if (ic && R.corridaAuto) ic.placeholder = `${t('pr_auto')}: ${R.corridaAuto} ft`;
+  el.innerHTML = R.fA != null ? `${t('pr_fact', { a: (R.fA || 1).toFixed(2), t: (R.fT || 1).toFixed(2), d: (R.fD || 1).toFixed(2) })}${R.lift ? ' · ' + t('prl.' + R.lift) + (R.lift === 'tijera' || R.lift === 'boom' ? ' (' + t('pr_renta') + ')' : '') : ''}` : '';
+}
+function prResumen(){
+  const el = $('prSide'); if (!el) return; const R = prCalcular(PR.d), C = prConf(), d = PR.d, tp = R.tipo;
+  const fila = (k, v, cls = '') => `<div class="pr-r ${cls}"><span>${k}</span><b>${v}</b></div>`;
+  const rec = jArr(R.rec), recMes = rec.filter(r => r[2] === 'mes').reduce((a, r) => a + r[1], 0), recAnio = rec.filter(r => r[2] === 'anio').reduce((a, r) => a + r[1], 0);
+  const equipo = PR_CAMPO.includes(tp) && R.tablaP?.length;
+  el.innerHTML = `<div class="panel pr-sum">
+    <h4 class="cl-h4">⏱ ${t(tp === 'msp' ? 'pms_onb' : 'pr_mo')}</h4>
+    ${R.hl.map(([k, v]) => fila(esc(k), v.toFixed(1) + ' h')).join('') || `<div class="muted">${t('pr_sin_horas')}</div>`}
+    ${R.ap.n ? fila(`📈 ${t('pr_h_learn', { n: R.ap.n })}`, (R.ap.f >= 1 ? '+' : '') + Math.round((R.ap.f - 1) * 100) + '%', 'learn') : ''}
+    ${R.total ? fila('<b>' + t('pr_h_total') + '</b>', R.total.toFixed(1) + ' h', 'big') : ''}
+    ${R.total && tp !== 'msp' && tp !== 'libre' ? `<div class="pr-crew">${equipo || tp === 'web' || tp === 'software' ? `<label>${t('pr_personas')} <select onchange="PR.d.personas=this.value;prLeer()"><option value="">${t('pr_auto')} (${R.pers})</option>${[1, 2, 3, 4, 5, 6].map(p => `<option value="${p}" ${+d.personas === p ? 'selected' : ''}>${p}</option>`).join('')}</select></label>` : ''}
+      <div class="pr-crew-big">👷 ${R.pers} · 📅 ${R.dias} ${t('pr_dias')} · ${R.semanas < 1 ? t('pr_menos_sem') : R.semanas.toFixed(1) + ' ' + t('pr_sem')}</div>
+      ${R.tablaP?.length ? `<div class="pr-crew-t">${R.tablaP.map(x => `<span class="${x.p === R.pers ? 'on' : ''}">${x.p}👷 ${x.dias}d</span>`).join('')}</div>` : ''}
+      ${R.minP > 1 ? `<small class="muted">${t('pr_min2')}</small>` : ''}${tp === 'software' || tp === 'web' ? `<small class="muted">${t('pr_sem_dev', { h: tp === 'web' ? 30 : prTT(C, 'software').horas_sem })}</small>` : ''}</div>` : ''}
+    <h4 class="cl-h4">💵 ${t('pr_precio')}</h4>
+    ${tp === 'instalacion' ? `<div class="pr-modo"><label class="${R.modo === 'hora' ? 'on' : ''}"><input type="radio" name="prm" ${R.modo === 'hora' ? 'checked' : ''} onchange="PR.d.modo='hora';prLeer()"> ${t('pr_por_hora')}<b>${money(R.porHora)}</b><small>${R.total.toFixed(1)} h × ${money(R.tarifa)}</small></label>
+      <label class="${R.modo === 'punto' ? 'on' : ''}"><input type="radio" name="prm" ${R.modo === 'punto' ? 'checked' : ''} onchange="PR.d.modo='punto';prLeer()"> ${t('pr_por_punto')}<b>${money(R.porPunto)}</b><small>${R.lineasPunto.length} ${t('pr_tipos_p')}${R.recargo ? ' · +' + money(R.recargo) + ' ' + t('pr_recargo') : ''}</small></label></div>` : ''}
+    ${R.mano ? fila(t(tp === 'msp' ? 'pms_onb' : 'pr_mano') + (tp !== 'instalacion' && tp !== 'libre' ? ` <small class="muted">${R.total.toFixed(1)} h × ${money(R.tarifa)}</small>` : ''), money(R.mano)) : ''}
+    ${R.matVenta ? fila(t('pr_mat'), money(R.matVenta)) : ''}${R.eqVenta ? fila(t(tp === 'instalacion' ? 'pr_equipos' : 'pr_productos'), money(R.eqVenta)) : ''}
+    ${R.cargos.map(([k, v]) => fila(esc(k), money(v))).join('')}
+    ${R.conting ? fila(t('pr_conting', { p: C.contingencia }), money(R.conting)) : ''}${R.impuesto ? fila(t('pr_imp', { p: C.impuesto }), money(R.impuesto)) : ''}
+    ${fila('<b>' + t(rec.length ? 'pr_total_unico' : 'pr_total') + '</b>', money(R.total$), 'big total')}
+    ${rec.length ? `<div class="pr-recbox"><b>🔁 ${t('pr_rec')}</b>${rec.map(([k, v, u]) => fila(esc(k), money(v) + '/' + t(u === 'anio' ? 'pr_anio' : 'pr_mes'))).join('')}
+      ${fila('<b>' + t('pr_mensual') + '</b>', money(recMes) + '/' + t('pr_mes'), 'big')}${recAnio ? fila(t('pr_anual_extra'), money(recAnio) + '/' + t('pr_anio')) : ''}
+      <small class="muted">${t('pr_primer_anio', { v: money(R.total$ + recMes * 12 + recAnio) })}</small></div>` : ''}
+    ${R.total$ ? `<div class="pr-gan">${t('pr_gan')}: <b>${money(R.ganancia)}</b> (${Math.round(R.ganancia / Math.max(1, R.total$ - R.impuesto) * 100)}%) <small class="muted">· ${t('pr_gan_s')}</small></div>` : ''}
+    ${PR.horas_real ? `<div class="pr-real">✅ ${t('pr_real_h', { r: (+PR.horas_real).toFixed(1), e: (+PR.horas_est || 0).toFixed(1) })}</div>` : ''}
+  </div>`;
+  PR._R = R;
+}
+async function prGuardar(auto){
+  if (!PR) return;
+  if (!PR.cliente?.trim()){ if (!auto) { alert(t('pr_need_client')); document.querySelector('[data-pk="cliente"]')?.focus(); } return; }
+  const R = prCalcular(PR.d), d = { ...PR.d }; delete d.aprendido;
+  const row = { cliente: PR.cliente.trim(), prospecto: !clienteObj(PR.cliente), titulo: PR.titulo || null, estado: PR.estado, datos: d,
+    totales: { horas: +R.total.toFixed(2), personas: R.pers, dias: R.dias, semanas: +(R.semanas || 0).toFixed(2), total: Math.round(R.total$), mano: Math.round(R.mano), modo: R.modo || null, factor: R.ap.f || 1, tipo: R.tipo,
+      mensual: Math.round(jArr(R.rec).filter(r => r[2] === 'mes').reduce((a, r) => a + r[1], 0)), sitio: { altura: R.s?.altura, tipo: R.s?.tipo } },
+    horas_est: +R.total.toFixed(2) };
+  $('prEstadoG') && ($('prEstadoG').textContent = t('pl_saving'));
+  const r = PR.id ? await db.from('presupuestos').update(row).eq('id', PR.id) : await db.from('presupuestos').insert(row).select('id,numero').single();
+  if (r.error){ $('prEstadoG') && ($('prEstadoG').textContent = '⚠'); return fail(r.error, /presupuestos/.test(r.error.message || '') ? t('pr_missing') : t('save_fail')); }
+  if (!PR.id){ PR.id = r.data.id; PR.numero = r.data.numero; }
+  PR._sucio = false; const i = presus.findIndex(p => p.id === PR.id), obj = { ...presus[i], ...row, id: PR.id, numero: PR.numero, created_at: presus[i]?.created_at || new Date().toISOString() };
+  if (i >= 0) presus[i] = obj; else presus.unshift(obj);
+  $('prEstadoG') && ($('prEstadoG').textContent = '✓ ' + t('pl_saved'));
+  if (!auto){ toast(t('saved')); renderPresuEditor(); }
+}
+async function prDuplicar(){
+  const c = JSON.parse(JSON.stringify(PR)); c.id = null; c.numero = null; c.estado = 'borrador'; c.horas_real = null; c.titulo = (c.titulo || '') + ' (copia)'; PR = c; PR.tab = 'datos';
+  await prGuardar();
+}
+async function prBorrar(){
+  if (!confirm(t('pr_del_q', { n: PR.numero || '' }))) return;
+  const pls = planos.filter(p => p.presupuesto_id === PR.id && p.imagen).map(p => p.imagen); if (pls.length) await db.storage.from('planos').remove(pls);
+  const r = await db.from('presupuestos').delete().eq('id', PR.id); if (r.error) return fail(r.error, t('del_fail'));
+  presus = presus.filter(p => p.id !== PR.id); planos = planos.filter(p => p.presupuesto_id !== PR.id); PR = null; PRES.edit = false; plCtx = null; toast(t('cl_deleted')); renderPresupuestos();
+}
+
+/* ---------- Del plano a las cantidades ---------- */
+function prDelPlano(){
+  const pls = planos.filter(p => p.presupuesto_id === PR.id); if (!pls.length) return toast(t('pr_no_plan'));
+  const c = { drop_pared: 0, drop_techo: 0, cam_int: 0, cam_ext: 0, switch: 0, rack: 0 }, eq = {}, largos = [];
+  pls.forEach(p => { const d = plDatos(p), pos = {};
+    d.plan.forEach(z => { pos[z.k] = z;
+      const k = z.modelo === 'Punto de red' ? 'drop_pared' : z.modelo === 'Cámara exterior' ? 'cam_ext' : z.tipo === 'Cámara' ? 'cam_int' : z.tipo === 'Switch' ? 'switch' : z.modelo === 'Rack / IDF' ? 'rack' : esAP(z.tipo) ? 'drop_techo' : null;
+      if (k) c[k]++; if (esAP(z.tipo) || (z.tipo === 'Cámara' && z.modelo !== 'Cámara' && z.modelo !== 'Cámara exterior')) eq[z.modelo] = (eq[z.modelo] || 0) + 1; });
+    // largo de cable: lo dibujado, o hasta el rack/switch más cercano (+25%)
+    if (p.escala){ const centros = d.plan.filter(z => z.tipo === 'Switch' || z.modelo === 'Rack / IDF');
+      d.plan.filter(z => z.tipo !== 'Switch' && z.modelo !== 'Rack / IDF').forEach(z => {
+        const cab = d.cab.find(x => x.a === z.k || x.b === z.k), o = cab && pos[cab.a === z.k ? cab.b : cab.a];
+        if (o) largos.push(Math.hypot(o.x - z.x, o.y - z.y) / p.escala * 1.15);
+        else if (centros.length) largos.push(Math.min(...centros.map(r => Math.hypot(r.x - z.x, r.y - z.y))) / p.escala * 1.25);
+      }); }
+  });
+  Object.assign(PR.d.q, Object.fromEntries(Object.entries(c).filter(([, v]) => v)));
+  if (largos.length) PR.d.sitio.corrida = Math.round(largos.reduce((a, b) => a + b, 0) / largos.length + n0(PR.d.sitio.altura));
+  const L = prConf().equipos;
+  Object.entries(eq).forEach(([m, n]) => { const e = jArr(PR.d.equipos).find(x => nrm(x.m) === nrm(m)); if (e) e.qty = n; else PR.d.equipos = jArr(PR.d.equipos).concat({ m, qty: n, p: L.find(x => nrm(x.m) === nrm(m))?.p || '' }); });
+  PR._sucio = true; toast(t('pr_from_plan_ok', { n: Object.values(c).reduce((a, b) => a + b, 0) })); prResumen();
+  $('prPlInfo') && ($('prPlInfo').textContent = t('pr_from_plan_info', { c: largos.length ? PR.d.sitio.corrida + ' ft' : '—' }));
+  clearTimeout(prLeer.tm); prLeer.tm = setTimeout(() => prGuardar(true), 600);
+}
+
+/* ---------- Cerrar el trabajo (horas reales → aprende) ---------- */
+function prCerrarAbrir(){
+  const R = prCalcular(PR.d), c = jObj(PR.cierre);
+  $('modalTitle').textContent = '✅ ' + t('pr_close');
+  $('modalBody').innerHTML = `<div class="u-note" style="margin:0 0 12px">${t('pr_close_help', { h: R.total.toFixed(1) })}</div><div class="grid2c">
+    <label><span>${t('pr_h_reales')}</span><input id="pc_h" type="number" min="0" step="any" value="${esc(PR.horas_real ?? '')}"></label>
+    <label><span>${t('pr_p_reales')}</span><input id="pc_p" type="number" min="0" value="${esc(c.personas ?? R.pers)}"></label>
+    <label><span>${t('pr_d_reales')}</span><input id="pc_d" type="number" min="0" value="${esc(c.dias ?? '')}"></label>
+    <label class="full"><span>${t('pr_c_notas')}</span><textarea id="pc_n">${esc(c.notas || '')}</textarea></label></div>
+    <div class="row" style="margin-top:14px"><button class="primary" onclick="prCerrar()">${t('u_save')}</button><button onclick="closeModal()">${t('cancel')}</button></div>`;
+  $('modal').classList.remove('hidden');
+}
+async function prCerrar(){
+  const h = n0($('pc_h').value); if (!h) return $('pc_h').focus();
+  const R = prCalcular(PR.d); PR.horas_real = h; PR.estado = 'completado';
+  PR.cierre = { personas: n0($('pc_p').value), dias: n0($('pc_d').value), notas: $('pc_n').value.trim(), fecha: new Date().toISOString() };
+  // El estimado que se compara es SIN el factor aprendido, para que el aprendizaje no se alimente de sí mismo
+  const sinF = R.total / (R.ap.f || 1);
+  const r = await db.from('presupuestos').update({ estado: 'completado', horas_real: h, horas_est: +sinF.toFixed(2), cierre: PR.cierre }).eq('id', PR.id);
+  if (r.error) return fail(r.error, t('save_fail'));
+  const i = presus.findIndex(p => p.id === PR.id); if (i >= 0) Object.assign(presus[i], { estado: 'completado', horas_real: h, horas_est: +sinF.toFixed(2), cierre: PR.cierre });
+  PR.horas_est = +sinF.toFixed(2); closeModal();
+  toast(t('pr_closed', { p: Math.round((h / sinF - 1) * 100) })); renderPresuEditor();
+}
+
+/* ---------- Prospecto → cliente (y los equipos planificados pasan al inventario) ---------- */
+async function prConvertir(){
+  if (!puede('admin')) return;
+  const nombre = PR.cliente.trim(); if (clienteObj(nombre)) return toast(t('pr_existing'));
+  const pls = planos.filter(p => p.presupuesto_id === PR.id), nPlan = pls.reduce((a, p) => a + plDatos(p).plan.filter(z => z.modelo !== 'Punto de red' && z.modelo !== 'Rack / IDF').length, 0);
+  if (!confirm(t('pr_conv_q', { c: nombre, n: nPlan }))) return;
+  const r = await db.from('clientes').insert({ nombre, direccion: PR.d.direccion || null, contacto: PR.d.contacto || null, telefono: PR.d.telefono || null }).select('id').single();
+  if (r.error) return fail(r.error, t('save_fail'));
+  let n = 0;
+  for (const p of pls){
+    const d = plDatos(p), nuevos = d.plan.filter(z => z.modelo !== 'Punto de red' && z.modelo !== 'Rack / IDF');
+    if (nuevos.length){
+      const filas = nuevos.map(z => ({ cliente: nombre, tipo: z.tipo === 'Rack' ? 'Otro' : z.tipo, nombre: z.nombre, modelo: z.modelo, direccion: PR.d.direccion || null, estado: 'Activo' }));
+      const ins = await db.from('equipos').insert(filas).select('id');
+      if (!ins.error && Array.isArray(ins.data)){ ins.data.forEach((row, i) => { const z = nuevos[i]; d.eq.push({ id: row.id, x: z.x, y: z.y });
+          d.cab.forEach(c => { if (c.a === z.k) c.a = row.id; if (c.b === z.k) c.b = row.id; }); });
+        d.plan = d.plan.filter(z => !nuevos.includes(z)); n += ins.data.length; }
+    }
+    await db.from('planos').update({ presupuesto_id: null, cliente: nombre, datos: d }).eq('id', p.id);
+  }
+  await db.from('presupuestos').update({ prospecto: false }).eq('id', PR.id); PR.prospecto = false; const pi = presus.find(x => x.id === PR.id); if (pi) pi.prospecto = false;
+  toast(t('pr_conv_ok', { c: nombre, n })); await loadData(); renderPresuEditor();
+}
+
+/* ---------- PDF para el cliente ---------- */
+async function prPdf(){
+  const R = prCalcular(PR.d), d = PR.d, C = prConf(), fecha = new Date(), tp = R.tipo;
+  let img = '';
+  const pl = planos.find(p => p.presupuesto_id === PR.id);
+  if (pl && $('plSvg') && plAct()?.id === pl.id) img = await svgAPng($('plSvg'), '', { x: 0, y: 0, w: pl.ancho, h: pl.alto }, true).catch(() => '');
+  const tr = (a, b, c = '', dd = '') => `<tr><td>${a}</td><td class="n">${b}</td><td class="n">${c}</td><td class="n">${dd}</td></tr>`;
+  let trabajo = '';
+  if (tp === 'instalacion'){
+    trabajo = R.lineasPunto.map(l => tr(esc(t('prp.' + l.k)), l.qty, R.modo === 'punto' ? money(l.p) : '', R.modo === 'punto' ? money(l.qty * l.p) : '')).join('')
+      + (R.modo === 'hora' ? tr(`<b>${t('pr_mano_inst')}</b>${d.pdf_horas ? ` <span class="muted">(${R.total.toFixed(0)} h)</span>` : ''}`, '', '', money(R.mano)) : '');
+  } else if (tp === 'libre'){
+    { const tf = n0(prTT(C, 'libre').tarifa); trabajo = jArr(d.partidas).filter(p => p.d && n0(p.qty)).map(p => { const pu = n0(p.p) || (p.h ? tf : 0); return tr(esc(p.d), n0(p.qty) + (p.h ? ' h' : ''), money(pu), money(n0(p.qty) * pu)); }).join(''); }
+  } else {
+    // cada tarea: horas × tarifa (las horas solo se muestran si lo marcas)
+    const k = R.total && R.base ? R.total / R.base : 1;
+    trabajo = R.hl.map(([lbl, h]) => tr(esc(lbl) + (d.pdf_horas ? ` <span class="muted">(${(h * k).toFixed(1)} h)</span>` : ''), '', '', money(h * k * R.tarifa))).join('');
+  }
+  const cargosHtml = tp === 'libre' ? '' : R.cargos.map(([k, v]) => tr(esc(k), '', '', money(v))).join('');
+  const rec = jArr(R.rec), recMes = rec.filter(r => r[2] === 'mes').reduce((a, r) => a + r[1], 0);
+  const html = `<!doctype html><html><head><meta charset="utf-8"><title>${esc(t('pr_doc'))} #${PR.numero || ''} · ${esc(PR.cliente)}</title><style>
+    body{font:13px/1.45 Inter,Arial,sans-serif;color:#0f172a;margin:32px}h1{font-size:22px;margin:0}h2{font-size:15px;margin:22px 0 8px;border-bottom:2px solid #0ea5e9;padding-bottom:4px}
+    .top{display:flex;justify-content:space-between;gap:20px}.muted{color:#64748b}table{width:100%;border-collapse:collapse}td,th{padding:6px 8px;border-bottom:1px solid #e2e8f0;text-align:left}
+    .n{text-align:right;white-space:nowrap}.tot td{font-weight:700;font-size:15px;border-top:2px solid #0f172a}.box{border:1px solid #e2e8f0;border-radius:8px;padding:10px 12px;margin:8px 0}
+    img{max-width:100%;border:1px solid #e2e8f0;border-radius:8px}@media print{body{margin:12mm}}</style></head><body>
+    <div class="top"><div><h1>AJ Tech Support</h1><div class="muted">ajtechsupport.net</div></div><div style="text-align:right"><h1>${esc(t('pr_doc'))} #${PR.numero || '—'}</h1>
+      <div class="muted">${fecha.toLocaleDateString(LANG === 'es' ? 'es-US' : 'en-US', { dateStyle: 'long' })} · ${t('pr_valid', { n: C.validez })}</div></div></div>
+    <div class="box"><b>${esc(PR.cliente)}</b>${d.contacto ? '<br>' + esc(d.contacto) : ''}${d.telefono ? ' · ' + esc(d.telefono) : ''}${d.direccion ? '<br>' + esc(d.direccion) : ''}
+      <br><span class="muted">${prIc(tp)} ${esc(t('ptt.' + tp))}${PR.titulo ? ' · ' + esc(PR.titulo) : ''}</span></div>
+    ${d.alcance ? `<h2>${t('pr_alcance')}</h2><div>${esc(d.alcance).replace(/\n/g, '<br>')}</div>` : ''}
+    ${tp === 'software' && jArr(d.modulos).length ? `<h2>${t('psw_modulos')}</h2><ul>${jArr(d.modulos).map(m => `<li>${esc(m.n)}</li>`).join('')}</ul>` : ''}
+    ${trabajo || cargosHtml ? `<h2>${t(tp === 'msp' ? 'pms_onb' : 'pr_trabajo')}</h2><table><tr><th>${t('pr_item')}</th><th class="n">${t('pr_cant')}</th><th class="n">${t('pr_unit')}</th><th class="n">${t('pr_total')}</th></tr>${trabajo}${cargosHtml}</table>` : ''}
+    ${R.eqs.length ? `<h2>${t(tp === 'instalacion' ? 'pr_equipos' : 'pr_productos')}</h2><table>${R.eqs.map(e => tr(esc(e.m), e.qty, money(e.p * (1 + n0(C.margen_eq) / 100)), money(e.tot * (1 + n0(C.margen_eq) / 100)))).join('')}</table>` : ''}
+    ${R.matVenta ? `<h2>${t('pr_mat')}</h2><table>${d.pdf_mat ? R.mats.map(m => tr(esc(m.k ? t(m.k) : m.d), m.qty.toLocaleString('en-US') + (m.u === 'ft' ? ' ft' : ''), '', '')).join('') : ''}${tr(t(tp === 'instalacion' ? 'pr_mat_inst' : 'pr_mat'), '', '', money(R.matVenta))}</table>` : ''}
+    <h2>${t('pr_resumen')}</h2><table>${R.mano ? tr(t(tp === 'msp' ? 'pms_onb' : 'pr_mano'), '', '', money(R.mano)) : ''}${R.matVenta ? tr(t('pr_mat'), '', '', money(R.matVenta)) : ''}${R.eqVenta ? tr(t(tp === 'instalacion' ? 'pr_equipos' : 'pr_productos'), '', '', money(R.eqVenta)) : ''}
+      ${R.cargosT ? tr(t('pr_cargos'), '', '', money(R.cargosT)) : ''}${R.conting ? tr(t('pr_conting_c'), '', '', money(R.conting)) : ''}${R.impuesto ? tr(t('pr_imp', { p: C.impuesto }), '', '', money(R.impuesto)) : ''}
+      <tr class="tot"><td>${t(rec.length ? 'pr_total_unico' : 'pr_total')}</td><td></td><td></td><td class="n">${money(R.total$)}</td></tr></table>
+    ${rec.length ? `<h2>🔁 ${t('pr_rec')}</h2><table>${rec.map(([k, v, u]) => tr(esc(k), '', '', money(v) + '/' + t(u === 'anio' ? 'pr_anio' : 'pr_mes'))).join('')}<tr class="tot"><td>${t('pr_mensual')}</td><td></td><td></td><td class="n">${money(recMes)}/${t('pr_mes')}</td></tr></table>` : ''}
+    ${R.total && tp !== 'msp' && tp !== 'libre' ? `<div class="box">📅 ${t('pr_dur', { s: R.semanas < 1 ? t('pr_menos_sem') : R.semanas.toFixed(1) + ' ' + t('pr_sem'), d: R.dias, p: R.pers })}</div>` : ''}
+    ${img ? `<h2>${t('pr_plano')}</h2><img src="${img}">` : ''}
+    ${(d.exclusiones ?? t('pr_excl_def.' + tp)) ? `<h2>${t('pr_excl')}</h2><div class="muted">${esc(d.exclusiones ?? t('pr_excl_def.' + tp)).replace(/\n/g, '<br>')}</div>` : ''}
+    <p class="muted" style="margin-top:30px">${t('pr_firma')}</p><script>setTimeout(()=>print(),400)<\/script></body></html>`;
+  const w = window.open('', '_blank'); if (!w) return alert(t('pr_popup')); w.document.write(html); w.document.close();
+}
+
+/* ---------- ⚙ Precios y tiempos ---------- */
+function prConfigAbrir(){
+  if (!puede('admin')) return;
+  const C = prConf();
+  const num = (path, v, step = 'any') => `<input type="number" step="${step}" data-cp="${path}" value="${esc(v)}">`;
+  const grupo = (tit, obj, base, lbl) => `<h4 class="cl-h4">${tit}</h4><div class="mdm-grid">${Object.keys(obj).map(k => `<label><span>${esc(lbl(k))}</span>${num(base + '.' + k, obj[k])}</label>`).join('')}</div>`;
+  $('modalTitle').textContent = '⚙ ' + t('pr_cfg');
+  $('modal').querySelector('.modal-card').classList.add('wide');
+  $('modalBody').innerHTML = `<div class="u-note" style="margin:0 0 10px">${t('pr_cfg_help')}</div>
+    <div class="mdm-grid">${['tarifa', 'extra', 'horas_dia', 'eficiencia', 'margen_mat', 'margen_eq', 'impuesto', 'contingencia', 'validez'].map(k => `<label><span>${esc(t('pcf.' + k))}</span>${num(k, C[k])}</label>`).join('')}</div>
+    ${grupo('⏱ ' + t('pr_cfg_t'), C.t, 't', k => t('pct.' + k))}
+    ${grupo('📏 ' + t('pr_cfg_alt'), C.f_alt, 'f_alt', k => k === '99' ? '> 30 ft' : '≤ ' + k + ' ft')}
+    ${grupo('🏗 ' + t('pr_cfg_techo'), C.f_techo, 'f_techo', k => t('prc.' + k))}
+    ${grupo('⚖ ' + t('pr_cfg_dif'), C.f_dif, 'f_dif', k => t('prd.' + k))}
+    ${grupo('🔌 ' + t('pr_cfg_pp'), C.pp, 'pp', k => t('prp.' + k))}
+    ${grupo('↕ ' + t('pr_cfg_rec'), C.recargo_alt, 'recargo_alt', k => k === '99' ? '> 30 ft' : '≤ ' + k + ' ft')}
+    ${grupo('🧰 ' + t('pr_cfg_mat'), C.mat, 'mat', k => t('pcm.' + k))}
+    ${grupo('🏗 ' + t('pr_cfg_renta'), C.renta, 'renta', k => t('prl.' + k))}
+    ${PR_TRABAJOS.filter(([k]) => k !== 'instalacion').map(([k, ic]) => { const T = prTT(C, k);
+      return `<h4 class="cl-h4">${ic} ${t('ptt.' + k)}</h4><div class="mdm-grid"><label><span>${t('pcf.tarifa')}</span>${num('tt.' + k + '.tarifa', T.tarifa)}</label>
+        ${(T.items || []).map(([i, h, f]) => `<label><span>${esc(t('pti.' + k + '.' + i))}</span><div class="row" style="gap:4px;flex-wrap:nowrap">${num('tt.' + k + '.items.' + i + '.h', h)}<small>h</small>${num('tt.' + k + '.items.' + i + '.f', f)}<small>$</small></div></label>`).join('')}
+        ${['base', 'feat', 'tam', 'plat', 'extra', 'incert', 'nivel', 'servidor'].filter(g => T[g]).map(g => Object.keys(T[g]).map(i => `<label><span>${esc(t('pcg.' + g) + ': ' + (t('pcgi.' + k + '.' + g + '.' + i) === 'pcgi.' + k + '.' + g + '.' + i ? i : t('pcgi.' + k + '.' + g + '.' + i)))}</span>${num('tt.' + k + '.' + g + '.' + i, T[g][i])}</label>`).join('')).join('')}
+        ${['pagina', 'idioma', 'producto', 'pagos', 'envios', 'integracion', 'revision', 'pm', 'qa', 'hosting', 'dominio', 'mant', 'diseno', 'soporte', 'horas_sem', 'red', 'impresora', 'sitio', 'backup_tb', 'm365', 'onb_u', 'onb_pc', 'onb_s', 'onb_base'].filter(g => typeof T[g] === 'number').map(g => `<label><span>${esc(t('pcx.' + g))}</span>${num('tt.' + k + '.' + g, T[g])}</label>`).join('')}</div>`; }).join('')}
+    <h4 class="cl-h4">📦 ${t('pr_cfg_eq')}</h4><div id="pcEq">${C.equipos.map(e => `<div class="pr-eq pc-eq"><input class="q-m" value="${esc(e.m)}"><select class="q-c">${['ap', 'cam', 'sw', 'gw', 'nvr', 'otro'].map(c => `<option value="${c}" ${c === e.c ? 'selected' : ''}>${t('pcc.' + c)}</option>`).join('')}</select><input class="q-p" type="number" step="any" value="${esc(e.p)}"><span></span><button class="sm danger" onclick="this.parentElement.remove()">✕</button></div>`).join('')}</div>
+    <button class="sm" onclick="$('pcEq').insertAdjacentHTML('beforeend',$('pcEq').lastElementChild.outerHTML.replace(/value=&quot;[^&]*&quot;/g,''));$('pcEq').lastElementChild.querySelectorAll('input').forEach(i=>i.value='')">＋ ${t('pr_eq_add')}</button>
+    <div class="row" style="margin-top:14px"><button class="primary" onclick="prConfigGuardar()">${t('u_save')}</button><button onclick="closeModal()">${t('cancel')}</button><span style="flex:1"></span><button onclick="if(confirm(t('pr_cfg_reset_q')))prConfigGuardar(true)">↺ ${t('pr_cfg_reset')}</button></div>`;
+  $('modal').classList.remove('hidden');
+}
+async function prConfigGuardar(reset){
+  let datos = {};
+  if (!reset){
+    document.querySelectorAll('[data-cp]').forEach(el => { const ps = el.dataset.cp.split('.'), v = el.value === '' ? null : +el.value; if (v == null) return;
+      let o = datos; ps.slice(0, -1).forEach(p => { o = o[p] = o[p] || {}; }); o[ps[ps.length - 1]] = v; });
+    datos.equipos = [...document.querySelectorAll('#pcEq .pc-eq')].map(r => ({ m: r.querySelector('.q-m').value.trim(), c: r.querySelector('.q-c').value, p: n0(r.querySelector('.q-p').value) })).filter(e => e.m);
+  }
+  const r = await db.from('presu_config').update({ datos }).eq('id', 1);
+  if (r.error) return fail(r.error, /presu_config/.test(r.error.message || '') ? t('pr_missing') : t('save_fail'));
+  PRC = { id: 1, datos }; closeModal(); toast(t('saved')); renderPresupuestos();
+}
+
+/* ---------- 💰 Tipos de trabajo (cada uno con su forma de calcular) ---------- */
+// item: [clave, horas por unidad, cargo por unidad ($), 'fa' = le afecta la altura/techo]
+const PR_TT = {
+  desmontaje: { tarifa: 75, items: [
+    ['cables', .35, 0, 'fa'], ['soportes', .1, 0, 'fa'], ['ap', .3, 0, 'fa'], ['cam', .4, 0, 'fa'], ['acceso', .75, 0], ['tv', .75, 0], ['rack', 2.5, 0], ['rack_eq', .3, 0],
+    ['pc', .25, 4], ['monitor', .15, 0], ['impresora', .4, 0], ['telefono', .1, 0], ['placas', .15, 2], ['rec_pc', .05, 15], ['rec_monitor', .05, 25], ['discos', .1, 10], ['viajes', 1, 175]] },
+  mudanza: { tarifa: 75, items: [
+    ['pc', .75, 4], ['monitor', .2, 1], ['impresora', 1, 0], ['servidor', 2.5, 0], ['rack_red', 6, 0], ['telefono', .25, 0], ['tv', 1, 0], ['otros', .5, 0], ['red_h', 1, 0], ['isp', 2, 0], ['viajes', 1, 175]] },
+  reparacion: { tarifa: 85, items: [
+    ['diag', .5, 0], ['virus', 1.5, 0], ['os', 2.5, 0], ['datos', 1, 0], ['recuperacion', 1, 300], ['ssd', 1.5, 0], ['pieza', .5, 0], ['pantalla', 1.5, 0], ['limpieza', 1, 0],
+    ['imp_mant', 1.5, 0], ['imp_rep', 2, 0], ['imp_cfg', .75, 0], ['servidor', 3, 0], ['red', 1.5, 0], ['correo', 1, 0], ['visitas', .5, 75]] },
+  web: { tarifa: 95, base: { landing: 8, corporativo: 12, ecommerce: 30, webapp: 60 }, pagina: 4, idioma: 30, producto: .25, pagos: 8, envios: 6, integracion: 6, revision: 8, pm: 10, qa: 10,
+    feat: { contacto: 2, blog: 8, galeria: 3, citas: 12, whatsapp: 1, mapa: 1, newsletter: 3, login: 16, seo: 6, analytics: 2, accesibilidad: 6, branding: 12, copy: 2, migracion: 1 },
+    hosting: 25, dominio: 20, mant: 75 },
+  software: { tarifa: 125, tam: { S: 12, M: 32, L: 80, XL: 160 }, plat: { web: 1, movil: 1.3, escritorio: 1.1, ambas: 1.6 },
+    extra: { roles: 16, admin: 24, notif: 8, pagos: 24, reporte: 8, integracion: 20, deploy: 12, docs: 8 }, diseno: 15, qa: 15, pm: 10, incert: { baja: 10, media: 20, alta: 30 }, idioma: 10, soporte: 18, horas_sem: 30 },
+  msp: { tarifa: 85, nivel: { basico: 75, estandar: 125, premium: 200 }, servidor: { basico: 150, estandar: 200, premium: 300 }, red: 10, impresora: 5, sitio: 50, backup_tb: 40, m365: 15,
+    onb_u: .5, onb_pc: .5, onb_s: 3, onb_base: 4 },
+  libre: { tarifa: 85 } };
+const PR_TRABAJOS = [['instalacion', '🏗'], ['desmontaje', '📦'], ['mudanza', '🚚'], ['reparacion', '🔧'], ['web', '🌐'], ['software', '💻'], ['msp', '🛡'], ['libre', '✏️']];
+const PR_CAMPO = ['instalacion', 'desmontaje', 'mudanza'];   // trabajos en sitio (con plano, altura, cuadrilla)
+const prTipo = d => d?.tipo || 'instalacion';
+const prIc = tp => (PR_TRABAJOS.find(x => x[0] === tp) || ['', '📄'])[1];
+const PR_GRUPOS = { desmontaje: [['g_retirar', ['cables', 'soportes', 'ap', 'cam', 'acceso', 'tv', 'placas']], ['g_equipos', ['rack', 'rack_eq', 'pc', 'monitor', 'impresora', 'telefono']], ['g_reciclar', ['rec_pc', 'rec_monitor', 'discos', 'viajes']]],
+  mudanza: [['g_mover', ['pc', 'monitor', 'impresora', 'telefono', 'tv', 'otros']], ['g_infra', ['servidor', 'rack_red', 'red_h', 'isp', 'viajes']]],
+  reparacion: [['g_pc', ['diag', 'virus', 'os', 'datos', 'recuperacion', 'ssd', 'pieza', 'pantalla', 'limpieza']], ['g_imp', ['imp_mant', 'imp_rep', 'imp_cfg']], ['g_otros', ['servidor', 'red', 'correo', 'visitas']]] };
+const prTT = (C, tp) => { const d = PR_TT[tp] || {}, c = jObj(jObj(C.tt)[tp]); const m = (a, b) => ({ ...(a || {}), ...jObj(b) });
+  const it = (d.items || []).map(([k, h, f, fl]) => { const o = jObj(jObj(c.items)[k]); return [k, o.h ?? h, o.f ?? f, fl]; });
+  const r = { ...d, ...c, items: it }; ['base', 'feat', 'tam', 'plat', 'extra', 'incert', 'nivel', 'servidor'].forEach(k => { if (d[k]) r[k] = m(d[k], c[k]); }); return r; };
+
+// Cierra cualquier cálculo con equipos, materiales extra, cargos, contingencia e impuesto
+function prFin(R, d, C, contPct){
+  const eqs = jArr(d.equipos).filter(e => e.m && n0(e.qty)).map(e => ({ ...e, qty: n0(e.qty), p: n0(e.p), tot: n0(e.qty) * n0(e.p) }));
+  const eqCosto = eqs.reduce((a, e) => a + e.tot, 0), eqVenta = eqCosto * (1 + n0(C.margen_eq) / 100);
+  const mx = jArr(d.mat_extra).filter(m => m.d && n0(m.qty)).map(m => ({ k: '', d: m.d, qty: n0(m.qty), p: n0(m.p), u: 'u', tot: n0(m.qty) * n0(m.p) }));
+  const mats = (R.mats || []).concat(mx), matSub = mats.reduce((a, m) => a + m.tot, 0), matMisc = R.mats ? matSub * n0(C.mat.misc) / 100 : 0;
+  const matCosto = matSub + matMisc, matVenta = matCosto * (1 + n0(C.margen_mat) / 100);
+  const cargos = R.cargos || [], cargosT = cargos.reduce((a, c) => a + c[1], 0);
+  const conting = (R.mano + matVenta) * (contPct ?? n0(C.contingencia)) / 100;
+  const impuesto = (matVenta + eqVenta) * n0(C.impuesto) / 100;
+  const total$ = R.mano + matVenta + eqVenta + cargosT + conting + impuesto;
+  const costo = R.total * n0(R.tarifaBase || C.tarifa) * .55 + matCosto + eqCosto + cargosT * .8;
+  return { ...R, eqs, eqCosto, eqVenta, mats, matSub, matMisc, matCosto, matVenta, cargos, cargosT, conting, impuesto, total$, costo, ganancia: total$ - impuesto - costo };
+}
+const prCrew = (total, minP, d, C, maxDias = 10) => { const hd = n0(C.horas_dia) || 8, ef = n0(C.eficiencia) || .85, dc = p => total ? Math.ceil(total / (p * hd * ef)) : 0;
+  let pers = n0(d.personas); if (!pers){ pers = minP; while (pers < 6 && dc(pers) > maxDias) pers++; }
+  return { pers, dias: dc(pers), semanas: dc(pers) / 5, tablaP: [1, 2, 3, 4, 5, 6].filter(p => p >= minP).map(p => ({ p, dias: dc(p) })) }; };
+
+function prCalcular(d, C = prConf()){
+  const tp = prTipo(d);
+  if (tp === 'instalacion'){ const R = prCalcInst(d, C);
+    R.tipo = tp; R.hl = [[t('pr_h_cable', { n: R.runs, f: R.corrida }), R.h.cable], [t('pr_h_mont'), R.h.montaje], [t('pr_h_eq'), R.h.equipos], [t('pr_h_survey'), R.h.survey], [t('pr_extra_h'), R.h.extra], [t('pr_h_pm', { p: C.t.pm }), R.h.pm]].filter(x => x[1]);
+    R.cargos = R.renta ? [[t('pr_renta_l', { l: t('prl.' + R.lift) }), R.renta]] : []; R.cargosT = R.renta; R.campo = true; return R; }
+  const T = prTT(C, tp), ap = d.aprendido || { f: 1, n: 0 }, s = { ...(d.sitio || {}) }, q = { ...(d.q || {}) };
+  const fin = (x, cont) => prFin({ tipo: tp, ap, s, q, ...x }, d, C, cont);
+  if (tp === 'desmontaje' || tp === 'mudanza' || tp === 'reparacion'){
+    const alt = Math.max(6, n0(s.altura) || 10), fA = tp === 'desmontaje' ? escalon(C.f_alt, alt) : 1, fT = tp === 'desmontaje' ? (C.f_techo[s.techo] ?? 1) : 1, fD = C.f_dif[s.dificultad || 'normal'] ?? 1;
+    const hl = [], cargos = []; let base = 0;
+    T.items.forEach(([k, hu, fee, fl]) => { const n = n0(q[k]); if (!n) return; const h = n * hu * (fl === 'fa' ? fA * fT : 1) * fD; base += h;
+      if (h) hl.push([`${t('pti.' + tp + '.' + k)} (${n})`, h]); if (fee) cargos.push([`${t('pti.' + tp + '.' + k)} × ${n}`, n * fee]); });
+    if (n0(q.extra_h)){ base += n0(q.extra_h); hl.push([t('pr_extra_h'), n0(q.extra_h)]); }
+    if (tp !== 'reparacion' && base){ const pm = base * n0(C.t.pm) / 100; hl.push([t('pr_h_pm', { p: C.t.pm }), pm]); base += pm; }
+    if (tp === 'reparacion' && base && base < 1){ hl.push([t('pr_minimo'), 1 - base]); base = 1; }
+    const total = base * (ap.f || 1);
+    const lift = tp === 'desmontaje' ? (alt > 30 ? 'boom' : alt > 20 ? 'tijera' : alt > 14 ? 'escalera_ext' : 'escalera') : null;
+    const cw = tp === 'reparacion' ? { pers: 1, dias: Math.ceil(total / 7), semanas: Math.ceil(total / 7) / 5, tablaP: [] } : prCrew(total, tp === 'desmontaje' && alt > 14 ? 2 : (total > 16 ? 2 : 1), d, C);
+    const renta = lift === 'tijera' || lift === 'boom' ? Math.max(1, Math.ceil(cw.semanas)) * n0(C.renta[lift]) : 0; if (renta) cargos.push([t('pr_renta_l', { l: t('prl.' + lift) }), renta]);
+    const urg = tp === 'reparacion' ? ({ normal: 1, mismo_dia: 1.25, emergencia: 1.5 }[s.urgencia || 'normal'] || 1) : 1;
+    const tarifa = n0(T.tarifa) * (s.horario === 'fuera' ? n0(C.extra) || 1.5 : 1) * urg;
+    return fin({ hl, base, total, ...cw, minP: tp === 'desmontaje' && alt > 14 ? 2 : 1, lift, fA, fT, fD, tarifa, tarifaBase: T.tarifa, mano: total * tarifa, cargos, campo: tp !== 'reparacion' }, tp === 'reparacion' ? 0 : undefined);
+  }
+  if (tp === 'web'){
+    const pag = Math.max(1, n0(q.paginas) || 1), idi = Math.max(1, n0(q.idiomas) || 1), hl = [];
+    const add = (lbl, h) => { if (h) hl.push([lbl, h]); return h || 0; };
+    let dev = add(t('pw_base.' + (s.tipo_sitio || 'corporativo')), n0(T.base[s.tipo_sitio || 'corporativo']));
+    dev += add(t('pw_paginas', { n: pag }), pag * n0(T.pagina));
+    Object.keys(T.feat).forEach(k => { if (q['f_' + k]) dev += add(t('pwf.' + k), n0(T.feat[k]) * (k === 'copy' || k === 'migracion' ? pag : 1)); });
+    if (s.tipo_sitio === 'ecommerce' || n0(q.productos)){ dev += add(t('pw_productos', { n: n0(q.productos) }), n0(q.productos) * n0(T.producto)); if (q.f_pagos !== false) dev += add(t('pwf.pagos'), n0(T.pagos)); if (q.f_envios) dev += add(t('pwf.envios'), n0(T.envios)); }
+    dev += add(t('pw_integ', { n: n0(q.integraciones) }), n0(q.integraciones) * n0(T.integracion));
+    if (idi > 1) dev += add(t('pw_idiomas', { n: idi }), pag * n0(T.pagina) * (idi - 1) * n0(T.idioma) / 100 + (q.f_traduccion ? pag * 1 * (idi - 1) : 0));
+    const rev = add(t('pw_rev', { n: n0(q.revisiones) || 2 }), dev * (n0(q.revisiones) || 2) * n0(T.revision) / 100);
+    const pm = add(t('pr_h_pm', { p: T.pm }), (dev + rev) * n0(T.pm) / 100), qa = add(t('pw_qa', { p: T.qa }), (dev + rev) * n0(T.qa) / 100);
+    if (n0(q.extra_h)) add(t('pr_extra_h'), n0(q.extra_h));
+    const base = hl.reduce((a, x) => a + x[1], 0), total = base * (ap.f || 1), pers = Math.max(1, n0(d.personas) || 1), dias = Math.ceil(total / (pers * 6));
+    const rec = []; if (q.r_hosting) rec.push([t('pwr.hosting'), n0(T.hosting), 'mes']); if (q.r_mant) rec.push([t('pwr.mant'), n0(T.mant), 'mes']); if (q.r_dominio) rec.push([t('pwr.dominio'), n0(T.dominio), 'anio']);
+    return fin({ hl, base, total, pers, dias, semanas: dias / 5, tablaP: [1, 2, 3].map(p => ({ p, dias: Math.ceil(total / (p * 6)) })), minP: 1, tarifa: n0(T.tarifa), tarifaBase: T.tarifa, mano: total * n0(T.tarifa), rec }, 0);
+  }
+  if (tp === 'software'){
+    const hl = [], mods = jArr(d.modulos).filter(m => m.n || m.t), plat = n0(T.plat[s.plataforma || 'web']) || 1;
+    let dev = mods.reduce((a, m) => a + n0(T.tam[m.t || 'M']), 0) * plat; if (dev) hl.push([t('psw_mods', { n: mods.length, p: plat }), dev]);
+    const E = T.extra, ex = (k, n = 1) => { const h = n0(E[k]) * n; if (h){ hl.push([t('pswe.' + k) + (n > 1 ? ` (${n})` : ''), h]); dev += h; } };
+    if (q.x_roles) ex('roles'); if (q.x_admin) ex('admin'); if (q.x_notif) ex('notif'); if (q.x_pagos) ex('pagos'); ex('reporte', n0(q.reportes)); ex('integracion', n0(q.integraciones));
+    if (n0(q.idiomas) > 1){ const h = dev * n0(T.idioma) / 100 * (n0(q.idiomas) - 1); hl.push([t('pw_idiomas', { n: n0(q.idiomas) }), h]); dev += h; }
+    const pc = (k, lbl) => { const h = dev * n0(T[k]) / 100; if (h) hl.push([lbl, h]); return h; };
+    const dis = pc('diseno', t('psw_dis', { p: T.diseno })), qa = pc('qa', t('pw_qa', { p: T.qa })), pm = pc('pm', t('pr_h_pm', { p: T.pm }));
+    ex('deploy'); ex('docs'); if (n0(q.extra_h)){ hl.push([t('pr_extra_h'), n0(q.extra_h)]); dev += n0(q.extra_h); }
+    const sub = dev + dis + qa + pm, inc = n0(T.incert[s.incertidumbre || 'media']), cont = sub * inc / 100; hl.push([t('psw_cont', { p: inc }), cont]);
+    const base = sub + cont, total = base * (ap.f || 1), pers = Math.max(1, n0(d.personas) || 2), hs = n0(T.horas_sem) || 30, sem = total / (pers * hs);
+    const mano = total * n0(T.tarifa), rec = q.r_soporte ? [[t('psw_soporte', { p: T.soporte }), mano * n0(T.soporte) / 100 / 12, 'mes']] : [];
+    return fin({ hl, base, total, pers, dias: Math.ceil(sem * 5), semanas: sem, tablaP: [1, 2, 3, 4].map(p => ({ p, dias: Math.ceil(total / (p * hs) * 5) })), minP: 1, tarifa: n0(T.tarifa), tarifaBase: T.tarifa, mano, rec }, 0);
+  }
+  if (tp === 'msp'){
+    const nv = s.nivel || 'estandar', hl = [], rec = [];
+    const m = (lbl, n, p) => { if (n0(n) && p) rec.push([`${lbl} × ${n0(n)}`, n0(n) * p, 'mes']); };
+    m(t('pms.usuarios'), q.usuarios, n0(T.nivel[nv])); m(t('pms.servidores'), q.servidores, n0(T.servidor[nv])); m(t('pms.red'), q.red, n0(T.red)); m(t('pms.impresoras'), q.impresoras, n0(T.impresora));
+    m(t('pms.sitios'), Math.max(0, n0(q.sitios) - 1), n0(T.sitio)); m(t('pms.backup'), q.backup_tb, n0(T.backup_tb)); m(t('pms.m365'), q.m365, n0(T.m365));
+    let onb = 0; if (q.onboarding !== false){ onb = n0(T.onb_base) + n0(q.usuarios) * n0(T.onb_u) + n0(q.pcs) * n0(T.onb_pc) + n0(q.servidores) * n0(T.onb_s); if (onb) hl.push([t('pms_onb'), onb]); }
+    if (n0(q.extra_h)){ hl.push([t('pr_extra_h'), n0(q.extra_h)]); onb += n0(q.extra_h); }
+    const total = onb * (ap.f || 1), dias = Math.ceil(total / 6);
+    return fin({ hl, base: onb, total, pers: 1, dias, semanas: dias / 5, tablaP: [], minP: 1, tarifa: n0(T.tarifa), tarifaBase: T.tarifa, mano: total * n0(T.tarifa), rec, nivel: nv }, 0);
+  }
+  // libre: partidas a mano
+  const pars = jArr(d.partidas).filter(p => p.d && n0(p.qty)), hl = [];
+  let horas = 0, mano = 0; const cargos = [];
+  pars.forEach(p => { const tot = n0(p.qty) * (n0(p.p) || (p.h ? n0(T.tarifa) : 0)); if (p.h){ horas += n0(p.qty); hl.push([p.d, n0(p.qty)]); mano += tot; } else cargos.push([p.d + (n0(p.qty) !== 1 ? ' × ' + n0(p.qty) : ''), tot]); });
+  const dias = Math.ceil(horas / 7);
+  return fin({ hl, base: horas, total: horas, pers: 1, dias, semanas: dias / 5, tablaP: [], minP: 1, tarifa: n0(T.tarifa), tarifaBase: T.tarifa, mano, cargos }, 0);
+}
+
+/* ---------- Formulario de cada tipo ---------- */
+function renderPrDatosTipo(b){
+  const d = PR.d, tp = prTipo(d), s = d.sitio, q = d.q, C = prConf(), T = prTT(C, tp);
+  const sel = (k, ops, lbl) => `<select data-pk="s.${k}" onchange="prLeer()">${ops.map(o => `<option value="${o}" ${String(s[k] ?? '') === String(o) ? 'selected' : ''}>${esc(lbl(o))}</option>`).join('')}</select>`;
+  const chk = (k, lbl, def) => `<label class="mdm-chk pr-chk"><input type="checkbox" data-pk="q.${k}" ${(q[k] ?? def) ? 'checked' : ''} onchange="prLeer()"> ${lbl}</label>`;
+  const num = (k, lbl, sub = '') => `<label class="pr-pt"><span>${lbl}</span>${prNum('q.' + k, q[k])}${sub ? `<small class="muted">${sub}</small>` : ''}</label>`;
+  const h = x => `${x} h`;
+  if (tp === 'desmontaje' || tp === 'mudanza' || tp === 'reparacion'){
+    const its = Object.fromEntries(T.items.map(i => [i[0], i]));
+    const sitio = tp === 'desmontaje' ? `<label><span>${t('pr_tipo')}</span>${sel('tipo', PR_TIPOS, o => t('prt.' + o))}</label><label><span>${t('pr_area')}</span>${prNum('s.area', s.area)}</label>
+        <label><span>${t('pr_altura')}</span>${prNum('s.altura', s.altura)}</label><label><span>${t('pr_techo')}</span>${sel('techo', PR_TECHOS, o => t('prc.' + o))}</label>` : '';
+    const rep = tp === 'reparacion' ? `<label><span>${t('prr_modo')}</span>${sel('modalidad', ['sitio', 'taller', 'remoto'], o => t('prr.' + o))}</label><label><span>${t('prr_urg')}</span>${sel('urgencia', ['normal', 'mismo_dia', 'emergencia'], o => t('prr.' + o))}</label>` : '';
+    b.innerHTML = `<div class="panel"><h4 class="cl-h4">${prIc(tp)} ${t('ptt.' + tp)}</h4><div class="mdm-grid">${sitio}${rep}
+        <label><span>${t('pr_dif')}</span>${sel('dificultad', ['facil', 'normal', 'dificil'], o => t('prd.' + o))}</label><label><span>${t('pr_horario')}</span>${sel('horario', ['normal', 'fuera'], o => t('prh.' + o))}</label></div>
+        <div class="pr-hint" id="prFactores"></div>${tp === 'mudanza' ? `<div class="pr-hint">💡 ${t('prm_tip')}</div>` : ''}${tp === 'reparacion' ? `<div class="pr-hint">💡 ${t('prr_tip')}</div>` : ''}</div>
+      ${PR_GRUPOS[tp].map(([g, ks]) => `<div class="panel"><h4 class="cl-h4">${t('prg.' + g)}</h4><div class="pr-puntos">${ks.filter(k => its[k]).map(k => { const [, hu, fee] = its[k];
+          return num(k, t('pti.' + tp + '.' + k), [hu ? h(hu) : '', fee ? '$' + fee : ''].filter(Boolean).join(' + ') + ' ' + t('pr_c_u')); }).join('')}</div></div>`).join('')}
+      <div class="panel"><div class="pr-puntos">${num('extra_h', '⏱ ' + t('pr_extra_h'), t('pr_extra_h_s'))}</div></div>`;
+    prFactores(); return;
+  }
+  if (tp === 'web'){
+    b.innerHTML = `<div class="panel"><h4 class="cl-h4">🌐 ${t('ptt.web')}</h4><div class="mdm-grid">
+        <label><span>${t('pw_tipo')}</span>${sel('tipo_sitio', Object.keys(T.base), o => t('pw_base.' + o))}</label>
+        <label><span>${t('pr_personas')}</span>${prNum('d.personas', d.personas, 'placeholder="1"')}</label></div></div>
+      <div class="panel"><div class="pr-puntos">${num('paginas', '📄 ' + t('pw_pag'), h(T.pagina) + ' ' + t('pr_c_u'))}${num('idiomas', '🌎 ' + t('pw_idi'), '+' + T.idioma + '% ' + t('pw_por_idioma'))}
+        ${num('productos', '🛒 ' + t('pw_prod'), h(T.producto) + ' ' + t('pr_c_u'))}${num('integraciones', '🔗 ' + t('pw_int'), h(T.integracion) + ' ' + t('pr_c_u'))}
+        ${num('revisiones', '🔁 ' + t('pw_revs'), T.revision + '% ' + t('pw_por_ronda'))}${num('extra_h', '⏱ ' + t('pr_extra_h'))}</div></div>
+      <div class="panel"><h4 class="cl-h4">✨ ${t('pw_feat')}</h4><div class="pr-chks">${Object.keys(T.feat).map(k => chk('f_' + k, `${t('pwf.' + k)} <small class="muted">${T.feat[k]} h${k === 'copy' || k === 'migracion' ? ' ' + t('pw_x_pag') : ''}</small>`)).join('')}
+        ${chk('f_pagos', `${t('pwf.pagos')} <small class="muted">${T.pagos} h</small>`, true)}${chk('f_envios', `${t('pwf.envios')} <small class="muted">${T.envios} h</small>`)}${chk('f_traduccion', t('pwf.traduccion'))}</div></div>
+      <div class="panel"><h4 class="cl-h4">🔁 ${t('pr_rec')}</h4><div class="pr-chks">${chk('r_hosting', `${t('pwr.hosting')} <small class="muted">$${T.hosting}/${t('pr_mes')}</small>`, true)}
+        ${chk('r_mant', `${t('pwr.mant')} <small class="muted">$${T.mant}/${t('pr_mes')}</small>`, true)}${chk('r_dominio', `${t('pwr.dominio')} <small class="muted">$${T.dominio}/${t('pr_anio')}</small>`, true)}</div></div>`;
+    return;
+  }
+  if (tp === 'software'){
+    const mods = jArr(d.modulos).length ? jArr(d.modulos) : [{ n: '', t: 'M' }];
+    b.innerHTML = `<div class="panel"><h4 class="cl-h4">💻 ${t('ptt.software')}</h4><div class="mdm-grid">
+        <label><span>${t('psw_plat')}</span>${sel('plataforma', Object.keys(T.plat), o => t('pswp.' + o) + ' ×' + T.plat[o])}</label>
+        <label><span>${t('psw_inc')}</span>${sel('incertidumbre', Object.keys(T.incert), o => t('pswi.' + o) + ' (+' + T.incert[o] + '%)')}</label>
+        <label><span>${t('pr_personas')}</span>${prNum('d.personas', d.personas, 'placeholder="2"')}</label></div></div>
+      <div class="panel"><h4 class="cl-h4">🧩 ${t('psw_modulos')} <small class="muted">S ${T.tam.S} h · M ${T.tam.M} h · L ${T.tam.L} h · XL ${T.tam.XL} h</small></h4>
+        <div id="prModRows">${mods.map(m => prModFila(m)).join('')}</div><button class="sm" onclick="$('prModRows').insertAdjacentHTML('beforeend',prModFila({t:'M'}));prLeer()">＋ ${t('psw_mod_add')}</button>
+        <div class="pr-hint">💡 ${t('psw_tip')}</div></div>
+      <div class="panel"><h4 class="cl-h4">➕ ${t('psw_extras')}</h4><div class="pr-chks">${['roles', 'admin', 'notif', 'pagos'].map(k => chk('x_' + k, `${t('pswe.' + k)} <small class="muted">${T.extra[k]} h</small>`)).join('')}</div>
+        <div class="pr-puntos" style="margin-top:8px">${num('reportes', '📊 ' + t('pswe.reporte'), T.extra.reporte + ' h ' + t('pr_c_u'))}${num('integraciones', '🔗 ' + t('pswe.integracion'), T.extra.integracion + ' h ' + t('pr_c_u'))}
+        ${num('idiomas', '🌎 ' + t('pw_idi'), '+' + T.idioma + '% ' + t('pw_por_idioma'))}${num('extra_h', '⏱ ' + t('pr_extra_h'))}</div>
+        <div class="pr-chks" style="margin-top:8px">${chk('r_soporte', `${t('psw_soporte_c')} <small class="muted">${T.soporte}% ${t('psw_anual')}</small>`, true)}</div></div>`;
+    return;
+  }
+  if (tp === 'msp'){
+    b.innerHTML = `<div class="panel"><h4 class="cl-h4">🛡 ${t('ptt.msp')}</h4><div class="mdm-grid"><label><span>${t('pms_nivel')}</span>${sel('nivel', Object.keys(T.nivel), o => t('pmsn.' + o) + ' · $' + T.nivel[o] + '/' + t('pms_usuario'))}</label></div>
+        <div class="pr-hint">${t('pmsn_d.' + (s.nivel || 'estandar'))}</div></div>
+      <div class="panel"><div class="pr-puntos">${['usuarios', 'pcs', 'servidores', 'red', 'impresoras', 'sitios', 'backup_tb', 'm365'].map(k => num(k, t('pms.' + k))).join('')}${num('extra_h', '⏱ ' + t('pr_extra_h'))}</div>
+        <div class="pr-chks" style="margin-top:8px">${chk('onboarding', t('pms_onb_c'), true)}</div></div>`;
+    return;
+  }
+  // libre
+  const pars = jArr(d.partidas).length ? jArr(d.partidas) : [{ d: '', qty: 1, p: T.tarifa, h: true }];
+  b.innerHTML = `<div class="panel"><h4 class="cl-h4">✏️ ${t('ptt.libre')}</h4><div class="pr-hint" style="margin-bottom:8px">${t('pl_libre_h', { t: money(T.tarifa) })}</div>
+    <div id="prParRows">${pars.map(p => prParFila(p)).join('')}</div><button class="sm" onclick="$('prParRows').insertAdjacentHTML('beforeend',prParFila({qty:1}));prLeer()">＋ ${t('pl_libre_add')}</button></div>`;
+}
+const prModFila = m => `<div class="pr-eq pr-mod"><input class="m-n" value="${esc(m.n || '')}" placeholder="${esc(t('psw_mod_ph'))}" oninput="prLeer()"><select class="m-t" onchange="prLeer()">${['S', 'M', 'L', 'XL'].map(x => `<option ${x === (m.t || 'M') ? 'selected' : ''}>${x}</option>`).join('')}</select><span></span><span></span><button class="sm danger" onclick="this.parentElement.remove();prLeer()">✕</button></div>`;
+const prParFila = p => `<div class="pr-eq pr-par"><input class="p-d" value="${esc(p.d || '')}" placeholder="${esc(t('pr_mat_d'))}" oninput="prLeer()"><input class="p-q" type="number" min="0" step="any" value="${esc(p.qty ?? 1)}" oninput="prLeer()">
+  <input class="p-p" type="number" min="0" step="any" value="${esc(p.p ?? '')}" placeholder="${p.h ? esc(prTT(prConf(), 'libre').tarifa) : '$'}" oninput="prLeer()"><label class="mdm-chk" title="${esc(t('pl_libre_hh'))}"><input type="checkbox" class="p-h" ${p.h ? 'checked' : ''} onchange="if(this.checked&&!this.closest('.pr-par').querySelector('.p-p').value)this.closest('.pr-par').querySelector('.p-p').value=prTT(prConf(),'libre').tarifa;prLeer()"> h</label><button class="sm danger" onclick="this.parentElement.remove();prLeer()">✕</button></div>`;
+
+/* ---------- Escoger el tipo de trabajo ---------- */
+function prElegirTipo(cliente){
+  $('modalTitle').textContent = '💰 ' + t('pr_new');
+  $('modal').querySelector('.modal-card').classList.add('wide');
+  $('modalBody').innerHTML = `<div class="pr-tipos">${PR_TRABAJOS.map(([k, ic]) => `<button class="pr-tipo" onclick="closeModal();prNuevo(${cliente ? `'${jsq(cliente)}'` : 'null'},'${k}')"><span>${ic}</span><b>${t('ptt.' + k)}</b><small>${t('ptd.' + k)}</small></button>`).join('')}</div>`;
+  $('modal').classList.remove('hidden');
 }
 /* ---------- Inventario de Network ---------- */
 let netTab = '';
@@ -4946,7 +5922,7 @@ function renderDash(){
   $('dashSide').innerHTML =
     it("irA('ov')", `📊 ${t('ov')}`, vista === 'ov') +
     ((!permiteNet(curCliente) && !base.some(x => NET_TIPOS.includes(x.tipo))) ? '' : it("irA('net')", `🌐 ${t('net_inv')}<span class="n">${base.filter(x => NET_TIPOS.includes(x.tipo)).length}</span>`, vista === 'net')) +
-    ((!permiteNet(curCliente) && !base.some(x => NET_TIPOS.includes(x.tipo))) ? '' : it("irDiseno()", `📐 ${t('dis_title')}<span class="n">${planos.filter(p => mismoCliente(p.cliente, curCliente)).length || ''}</span>`, vista === 'dis')) +
+    ((!permiteNet(curCliente) && !base.some(x => NET_TIPOS.includes(x.tipo))) ? '' : it("irDiseno()", `📐 ${t('dis_title')}<span class="n">${planos.filter(p => !p.presupuesto_id && mismoCliente(p.cliente, curCliente)).length || ''}</span>`, vista === 'dis')) +
     (verCloud(curCliente) ? it("irCloud()", `☁️ Cloud Server<span class="n">${cloudDe(curCliente).length}</span>`, vista === 'cloud') : '') +
     it("irA('list')", `🗂 ${t('all_devices')}<span class="n">${base.length}</span>`, listaTodo) +
     (Object.keys(cuenta).length ? `<div class="ds-sec">${t('d_types')}</div>` + ORDEN_TIPOS.filter(k => cuenta[k]).map(k =>
@@ -5140,7 +6116,7 @@ function logAct(evento, x = null, detalle = null, extra = {}){
   }catch(e){}
 }
 function abrirActividad(o = {}){
-  ACT.desde = curCliente; ACT.open = true;
+  ACT.desde = curCliente; ACT.open = true; PRES.open = false; plCtx = null;
   ACT.cliente = o.cliente || null; ACT.obj = o.obj || null;
   const x = ACT.obj && items.find(i => i.id === ACT.obj);
   ACT.objNombre = x ? x.nombre : ''; if (x && !ACT.cliente) ACT.cliente = x.cliente;

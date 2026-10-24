@@ -907,7 +907,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v8.0</p>
+    <p class="sub">Network Asset Manager · v8.1</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -923,7 +923,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v8.0</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v8.1</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -1890,10 +1890,11 @@ Object.assign(I18N.en, {
   pl_h_scale:'Click the start and the end of something you know the size of.', pl_h_wall:'Click to start a wall and click again to end it (it continues from there). Double-click or Esc to stop. Shift = free angle.',
   pl_h_move:'Drag devices from the list onto the plan (or click one and then click on the plan). Drag them to move them. Delete key removes the selected one.',
   pl_scale_q:'How many feet does that line measure?', pl_scale_ok:'Scale set: {f} ft', pl_remove:'Remove from plan', pl_size:'Plan {w} × {h} ft',
-  pl_cable:'cable ≈ {n} ft straight (≈ {r} ft with the run)', pl_need_scale:'Set the scale to see the estimated coverage.',
+  pl_cable:'cable ≈ {n} ft straight (≈ {r} ft with the run)', pl_cab_sel:'click a device to see its cable length', pl_need_scale:'Set the scale to see the estimated coverage.',
   pl_l1:'excellent', pl_l2:'good', pl_l3:'fair', pl_l4:'weak', pl_l5:'very weak', pl_est_note:'Estimate (AP model, distance and walls). Confirm with a site survey.',
-  pl_scale:'Scale', pl_rescale:'Set the scale again', pl_change_img:'Replace the image (same floor)', pl_clear_walls:'Delete the {n} walls drawn', pl_delete:'Delete floor',
-  pl_confirm_del:'Delete the floor "{n}"? The devices stay in the inventory.',
+  pl_pdf_scale:'Drawing scale (written on the plan)', pl_pdf_scale_no:'I don\'t know — I\'ll mark it', pl_pdf_scale_h:'e.g. 3/32" = 1\'-0" under the plan title. The size comes out exact.',
+  pl_scale:'Scale', pl_delete_plan:'Delete plan', pl_config:'Name, location, image', pl_rescale:'Set the scale again', pl_change_img:'Replace the image (same floor)', pl_clear_walls:'Delete the {n} walls drawn', pl_delete:'Delete floor',
+  pl_confirm_del:'Delete the plan "{n}"? The image, walls and positions are deleted. The devices stay in the inventory.',
   'mat.drywall':'Drywall', 'mat.vidrio':'Glass', 'mat.madera':'Wood / door', 'mat.ladrillo':'Brick', 'mat.concreto':'Concrete / block', 'mat.metal':'Metal / rack',
 });
 Object.assign(I18N.es, {
@@ -1913,10 +1914,11 @@ Object.assign(I18N.es, {
   pl_h_scale:'Haz clic en el inicio y en el final de algo que sepas cuánto mide.', pl_h_wall:'Clic para empezar una pared y otro clic para terminarla (sigue desde ahí). Doble clic o Esc para parar. Shift = ángulo libre.',
   pl_h_move:'Arrastra equipos de la lista al plano (o haz clic en uno y luego en el plano). Arrástralos para moverlos. La tecla Suprimir quita el seleccionado.',
   pl_scale_q:'¿Cuántos pies mide esa línea?', pl_scale_ok:'Escala lista: {f} ft', pl_remove:'Quitar del plano', pl_size:'Plano {w} × {h} ft',
-  pl_cable:'cable ≈ {n} ft en línea recta (≈ {r} ft con el recorrido)', pl_need_scale:'Pon la escala para ver la cobertura estimada.',
+  pl_cable:'cable ≈ {n} ft en línea recta (≈ {r} ft con el recorrido)', pl_cab_sel:'clic en un equipo para ver el largo de su cable', pl_need_scale:'Pon la escala para ver la cobertura estimada.',
   pl_l1:'excelente', pl_l2:'buena', pl_l3:'regular', pl_l4:'débil', pl_l5:'muy débil', pl_est_note:'Estimado (modelo del AP, distancia y paredes). Confírmalo con un site survey.',
-  pl_scale:'Escala', pl_rescale:'Poner la escala otra vez', pl_change_img:'Cambiar la imagen (mismo piso)', pl_clear_walls:'Borrar las {n} paredes dibujadas', pl_delete:'Borrar piso',
-  pl_confirm_del:'¿Borrar el piso "{n}"? Los equipos se quedan en el inventario.',
+  pl_pdf_scale:'Escala del dibujo (escrita en el plano)', pl_pdf_scale_no:'No sé — la marco yo', pl_pdf_scale_h:'ej. 3/32" = 1\'-0" debajo del título del plano. La medida sale exacta.',
+  pl_scale:'Escala', pl_delete_plan:'Eliminar plano', pl_config:'Nombre, ubicación, imagen', pl_rescale:'Poner la escala otra vez', pl_change_img:'Cambiar la imagen (mismo piso)', pl_clear_walls:'Borrar las {n} paredes dibujadas', pl_delete:'Borrar piso',
+  pl_confirm_del:'¿Eliminar el plano "{n}"? Se borra la imagen, las paredes y las posiciones. Los equipos se quedan en el inventario.',
   'mat.drywall':'Drywall', 'mat.vidrio':'Vidrio', 'mat.madera':'Madera / puerta', 'mat.ladrillo':'Ladrillo', 'mat.concreto':'Concreto / bloque', 'mat.metal':'Metal / rack',
 });
 /* ---------- 📦 Modo del módem (Router / Passthrough / IP fija / Bridge) ---------- */
@@ -3709,6 +3711,11 @@ let planos = [], planosOK = true, planoAct = null, plVB = null, plPZ = null, plM
 let plCapas = { cob: true, cab: true, nom: true }, plBanda = '5', plMat = 'drywall', plFiltro = 'wifi', plQ = '';
 const plUrls = {}, PL_POR_PIE = 20;
 const PL_MAT = { drywall: { db: 4, c: '#94a3b8' }, vidrio: { db: 3, c: '#67e8f9' }, madera: { db: 5, c: '#b45309' }, ladrillo: { db: 10, c: '#c2410c' }, concreto: { db: 15, c: '#475569' }, metal: { db: 25, c: '#1e293b' } };
+// Escalas de dibujo: cuántos puntos de papel (1/72 in) es 1 pie real
+const PL_ESCALAS = [['1/32"', 72 / 32], ['1/16"', 72 / 16], ['3/32"', 72 * 3 / 32], ['1/8"', 72 / 8], ['3/16"', 72 * 3 / 16], ['1/4"', 72 / 4], ['3/8"', 72 * 3 / 8], ['1/2"', 72 / 2], ['3/4"', 72 * 3 / 4], ['1"', 72],
+  ['1"=10\'', 72 / 10], ['1"=20\'', 72 / 20], ['1"=30\'', 72 / 30], ['1"=40\'', 72 / 40], ['1"=50\'', 72 / 50], ['1"=100\'', 72 / 100],
+  ['1:50', 304.8 / 50 / 25.4 * 72], ['1:100', 304.8 / 100 / 25.4 * 72], ['1:200', 304.8 / 200 / 25.4 * 72], ['1:500', 304.8 / 500 / 25.4 * 72]];
+const plEscLbl = k => /[:=]/.test(k) ? k : k + " = 1'-0\"";
 const PL_PLAN = ['U7 Pro', 'U7 Pro Max', 'U7 Lite', 'U7 Long-Range', 'U7 Outdoor', 'U6+', 'U6 Pro', 'U6 Mesh', 'Switch', 'Cámara'];
 const PL_FILTROS = { wifi: ['Access Point', 'Extensor WiFi', 'Antena'], red: ['Switch', 'Router', 'Firewall', 'Módem'], cctv: ['Cámara', 'NVR', 'DVR'], otros: ['Impresora', 'Teléfono', 'Control de Acceso', 'PC', 'Servidor'] };
 const plDe = () => planos.filter(p => mismoCliente(p.cliente, curCliente) && (!fSede || fSede === '-' || !p.sede_id || p.sede_id === fSede))
@@ -3717,7 +3724,7 @@ const plAct = () => planos.find(p => p.id === planoAct);
 const plDatos = p => { const d = jObj(p?.datos); d.eq = jArr(d.eq); d.muros = jArr(d.muros); d.plan = jArr(d.plan); return d; };
 const plColocados = () => { const s = new Set(); planos.filter(p => mismoCliente(p.cliente, curCliente)).forEach(p => plDatos(p).eq.forEach(e => s.add(e.id))); return s; };
 const plPisoDe = id => planos.find(p => mismoCliente(p.cliente, curCliente) && plDatos(p).eq.some(e => e.id === id));
-const plR = p => Math.max(p.ancho, p.alto) / 75;
+const plR = p => { const m = Math.max(p.ancho, p.alto); return p.escala ? Math.min(Math.max(p.escala * 2.6, m / 260), m / 60) : m / 75; };   // ~2.6 ft de radio
 const esAP = tipo => ['Access Point', 'Extensor WiFi'].includes(tipo);
 
 // Potencia aproximada (EIRP 5 GHz, dBm) según el modelo de AP
@@ -3769,7 +3776,7 @@ function renderPlanos(base){
         ${capa('cob', '📶')}${plCapas.cob ? `<select class="sm-sel" onchange="plBanda=this.value;plDibujar()">${['2.4', '5', '6'].map(b => `<option ${b === plBanda ? 'selected' : ''} value="${b}">${b} GHz</option>`).join('')}</select>` : ''}${capa('cab', '🔌')}${capa('nom', '🏷')}
         <span class="pl-sep"></span><button class="sm" onclick="plPZ?.zoom(1/1.25)">＋</button><button class="sm" onclick="plPZ?.zoom(1.25)">−</button><button class="sm" onclick="plAjustar()">⤢</button>
         <button class="sm" onclick="svgAPng($('plSvg'),'plano-'+curCliente+'-'+(plAct()?.nombre||''),{x:0,y:0,w:plAct().ancho,h:plAct().alto})">⬇ PNG</button>
-        ${ed ? `<button class="sm" onclick="plConfig()">⚙</button>` : ''}<span class="muted pl-est" id="plEstado"></span></div>
+        ${ed ? `<button class="sm" onclick="plConfig()" title="${esc(t('pl_config'))}">⚙</button>` : ''}${PERM.borrar ? `<button class="sm danger" onclick="plBorrar()">🗑 ${t('pl_delete_plan')}</button>` : ''}<span class="muted pl-est" id="plEstado"></span></div>
       <div class="pl-hint" id="plHint">${plHint(p)}</div>
       <div class="pl-canvas"><svg id="plSvg" class="pl-svg" xmlns="http://www.w3.org/2000/svg"></svg></div>
       <div class="pl-foot" id="plFoot"></div>
@@ -3884,10 +3891,11 @@ function plDibujar(){
   const muros = d.muros.map((m, i) => `<line class="pl-muro ${plSel === 'm' + i ? 'sel' : ''}" data-i="${i}" x1="${m.x1}" y1="${m.y1}" x2="${m.x2}" y2="${m.y2}" style="stroke:${PL_MAT[m.m]?.c || '#64748b'};stroke-width:${r * .38}" onclick="plSelMuro(event,${i})"><title>${esc(t('mat.' + m.m))} −${PL_MAT[m.m]?.db || 0} dB</title></line>`).join('');
   // Cables (cada equipo a su uplink, si los dos están en este piso)
   let cables = '', totalFt = 0;
-  if (plCapas.cab) pos.filter(o => o.eq?.conectado_a && porId[o.eq.conectado_a]).forEach(o => {
+  const conCable = pos.filter(o => o.eq?.conectado_a && porId[o.eq.conectado_a]), todasEtq = conCable.length <= 6;
+  if (plCapas.cab) conCable.forEach(o => {
     const u = porId[o.eq.conectado_a], col = UP_COLOR[o.eq.up_tipo] || UP_COLOR.poe, ft = p.escala ? Math.hypot(o.x - u.x, o.y - u.y) / p.escala : 0; totalFt += ft;
     cables += `<line class="pl-cab" data-a="${o.key}" data-b="${u.key}" x1="${u.x}" y1="${u.y}" x2="${o.x}" y2="${o.y}" style="stroke:${col};stroke-width:${r * .14}"/>`
-      + (ft ? `<text class="pl-len" data-a="${o.key}" data-b="${u.key}" x="${(o.x + u.x) / 2}" y="${(o.y + u.y) / 2 - r * .3}" style="font-size:${r * .75}px">${Math.round(ft)} ft${o.eq.up_puerto ? ' · p' + esc(pLbl(pk(o.eq.up_puerto))) : ''}</text>` : '');
+      + (ft && (todasEtq || plSel === o.key || plSel === u.key) ? `<text class="pl-len" data-a="${o.key}" data-b="${u.key}" x="${(o.x + u.x) / 2}" y="${(o.y + u.y) / 2 - r * .3}" style="font-size:${r * .75}px">${Math.round(ft)} ft${o.eq.up_puerto ? ' · p' + esc(pLbl(pk(o.eq.up_puerto))) : ''}</text>` : '');
   });
   const devs = pos.map(o => `<g class="pl-dev ${o.plan ? 'plan' : ''} ${plSel === o.key ? 'sel' : ''} ${o.eq?.unifi_estado === 'offline' ? 'off' : ''}" data-k="${o.key}" transform="translate(${o.x},${o.y})">
       <circle r="${r}" class="pl-dot ty-${esc(o.tipo).replace(/\s/g, '')}"/><text class="pl-ic" style="font-size:${r * 1.05}px" y="${r * .37}">${o.plan && esAP(o.tipo) ? '📶' : TIPO_ICON[o.tipo] || '◆'}</text>
@@ -3908,7 +3916,7 @@ function plDibujar(){
       ${PERM.editar ? `<select class="sm-sel" onchange="plMatMuro(${plSel.slice(1)},this.value)">${Object.keys(PL_MAT).map(k => `<option value="${k}" ${k === selM.m ? 'selected' : ''}>${esc(t('mat.' + k))}</option>`).join('')}</select>` : ''}
       <span style="flex:1"></span>${PERM.editar ? `<button class="sm danger" onclick="plQuitar('${plSel}')">✕ ${t('pl_remove')}</button>` : ''}</div>` : '')
     + `<div class="pl-tot">${p.escala ? `📏 ${t('pl_size', { w: Math.round(p.ancho / p.escala), h: Math.round(p.alto / p.escala) })}` : ''}
-      ${totalFt ? ` · 🔌 ${t('pl_cable', { n: Math.round(totalFt), r: Math.round(totalFt * 1.25) })}` : ''}${planRes ? ` · 🆕 ${t('pl_planned')}: ${planRes}` : ''}</div>`
+      ${totalFt ? ` · 🔌 ${t('pl_cable', { n: Math.round(totalFt), r: Math.round(totalFt * 1.25) })}${todasEtq ? '' : ` <span class="muted">(${t('pl_cab_sel')})</span>`}` : ''}${planRes ? ` · 🆕 ${t('pl_planned')}: ${planRes}` : ''}</div>`
     + (cob ? `<div class="pl-ley"><b>📶 ${plBanda} GHz</b>${[[-60, '#16a34a', 'pl_l1'], [-67, '#84cc16', 'pl_l2'], [-72, '#facc15', 'pl_l3'], [-78, '#f97316', 'pl_l4'], [-85, '#ef4444', 'pl_l5']].map(([v, c, k]) => `<span><i style="background:${c}"></i>${v} dBm ${t(k)}</span>`).join('')}<span class="muted">${t('pl_est_note')}</span></div>`
       : plCapas.cob && aps.length && !p.escala ? `<div class="pl-ley muted">📶 ${t('pl_need_scale')}</div>` : '');
 }
@@ -3979,7 +3987,9 @@ function plNuevo(modo){
       <label><span>${t('pl_name')}</span><input id="pn_nombre" value="${esc(t('pl_level', { n }))}" autocomplete="off"></label>
       ${sds.length ? `<label><span>${t('sede')}</span><select id="pn_sede"><option value="">—</option>${sds.map(s => `<option value="${s.id}" ${s.id === fSede ? 'selected' : ''}>📍 ${esc(s.nombre)}</option>`).join('')}</select></label>` : '<span></span>'}
       <label class="full mdm-chk"><input type="radio" name="pn_m" value="img" ${modo !== 'blank' ? 'checked' : ''} onchange="$('pnImg').classList.remove('hidden');$('pnBlank').classList.add('hidden')"> 📤 ${t('pl_up')} <small class="muted">${t('pl_up_h')}</small></label>
-      <div id="pnImg" class="full ${modo === 'blank' ? 'hidden' : ''}"><input id="pn_file" type="file" accept="image/png,image/jpeg,image/webp,application/pdf,.pdf"></div>
+      <div id="pnImg" class="full grid2c ${modo === 'blank' ? 'hidden' : ''}"><input id="pn_file" type="file" accept="image/png,image/jpeg,image/webp,application/pdf,.pdf" onchange="$('pnEscL').classList.toggle('hidden', !/pdf/i.test(this.files[0]?.type || this.files[0]?.name || ''))">
+        <label id="pnEscL" class="hidden"><span>${t('pl_pdf_scale')}</span><select id="pn_esc"><option value="">${esc(t('pl_pdf_scale_no'))}</option>${PL_ESCALAS.map(([k], i) => `<option value="${i}">${esc(plEscLbl(k))}</option>`).join('')}</select>
+          <small class="muted">${t('pl_pdf_scale_h')}</small></label></div>
       <label class="full mdm-chk"><input type="radio" name="pn_m" value="blank" ${modo === 'blank' ? 'checked' : ''} onchange="$('pnBlank').classList.remove('hidden');$('pnImg').classList.add('hidden')"> ✏️ ${t('pl_draw')} <small class="muted">${t('pl_draw_h')}</small></label>
       <div id="pnBlank" class="full grid2c ${modo === 'blank' ? '' : 'hidden'}"><label><span>${t('pl_w_ft')}</span><input id="pn_w" type="number" value="100" min="10" max="2000"></label><label><span>${t('pl_h_ft')}</span><input id="pn_h" type="number" value="60" min="10" max="2000"></label></div>
     </div><div class="row" style="margin-top:14px"><button class="primary" id="pnBtn" onclick="plCrear()">${t('u_save')}</button><button onclick="closeModal()">${t('cancel')}</button><span class="muted" id="pnEst"></span></div>`;
@@ -3993,18 +4003,18 @@ async function plCargarPdfJs(){
 }
 // Convierte la imagen o el PDF (página 1) en un PNG/JPG de máximo 3000 px
 async function plPrepararArchivo(f){
-  const MAX = 3000; let c;
+  const MAX = /pdf/i.test(f.type) || /\.pdf$/i.test(f.name) ? 4200 : 3000; let c, pxPorPt = null;
   if (/pdf/i.test(f.type) || /\.pdf$/i.test(f.name)){
     const lib = await plCargarPdfJs(); const pdf = await lib.getDocument({ data: await f.arrayBuffer() }).promise; const pg = await pdf.getPage(1);
     const v0 = pg.getViewport({ scale: 1 }), k = Math.min(4, MAX / Math.max(v0.width, v0.height)), v = pg.getViewport({ scale: k });
-    c = document.createElement('canvas'); c.width = Math.round(v.width); c.height = Math.round(v.height);
+    c = document.createElement('canvas'); c.width = Math.round(v.width); c.height = Math.round(v.height); pxPorPt = k;
     const g = c.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, c.width, c.height); await pg.render({ canvasContext: g, viewport: v }).promise;
   } else {
     const img = await createImageBitmap(f), k = Math.min(1, MAX / Math.max(img.width, img.height));
     c = document.createElement('canvas'); c.width = Math.round(img.width * k); c.height = Math.round(img.height * k); c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
   }
   const blob = await new Promise(ok => c.toBlob(ok, 'image/jpeg', .88));
-  return { blob, ancho: c.width, alto: c.height };
+  return { blob, ancho: c.width, alto: c.height, pxPorPt };
 }
 async function plCrear(){
   const nombre = $('pn_nombre').value.trim() || t('pl_level', { n: plDe().length + 1 }), sede_id = $('pn_sede')?.value || null;
@@ -4015,6 +4025,7 @@ async function plCrear(){
     $('pnBtn').disabled = true; $('pnEst').textContent = t('pl_processing');
     try{ arch = await plPrepararArchivo(f); }catch(e){ $('pnBtn').disabled = false; $('pnEst').textContent = ''; return alert(t('pl_bad_file')); }
     row.ancho = arch.ancho; row.alto = arch.alto;
+    const ei = $('pn_esc')?.value; if (ei !== '' && ei != null && arch.pxPorPt) row.escala = PL_ESCALAS[+ei][1] * arch.pxPorPt;   // escala exacta del PDF
   } else { const w = Math.max(10, +$('pn_w').value || 100), h = Math.max(10, +$('pn_h').value || 60); row.ancho = Math.round(w * PL_POR_PIE); row.alto = Math.round(h * PL_POR_PIE); row.escala = PL_POR_PIE; }
   const r = await db.from('planos').insert(row).select('id').single();
   if (r.error){ $('pnBtn') && ($('pnBtn').disabled = false); return fail(r.error, /planos/.test(r.error.message || '') ? t('pl_missing') : t('save_fail')); }
@@ -4024,7 +4035,7 @@ async function plCrear(){
     if (up.error){ await db.from('planos').delete().eq('id', r.data.id); $('pnBtn').disabled = false; return fail(up.error, t('pl_up_fail')); }
     await db.from('planos').update({ imagen: path }).eq('id', r.data.id);
   }
-  planoAct = r.data.id; plVB = null; plModo = arch ? 'escala' : 'mover';
+  planoAct = r.data.id; plVB = null; plModo = arch && !row.escala ? 'escala' : 'mover';
   closeModal(); toast(t('saved')); await loadData();
 }
 function plConfig(){

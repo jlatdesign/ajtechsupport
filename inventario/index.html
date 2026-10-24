@@ -589,6 +589,13 @@ body.p-noborrar [onclick^="borrarSede("],body.p-noborrar [onclick^="borrarVpn("]
 .mdm-badge.passthrough{color:var(--c1);border-color:color-mix(in srgb,var(--c1) 50%,transparent)}
 .mdm-badge.ipfija{color:#a78bfa;border-color:#a78bfa80}
 .mdm-badge.bridge{color:var(--ok);border-color:color-mix(in srgb,var(--ok) 50%,transparent)}
+.mdm-calc{border:1px dashed var(--line-strong);border-radius:10px;padding:8px 10px;font-size:12.5px;margin:0 0 10px}
+.mdm-calc:empty{display:none}
+.mdm-calc .kvs{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:4px 12px;margin-bottom:6px}
+.mdm-calc .kvs span{color:var(--muted)} .mdm-calc .kvs b{font:600 12.5px "JetBrains Mono",monospace;display:block;color:var(--text)}
+.mdm-calc .ips{display:flex;flex-wrap:wrap;gap:4px}
+.mdm-calc .ips i{font:normal 11.5px "JetBrains Mono",monospace;padding:2px 7px;border-radius:6px;border:1px solid var(--line)}
+.mdm-calc .ips i.gw{color:var(--warn);border-color:color-mix(in srgb,var(--warn) 50%,transparent)}
 .wan-row .w-info{grid-column:1/-1;font-size:12px;margin-top:-2px}
 .wan-row .w-info:empty{display:none}
 .cad-box{margin:12px 0 0;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--row-hover);font-size:13px}
@@ -750,7 +757,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v7.3</p>
+    <p class="sub">Network Asset Manager · v7.4</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -766,7 +773,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v7.3</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v7.4</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -937,30 +944,26 @@ details.u-help summary{cursor:pointer;font-weight:600}
           <div id="mdmPT" class="mdm-grid hidden">
             <label><span data-i18n="mdm_pt_asig">Allocation</span><select id="mdm_pt_asig"><option value="">—</option><option value="fixed" data-i18n="mdm_pt.fixed">DHCPS-fixed (by MAC)</option><option value="dynamic" data-i18n="mdm_pt.dynamic">DHCPS-dynamic (first device)</option><option value="manual" data-i18n="mdm_pt.manual">Manual</option></select></label>
             <label><span data-i18n="mdm_pt_mac">Passthrough MAC (router WAN)</span><input id="mdm_pt_mac" class="monoin" autocomplete="off" placeholder="AA:BB:CC:DD:EE:FF"></label>
-            <label><span data-i18n="mdm_pt_ip">Public IP it passes</span><input id="mdm_pt_ip" class="monoin" autocomplete="off" inputmode="decimal"></label>
           </div>
           <label id="mdmFijaL" class="mdm-chk"><input type="checkbox" id="mdm_fija" onchange="mdmUI()"> <span data-i18n="mdm_fija_chk">Also has a static IP block</span></label>
           <div id="mdmFija" class="hidden">
             <div class="mdm-sub">📌 <span data-i18n="mdm_fija_t">Static IP block from the provider</span></div>
             <div class="mdm-grid">
               <label><span data-i18n="mdm_n">How many IPs</span><select id="mdm_n" onchange="mdmIps()"><option value="">—</option><option>1</option><option>5</option><option>13</option><option>29</option><option>61</option><option value="otro" data-i18n="mdm_n_otro">Other</option></select></label>
-              <label><span data-i18n="mdm_ini">First usable IP</span><input id="mdm_ini" class="monoin" autocomplete="off" inputmode="decimal" oninput="mdmIps()"></label>
-              <label><span data-i18n="mdm_fin">Last usable IP</span><input id="mdm_fin" class="monoin" autocomplete="off" inputmode="decimal"></label>
-              <label><span data-i18n="mdm_gw">Gateway</span><input id="mdm_gw" class="monoin" autocomplete="off" inputmode="decimal"></label>
-              <label><span data-i18n="mdm_mask">Subnet mask</span><input id="mdm_mask" class="monoin" autocomplete="off" inputmode="decimal"></label>
-              <label><span data-i18n="mdm_uso">Used for</span><input id="mdm_uso" autocomplete="off" data-i18n-ph="mdm_uso_ph" placeholder="e.g. .9 router, .10 PBX, .11 VPN"></label>
+              <label style="grid-column:span 2"><span data-i18n="mdm_blk">Any IP of the block (or the block with /)</span><input id="mdm_blk" class="monoin" autocomplete="off" oninput="mdmIps()" placeholder="108.238.78.33  ·  108.238.78.32/29"></label>
+              <label style="grid-column:span 3"><span data-i18n="mdm_uso">Used for</span><input id="mdm_uso" autocomplete="off" data-i18n-ph="mdm_uso_ph" placeholder="e.g. .9 router, .10 PBX, .11 VPN"></label>
             </div>
+            <div id="mdmCalc" class="mdm-calc"></div>
           </div>
           <div id="mdmLan" class="hidden">
             <div class="mdm-sub">🏠 <span data-i18n="mdm_lan_t">Private side (the modem still hands out private IPs)</span></div>
             <div class="mdm-grid">
-              <label><span data-i18n="mdm_lan_ip">Modem LAN IP</span><input id="mdm_lan_ip" class="monoin" autocomplete="off" inputmode="decimal" placeholder="192.168.1.254"></label>
               <label><span data-i18n="mdm_dhcp">DHCP range</span><input id="mdm_dhcp" class="monoin" autocomplete="off" placeholder="192.168.1.64 – .253"></label>
               <label><span data-i18n="mdm_wifi">Modem Wi-Fi</span><select id="mdm_wifi"><option value="">—</option><option value="on" data-i18n="mdm_wifi.on">On</option><option value="off" data-i18n="mdm_wifi.off">Off</option></select></label>
               <label><span data-i18n="mdm_otros">Anything else plugged into the modem?</span><select id="mdm_otros"><option value="">—</option><option value="no" data-i18n="mdm_otros.no">No, only the router</option><option value="si" data-i18n="mdm_otros.si">Yes</option></select></label>
               <label style="grid-column:span 2"><span data-i18n="mdm_otros_q">What is connected?</span><input id="mdm_otros_nota" autocomplete="off" data-i18n-ph="mdm_otros_ph" placeholder="e.g. AT&amp;T phones, TV box, cameras"></label>
             </div>
-            <small class="muted" data-i18n="mdm_ssid_hint">The Wi-Fi name goes in the "Wi-Fi name (SSID)" field above.</small>
+            <small class="muted" data-i18n="mdm_ssid_hint2">The modem's private (LAN) IP goes in the "IP" field above, and the Wi-Fi name in "Wi-Fi name (SSID)".</small>
           </div>
         </div>
         <div id="wanBox" class="wan-box hidden">
@@ -1642,6 +1645,10 @@ Object.assign(I18N.en, {
   mdm_gets_fija:'uses one of the static IPs', mdm_no_rtr:'No router linked', mdm_no_rtr_h:'Edit the router → WAN → "Through modem"',
   mdm_title2:'Modem: provider and mode', mdm_con:'Connection type', mdm_ip:'Public IP', mdm_isp_ph:'AT&T, Comcast, Verizon…', mdm_modo_t:'Modem mode',
   'wc.Cable':'Coaxial cable', 'wc.Inalámbrico fijo':'Wireless / antenna', 'wc.Satélite':'Satellite', 'wc.DSL':'DSL (phone line)',
+  mdm_blk:'Any IP of the block (or the block with /)', mdm_c_red:'Network', mdm_c_us:'Usable', mdm_c_bc:'Broadcast',
+  mdm_calc_help:'Choose how many IPs and type any IP the provider gave you (or the block, e.g. 108.238.78.32/29). The rest is calculated.',
+  mdm_calc_need:'Choose how many IPs, or type the block with / (e.g. 108.238.78.32/29).', mdm_calc_bad:'That IP is not valid.',
+  mdm_ssid_hint2:'The modem\'s private (LAN) IP goes in the "IP" field above, and the Wi-Fi name in "Wi-Fi name (SSID)".',
   mdm_ct:'Contact person', mdm_ct_tel:'Contact phone', mdm_ct_ph:'e.g. account rep / ISP technician',
   wan_mdm_pick:'Connect a modem:', wan_mdm_none:'This client has no modems yet — add the modem first and it will show here.',
   up_modem:'— The modem is the first one (provider goes in the modem box) —', up_otras:'Other locations',
@@ -1667,6 +1674,10 @@ Object.assign(I18N.es, {
   mdm_gets_fija:'usa una de las IPs fijas', mdm_no_rtr:'Sin router asociado', mdm_no_rtr_h:'Edita el router → WAN → "Por el módem"',
   mdm_title2:'Módem: proveedor y modo', mdm_con:'Tipo de conexión', mdm_ip:'IP pública', mdm_isp_ph:'AT&T, Comcast, Verizon…', mdm_modo_t:'Modo del módem',
   'wc.Cable':'Cable coaxial', 'wc.Inalámbrico fijo':'Inalámbrico / antena', 'wc.Satélite':'Satélite', 'wc.DSL':'DSL (línea de teléfono)',
+  mdm_blk:'Cualquier IP del bloque (o el bloque con /)', mdm_c_red:'Red', mdm_c_us:'Usables', mdm_c_bc:'Broadcast',
+  mdm_calc_help:'Escoge cuántas IPs y escribe cualquier IP que te dio el proveedor (o el bloque, ej. 108.238.78.32/29). Lo demás se calcula solo.',
+  mdm_calc_need:'Escoge cuántas IPs, o escribe el bloque con / (ej. 108.238.78.32/29).', mdm_calc_bad:'Esa IP no es válida.',
+  mdm_ssid_hint2:'La IP privada (LAN) del módem va en el campo "IP" de arriba, y el nombre del WiFi en "Nombre del WiFi (SSID)".',
   mdm_ct:'Persona de contacto', mdm_ct_tel:'Teléfono del contacto', mdm_ct_ph:'ej. representante de cuenta / técnico del proveedor',
   wan_mdm_pick:'Conectar un módem:', wan_mdm_none:'Este cliente todavía no tiene módems: agrega primero el módem y saldrá aquí.',
   up_modem:'— El módem es el primero (el proveedor va en la caja del módem) —', up_otras:'Otras ubicaciones',
@@ -1675,8 +1686,8 @@ Object.assign(I18N.es, {
 });
 I18N.en.wan_ip = 'WAN IP';
 const mdmDe = x => { let m = x?.modem; if (typeof m === 'string'){ try{ m = JSON.parse(m); }catch(e){ m = {}; } } return m && typeof m === 'object' && !Array.isArray(m) ? m : {}; };
-const MDM_F = { pt_asig: 'mdm_pt_asig', pt_mac: 'mdm_pt_mac', pt_ip: 'mdm_pt_ip', n: 'mdm_n', ini: 'mdm_ini', fin: 'mdm_fin', gw: 'mdm_gw', mask: 'mdm_mask',
-  uso: 'mdm_uso', lan_ip: 'mdm_lan_ip', dhcp: 'mdm_dhcp', wifi: 'mdm_wifi', otros: 'mdm_otros', otros_nota: 'mdm_otros_nota' };
+const MDM_F = { pt_asig: 'mdm_pt_asig', pt_mac: 'mdm_pt_mac', n: 'mdm_n',
+  uso: 'mdm_uso', dhcp: 'mdm_dhcp', wifi: 'mdm_wifi', otros: 'mdm_otros', otros_nota: 'mdm_otros_nota' };
 let mdmWansExtra = [];
 function fillModem(x){
   const m = mdmDe(x), ws = wanDe(x), w = ws[0] || (x && (x.isp || x.ip_publica || x.cuenta_isp) ? { isp: x.isp, ip: x.ip_publica, cuenta: x.cuenta_isp } : {});
@@ -1684,8 +1695,11 @@ function fillModem(x){
   $('mdm_con').innerHTML = '<option value="">—</option>' + WAN_CONEX.map(v => `<option value="${esc(v)}">${esc(t('wc.' + v))}</option>`).join('');
   $('mdm_isp').value = w.isp || ''; $('mdm_con').value = w.conexion || ''; $('mdm_ip').value = w.ip || ''; $('mdm_vel').value = w.velocidad || ''; $('mdm_cta').value = w.cuenta || ''; $('mdm_ct').value = w.contacto || ''; $('mdm_ct_tel').value = w.tel || '';
   $('mdm_modo').value = m.modo || ''; $('mdm_fija').checked = !!m.fija;
-  Object.entries(MDM_F).forEach(([k, id]) => { $(id).value = m[k] || ''; delete $(id).dataset.auto; });
-  mdmUI();
+  Object.entries(MDM_F).forEach(([k, id]) => { $(id).value = m[k] || ''; });
+  $('mdm_blk').value = m.red || m.ini || '';
+  if (!$('mdm_ip').value && m.pt_ip) $('mdm_ip').value = m.pt_ip;                       // datos anteriores
+  if (m.lan_ip) setTimeout(() => { if ($('tipo').value === 'Módem' && !$('ip').value) $('ip').value = m.lan_ip; }, 0);
+  mdmUI(); mdmIps();
 }
 function wansModem(){
   const w = { puerto: 'WAN1', isp: $('mdm_isp').value.trim(), conexion: $('mdm_con').value, modo: 'principal', ip: $('mdm_ip').value.trim(), velocidad: $('mdm_vel').value.trim(), cuenta: $('mdm_cta').value.trim(), contacto: $('mdm_ct').value.trim(), tel: $('mdm_ct_tel').value.trim() };
@@ -1696,9 +1710,12 @@ function readModem(){
   const m = { modo: $('mdm_modo').value };
   if (m.modo === 'ipfija' || $('mdm_fija').checked) m.fija = true;
   Object.entries(MDM_F).forEach(([k, id]) => { m[k] = $(id).value.trim(); });
-  if (m.modo !== 'passthrough') ['pt_asig', 'pt_mac', 'pt_ip'].forEach(k => delete m[k]);
-  if (!m.fija) ['n', 'ini', 'fin', 'gw', 'mask', 'uso'].forEach(k => delete m[k]);
-  if (m.modo === 'bridge') ['lan_ip', 'dhcp', 'wifi', 'otros', 'otros_nota'].forEach(k => delete m[k]);
+  const c = calcBloque($('mdm_blk').value, $('mdm_n').value);
+  if (c){ Object.assign(m, { red: c.red, ini: c.ini, fin: c.fin, gw: c.gw, mask: c.mask, bc: c.bc }); if (!m.n || m.n === 'otro') m.n = String(c.n); }
+  else if ($('mdm_blk').value.trim()) m.ini = $('mdm_blk').value.trim();
+  if (m.modo !== 'passthrough') ['pt_asig', 'pt_mac'].forEach(k => delete m[k]);
+  if (!m.fija) ['n', 'ini', 'fin', 'gw', 'mask', 'uso', 'red', 'bc'].forEach(k => delete m[k]);
+  if (m.modo === 'bridge') ['dhcp', 'wifi', 'otros', 'otros_nota'].forEach(k => delete m[k]);
   Object.keys(m).forEach(k => { if (m[k] === '' || m[k] == null) delete m[k]; });
   return m;
 }
@@ -1714,11 +1731,28 @@ function mdmUI(){
 }
 const ipNumV = s => { const p = String(s || '').trim().split('.'); if (p.length !== 4 || p.some(x => !/^\d{1,3}$/.test(x) || +x > 255)) return null; return p.reduce((a, x) => a * 256 + +x, 0); };
 const numIp = n => [24, 16, 8, 0].map(b => Math.floor(n / 2 ** b) % 256).join('.');
+// Calculadora de bloque de IP fija. Los proveedores (AT&T, Comcast, Spectrum…) dan:
+// 1 IP = /30 · 5 IPs = /29 · 13 IPs = /28 · 29 IPs = /27 · 61 IPs = /26.
+// Red = primera dirección, Broadcast = última, Gateway del proveedor = la anterior al broadcast, usables = el resto.
+const N_PREFIJO = { '1': 30, '5': 29, '13': 28, '29': 27, '61': 26 };
+function calcBloque(txt, n){
+  const m = String(txt || '').trim().match(/^(\d{1,3}(?:\.\d{1,3}){3})(?:\s*\/\s*(\d{1,2}))?$/); if (!m) return null;
+  const ip = ipNumV(m[1]); if (ip == null) return null;
+  const p = m[2] ? +m[2] : N_PREFIJO[n]; if (!p || p < 16 || p > 30) return null;
+  const tam = 2 ** (32 - p), red = ip - (ip % tam), bc = red + tam - 1;
+  return { p, n: tam - 3, red: numIp(red) + '/' + p, ini: numIp(red + 1), fin: numIp(bc - 2), gw: numIp(bc - 1), bc: numIp(bc),
+    mask: numIp(2 ** 32 - tam), usables: Array.from({ length: Math.min(tam - 3, 64) }, (_, i) => numIp(red + 1 + i)) };
+}
 function mdmIps(){
-  const n = parseInt($('mdm_n').value, 10), ini = ipNumV($('mdm_ini').value);
-  const auto = (id, v) => { const el = $(id); if (v && (!el.value || el.dataset.auto === el.value)){ el.value = v; el.dataset.auto = v; } };
-  if (MDM_MASK[$('mdm_n').value]) auto('mdm_mask', MDM_MASK[$('mdm_n').value]);
-  if (ini != null && n > 0){ auto('mdm_fin', numIp(ini + n - 1)); if (n > 1) auto('mdm_gw', numIp(ini + n)); }   // el gateway del proveedor es la IP siguiente a la última usable
+  const el = $('mdmCalc'); if (!el) return;
+  const txt = $('mdm_blk').value.trim(), c = calcBloque(txt, $('mdm_n').value);
+  const pm = txt.match(/\/\s*(\d{1,2})$/);
+  if (c && pm){ const k = Object.keys(N_PREFIJO).find(k => N_PREFIJO[k] === c.p); $('mdm_n').value = k || 'otro'; }   // escribió /29 → 5 IPs
+  if (!txt){ el.innerHTML = `<span class="muted">${esc(t('mdm_calc_help'))}</span>`; return; }
+  if (!c){ el.innerHTML = `<span class="cad-warn">${esc(t(!$('mdm_n').value || $('mdm_n').value === 'otro' ? 'mdm_calc_need' : 'mdm_calc_bad'))}</span>`; return; }
+  const kv = (k, v) => `<div><span>${esc(t(k))}</span><b>${esc(v)}</b></div>`;
+  el.innerHTML = `<div class="kvs">${kv('mdm_c_red', c.red)}${kv('mdm_c_us', c.n + ' · ' + c.ini + ' – .' + c.fin.split('.').pop())}${kv('mdm_gw', c.gw)}${kv('mdm_mask', c.mask)}${kv('mdm_c_bc', c.bc)}</div>
+    <div class="ips">${c.usables.map(i => `<i>${esc(i)}</i>`).join('')}<i class="gw" title="Gateway">${esc(c.gw)} gw</i></div>`;
 }
 const macN = s => String(s || '').toLowerCase().replace(/[^0-9a-f]/g, '');
 const mdmBadge = m => m.modo ? `<span class="mdm-badge ${esc(m.modo)}">${MDM_ICON[m.modo] || ''} ${esc(t('mdm.' + m.modo))}${m.fija && m.modo !== 'ipfija' ? ' + 📌' : ''}</span>` : '';
@@ -1739,7 +1773,7 @@ function viaCambio(sel){
     const mw = wanDe(m)[0] || { isp: m.isp, ip: m.ip_publica, cuenta: m.cuenta_isp }, md = mdmDe(m);
     const put = (c, v) => { const el = r.querySelector(c); if (el && !el.value && v) el.value = v; };
     put('.w-isp', mw.isp); put('.w-conexion', mw.conexion); put('.w-cuenta', mw.cuenta); put('.w-vel', mw.velocidad);
-    put('.w-ip', md.modo === 'passthrough' ? (md.pt_ip || mw.ip) : md.modo === 'bridge' ? mw.ip : (md.modo === 'ipfija' || md.fija) ? md.ini : '');
+    put('.w-ip', md.modo === 'passthrough' ? (mw.ip || md.pt_ip) : md.modo === 'bridge' ? mw.ip : (md.modo === 'ipfija' || md.fija) ? md.ini : '');
   }
   viaInfo(r); wanMdmChips();
 }
@@ -1753,7 +1787,7 @@ function mdmFilas(x, fila){
     + (m.modo === 'passthrough' ? fila('➡️ Passthrough', [m.pt_asig && esc(t('mdm_pt.' + m.pt_asig)), m.pt_mac && `MAC <span class="mono">${esc(m.pt_mac)}</span>`,
         dueño ? `→ <a class="dev-link" onclick="verDetalle('${dueño.id}')">${TIPO_ICON[dueño.tipo] || '◆'} ${esc(dueño.nombre)}</a>` : '', m.pt_ip && `<span class="mono">${esc(m.pt_ip)}</span>`].filter(Boolean).join(' · ') || '—') : '')
     + (m.fija ? fila('📌 ' + t('mdm.ipfija'), [mdmBloque(m), m.mask && `<span class="mono">${esc(m.mask)}</span>`, m.uso && esc(m.uso)].filter(Boolean).join(' · ') || '—') : '')
-    + (m.modo && m.modo !== 'bridge' ? fila('🏠 ' + t('mdm_lan'), [m.lan_ip && `<span class="mono">${esc(m.lan_ip)}</span>`, m.dhcp && `DHCP <span class="mono">${esc(m.dhcp)}</span>`,
+    + (m.modo && m.modo !== 'bridge' ? fila('🏠 ' + t('mdm_lan'), [(x.ip || m.lan_ip) && `<span class="mono">${esc(x.ip || m.lan_ip)}</span>`, m.dhcp && `DHCP <span class="mono">${esc(m.dhcp)}</span>`,
         m.wifi && `📶 ${esc(t('mdm_wifi.' + m.wifi))}${m.wifi === 'on' && x.ssid ? ` "${esc(x.ssid)}"` : ''}`,
         m.otros && `🔌 ${esc(t('mdm_otros.' + m.otros))}${m.otros_nota ? ': ' + esc(m.otros_nota) : ''}`].filter(Boolean).join(' · ') || '—') : '');
 }
@@ -1779,7 +1813,7 @@ function cadenaNet(red){
       md.modo === 'passthrough' ? (md.pt_mac ? `➡️ MAC <span class="mono">${esc(md.pt_mac)}</span>${dueño ? ` <span class="cad-ok">(${esc(t('mdm_mac_of', { d: dueño.nombre }))})</span>` : ''}`
         : (md.pt_asig !== 'dynamic' ? `<span class="cad-warn">⚠ ${esc(t('mdm_no_mac'))}</span>` : '')) : '',
       mdmBloque(md)].filter(Boolean);
-    const lan = md.modo && md.modo !== 'bridge' ? [md.lan_ip && `🏠 <span class="mono">${esc(md.lan_ip)}</span>`,
+    const lan = md.modo && md.modo !== 'bridge' ? [(M.ip || md.lan_ip) && `🏠 <span class="mono">${esc(M.ip || md.lan_ip)}</span>`,
       md.wifi && `📶 ${esc(t('mdm_wifi.' + md.wifi))}${md.wifi === 'on' && M.ssid ? ` "${esc(M.ssid)}"` : ''}`,
       md.otros === 'si' ? `🔌 ${esc(t('mdm_otros_lbl'))}${md.otros_nota ? ': ' + esc(md.otros_nota) : ''}` : ''].filter(Boolean) : [];
     const nodoM = `<div class="cad-n dev" onclick="verDetalle('${M.id}')"><b>📦 ${esc(M.nombre)}${mdmBadge(md)}</b>${extra.map(v => `<small>${v}</small>`).join('')}${lan.length ? `<small>${lan.join(' · ')}</small>` : ''}</div>`;
@@ -2487,6 +2521,7 @@ function toggleWan(){
   const tipo = $('tipo').value, on = WAN_TIPOS.includes(tipo);
   $('wanBox').classList.toggle('hidden', !on || tipo === 'Módem');
   $('modemBox').classList.toggle('hidden', tipo !== 'Módem'); mdmUI();
+  $('ip').placeholder = tipo === 'Módem' ? '192.168.1.254' : '192.168.1.10';
   document.querySelectorAll('#wanList .wan-row').forEach(r => { r.classList.toggle('sin-via', tipo === 'Módem'); viaInfo(r); });
   wanMdmChips();
 }

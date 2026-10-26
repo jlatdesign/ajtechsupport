@@ -780,7 +780,7 @@ body.p-nostaff .solo-staff{display:none!important}
 .pr-modo label{display:flex!important;flex-direction:column!important;gap:2px;border:1px solid var(--line);border-radius:10px;padding:8px;cursor:pointer;font-size:12.5px}
 .pr-modo label.on{border-color:var(--c1);background:color-mix(in srgb,var(--c1) 8%,transparent)}
 .pr-modo b{font:700 16px "JetBrains Mono",monospace}.pr-modo small{color:var(--muted);font-size:11px}.pr-modo input{display:none}
-.pr-gan{font-size:12.5px;margin-top:8px}.pr-real{font-size:12.5px;margin-top:6px;color:var(--ok)}
+.pr-gan{font-size:12.5px;margin-top:8px}.pr-gan-r{display:flex;align-items:center;justify-content:space-between;gap:8px}.pr-gan-r label{display:flex!important;flex-direction:row!important;align-items:center;gap:4px;font-weight:700;white-space:nowrap;margin:0}.pr-gan-r input{width:64px;padding:4px 6px;text-align:right;font-weight:700}.pr-real{font-size:12.5px;margin-top:6px;color:var(--ok)}
 .pr-eq{display:grid;grid-template-columns:minmax(0,2fr) 70px 100px 90px auto;gap:6px;align-items:center;margin-top:6px}
 .pr-eq input,.pr-eq select{padding:6px 8px!important;font-size:13px!important}
 .pr-eq .e-t{text-align:right}
@@ -866,6 +866,7 @@ body.p-nopw #form label:has(.u-pw){display:none!important}
 .u-acts{display:flex;gap:6px;margin-left:auto}
 .u-acts button{font-size:12px;padding:5px 9px}
 .pr-sal{margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);font-size:12.5px}.pr-sal label{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-weight:600}.pr-sal input{width:80px;padding:4px 6px}.pr-sal small{display:block;margin-top:4px}
+.pr-tar{margin:0 0 8px;padding:0 0 8px;border-top:0;border-bottom:1px dashed var(--line)}
 .u-warn{border:1px solid var(--warn);background:color-mix(in srgb,var(--warn) 10%,transparent);border-radius:12px;padding:12px 14px;font-size:13px;line-height:1.55;margin-bottom:12px}
 .u-warn ol{margin:6px 0 0;padding-left:20px}
 details.u-help summary{cursor:pointer;font-weight:600}
@@ -2030,7 +2031,7 @@ Object.assign(I18N.es, {
   pr_h_pm:'Gestión del proyecto ({p}%)', pr_h_learn:'ajuste aprendido ({n})', pr_h_total:'Horas hombre', pr_personas:'Personas', pr_dias:'días', pr_sem:'semanas', pr_menos_sem:'menos de 1 semana',
   pr_min2:'Con altura mayor a 14 ft se recomiendan mínimo 2 personas (seguridad).', pr_precio:'Precio', pr_por_hora:'Por hora', pr_por_punto:'Por punto', pr_tipos_p:'tipos de punto', pr_recargo:'por altura',
   pr_mano:'Mano de obra', pr_renta_l:'Renta de {l}', pr_conting:'Contingencia ({p}%)', pr_conting_c:'Imprevistos', pr_imp:'Impuesto ({p}%) sobre materiales y equipos',
-  pr_gan:'Ganancia estimada', pr_gan_s:'', pr_sal:'Salario del técnico por hora', pr_sal_s:'Costo de mano de obra: {h} h × {s}{c} = {v} (no sale en el PDF)', pr_real_h:'Trabajo real: {r} h (estimado base {e} h)', pr_need_client:'Escribe el cliente o el prospecto.',
+  pr_gan:'Ganancia estimada', pr_gan_s:'', pr_sal:'Salario del técnico por hora', pr_meta_h:'Cambia el % y se ajusta la tarifa por hora para darte esa ganancia.', pr_meta_ok:'Tarifa ajustada a {t}/h', pr_meta_no:'Aquí la ganancia no depende de la tarifa por hora (precio por punto o precios fijos). Cambia esos precios.', pr_meta_rango:'Escribe un % entre 1 y 89.', pr_tar:'Tarifa por hora (lo que cobras)', pr_tar_s:'Vacío = la tarifa de ⚙. Escribe otra para darle un precio especial a este cliente.', pr_tar_esp:'⭐ Tarifa especial en este presupuesto (la normal es {t}).', pr_sal_s:'Costo de mano de obra: {h} h × {s}{c} = {v} (no sale en el PDF)', pr_real_h:'Trabajo real: {r} h (estimado base {e} h)', pr_need_client:'Escribe el cliente o el prospecto.',
   pr_del_q:'¿Borrar el presupuesto #{n} y su plano?', pr_close_help:'Pon las horas hombre reales (todas las personas sumadas). El estimado fue {h} h. Con esto la app corrige sola los próximos presupuestos.',
   pr_h_reales:'Horas hombre reales', pr_p_reales:'Personas', pr_d_reales:'Días', pr_c_notas:'Qué pasó (para la próxima vez)', pr_closed:'Trabajo cerrado. Diferencia contra el cálculo: {p}%',
   pr_conv_q:'¿Crear el cliente "{c}"? Los {n} equipos planificados del plano pasan al inventario.', pr_conv_ok:'Cliente {c} creado · {n} equipos al inventario',
@@ -2086,7 +2087,7 @@ Object.assign(I18N.en, {
   pr_h_pm:'Project management ({p}%)', pr_h_learn:'learned adjustment ({n})', pr_h_total:'Man-hours', pr_personas:'Crew', pr_dias:'days', pr_sem:'weeks', pr_menos_sem:'less than 1 week',
   pr_min2:'Above 14 ft at least 2 people are recommended (safety).', pr_precio:'Price', pr_por_hora:'Hourly', pr_por_punto:'Per point', pr_tipos_p:'point types', pr_recargo:'for height',
   pr_mano:'Labor', pr_renta_l:'{l} rental', pr_conting:'Contingency ({p}%)', pr_conting_c:'Contingency', pr_imp:'Tax ({p}%) on materials and equipment',
-  pr_gan:'Estimated profit', pr_gan_s:'', pr_sal:'Technician hourly wage', pr_sal_s:'Labor cost: {h} h × {s}{c} = {v} (not shown on the PDF)', pr_real_h:'Real job: {r} h (base estimate {e} h)', pr_need_client:'Type the client or prospect.',
+  pr_gan:'Estimated profit', pr_gan_s:'', pr_sal:'Technician hourly wage', pr_meta_h:'Change the % and the hourly rate adjusts to give you that profit.', pr_meta_ok:'Rate adjusted to {t}/h', pr_meta_no:'Here profit does not depend on the hourly rate (per-point or fixed prices). Change those prices.', pr_meta_rango:'Type a % between 1 and 89.', pr_tar:'Hourly rate (what you charge)', pr_tar_s:'Empty = the ⚙ rate. Type another to give this client a special price.', pr_tar_esp:'⭐ Special rate on this quote (normal is {t}).', pr_sal_s:'Labor cost: {h} h × {s}{c} = {v} (not shown on the PDF)', pr_real_h:'Real job: {r} h (base estimate {e} h)', pr_need_client:'Type the client or prospect.',
   pr_del_q:'Delete quote #{n} and its plan?', pr_close_help:'Enter the real man-hours (all people added up). The estimate was {h} h. The app uses it to correct the next quotes.',
   pr_h_reales:'Real man-hours', pr_p_reales:'Crew', pr_d_reales:'Days', pr_c_notas:'What happened (for next time)', pr_closed:'Job closed. Difference vs. calculation: {p}%',
   pr_conv_q:'Create the client "{c}"? The {n} planned devices of the plan go to the inventory.', pr_conv_ok:'Client {c} created · {n} devices to the inventory',
@@ -4494,6 +4495,18 @@ const prConf = () => { const c = jObj(PRC?.datos), d = PRESU_DEF, m = (a, b) => 
 // Lo que le pagas al técnico por hora (costo interno; no sale en el PDF). Se puede cambiar en cada presupuesto.
 const prSalarioDef = (C, tp) => n0(tp === 'instalacion' ? C.salario : prTT(C, tp).salario) || n0(C.salario) || 25;
 const prSalario = (d, C, tp) => n0(d?.salario) || prSalarioDef(C, tp);
+const prTarifaDef = (C, tp) => n0(tp === 'instalacion' ? C.tarifa : prTT(C, tp).tarifa);
+const prTarifa = (d, C, tp) => n0(d?.tarifa) || prTarifaDef(C, tp);   // tarifa de este presupuesto (o la de ⚙)
+// Escribe el % de ganancia que quieres y calcula la tarifa por hora que lo da (la ganancia sube o baja con la tarifa)
+function prMeta(v){
+  const g = n0(v) / 100, d = PR.d, C = prConf();
+  if (!(g > 0 && g < .9)) { toast(t('pr_meta_rango')); return prResumen(); }
+  const ev = tf => { const x = prCalcular({ ...d, tarifa: tf }, C); return [x.total$ - x.impuesto, x.costo]; };
+  const [r1, c1] = ev(50), [r2] = ev(150), a = (r2 - r1) / 100, b = r1 - a * 50;
+  if (a < .01) { toast(t('pr_meta_no')); return prResumen(); }
+  const tf = Math.max(1, Math.round((c1 / (1 - g) - b) / a));
+  d.tarifa = String(tf); PR._sucio = true; prResumen(); toast(t('pr_meta_ok', { t: money(tf) }));
+}
 const prCostoMO = (h, d, C, tp) => h * prSalario(d, C, tp) * (1 + n0(C.cargas) / 100);
 const escalon = (tabla, v) => { const ks = Object.keys(tabla).map(Number).sort((a, b) => a - b); for (const k of ks) if (v <= k) return tabla[k]; return tabla[ks[ks.length - 1]]; };
 const money = v => (v < 0 ? '−' : '') + '$' + Math.abs(Math.round(v)).toLocaleString('en-US');
@@ -4763,6 +4776,8 @@ function prResumen(){
       ${R.tablaP?.length ? `<div class="pr-crew-t">${R.tablaP.map(x => `<span class="${x.p === R.pers ? 'on' : ''}">${x.p}👷 ${x.dias}d</span>`).join('')}</div>` : ''}
       ${R.minP > 1 ? `<small class="muted">${t('pr_min2')}</small>` : ''}${tp === 'software' || tp === 'web' ? `<small class="muted">${t('pr_sem_dev', { h: tp === 'web' ? 30 : prTT(C, 'software').horas_sem })}</small>` : ''}</div>` : ''}
     <h4 class="cl-h4">💵 ${t('pr_precio')}</h4>
+    <div class="pr-sal pr-tar"><label>${t('pr_tar')} $<input type="number" min="0" step="any" value="${esc(d.tarifa ?? '')}" placeholder="${prTarifaDef(C, tp)}" onchange="PR.d.tarifa=this.value;prLeer()"></label>
+      <small class="muted">${n0(d.tarifa) ? t('pr_tar_esp', { t: money(prTarifaDef(C, tp)) }) : t('pr_tar_s')}</small></div>
     ${tp === 'instalacion' ? `<div class="pr-modo"><label class="${R.modo === 'hora' ? 'on' : ''}"><input type="radio" name="prm" ${R.modo === 'hora' ? 'checked' : ''} onchange="PR.d.modo='hora';prLeer()"> ${t('pr_por_hora')}<b>${money(R.porHora)}</b><small>${R.total.toFixed(1)} h × ${money(R.tarifa)}</small></label>
       <label class="${R.modo === 'punto' ? 'on' : ''}"><input type="radio" name="prm" ${R.modo === 'punto' ? 'checked' : ''} onchange="PR.d.modo='punto';prLeer()"> ${t('pr_por_punto')}<b>${money(R.porPunto)}</b><small>${R.lineasPunto.length} ${t('pr_tipos_p')}${R.recargo ? ' · +' + money(R.recargo) + ' ' + t('pr_recargo') : ''}</small></label></div>` : ''}
     ${R.mano ? fila(t(tp === 'msp' ? 'pms_onb' : 'pr_mano') + (tp !== 'instalacion' && tp !== 'libre' ? ` <small class="muted">${R.total.toFixed(1)} h × ${money(R.tarifa)}</small>` : ''), money(R.mano)) : ''}
@@ -4773,7 +4788,8 @@ function prResumen(){
     ${rec.length ? `<div class="pr-recbox"><b>🔁 ${t('pr_rec')}</b>${rec.map(([k, v, u]) => fila(esc(k), money(v) + '/' + t(u === 'anio' ? 'pr_anio' : 'pr_mes'))).join('')}
       ${fila('<b>' + t('pr_mensual') + '</b>', money(recMes) + '/' + t('pr_mes'), 'big')}${recAnio ? fila(t('pr_anual_extra'), money(recAnio) + '/' + t('pr_anio')) : ''}
       <small class="muted">${t('pr_primer_anio', { v: money(R.total$ + recMes * 12 + recAnio) })}</small></div>` : ''}
-    ${R.total$ ? `<div class="pr-gan">${t('pr_gan')}: <b>${money(R.ganancia)}</b> (${Math.round(R.ganancia / Math.max(1, R.total$ - R.impuesto) * 100)}%) <div class="pr-sal"><label>${t('pr_sal')} $<input type="number" min="0" step="any" value="${esc(d.salario ?? '')}" placeholder="${prSalarioDef(C, tp)}" onchange="PR.d.salario=this.value;prLeer()"></label>
+    ${R.total$ ? `<div class="pr-gan"><div class="pr-gan-r"><span>${t('pr_gan')}: <b>${money(R.ganancia)}</b></span><label title="${esc(t('pr_meta_h'))}"><input type="number" step="1" min="1" max="90" value="${Math.round(R.ganancia / Math.max(1, R.total$ - R.impuesto) * 100)}" onchange="prMeta(this.value)"> %</label></div>
+      <small class="muted">${t('pr_meta_h')}</small><div class="pr-sal"><label>${t('pr_sal')} $<input type="number" min="0" step="any" value="${esc(d.salario ?? '')}" placeholder="${prSalarioDef(C, tp)}" onchange="PR.d.salario=this.value;prLeer()"></label>
       <small class="muted">${t('pr_sal_s', { h: R.total.toFixed(1), s: money(prSalario(d, C, tp)), c: n0(C.cargas) ? ' + ' + n0(C.cargas) + '%' : '', v: money(prCostoMO(R.total, d, C, tp)) })}</small></div></div>` : ''}
     ${PR.horas_real ? `<div class="pr-real">✅ ${t('pr_real_h', { r: (+PR.horas_real).toFixed(1), e: (+PR.horas_est || 0).toFixed(1) })}</div>` : ''}
   </div>`;
@@ -4893,7 +4909,7 @@ async function prPdf(){
     trabajo = R.lineasPunto.map(l => tr(esc(t('prp.' + l.k)), l.qty, R.modo === 'punto' ? money(l.p) : '', R.modo === 'punto' ? money(l.qty * l.p) : '')).join('')
       + (R.modo === 'hora' ? tr(`<b>${t('pr_mano_inst')}</b>${d.pdf_horas ? ` <span class="muted">(${R.total.toFixed(0)} h)</span>` : ''}`, '', '', money(R.mano)) : '');
   } else if (tp === 'libre'){
-    { const tf = n0(prTT(C, 'libre').tarifa); trabajo = jArr(d.partidas).filter(p => p.d && n0(p.qty)).map(p => { const pu = n0(p.p) || (p.h ? tf : 0); return tr(esc(p.d), n0(p.qty) + (p.h ? ' h' : ''), money(pu), money(n0(p.qty) * pu)); }).join(''); }
+    { const tf = prTarifa(d, C, 'libre'); trabajo = jArr(d.partidas).filter(p => p.d && n0(p.qty)).map(p => { const pu = n0(p.p) || (p.h ? tf : 0); return tr(esc(p.d), n0(p.qty) + (p.h ? ' h' : ''), money(pu), money(n0(p.qty) * pu)); }).join(''); }
   } else {
     // cada tarea: horas × tarifa (las horas solo se muestran si lo marcas)
     const k = R.total && R.base ? R.total / R.base : 1;
@@ -5018,10 +5034,10 @@ const prCrew = (total, minP, d, C, maxDias = 10) => { const hd = n0(C.horas_dia)
 
 function prCalcular(d, C = prConf()){
   const tp = prTipo(d);
-  if (tp === 'instalacion'){ const R = prCalcInst(d, C);
+  if (tp === 'instalacion'){ const R = prCalcInst(d, n0(d.tarifa) ? { ...C, tarifa: n0(d.tarifa) } : C);
     R.tipo = tp; R.hl = [[t('pr_h_cable', { n: R.runs, f: R.corrida }), R.h.cable], [t('pr_h_mont'), R.h.montaje], [t('pr_h_eq'), R.h.equipos], [t('pr_h_survey'), R.h.survey], [t('pr_extra_h'), R.h.extra], [t('pr_h_pm', { p: C.t.pm }), R.h.pm]].filter(x => x[1]);
     R.cargos = R.renta ? [[t('pr_renta_l', { l: t('prl.' + R.lift) }), R.renta]] : []; R.cargosT = R.renta; R.campo = true; return R; }
-  const T = prTT(C, tp), ap = d.aprendido || { f: 1, n: 0 }, s = { ...(d.sitio || {}) }, q = { ...(d.q || {}) };
+  const T = { ...prTT(C, tp), ...(n0(d.tarifa) ? { tarifa: n0(d.tarifa) } : {}) }, ap = d.aprendido || { f: 1, n: 0 }, s = { ...(d.sitio || {}) }, q = { ...(d.q || {}) };
   const fin = (x, cont) => prFin({ tipo: tp, ap, s, q, ...x }, d, C, cont);
   if (tp === 'desmontaje' || tp === 'mudanza' || tp === 'reparacion'){
     const alt = Math.max(6, n0(s.altura) || 10), fA = tp === 'desmontaje' ? escalon(C.f_alt, alt) : 1, fT = tp === 'desmontaje' ? (C.f_techo[s.techo] ?? 1) : 1, fD = C.f_dif[s.dificultad || 'normal'] ?? 1;
@@ -5143,13 +5159,13 @@ function renderPrDatosTipo(b){
     return;
   }
   // libre
-  const pars = jArr(d.partidas).length ? jArr(d.partidas) : [{ d: '', qty: 1, p: T.tarifa, h: true }];
+  const pars = jArr(d.partidas).length ? jArr(d.partidas) : [{ d: '', qty: 1, p: '', h: true }];
   b.innerHTML = `<div class="panel"><h4 class="cl-h4">✏️ ${t('ptt.libre')}</h4><div class="pr-hint" style="margin-bottom:8px">${t('pl_libre_h', { t: money(T.tarifa) })}</div>
     <div id="prParRows">${pars.map(p => prParFila(p)).join('')}</div><button class="sm" onclick="$('prParRows').insertAdjacentHTML('beforeend',prParFila({qty:1}));prLeer()">＋ ${t('pl_libre_add')}</button></div>`;
 }
 const prModFila = m => `<div class="pr-eq pr-mod"><input class="m-n" value="${esc(m.n || '')}" placeholder="${esc(t('psw_mod_ph'))}" oninput="prLeer()"><select class="m-t" onchange="prLeer()">${['S', 'M', 'L', 'XL'].map(x => `<option ${x === (m.t || 'M') ? 'selected' : ''}>${x}</option>`).join('')}</select><span></span><span></span><button class="sm danger" onclick="this.parentElement.remove();prLeer()">✕</button></div>`;
 const prParFila = p => `<div class="pr-eq pr-par"><input class="p-d" value="${esc(p.d || '')}" placeholder="${esc(t('pr_mat_d'))}" oninput="prLeer()"><input class="p-q" type="number" min="0" step="any" value="${esc(p.qty ?? 1)}" oninput="prLeer()">
-  <input class="p-p" type="number" min="0" step="any" value="${esc(p.p ?? '')}" placeholder="${p.h ? esc(prTT(prConf(), 'libre').tarifa) : '$'}" oninput="prLeer()"><label class="mdm-chk" title="${esc(t('pl_libre_hh'))}"><input type="checkbox" class="p-h" ${p.h ? 'checked' : ''} onchange="if(this.checked&&!this.closest('.pr-par').querySelector('.p-p').value)this.closest('.pr-par').querySelector('.p-p').value=prTT(prConf(),'libre').tarifa;prLeer()"> h</label><button class="sm danger" onclick="this.parentElement.remove();prLeer()">✕</button></div>`;
+  <input class="p-p" type="number" min="0" step="any" value="${esc(p.p ?? '')}" placeholder="${p.h ? esc(prTarifa(PR.d, prConf(), 'libre')) : '$'}" oninput="prLeer()"><label class="mdm-chk" title="${esc(t('pl_libre_hh'))}"><input type="checkbox" class="p-h" ${p.h ? 'checked' : ''} onchange="if(this.checked&&!this.closest('.pr-par').querySelector('.p-p').value)this.closest('.pr-par').querySelector('.p-p').value=prTT(prConf(),'libre').tarifa;prLeer()"> h</label><button class="sm danger" onclick="this.parentElement.remove();prLeer()">✕</button></div>`;
 
 /* ---------- Escoger el tipo de trabajo ---------- */
 function prElegirTipo(cliente){

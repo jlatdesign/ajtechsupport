@@ -4499,6 +4499,7 @@ const prTarifaDef = (C, tp) => n0(tp === 'instalacion' ? C.tarifa : prTT(C, tp).
 const prTarifa = (d, C, tp) => n0(d?.tarifa) || prTarifaDef(C, tp);   // tarifa de este presupuesto (o la de ⚙)
 // Escribe el % de ganancia que quieres y calcula la tarifa por hora que lo da (la ganancia sube o baja con la tarifa)
 function prMeta(v){
+  if (!PERM.admin) return;
   const g = n0(v) / 100, d = PR.d, C = prConf();
   if (!(g > 0 && g < .9)) { toast(t('pr_meta_rango')); return prResumen(); }
   const ev = tf => { const x = prCalcular({ ...d, tarifa: tf }, C); return [x.total$ - x.impuesto, x.costo]; };
@@ -4776,8 +4777,8 @@ function prResumen(){
       ${R.tablaP?.length ? `<div class="pr-crew-t">${R.tablaP.map(x => `<span class="${x.p === R.pers ? 'on' : ''}">${x.p}👷 ${x.dias}d</span>`).join('')}</div>` : ''}
       ${R.minP > 1 ? `<small class="muted">${t('pr_min2')}</small>` : ''}${tp === 'software' || tp === 'web' ? `<small class="muted">${t('pr_sem_dev', { h: tp === 'web' ? 30 : prTT(C, 'software').horas_sem })}</small>` : ''}</div>` : ''}
     <h4 class="cl-h4">💵 ${t('pr_precio')}</h4>
-    <div class="pr-sal pr-tar"><label>${t('pr_tar')} $<input type="number" min="0" step="any" value="${esc(d.tarifa ?? '')}" placeholder="${prTarifaDef(C, tp)}" onchange="PR.d.tarifa=this.value;prLeer()"></label>
-      <small class="muted">${n0(d.tarifa) ? t('pr_tar_esp', { t: money(prTarifaDef(C, tp)) }) : t('pr_tar_s')}</small></div>
+    ${PERM.admin ? `<div class="pr-sal pr-tar"><label>${t('pr_tar')} $<input type="number" min="0" step="any" value="${esc(d.tarifa ?? '')}" placeholder="${prTarifaDef(C, tp)}" onchange="PR.d.tarifa=this.value;prLeer()"></label>
+      <small class="muted">${n0(d.tarifa) ? t('pr_tar_esp', { t: money(prTarifaDef(C, tp)) }) : t('pr_tar_s')}</small></div>` : ''}
     ${tp === 'instalacion' ? `<div class="pr-modo"><label class="${R.modo === 'hora' ? 'on' : ''}"><input type="radio" name="prm" ${R.modo === 'hora' ? 'checked' : ''} onchange="PR.d.modo='hora';prLeer()"> ${t('pr_por_hora')}<b>${money(R.porHora)}</b><small>${R.total.toFixed(1)} h × ${money(R.tarifa)}</small></label>
       <label class="${R.modo === 'punto' ? 'on' : ''}"><input type="radio" name="prm" ${R.modo === 'punto' ? 'checked' : ''} onchange="PR.d.modo='punto';prLeer()"> ${t('pr_por_punto')}<b>${money(R.porPunto)}</b><small>${R.lineasPunto.length} ${t('pr_tipos_p')}${R.recargo ? ' · +' + money(R.recargo) + ' ' + t('pr_recargo') : ''}</small></label></div>` : ''}
     ${R.mano ? fila(t(tp === 'msp' ? 'pms_onb' : 'pr_mano') + (tp !== 'instalacion' && tp !== 'libre' ? ` <small class="muted">${R.total.toFixed(1)} h × ${money(R.tarifa)}</small>` : ''), money(R.mano)) : ''}
@@ -4788,7 +4789,7 @@ function prResumen(){
     ${rec.length ? `<div class="pr-recbox"><b>🔁 ${t('pr_rec')}</b>${rec.map(([k, v, u]) => fila(esc(k), money(v) + '/' + t(u === 'anio' ? 'pr_anio' : 'pr_mes'))).join('')}
       ${fila('<b>' + t('pr_mensual') + '</b>', money(recMes) + '/' + t('pr_mes'), 'big')}${recAnio ? fila(t('pr_anual_extra'), money(recAnio) + '/' + t('pr_anio')) : ''}
       <small class="muted">${t('pr_primer_anio', { v: money(R.total$ + recMes * 12 + recAnio) })}</small></div>` : ''}
-    ${R.total$ ? `<div class="pr-gan"><div class="pr-gan-r"><span>${t('pr_gan')}: <b>${money(R.ganancia)}</b></span><label title="${esc(t('pr_meta_h'))}"><input type="number" step="1" min="1" max="90" value="${Math.round(R.ganancia / Math.max(1, R.total$ - R.impuesto) * 100)}" onchange="prMeta(this.value)"> %</label></div>
+    ${R.total$ && PERM.admin ? `<div class="pr-gan"><div class="pr-gan-r"><span>${t('pr_gan')}: <b>${money(R.ganancia)}</b></span><label title="${esc(t('pr_meta_h'))}"><input type="number" step="1" min="1" max="90" value="${Math.round(R.ganancia / Math.max(1, R.total$ - R.impuesto) * 100)}" onchange="prMeta(this.value)"> %</label></div>
       <small class="muted">${t('pr_meta_h')}</small><div class="pr-sal"><label>${t('pr_sal')} $<input type="number" min="0" step="any" value="${esc(d.salario ?? '')}" placeholder="${prSalarioDef(C, tp)}" onchange="PR.d.salario=this.value;prLeer()"></label>
       <small class="muted">${t('pr_sal_s', { h: R.total.toFixed(1), s: money(prSalario(d, C, tp)), c: n0(C.cargas) ? ' + ' + n0(C.cargas) + '%' : '', v: money(prCostoMO(R.total, d, C, tp)) })}</small></div></div>` : ''}
     ${PR.horas_real ? `<div class="pr-real">✅ ${t('pr_real_h', { r: (+PR.horas_real).toFixed(1), e: (+PR.horas_est || 0).toFixed(1) })}</div>` : ''}

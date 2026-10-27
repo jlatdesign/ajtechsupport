@@ -764,6 +764,10 @@ body.p-nostaff .solo-staff{display:none!important}
 .pr-pt{display:flex!important;flex-direction:column;gap:3px;border:1px solid var(--line);border-radius:10px;padding:8px 10px;background:var(--card-solid)}
 .pr-pt span{font-weight:600;font-size:13px}.pr-pt input{font:600 18px "JetBrains Mono",monospace;padding:6px 8px}
 .pr-pt small{font-size:11px}
+.pr-dim{margin-top:12px;padding-top:10px;border-top:1px dashed var(--line);--dim-top:color-mix(in srgb,var(--c2) 16%,transparent);--dim-l:color-mix(in srgb,var(--c2) 28%,transparent);--dim-r:color-mix(in srgb,var(--c2) 40%,transparent);--dim-st:var(--c1);--dim-dim:var(--c2)}
+.pr-dim-f{display:flex;align-items:flex-end;gap:8px;flex-wrap:wrap}.pr-dim-f>b{width:100%;font-size:13px}.pr-dim-f label{display:flex;flex-direction:column;gap:3px;font-size:12px;width:130px}
+.pr-dim-x{font-weight:700;padding-bottom:8px;color:var(--muted)}.pr-dim-r{font:700 16px "JetBrains Mono",monospace;padding-bottom:7px;color:var(--c1)}
+.pr-dim-svg{display:block;width:100%;max-width:560px;max-height:300px;margin:8px auto 0;color:var(--text)}
 /* Cuadros de relleno alineados: el título crece y la casilla queda siempre a la misma altura en cada fila */
 .pr-pt>span{flex:1 0 auto;min-height:2.7em;line-height:1.35}.pr-pt>small{min-height:1.5em;line-height:1.4}
 .mdm-grid>label{display:flex;flex-direction:column;justify-content:flex-end}.mdm-grid>label>span{flex:1 0 auto}
@@ -2007,7 +2011,7 @@ Object.assign(I18N.es, {
   pr_empty:'Todavía no hay presupuestos.', pr_unsaved:'Hay cambios sin guardar. ¿Salir igual?', pr_pdf:'PDF para el cliente', pr_close:'Cerrar trabajo', pr_to_client:'Crear cliente',
   'pr_tab.datos':'Sitio y puntos', 'pr_tab.equipos':'Equipos y materiales', 'pr_tab.plano':'Plano', 'pr_tab.cliente':'Texto para el cliente',
   pr_existing:'Cliente del inventario', pr_prospect_msg:'Cliente nuevo (prospecto). Si lo ganas, con "Crear cliente" pasa al inventario.',
-  pr_sitio:'El sitio', pr_tipo:'Tipo de lugar', pr_area:'Tamaño (pies²)', pr_altura:'Altura del techo (ft)', pr_techo:'Tipo de techo', pr_dif:'Dificultad', pr_horario:'Horario',
+  pr_sitio:'El sitio', pr_tipo:'Tipo de lugar', pr_area:'Tamaño (pies²)', pr_dim:'Medidas del lugar', pr_dim_largo:'Largo', pr_dim_ancho:'Ancho', pr_dim_alto:'Alto', pr_dim_h:'Pon el largo y el ancho y el tamaño (pies²) se calcula solo. El alto sale de "Altura del techo".', pr_altura:'Altura del techo (ft)', pr_techo:'Tipo de techo', pr_dif:'Dificultad', pr_horario:'Horario',
   pr_cable:'Cable', pr_conduit:'% en tubo (conduit)', pr_racks:'Racks / IDF', pr_corrida:'Largo promedio por punto (ft)', pr_auto:'auto',
   'prt.oficina':'Oficina', 'prt.almacen':'Almacén (WH)', 'prt.mixto':'Almacén + oficina', 'prt.retail':'Tienda / retail', 'prt.exterior':'Exterior / patio',
   'prc.falso':'Techo falso (drop ceiling)', 'prc.drywall':'Drywall / techo duro', 'prc.abierto':'Estructura abierta (vigas)', 'prc.concreto':'Concreto',
@@ -2072,7 +2076,7 @@ Object.assign(I18N.en, {
   pr_empty:'No quotes yet.', pr_unsaved:'There are unsaved changes. Leave anyway?', pr_pdf:'PDF for the client', pr_close:'Close job', pr_to_client:'Create client',
   'pr_tab.datos':'Site and points', 'pr_tab.equipos':'Equipment and materials', 'pr_tab.plano':'Floor plan', 'pr_tab.cliente':'Text for the client',
   pr_existing:'Client from the inventory', pr_prospect_msg:'New client (prospect). If you win it, "Create client" moves it to the inventory.',
-  pr_sitio:'The site', pr_tipo:'Type of place', pr_area:'Size (sq ft)', pr_altura:'Ceiling height (ft)', pr_techo:'Ceiling type', pr_dif:'Difficulty', pr_horario:'Schedule',
+  pr_sitio:'The site', pr_tipo:'Type of place', pr_area:'Size (sq ft)', pr_dim:'Site dimensions', pr_dim_largo:'Length', pr_dim_ancho:'Width', pr_dim_alto:'Height', pr_dim_h:'Enter length and width and the size (sq ft) is calculated automatically. Height comes from "Ceiling height".', pr_altura:'Ceiling height (ft)', pr_techo:'Ceiling type', pr_dif:'Difficulty', pr_horario:'Schedule',
   pr_cable:'Cable', pr_conduit:'% in conduit', pr_racks:'Racks / IDF', pr_corrida:'Average run per point (ft)', pr_auto:'auto',
   'prt.oficina':'Office', 'prt.almacen':'Warehouse', 'prt.mixto':'Warehouse + office', 'prt.retail':'Store / retail', 'prt.exterior':'Outdoor / yard',
   'prc.falso':'Drop ceiling', 'prc.drywall':'Drywall / hard lid', 'prc.abierto':'Open structure (joists)', 'prc.concreto':'Concrete',
@@ -4698,7 +4702,7 @@ function renderPrTab(){
         <label><span>${t('pr_conduit')}</span>${prNum('s.conduit', s.conduit, 'max="100"')}</label>
         <label><span>${t('pr_racks')}</span>${prNum('s.racks', s.racks)}</label>
         <label><span>${t('pr_corrida')}</span>${prNum('s.corrida', s.corrida, `placeholder="${esc(t('pr_auto'))}: ${R.corridaAuto} ft"`)}</label>
-      </div><div class="pr-hint" id="prFactores"></div></div>
+      </div><div class="pr-hint" id="prFactores"></div>${prDimHTML(s)}</div>
       <div class="panel"><h4 class="cl-h4">🔌 ${t('pr_puntos')}</h4><div class="pr-puntos">
         ${PR_PUNTOS.map(([k, ic]) => `<label class="pr-pt"><span>${ic} ${t('prp.' + k)}</span>${prNum('q.' + k, d.q[k])}<small class="muted">${t('prp_h.' + k)}</small></label>`).join('')}
         <label class="pr-pt"><span>🛠 ${t('pr_red_h')}</span>${prNum('q.red_h', d.q.red_h)}<small class="muted">${t('pr_red_h_s')}</small></label>
@@ -4748,6 +4752,51 @@ function prEqSugerir(){
   toast(t('pr_eq_sug_ok'));
 }
 // Lee todo el formulario a PR (y recalcula)
+/* ---------- 📐 Medidas del lugar: largo × ancho = pies², y dibujo con largo, ancho y alto ---------- */
+function prDimSVG(L, W, H, print){
+  L = n0(L); W = n0(W); H = n0(H);
+  if (!(L > 0 && W > 0)) return '';
+  const mx = Math.max(L, W), k = 260 / mx, hh = Math.max(H > 0 ? H : 0, mx * .06);   // alto mínimo visible
+  const c = .866, sn = .5, P = (x, y, z) => [(x - y) * c * k, (x + y) * sn * k - z * k];
+  const A = P(0, 0, 0), B = P(L, 0, 0), C = P(L, W, 0), D = P(0, W, 0), A2 = P(0, 0, hh), B2 = P(L, 0, hh), C2 = P(L, W, hh), D2 = P(0, W, hh);
+  const pts = [A, B, C, D, A2, B2, C2, D2], xs = pts.map(p => p[0]), ys = pts.map(p => p[1]);
+  const pad = 70, x0 = Math.min(...xs) - pad, y0 = Math.min(...ys) - 30, w = Math.max(...xs) - x0 + pad, h = Math.max(...ys) - y0 + 46;
+  const pl = a => a.map(p => p.map(v => v.toFixed(1)).join(',')).join(' ');
+  const col = print ? { top: '#e8f1ff', l: '#c9dcff', r: '#a9c6ff', st: '#006fff', tx: '#0f172a', dim: '#7c4dff' } : { top: 'var(--dim-top)', l: 'var(--dim-l)', r: 'var(--dim-r)', st: 'var(--dim-st)', tx: 'currentColor', dim: 'var(--dim-dim)' };
+  const f = v => Math.round(v).toLocaleString('en-US');
+  // cota: línea paralela a una arista, desplazada hacia afuera, con el texto en el medio
+  const cota = (p1, p2, dx, dy, txt) => { const a = [p1[0] + dx, p1[1] + dy], b = [p2[0] + dx, p2[1] + dy], m = [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2];
+    let ang = Math.atan2(b[1] - a[1], b[0] - a[0]) * 180 / Math.PI; if (ang > 90) ang -= 180; if (ang < -90) ang += 180;
+    return `<line x1="${p1[0]}" y1="${p1[1]}" x2="${a[0]}" y2="${a[1]}" stroke="${col.dim}" stroke-width=".8" stroke-dasharray="2 2"/><line x1="${p2[0]}" y1="${p2[1]}" x2="${b[0]}" y2="${b[1]}" stroke="${col.dim}" stroke-width=".8" stroke-dasharray="2 2"/>
+      <line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" stroke="${col.dim}" stroke-width="1.4" marker-start="url(#dA)" marker-end="url(#dA)"/>
+      <text x="${m[0]}" y="${m[1]}" transform="rotate(${ang.toFixed(1)} ${m[0]} ${m[1]})" dy="-5" text-anchor="middle" font-size="12" font-weight="700" fill="${col.tx}" paint-order="stroke" stroke="${print ? '#fff' : 'var(--card-solid)'}" stroke-width="4">${txt}</text>`; };
+  const top = [(A2[0] + C2[0]) / 2, (A2[1] + C2[1]) / 2];
+  return `<svg class="pr-dim-svg" viewBox="${x0.toFixed(1)} ${y0.toFixed(1)} ${w.toFixed(1)} ${h.toFixed(1)}" xmlns="http://www.w3.org/2000/svg" font-family="Inter,Arial,sans-serif">
+    <defs><marker id="dA" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L9,5 L0,9 z" fill="${col.dim}"/></marker></defs>
+    <polygon points="${pl([B, C, C2, B2])}" fill="${col.r}" stroke="${col.st}" stroke-width="1.2"/>
+    <polygon points="${pl([D, C, C2, D2])}" fill="${col.l}" stroke="${col.st}" stroke-width="1.2"/>
+    <polygon points="${pl([A2, B2, C2, D2])}" fill="${col.top}" stroke="${col.st}" stroke-width="1.2"/>
+    <text x="${top[0]}" y="${top[1]}" text-anchor="middle" font-size="14" font-weight="800" fill="${col.st}">${f(L * W)} ft²</text>
+    ${cota(D, C, -14 * c, 14 * sn + 10, `${t('pr_dim_largo')}: ${f(L)} ft`)}
+    ${cota(B, C, 14 * c, 14 * sn + 10, `${t('pr_dim_ancho')}: ${f(W)} ft`)}
+    ${H > 0 ? cota(D, D2, -12, 0, '') + `<text x="${D[0] - 18}" y="${(D[1] + D2[1]) / 2}" font-size="12" font-weight="700" fill="${col.tx}" text-anchor="end" dominant-baseline="middle">${t('pr_dim_alto')}: ${f(H)} ft</text>` : ''}
+  </svg>`;
+}
+function prDimHTML(s){
+  return `<div class="pr-dim"><div class="pr-dim-f"><b>📐 ${t('pr_dim')}</b>
+      <label><span>${t('pr_dim_largo')} (ft)</span><input type="number" min="0" step="any" data-pk="s.largo" value="${esc(s.largo ?? '')}" oninput="prDim()"></label>
+      <span class="pr-dim-x">×</span>
+      <label><span>${t('pr_dim_ancho')} (ft)</span><input type="number" min="0" step="any" data-pk="s.ancho" value="${esc(s.ancho ?? '')}" oninput="prDim()"></label>
+      <span class="pr-dim-x">=</span><div class="pr-dim-r" id="prDimR">${n0(s.largo) && n0(s.ancho) ? Math.round(n0(s.largo) * n0(s.ancho)).toLocaleString('en-US') + ' ft²' : '—'}</div></div>
+    <small class="muted">${t('pr_dim_h')}</small>
+    <div id="prDimSvg">${prDimSVG(s.largo, s.ancho, s.altura)}</div></div>`;
+}
+function prDim(){
+  prLeer();
+  const s = PR.d.sitio || {}, L = n0(s.largo), W = n0(s.ancho), ia = document.querySelector('[data-pk="s.area"]');
+  if (L > 0 && W > 0){ s.area = String(Math.round(L * W)); if (ia) ia.value = s.area; prLeer(); }
+  if ($('prDimR')) $('prDimR').textContent = L > 0 && W > 0 ? Math.round(L * W).toLocaleString('en-US') + ' ft²' : '—';
+}
 function prLeer(){
   const d = PR.d;
   document.querySelectorAll('#presuView [data-pk]').forEach(el => {
@@ -4777,6 +4826,7 @@ function prHorarioCampos(s){
 function prFactores(){
   const el = $('prFactores'); if (!el) return; const R = prCalcular(PR.d);
   const ic = document.querySelector('[data-pk="s.corrida"]'); if (ic && R.corridaAuto) ic.placeholder = `${t('pr_auto')}: ${R.corridaAuto} ft`;
+  { const sd = PR.d.sitio || {}, dv = $('prDimSvg'); if (dv) dv.innerHTML = prDimSVG(sd.largo, sd.ancho, sd.altura); }
   const H = prHorario(PR.d.sitio || {}, prConf()), pf = $('prPctFuera'); if (pf) pf.style.display = H.h === 'mixto' ? '' : 'none';
   const hor = H.h === 'mixto' && R.tarifaBase ? t('prh_hint', { n: 100 - H.pct, f: H.pct, hn: (R.total * (100 - H.pct) / 100).toFixed(1), hf: (R.total * H.pct / 100).toFixed(1), x: H.x, t: money(R.tarifa) }) : '';
   el.innerHTML = (R.fA != null ? `${t('pr_fact', { a: (R.fA || 1).toFixed(2), t: (R.fT || 1).toFixed(2), d: (R.fD || 1).toFixed(2) })}${R.lift ? ' · ' + t('prl.' + R.lift) + (R.lift === 'tijera' || R.lift === 'boom' ? ' (' + t('pr_renta') + ')' : '') : ''}` : '') + (hor ? (R.fA != null ? '<br>' : '') + '🕒 ' + hor : '');
@@ -5029,6 +5079,7 @@ async function prPdf(){
     .cols{display:grid;grid-template-columns:1fr 1fr;gap:18px}.firmas{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:28px}
     .firma .ln{border-bottom:1px solid #0f172a;height:34px}.firma small{display:block;color:#64748b;font-size:10px;margin-top:4px}.firma b{font-size:11px}
     .pie{margin-top:22px;padding-top:10px;border-top:1px solid #e2e8f0;text-align:center;color:#94a3b8;font-size:10px}
+    .dimfig{text-align:center}.dimfig svg{width:100%;max-width:520px;max-height:260px}
     img.plano{max-width:100%;border:1px solid #e2e8f0;border-radius:8px}`;
   const html = `<!doctype html><html><head><meta charset="utf-8"><title>${esc(t('pr_doc'))} #${PR.numero || ''} · ${esc(PR.cliente)}</title><style>${css}</style></head><body>
   <table class="pg"><thead><tr><td></td></tr></thead><tfoot><tr><td></td></tr></tfoot><tbody><tr><td>
@@ -5039,6 +5090,7 @@ async function prPdf(){
     <div class="cards"><div class="card"><h3>${t('pdf_cliente')}</h3><div class="v">${esc(PR.cliente)}</div><div class="s">${[d.contacto, d.telefono].filter(Boolean).map(esc).join(' · ')}</div></div>
       <div class="card"><h3>${t('pdf_sitio')}</h3><div class="s">${sitioLin.join('<br>') || '—'}</div></div>
       <div class="card"><h3>${t('pdf_proyecto')}</h3><div class="v">${esc(PR.titulo || t('ptt.' + tp))}</div><div class="s">${prIc(tp)} ${esc(t('ptt.' + tp))}</div></div></div>
+    ${campo && n0(s.largo) && n0(s.ancho) ? `<section class="blk keep"><h2>📐 ${t('pr_dim')}</h2><div class="dimfig">${prDimSVG(s.largo, s.ancho, s.altura, true)}</div></section>` : ''}
     ${d.alcance ? `<section class="blk"><h2>${t('pr_alcance')}</h2><div class="txt">${esc(d.alcance)}</div></section>` : ''}
     ${tp === 'software' && jArr(d.modulos).length ? `<section class="blk"><h2>${t('psw_modulos')}</h2><div class="txt">${jArr(d.modulos).map(m => '• ' + esc(m.n)).join('\n')}</div></section>` : ''}
     ${tiempo}
@@ -5235,7 +5287,7 @@ function renderPrDatosTipo(b){
     const rep = tp === 'reparacion' ? `<label><span>${t('prr_modo')}</span>${sel('modalidad', ['sitio', 'taller', 'remoto'], o => t('prr.' + o))}</label><label><span>${t('prr_urg')}</span>${sel('urgencia', ['normal', 'mismo_dia', 'emergencia'], o => t('prr.' + o))}</label>` : '';
     b.innerHTML = `<div class="panel"><h4 class="cl-h4">${prIc(tp)} ${t('ptt.' + tp)}</h4><div class="mdm-grid">${sitio}${rep}
         <label><span>${t('pr_dif')}</span>${sel('dificultad', ['facil', 'normal', 'dificil'], o => t('prd.' + o))}</label>${prHorarioCampos(s)}</div>
-        <div class="pr-hint" id="prFactores"></div>${tp === 'mudanza' ? `<div class="pr-hint">💡 ${t('prm_tip')}</div>` : ''}${tp === 'reparacion' ? `<div class="pr-hint">💡 ${t('prr_tip')}</div>` : ''}</div>
+        <div class="pr-hint" id="prFactores"></div>${tp === 'desmontaje' ? prDimHTML(s) : ''}${tp === 'mudanza' ? `<div class="pr-hint">💡 ${t('prm_tip')}</div>` : ''}${tp === 'reparacion' ? `<div class="pr-hint">💡 ${t('prr_tip')}</div>` : ''}</div>
       ${PR_GRUPOS[tp].map(([g, ks]) => `<div class="panel"><h4 class="cl-h4">${t('prg.' + g)}</h4><div class="pr-puntos">${ks.filter(k => its[k]).map(k => { const [, hu, fee] = its[k];
           return num(k, t('pti.' + tp + '.' + k), [hu ? h(hu) : '', fee ? '$' + fee : ''].filter(Boolean).join(' + ') + ' ' + t('pr_c_u')); }).join('')}</div></div>`).join('')}
       <div class="panel"><div class="pr-puntos">${num('extra_h', '⏱ ' + t('pr_extra_h'), t('pr_extra_h_s'))}</div></div>`;

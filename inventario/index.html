@@ -1014,7 +1014,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v8.8.4</p>
+    <p class="sub">Network Asset Manager · v8.8.5</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -1030,7 +1030,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v8.8.4</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v8.8.5</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -1705,7 +1705,7 @@ Object.assign(I18N.en, {
   sp_import:'Import ({n})', sp_help:'Checked = it changes. Empty fields are filled automatically; fields with another value are your call. Splashtop is set to Yes.',
   sp_confirm:'{n} new PC(s) will be added and {a} updated. Continue?',
   'sp_f.nombre':'Device name', 'sp_f.hostname':'Hostname', 'sp_f.so':'Operating system', 'sp_f.cpu':'CPU', 'sp_f.ram':'RAM', 'sp_f.disco':'Disk', 'sp_f.ip':'Local IP', 'sp_f.ip_pub':'Public IP', 'sp_f.ip_publica':'Public IP (internet)', 'sp_f.mac':'MAC', 'sp_f.serial':'Serial',
-  'sp_f.modelo':'Model', 'sp_f.marca':'Brand', 'sp_f.pc_user':'PC user', 'sp_f.grupo':'Group (view only)', 'sp_f.visto':'Last connection (view only)', 'sp_f.nota':'Notes (view only)',
+  'sp_f.modelo':'Model', 'sp_f.marca':'Brand', 'sp_f.pc_user':'PC user', 'sp_f.grupo':'Group (view only)', 'sp_f.visto':'Last connection (view only)', 'sp_f.nota':'Notes', 'sp_f.notas':'Notes', 'sp_f.usuario_completo':'Person full name', 'sp_f.first_name':'First name', 'sp_f.last_name':'Last name', 'sp_f.email':'Email', 'sp_f.departamento':'Department', 'sp_f.lugar':'Area / location', 'sp_f.antivirus':'Antivirus', 'sp_f.garantia':'Warranty', 'sp_f.anydesk':'AnyDesk',
   scn_btn:'Scan', scn_tip:'Use the barcode scanner: stock in, stock out, count or search', scn_title:'Barcode scanner', scn_ph:'Scan here (or type the code and Enter)',
   'scn_m.entrada':'📥 Stock in', 'scn_m.salida':'📤 Out to client', 'scn_m.contar':'⚖ Count shelf', 'scn_m.buscar':'🔎 Search',
   'scn_h.entrada':'Scan the box (UPC) of each unit that arrives. If it has a serial, then scan the serial or MAC.', 'scn_h.salida':'Scan the device serial / MAC, or the box and then its serial.',
@@ -1860,7 +1860,7 @@ Object.assign(I18N.es, {
   sp_import:'Importar ({n})', sp_help:'Marcado = se cambia. Lo vacío se llena solo; lo que ya tiene otro valor lo decides tú. Splashtop queda en Sí.',
   sp_confirm:'Se van a agregar {n} PC(s) nuevas y actualizar {a}. ¿Continuar?',
   'sp_f.nombre':'Nombre del equipo', 'sp_f.hostname':'Hostname', 'sp_f.so':'Sistema operativo', 'sp_f.cpu':'CPU', 'sp_f.ram':'RAM', 'sp_f.disco':'Disco', 'sp_f.ip':'IP local', 'sp_f.ip_pub':'IP pública', 'sp_f.ip_publica':'IP pública (internet)', 'sp_f.mac':'MAC', 'sp_f.serial':'Serial',
-  'sp_f.modelo':'Modelo', 'sp_f.marca':'Marca', 'sp_f.pc_user':'Usuario de la PC', 'sp_f.grupo':'Grupo (solo ver)', 'sp_f.visto':'Última conexión (solo ver)', 'sp_f.nota':'Notas (solo ver)',
+  'sp_f.modelo':'Modelo', 'sp_f.marca':'Marca', 'sp_f.pc_user':'Usuario de la PC', 'sp_f.grupo':'Grupo (solo ver)', 'sp_f.visto':'Última conexión (solo ver)', 'sp_f.nota':'Notas', 'sp_f.notas':'Notas', 'sp_f.usuario_completo':'Nombre completo de la persona', 'sp_f.first_name':'Nombre', 'sp_f.last_name':'Apellido', 'sp_f.email':'Email', 'sp_f.departamento':'Departamento', 'sp_f.lugar':'Área / ubicación', 'sp_f.antivirus':'Antivirus', 'sp_f.garantia':'Garantía', 'sp_f.anydesk':'AnyDesk',
   scn_btn:'Escanear', scn_tip:'Usa la pistola lectora: entrada, salida, conteo o buscar', scn_title:'Escáner de códigos', scn_ph:'Escanea aquí (o escribe el código y Enter)',
   'scn_m.entrada':'📥 Entrada', 'scn_m.salida':'📤 Salida a cliente', 'scn_m.contar':'⚖ Contar estante', 'scn_m.buscar':'🔎 Buscar',
   'scn_h.entrada':'Escanea la caja (UPC) de cada unidad que llega. Si el equipo lleva serial, después escanea el serial o la MAC.', 'scn_h.salida':'Escanea el serial / MAC del equipo, o la caja y después su serial.',
@@ -6120,7 +6120,7 @@ const conUnifi = m => { m = String(m || '').trim(); return !m ? 'UniFi' : UF_MAR
    Lee la "Computer List" y/o el "System/Hardware Inventory", compara con las PCs del cliente,
    enseña las diferencias campo por campo y al importar marca Splashtop = Yes. */
 let SP = null;
-const SP_CAMPOS = ['nombre', 'hostname', 'so', 'cpu', 'ram', 'disco', 'ip', 'ip_pub', 'mac', 'serial', 'modelo', 'marca', 'pc_user', 'grupo', 'visto', 'nota'];
+const SP_CAMPOS = ['nombre', 'hostname', 'so', 'cpu', 'ram', 'disco', 'ip', 'ip_pub', 'mac', 'serial', 'modelo', 'marca', 'pc_user', 'usuario_completo', 'first_name', 'last_name', 'email', 'departamento', 'lugar', 'antivirus', 'garantia', 'anydesk', 'nota', 'grupo', 'visto'];
 const SP_INFO = ['grupo', 'visto', 'nota', 'marca'];   // se enseñan, no se guardan (marca va junto al modelo)
 const SP_ALIAS = {
   nombre: ['computername', 'computer', 'name', 'devicename', 'computeralias', 'alias', 'displayname', 'endpoint', 'endpointname', 'equipo', 'nombredelequipo', 'nombreequipo', 'computadora', 'nombredelacomputadora'],
@@ -6138,8 +6138,27 @@ const SP_ALIAS = {
   pc_user: ['user', 'loggedinuser', 'lastloggedonuser', 'lastloggedinuser', 'currentuser', 'username', 'lastuser', 'usuario'],
   grupo: ['group', 'groupname', 'computergroup', 'groups', 'grupo'],
   visto: ['lastonline', 'lastseen', 'lastconnected', 'lastsessiontime', 'lastsession', 'lastconnectiontime', 'lastonlinetime', 'laststatus', 'ultimaconexion', 'ultimasesion', 'ultimavez'],
-  nota: ['notes', 'note', 'description', 'comment', 'comments', 'notas', 'nota', 'descripcion']
+  nota: ['notes', 'note', 'description', 'comment', 'comments', 'notas', 'nota', 'descripcion'],
+  usuario_completo: ['fullname', 'ownername', 'assignedto', 'assigneduser', 'employee', 'empleado'],
+  first_name: ['firstname', 'nombre1', 'primernombre'], last_name: ['lastname', 'surname', 'apellido', 'apellidos'],
+  email: ['email', 'emailaddress', 'useremail', 'owneremail', 'correo', 'mail'],
+  departamento: ['department', 'departamento', 'dept', 'area'],
+  lugar: ['location', 'site', 'office', 'ubicacion', 'room', 'building'],
+  antivirus: ['antivirus', 'antivirusstatus', 'av', 'endpointsecurity', 'avproduct', 'securityproduct'],
+  garantia: ['warranty', 'warrantyexpiration', 'warrantyend', 'garantia'],
+  anydesk: ['anydesk', 'anydeskid']
 };
+// Campos extra que también se llenan si el archivo los trae (nombre de la persona, email, departamento, ubicación, antivirus, garantía, AnyDesk, notas)
+function spExtras(sp){
+  let fn = sp.first_name || '', ln = sp.last_name || '';
+  if (!fn && !ln && sp.usuario_completo){ const p = String(sp.usuario_completo).trim().split(/\s+/); fn = p[0] || ''; ln = p.slice(1).join(' '); }
+  let gar = String(sp.garantia || '').trim(), m;
+  if ((m = gar.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/))) gar = `${m[1]}-${m[2].padStart(2, '0')}-${m[3].padStart(2, '0')}`;
+  else if ((m = gar.match(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})/))) gar = `${m[3].length === 2 ? '20' + m[3] : m[3]}-${m[1].padStart(2, '0')}-${m[2].padStart(2, '0')}`;
+  else if (gar){ const d = new Date(gar); gar = isNaN(d) ? '' : `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; }
+  return [['first_name', fn], ['last_name', ln], ['email', sp.email], ['departamento', sp.departamento], ['lugar', sp.lugar], ['antivirus', sp.antivirus], ['garantia', gar],
+    ['anydesk', sp.anydesk ? soloDigitos(sp.anydesk) : ''], ['notas', sp.nota]].map(([k, v]) => [k, String(v || '').trim()]);
+}
 const spKey = h => String(h || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]/g, '');
 const spCampoDe = h => { const k = spKey(h); for (const [c, al] of Object.entries(SP_ALIAS)) if (al.includes(k)) return c;
   for (const [c, al] of Object.entries(SP_ALIAS)) if (al.some(a => a.length > 4 && k.startsWith(a))) return c; return ''; };
@@ -6164,7 +6183,7 @@ async function spLeer(input){
   try{ await cargarXLSX(); }catch(err){ return alert(err.message); }
   for (const f of files){
     try{
-      const buf = await f.arrayBuffer(), wb = XLSX.read(buf, { type: 'array', cellDates: true });
+      const esCsv = /\.(csv|txt)$/i.test(f.name), wb = esCsv ? XLSX.read(await f.text(), { type: 'string', raw: true }) : XLSX.read(await f.arrayBuffer(), { type: 'array', cellDates: true });   // CSV: textos tal cual (fechas sin cambiar de día)
       const aoa = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], { header: 1, raw: false, defval: '' });
       let hi = aoa.findIndex(r => r.filter(c => spCampoDe(c)).length >= 1 && r.filter(c => String(c).trim()).length >= 2); if (hi < 0) hi = 0;
       const head = (aoa[hi] || []).map(h => String(h).trim());
@@ -6205,7 +6224,7 @@ function spAnalizar(){
     if (ya) usados.add(ya.id);
     const cambios = [];
     if (ya){
-      const cmp = [['hostname', host], ['so', sp.so], ['cpu', sp.cpu], ['ram', sp.ram], ['disco', sp.disco], ['ip', sp.ip], ['ip_publica', sp.ip_pub], ['mac', sp.mac], ['serial', sp.serial], ['modelo', sp.modelo], ['pc_user', sp.pc_user]];
+      const cmp = [['hostname', host], ['so', sp.so], ['cpu', sp.cpu], ['ram', sp.ram], ['disco', sp.disco], ['ip', sp.ip], ['ip_publica', sp.ip_pub], ['mac', sp.mac], ...spExtras(sp), ['serial', sp.serial], ['modelo', sp.modelo], ['pc_user', sp.pc_user]];
       cmp.forEach(([c, v]) => { if (v && !spIgual(ya[c], v)) cambios.push({ c, de: ya[c] || '', a: v }); });
       if (ya.splashtop !== 'Yes') cambios.push({ c: 'splashtop', de: ya.splashtop || '', a: 'Yes' });
     }
@@ -6271,7 +6290,7 @@ async function importarSplashtop(){
   const nuevos = elegidos.filter(e => e.accion === 'nuevo').map(e => { const s = e.sp; return {
     cliente: c.nombre, direccion: (aqui && sedes.find(x => x.id === aqui)?.direccion) || c.direccion || null, tipo: SP.tipos[e.id] || 'PC', nombre: s.nombre, hostname: e.host || null,
     so: s.so || null, cpu: s.cpu || null, ram: s.ram || null, disco: s.disco || null, ip: s.ip || null, mac: s.mac || null, serial: s.serial || null, modelo: s.modelo || null,
-    pc_user: s.pc_user || null, ip_publica: s.ip_pub || null, splashtop: 'Yes', estado: 'Activo', ...(aqui ? { sede_id: aqui } : {}) }; });
+    pc_user: s.pc_user || null, ip_publica: s.ip_pub || null, ...Object.fromEntries(spExtras(s).filter(([, v]) => v)), splashtop: 'Yes', estado: 'Activo', ...(aqui ? { sede_id: aqui } : {}) }; });
   const cambios = elegidos.filter(e => e.accion === 'act' && SP.campos[e.id].size).map(e => ({ id: e.ya.id, patch: Object.fromEntries(e.cambios.filter(x => SP.campos[e.id].has(x.c)).map(x => [x.c, x.a])) }));
   if (!nuevos.length && !cambios.length) return toast(t('uf_nothing'));
   if (!confirm(t('sp_confirm', { n: nuevos.length, a: cambios.length }))) return;

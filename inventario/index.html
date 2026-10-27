@@ -769,6 +769,8 @@ body.p-noborrar [onclick^="borrarSede("],body.p-noborrar [onclick^="borrarVpn("]
 body.p-nostaff .solo-staff{display:none!important}
 body.p-noadm .p-solo-adm{display:none!important}
 .stk-badge{display:inline-block;min-width:18px;padding:0 5px;border-radius:999px;background:var(--bad);color:#fff;font:700 11px/18px Inter,sans-serif;text-align:center;margin-left:2px}
+.trb-pl{display:flex;flex-direction:column;gap:6px;max-height:60vh;overflow:auto}.trb-pq{display:flex;gap:10px;align-items:center;flex-wrap:wrap;border:1px solid var(--line);border-radius:10px;padding:8px 12px;cursor:pointer}
+.trb-pq:hover{border-color:var(--c1)}.trb-pq.ya{opacity:.6}.trb-pq b{min-width:120px}
 .trb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
 .trb-card{border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:var(--card-solid);cursor:pointer;display:flex;flex-direction:column;gap:6px;transition:border-color .15s}
 .trb-card:hover{border-color:var(--c1)}.trb-card.atr{border-color:color-mix(in srgb,var(--bad) 55%,transparent)}.trb-c-h{display:flex;justify-content:space-between;align-items:center}.trb-c-t{font-size:15px}
@@ -1047,7 +1049,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v9.1</p>
+    <p class="sub">Network Asset Manager · v9.1.1</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -1063,7 +1065,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.1</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.1.1</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -1758,6 +1760,9 @@ Object.assign(I18N.en, {
   scn_pie:'Nothing is saved until you confirm.', scn_sin_serie_q:'These are missing their serial scan: {n}. Record anyway?', scn_nota:'With scanner', scn_nota_contar:'Scanner count', scn_listo:'{n} product(s) updated',
   scn_sql:'To save the barcode run supabase-stock.sql again (it adds the "codigo" column). Everything else was saved.',
   stk_codigo:'Barcode (UPC / EAN)', stk_codigo_ph:'Scan the box', stk_scan_cod:'Code saved in "Barcode". Type the product name.', stk_scan_mac:'MAC added as serial.',
+  trb_desde_presu:'From quote', trb_desde_presu_h:'Pick an approved (or sent) quote to turn it into a job. Client, address, dates, technicians and phases are copied.',
+  trb_sin_presu:'There are no approved quotes yet.', trb_ya_hay:'already has a job', trb_pasar_q:'Quote approved. Move it to Jobs now?', trb_de_presu_n:'From quote #{n}',
+  trb_cli_elige:'Pick the client', trb_cli_otro:'Other (type it)', trb_cli_nuevo_ph:'Client name',
   trb_btn:'Jobs', trb_title:'Jobs in progress', trb_sub:'Progress, timeline, daily log, delays and what is missing on each job.', trb_nuevo:'New job', trb_editar:'Edit job',
   trb_missing:'The jobs table is missing. Run supabase-trabajos.sql in Supabase > SQL Editor.', trb_vacio:'There are no jobs yet.', trb_buscar:'Search job, client, lead…',
   trb_k_atr:'late', trb_k_falt:'missing items', trb_k_ret:'delay this month (ours / client)',
@@ -1946,6 +1951,9 @@ Object.assign(I18N.es, {
   scn_pie:'Nada se guarda hasta que confirmes.', scn_sin_serie_q:'A estos les falta escanear el serial: {n}. ¿Registrar igual?', scn_nota:'Con escáner', scn_nota_contar:'Conteo con escáner', scn_listo:'{n} producto(s) actualizados',
   scn_sql:'Para guardar el código de barras corre otra vez supabase-stock.sql (agrega la columna "codigo"). Lo demás se guardó.',
   stk_codigo:'Código de barras (UPC / EAN)', stk_codigo_ph:'Escanea la caja', stk_scan_cod:'Código guardado en "Código de barras". Escribe el nombre del producto.', stk_scan_mac:'MAC agregada como serial.',
+  trb_desde_presu:'Desde presupuesto', trb_desde_presu_h:'Escoge un presupuesto aprobado (o enviado) para pasarlo a trabajo. Se copian el cliente, la dirección, las fechas, los técnicos y las fases.',
+  trb_sin_presu:'No hay presupuestos aprobados todavía.', trb_ya_hay:'ya tiene trabajo', trb_pasar_q:'Presupuesto aprobado. ¿Pasarlo ahora a Trabajos?', trb_de_presu_n:'Del presupuesto #{n}',
+  trb_cli_elige:'Escoge el cliente', trb_cli_otro:'Otro (escribir)', trb_cli_nuevo_ph:'Nombre del cliente',
   trb_btn:'Trabajos', trb_title:'Trabajos en proceso', trb_sub:'Avance, línea de tiempo, diario de obra, retrasos y lo que falta en cada trabajo.', trb_nuevo:'Nuevo trabajo', trb_editar:'Editar trabajo',
   trb_missing:'Falta la tabla de trabajos. Corre supabase-trabajos.sql en Supabase > SQL Editor.', trb_vacio:'Todavía no hay trabajos.', trb_buscar:'Buscar trabajo, cliente, responsable…',
   trb_k_atr:'atrasados', trb_k_falt:'cosas que faltan', trb_k_ret:'retraso este mes (nuestro / cliente)',
@@ -5415,7 +5423,7 @@ function renderTrabajos(){
   const chip = (k, n) => `<span class="chip ${TRB.estado === k ? 'on' : ''}" onclick="TRB.estado='${k}';renderTrabajos()">${t('trf_' + k)}${n != null ? ` (${n})` : ''}</span>`;
   el.innerHTML = `<div class="cl-head"><button class="backbtn" onclick="cerrarTrabajos()">← ${t('clients_title')}</button>
       <div class="cl-info"><h2>🛠 ${t('trb_title')}</h2><div class="muted">${t('trb_sub')}</div></div>
-      <div class="row no-print"><button class="primary" onclick="trbForm()">＋ ${t('trb_nuevo')}</button></div></div>
+      <div class="row no-print"><button onclick="trbElegirPresu()">📥 ${t('trb_desde_presu')}</button><button class="primary" onclick="trbForm()">＋ ${t('trb_nuevo')}</button></div></div>
     ${!trbOK ? `<div class="panel act-empty">🛠 ${t('trb_missing')}</div>` : `
     <div class="stk-kpis"><div class="stk-kpi"><b>${act.filter(j => j.estado === 'en_proceso').length}</b><span>${t('tre.en_proceso')}</span></div>
       <div class="stk-kpi ${atr.length ? 'warn' : ''}" style="cursor:pointer" onclick="TRB.estado='atrasados';renderTrabajos()"><b>${atr.length}</b><span>${t('trb_k_atr')}</span></div>
@@ -5581,6 +5589,14 @@ function trbNotasHTML(j){
 }
 
 /* ---- Crear / editar ---- */
+function trbCliElegido(){
+  const v = $('trb_cli_sel').value, inp = $('trb_cliente'); inp.classList.toggle('hidden', v !== '__otro');
+  if (v === '__otro'){ inp.value = ''; inp.focus(); } else inp.value = v;
+  const c = v && v !== '__otro' ? clienteObj(v) : null, ls = c ? sedesDe(c.nombre) : [];
+  if (c?.direccion) $('trb_direccion').value = c.direccion;
+  $('trbSedeL').classList.toggle('hidden', !ls.length);
+  $('trb_sede').innerHTML = `<option value="">— ${esc(t('sede_none'))} —</option>` + ls.map(x => `<option value="${x.id}">${esc(x.nombre)}</option>`).join('');
+}
 function trbForm(id, pre){
   const j = id ? trabajos.find(x => x.id === id) : { estado: 'pendiente', fecha_inicio: trbHoy(), cliente: curCliente || '', ...(pre || {}) }; if (!j) return;
   const clientes = listaClientes().map(c => c.nombre).sort((a, b) => a.localeCompare(b));
@@ -5590,7 +5606,9 @@ function trbForm(id, pre){
   $('modal').querySelector('.modal-card').classList.add('wide');
   $('modalBody').innerHTML = `<div class="mdm-grid">
       <label class="stk-span2"><span>${t('trb_titulo')}</span><input id="trb_titulo" value="${esc(j.titulo || '')}" placeholder="${esc(t('trb_titulo_ph'))}"></label>
-      <label><span>${t('client')}</span><input id="trb_cliente" list="trbClis" value="${esc(j.cliente || '')}" oninput="const c=clienteObj(this.value);if(c&&!$('trb_direccion').value)$('trb_direccion').value=c.direccion||''"><datalist id="trbClis">${clientes.map(c => `<option value="${esc(c)}">`).join('')}</datalist></label>
+      <label><span>${t('client')}</span><select id="trb_cli_sel" onchange="trbCliElegido()"><option value="">— ${t('trb_cli_elige')} —</option>${clientes.map(c => `<option value="${esc(c)}" ${mismoCliente(c, j.cliente || '') ? 'selected' : ''}>${esc(c)}</option>`).join('')}<option value="__otro" ${j.cliente && !clientes.some(c => mismoCliente(c, j.cliente)) ? 'selected' : ''}>✏️ ${t('trb_cli_otro')}</option></select>
+        <input id="trb_cliente" value="${esc(j.cliente || '')}" placeholder="${esc(t('trb_cli_nuevo_ph'))}" class="${j.cliente && !clientes.some(c => mismoCliente(c, j.cliente)) ? '' : 'hidden'}" style="margin-top:4px"></label>
+      <label id="trbSedeL" class="hidden"><span>📍 ${t('sede')}</span><select id="trb_sede" onchange="const x=sedes.find(z=>z.id===this.value);if(x?.direccion)$('trb_direccion').value=x.direccion"></select></label>
       <label class="stk-span2"><span>${t('address')}</span><input id="trb_direccion" value="${esc(j.direccion || '')}"></label>
       <label><span>${t('status')}</span><select id="trb_estado">${TRB_ESTADOS.map(e => `<option value="${e}" ${j.estado === e ? 'selected' : ''}>${esc(t('tre.' + e))}</option>`).join('')}</select></label>
       <label><span>▶ ${t('trb_inicio')}</span><input type="date" id="trb_inicio" value="${esc(j.fecha_inicio || '')}"></label>
@@ -5599,7 +5617,7 @@ function trbForm(id, pre){
       <label class="stk-span2"><span>👥 ${t('trb_equipo')}</span><input id="trb_equipo" value="${esc(j.equipo || '')}" placeholder="${esc(t('trb_equipo_ph'))}"></label></div>
     ${pre?.fases?.length ? `<small class="muted">🧩 ${t('trb_de_presu', { n: pre.fases.length })}</small>` : ''}
     <div class="uf-foot"><button class="primary" onclick="trbGuardar(${id ? `'${id}'` : 'null'})">💾 ${t('u_save')}</button></div>`;
-  $('modal').classList.remove('hidden'); setTimeout(() => $('trb_titulo')?.focus(), 50);
+  $('modal').classList.remove('hidden'); setTimeout(() => { $('trb_titulo')?.focus(); if ($('trb_cli_sel').value && $('trb_cli_sel').value !== '__otro'){ const d = $('trb_direccion').value; trbCliElegido(); if (d) $('trb_direccion').value = d; } }, 50);
 }
 async function trbGuardar(id){
   const g = k => $('trb_' + k).value.trim();
@@ -5622,17 +5640,33 @@ async function trbBorrar(id){
   TRB.id = null; toast(t('deleted')); cargarTrabajos();
 }
 // Desde un presupuesto aprobado: crea el trabajo con el cliente, las fechas y las fases (según las horas de cada parte)
-function trbDesdePresu(){
-  if (!PR?.id) return alert(t('pr_plan_save'));
-  const R = prCalcular(PR.d), d = PR.d, hab = (x, n) => { const r = new Date(x + 'T12:00:00'); let k = 0; while (k < n){ r.setDate(r.getDate() + 1); if (r.getDay() % 6) k++; }
+async function trbDesdePresu(pObj){
+  const P = pObj ? prAbrirObj(pObj) : PR;
+  if (!P?.id) return alert(t('pr_plan_save'));
+  if (!TRB.cargado && !trabajos.some(j => 'presupuesto_id' in j)){ try { const r = await db.from('trabajos').select('id,numero,presupuesto_id,estado,fecha_fin_est'); if (!r.error && Array.isArray(r.data)) trabajos = r.data; } catch(e){} }
+  const R = prCalcular(P.d), d = P.d, hab = (x, n) => { const r = new Date(x + 'T12:00:00'); let k = 0; while (k < n){ r.setDate(r.getDate() + 1); if (r.getDay() % 6) k++; }
     return `${r.getFullYear()}-${String(r.getMonth() + 1).padStart(2, '0')}-${String(r.getDate()).padStart(2, '0')}`; };
   const ini = d.inicio || trbHoy(), fin = R.dias ? hab(ini, Math.max(0, R.dias - 1)) : '';
   const tot = (R.hl || []).reduce((a, x) => a + x[1], 0) || 1;
   const fases = (R.hl || []).filter(x => x[1] > 0 && x[2] !== 'pm').map(([lbl, h]) => ({ n: String(lbl).replace(/\s*\((\d[\d.,]*)\)\s*$/, '').replace(/\s*\([^)]*\)\s*$/, '').slice(0, 60), peso: Math.max(1, Math.round(h / tot * 100)), pct: 0 })).slice(0, 12);
-  const ya = trabajos.find(j => j.presupuesto_id === PR.id);
+  const ya = trabajos.find(j => j.presupuesto_id === P.id);
   if (ya && !confirm(t('trb_ya_presu', { n: ya.numero ?? '' }))) return;
-  trbForm(null, { titulo: PR.titulo || t('ptt.' + prTipo(d)), cliente: PR.cliente, direccion: d.direccion || '', fecha_inicio: ini, fecha_fin_est: fin, equipo: R.pers ? t('trb_n_tec', { n: R.pers }) : '',
-    fases, presupuesto_id: PR.id, notas: d.alcance || null });
+  trbForm(null, { titulo: P.titulo || t('ptt.' + prTipo(d)), cliente: P.cliente, direccion: d.direccion || clienteObj(P.cliente)?.direccion || '', fecha_inicio: ini, fecha_fin_est: fin, equipo: R.pers ? t('trb_n_tec', { n: R.pers }) : '',
+    fases, presupuesto_id: P.id, notas: [P.numero ? t('trb_de_presu_n', { n: P.numero }) : '', d.contacto ? '👤 ' + d.contacto + (d.telefono ? ' · ' + d.telefono : '') : '', d.alcance || ''].filter(Boolean).join('\n') || null });
+}
+// Escoger un presupuesto aprobado para pasarlo a Trabajos
+async function trbElegirPresu(){
+  if (!presus.length){ try { const r = await db.from('presupuestos').select('*').order('created_at', { ascending: false }); if (!r.error) presus = r.data || []; } catch(e){} }
+  const ok = presus.filter(p => ['aprobado', 'enviado', 'completado'].includes(p.estado));
+  const hecho = id => trabajos.some(j => j.presupuesto_id === id);
+  $('modalTitle').textContent = '📥 ' + t('trb_desde_presu'); $('modal').querySelector('.modal-card').classList.add('wide');
+  $('modalBody').innerHTML = ok.length ? `<p class="muted" style="margin-top:0">${t('trb_desde_presu_h')}</p><div class="search" style="margin-bottom:8px"><input id="trbPq" placeholder="${esc(t('cl_search'))}" oninput="document.querySelectorAll('#trbPl .trb-pq').forEach(r=>r.classList.toggle('hidden',!r.dataset.q.includes(nrm(this.value))))"></div>
+    <div id="trbPl" class="trb-pl">${ok.sort((a, b) => (hecho(a.id) - hecho(b.id)) || ({ aprobado: 0, enviado: 1, completado: 2 }[a.estado] - { aprobado: 0, enviado: 1, completado: 2 }[b.estado])).map(p => { const tt = jObj(p.totales);
+      return `<div class="trb-pq ${hecho(p.id) ? 'ya' : ''}" data-q="${esc(nrm([p.numero, p.cliente, p.titulo].join(' ')))}" onclick="closeModal();trbDesdePresu(presus.find(x=>x.id==='${p.id}'))">
+        <span class="mono muted">#${p.numero ?? ''}</span><span title="${esc(t('ptt.' + prTipo(jObj(p.datos))))}">${prIc(prTipo(jObj(p.datos)))}</span><b>${esc(p.cliente)}</b><span class="muted">${esc(p.titulo || '')}</span>
+        <span class="pr-est ${esc(p.estado)}">${esc(t('pre.' + p.estado))}</span><span class="mono">${tt.total ? money(tt.total) : ''}</span>${hecho(p.id) ? `<small class="muted">✔ ${t('trb_ya_hay')}</small>` : ''}</div>`; }).join('')}</div>`
+    : `<div class="act-empty">💰 ${t('trb_sin_presu')}</div>`;
+  $('modal').classList.remove('hidden'); setTimeout(() => $('trbPq')?.focus(), 50);
 }
 
 /* ---------- Vista de lista ---------- */
@@ -5908,6 +5942,7 @@ async function prGuardar(auto){
       mensual: Math.round(jArr(R.rec).filter(r => r[2] === 'mes').reduce((a, r) => a + r[1], 0)), sitio: { altura: R.s?.altura, tipo: R.s?.tipo } },
     horas_est: +R.total.toFixed(2) };
   $('prEstadoG') && ($('prEstadoG').textContent = t('pl_saving'));
+  const estAntes = presus.find(p => p.id === PR.id)?.estado;
   const r = PR.id ? await db.from('presupuestos').update(row).eq('id', PR.id) : await db.from('presupuestos').insert(row).select('id,numero').single();
   if (r.error){ $('prEstadoG') && ($('prEstadoG').textContent = '⚠'); return fail(r.error, /presupuestos/.test(r.error.message || '') ? t('pr_missing') : t('save_fail')); }
   if (!PR.id){ PR.id = r.data.id; PR.numero = r.data.numero; }
@@ -5915,6 +5950,7 @@ async function prGuardar(auto){
   if (i >= 0) presus[i] = obj; else presus.unshift(obj);
   $('prEstadoG') && ($('prEstadoG').textContent = '✓ ' + t('pl_saved'));
   if (!auto){ toast(t('saved')); renderPresuEditor(); }
+  if (!auto && row.estado === 'aprobado' && estAntes !== 'aprobado' && confirm(t('trb_pasar_q'))) trbDesdePresu();
 }
 async function prDuplicar(){
   const c = JSON.parse(JSON.stringify(PR)); c.id = null; c.numero = null; c.estado = 'borrador'; c.horas_real = null; c.titulo = (c.titulo || '') + ' (copia)'; PR = c; PR.tab = 'datos';

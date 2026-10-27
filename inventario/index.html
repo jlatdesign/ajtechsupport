@@ -531,7 +531,10 @@ body.p-noadm [onclick^="abrirUnifi"]{display:none!important}
 .sp-dif .h{font-size:10px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);font-weight:600;padding:2px 0}
 .sp-dif .r{display:contents;cursor:pointer}.sp-dif .r>*{padding:4px 0;border-top:1px solid var(--line);align-self:stretch;display:flex;align-items:center;min-width:0;overflow-wrap:anywhere}
 .sp-dif .r.cambia .a{color:var(--warn)}.sp-dif .r.llena .a{color:var(--ok)}.sp-nuevo{margin-top:6px}
-.sp-todos{display:inline-flex!important;flex-direction:row!important}.sp-eq-h .uf-tag{flex:none;width:auto;display:inline-block!important}.sp-eq-h>small{flex:none}
+.sp-todos{display:inline-flex!important;flex-direction:row!important}
+.sp-grupos{border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin:0 0 8px;font-size:12.5px}.sp-gl{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;align-items:center}
+.sp-g{display:inline-flex!important;flex-direction:row!important;align-items:center;gap:6px;border:1px solid var(--line-strong);border-radius:999px;padding:3px 10px;cursor:pointer;font-size:12.5px}
+.sp-g input{width:auto;margin:0}.sp-g small{color:var(--muted)}.sp-g.on{border-color:var(--c1);background:color-mix(in srgb,var(--c1) 10%,transparent)}.sp-eq-h .uf-tag{flex:none;width:auto;display:inline-block!important}.sp-eq-h>small{flex:none}
 .sp-nuevo{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.sp-nuevo select{width:auto!important;padding:4px 8px;font-size:12.5px}
 .sp-nuevo{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.sp-falta{margin-top:10px;font-size:12.5px}.sp-falta summary{cursor:pointer;color:var(--muted)}
 .uf-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;vertical-align:middle}
@@ -988,7 +991,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v8.6</p>
+    <p class="sub">Network Asset Manager · v8.6.1</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -1004,7 +1007,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v8.6</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v8.6.1</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -1670,7 +1673,7 @@ Object.assign(I18N.en, {
   sp_como:'How to get the file in my.splashtop.com:', sp_p1:'<b>Management › All Computers</b> › export icon (top right) › <b>Computer List</b>.',
   sp_p2:'Optional, if you have it: <b>Management › Computer Inventory</b> › <b>Export › System/Hardware Inventory</b> (CPU, RAM, disk…).',
   sp_p3:'Upload one or both files here. Nothing is saved until you confirm.', sp_p4:'PCs are matched by name / hostname (or MAC) with this client’s PCs.',
-  sp_nada:'I could not find the computer names. Below, in "File columns", pick which column is the Device name.', sp_ignorar:'don’t use',
+  sp_nada:'I could not find the computer names. Below, in "File columns", pick which column is the Device name.', sp_ignorar:'don’t use', sp_sin_grupo:'(no group)', sp_grupos:'Splashtop groups', sp_grupos_h:'Check only this client’s groups. It is remembered for next time.', sp_elige_g:'Check this client’s group(s) above to see their computers.',
   sp_resumen:'{a} with differences · {n} new · {i} same', sp_columnas:'File columns: {n} of {t} recognized (tap to review)', sp_equipo:'Device', sp_que:'What changes',
   sp_igual_s:'All the same and Splashtop is already Yes.', sp_campo:'Field', sp_ahora:'Now', sp_vacio:'(empty)', sp_faltan:'{n} PC(s) of this client are not in the Splashtop file',
   sp_import:'Import ({n})', sp_help:'Checked = it changes. Empty fields are filled automatically; fields with another value are your call. Splashtop is set to Yes.',
@@ -1788,7 +1791,7 @@ Object.assign(I18N.es, {
   sp_como:'Cómo bajar el archivo en my.splashtop.com:', sp_p1:'<b>Management › All Computers</b> › ícono de exportar (arriba a la derecha) › <b>Computer List</b>.',
   sp_p2:'Opcional, si lo tienes: <b>Management › Computer Inventory</b> › <b>Export › System/Hardware Inventory</b> (trae CPU, RAM, disco…).',
   sp_p3:'Sube aquí uno o los dos archivos. Nada se guarda hasta que tú lo confirmes.', sp_p4:'Se compara por nombre / hostname (o MAC) con las PCs de este cliente.',
-  sp_nada:'No encontré el nombre de las computadoras. Abajo, en "Columnas del archivo", escoge cuál columna es el Nombre del equipo.', sp_ignorar:'no usar',
+  sp_nada:'No encontré el nombre de las computadoras. Abajo, en "Columnas del archivo", escoge cuál columna es el Nombre del equipo.', sp_ignorar:'no usar', sp_sin_grupo:'(sin grupo)', sp_grupos:'Grupos de Splashtop', sp_grupos_h:'Marca solo los grupos de este cliente. Se recuerda para la próxima vez.', sp_elige_g:'Marca arriba el grupo (o los grupos) de este cliente para ver sus computadoras.',
   sp_resumen:'{a} con diferencias · {n} nuevas · {i} iguales', sp_columnas:'Columnas del archivo: {n} de {t} reconocidas (toca para revisar)', sp_equipo:'Equipo', sp_que:'Qué cambia',
   sp_igual_s:'Todo igual y Splashtop ya está en Sí.', sp_campo:'Campo', sp_ahora:'Ahora', sp_vacio:'(vacío)', sp_faltan:'{n} PC(s) de este cliente no están en el archivo de Splashtop',
   sp_import:'Importar ({n})', sp_help:'Marcado = se cambia. Lo vacío se llena solo; lo que ya tiene otro valor lo decides tú. Splashtop queda en Sí.',
@@ -5603,7 +5606,7 @@ const SP_ALIAS = {
   serial: ['serial', 'serialnumber', 'serialno', 'biosserialnumber', 'servicetag', 'sn', 'numerodeserie', 'serie'],
   modelo: ['model', 'systemmodel', 'computermodel', 'productname', 'devicemodel', 'modelo'],
   marca: ['manufacturer', 'vendor', 'make', 'systemmanufacturer', 'brand', 'marca', 'fabricante'],
-  pc_user: ['user', 'loggedinuser', 'lastloggedonuser', 'lastloggedinuser', 'currentuser', 'username', 'lastuser', 'owner', 'usuario'],
+  pc_user: ['user', 'loggedinuser', 'lastloggedonuser', 'lastloggedinuser', 'currentuser', 'username', 'lastuser', 'usuario'],
   grupo: ['group', 'groupname', 'computergroup', 'groups', 'grupo'],
   visto: ['lastonline', 'lastseen', 'lastconnected', 'lastsessiontime', 'lastsession', 'lastconnectiontime', 'lastonlinetime', 'laststatus', 'ultimaconexion', 'ultimasesion', 'ultimavez'],
   nota: ['notes', 'note', 'description', 'comment', 'comments', 'notas', 'nota', 'descripcion']
@@ -5636,7 +5639,7 @@ async function spLeer(input){
       const aoa = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], { header: 1, raw: false, defval: '' });
       let hi = aoa.findIndex(r => r.filter(c => spCampoDe(c)).length >= 1 && r.filter(c => String(c).trim()).length >= 2); if (hi < 0) hi = 0;
       const head = (aoa[hi] || []).map(h => String(h).trim());
-      head.forEach(h => { if (h && !SP.cols.includes(h)){ SP.cols.push(h); if (!(h in SP.map)) SP.map[h] = spCampoDe(h); } });
+      head.forEach(h => { if (h && !SP.cols.includes(h)){ SP.cols.push(h); if (!(h in SP.map)){ const g = spMapGuardado()[spKey(h)]; SP.map[h] = g != null ? g : spCampoDe(h); } } });
       aoa.slice(hi + 1).filter(r => r.some(c => String(c).trim())).forEach(r => { const o = {}; head.forEach((h, i) => { if (h) o[h] = String(r[i] ?? '').trim(); }); SP.filas.push(o); });
       SP.archivos.push(f.name);
     }catch(e){ alert(t('bad_file') + ' ' + f.name); }
@@ -5654,9 +5657,19 @@ function spAnalizar(){
     const k = spKey(o.nombre), prev = porNombre.get(k) || {};
     porNombre.set(k, Object.assign(prev, Object.fromEntries(Object.entries(o).filter(([c, v]) => v && !prev[c]))));
   });
+  const sinG = t('sp_sin_grupo'), todos = [...porNombre.values()], cuenta = {};
+  todos.forEach(o => { const g = o.grupo || sinG; cuenta[g] = (cuenta[g] || 0) + 1; });
+  SP.grupos = Object.entries(cuenta).sort((a, b) => a[0].localeCompare(b[0]));
+  if (!SP.selG){
+    let guard = null; try { guard = JSON.parse(localStorage.getItem(spGKey()) || 'null'); } catch(e){}
+    const pal = nrm(curCliente).split(/[^a-z0-9áéíóúñ]+/).filter(w => w.length > 2 && !['and', 'the', 'inc', 'llc', 'corp', 'group', 'usa', 'de', 'del'].includes(w));
+    SP.selG = new Set(Array.isArray(guard) ? guard.filter(g => cuenta[g]) : SP.grupos.map(x => x[0]).filter(g => pal.some(w => nrm(g).includes(w))));
+    if (SP.grupos.length === 1) SP.selG = new Set([SP.grupos[0][0]]);
+  }
   const mios = equiposDe(curCliente).filter(x => PC_TIPOS.includes(x.tipo)), usados = new Set();
-  SP.eqs = [...porNombre.values()].map((o, i) => {
-    const sp = { ...o, ram: spCap(o.ram, 'ram'), disco: spCap(o.disco, 'disco'), mac: o.mac ? macNorm(String(o.mac).split(/[,;\s]+/)[0]) : '', ip: o.ip ? String(o.ip).split(/[,;\s]+/)[0] : '' };
+  SP.eqs = todos.filter(o => SP.selG.has(o.grupo || sinG)).map((o, i) => {
+    const ip0 = o.ip ? String(o.ip).split(/[,;\s]+/)[0] : '';
+    const sp = { ...o, ram: spCap(o.ram, 'ram'), disco: spCap(o.disco, 'disco'), mac: o.mac ? macNorm(String(o.mac).split(/[,;\s]+/)[0]) : '', ip: spPrivada(ip0) ? ip0 : '', ip_pub: ip0 && !spPrivada(ip0) ? ip0 : '' };
     if (sp.marca && sp.modelo && !spKey(sp.modelo).includes(spKey(sp.marca))) sp.modelo = sp.marca + ' ' + sp.modelo; else if (sp.marca && !sp.modelo) sp.modelo = sp.marca;
     const host = sp.hostname || sp.nombre;
     const ya = mios.find(x => !usados.has(x.id) && ([x.hostname, x.nombre].some(v => v && (spIgual(v, host) || spIgual(v, sp.nombre))) || (sp.mac && macNorm(x.mac) === sp.mac)));
@@ -5677,10 +5690,16 @@ function spAnalizar(){
   SP.faltan = mios.filter(x => !usados.has(x.id));
   SP.sel = new Set(SP.eqs.filter(e => e.accion !== 'igual').map(e => e.id));
   SP.paso = SP.filas.length ? 'revisar' : 'archivo';
-  SP.msg = SP.filas.length && !SP.eqs.length ? t('sp_nada') : '';
+  SP.msg = SP.filas.length && !todos.length ? t('sp_nada') : '';
   renderSplashtop();
 }
-function spCol(h, v){ SP.map[h] = v; spAnalizar(); }
+const spMapGuardado = () => { try { return JSON.parse(localStorage.getItem('sp_map') || '{}') || {}; } catch(e){ return {}; } };
+function spCol(h, v){ SP.map[h] = v; try { const m = spMapGuardado(); m[spKey(h)] = v; localStorage.setItem('sp_map', JSON.stringify(m)); } catch(e){} spAnalizar(); }
+// Grupos de Splashtop: solo se comparan e importan los grupos que marques (se recuerda por cliente)
+const spGKey = () => 'sp_grupos:' + nrm(curCliente);
+function spGrupo(g, on){ if (g === '*') SP.selG = new Set(on ? SP.grupos.map(x => x[0]) : []); else on ? SP.selG.add(g) : SP.selG.delete(g);
+  try { localStorage.setItem(spGKey(), JSON.stringify([...SP.selG])); } catch(e){} spAnalizar(); }
+const spPrivada = ip => /^(10\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.|169\.254\.)/.test(String(ip || ''));
 function spCampo(id, c, on){ const s = SP.campos[id]; on ? s.add(c) : s.delete(c); if (on) SP.sel.add(id); const n = $('spN'); if (n) n.textContent = t('sp_import', { n: spContar() }); }
 const spContar = () => SP.eqs.filter(e => SP.sel.has(e.id) && (e.accion === 'nuevo' || SP.campos[e.id].size)).length;
 function renderSplashtop(){
@@ -5696,11 +5715,14 @@ function renderSplashtop(){
     const opts = h => `<select onchange="spCol('${jsq(h)}', this.value)"><option value="">— ${t('sp_ignorar')} —</option>${SP_CAMPOS.map(k => `<option value="${k}" ${SP.map[h] === k ? 'selected' : ''}>${esc(lbl(k))}</option>`).join('')}</select>`;
     html += `<div class="muted" style="margin-bottom:6px">📄 ${SP.archivos.map(esc).join(', ')} · ${t('sp_resumen', { a: n('act'), n: n('nuevo'), i: n('igual') })}</div>
       <details class="sp-map" ${SP.eqs.length ? '' : 'open'}><summary>${t('sp_columnas', { n: SP.cols.filter(h => SP.map[h]).length, t: SP.cols.length })}</summary><div class="sp-map-g">${SP.cols.map(h => `<label><span>${esc(h)}</span>${opts(h)}</label>`).join('')}</div></details>
+      <div class="sp-grupos"><b>🗂 ${t('sp_grupos')}</b> <small class="muted">${t('sp_grupos_h')}</small><div class="sp-gl">${SP.grupos.map(([g, n]) => `<label class="sp-g ${SP.selG.has(g) ? 'on' : ''}"><input type="checkbox" ${SP.selG.has(g) ? 'checked' : ''} onchange="spGrupo('${jsq(g)}', this.checked)"> ${esc(g)} <small>${n}</small></label>`).join('')}
+        ${SP.grupos.length > 2 ? `<a href="#" onclick="spGrupo('*', true);return false">${t('cl_all')}</a> · <a href="#" onclick="spGrupo('*', false);return false">${t('cl_none_sel')}</a>` : ''}</div></div>
+      ${!SP.eqs.length && SP.grupos.length ? `<p class="muted">${t('sp_elige_g')}</p>` : ''}
       <label class="sp-todos"><input type="checkbox" ${SP.eqs.filter(e => e.accion !== 'igual').every(e => SP.sel.has(e.id)) ? 'checked' : ''} onchange="SP.eqs.forEach(e => e.accion !== 'igual' && (this.checked ? SP.sel.add(e.id) : SP.sel.delete(e.id))); renderSplashtop()"> ${t('cl_all')}</label>
       <div class="sp-lista">` +
       SP.eqs.map(e => {
         const ck = `<input type="checkbox" ${SP.sel.has(e.id) ? 'checked' : ''} ${e.accion === 'igual' ? 'disabled' : ''} onchange="this.checked ? SP.sel.add('${e.id}') : SP.sel.delete('${e.id}'); renderSplashtop()">`;
-        const info = [e.sp.grupo && '🗂 ' + esc(e.sp.grupo), e.sp.visto && '🕒 ' + esc(e.sp.visto)].filter(Boolean).join(' · ');
+        const info = [e.sp.grupo && '🗂 ' + esc(e.sp.grupo), e.sp.visto && '🕒 ' + esc(e.sp.visto), e.sp.ip_pub && '🌐 ' + esc(e.sp.ip_pub)].filter(Boolean).join(' · ');
         let que = '';
         if (e.accion === 'nuevo') que = `<div class="sp-nuevo"><select onchange="SP.tipos['${e.id}']=this.value">${PC_TIPOS.map(k => `<option value="${k}" ${SP.tipos[e.id] === k ? 'selected' : ''}>${esc(tTipo(k))}</option>`).join('')}</select>
           <small class="muted">${[e.sp.so, e.sp.cpu, e.sp.ram, e.sp.disco, e.sp.ip].filter(Boolean).map(esc).join(' · ') || '—'}</small></div>`;

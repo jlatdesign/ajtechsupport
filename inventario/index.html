@@ -779,6 +779,7 @@ body.p-noadm .p-solo-adm{display:none!important}
 .stk-cond.usado{color:var(--warn);border-color:color-mix(in srgb,var(--warn) 55%,transparent)}.stk-cond.reacondicionado{color:var(--c2);border-color:color-mix(in srgb,var(--c2) 50%,transparent)}
 .stk-cond.danado{color:var(--bad);border-color:color-mix(in srgb,var(--bad) 50%,transparent)}
 .stk-cant-u{display:flex;gap:6px}.stk-cant-u input{flex:1;min-width:0}.stk-cant-u select{width:auto!important;flex:none}
+.upc-res{border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin:6px 0;font-size:12.5px;background:var(--row-hover)}.upc-ok{display:flex;gap:10px;align-items:center}.upc-ok img{width:56px;height:56px;object-fit:contain;border-radius:8px;background:#fff;flex:none}
 .scn-in-row{display:flex;gap:8px;align-items:stretch}.scn-in-row input{flex:1;min-width:0}.scn-cam{flex:none;white-space:nowrap}
 .cam-ov{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.82);display:flex;align-items:center;justify-content:center;padding:12px}
 .cam-card{width:min(560px,100%);max-height:100%;overflow:auto;background:var(--card-solid);border:1px solid var(--line);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:10px}
@@ -1020,7 +1021,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v8.9</p>
+    <p class="sub">Network Asset Manager · v9.0</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -1036,7 +1037,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v8.9</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.0</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -1712,6 +1713,10 @@ Object.assign(I18N.en, {
   sp_confirm:'{n} new PC(s) will be added and {a} updated. Continue?',
   'sp_f.nombre':'Device name', 'sp_f.hostname':'Hostname', 'sp_f.so':'Operating system', 'sp_f.cpu':'CPU', 'sp_f.ram':'RAM', 'sp_f.disco':'Disk', 'sp_f.ip':'Local IP', 'sp_f.ip_pub':'Public IP', 'sp_f.ip_publica':'Public IP (internet)', 'sp_f.mac':'MAC', 'sp_f.serial':'Serial',
   'sp_f.modelo':'Model', 'sp_f.marca':'Brand', 'sp_f.pc_user':'PC user', 'sp_f.grupo':'Group (view only)', 'sp_f.visto':'Last connection (view only)', 'sp_f.nota':'Notes', 'sp_f.notas':'Notes', 'sp_f.usuario_completo':'Person full name', 'sp_f.first_name':'First name', 'sp_f.last_name':'Last name', 'sp_f.email':'Email', 'sp_f.departamento':'Department', 'sp_f.lugar':'Area / location', 'sp_f.antivirus':'Antivirus', 'sp_f.garantia':'Warranty', 'sp_f.anydesk':'AnyDesk',
+  upc_tip:'Search the internet for what product this code is', upc_buscando:'Searching the code on the internet…', upc_corto:'Type or scan the barcode (8 to 14 digits).',
+  upc_nada:'Code {c} was not found on the internet. Fill the data by hand (next time the app will recognize it).', upc_lleno:'{n} empty field(s) were filled. Review before saving.',
+  upc_precio:'reference price {a}–{b}', upc_quedan:'{n} searches left today',
+  upc_falta:'The "upc" function is not installed in Supabase (edge-function-upc.ts). Meanwhile fill the data by hand.',
   cam_btn:'Camera', cam_tip:'Read the code with the phone camera', cam_title:'Read with the camera', cam_cerrar:'Close', cam_listo:'Done', cam_voltear:'Switch camera',
   cam_apunta:'Point at the barcode or QR. Hold the phone still with good light.', cam_err:'Could not open the camera. Check you allowed the browser.',
   cam_no:'This browser cannot use the camera.', cam_https:'The camera only works if the page is on https (like ajtechsupport.net).', cam_lib_fail:'Could not load the camera reader. Check the internet.',
@@ -1870,6 +1875,10 @@ Object.assign(I18N.es, {
   sp_confirm:'Se van a agregar {n} PC(s) nuevas y actualizar {a}. ¿Continuar?',
   'sp_f.nombre':'Nombre del equipo', 'sp_f.hostname':'Hostname', 'sp_f.so':'Sistema operativo', 'sp_f.cpu':'CPU', 'sp_f.ram':'RAM', 'sp_f.disco':'Disco', 'sp_f.ip':'IP local', 'sp_f.ip_pub':'IP pública', 'sp_f.ip_publica':'IP pública (internet)', 'sp_f.mac':'MAC', 'sp_f.serial':'Serial',
   'sp_f.modelo':'Modelo', 'sp_f.marca':'Marca', 'sp_f.pc_user':'Usuario de la PC', 'sp_f.grupo':'Grupo (solo ver)', 'sp_f.visto':'Última conexión (solo ver)', 'sp_f.nota':'Notas', 'sp_f.notas':'Notas', 'sp_f.usuario_completo':'Nombre completo de la persona', 'sp_f.first_name':'Nombre', 'sp_f.last_name':'Apellido', 'sp_f.email':'Email', 'sp_f.departamento':'Departamento', 'sp_f.lugar':'Área / ubicación', 'sp_f.antivirus':'Antivirus', 'sp_f.garantia':'Garantía', 'sp_f.anydesk':'AnyDesk',
+  upc_tip:'Buscar en internet qué producto es este código', upc_buscando:'Buscando el código en internet…', upc_corto:'Escribe o escanea el código de barras (8 a 14 números).',
+  upc_nada:'No se encontró el código {c} en internet. Llena los datos a mano (la próxima vez la app ya lo reconoce).', upc_lleno:'Se llenaron {n} campo(s) vacíos. Revisa antes de guardar.',
+  upc_precio:'precio de referencia {a}–{b}', upc_quedan:'quedan {n} búsquedas hoy',
+  upc_falta:'Falta instalar la función "upc" en Supabase (edge-function-upc.ts). Mientras tanto llena los datos a mano.',
   cam_btn:'Cámara', cam_tip:'Leer el código con la cámara del teléfono', cam_title:'Leer con la cámara', cam_cerrar:'Cerrar', cam_listo:'Listo', cam_voltear:'Cambiar cámara',
   cam_apunta:'Apunta al código de barras o QR. Mantén el teléfono quieto y con buena luz.', cam_err:'No se pudo abrir la cámara. Revisa que le diste permiso al navegador.',
   cam_no:'Este navegador no puede usar la cámara.', cam_https:'La cámara solo funciona si la página está en https (como en ajtechsupport.net).', cam_lib_fail:'No se pudo cargar el lector de la cámara. Revisa el internet.',
@@ -4883,7 +4892,7 @@ function stkForm(id, pre){
       <label><span>${t('stk_categoria')}</span>${sel('categoria', STK_CATS.map(c => c[0]), c => stkIc(c) + ' ' + t('stc.' + c), x.categoria)}</label>
       <label><span>${t('stk_marca')}</span>${inp('marca', x.marca, `list="stkMarcas" placeholder="Ubiquiti"`)}<datalist id="stkMarcas">${['Ubiquiti', 'TP-Link', 'Cisco', 'Meraki', 'Fortinet', 'SonicWall', 'Netgear', 'Aruba', 'Hikvision', 'Dahua', 'Axis', 'Yealink', 'Poly', 'Grandstream', 'Panduit', 'Belden', 'Leviton', 'Monoprice', 'Tripp Lite', 'APC', 'CyberPower', 'Eaton', 'StarTech', 'Dell', 'HP', 'Lenovo'].map(m => `<option value="${m}">`).join('')}</datalist></label>
       <label><span>${t('stk_modelo')}</span>${inp('modelo', x.modelo, 'placeholder="U7-Pro"')}</label>
-      <label><span>🔫 ${t('stk_codigo')}</span>${inp('codigo', x.codigo, `placeholder="${esc(t('stk_codigo_ph'))}"`)}</label>
+      <label><span>🔫 ${t('stk_codigo')}</span><div class="scn-in-row">${inp('codigo', x.codigo, `placeholder="${esc(t('stk_codigo_ph'))}" onkeydown="if(event.key==='Enter'){event.preventDefault();upcBuscar(true);}"`)}<button class="sm" type="button" onclick="upcBuscar(true)" title="${esc(t('upc_tip'))}">🌐</button></div></label>
       <label class="stk-span2"><span>${t('stk_nombre')}</span>${inp('nombre', x.nombre, `placeholder="${esc(t('stk_nombre_ph'))}"`)}</label>
       <label><span>${t('stk_cond')}</span>${sel('condicion', STK_COND, c => t('std.' + c), x.condicion)}</label>
       <label><span>${t('stk_cant')}</span><div class="stk-cant-u">${inp('cantidad', x.cantidad, `type="number" step="any" min="0" ${id ? 'disabled title="' + esc(t('stk_cant_mov')) + '"' : ''}`)}${sel('unidad', STK_UNIDADES, u => t('stu.' + u), x.unidad)}</div></label>
@@ -4893,6 +4902,7 @@ function stkForm(id, pre){
       <label><span>${t('stk_precio')} $</span>${inp('precio', x.precio, 'type="number" step="any" min="0"')}</label>
       <label><span>${t('stk_prov')}</span>${inp('proveedor', x.proveedor, `list="stkProvs" placeholder="Amazon, B&H, Anixter…"`)}<datalist id="stkProvs">${[...new Set(['Ubiquiti Store', 'Amazon', 'B&H', 'CDW', 'Anixter', 'Graybar', 'Home Depot', 'Monoprice', ...stkItems.map(i => i.proveedor).filter(Boolean)])].map(u => `<option value="${esc(u)}">`).join('')}</datalist></label>
     </div>
+    <div id="upcRes" class="upc-res hidden"></div>
     <label class="mdm-chk"><input type="checkbox" id="stk_serializado" ${x.serializado ? 'checked' : ''} onchange="$('stkSeriesBox').classList.toggle('hidden', !this.checked)"> 🔢 ${t('stk_serializado')}</label>
     <div id="stkSeriesBox" class="${x.serializado ? '' : 'hidden'}"><small class="muted">${t('stk_series_h')}</small>
       <div id="stkSeries">${stkSeriesFilas()}</div>
@@ -4910,7 +4920,7 @@ function stkSeriesFilas(){
 }
 function stkDelCatalogo(v){
   const mo = String(v).split(' — ')[0].trim(), c = STK_CAT.find(x => x[2] === mo); if (!c) return;
-  $('stk_categoria').value = c[0]; $('stk_marca').value = c[1]; $('stk_modelo').value = c[2]; $('stk_nombre').value = c[3];
+  $('stk_categoria').value = c[0]; $('stk_marca').value = c[1]; $('stk_modelo').value = c[2]; $('stk_nombre').value = c[3]; if (STK.edit) STK.edit.catFija = true;
   $('stk_unidad').value = c[0] === 'cable' ? 'ft' : 'u';
   $('stk_serializado').checked = ['gateway', 'switch', 'ap', 'camara', 'nvr', 'acceso', 'voip', 'pc'].includes(c[0]) && c[2] !== 'HDD-8TB-SURV'; $('stkSeriesBox').classList.toggle('hidden', !$('stk_serializado').checked);
   const ya = stkItems.find(i => i.activo !== false && nrm(i.modelo) === nrm(c[2]) && i.condicion === $('stk_condicion').value);
@@ -4927,7 +4937,37 @@ function stkCatEscaneo(v){
   if (esMac){ $('stk_serializado').checked = true; $('stkSeriesBox').classList.remove('hidden'); const ta = $('stk_series_txt'); if (ta) ta.value = (ta.value ? ta.value + '\n' : '') + scnNorm(v) + ' | ' + macNorm(v); }
   else $('stk_codigo').value = v;
   $('stk_buscacat').value = ''; toast(t(esMac ? 'stk_scan_mac' : 'stk_scan_cod'));
+  if (!esMac && /^\d{8,14}$/.test(v)) upcBuscar(false);
   (esMac ? $('stk_series_txt') : $('stk_nombre'))?.focus();
+}
+// 🌐 Buscar en internet qué producto es un código de barras (Edge Function "upc" → UPCitemdb) y llenar lo que falte
+const UPC_CAT = [['ap', /access point|wi-?fi|wireless ap|\bu6\b|\bu7\b|uap/i], ['switch', /\bswitch\b/i], ['gateway', /router|gateway|firewall|dream machine|udm|ucg/i], ['nvr', /\bnvr\b|video recorder|hard drive|surveillance (hdd|drive)/i],
+  ['camara', /camera|c[aá]mara|bullet|dome|turret/i], ['acceso', /access (reader|control)|intercom|door/i], ['voip', /\bphone\b|voip|sip/i], ['sfp', /\bsfp\b|transceiver|\bdac\b/i],
+  ['patch', /patch panel|cable manager/i], ['cordon', /patch (cord|cable)/i], ['cable', /bulk|1000 ?ft|spool|reel|cat ?6a? (cable|riser|plenum)/i], ['conector', /keystone|\bjack\b|rj-?45|wall ?plate|connector/i],
+  ['fibra', /fiber|fibre|\blc\b|\bsc\b/i], ['rack', /\brack\b|cabinet|shelf/i], ['energia', /\bups\b|\bpdu\b|power|injector|surge|battery/i], ['herramienta', /tool|tester|crimp|punch|toner/i], ['pc', /laptop|desktop|monitor|computer|notebook/i]];
+async function upcBuscar(manual){
+  const code = ($('stk_codigo')?.value || '').replace(/\D/g, ''), box = $('upcRes'); if (!box) return;
+  if (!/^\d{8,14}$/.test(code)){ if (manual){ box.classList.remove('hidden'); box.innerHTML = '⚠ ' + t('upc_corto'); } return; }
+  box.classList.remove('hidden'); box.innerHTML = '🌐 ' + t('upc_buscando');
+  let data = null, err = '';
+  try { const r = await db.functions.invoke('upc', { body: { upc: code } }); if (r.error){ err = r.error.message || String(r.error); try { const j = await r.error.context?.json?.(); if (j?.error) err = j.error; } catch(e){}
+      if (r.error.context?.status === 404 || /Failed to send|FunctionsFetchError|FunctionsRelayError/i.test((r.error.name || '') + ' ' + err)) err = t('upc_falta'); } else data = r.data; }
+  catch(e){ err = t('upc_falta'); }
+  if (!$('upcRes')) return;
+  if (err) return box.innerHTML = '⚠ ' + esc(err);
+  const it = (data?.items || [])[0];
+  if (!it) return box.innerHTML = '🌐 ' + t('upc_nada', { c: esc(code) });
+  const llenar = (k, v) => { const el = $('stk_' + k); if (el && v && !el.value.trim()){ el.value = v; return 1; } return 0; };
+  let n = 0;
+  n += llenar('nombre', String(it.titulo || '').slice(0, 120)); n += llenar('marca', it.marca); n += llenar('modelo', it.modelo);
+  const cat = UPC_CAT.find(([, rx]) => rx.test([it.titulo, it.categoria].join(' ')));
+  if (cat && !STK.edit?.id && !STK.edit?.catFija){ $('stk_categoria').value = cat[0]; n++; if (cat[0] === 'cable') $('stk_unidad').value = 'ft';
+    $('stk_serializado').checked = ['gateway', 'switch', 'ap', 'camara', 'nvr', 'acceso', 'voip', 'pc'].includes(cat[0]); $('stkSeriesBox').classList.toggle('hidden', !$('stk_serializado').checked); }
+  if (it.descripcion && !$('stk_notas').value.trim()) $('stk_notas').value = it.descripcion;
+  const ref = it.precio_min || it.precio_max ? t('upc_precio', { a: stkMoney(it.precio_min || it.precio_max), b: stkMoney(it.precio_max || it.precio_min) }) : '';
+  box.innerHTML = `<div class="upc-ok">${it.imagenes?.[0] ? `<img src="${esc(it.imagenes[0])}" alt="" referrerpolicy="no-referrer" onerror="this.remove()">` : ''}<div><b>✔ ${esc(it.titulo || code)}</b>
+    <small class="muted" style="display:block">${[it.marca, it.modelo, it.categoria].filter(Boolean).map(esc).join(' · ')}</small>
+    <small style="display:block">${t('upc_lleno', { n })}${ref ? ' · ' + ref : ''}${data.restantes ? ' · ' + t('upc_quedan', { n: esc(data.restantes) }) : ''}</small></div></div>`;
 }
 const stkLeerSeries = txt => String(txt || '').split(/\n+/).map(l => l.trim()).filter(Boolean).map(l => { const [s, mac] = l.split(/[|,;\t]/).map(v => v.trim()); return { s, mac: mac ? macNorm(mac) : '', est: 'disponible', f: new Date().toISOString().slice(0, 10) }; }).filter(x => x.s);
 async function stkGuardar(){
@@ -5140,6 +5180,7 @@ function scnCrear(i){
     if (ser && mac) setTimeout(() => { const ta = $('stk_series_txt'); if (ta) ta.value = mac + ' | ' + macNorm(mac); }, 60);
     return; }
   stkForm(null, esMac ? { serializado: true, series: [] } : { codigo: code, modelo: /^[A-Z0-9][A-Z0-9\-+.]{2,}$/i.test(code) && !/^\d{8,14}$/.test(code) ? code : '' });
+  if (!esMac && /^\d{8,14}$/.test(code)) setTimeout(() => upcBuscar(false), 80);
   if (esMac) setTimeout(() => { const ta = $('stk_series_txt'); if (ta) ta.value = code; }, 60);
 }
 async function scnAplicar(){

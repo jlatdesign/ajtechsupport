@@ -779,6 +779,12 @@ body.p-noadm .p-solo-adm{display:none!important}
 .stk-cond.usado{color:var(--warn);border-color:color-mix(in srgb,var(--warn) 55%,transparent)}.stk-cond.reacondicionado{color:var(--c2);border-color:color-mix(in srgb,var(--c2) 50%,transparent)}
 .stk-cond.danado{color:var(--bad);border-color:color-mix(in srgb,var(--bad) 50%,transparent)}
 .stk-cant-u{display:flex;gap:6px}.stk-cant-u input{flex:1;min-width:0}.stk-cant-u select{width:auto!important;flex:none}
+.scn-in-row{display:flex;gap:8px;align-items:stretch}.scn-in-row input{flex:1;min-width:0}.scn-cam{flex:none;white-space:nowrap}
+.cam-ov{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.82);display:flex;align-items:center;justify-content:center;padding:12px}
+.cam-card{width:min(560px,100%);max-height:100%;overflow:auto;background:var(--card-solid);border:1px solid var(--line);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:10px}
+.cam-h{display:flex;justify-content:space-between;align-items:center;gap:8px}.cam-vid{width:100%;border-radius:12px;overflow:hidden;background:#000;min-height:220px}.cam-vid video{width:100%!important;display:block}
+.cam-pie{display:flex;flex-direction:column;gap:8px}.cam-msg{text-align:center;font-size:14px;padding:8px;border-radius:10px;background:var(--row-hover);min-height:40px}
+@media (max-width:600px){.scn-cam span{display:none}}
 .scn-box{display:flex;flex-direction:column;gap:4px;margin-bottom:10px}.scn-box input{font:600 18px "JetBrains Mono",monospace;padding:12px 14px;border:2px solid var(--c1)!important}
 .scn-msg{font-size:12.5px;padding:6px 10px;border-radius:8px;background:var(--row-hover)}.scn-lista{display:flex;flex-direction:column;gap:6px;max-height:46vh;overflow:auto}
 .scn-l{display:flex;gap:10px;align-items:center;border:1px solid var(--line);border-radius:10px;padding:8px 10px}.scn-l.esp{border-color:var(--warn);box-shadow:0 0 0 2px color-mix(in srgb,var(--warn) 25%,transparent)}
@@ -1014,7 +1020,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v8.8.5</p>
+    <p class="sub">Network Asset Manager · v8.9</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -1030,7 +1036,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v8.8.5</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v8.9</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -1706,6 +1712,9 @@ Object.assign(I18N.en, {
   sp_confirm:'{n} new PC(s) will be added and {a} updated. Continue?',
   'sp_f.nombre':'Device name', 'sp_f.hostname':'Hostname', 'sp_f.so':'Operating system', 'sp_f.cpu':'CPU', 'sp_f.ram':'RAM', 'sp_f.disco':'Disk', 'sp_f.ip':'Local IP', 'sp_f.ip_pub':'Public IP', 'sp_f.ip_publica':'Public IP (internet)', 'sp_f.mac':'MAC', 'sp_f.serial':'Serial',
   'sp_f.modelo':'Model', 'sp_f.marca':'Brand', 'sp_f.pc_user':'PC user', 'sp_f.grupo':'Group (view only)', 'sp_f.visto':'Last connection (view only)', 'sp_f.nota':'Notes', 'sp_f.notas':'Notes', 'sp_f.usuario_completo':'Person full name', 'sp_f.first_name':'First name', 'sp_f.last_name':'Last name', 'sp_f.email':'Email', 'sp_f.departamento':'Department', 'sp_f.lugar':'Area / location', 'sp_f.antivirus':'Antivirus', 'sp_f.garantia':'Warranty', 'sp_f.anydesk':'AnyDesk',
+  cam_btn:'Camera', cam_tip:'Read the code with the phone camera', cam_title:'Read with the camera', cam_cerrar:'Close', cam_listo:'Done', cam_voltear:'Switch camera',
+  cam_apunta:'Point at the barcode or QR. Hold the phone still with good light.', cam_err:'Could not open the camera. Check you allowed the browser.',
+  cam_no:'This browser cannot use the camera.', cam_https:'The camera only works if the page is on https (like ajtechsupport.net).', cam_lib_fail:'Could not load the camera reader. Check the internet.',
   scn_btn:'Scan', scn_tip:'Use the barcode scanner: stock in, stock out, count or search', scn_title:'Barcode scanner', scn_ph:'Scan here (or type the code and Enter)',
   'scn_m.entrada':'📥 Stock in', 'scn_m.salida':'📤 Out to client', 'scn_m.contar':'⚖ Count shelf', 'scn_m.buscar':'🔎 Search',
   'scn_h.entrada':'Scan the box (UPC) of each unit that arrives. If it has a serial, then scan the serial or MAC.', 'scn_h.salida':'Scan the device serial / MAC, or the box and then its serial.',
@@ -1861,6 +1870,9 @@ Object.assign(I18N.es, {
   sp_confirm:'Se van a agregar {n} PC(s) nuevas y actualizar {a}. ¿Continuar?',
   'sp_f.nombre':'Nombre del equipo', 'sp_f.hostname':'Hostname', 'sp_f.so':'Sistema operativo', 'sp_f.cpu':'CPU', 'sp_f.ram':'RAM', 'sp_f.disco':'Disco', 'sp_f.ip':'IP local', 'sp_f.ip_pub':'IP pública', 'sp_f.ip_publica':'IP pública (internet)', 'sp_f.mac':'MAC', 'sp_f.serial':'Serial',
   'sp_f.modelo':'Modelo', 'sp_f.marca':'Marca', 'sp_f.pc_user':'Usuario de la PC', 'sp_f.grupo':'Grupo (solo ver)', 'sp_f.visto':'Última conexión (solo ver)', 'sp_f.nota':'Notas', 'sp_f.notas':'Notas', 'sp_f.usuario_completo':'Nombre completo de la persona', 'sp_f.first_name':'Nombre', 'sp_f.last_name':'Apellido', 'sp_f.email':'Email', 'sp_f.departamento':'Departamento', 'sp_f.lugar':'Área / ubicación', 'sp_f.antivirus':'Antivirus', 'sp_f.garantia':'Garantía', 'sp_f.anydesk':'AnyDesk',
+  cam_btn:'Cámara', cam_tip:'Leer el código con la cámara del teléfono', cam_title:'Leer con la cámara', cam_cerrar:'Cerrar', cam_listo:'Listo', cam_voltear:'Cambiar cámara',
+  cam_apunta:'Apunta al código de barras o QR. Mantén el teléfono quieto y con buena luz.', cam_err:'No se pudo abrir la cámara. Revisa que le diste permiso al navegador.',
+  cam_no:'Este navegador no puede usar la cámara.', cam_https:'La cámara solo funciona si la página está en https (como en ajtechsupport.net).', cam_lib_fail:'No se pudo cargar el lector de la cámara. Revisa el internet.',
   scn_btn:'Escanear', scn_tip:'Usa la pistola lectora: entrada, salida, conteo o buscar', scn_title:'Escáner de códigos', scn_ph:'Escanea aquí (o escribe el código y Enter)',
   'scn_m.entrada':'📥 Entrada', 'scn_m.salida':'📤 Salida a cliente', 'scn_m.contar':'⚖ Contar estante', 'scn_m.buscar':'🔎 Buscar',
   'scn_h.entrada':'Escanea la caja (UPC) de cada unidad que llega. Si el equipo lleva serial, después escanea el serial o la MAC.', 'scn_h.salida':'Escanea el serial / MAC del equipo, o la caja y después su serial.',
@@ -3083,7 +3095,7 @@ function showHistory(id){
     : `<p class="muted">${t('hist_empty')}</p>`;
   $('modal').classList.remove('hidden');
 }
-function closeModal(){ $('modal').classList.add('hidden'); $('modal').querySelector('.modal-card').classList.remove('wide'); }
+function closeModal(){ if (typeof CAM !== 'undefined' && CAM) camCerrar(); $('modal').classList.add('hidden'); $('modal').querySelector('.modal-card').classList.remove('wide'); }
 document.addEventListener('keydown', e => { if (e.key === 'Escape'){
   const abierto = ['modal','gModal','cModal','xModal','drawer','detail'].some(id => $(id) && !$(id).classList.contains('hidden'));
   if (!$('modal').classList.contains('hidden')) { closeModal(); return; }
@@ -4865,7 +4877,7 @@ function stkForm(id, pre){
   const inp = (k, v, attrs = '') => `<input id="stk_${k}" value="${esc(v ?? '')}" ${attrs}>`;
   $('modalTitle').textContent = (id ? '✏️ ' : '＋ ') + t(id ? 'stk_editar' : 'stk_nuevo');
   $('modal').querySelector('.modal-card').classList.add('wide');
-  $('modalBody').innerHTML = `${id ? '' : `<label class="stk-full"><span>🔎 ${t('stk_catalogo')}</span><input id="stk_buscacat" list="stkCatList" placeholder="${esc(t('stk_catalogo_ph'))}" oninput="stkDelCatalogo(this.value)" onkeydown="if(event.key==='Enter'){event.preventDefault();stkCatEscaneo(this.value);}">
+  $('modalBody').innerHTML = `${id ? '' : `<label class="stk-full"><span>🔎 ${t('stk_catalogo')}</span><div class="scn-in-row"><input id="stk_buscacat" list="stkCatList" placeholder="${esc(t('stk_catalogo_ph'))}" oninput="stkDelCatalogo(this.value)" onkeydown="if(event.key==='Enter'){event.preventDefault();stkCatEscaneo(this.value);}"><button class="sm scn-cam" type="button" onclick="camAbrir(c => { stkCatEscaneo(c); return '✔ ' + esc(c); }, { seguido: false })" title="${esc(t('cam_tip'))}">📷</button></div>
       <datalist id="stkCatList">${STK_CAT.map(([c, m, mo, n]) => `<option value="${esc(mo + ' — ' + n)}">`).join('')}</datalist></label>`}
     <div class="mdm-grid">
       <label><span>${t('stk_categoria')}</span>${sel('categoria', STK_CATS.map(c => c[0]), c => stkIc(c) + ' ' + t('stc.' + c), x.categoria)}</label>
@@ -5069,7 +5081,7 @@ function renderEscaner(){
   const nuevos = SCN.nuevos.map((c, i) => { const cat = scnCatalogo(c); return `<div class="scn-l nuevo"><div class="n"><b class="mono">${esc(c)}</b><small class="${cat ? 'scn-cat' : 'muted'}">${cat ? '✨ ' + t('scn_es_cat', { n: esc(cat[3]) }) : t('scn_no_existe')}</small></div>
       <div class="scn-q"><button class="sm primary" onclick="scnCrear(${i})">＋ ${t('stk_nuevo')}</button><button class="sm danger" onclick="SCN.nuevos.splice(${i},1);renderEscaner()">✕</button></div></div>`; }).join('');
   $('modalBody').innerHTML = `<div class="stats" style="margin-bottom:8px">${modos.map(m => `<span class="chip ${SCN.modo === m ? 'on' : ''}" onclick="SCN.modo='${m}';SCN.espera=null;renderEscaner()">${t('scn_m.' + m)}</span>`).join('')}</div>
-    <div class="scn-box"><input id="scnIn" autocomplete="off" placeholder="${esc(t('scn_ph'))}" onkeydown="if(event.key==='Enter'){event.preventDefault();scnLeer(this.value);this.value='';}">
+    <div class="scn-box"><div class="scn-in-row"><input id="scnIn" autocomplete="off" placeholder="${esc(t('scn_ph'))}" onkeydown="if(event.key==='Enter'){event.preventDefault();scnLeer(this.value);this.value='';}"><button class="scn-cam" onclick="scnCamara()" title="${esc(t('cam_tip'))}">📷 <span>${t('cam_btn')}</span></button></div>
       <small class="muted">${SCN.espera != null ? '🔢 ' + t('scn_espera', { n: esc(SCN.lineas[SCN.espera]?.x.nombre || '') }) : t('scn_h.' + SCN.modo)}</small>
       ${SCN.msg ? `<div class="scn-msg">${SCN.msg}</div>` : ''}</div>
     ${SCN.modo === 'salida' ? `<label class="stk-full"><span>${t('client')}</span><input id="scnCli" list="scnClis" value="${esc(SCN.cli)}" oninput="SCN.cli=this.value" placeholder="${esc(t('stk_cli_ph'))}"><datalist id="scnClis">${clientes.map(c => `<option value="${esc(c)}">`).join('')}</datalist></label>
@@ -5154,6 +5166,60 @@ async function scnAplicar(){
     if (e.key.length === 1) buf += e.key;
   }, true);
 })();
+
+/* ---------- 📷 Leer códigos con la cámara del teléfono (o de la laptop) ----------
+   Usa la librería html5-qrcode (se carga solo cuando abres la cámara). Lee códigos de barra (UPC, EAN, Code 128…) y QR.
+   La página debe abrirse por https (GitHub Pages ya lo es). */
+let CAM = null;
+function cargarCamLib(){
+  if (window.Html5Qrcode) return Promise.resolve();
+  return new Promise((ok, no) => { const s = document.createElement('script'); s.src = 'https://cdn.jsdelivr.net/npm/html5-qrcode@2.3.8/html5-qrcode.min.js';
+    s.onload = ok; s.onerror = () => no(new Error(t('cam_lib_fail'))); document.head.appendChild(s); });
+}
+function camBip(){ try { const A = window.AudioContext || window.webkitAudioContext; if (!A) return; const c = CAM?.ac || (CAM.ac = new A()), o = c.createOscillator(), g = c.createGain();
+  o.frequency.value = 1400; g.gain.value = .08; o.connect(g); g.connect(c.destination); o.start(); o.stop(c.currentTime + .09); } catch(e){} }
+// onCode(texto) se llama cada vez que lee algo; seguido = true deja la cámara abierta para seguir escaneando
+async function camAbrir(onCode, { titulo = '', seguido = true } = {}){
+  await camCerrar();
+  if (!window.isSecureContext && location.protocol !== 'file:') return alert(t('cam_https'));
+  if (!navigator.mediaDevices?.getUserMedia) return alert(t('cam_no'));
+  const ov = document.createElement('div'); ov.id = 'camOv'; ov.className = 'cam-ov';
+  ov.innerHTML = `<div class="cam-card"><div class="cam-h"><b>📷 ${esc(titulo || t('cam_title'))}</b><button class="sm" onclick="camCerrar()">✕ ${t('cam_cerrar')}</button></div>
+    <div id="camVid" class="cam-vid"></div><div class="cam-pie"><div id="camMsg" class="cam-msg">${t('cam_apunta')}</div>
+    ${seguido ? `<div class="row" style="gap:6px;justify-content:center"><button class="sm" id="camFlip" onclick="camVoltear()">🔄 ${t('cam_voltear')}</button><button class="primary sm" onclick="camCerrar()">✔ ${t('cam_listo')}</button></div>` : ''}</div></div>`;
+  document.body.appendChild(ov);
+  try{ await cargarCamLib(); }catch(e){ $('camMsg').textContent = e.message; return; }
+  const F = window.Html5QrcodeSupportedFormats || {};
+  const formatos = ['QR_CODE', 'CODE_128', 'CODE_39', 'CODE_93', 'EAN_13', 'EAN_8', 'UPC_A', 'UPC_E', 'ITF', 'DATA_MATRIX'].map(k => F[k]).filter(v => v != null);
+  CAM = { onCode, seguido, ult: '', t0: 0, cara: 'environment', ac: CAM?.ac };
+  CAM.q = new Html5Qrcode('camVid', { formatsToSupport: formatos.length ? formatos : undefined, experimentalFeatures: { useBarCodeDetectorIfSupported: true }, verbose: false });
+  await camIniciar();
+}
+async function camIniciar(){
+  if (!CAM?.q) return;
+  const cfg = { fps: 12, qrbox: (w, h) => ({ width: Math.max(160, Math.min(w * .9, 420)), height: Math.max(90, Math.min(h * .45, 200)) }), aspectRatio: 1.3333, disableFlip: false };
+  try{
+    await CAM.q.start({ facingMode: CAM.cara }, cfg, txt => {
+      const now = Date.now(); if (!CAM || (txt === CAM.ult && now - CAM.t0 < 2500)) return;
+      CAM.ult = txt; CAM.t0 = now; navigator.vibrate?.(70); camBip();
+      const r = CAM.onCode?.(txt); if (CAM && $('camMsg')) $('camMsg').innerHTML = r || `✔ <b class="mono">${esc(txt)}</b>`;
+      if (CAM && !CAM.seguido) camCerrar();
+    }, () => {});
+  }catch(e){ if ($('camMsg')) $('camMsg').innerHTML = '⚠ ' + esc(t('cam_err')) + `<br><small class="muted">${esc(e?.message || String(e))}</small>`; }
+}
+async function camVoltear(){ if (!CAM?.q) return; try { await CAM.q.stop(); } catch(e){} CAM.cara = CAM.cara === 'environment' ? 'user' : 'environment'; camIniciar(); }
+async function camCerrar(){
+  const c = CAM; CAM = null;
+  if (c?.q){ try { if (c.q.isScanning) await c.q.stop(); } catch(e){} try { c.q.clear(); } catch(e){} }
+  $('camOv')?.remove();
+  setTimeout(() => $('scnIn')?.focus(), 50);
+}
+// Desde el escáner del Stock: cada lectura entra como si fuera la pistola; enseña qué pasó
+function scnCamara(){
+  camAbrir(code => { scnLeer(code); const l = SCN?.lineas?.find(z => z.series.includes(code) || scnBuscar(code)?.x?.id === z.x.id);
+    return SCN?.msg ? SCN.msg : l ? `✔ <b>${esc(l.x.nombre)}</b> · ${l.series.length ? l.series.length : l.cant} ${esc(t('stu.' + (l.x.unidad || 'u')))}` + (SCN.espera != null ? `<br>🔢 ${esc(t('scn_espera', { n: SCN.lineas[SCN.espera]?.x.nombre || '' }))}` : '') : `✔ <b class="mono">${esc(code)}</b>`; },
+    { titulo: t('scn_m.' + (SCN?.modo || 'entrada')) });
+}
 
 function stkHist(id){
   const x = stkItems.find(i => i.id === id); if (!x) return;

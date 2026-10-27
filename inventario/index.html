@@ -778,6 +778,11 @@ body.p-nostaff .solo-staff{display:none!important}
 .stk-cond.usado{color:var(--warn);border-color:color-mix(in srgb,var(--warn) 55%,transparent)}.stk-cond.reacondicionado{color:var(--c2);border-color:color-mix(in srgb,var(--c2) 50%,transparent)}
 .stk-cond.danado{color:var(--bad);border-color:color-mix(in srgb,var(--bad) 50%,transparent)}
 .stk-cant-u{display:flex;gap:6px}.stk-cant-u input{flex:1;min-width:0}.stk-cant-u select{width:auto!important;flex:none}
+.scn-box{display:flex;flex-direction:column;gap:4px;margin-bottom:10px}.scn-box input{font:600 18px "JetBrains Mono",monospace;padding:12px 14px;border:2px solid var(--c1)!important}
+.scn-msg{font-size:12.5px;padding:6px 10px;border-radius:8px;background:var(--row-hover)}.scn-lista{display:flex;flex-direction:column;gap:6px;max-height:46vh;overflow:auto}
+.scn-l{display:flex;gap:10px;align-items:center;border:1px solid var(--line);border-radius:10px;padding:8px 10px}.scn-l.esp{border-color:var(--warn);box-shadow:0 0 0 2px color-mix(in srgb,var(--warn) 25%,transparent)}
+.scn-l.nuevo{border-style:dashed}.scn-l .n{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}.scn-l .n small{overflow-wrap:anywhere}.scn-falta{color:var(--warn)}.scn-l .n>.stk-cond,.scn-found .stk-cond{align-self:flex-start;width:auto}
+.scn-q{display:flex;align-items:center;gap:4px;flex:none}.scn-q input{width:70px!important;text-align:center;padding:4px}.scn-found{border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:13px}
 .stk-full{display:flex;flex-direction:column;gap:3px;margin:8px 0;font-size:12px}.stk-span2{grid-column:span 2}
 .stk-ser{display:flex;flex-direction:column;gap:3px;margin:6px 0;max-height:180px;overflow:auto}.stk-ser-r{display:grid;grid-template-columns:1fr 1fr 1fr 30px;gap:8px;align-items:center;font-size:12px;padding:3px 6px;border:1px solid var(--line);border-radius:8px}
 .stk-ser-r.salio{opacity:.6}.stk-mov-h{display:flex;gap:12px;align-items:center;flex-wrap:wrap;font-size:13px}.stk-pick-s{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:8px 0;font-size:12.5px}.stk-pick-s>b{width:100%}
@@ -1007,7 +1012,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v8.7</p>
+    <p class="sub">Network Asset Manager · v8.8</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -1023,7 +1028,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v8.7</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v8.8</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -1698,6 +1703,16 @@ Object.assign(I18N.en, {
   sp_confirm:'{n} new PC(s) will be added and {a} updated. Continue?',
   'sp_f.nombre':'Device name', 'sp_f.hostname':'Hostname', 'sp_f.so':'Operating system', 'sp_f.cpu':'CPU', 'sp_f.ram':'RAM', 'sp_f.disco':'Disk', 'sp_f.ip':'IP', 'sp_f.mac':'MAC', 'sp_f.serial':'Serial',
   'sp_f.modelo':'Model', 'sp_f.marca':'Brand', 'sp_f.pc_user':'PC user', 'sp_f.grupo':'Group (view only)', 'sp_f.visto':'Last connection (view only)', 'sp_f.nota':'Notes (view only)',
+  scn_btn:'Scan', scn_tip:'Use the barcode scanner: stock in, stock out, count or search', scn_title:'Barcode scanner', scn_ph:'Scan here (or type the code and Enter)',
+  'scn_m.entrada':'📥 Stock in', 'scn_m.salida':'📤 Out to client', 'scn_m.contar':'⚖ Count shelf', 'scn_m.buscar':'🔎 Search',
+  'scn_h.entrada':'Scan the box (UPC) of each unit that arrives. If it has a serial, then scan the serial or MAC.', 'scn_h.salida':'Scan the device serial / MAC, or the box and then its serial.',
+  'scn_h.contar':'Scan everything on the shelf. When done, each product quantity becomes what you counted.', 'scn_h.buscar':'Scan any code to see what it is, how many and where.',
+  scn_espera:'Now scan the serial or MAC of: {n}', scn_falta_serie:'{n} serial(s) missing', scn_no_existe:'Not in stock', scn_no_existe_m:'"{c}" is not in stock. Create it below or keep scanning.',
+  scn_ya_serie:'Serial {s} is already in stock.', scn_serie_no:'{s} is not a serial of this product.', scn_serie_salio:'{s} already went out ({c}).', scn_varias:'{n} conditions share this code; "{c}" was used. Change it in the list if wrong.',
+  scn_vacio:'Nothing scanned yet.', 'scn_ok.entrada':'📥 Record stock in ({n})', 'scn_ok.salida':'📤 Record stock out ({n})', 'scn_ok.contar':'⚖ Save count ({n})',
+  scn_pie:'Nothing is saved until you confirm.', scn_sin_serie_q:'These are missing their serial scan: {n}. Record anyway?', scn_nota:'With scanner', scn_nota_contar:'Scanner count', scn_listo:'{n} product(s) updated',
+  scn_sql:'To save the barcode run supabase-stock.sql again (it adds the "codigo" column). Everything else was saved.',
+  stk_codigo:'Barcode (UPC / EAN)', stk_codigo_ph:'Scan the box',
   stk_btn:'Stock', stk_title:'Office stock', stk_sub:'Equipment and materials to install: UniFi, racks, cable, jacks, patch cords… new, open box or used.',
   stk_productos:'Products', stk_movs:'Movements', stk_entrada:'Stock in', stk_salida:'Stock out', stk_nuevo:'New product', stk_editar:'Edit product', stk_ajuste:'Adjust count',
   stk_missing:'The stock table is missing. Run supabase-stock.sql in Supabase > SQL Editor.', stk_k_prod:'products', stk_k_uni:'units', stk_k_bajo:'below minimum', stk_k_valor:'value at cost',
@@ -1843,6 +1858,16 @@ Object.assign(I18N.es, {
   sp_confirm:'Se van a agregar {n} PC(s) nuevas y actualizar {a}. ¿Continuar?',
   'sp_f.nombre':'Nombre del equipo', 'sp_f.hostname':'Hostname', 'sp_f.so':'Sistema operativo', 'sp_f.cpu':'CPU', 'sp_f.ram':'RAM', 'sp_f.disco':'Disco', 'sp_f.ip':'IP', 'sp_f.mac':'MAC', 'sp_f.serial':'Serial',
   'sp_f.modelo':'Modelo', 'sp_f.marca':'Marca', 'sp_f.pc_user':'Usuario de la PC', 'sp_f.grupo':'Grupo (solo ver)', 'sp_f.visto':'Última conexión (solo ver)', 'sp_f.nota':'Notas (solo ver)',
+  scn_btn:'Escanear', scn_tip:'Usa la pistola lectora: entrada, salida, conteo o buscar', scn_title:'Escáner de códigos', scn_ph:'Escanea aquí (o escribe el código y Enter)',
+  'scn_m.entrada':'📥 Entrada', 'scn_m.salida':'📤 Salida a cliente', 'scn_m.contar':'⚖ Contar estante', 'scn_m.buscar':'🔎 Buscar',
+  'scn_h.entrada':'Escanea la caja (UPC) de cada unidad que llega. Si el equipo lleva serial, después escanea el serial o la MAC.', 'scn_h.salida':'Escanea el serial / MAC del equipo, o la caja y después su serial.',
+  'scn_h.contar':'Escanea todo lo que hay en el estante. Al terminar, la cantidad de cada producto queda igual a lo que contaste.', 'scn_h.buscar':'Escanea cualquier código para ver qué es, cuánto hay y dónde está.',
+  scn_espera:'Ahora escanea el serial o la MAC de: {n}', scn_falta_serie:'faltan {n} serial(es)', scn_no_existe:'No está en el stock', scn_no_existe_m:'"{c}" no está en el stock. Créalo abajo o sigue escaneando.',
+  scn_ya_serie:'El serial {s} ya está en el stock.', scn_serie_no:'{s} no es un serial de este producto.', scn_serie_salio:'{s} ya salió ({c}).', scn_varias:'Hay {n} condiciones con este código; se usó "{c}". Cámbialo en la lista si no es.',
+  scn_vacio:'Todavía no has escaneado nada.', 'scn_ok.entrada':'📥 Registrar entrada ({n})', 'scn_ok.salida':'📤 Registrar salida ({n})', 'scn_ok.contar':'⚖ Guardar conteo ({n})',
+  scn_pie:'Nada se guarda hasta que confirmes.', scn_sin_serie_q:'A estos les falta escanear el serial: {n}. ¿Registrar igual?', scn_nota:'Con escáner', scn_nota_contar:'Conteo con escáner', scn_listo:'{n} producto(s) actualizados',
+  scn_sql:'Para guardar el código de barras corre otra vez supabase-stock.sql (agrega la columna "codigo"). Lo demás se guardó.',
+  stk_codigo:'Código de barras (UPC / EAN)', stk_codigo_ph:'Escanea la caja',
   stk_btn:'Stock', stk_title:'Stock de la oficina', stk_sub:'Equipos y materiales para instalar: UniFi, racks, cable, jacks, patch cords… nuevo, caja abierta o usado.',
   stk_productos:'Productos', stk_movs:'Movimientos', stk_entrada:'Entrada', stk_salida:'Salida', stk_nuevo:'Nuevo producto', stk_editar:'Editar producto', stk_ajuste:'Ajustar conteo',
   stk_missing:'Falta la tabla de stock. Corre supabase-stock.sql en Supabase > SQL Editor.', stk_k_prod:'productos', stk_k_uni:'unidades', stk_k_bajo:'bajo el mínimo', stk_k_valor:'valor al costo',
@@ -4790,7 +4815,7 @@ function renderStockBadge(){ const b = $('stkBadge'); if (!b) return; const n = 
 function stkFiltrados(){
   const q = nrm(STK.q);
   return stkItems.filter(x => x.activo !== false && (!STK.cat || x.categoria === STK.cat) && (!STK.cond || x.condicion === STK.cond) && (!STK.bajo || stkBajo(x))
-    && (!q || nrm([x.nombre, x.marca, x.modelo, x.ubicacion, x.proveedor, x.notas, stkSeries(x).map(s => s.s + ' ' + (s.mac || '')).join(' ')].join(' ')).includes(q)));
+    && (!q || nrm([x.nombre, x.marca, x.modelo, x.codigo, x.ubicacion, x.proveedor, x.notas, stkSeries(x).map(s => s.s + ' ' + (s.mac || '')).join(' ')].join(' ')).includes(q)));
 }
 function renderStock(){
   const el = $('stockView'); if (!el || !STK.open) return;
@@ -4801,7 +4826,7 @@ function renderStock(){
   const head = `<div class="cl-head"><button class="backbtn" onclick="cerrarStock()">← ${t('clients_title')}</button>
       <div class="cl-info"><h2>📦 ${t('stk_title')}</h2><div class="muted">${t('stk_sub')}</div></div>
       <div class="row no-print"><button onclick="stkTab('${STK.tab === 'mov' ? 'items' : 'mov'}')">${STK.tab === 'mov' ? '📦 ' + t('stk_productos') : '🕒 ' + t('stk_movs')}</button>
-        <button onclick="stkEntradaRapida()">📥 ${t('stk_entrada')}</button><button class="primary" onclick="stkForm()">＋ ${t('stk_nuevo')}</button></div></div>`;
+        <button onclick="abrirEscaner()" title="${esc(t('scn_tip'))}">🔫 ${t('scn_btn')}</button><button onclick="stkEntradaRapida()">📥 ${t('stk_entrada')}</button><button class="primary" onclick="stkForm()">＋ ${t('stk_nuevo')}</button></div></div>`;
   if (!stkOK){ el.innerHTML = head + `<div class="panel act-empty">📦 ${t('stk_missing')}</div>`; return; }
   if (STK.tab === 'mov'){ el.innerHTML = head + `<div class="panel">${stkMovTabla(stkMovs)}</div>`; return; }
   el.innerHTML = head + `<div class="stk-kpis">
@@ -4843,6 +4868,7 @@ function stkForm(id, pre){
       <label><span>${t('stk_categoria')}</span>${sel('categoria', STK_CATS.map(c => c[0]), c => stkIc(c) + ' ' + t('stc.' + c), x.categoria)}</label>
       <label><span>${t('stk_marca')}</span>${inp('marca', x.marca, `list="stkMarcas" placeholder="Ubiquiti"`)}<datalist id="stkMarcas">${['Ubiquiti', 'TP-Link', 'Cisco', 'Meraki', 'Fortinet', 'SonicWall', 'Netgear', 'Aruba', 'Hikvision', 'Dahua', 'Axis', 'Yealink', 'Poly', 'Grandstream', 'Panduit', 'Belden', 'Leviton', 'Monoprice', 'Tripp Lite', 'APC', 'CyberPower', 'Eaton', 'StarTech', 'Dell', 'HP', 'Lenovo'].map(m => `<option value="${m}">`).join('')}</datalist></label>
       <label><span>${t('stk_modelo')}</span>${inp('modelo', x.modelo, 'placeholder="U7-Pro"')}</label>
+      <label><span>🔫 ${t('stk_codigo')}</span>${inp('codigo', x.codigo, `placeholder="${esc(t('stk_codigo_ph'))}"`)}</label>
       <label class="stk-span2"><span>${t('stk_nombre')}</span>${inp('nombre', x.nombre, `placeholder="${esc(t('stk_nombre_ph'))}"`)}</label>
       <label><span>${t('stk_cond')}</span>${sel('condicion', STK_COND, c => t('std.' + c), x.condicion)}</label>
       <label><span>${t('stk_cant')}</span><div class="stk-cant-u">${inp('cantidad', x.cantidad, `type="number" step="any" min="0" ${id ? 'disabled title="' + esc(t('stk_cant_mov')) + '"' : ''}`)}${sel('unidad', STK_UNIDADES, u => t('stu.' + u), x.unidad)}</div></label>
@@ -4882,19 +4908,24 @@ async function stkGuardar(){
   const id = STK.edit.id, serializado = $('stk_serializado').checked;
   let series = STK.edit.series; if (!id && serializado) series = series.concat(stkLeerSeries(g('series_txt')));
   const row = { categoria: g('categoria'), marca: g('marca') || null, modelo: g('modelo') || null, nombre: g('nombre') || g('modelo'), condicion: g('condicion'), unidad: g('unidad'),
-    minimo: num('minimo'), ubicacion: g('ubicacion') || null, precio: num('precio'), proveedor: g('proveedor') || null, serializado, series, notas: $('stk_notas').value.trim() || null };
+    minimo: num('minimo'), ubicacion: g('ubicacion') || null, codigo: g('codigo') || null, precio: num('precio'), proveedor: g('proveedor') || null, serializado, series, notas: $('stk_notas').value.trim() || null };
   if (stkCostoVer()) row.costo = num('costo');
   if (!row.nombre) return alert(t('stk_falta_nombre'));
   if (!id){
     let cant = num('cantidad') || 0; if (serializado && series.length) cant = Math.max(cant, series.filter(s => s.est === 'disponible').length);
     row.cantidad = cant;
-    const r = await db.from('stock_items').insert(row).select('id').single(); if (r.error) return fail(r.error, /stock_/.test(r.error.message || '') ? t('stk_missing') : t('save_fail'));
+    let r = await db.from('stock_items').insert(row).select('id').single();
+    if (r.error && /codigo/i.test(r.error.message || '')){ delete row.codigo; alert(t('scn_sql')); r = await db.from('stock_items').insert(row).select('id').single(); }
+    if (r.error) return fail(r.error, /stock_/.test(r.error.message || '') ? t('stk_missing') : t('save_fail'));
     if (cant) await db.from('stock_mov').insert({ item_id: r.data.id, tipo: 'entrada', cantidad: cant, saldo: cant, series: series.map(s => s.s), costo: row.costo ?? null, nota: t('stk_alta') });
   } else {
     const prev = stkItems.find(i => i.id === id);
     if (serializado) row.cantidad = Math.max(0, (+prev.cantidad || 0) - stkSeries(prev).filter(s => s.est === 'disponible').length + series.filter(s => s.est === 'disponible').length);
-    const r = await db.from('stock_items').update(row).eq('id', id); if (r.error) return fail(r.error, t('save_fail'));
+    let r = await db.from('stock_items').update(row).eq('id', id);
+    if (r.error && /codigo/i.test(r.error.message || '')){ delete row.codigo; alert(t('scn_sql')); r = await db.from('stock_items').update(row).eq('id', id); }
+    if (r.error) return fail(r.error, t('save_fail'));
   }
+  if (STK.volverScn){ const v = STK.volverScn; STK.volverScn = null; await cargarStock(); SCN = v; const c = v.crear; delete SCN.crear; renderEscaner(); toast(t('saved')); if (c && row.codigo) scnLeer(c); return; }
   closeModal(); toast(t('saved')); cargarStock();
 }
 async function stkBorrar(id){
@@ -4938,34 +4969,159 @@ function stkMov(id, tipo){
 }
 async function stkMovGuardar(){
   const { id, tipo } = STK.mov, x = stkItems.find(i => i.id === id); if (!x) return;
-  const hoy = new Date().toISOString().slice(0, 10), nota = $('stm_nota')?.value.trim() || null, cli = $('stm_cli')?.value.trim() || null;
-  let series = stkSeries(x).map(s => ({ ...s })), cant = +($('stm_cant')?.value || 0), movSer = [];
+  const cli = $('stm_cli')?.value.trim() || null;
+  let cant = +($('stm_cant')?.value || 0), movSer = [], nuevas = [];
   if (x.serializado && tipo !== 'ajuste'){
-    if (tipo === 'entrada'){ const nuevas = stkLeerSeries($('stm_series')?.value).filter(n => !series.some(s => nrm(s.s) === nrm(n.s))); series = series.concat(nuevas); movSer = nuevas.map(s => s.s); cant = nuevas.length || cant; }
-    else { movSer = [...document.querySelectorAll('.stk-pick-s input:checked')].map(i => i.value); cant = movSer.length;
-      series.forEach(s => { if (movSer.includes(s.s)){ if (tipo === 'salida'){ s.est = 'salio'; s.cli = cli; s.f = hoy; } else { s.est = 'disponible'; s.cli = ''; s.f = hoy; } } }); }
+    if (tipo === 'entrada'){ nuevas = stkLeerSeries($('stm_series')?.value); cant = nuevas.length || cant; }
+    else { movSer = [...document.querySelectorAll('.stk-pick-s input:checked')].map(i => i.value); cant = movSer.length; }
   }
   if (tipo === 'salida' && !cli) return alert(t('stk_falta_cli'));
   if (tipo !== 'ajuste' && !(cant > 0)) return alert(t('stk_falta_cant'));
-  const antes = +x.cantidad || 0;
-  const saldo = tipo === 'ajuste' ? cant : tipo === 'salida' ? antes - cant : antes + cant;
-  if (tipo === 'salida' && saldo < 0 && !confirm(t('stk_negativo', { n: stkCant(x) }))) return;
+  if (tipo === 'salida' && (+x.cantidad || 0) - cant < 0 && !confirm(t('stk_negativo', { n: stkCant(x) }))) return;
+  const ok = await stkAplicar(x, tipo, { cant, movSer, nuevas, cli, nota: $('stm_nota')?.value.trim() || null, costoIn: $('stm_costo') ? $('stm_costo').value : '', alInv: !!$('stm_inv')?.checked });
+  if (!ok) return;
+  closeModal(); toast(t('saved')); await cargarStock(); if (tipo === 'salida') loadData();
+}
+// Aplica un movimiento: cambia la cantidad / seriales, guarda el historial y (si es salida) lo pasa al inventario del cliente
+async function stkAplicar(x, tipo, { cant = 0, movSer = [], nuevas = [], cli = null, nota = null, costoIn = '', alInv = false } = {}){
+  const hoy = new Date().toISOString().slice(0, 10);
+  let series = stkSeries(x).map(s => ({ ...s }));
+  if (x.serializado && tipo === 'entrada'){ nuevas = nuevas.filter(n => !series.some(s => nrm(s.s) === nrm(n.s))); series = series.concat(nuevas); movSer = nuevas.map(s => s.s); if (nuevas.length) cant = Math.max(cant, nuevas.length); }
+  if (x.serializado && (tipo === 'salida' || tipo === 'devolucion')) series.forEach(s => { if (movSer.includes(s.s)){ if (tipo === 'salida'){ s.est = 'salio'; s.cli = cli; s.f = hoy; } else { s.est = 'disponible'; s.cli = ''; s.f = hoy; } } });
+  const antes = +x.cantidad || 0, saldo = tipo === 'ajuste' ? cant : tipo === 'salida' ? antes - cant : antes + cant;
   const patch = { cantidad: saldo, series };
-  const costoIn = $('stm_costo') ? $('stm_costo').value : '';
-  if (tipo === 'entrada' && stkCostoVer() && costoIn !== ''){ // costo promedio
-    const c = +costoIn; patch.costo = antes > 0 && x.costo != null ? Math.round(((antes * +x.costo) + cant * c) / (antes + cant) * 100) / 100 : c; }
-  const r = await db.from('stock_items').update(patch).eq('id', id); if (r.error) return fail(r.error, t('save_fail'));
-  await db.from('stock_mov').insert({ item_id: id, tipo, cantidad: tipo === 'ajuste' ? saldo - antes : cant, saldo, cliente: cli, series: movSer, costo: tipo === 'entrada' && costoIn !== '' ? +costoIn : null, nota });
-  // al salir hacia un cliente: lo agrega a su inventario (una fila por serial)
-  if (tipo === 'salida' && $('stm_inv')?.checked && STK_A_TIPO[x.categoria]){
-    const c = clienteObj(cli) || { nombre: cli }, filas = (movSer.length ? movSer : Array.from({ length: Math.min(50, Math.round(cant)) }, () => '')).map((s, i) => {
-      const ss = series.find(z => z.s === s); return { cliente: c.nombre, direccion: c.direccion || null, tipo: STK_A_TIPO[x.categoria], nombre: x.nombre + (movSer.length > 1 || cant > 1 ? ' ' + (i + 1) : ''),
-        modelo: [x.marca && !nrm(x.nombre).includes(nrm(x.marca)) ? x.marca : '', x.modelo || ''].filter(Boolean).join(' ') || null, serial: s || null, mac: ss?.mac || null, estado: 'Activo',
+  if (tipo === 'entrada' && stkCostoVer() && costoIn !== '' && costoIn != null){ const c = +costoIn; patch.costo = antes > 0 && x.costo != null ? Math.round(((antes * +x.costo) + cant * c) / (antes + cant) * 100) / 100 : c; }
+  const r = await db.from('stock_items').update(patch).eq('id', x.id); if (r.error){ fail(r.error, t('save_fail')); return false; }
+  Object.assign(x, patch);
+  await db.from('stock_mov').insert({ item_id: x.id, tipo, cantidad: tipo === 'ajuste' ? saldo - antes : cant, saldo, cliente: cli, series: movSer, costo: tipo === 'entrada' && costoIn !== '' && costoIn != null ? +costoIn : null, nota });
+  if (tipo === 'salida' && alInv && STK_A_TIPO[x.categoria] && cli){
+    const c = clienteObj(cli) || { nombre: cli }, filas = (movSer.length ? movSer : Array.from({ length: Math.min(50, Math.round(cant)) }, () => '')).map((sn, i) => {
+      const ss = series.find(z => z.s === sn); return { cliente: c.nombre, direccion: c.direccion || null, tipo: STK_A_TIPO[x.categoria], nombre: x.nombre + (movSer.length > 1 || cant > 1 ? ' ' + (i + 1) : ''),
+        modelo: [x.marca && !nrm(x.nombre).includes(nrm(x.marca)) ? x.marca : '', x.modelo || ''].filter(Boolean).join(' ') || null, serial: sn || null, mac: ss?.mac || null, estado: 'Activo',
         notas: t('stk_desde_stock', { f: hoy, c: t('std.' + x.condicion) }) }; });
     const e = await db.from('equipos').insert(filas); if (e.error) fail(e.error, t('save_fail')); else toast(t('stk_al_inv_ok', { n: filas.length, c: c.nombre }));
   }
-  closeModal(); toast(t('saved')); await cargarStock(); if (tipo === 'salida') loadData();
+  return true;
 }
+/* ---------- 🔫 Escáner (pistola lectora USB / Bluetooth: escribe el código y da Enter) ---------- */
+let SCN = null;
+// Una MAC escaneada (0C:EA:14:…) se guarda como serial sin separadores + la MAC (UniFi usa la MAC como serial)
+const scnEsMac = c => /^([0-9A-F]{2}[:\-]){5}[0-9A-F]{2}$/i.test(String(c).trim());
+function scnSerial(code){ if (scnEsMac(code)){ const sn = scnNorm(code); (SCN.macs = SCN.macs || {})[sn] = macNorm(code); return sn; } return String(code).trim(); }
+const scnNorm = c => String(c || '').trim().toUpperCase().replace(/[^0-9A-Z]/g, '');
+// Busca qué es lo que se escaneó: un serial / MAC de una unidad, o el código de barras / modelo de un producto
+function scnBuscar(code){
+  const k = scnNorm(code); if (!k) return null;
+  const vivos = stkItems.filter(x => x.activo !== false);
+  for (const x of vivos) for (const s of stkSeries(x)) if (scnNorm(s.s) === k || (s.mac && scnNorm(s.mac) === k)) return { x, serie: s };
+  const porCod = vivos.filter(x => x.codigo && String(x.codigo).split(/[,;\s]+/).some(c => scnNorm(c) === k));
+  const porMod = porCod.length ? porCod : vivos.filter(x => x.modelo && scnNorm(x.modelo) === k);
+  if (!porMod.length) return null;
+  const orden = ['nuevo', 'abierto', 'reacondicionado', 'usado', 'danado'];
+  return { x: porMod.sort((a, b) => orden.indexOf(a.condicion) - orden.indexOf(b.condicion))[0], otras: porMod.length > 1 ? porMod : null };
+}
+function abrirEscaner(modo = 'entrada', primero){
+  if (!stkOK) return toast(t('stk_missing'));
+  SCN = { modo, lineas: [], nuevos: [], espera: null, cli: curCliente || '', ultimo: '', msg: '' };
+  $('modal').querySelector('.modal-card').classList.add('wide');
+  $('modal').classList.remove('hidden');
+  renderEscaner();
+  if (primero) scnLeer(primero);
+}
+function renderEscaner(){
+  if (!SCN) return;
+  const modos = ['entrada', 'salida', 'contar', 'buscar'];
+  const clientes = listaClientes().map(c => c.nombre).sort((a, b) => a.localeCompare(b));
+  $('modalTitle').textContent = '🔫 ' + t('scn_title');
+  const lin = SCN.lineas.map((l, i) => { const x = l.x, falta = x.serializado && SCN.modo !== 'contar' && l.series.length < l.cant;
+    return `<div class="scn-l ${SCN.espera === i ? 'esp' : ''}"><div class="n"><b>${esc(x.nombre)}</b> ${stkCondB(x.condicion, true)}<small class="muted">${[x.modelo, x.ubicacion && '📍 ' + x.ubicacion, t('stk_hay') + ' ' + stkCant(x)].filter(Boolean).map(esc).join(' · ')}</small>
+        ${l.series.length ? `<small class="mono">${l.series.map(esc).join(', ')}</small>` : ''}${falta ? `<small class="scn-falta">🔢 ${t('scn_falta_serie', { n: l.cant - l.series.length })}</small>` : ''}</div>
+      <div class="scn-q">${x.serializado && SCN.modo !== 'contar' ? `<b class="mono">${l.series.length || l.cant}</b>` : `<button class="sm" onclick="scnCant(${i},-1)">−</button><input type="number" step="any" min="0" value="${l.cant}" onchange="SCN.lineas[${i}].cant=+this.value;renderEscaner()"><button class="sm" onclick="scnCant(${i},1)">＋</button>`}
+        <small class="muted">${t('stu.' + (x.unidad || 'u'))}</small><button class="sm danger" onclick="SCN.lineas.splice(${i},1);SCN.espera=null;renderEscaner()">✕</button></div></div>`; }).join('');
+  const nuevos = SCN.nuevos.map((c, i) => `<div class="scn-l nuevo"><div class="n"><b class="mono">${esc(c)}</b><small class="muted">${t('scn_no_existe')}</small></div>
+      <div class="scn-q"><button class="sm primary" onclick="scnCrear(${i})">＋ ${t('stk_nuevo')}</button><button class="sm danger" onclick="SCN.nuevos.splice(${i},1);renderEscaner()">✕</button></div></div>`).join('');
+  $('modalBody').innerHTML = `<div class="stats" style="margin-bottom:8px">${modos.map(m => `<span class="chip ${SCN.modo === m ? 'on' : ''}" onclick="SCN.modo='${m}';SCN.espera=null;renderEscaner()">${t('scn_m.' + m)}</span>`).join('')}</div>
+    <div class="scn-box"><input id="scnIn" autocomplete="off" placeholder="${esc(t('scn_ph'))}" onkeydown="if(event.key==='Enter'){event.preventDefault();scnLeer(this.value);this.value='';}">
+      <small class="muted">${SCN.espera != null ? '🔢 ' + t('scn_espera', { n: esc(SCN.lineas[SCN.espera]?.x.nombre || '') }) : t('scn_h.' + SCN.modo)}</small>
+      ${SCN.msg ? `<div class="scn-msg">${SCN.msg}</div>` : ''}</div>
+    ${SCN.modo === 'salida' ? `<label class="stk-full"><span>${t('client')}</span><input id="scnCli" list="scnClis" value="${esc(SCN.cli)}" oninput="SCN.cli=this.value" placeholder="${esc(t('stk_cli_ph'))}"><datalist id="scnClis">${clientes.map(c => `<option value="${esc(c)}">`).join('')}</datalist></label>
+      <label class="mdm-chk"><input type="checkbox" id="scnInv" ${SCN.alInv !== false ? 'checked' : ''} onchange="SCN.alInv=this.checked"> ${t('stk_al_inv')}</label>` : ''}
+    ${SCN.modo !== 'buscar' ? `<div class="scn-lista">${lin}${nuevos}${!lin && !nuevos ? `<div class="muted" style="padding:14px;text-align:center">${t('scn_vacio')}</div>` : ''}</div>
+      <div class="uf-foot"><button class="primary" onclick="scnAplicar()" ${SCN.lineas.length ? '' : 'disabled'}>${t('scn_ok.' + SCN.modo, { n: SCN.lineas.length })}</button><small class="muted">${t('scn_pie')}</small></div>` : `<div id="scnRes">${SCN.res || ''}</div>`}`;
+  setTimeout(() => $('scnIn')?.focus(), 30);
+}
+function scnCant(i, d){ const l = SCN.lineas[i]; l.cant = Math.max(0, (+l.cant || 0) + d); renderEscaner(); }
+function scnLeer(raw){
+  const code = String(raw || '').trim(); if (!code || !SCN) return;
+  SCN.ultimo = code; SCN.msg = '';
+  // esperando el serial de un equipo que se escaneó por su código de caja
+  if (SCN.espera != null){ const l = SCN.lineas[SCN.espera], h0 = scnBuscar(code);
+    if (l && (!h0 || (h0.serie && h0.x.id === l.x.id))){
+      if (SCN.modo === 'entrada'){ if (h0?.serie) SCN.msg = '⚠ ' + t('scn_ya_serie', { s: esc(code) }); else { const sn = scnSerial(code); if (!l.series.includes(sn)) l.series.push(sn); } }
+      else { const s = stkSeries(l.x).find(z => scnNorm(z.s) === scnNorm(code) || (z.mac && scnNorm(z.mac) === scnNorm(code)));
+        if (!s) SCN.msg = '⚠ ' + t('scn_serie_no', { s: esc(code) }); else if (SCN.modo === 'salida' && s.est !== 'disponible') SCN.msg = '⚠ ' + t('scn_serie_salio', { s: esc(s.s), c: esc(s.cli || '') }); else if (!l.series.includes(s.s)) l.series.push(s.s); }
+      if (l.series.length >= l.cant) SCN.espera = null;
+      return renderEscaner(); }
+    SCN.espera = null;
+  }
+  const hit = scnBuscar(code);
+  if (SCN.modo === 'buscar'){
+    SCN.res = hit ? `<div class="scn-found"><b>${esc(hit.x.nombre)}</b> ${stkCondB(hit.x.condicion)} · ${t('stk_hay')} <b>${stkCant(hit.x)}</b>${hit.x.ubicacion ? ' · 📍 ' + esc(hit.x.ubicacion) : ''}
+        ${hit.serie ? `<div class="mono">🔢 ${esc(hit.serie.s)} · ${esc(t('sts.' + (hit.serie.est || 'disponible')))}${hit.serie.cli ? ' · ' + esc(hit.serie.cli) : ''}</div>` : ''}
+        <div class="row" style="margin-top:8px"><button class="sm" onclick="stkMov('${hit.x.id}','entrada')">📥 ${t('stk_entrada')}</button><button class="sm" onclick="stkMov('${hit.x.id}','salida')">📤 ${t('stk_salida')}</button><button class="sm" onclick="stkHist('${hit.x.id}')">🕒</button><button class="sm" onclick="stkForm('${hit.x.id}')">✏️</button></div></div>`
+      : `<div class="scn-found"><b class="mono">${esc(code)}</b> — ${t('scn_no_existe')} <button class="sm primary" onclick="SCN.nuevos=['${jsq(code)}'];scnCrear(0)">＋ ${t('stk_nuevo')}</button></div>`;
+    return renderEscaner();
+  }
+  if (!hit){ if (!SCN.nuevos.includes(code)) SCN.nuevos.push(code); SCN.msg = '❓ ' + t('scn_no_existe_m', { c: esc(code) }); return renderEscaner(); }
+  const x = hit.x;
+  let i = SCN.lineas.findIndex(l => l.x.id === x.id);
+  if (i < 0){ SCN.lineas.push({ x, cant: 0, series: [] }); i = SCN.lineas.length - 1; }
+  const l = SCN.lineas[i];
+  if (hit.serie){   // escanearon el serial / MAC directo
+    if (SCN.modo === 'entrada'){ SCN.msg = '⚠ ' + t('scn_ya_serie', { s: esc(hit.serie.s) }); }
+    else if (SCN.modo === 'salida' && hit.serie.est !== 'disponible'){ SCN.msg = '⚠ ' + t('scn_serie_salio', { s: esc(hit.serie.s), c: esc(hit.serie.cli || '') }); }
+    else if (!l.series.includes(hit.serie.s)){ l.series.push(hit.serie.s); l.cant = Math.max(l.cant, l.series.length); }
+  } else {
+    const paso = x.unidad === 'ft' ? (+(String(x.nombre).match(/(\d{3,5})\s*(ft|pies)/i) || [])[1] || 1) : 1;   // una caja de cable = sus pies
+    l.cant = (+l.cant || 0) + paso;
+    if (x.serializado && SCN.modo !== 'contar') SCN.espera = i;   // ahora escanea el serial de esa unidad
+  }
+  if (hit.otras) SCN.msg = 'ℹ️ ' + t('scn_varias', { n: hit.otras.length, c: esc(t('std.' + x.condicion)) });
+  if (SCN.lineas[i].cant === 0 && !SCN.lineas[i].series.length) SCN.lineas.splice(i, 1);
+  renderEscaner();
+}
+function scnCrear(i){
+  const code = SCN.nuevos[i], esMac = /^[0-9A-F]{12}$/.test(scnNorm(code)) && /[:\-]/.test(code) || /^([0-9A-F]{2}[:\-]){5}[0-9A-F]{2}$/i.test(code);
+  SCN.nuevos.splice(i, 1); const vuelta = { ...SCN, crear: code };
+  STK.volverScn = vuelta;
+  stkForm(null, esMac ? { serializado: true, series: [] } : { codigo: code, modelo: /^[A-Z0-9][A-Z0-9\-+.]{2,}$/i.test(code) && !/^\d{8,14}$/.test(code) ? code : '' });
+  if (esMac) setTimeout(() => { const ta = $('stk_series_txt'); if (ta) ta.value = code; }, 60);
+}
+async function scnAplicar(){
+  const m = SCN.modo, lineas = SCN.lineas.filter(l => l.cant > 0 || l.series.length);
+  if (m === 'salida' && !SCN.cli.trim()) return alert(t('stk_falta_cli'));
+  const faltan = lineas.filter(l => l.x.serializado && m === 'salida' && l.series.length < l.cant);
+  if (faltan.length && !confirm(t('scn_sin_serie_q', { n: faltan.map(l => l.x.nombre).join(', ') }))) return;
+  for (const l of lineas){
+    const x = stkItems.find(i => i.id === l.x.id) || l.x;
+    if (m === 'contar'){ await stkAplicar(x, 'ajuste', { cant: +l.cant, nota: t('scn_nota_contar') }); continue; }
+    const hoy = new Date().toISOString().slice(0, 10);
+    const ops = m === 'entrada' ? { cant: x.serializado ? Math.max(l.cant, l.series.length) : +l.cant, nuevas: l.series.map(s => ({ s, mac: SCN.macs?.[s] || '', est: 'disponible', f: hoy })), nota: t('scn_nota') }
+      : { cant: x.serializado ? (l.series.length || l.cant) : +l.cant, movSer: l.series, cli: SCN.cli.trim(), nota: t('scn_nota'), alInv: SCN.alInv !== false };
+    await stkAplicar(x, m, ops);
+  }
+  toast(t('scn_listo', { n: lineas.length })); closeModal(); SCN = null; await cargarStock(); if (m === 'salida') loadData();
+}
+// Si escaneas en la pantalla de Stock sin abrir nada, abre el escáner en modo "buscar"
+(() => { let buf = '', ult = 0;
+  document.addEventListener('keydown', e => {
+    if (!STK.open || !$('modal').classList.contains('hidden') || /input|textarea|select/i.test(e.target.tagName) || e.ctrlKey || e.metaKey || e.altKey) { buf = ''; return; }
+    const now = Date.now(); if (now - ult > 80) buf = ''; ult = now;
+    if (e.key === 'Enter'){ if (buf.length >= 4){ e.preventDefault(); const c = buf; buf = ''; abrirEscaner('buscar', c); } buf = ''; return; }
+    if (e.key.length === 1) buf += e.key;
+  }, true);
+})();
+
 function stkHist(id){
   const x = stkItems.find(i => i.id === id); if (!x) return;
   $('modalTitle').textContent = '🕒 ' + x.nombre; $('modal').querySelector('.modal-card').classList.add('wide');

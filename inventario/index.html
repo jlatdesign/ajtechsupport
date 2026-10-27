@@ -1012,7 +1012,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v8.8.1</p>
+    <p class="sub">Network Asset Manager · v8.8.2</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -1028,7 +1028,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v8.8.1</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v8.8.2</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -1712,13 +1712,13 @@ Object.assign(I18N.en, {
   scn_vacio:'Nothing scanned yet.', scn_es_cat:'It is a {n} (from the catalog). Create it in one click.', scn_creado:'Created "{n}" with {c} in stock. Keep scanning.', 'scn_ok.entrada':'📥 Record stock in ({n})', 'scn_ok.salida':'📤 Record stock out ({n})', 'scn_ok.contar':'⚖ Save count ({n})',
   scn_pie:'Nothing is saved until you confirm.', scn_sin_serie_q:'These are missing their serial scan: {n}. Record anyway?', scn_nota:'With scanner', scn_nota_contar:'Scanner count', scn_listo:'{n} product(s) updated',
   scn_sql:'To save the barcode run supabase-stock.sql again (it adds the "codigo" column). Everything else was saved.',
-  stk_codigo:'Barcode (UPC / EAN)', stk_codigo_ph:'Scan the box',
+  stk_codigo:'Barcode (UPC / EAN)', stk_codigo_ph:'Scan the box', stk_scan_cod:'Code saved in "Barcode". Type the product name.', stk_scan_mac:'MAC added as serial.',
   stk_btn:'Stock', stk_title:'Office stock', stk_sub:'Equipment and materials to install: UniFi, racks, cable, jacks, patch cords… new, open box or used.',
   stk_productos:'Products', stk_movs:'Movements', stk_entrada:'Stock in', stk_salida:'Stock out', stk_nuevo:'New product', stk_editar:'Edit product', stk_ajuste:'Adjust count',
   stk_missing:'The stock table is missing. Run supabase-stock.sql in Supabase > SQL Editor.', stk_k_prod:'products', stk_k_uni:'units', stk_k_bajo:'below minimum', stk_k_valor:'value at cost',
   stk_buscar:'Search product, model, serial, MAC, location…', stk_todas_cat:'All categories', stk_producto:'Product', stk_cond:'Condition', stk_cant:'Quantity', stk_ubic:'Location',
   stk_costo:'Cost', stk_precio:'Sale price', stk_min:'min.', stk_min_l:'Minimum (reorder point)', stk_serie_n:'{n} with serial', stk_nada:'Nothing matches the filter.', stk_vacio:'There are no products in stock yet.',
-  stk_catalogo:'Search the catalog (UniFi, racks, cable, jacks…)', stk_catalogo_ph:'Type: U7, USW, G5, rack, Cat6, keystone…', stk_categoria:'Category', stk_marca:'Brand', stk_modelo:'Model / SKU',
+  stk_catalogo:'Search the catalog (UniFi, racks, cable, jacks…)', stk_catalogo_ph:'Type U7, USW, G5, rack, Cat6… or scan here with the scanner', stk_categoria:'Category', stk_marca:'Brand', stk_modelo:'Model / SKU',
   stk_nombre:'Name / description', stk_nombre_ph:'e.g. UniFi U7 Pro', stk_cant_mov:'Quantity changes with Stock in, Stock out or Adjust count', stk_min_ph:'alert at this level', stk_ubic_ph:'Shelf A2, Van 1…',
   stk_prov:'Supplier', stk_serializado:'Has serial number (equipment): track each unit by serial', stk_series_h:'Each unit with its serial (and MAC if any). You know exactly which one went to which client.',
   stk_series_ph:'One serial per line. With MAC: SERIAL | MAC', stk_cond_h:'The same model in another condition (new / used) is a separate product with its own price.',
@@ -1867,13 +1867,13 @@ Object.assign(I18N.es, {
   scn_vacio:'Todavía no has escaneado nada.', scn_es_cat:'Es un {n} (del catálogo). Créalo con un clic.', scn_creado:'Creado "{n}" con {c} en stock. Sigue escaneando.', 'scn_ok.entrada':'📥 Registrar entrada ({n})', 'scn_ok.salida':'📤 Registrar salida ({n})', 'scn_ok.contar':'⚖ Guardar conteo ({n})',
   scn_pie:'Nada se guarda hasta que confirmes.', scn_sin_serie_q:'A estos les falta escanear el serial: {n}. ¿Registrar igual?', scn_nota:'Con escáner', scn_nota_contar:'Conteo con escáner', scn_listo:'{n} producto(s) actualizados',
   scn_sql:'Para guardar el código de barras corre otra vez supabase-stock.sql (agrega la columna "codigo"). Lo demás se guardó.',
-  stk_codigo:'Código de barras (UPC / EAN)', stk_codigo_ph:'Escanea la caja',
+  stk_codigo:'Código de barras (UPC / EAN)', stk_codigo_ph:'Escanea la caja', stk_scan_cod:'Código guardado en "Código de barras". Escribe el nombre del producto.', stk_scan_mac:'MAC agregada como serial.',
   stk_btn:'Stock', stk_title:'Stock de la oficina', stk_sub:'Equipos y materiales para instalar: UniFi, racks, cable, jacks, patch cords… nuevo, caja abierta o usado.',
   stk_productos:'Productos', stk_movs:'Movimientos', stk_entrada:'Entrada', stk_salida:'Salida', stk_nuevo:'Nuevo producto', stk_editar:'Editar producto', stk_ajuste:'Ajustar conteo',
   stk_missing:'Falta la tabla de stock. Corre supabase-stock.sql en Supabase > SQL Editor.', stk_k_prod:'productos', stk_k_uni:'unidades', stk_k_bajo:'bajo el mínimo', stk_k_valor:'valor al costo',
   stk_buscar:'Buscar producto, modelo, serial, MAC, ubicación…', stk_todas_cat:'Todas las categorías', stk_producto:'Producto', stk_cond:'Condición', stk_cant:'Cantidad', stk_ubic:'Ubicación',
   stk_costo:'Costo', stk_precio:'Precio venta', stk_min:'mín.', stk_min_l:'Mínimo (punto de reorden)', stk_serie_n:'{n} con serial', stk_nada:'Nada coincide con el filtro.', stk_vacio:'Todavía no hay productos en el stock.',
-  stk_catalogo:'Buscar en el catálogo (UniFi, racks, cable, jacks…)', stk_catalogo_ph:'Escribe: U7, USW, G5, rack, Cat6, keystone…', stk_categoria:'Categoría', stk_marca:'Marca', stk_modelo:'Modelo / SKU',
+  stk_catalogo:'Buscar en el catálogo (UniFi, racks, cable, jacks…)', stk_catalogo_ph:'Escribe U7, USW, G5, rack, Cat6… o escanea aquí con la pistola', stk_categoria:'Categoría', stk_marca:'Marca', stk_modelo:'Modelo / SKU',
   stk_nombre:'Nombre / descripción', stk_nombre_ph:'ej. UniFi U7 Pro', stk_cant_mov:'La cantidad se cambia con Entrada, Salida o Ajustar conteo', stk_min_ph:'avisa al llegar aquí', stk_ubic_ph:'Estante A2, Van 1…',
   stk_prov:'Proveedor', stk_serializado:'Lleva número de serie (equipos): llevar cada unidad por serial', stk_series_h:'Cada unidad con su serial (y MAC si tiene). Así sabes exactamente cuál salió y a qué cliente.',
   stk_series_ph:'Un serial por línea. Con MAC: SERIAL | MAC', stk_cond_h:'El mismo modelo en otra condición (nuevo / usado) va como otro producto, con su propio precio.',
@@ -4862,7 +4862,7 @@ function stkForm(id, pre){
   const inp = (k, v, attrs = '') => `<input id="stk_${k}" value="${esc(v ?? '')}" ${attrs}>`;
   $('modalTitle').textContent = (id ? '✏️ ' : '＋ ') + t(id ? 'stk_editar' : 'stk_nuevo');
   $('modal').querySelector('.modal-card').classList.add('wide');
-  $('modalBody').innerHTML = `${id ? '' : `<label class="stk-full"><span>🔎 ${t('stk_catalogo')}</span><input id="stk_buscacat" list="stkCatList" placeholder="${esc(t('stk_catalogo_ph'))}" oninput="stkDelCatalogo(this.value)">
+  $('modalBody').innerHTML = `${id ? '' : `<label class="stk-full"><span>🔎 ${t('stk_catalogo')}</span><input id="stk_buscacat" list="stkCatList" placeholder="${esc(t('stk_catalogo_ph'))}" oninput="stkDelCatalogo(this.value)" onkeydown="if(event.key==='Enter'){event.preventDefault();stkCatEscaneo(this.value);}">
       <datalist id="stkCatList">${STK_CAT.map(([c, m, mo, n]) => `<option value="${esc(mo + ' — ' + n)}">`).join('')}</datalist></label>`}
     <div class="mdm-grid">
       <label><span>${t('stk_categoria')}</span>${sel('categoria', STK_CATS.map(c => c[0]), c => stkIc(c) + ' ' + t('stc.' + c), x.categoria)}</label>
@@ -4901,6 +4901,18 @@ function stkDelCatalogo(v){
   const ya = stkItems.find(i => i.activo !== false && nrm(i.modelo) === nrm(c[2]) && i.condicion === $('stk_condicion').value);
   if (ya) toast(t('stk_ya_existe', { n: ya.nombre, c: t('std.' + ya.condicion) }));
   $('stk_buscacat').value = ''; $('stk_cantidad').focus();
+}
+// Escanear con la pistola en la línea de arriba: si es un modelo del catálogo lo llena; si no, lo pone como código de barras (o serial / MAC)
+function stkCatEscaneo(v){
+  v = String(v || '').trim(); if (!v) return;
+  const cat = scnCatalogo(v);
+  if (cat){ stkDelCatalogo(cat[2]); const mac = scnMacDentro(v); if (mac && $('stk_serializado').checked && $('stk_series_txt')) $('stk_series_txt').value = mac + ' | ' + macNorm(mac); return; }
+  const ya = scnBuscar(v); if (ya && !ya.serie){ $('stk_buscacat').value = ''; return toast(t('stk_ya_existe', { n: ya.x.nombre, c: t('std.' + ya.x.condicion) })); }
+  const esMac = /^([0-9A-F]{2}[:\-]){5}[0-9A-F]{2}$/i.test(v);
+  if (esMac){ $('stk_serializado').checked = true; $('stkSeriesBox').classList.remove('hidden'); const ta = $('stk_series_txt'); if (ta) ta.value = (ta.value ? ta.value + '\n' : '') + scnNorm(v) + ' | ' + macNorm(v); }
+  else $('stk_codigo').value = v;
+  $('stk_buscacat').value = ''; toast(t(esMac ? 'stk_scan_mac' : 'stk_scan_cod'));
+  (esMac ? $('stk_series_txt') : $('stk_nombre'))?.focus();
 }
 const stkLeerSeries = txt => String(txt || '').split(/\n+/).map(l => l.trim()).filter(Boolean).map(l => { const [s, mac] = l.split(/[|,;\t]/).map(v => v.trim()); return { s, mac: mac ? macNorm(mac) : '', est: 'disponible', f: new Date().toISOString().slice(0, 10) }; }).filter(x => x.s);
 async function stkGuardar(){

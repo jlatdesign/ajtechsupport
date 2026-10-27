@@ -769,6 +769,32 @@ body.p-noborrar [onclick^="borrarSede("],body.p-noborrar [onclick^="borrarVpn("]
 body.p-nostaff .solo-staff{display:none!important}
 body.p-noadm .p-solo-adm{display:none!important}
 .stk-badge{display:inline-block;min-width:18px;padding:0 5px;border-radius:999px;background:var(--bad);color:#fff;font:700 11px/18px Inter,sans-serif;text-align:center;margin-left:2px}
+.trb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.trb-card{border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:var(--card-solid);cursor:pointer;display:flex;flex-direction:column;gap:6px;transition:border-color .15s}
+.trb-card:hover{border-color:var(--c1)}.trb-card.atr{border-color:color-mix(in srgb,var(--bad) 55%,transparent)}.trb-c-h{display:flex;justify-content:space-between;align-items:center}.trb-c-t{font-size:15px}
+.trb-c-p{display:flex;align-items:center;gap:8px}.trb-c-p .trb-bar{flex:1}.trb-c-f{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:12.5px}
+.trb-bar{height:10px;border-radius:999px;background:var(--row-hover);border:1px solid var(--line);overflow:hidden}.trb-bar i{display:block;height:100%;background:var(--grad);border-radius:999px}
+.trb-bar.atr i{background:var(--bad)}.trb-bar.lento i{background:var(--warn)}
+.trb-est{font:600 11px Inter,sans-serif;padding:2px 9px;border-radius:999px;border:1px solid var(--line-strong);white-space:nowrap}.trb-est.en_proceso{color:var(--c1);border-color:var(--c1)}
+.trb-est.pausado{color:var(--warn);border-color:var(--warn)}.trb-est.terminado{color:var(--ok);border-color:var(--ok)}.trb-est.cancelado{color:var(--muted);text-decoration:line-through}
+.trb-atr{color:var(--bad);font-weight:700}.trb-falt{color:var(--warn);font-weight:600}.trb-falt.urg{color:var(--bad)}
+.trb-top{display:flex;flex-direction:column;gap:10px}.trb-prog{display:flex;gap:14px;align-items:center}.trb-prog-n{display:flex;flex-direction:column;align-items:center;min-width:70px}
+.trb-prog-n b{font:800 30px "JetBrains Mono",monospace}.trb-prog-n small{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px}.trb-prog .trb-bar{height:16px}.trb-prog input[type=range]{width:100%;margin-top:6px}
+.trb-tl{margin-top:4px}.trb-tl-bar{position:relative;height:22px;border-radius:8px;background:var(--row-hover);border:1px solid var(--line)}
+.trb-tl-plan{position:absolute;left:0;top:0;bottom:0;background:color-mix(in srgb,var(--c1) 12%,transparent);border-radius:8px 0 0 8px}.trb-tl-atr{position:absolute;top:0;bottom:0;background:repeating-linear-gradient(45deg,color-mix(in srgb,var(--bad) 35%,transparent) 0 6px,transparent 6px 12px)}
+.trb-tl-pct{position:absolute;left:0;top:7px;height:8px;background:var(--grad);border-radius:999px}.trb-tl-dot{position:absolute;top:50%;width:9px;height:9px;margin:-4.5px 0 0 -4.5px;border-radius:50%;background:var(--c2);border:2px solid var(--card-solid)}
+.trb-tl-dot.r-nuestro{background:var(--bad)}.trb-tl-dot.r-cliente{background:var(--warn)}.trb-tl-dot[class*="r-"]:not(.r-nuestro):not(.r-cliente){background:var(--muted)}
+.trb-tl-hoy{position:absolute;top:-6px;bottom:-6px;width:2px;background:var(--text);transform:translateX(-1px)}.trb-tl-hoy small{position:absolute;top:-16px;left:50%;transform:translateX(-50%);font-size:10px;white-space:nowrap}
+.trb-tl-lbl{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-top:4px}.trb-ritmo{font-size:12.5px;margin-top:6px}.trb-ritmo.mal{color:var(--bad)}.trb-ritmo.bien{color:var(--ok)}
+.trb-atr-box{color:var(--bad);font-weight:700}.trb-rets{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:12.5px}.trb-ret{padding:2px 8px;border-radius:999px;border:1px solid var(--line)}
+.trb-ret.r-nuestro{border-color:var(--bad);color:var(--bad)}.trb-ret.r-cliente{border-color:var(--warn);color:var(--warn)}
+.trb-dform{border:1px dashed var(--line-strong);border-radius:12px;padding:10px 12px;margin-bottom:12px}.trb-ret-f{margin-top:4px}
+.trb-dlist{display:flex;flex-direction:column;gap:8px}.trb-d{border:1px solid var(--line);border-left:4px solid var(--c1);border-radius:10px;padding:8px 12px;font-size:13px;display:flex;flex-direction:column;gap:4px}
+.trb-d.ret{border-left-color:var(--warn)}.trb-d-h{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.trb-d-h .muted{flex:1}.trb-d-w{color:var(--warn)}.trb-d-x{color:var(--bad)}
+.trb-d-r{font-weight:600}.trb-d-r.r-nuestro{color:var(--bad)}.trb-d-r.r-cliente{color:var(--warn)}tr.trf-ok td{opacity:.55}
+.trb-fases{display:flex;flex-direction:column;gap:6px;margin-top:8px}.trb-fase{display:grid;grid-template-columns:1fr 110px 1fr 48px 34px;gap:8px;align-items:center}
+.trb-peso{display:flex!important;flex-direction:row!important;align-items:center;gap:4px;font-size:12px}.trb-peso input{width:56px}
+@media (max-width:700px){.trb-fase{grid-template-columns:1fr 90px;}.trb-fase .f-p{grid-column:1}.trb-prog-n b{font-size:24px}}
 .stk-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:12px}.stk-kpi{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--card-solid)}
 .stk-kpi b{display:block;font:700 22px "JetBrains Mono",monospace}.stk-kpi span{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px}.stk-kpi.warn b{color:var(--bad)}
 .stk-filtros{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}.stk-filtros .stats{display:flex;flex-wrap:wrap;gap:6px}.stk-cat-h{margin-top:16px}
@@ -1021,7 +1047,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v9.0</p>
+    <p class="sub">Network Asset Manager · v9.1</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -1037,7 +1063,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.0</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.1</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -1051,6 +1077,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <button class="solo-roles" onclick="abrirUsuarios()" data-i18n-title="t_users">👥 <span data-i18n="users">Users</span><span id="onlineN" class="hidden" title=""></span></button>
     <button class="solo-staff" onclick="abrirPresupuestos()">💰 <span data-i18n="pr_btn">Quotes</span></button>
     <button class="solo-staff" onclick="abrirStock()">📦 <span data-i18n="stk_btn">Stock</span> <span class="stk-badge hidden" id="stkBadge"></span></button>
+    <button class="solo-staff" onclick="abrirTrabajos()">🛠 <span data-i18n="trb_btn">Jobs</span> <span class="stk-badge hidden" id="trbBadge"></span></button>
     <button onclick="abrirActividad()" data-i18n-title="t_activity">📜 <span data-i18n="activity">Activity</span></button>
     <button onclick="openGrupos()" data-i18n-title="t_groups">🗂 <span data-i18n="groups">Groups</span></button>
     <button class="icon-btn" onclick="cambiarPassword()" data-i18n-title="t_changepw">🔑</button>
@@ -1094,6 +1121,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <!-- ===== Vista: presupuestos ===== -->
 <div id="presuView" class="hidden"></div>
 <div id="stockView" class="hidden"></div>
+<div id="trabajosView" class="hidden"></div>
 
 <!-- ===== Vista: ubicaciones de un cliente ===== -->
 <div id="sedesView" class="hidden">
@@ -1730,6 +1758,32 @@ Object.assign(I18N.en, {
   scn_pie:'Nothing is saved until you confirm.', scn_sin_serie_q:'These are missing their serial scan: {n}. Record anyway?', scn_nota:'With scanner', scn_nota_contar:'Scanner count', scn_listo:'{n} product(s) updated',
   scn_sql:'To save the barcode run supabase-stock.sql again (it adds the "codigo" column). Everything else was saved.',
   stk_codigo:'Barcode (UPC / EAN)', stk_codigo_ph:'Scan the box', stk_scan_cod:'Code saved in "Barcode". Type the product name.', stk_scan_mac:'MAC added as serial.',
+  trb_btn:'Jobs', trb_title:'Jobs in progress', trb_sub:'Progress, timeline, daily log, delays and what is missing on each job.', trb_nuevo:'New job', trb_editar:'Edit job',
+  trb_missing:'The jobs table is missing. Run supabase-trabajos.sql in Supabase > SQL Editor.', trb_vacio:'There are no jobs yet.', trb_buscar:'Search job, client, lead…',
+  trb_k_atr:'late', trb_k_falt:'missing items', trb_k_ret:'delay this month (ours / client)',
+  trf_activos:'Active', trf_atrasados:'⚠ Late', trf_todos:'All', trf_pendiente:'Not started', trf_en_proceso:'In progress', trf_pausado:'Paused', trf_terminado:'Done', trf_cancelado:'Canceled',
+  'tre.pendiente':'Not started', 'tre.en_proceso':'In progress', 'tre.pausado':'Paused', 'tre.terminado':'Done', 'tre.cancelado':'Canceled',
+  trb_atrasado:'{n} day(s) late', trb_faltan_d:'{n} day(s) left', trb_n_falt:'{n} item(s) missing', trb_hoy:'today',
+  trb_ritmo_mal:'{t}% of the time used and it is at {p}%: behind schedule.', trb_ritmo_bien:'{t}% of the time used and it is at {p}%: ahead of schedule.', trb_ritmo_ok:'{t}% of the time used and it is at {p}%: on time.',
+  trb_sin_fechas:'Set a start and delivery date (✏️ Edit) to see the timeline.', trb_retrasos:'Delays', trb_avance:'progress', trb_por_fases:'by phases',
+  trb_t_diario:'Daily log', trb_t_falt:'Missing', trb_t_fases:'Phases', trb_t_notas:'Notes',
+  trb_nota_dia:'Daily note', trb_fecha:'Date', trb_personas:'People', trb_horas:'Hours worked (total)', trb_avance_dia:'Progress at end of day (%)',
+  trb_hecho:'What was done', trb_hecho_ph:'e.g. Pulled 24 cables in zone A, mounted the rack…', trb_dific:'Difficulties / blockers', trb_dific_ph:'e.g. Part of the ceiling had asbestos, the lift did not reach…',
+  trb_no_log:'What was not achieved and why', trb_no_log_ph:'e.g. Zone B not finished, too heavy without the lift…', trb_hubo_ret:'There was a delay (lost hours)',
+  trb_ret_h:'Lost hours', trb_ret_causa:'Whose / why?', trb_ret_motivo:'Reason', trb_ret_motivo_ph:'e.g. Client area was not cleared, material did not arrive…',
+  'trc.nuestro':'Ours', 'trc.cliente':'Client', 'trc.proveedor':'Supplier / material', 'trc.clima':'Weather', 'trc.permiso':'Permit / inspection', 'trc.otro':'Other',
+  trb_guardar_nota:'Save note', trb_nota_h:'If you enter the progress, the job % is updated.', trb_nota_vacia:'Write what was done, a difficulty or the delay.', trb_ret_de:'{h} h delay ({c})',
+  trb_sin_notas:'No daily notes yet.', trb_borrar_nota:'Delete this daily note?',
+  trb_falta_add:'Add something missing', trb_falta_tipo:'Type', trb_falta_que:'What is missing', trb_falta_ph:'Cat6 cable, connectors, power strip, EMT conduit, ladder…', trb_unidad_ph:'ft, boxes…',
+  'trt.material':'Material', 'trt.herramienta':'Tool', 'trt.equipo':'Equipment', 'trt.otro':'Other', trb_urgente:'Urgent (stops the job)', trb_agregar:'Add',
+  'trs.pendiente':'Missing', 'trs.pedido':'Ordered', 'trs.en_camino':'On the way', 'trs.recibido':'Arrived', 'trs.resuelto':'Solved',
+  trb_en_stock:'{n} in stock', trb_sacar_stock:'Take it from office stock for this job', trb_sin_falt:'Nothing missing. 👍', trb_falta_vacia:'Write what is missing.', trb_borrar_falta:'Remove this from the list?',
+  trb_para:'For job #{n} {t}', trb_fases_h:'Split the job into parts (e.g. cabling, mounting, configuration). Weight is how much each part counts in the total.',
+  trb_auto_fases:'Calculate the job % from the phases', trb_fase_ph:'Phase name', trb_peso:'Weight', trb_fase_add:'Add phase',
+  trb_notas_ph:'General job notes: access, on-site contacts, alarm codes, schedules…', trb_notas_h:'Saved when you leave the box.',
+  trb_titulo:'Job', trb_titulo_ph:'e.g. WH cabling + 14 APs + 8 cameras', trb_inicio:'Start', trb_fin_est:'Delivery date', trb_resp:'Lead', trb_equipo:'Crew / technicians', trb_equipo_ph:'e.g. Carlos, Luis',
+  trb_de_presu:'{n} phases will be created from the quote.', trb_falta_datos:'Type the job and the client.', trb_fechas_mal:'Delivery date cannot be before the start.',
+  trb_borrar_q:'Delete job "{n}" with its log and missing items?', trb_crear_presu:'Create job', trb_ya_presu:'There is already a job (#{n}) from this quote. Create another?', trb_n_tec:'{n} technician(s)',
   stk_btn:'Stock', stk_title:'Office stock', stk_sub:'Equipment and materials to install: UniFi, racks, cable, jacks, patch cords… new, open box or used.',
   stk_productos:'Products', stk_movs:'Movements', stk_entrada:'Stock in', stk_salida:'Stock out', stk_nuevo:'New product', stk_editar:'Edit product', stk_ajuste:'Adjust count',
   stk_missing:'The stock table is missing. Run supabase-stock.sql in Supabase > SQL Editor.', stk_k_prod:'products', stk_k_uni:'units', stk_k_bajo:'below minimum', stk_k_valor:'value at cost',
@@ -1892,6 +1946,32 @@ Object.assign(I18N.es, {
   scn_pie:'Nada se guarda hasta que confirmes.', scn_sin_serie_q:'A estos les falta escanear el serial: {n}. ¿Registrar igual?', scn_nota:'Con escáner', scn_nota_contar:'Conteo con escáner', scn_listo:'{n} producto(s) actualizados',
   scn_sql:'Para guardar el código de barras corre otra vez supabase-stock.sql (agrega la columna "codigo"). Lo demás se guardó.',
   stk_codigo:'Código de barras (UPC / EAN)', stk_codigo_ph:'Escanea la caja', stk_scan_cod:'Código guardado en "Código de barras". Escribe el nombre del producto.', stk_scan_mac:'MAC agregada como serial.',
+  trb_btn:'Trabajos', trb_title:'Trabajos en proceso', trb_sub:'Avance, línea de tiempo, diario de obra, retrasos y lo que falta en cada trabajo.', trb_nuevo:'Nuevo trabajo', trb_editar:'Editar trabajo',
+  trb_missing:'Falta la tabla de trabajos. Corre supabase-trabajos.sql en Supabase > SQL Editor.', trb_vacio:'Todavía no hay trabajos.', trb_buscar:'Buscar trabajo, cliente, responsable…',
+  trb_k_atr:'atrasados', trb_k_falt:'cosas que faltan', trb_k_ret:'retraso este mes (nuestro / cliente)',
+  trf_activos:'Activos', trf_atrasados:'⚠ Atrasados', trf_todos:'Todos', trf_pendiente:'Por empezar', trf_en_proceso:'En proceso', trf_pausado:'Pausados', trf_terminado:'Terminados', trf_cancelado:'Cancelados',
+  'tre.pendiente':'Por empezar', 'tre.en_proceso':'En proceso', 'tre.pausado':'Pausado', 'tre.terminado':'Terminado', 'tre.cancelado':'Cancelado',
+  trb_atrasado:'{n} día(s) atrasado', trb_faltan_d:'faltan {n} día(s)', trb_n_falt:'faltan {n} cosa(s)', trb_hoy:'hoy',
+  trb_ritmo_mal:'Se ha usado el {t}% del tiempo y va en {p}%: va atrasado.', trb_ritmo_bien:'Se ha usado el {t}% del tiempo y va en {p}%: va adelantado.', trb_ritmo_ok:'Se ha usado el {t}% del tiempo y va en {p}%: va a tiempo.',
+  trb_sin_fechas:'Ponle fecha de inicio y de entrega (✏️ Editar) para ver la línea de tiempo.', trb_retrasos:'Retrasos', trb_avance:'avance', trb_por_fases:'por fases',
+  trb_t_diario:'Diario', trb_t_falt:'Lo que falta', trb_t_fases:'Fases', trb_t_notas:'Notas',
+  trb_nota_dia:'Nota del día', trb_fecha:'Fecha', trb_personas:'Personas', trb_horas:'Horas trabajadas (total)', trb_avance_dia:'Avance al terminar el día (%)',
+  trb_hecho:'Qué se hizo', trb_hecho_ph:'ej. Se tiraron 24 cables en la zona A, se montó el rack…', trb_dific:'Dificultades / trabas', trb_dific_ph:'ej. El techo tenía asbesto en una parte, el lift no llegaba…',
+  trb_no_log:'Qué no se logró y por qué', trb_no_log_ph:'ej. No se terminó la zona B porque estaba muy pesado sin el lift…', trb_hubo_ret:'Hubo retraso (horas perdidas)',
+  trb_ret_h:'Horas perdidas', trb_ret_causa:'¿De quién / por qué?', trb_ret_motivo:'Motivo', trb_ret_motivo_ph:'ej. El cliente no tenía el área despejada, no llegó el material…',
+  'trc.nuestro':'Nuestro', 'trc.cliente':'Del cliente', 'trc.proveedor':'Proveedor / material', 'trc.clima':'Clima', 'trc.permiso':'Permiso / inspección', 'trc.otro':'Otro',
+  trb_guardar_nota:'Guardar nota', trb_nota_h:'Si pones el avance, el % del trabajo se actualiza.', trb_nota_vacia:'Escribe qué se hizo, alguna dificultad o el retraso.', trb_ret_de:'{h} h de retraso ({c})',
+  trb_sin_notas:'Todavía no hay notas del día.', trb_borrar_nota:'¿Borrar esta nota del día?',
+  trb_falta_add:'Agregar algo que falta', trb_falta_tipo:'Tipo', trb_falta_que:'Qué falta', trb_falta_ph:'Cable Cat6, conectores, regleta, tubo EMT, escalera…', trb_unidad_ph:'ft, cajas…',
+  'trt.material':'Material', 'trt.herramienta':'Herramienta', 'trt.equipo':'Equipo', 'trt.otro':'Otro', trb_urgente:'Urgente (detiene el trabajo)', trb_agregar:'Agregar',
+  'trs.pendiente':'Falta', 'trs.pedido':'Pedido', 'trs.en_camino':'En camino', 'trs.recibido':'Llegó', 'trs.resuelto':'Resuelto',
+  trb_en_stock:'hay {n} en el stock', trb_sacar_stock:'Sacarlo del stock de la oficina para este trabajo', trb_sin_falt:'No falta nada. 👍', trb_falta_vacia:'Escribe qué falta.', trb_borrar_falta:'¿Quitar esto de la lista?',
+  trb_para:'Para trabajo #{n} {t}', trb_fases_h:'Divide el trabajo en partes (ej. cableado, montaje, configuración). El peso es cuánto pesa cada parte en el total.',
+  trb_auto_fases:'Calcular el % del trabajo con las fases', trb_fase_ph:'Nombre de la fase', trb_peso:'Peso', trb_fase_add:'Agregar fase',
+  trb_notas_ph:'Notas generales del trabajo: accesos, contactos en sitio, claves de la alarma, horarios…', trb_notas_h:'Se guarda al salir del cuadro.',
+  trb_titulo:'Trabajo', trb_titulo_ph:'ej. Cableado WH + 14 AP + 8 cámaras', trb_inicio:'Inicio', trb_fin_est:'Fecha de entrega', trb_resp:'Responsable', trb_equipo:'Equipo / técnicos', trb_equipo_ph:'ej. Carlos, Luis',
+  trb_de_presu:'Se van a crear {n} fases desde el presupuesto.', trb_falta_datos:'Escribe el trabajo y el cliente.', trb_fechas_mal:'La fecha de entrega no puede ser antes del inicio.',
+  trb_borrar_q:'¿Borrar el trabajo "{n}" con su diario y lo que falta?', trb_crear_presu:'Crear trabajo', trb_ya_presu:'Ya hay un trabajo (#{n}) de este presupuesto. ¿Crear otro?', trb_n_tec:'{n} técnico(s)',
   stk_btn:'Stock', stk_title:'Stock de la oficina', stk_sub:'Equipos y materiales para instalar: UniFi, racks, cable, jacks, patch cords… nuevo, caja abierta o usado.',
   stk_productos:'Productos', stk_movs:'Movimientos', stk_entrada:'Entrada', stk_salida:'Salida', stk_nuevo:'Nuevo producto', stk_editar:'Editar producto', stk_ajuste:'Ajustar conteo',
   stk_missing:'Falta la tabla de stock. Corre supabase-stock.sql en Supabase > SQL Editor.', stk_k_prod:'productos', stk_k_uni:'unidades', stk_k_bajo:'bajo el mínimo', stk_k_valor:'valor al costo',
@@ -2963,6 +3043,7 @@ async function loadData(){
   planos = pl.error ? [] : (pl.data || []); planosOK = !pl.error;
   render();
   if (!$('gModal').classList.contains('hidden')) renderGrupos();
+  if (prVer()) (async () => { try { const r = await db.from('trabajos').select('id,estado,fecha_fin_est'); if (r && !r.error && Array.isArray(r.data) && !TRB.open){ trabajos = r.data; renderTrabajosBadge(); } } catch(e){} })();
   if (prVer()) (async () => { try { const r = await db.from('stock_items').select('id,cantidad,minimo,activo'); if (r && !r.error && Array.isArray(r.data) && !STK.open){ stkItems = r.data; renderStockBadge(); } } catch(e){} })();
 }
 function autoDireccion(){
@@ -3104,7 +3185,7 @@ function showHistory(id){
     : `<p class="muted">${t('hist_empty')}</p>`;
   $('modal').classList.remove('hidden');
 }
-function closeModal(){ if (typeof CAM !== 'undefined' && CAM) camCerrar(); $('modal').classList.add('hidden'); $('modal').querySelector('.modal-card').classList.remove('wide'); }
+function closeModal(){ if (typeof CAM !== 'undefined' && CAM) camCerrar(); if (typeof STK !== 'undefined'){ STK.cliPre = null; STK.trbFalta = null; } $('modal').classList.add('hidden'); $('modal').querySelector('.modal-card').classList.remove('wide'); }
 document.addEventListener('keydown', e => { if (e.key === 'Escape'){
   const abierto = ['modal','gModal','cModal','xModal','drawer','detail'].some(id => $(id) && !$(id).classList.contains('hidden'));
   if (!$('modal').classList.contains('hidden')) { closeModal(); return; }
@@ -3220,6 +3301,9 @@ function renderClienteHead(){
 function mostrarVista(){
   if (curCliente && enSedes === null) enSedes = sedesDe(curCliente).length >= 2;   // desde un enlace: decidir al cargar
   if (curCliente && enSedes && sedesDe(curCliente).length < 2) enSedes = false;
+  const trb = TRB.open && !ACT.open && !PRES.open && !STK.open;
+  $('trabajosView').classList.toggle('hidden', !trb);
+  if (trb){ ['clientsView', 'sedesView', 'clientView', 'actView', 'presuView', 'stockView'].forEach(v => $(v).classList.add('hidden')); renderTrabajos(); return; }
   const enCliente = !!curCliente, stk = STK.open && !ACT.open && !PRES.open, pres = PRES.open && !ACT.open, act = ACT.open || pres || stk, verSedes = enCliente && !!enSedes;
   $('presuView').classList.toggle('hidden', !pres);
   $('stockView').classList.toggle('hidden', !stk);
@@ -3236,12 +3320,12 @@ function mostrarVista(){
 }
 function abrirCliente(n){
   enSedes = sedesDe(n).length >= 2;
-  ACT.open = false; STK.open = false; fSede = ''; curCliente = n; fTipo = ''; vista = 'ov'; fAlert = ''; fCat = ''; fPred = null; sel.clear(); $('q').value = ''; $('fGrupo').value = ''; $('fLugar').value = '';
+  ACT.open = false; STK.open = false; TRB.open = false; fSede = ''; curCliente = n; fTipo = ''; vista = 'ov'; fAlert = ''; fCat = ''; fPred = null; sel.clear(); $('q').value = ''; $('fGrupo').value = ''; $('fLugar').value = '';
   try{ history.pushState({ c: n }, '', '#c=' + encodeURIComponent(n)); }catch(e){}
   render(); window.scrollTo({ top: 0 });
 }
 function volverClientes(){
-  ACT.open = false; PRES.open = false; STK.open = false; plCtx = null;
+  ACT.open = false; PRES.open = false; STK.open = false; TRB.open = false; plCtx = null;
   if (curCliente){ try{ history.pushState({}, '', location.pathname); }catch(e){} }
   curCliente = null; cerrarDrawer(); render(); window.scrollTo({ top: 0 });
 }
@@ -4826,7 +4910,7 @@ const stkSeries = x => Array.isArray(x.series) ? x.series : jArr(x.series);
 
 function abrirStock(){
   if (!prVer()) return toast(t('no_perm'));
-  STK.open = true; PRES.open = false; ACT.open = false; plCtx = null; cerrarDetalle?.(); cerrarDrawer?.();
+  STK.open = true; PRES.open = false; ACT.open = false; TRB.open = false; plCtx = null; cerrarDetalle?.(); cerrarDrawer?.();
   mostrarVista(); window.scrollTo({ top: 0 }); cargarStock();
 }
 function cerrarStock(){ STK.open = false; render(); window.scrollTo({ top: 0 }); }
@@ -5023,7 +5107,7 @@ function stkMov(id, tipo){
     <div class="stats" style="margin:8px 0">${tipos.map(k => `<span class="chip ${k === tipo ? 'on' : ''}" onclick="stkMov('${id}','${k}')">${t('stm.' + k)}</span>`).join('')}</div>
     <div class="mdm-grid">
       ${x.serializado && tipo !== 'ajuste' ? '' : `<label><span>${tipo === 'ajuste' ? t('stk_cuenta_real') : t('stk_cant')} (${t('stu.' + (x.unidad || 'u'))})</span><input id="stm_cant" type="number" step="any" min="0" value="${tipo === 'ajuste' ? esc(x.cantidad) : ''}"></label>`}
-      ${tipo === 'salida' || tipo === 'devolucion' ? `<label><span>${t('client')}</span><input id="stm_cli" list="stmClis" value="${esc(curCliente || '')}" placeholder="${esc(t('stk_cli_ph'))}"><datalist id="stmClis">${clientes.map(c => `<option value="${esc(c)}">`).join('')}</datalist></label>` : ''}
+      ${tipo === 'salida' || tipo === 'devolucion' ? `<label><span>${t('client')}</span><input id="stm_cli" list="stmClis" value="${esc(STK.cliPre || curCliente || '')}" placeholder="${esc(t('stk_cli_ph'))}"><datalist id="stmClis">${clientes.map(c => `<option value="${esc(c)}">`).join('')}</datalist></label>` : ''}
       ${tipo === 'entrada' && stkCostoVer() ? `<label><span>${t('stk_costo')} $ (${t('stk_por_u')})</span><input id="stm_costo" type="number" step="any" min="0" value="${esc(x.costo ?? '')}"></label>` : ''}
       <label class="stk-span2"><span>${t('stk_nota')}</span><input id="stm_nota" placeholder="${esc(t('stm_ph.' + tipo))}"></label></div>
     ${x.serializado && tipo === 'salida' ? `<div class="stk-pick-s"><b>🔢 ${t('stk_cuales')}</b>${disp.length ? disp.map(s => `<label class="sp-g"><input type="checkbox" value="${esc(s.s)}"> <span class="mono">${esc(s.s)}</span>${s.mac ? ` <small class="mono">${esc(s.mac)}</small>` : ''}</label>`).join('') : `<small class="muted">${t('stk_sin_series')}</small>`}</div>` : ''}
@@ -5047,7 +5131,9 @@ async function stkMovGuardar(){
   if (tipo === 'salida' && (+x.cantidad || 0) - cant < 0 && !confirm(t('stk_negativo', { n: stkCant(x) }))) return;
   const ok = await stkAplicar(x, tipo, { cant, movSer, nuevas, cli, nota: $('stm_nota')?.value.trim() || null, costoIn: $('stm_costo') ? $('stm_costo').value : '', alInv: !!$('stm_inv')?.checked });
   if (!ok) return;
-  closeModal(); toast(t('saved')); await cargarStock(); if (tipo === 'salida') loadData();
+  const fz = STK.trbFalta; STK.trbFalta = null; STK.cliPre = null;
+  if (fz && tipo === 'salida'){ await db.from('trabajo_faltantes').update({ estado: 'recibido', resuelto_at: new Date().toISOString() }).eq('id', fz); }
+  closeModal(); toast(t('saved')); await cargarStock(); if (tipo === 'salida') loadData(); if (TRB.open) cargarTrabajos();
 }
 // Aplica un movimiento: cambia la cantidad / seriales, guarda el historial y (si es salida) lo pasa al inventario del cliente
 async function stkAplicar(x, tipo, { cant = 0, movSer = [], nuevas = [], cli = null, nota = null, costoIn = '', alInv = false } = {}){
@@ -5279,10 +5365,280 @@ function stkMovTabla(movs, uno){
         <td class="n mono">${m.saldo != null ? (+m.saldo).toLocaleString('en-US') : ''}</td><td>${esc(m.cliente || '')}</td><td>${esc(m.nota || '')}</td><td class="muted">${esc(m.creado_por || '')}</td></tr>`; }).join('')}</tbody></table></div>`;
 }
 
+/* ==================== 🛠 TRABAJOS EN PROCESO ==================== */
+var TRB = { open: false, q: '', estado: 'activos', id: null, tab: 'diario' };
+let trabajos = [], trbDiario = [], trbFalt = [], trbOK = true;
+const TRB_ESTADOS = ['pendiente', 'en_proceso', 'pausado', 'terminado', 'cancelado'];
+const TRB_CAUSAS = ['nuestro', 'cliente', 'proveedor', 'clima', 'permiso', 'otro'];
+const TRF_ESTADOS = ['pendiente', 'pedido', 'en_camino', 'recibido', 'resuelto'];
+const trbHoy = () => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; };
+const trbFecha = v => v ? new Date(v + 'T12:00:00').toLocaleDateString(LANG === 'es' ? 'es-US' : 'en-US', { month: 'short', day: 'numeric', year: new Date(v + 'T12:00:00').getFullYear() !== new Date().getFullYear() ? 'numeric' : undefined }) : '—';
+const trbDias = (a, b) => Math.round((new Date(b + 'T12:00:00') - new Date(a + 'T12:00:00')) / 864e5);
+const trbActivo = j => ['pendiente', 'en_proceso', 'pausado'].includes(j.estado);
+const trbAtraso = j => trbActivo(j) && j.fecha_fin_est && j.fecha_fin_est < trbHoy() ? trbDias(j.fecha_fin_est, trbHoy()) : 0;
+const trbFaltPend = id => trbFalt.filter(f => f.trabajo_id === id && !['recibido', 'resuelto'].includes(f.estado));
+// % por fases (cada fase con su peso)
+const trbPctFases = j => { const fs = jArr(j.fases).filter(f => f.n); const tot = fs.reduce((a, f) => a + (+f.peso || 1), 0); return tot ? Math.round(fs.reduce((a, f) => a + (+f.peso || 1) * (+f.pct || 0), 0) / tot) : 0; };
+const trbPct = j => j.auto_fases && jArr(j.fases).length ? trbPctFases(j) : (+j.progreso || 0);
+// ¿va adelantado o atrasado contra el tiempo?
+function trbRitmo(j){
+  if (!j.fecha_inicio || !j.fecha_fin_est || !trbActivo(j)) return null;
+  const tot = Math.max(1, trbDias(j.fecha_inicio, j.fecha_fin_est)), pas = Math.min(tot, Math.max(0, trbDias(j.fecha_inicio, trbHoy())));
+  return { tiempo: Math.round(pas / tot * 100), dif: trbPct(j) - Math.round(pas / tot * 100) };
+}
+const trbRetrasos = id => { const m = {}; trbDiario.filter(d => d.trabajo_id === id && +d.retraso_horas > 0).forEach(d => { m[d.retraso_causa || 'otro'] = (m[d.retraso_causa || 'otro'] || 0) + +d.retraso_horas; }); return m; };
+
+function abrirTrabajos(id){
+  if (!prVer()) return toast(t('no_perm'));
+  TRB.open = true; TRB.id = id || null; TRB.cargado = false; PRES.open = false; STK.open = false; ACT.open = false; plCtx = null; cerrarDetalle?.(); cerrarDrawer?.();
+  mostrarVista(); window.scrollTo({ top: 0 }); cargarTrabajos();
+}
+function cerrarTrabajos(){ if (TRB.id){ TRB.id = null; return renderTrabajos(); } TRB.open = false; render(); window.scrollTo({ top: 0 }); }
+async function cargarTrabajos(){
+  const [a, b, c] = await Promise.all([db.from('trabajos').select('*').order('created_at', { ascending: false }), db.from('trabajo_diario').select('*').order('fecha', { ascending: false }), db.from('trabajo_faltantes').select('*').order('created_at', { ascending: false })]);
+  trbOK = !a.error; trabajos = a.error ? [] : (a.data || []); trbDiario = b.error ? [] : (b.data || []); trbFalt = c.error ? [] : (c.data || []);
+  if (!stkItems.some(x => x.nombre)) { try { const s = await db.from('stock_items').select('*'); if (!s.error && Array.isArray(s.data)) stkItems = s.data; } catch(e){} }
+  TRB.cargado = true; renderTrabajosBadge(); renderTrabajos();
+}
+function renderTrabajosBadge(){ const b = $('trbBadge'); if (!b) return; const n = trabajos.filter(j => trbAtraso(j) > 0).length; b.textContent = n || ''; b.classList.toggle('hidden', !n); }
+const trbEstB = e => `<span class="trb-est ${esc(e)}">${esc(t('tre.' + e))}</span>`;
+const trbBarra = (p, cls = '') => `<div class="trb-bar ${cls}"><i style="width:${Math.max(0, Math.min(100, p))}%"></i></div>`;
+function renderTrabajos(){
+  const el = $('trabajosView'); if (!el || !TRB.open) return;
+  if (TRB.id){ const j = trabajos.find(x => x.id === TRB.id); if (j) return renderTrabajo(j); if (!TRB.cargado){ el.innerHTML = `<p class="muted" style="padding:20px">${t('act_loading')}</p>`; return; } TRB.id = null; }
+  const q = nrm(TRB.q), hoy = trbHoy();
+  const pasa = j => (TRB.estado === 'todos' || (TRB.estado === 'activos' ? trbActivo(j) : TRB.estado === 'atrasados' ? trbAtraso(j) > 0 : j.estado === TRB.estado))
+    && (!q || nrm([j.numero, j.cliente, j.titulo, j.responsable, j.equipo, j.direccion].join(' ')).includes(q));
+  const lista = trabajos.filter(pasa).sort((a, b) => (trbAtraso(b) - trbAtraso(a)) || String(a.fecha_fin_est || '9').localeCompare(String(b.fecha_fin_est || '9')));
+  const act = trabajos.filter(trbActivo), atr = trabajos.filter(j => trbAtraso(j) > 0), faltP = trbFalt.filter(f => !['recibido', 'resuelto'].includes(f.estado) && trabajos.some(j => j.id === f.trabajo_id && trbActivo(j)));
+  const ret = {}; trbDiario.filter(d => +d.retraso_horas > 0 && d.fecha >= hoy.slice(0, 7) + '-01').forEach(d => ret[d.retraso_causa || 'otro'] = (ret[d.retraso_causa || 'otro'] || 0) + +d.retraso_horas);
+  const chip = (k, n) => `<span class="chip ${TRB.estado === k ? 'on' : ''}" onclick="TRB.estado='${k}';renderTrabajos()">${t('trf_' + k)}${n != null ? ` (${n})` : ''}</span>`;
+  el.innerHTML = `<div class="cl-head"><button class="backbtn" onclick="cerrarTrabajos()">← ${t('clients_title')}</button>
+      <div class="cl-info"><h2>🛠 ${t('trb_title')}</h2><div class="muted">${t('trb_sub')}</div></div>
+      <div class="row no-print"><button class="primary" onclick="trbForm()">＋ ${t('trb_nuevo')}</button></div></div>
+    ${!trbOK ? `<div class="panel act-empty">🛠 ${t('trb_missing')}</div>` : `
+    <div class="stk-kpis"><div class="stk-kpi"><b>${act.filter(j => j.estado === 'en_proceso').length}</b><span>${t('tre.en_proceso')}</span></div>
+      <div class="stk-kpi ${atr.length ? 'warn' : ''}" style="cursor:pointer" onclick="TRB.estado='atrasados';renderTrabajos()"><b>${atr.length}</b><span>${t('trb_k_atr')}</span></div>
+      <div class="stk-kpi ${faltP.some(f => f.urgente) ? 'warn' : ''}"><b>${faltP.length}</b><span>${t('trb_k_falt')}</span></div>
+      <div class="stk-kpi"><b>${Math.round((ret.nuestro || 0) * 10) / 10} h / ${Math.round((ret.cliente || 0) * 10) / 10} h</b><span>${t('trb_k_ret')}</span></div></div>
+    <div class="panel"><div class="stk-filtros"><div class="search"><input value="${esc(TRB.q)}" placeholder="${esc(t('trb_buscar'))}" oninput="TRB.q=this.value;renderTrabajos();this.focus();this.setSelectionRange(this.value.length,this.value.length)"></div>
+      <div class="stats">${chip('activos', act.length)}${chip('atrasados', atr.length)}${TRB_ESTADOS.map(e => chip(e, trabajos.filter(j => j.estado === e).length)).join('')}${chip('todos', trabajos.length)}</div></div>
+      ${lista.length ? `<div class="trb-grid">${lista.map(j => { const p = trbPct(j), a = trbAtraso(j), r = trbRitmo(j), fp = trbFaltPend(j.id), ult = trbDiario.find(d => d.trabajo_id === j.id);
+        return `<div class="trb-card ${a ? 'atr' : ''}" onclick="TRB.id='${j.id}';TRB.tab='diario';renderTrabajos();window.scrollTo({top:0})">
+          <div class="trb-c-h"><span class="mono muted">${j.numero != null ? '#' + j.numero : ''}</span>${trbEstB(j.estado)}</div>
+          <b class="trb-c-t">${esc(j.titulo)}</b><div class="muted">🏢 ${esc(j.cliente)}${j.responsable ? ' · 👷 ' + esc(j.responsable) : ''}</div>
+          <div class="trb-c-p"><span class="mono"><b>${p}%</b></span>${trbBarra(p, a ? 'atr' : r && r.dif < -10 ? 'lento' : '')}</div>
+          <div class="trb-c-f">${j.fecha_inicio || j.fecha_fin_est ? `📅 ${trbFecha(j.fecha_inicio)} → ${trbFecha(j.fecha_fin_est)}` : ''}
+            ${a ? `<span class="trb-atr">⚠ ${t('trb_atrasado', { n: a })}</span>` : r && j.fecha_fin_est ? `<span class="muted">${t('trb_faltan_d', { n: Math.max(0, trbDias(hoy, j.fecha_fin_est)) })}</span>` : ''}</div>
+          <div class="trb-c-f">${fp.length ? `<span class="trb-falt ${fp.some(f => f.urgente) ? 'urg' : ''}">🧰 ${t('trb_n_falt', { n: fp.length })}</span>` : ''}${ult ? `<span class="muted">📓 ${trbFecha(ult.fecha)}</span>` : ''}</div></div>`; }).join('')}</div>`
+      : `<div class="act-empty">🛠 ${trabajos.length ? t('stk_nada') : t('trb_vacio')}<br>${trabajos.length ? '' : `<button class="primary" style="margin-top:10px" onclick="trbForm()">＋ ${t('trb_nuevo')}</button>`}</div>`}</div>`}`;
+}
+
+/* ---- Un trabajo ---- */
+function renderTrabajo(j){
+  const el = $('trabajosView'), p = trbPct(j), a = trbAtraso(j), r = trbRitmo(j), hoy = trbHoy(), fases = jArr(j.fases), ret = trbRetrasos(j.id);
+  const dia = trbDiario.filter(d => d.trabajo_id === j.id), falt = trbFalt.filter(f => f.trabajo_id === j.id);
+  // línea de tiempo
+  let linea = '';
+  if (j.fecha_inicio && j.fecha_fin_est){
+    const ini = j.fecha_inicio, fin = j.fecha_fin_est, finV = a ? hoy : fin, tot = Math.max(1, trbDias(ini, finV)), pos = f => Math.max(0, Math.min(100, trbDias(ini, f) / tot * 100));
+    linea = `<div class="trb-tl"><div class="trb-tl-bar">
+        <div class="trb-tl-plan" style="width:${pos(fin)}%"></div>${a ? `<div class="trb-tl-atr" style="left:${pos(fin)}%;width:${100 - pos(fin)}%"></div>` : ''}
+        <div class="trb-tl-pct" style="width:${pos(fin) * p / 100}%"></div>
+        ${dia.map(d => `<span class="trb-tl-dot ${+d.retraso_horas > 0 ? 'r-' + esc(d.retraso_causa || 'otro') : ''}" style="left:${pos(d.fecha)}%" title="${esc(trbFecha(d.fecha) + ' · ' + (d.hecho || '') + (+d.retraso_horas > 0 ? ' · ⏸ ' + d.retraso_horas + ' h ' + t('trc.' + (d.retraso_causa || 'otro')) : ''))}"></span>`).join('')}
+        ${hoy >= ini && hoy <= finV ? `<span class="trb-tl-hoy" style="left:${pos(hoy)}%"><small>${t('trb_hoy')}</small></span>` : ''}</div>
+      <div class="trb-tl-lbl"><span>▶ ${trbFecha(ini)}</span><span>🏁 ${trbFecha(fin)}${j.fecha_fin_real ? ' · ✅ ' + trbFecha(j.fecha_fin_real) : ''}</span></div>
+      ${r ? `<div class="trb-ritmo ${r.dif < -10 ? 'mal' : r.dif > 5 ? 'bien' : ''}">${t(r.dif < -10 ? 'trb_ritmo_mal' : r.dif > 5 ? 'trb_ritmo_bien' : 'trb_ritmo_ok', { t: r.tiempo, p })}</div>` : ''}</div>`;
+  } else linea = `<div class="muted" style="margin:6px 0">${t('trb_sin_fechas')}</div>`;
+  const retTxt = TRB_CAUSAS.filter(c => ret[c]).map(c => `<span class="trb-ret r-${c}">${esc(t('trc.' + c))}: <b>${Math.round(ret[c] * 10) / 10} h</b></span>`).join('');
+  const tabs = [['diario', '📓 ' + t('trb_t_diario') + ` (${dia.length})`], ['falt', '🧰 ' + t('trb_t_falt') + ` (${trbFaltPend(j.id).length})`], ['fases', '🧩 ' + t('trb_t_fases') + ` (${fases.length})`], ['notas', '📝 ' + t('trb_t_notas')]];
+  el.innerHTML = `<div class="cl-head"><button class="backbtn" onclick="cerrarTrabajos()">← ${t('trb_title')}</button>
+      <div class="cl-info"><h2>🛠 ${esc(j.titulo)} ${j.numero != null ? `<span class="mono muted" style="font-size:.6em">#${j.numero}</span>` : ''}</h2><div class="muted">🏢 ${esc(j.cliente)}${j.direccion ? ' · 📍 ' + esc(j.direccion) : ''}${j.responsable ? ' · 👷 ' + esc(j.responsable) : ''}${j.equipo ? ' · 👥 ' + esc(j.equipo) : ''}</div></div>
+      <div class="row no-print"><select onchange="trbSet('${j.id}',{estado:this.value})">${TRB_ESTADOS.map(e => `<option value="${e}" ${j.estado === e ? 'selected' : ''}>${esc(t('tre.' + e))}</option>`).join('')}</select>
+        <button onclick="trbForm('${j.id}')">✏️ ${t('edit')}</button>${PERM.admin || !PERM.roles ? `<button class="danger" onclick="trbBorrar('${j.id}')">🗑</button>` : ''}</div></div>
+    <div class="panel trb-top">
+      <div class="trb-prog"><div class="trb-prog-n"><b>${p}%</b><small>${t(j.auto_fases && fases.length ? 'trb_por_fases' : 'trb_avance')}</small></div>
+        <div style="flex:1">${trbBarra(p, a ? 'atr' : r && r.dif < -10 ? 'lento' : '')}
+          ${j.auto_fases && fases.length ? '' : `<input type="range" min="0" max="100" step="5" value="${p}" oninput="this.closest('.trb-prog').querySelector('b').textContent=this.value+'%'" onchange="trbSet('${j.id}',{progreso:+this.value})">`}</div></div>
+      ${linea}
+      ${a ? `<div class="trb-atr-box">⚠ ${t('trb_atrasado', { n: a })}</div>` : ''}${retTxt ? `<div class="trb-rets">⏸ ${t('trb_retrasos')}: ${retTxt}</div>` : ''}</div>
+    <div class="stats" style="margin:10px 0">${tabs.map(([k, l]) => `<span class="chip ${TRB.tab === k ? 'on' : ''}" onclick="TRB.tab='${k}';renderTrabajos()">${l}</span>`).join('')}</div>
+    <div class="panel">${TRB.tab === 'falt' ? trbFaltHTML(j, falt) : TRB.tab === 'fases' ? trbFasesHTML(j, fases) : TRB.tab === 'notas' ? trbNotasHTML(j) : trbDiarioHTML(j, dia)}</div>`;
+}
+async function trbSet(id, patch){
+  const j = trabajos.find(x => x.id === id); if (!j) return;
+  if (patch.estado === 'terminado' && !j.fecha_fin_real) patch = { ...patch, fecha_fin_real: trbHoy(), progreso: 100 };
+  if (patch.estado === 'en_proceso' && !j.fecha_inicio) patch = { ...patch, fecha_inicio: trbHoy() };
+  const r = await db.from('trabajos').update(patch).eq('id', id); if (r.error) return fail(r.error, t('save_fail'));
+  Object.assign(j, patch); renderTrabajosBadge(); renderTrabajos();
+}
+
+/* ---- Diario de obra ---- */
+function trbDiarioHTML(j, dia){
+  const causa = d => d.retraso_causa ? t('trc.' + d.retraso_causa) : '';
+  return `<div class="trb-dform"><h4 class="cl-h4">＋ ${t('trb_nota_dia')}</h4>
+      <div class="mdm-grid"><label><span>${t('trb_fecha')}</span><input type="date" id="trd_fecha" value="${trbHoy()}"></label>
+        <label><span>${t('trb_personas')}</span><input type="number" min="0" id="trd_personas" placeholder="2"></label>
+        <label><span>${t('trb_horas')}</span><input type="number" min="0" step="any" id="trd_horas" placeholder="16"></label>
+        <label><span>${t('trb_avance_dia')}</span><input type="number" min="0" max="100" id="trd_avance" placeholder="${trbPct(j)}"></label></div>
+      <label class="stk-full"><span>✅ ${t('trb_hecho')}</span><textarea id="trd_hecho" rows="2" placeholder="${esc(t('trb_hecho_ph'))}"></textarea></label>
+      <label class="stk-full"><span>⚠ ${t('trb_dific')}</span><textarea id="trd_dific" rows="2" placeholder="${esc(t('trb_dific_ph'))}"></textarea></label>
+      <label class="stk-full"><span>❌ ${t('trb_no_log')}</span><textarea id="trd_nolog" rows="2" placeholder="${esc(t('trb_no_log_ph'))}"></textarea></label>
+      <div class="trb-ret-f"><label class="mdm-chk"><input type="checkbox" id="trd_hubo" onchange="$('trdRet').classList.toggle('hidden',!this.checked)"> ⏸ ${t('trb_hubo_ret')}</label>
+        <div id="trdRet" class="mdm-grid hidden"><label><span>${t('trb_ret_h')}</span><input type="number" min="0" step="any" id="trd_reth" placeholder="2"></label>
+          <label><span>${t('trb_ret_causa')}</span><select id="trd_causa">${TRB_CAUSAS.map(c => `<option value="${c}">${esc(t('trc.' + c))}</option>`).join('')}</select></label>
+          <label class="stk-span2"><span>${t('trb_ret_motivo')}</span><input id="trd_motivo" placeholder="${esc(t('trb_ret_motivo_ph'))}"></label></div></div>
+      <div class="row" style="margin-top:8px"><button class="primary" onclick="trbDiaGuardar('${j.id}')">💾 ${t('trb_guardar_nota')}</button><small class="muted">${t('trb_nota_h')}</small></div></div>
+    ${dia.length ? `<div class="trb-dlist">${dia.map(d => `<div class="trb-d ${+d.retraso_horas > 0 ? 'ret' : ''}">
+        <div class="trb-d-h"><b>📅 ${trbFecha(d.fecha)}</b><span class="muted">${[d.personas && '👷 ' + d.personas, d.horas && '⏱ ' + d.horas + ' h', d.avance != null && '📈 ' + d.avance + '%', d.autor && '✍ ' + d.autor].filter(Boolean).map(esc).join(' · ')}</span>
+          <button class="sm danger" onclick="trbDiaBorrar('${d.id}')" title="${esc(t('t_delete'))}">✕</button></div>
+        ${d.hecho ? `<div>✅ ${esc(d.hecho).replace(/\n/g, '<br>')}</div>` : ''}${d.dificultades ? `<div class="trb-d-w">⚠ ${esc(d.dificultades).replace(/\n/g, '<br>')}</div>` : ''}
+        ${d.no_logrado ? `<div class="trb-d-x">❌ ${esc(d.no_logrado).replace(/\n/g, '<br>')}</div>` : ''}
+        ${+d.retraso_horas > 0 ? `<div class="trb-d-r r-${esc(d.retraso_causa || 'otro')}">⏸ ${t('trb_ret_de', { h: d.retraso_horas, c: esc(causa(d)) })}${d.retraso_motivo ? ': ' + esc(d.retraso_motivo) : ''}</div>` : ''}</div>`).join('')}</div>`
+      : `<div class="act-empty">📓 ${t('trb_sin_notas')}</div>`}`;
+}
+async function trbDiaGuardar(id){
+  const g = k => $('trd_' + k)?.value.trim() || '', n = k => g(k) === '' ? null : +g(k), hubo = $('trd_hubo').checked;
+  const row = { trabajo_id: id, fecha: g('fecha') || trbHoy(), personas: n('personas'), horas: n('horas'), avance: n('avance'), hecho: g('hecho') || null, dificultades: g('dific') || null, no_logrado: g('nolog') || null,
+    retraso_horas: hubo ? n('reth') : null, retraso_causa: hubo ? g('causa') : null, retraso_motivo: hubo ? g('motivo') || null : null };
+  if (!row.hecho && !row.dificultades && !row.no_logrado && !row.retraso_horas) return alert(t('trb_nota_vacia'));
+  if (row.avance != null) row.avance = Math.max(0, Math.min(100, row.avance));
+  const r = await db.from('trabajo_diario').insert(row); if (r.error) return fail(r.error, /trabajo_/.test(r.error.message || '') ? t('trb_missing') : t('save_fail'));
+  const j = trabajos.find(x => x.id === id), patch = {};
+  if (row.avance != null && !j.auto_fases) patch.progreso = row.avance;
+  if (j.estado === 'pendiente') { patch.estado = 'en_proceso'; if (!j.fecha_inicio) patch.fecha_inicio = row.fecha; }
+  if (Object.keys(patch).length) await db.from('trabajos').update(patch).eq('id', id);
+  toast(t('saved')); cargarTrabajos();
+}
+async function trbDiaBorrar(id){ if (!confirm(t('trb_borrar_nota'))) return; const r = await db.from('trabajo_diario').delete().eq('id', id); if (r.error) return fail(r.error, t('save_fail')); cargarTrabajos(); }
+
+/* ---- Lo que falta ---- */
+function trbFaltHTML(j, falt){
+  const stockOK = typeof stkItems !== 'undefined' && stkItems.some(x => x.nombre);
+  return `<div class="trb-dform"><h4 class="cl-h4">＋ ${t('trb_falta_add')}</h4>
+      <div class="mdm-grid"><label><span>${t('trb_falta_tipo')}</span><select id="trf_tipo">${['material', 'herramienta', 'equipo', 'otro'].map(k => `<option value="${k}">${esc(t('trt.' + k))}</option>`).join('')}</select></label>
+        <label class="stk-span2"><span>${t('trb_falta_que')}</span><input id="trf_desc" list="trfStock" placeholder="${esc(t('trb_falta_ph'))}" oninput="trbFaltStock()"><datalist id="trfStock">${stockOK ? stkItems.filter(x => x.activo !== false && x.nombre).map(x => `<option value="${esc(x.nombre)}">`).join('') : ''}</datalist></label>
+        <label><span>${t('stk_cant')}</span><div class="stk-cant-u"><input id="trf_cant" type="number" min="0" step="any"><input id="trf_uni" placeholder="${esc(t('trb_unidad_ph'))}" style="max-width:90px"></div></label></div>
+      <div id="trfHay" class="muted" style="font-size:12.5px"></div>
+      <div class="row" style="margin-top:6px"><label class="mdm-chk"><input type="checkbox" id="trf_urg"> 🚨 ${t('trb_urgente')}</label><input id="trf_nota" placeholder="${esc(t('stk_nota'))}" style="flex:1;min-width:160px">
+        <button class="primary" onclick="trbFaltGuardar('${j.id}')">＋ ${t('trb_agregar')}</button></div></div>
+    ${falt.length ? `<div class="table-wrap"><table class="net-tbl stk-tbl"><thead><tr><th>${t('trb_falta_que')}</th><th>${t('trb_falta_tipo')}</th><th class="n">${t('stk_cant')}</th><th>${t('status')}</th><th></th></tr></thead><tbody>
+      ${falt.map(f => { const x = f.stock_item_id && typeof stkItems !== 'undefined' ? stkItems.find(i => i.id === f.stock_item_id) : null, listo = ['recibido', 'resuelto'].includes(f.estado);
+        return `<tr class="${listo ? 'trf-ok' : f.urgente ? 'bajo' : ''}"><td>${f.urgente && !listo ? '🚨 ' : ''}<b>${esc(f.descripcion)}</b>${f.nota ? `<small class="muted" style="display:block">${esc(f.nota)}</small>` : ''}${x ? `<small class="muted" style="display:block">📦 ${t('trb_en_stock', { n: stkCant(x) })}</small>` : ''}</td>
+          <td>${esc(t('trt.' + f.tipo))}</td><td class="n mono">${f.cantidad != null ? (+f.cantidad).toLocaleString('en-US') + (f.unidad ? ' ' + esc(f.unidad) : '') : ''}</td>
+          <td><select onchange="trbFaltEstado('${f.id}',this.value)">${TRF_ESTADOS.map(e => `<option value="${e}" ${f.estado === e ? 'selected' : ''}>${esc(t('trs.' + e))}</option>`).join('')}</select></td>
+          <td class="stk-acc">${x && !listo && (+x.cantidad || 0) > 0 ? `<button class="sm" onclick="trbSacarStock('${f.id}')" title="${esc(t('trb_sacar_stock'))}">📤 ${t('stk_btn')}</button>` : ''}<button class="sm danger" onclick="trbFaltBorrar('${f.id}')">✕</button></td></tr>`; }).join('')}</tbody></table></div>`
+      : `<div class="act-empty">🧰 ${t('trb_sin_falt')}</div>`}`;
+}
+function trbFaltStock(){
+  const v = nrm($('trf_desc')?.value), x = typeof stkItems !== 'undefined' ? stkItems.find(i => i.activo !== false && nrm(i.nombre) === v) : null, el = $('trfHay'); if (!el) return;
+  el.innerHTML = x ? `📦 ${t('trb_en_stock', { n: stkCant(x) })}${x.ubicacion ? ' · 📍 ' + esc(x.ubicacion) : ''}` : '';
+  if (x && $('trf_uni') && !$('trf_uni').value) $('trf_uni').value = x.unidad && x.unidad !== 'u' ? t('stu.' + x.unidad) : '';
+}
+async function trbFaltGuardar(id){
+  const desc = $('trf_desc').value.trim(); if (!desc) return alert(t('trb_falta_vacia'));
+  const x = typeof stkItems !== 'undefined' ? stkItems.find(i => i.activo !== false && nrm(i.nombre) === nrm(desc)) : null;
+  const row = { trabajo_id: id, tipo: $('trf_tipo').value, descripcion: desc, cantidad: $('trf_cant').value === '' ? null : +$('trf_cant').value, unidad: $('trf_uni').value.trim() || null,
+    urgente: $('trf_urg').checked, nota: $('trf_nota').value.trim() || null, stock_item_id: x?.id || null, estado: 'pendiente' };
+  const r = await db.from('trabajo_faltantes').insert(row); if (r.error) return fail(r.error, t('save_fail'));
+  toast(t('saved')); cargarTrabajos();
+}
+async function trbFaltEstado(id, estado){
+  const patch = { estado, resuelto_at: ['recibido', 'resuelto'].includes(estado) ? new Date().toISOString() : null };
+  const r = await db.from('trabajo_faltantes').update(patch).eq('id', id); if (r.error) return fail(r.error, t('save_fail'));
+  Object.assign(trbFalt.find(f => f.id === id) || {}, patch); renderTrabajos();
+}
+async function trbFaltBorrar(id){ if (!confirm(t('trb_borrar_falta'))) return; const r = await db.from('trabajo_faltantes').delete().eq('id', id); if (r.error) return fail(r.error, t('save_fail')); cargarTrabajos(); }
+// Sacar lo que falta directo del stock de la oficina (abre la salida con el cliente del trabajo)
+async function trbSacarStock(fid){
+  const f = trbFalt.find(z => z.id === fid), j = f && trabajos.find(z => z.id === f.trabajo_id); if (!f || !j) return;
+  STK.cliPre = j.cliente; STK.trbFalta = fid; stkMov(f.stock_item_id, 'salida');
+  setTimeout(() => { const c = $('stm_cant'); if (c && f.cantidad) c.value = f.cantidad; const n = $('stm_nota'); if (n) n.value = t('trb_para', { n: j.numero ?? '', t: j.titulo }); }, 60);
+}
+
+/* ---- Fases (hitos) ---- */
+function trbFasesHTML(j, fases){
+  return `<div class="muted" style="margin-bottom:8px">${t('trb_fases_h')}</div>
+    <label class="mdm-chk"><input type="checkbox" ${j.auto_fases ? 'checked' : ''} onchange="trbSet('${j.id}',{auto_fases:this.checked})"> ${t('trb_auto_fases')}</label>
+    <div class="trb-fases" id="trbFases">${fases.map((f, i) => `<div class="trb-fase"><input class="f-n" value="${esc(f.n || '')}" placeholder="${esc(t('trb_fase_ph'))}">
+        <label class="trb-peso">${t('trb_peso')} <input class="f-w" type="number" min="1" value="${esc(f.peso ?? 1)}"></label>
+        <input class="f-p" type="range" min="0" max="100" step="5" value="${+f.pct || 0}" oninput="this.nextElementSibling.textContent=this.value+'%'"><b class="mono">${+f.pct || 0}%</b>
+        <button class="sm danger" onclick="this.closest('.trb-fase').remove()">✕</button></div>`).join('')}</div>
+    <div class="row" style="margin-top:8px"><button class="sm" onclick="trbFaseAdd()">＋ ${t('trb_fase_add')}</button><button class="primary" onclick="trbFasesGuardar('${j.id}')">💾 ${t('u_save')}</button></div>`;
+}
+function trbFaseAdd(){ const c = $('trbFases'); if (!c) return; c.insertAdjacentHTML('beforeend', `<div class="trb-fase"><input class="f-n" placeholder="${esc(t('trb_fase_ph'))}"><label class="trb-peso">${t('trb_peso')} <input class="f-w" type="number" min="1" value="1"></label>
+  <input class="f-p" type="range" min="0" max="100" step="5" value="0" oninput="this.nextElementSibling.textContent=this.value+'%'"><b class="mono">0%</b><button class="sm danger" onclick="this.closest('.trb-fase').remove()">✕</button></div>`); c.lastElementChild.querySelector('.f-n').focus(); }
+function trbFasesGuardar(id){
+  const fases = [...document.querySelectorAll('#trbFases .trb-fase')].map(r => ({ n: r.querySelector('.f-n').value.trim(), peso: +r.querySelector('.f-w').value || 1, pct: +r.querySelector('.f-p').value || 0 })).filter(f => f.n);
+  const j = trabajos.find(x => x.id === id), patch = { fases };
+  if (j.auto_fases || (!j.progreso && fases.length)) { patch.auto_fases = true; patch.progreso = trbPctFases({ fases }); }
+  trbSet(id, patch);
+}
+
+/* ---- Notas generales ---- */
+function trbNotasHTML(j){
+  return `<textarea id="trbNotas" rows="10" placeholder="${esc(t('trb_notas_ph'))}" onchange="trbSet('${j.id}',{notas:this.value.trim()||null})">${esc(j.notas || '')}</textarea><small class="muted">${t('trb_notas_h')}</small>`;
+}
+
+/* ---- Crear / editar ---- */
+function trbForm(id, pre){
+  const j = id ? trabajos.find(x => x.id === id) : { estado: 'pendiente', fecha_inicio: trbHoy(), cliente: curCliente || '', ...(pre || {}) }; if (!j) return;
+  const clientes = listaClientes().map(c => c.nombre).sort((a, b) => a.localeCompare(b));
+  const usuarios = [...new Set([...(typeof USR !== 'undefined' ? USR : []).map(u => String(u.email || '').split('@')[0]), $('whoami')?.textContent].filter(Boolean))];
+  TRB.pre = pre || null;
+  $('modalTitle').textContent = (id ? '✏️ ' : '＋ ') + t(id ? 'trb_editar' : 'trb_nuevo');
+  $('modal').querySelector('.modal-card').classList.add('wide');
+  $('modalBody').innerHTML = `<div class="mdm-grid">
+      <label class="stk-span2"><span>${t('trb_titulo')}</span><input id="trb_titulo" value="${esc(j.titulo || '')}" placeholder="${esc(t('trb_titulo_ph'))}"></label>
+      <label><span>${t('client')}</span><input id="trb_cliente" list="trbClis" value="${esc(j.cliente || '')}" oninput="const c=clienteObj(this.value);if(c&&!$('trb_direccion').value)$('trb_direccion').value=c.direccion||''"><datalist id="trbClis">${clientes.map(c => `<option value="${esc(c)}">`).join('')}</datalist></label>
+      <label class="stk-span2"><span>${t('address')}</span><input id="trb_direccion" value="${esc(j.direccion || '')}"></label>
+      <label><span>${t('status')}</span><select id="trb_estado">${TRB_ESTADOS.map(e => `<option value="${e}" ${j.estado === e ? 'selected' : ''}>${esc(t('tre.' + e))}</option>`).join('')}</select></label>
+      <label><span>▶ ${t('trb_inicio')}</span><input type="date" id="trb_inicio" value="${esc(j.fecha_inicio || '')}"></label>
+      <label><span>🏁 ${t('trb_fin_est')}</span><input type="date" id="trb_fin" value="${esc(j.fecha_fin_est || '')}"></label>
+      <label><span>👷 ${t('trb_resp')}</span><input id="trb_resp" list="trbUs" value="${esc(j.responsable || '')}"><datalist id="trbUs">${usuarios.map(u => `<option value="${esc(u)}">`).join('')}</datalist></label>
+      <label class="stk-span2"><span>👥 ${t('trb_equipo')}</span><input id="trb_equipo" value="${esc(j.equipo || '')}" placeholder="${esc(t('trb_equipo_ph'))}"></label></div>
+    ${pre?.fases?.length ? `<small class="muted">🧩 ${t('trb_de_presu', { n: pre.fases.length })}</small>` : ''}
+    <div class="uf-foot"><button class="primary" onclick="trbGuardar(${id ? `'${id}'` : 'null'})">💾 ${t('u_save')}</button></div>`;
+  $('modal').classList.remove('hidden'); setTimeout(() => $('trb_titulo')?.focus(), 50);
+}
+async function trbGuardar(id){
+  const g = k => $('trb_' + k).value.trim();
+  const row = { titulo: g('titulo'), cliente: g('cliente'), direccion: g('direccion') || null, estado: g('estado'), fecha_inicio: g('inicio') || null, fecha_fin_est: g('fin') || null, responsable: g('resp') || null, equipo: g('equipo') || null };
+  if (!row.titulo || !row.cliente) return alert(t('trb_falta_datos'));
+  if (row.fecha_inicio && row.fecha_fin_est && row.fecha_fin_est < row.fecha_inicio) return alert(t('trb_fechas_mal'));
+  if (row.estado === 'terminado') { row.fecha_fin_real = trabajos.find(x => x.id === id)?.fecha_fin_real || trbHoy(); row.progreso = 100; }
+  let r;
+  if (id) r = await db.from('trabajos').update(row).eq('id', id);
+  else { if (TRB.pre){ Object.assign(row, { fases: TRB.pre.fases || [], auto_fases: !!(TRB.pre.fases || []).length, presupuesto_id: TRB.pre.presupuesto_id || null, notas: TRB.pre.notas || null }); }
+    r = await db.from('trabajos').insert(row).select('id').single(); }
+  if (r.error) return fail(r.error, /trabajos/.test(r.error.message || '') ? t('trb_missing') : t('save_fail'));
+  closeModal(); toast(t('saved')); TRB.pre = null;
+  if (!id && r.data?.id){ if (!TRB.open) return abrirTrabajos(r.data.id); TRB.id = r.data.id; }
+  cargarTrabajos();
+}
+async function trbBorrar(id){
+  const j = trabajos.find(x => x.id === id); if (!j || !confirm(t('trb_borrar_q', { n: j.titulo }))) return;
+  const r = await db.from('trabajos').delete().eq('id', id); if (r.error) return fail(r.error, t('save_fail'));
+  TRB.id = null; toast(t('deleted')); cargarTrabajos();
+}
+// Desde un presupuesto aprobado: crea el trabajo con el cliente, las fechas y las fases (según las horas de cada parte)
+function trbDesdePresu(){
+  if (!PR?.id) return alert(t('pr_plan_save'));
+  const R = prCalcular(PR.d), d = PR.d, hab = (x, n) => { const r = new Date(x + 'T12:00:00'); let k = 0; while (k < n){ r.setDate(r.getDate() + 1); if (r.getDay() % 6) k++; }
+    return `${r.getFullYear()}-${String(r.getMonth() + 1).padStart(2, '0')}-${String(r.getDate()).padStart(2, '0')}`; };
+  const ini = d.inicio || trbHoy(), fin = R.dias ? hab(ini, Math.max(0, R.dias - 1)) : '';
+  const tot = (R.hl || []).reduce((a, x) => a + x[1], 0) || 1;
+  const fases = (R.hl || []).filter(x => x[1] > 0 && x[2] !== 'pm').map(([lbl, h]) => ({ n: String(lbl).replace(/\s*\((\d[\d.,]*)\)\s*$/, '').replace(/\s*\([^)]*\)\s*$/, '').slice(0, 60), peso: Math.max(1, Math.round(h / tot * 100)), pct: 0 })).slice(0, 12);
+  const ya = trabajos.find(j => j.presupuesto_id === PR.id);
+  if (ya && !confirm(t('trb_ya_presu', { n: ya.numero ?? '' }))) return;
+  trbForm(null, { titulo: PR.titulo || t('ptt.' + prTipo(d)), cliente: PR.cliente, direccion: d.direccion || '', fecha_inicio: ini, fecha_fin_est: fin, equipo: R.pers ? t('trb_n_tec', { n: R.pers }) : '',
+    fases, presupuesto_id: PR.id, notas: d.alcance || null });
+}
+
 /* ---------- Vista de lista ---------- */
 function abrirPresupuestos(){
   if (!prVer()) return toast(t('no_perm'));
-  PRES.open = true; PRES.edit = false; ACT.open = false; STK.open = false; plCtx = null; cerrarDetalle?.(); cerrarDrawer?.();
+  PRES.open = true; PRES.edit = false; ACT.open = false; STK.open = false; TRB.open = false; plCtx = null; cerrarDetalle?.(); cerrarDrawer?.();
   mostrarVista(); window.scrollTo({ top: 0 }); cargarPresupuestos();
 }
 function cerrarPresupuestos(){ PRES.open = false; PRES.edit = false; plCtx = null; PR = null; render(); window.scrollTo({ top: 0 }); }
@@ -5324,7 +5680,7 @@ function prNuevo(cliente, tipo){
   const q = tipo === 'web' ? { paginas: 5, idiomas: 2, revisiones: 2, f_contacto: true, f_seo: true, f_analytics: true, f_mapa: true, f_whatsapp: true } : tipo === 'reparacion' ? { diag: 1 } : tipo === 'msp' ? { sitios: 1 } : {};
   PR = { id: null, cliente: cliente || (curCliente || ''), prospecto: false, titulo: '', estado: 'borrador', d: { tipo, sitio: sitios[tipo] || {}, q, equipos: [], mat_extra: [], modo: 'hora', modulos: [], partidas: [] }, tab: 'datos' };
   PR.prospecto = !!PR.cliente && !clienteObj(PR.cliente);
-  PRES.open = true; PRES.edit = true; ACT.open = false; STK.open = false; mostrarVista(); renderPresupuestos(); window.scrollTo({ top: 0 });
+  PRES.open = true; PRES.edit = true; ACT.open = false; STK.open = false; TRB.open = false; mostrarVista(); renderPresupuestos(); window.scrollTo({ top: 0 });
   if (!presus.length && !PRC) cargarPresupuestos();
 }
 function prVolverLista(){ if (PR?._sucio && !confirm(t('pr_unsaved'))) return; PRES.edit = false; plCtx = null; PR = null; renderPresupuestos(); }
@@ -5338,7 +5694,7 @@ function renderPresuEditor(){
   el.innerHTML = `<div class="cl-head"><button class="backbtn" onclick="prVolverLista()">← ${t('pr_title')}</button>
       <div class="cl-info"><h2>💰 ${PR.numero ? '#' + PR.numero + ' · ' : ''}${esc(PR.cliente || t('pr_new'))}</h2><div class="muted">${esc(PR.titulo || '')}</div></div>
       <div class="row no-print"><span class="muted" id="prEstadoG"></span><button class="primary" onclick="prGuardar()">💾 ${t('u_save')}</button><button onclick="prPdf()">🖨 ${t('pr_pdf')}</button>
-        ${PR.id ? `<button onclick="prDuplicar()">⧉ ${t('dup')}</button>` : ''}${PR.id && (PR.estado === 'aprobado' || PR.estado === 'completado') ? `<button onclick="prCerrarAbrir()">✅ ${t('pr_close')}</button>` : ''}
+        ${PR.id ? `<button onclick="prDuplicar()">⧉ ${t('dup')}</button>` : ''}${PR.id && ['aprobado', 'enviado', 'completado'].includes(PR.estado) ? `<button onclick="trbDesdePresu()">🛠 ${t('trb_crear_presu')}</button>` : ''}${PR.id && (PR.estado === 'aprobado' || PR.estado === 'completado') ? `<button onclick="prCerrarAbrir()">✅ ${t('pr_close')}</button>` : ''}
         ${PR.id && PR.prospecto && (PERM.admin || !PERM.roles) ? `<button onclick="prConvertir()">➕ ${t('pr_to_client')}</button>` : ''}${PR.id && (PERM.admin || !PERM.roles) ? `<button class="danger" onclick="prBorrar()">🗑</button>` : ''}</div></div>
     <div class="pr-grid">
       <div class="pr-main">
@@ -7200,7 +7556,7 @@ function logAct(evento, x = null, detalle = null, extra = {}){
   }catch(e){}
 }
 function abrirActividad(o = {}){
-  ACT.desde = curCliente; ACT.open = true; PRES.open = false; STK.open = false; plCtx = null;
+  ACT.desde = curCliente; ACT.open = true; PRES.open = false; STK.open = false; TRB.open = false; plCtx = null;
   ACT.cliente = o.cliente || null; ACT.obj = o.obj || null;
   const x = ACT.obj && items.find(i => i.id === ACT.obj);
   ACT.objNombre = x ? x.nombre : ''; if (x && !ACT.cliente) ACT.cliente = x.cliente;

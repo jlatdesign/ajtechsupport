@@ -767,6 +767,7 @@ body.p-noborrar [onclick^="borrarSede("],body.p-noborrar [onclick^="borrarVpn("]
 .pl-tot{font-size:12.5px;color:var(--muted);margin:6px 2px}
 
 body.p-nostaff .solo-staff{display:none!important}
+body.p-noadm .p-solo-adm{display:none!important}
 .stk-badge{display:inline-block;min-width:18px;padding:0 5px;border-radius:999px;background:var(--bad);color:#fff;font:700 11px/18px Inter,sans-serif;text-align:center;margin-left:2px}
 .stk-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:12px}.stk-kpi{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--card-solid)}
 .stk-kpi b{display:block;font:700 22px "JetBrains Mono",monospace}.stk-kpi span{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px}.stk-kpi.warn b{color:var(--bad)}
@@ -1000,6 +1001,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 .diff.snap{grid-template-columns:max-content minmax(0,1fr)}
 .diff.snap .v{word-break:break-word}
 .act-empty{padding:40px;text-align:center;color:var(--muted)}
+.act-us td,.act-us th{white-space:nowrap}.act-us td.d{white-space:normal;min-width:260px}.act-us .n{text-align:right}.act-us td.warn{color:var(--warn);font-weight:700}
 .act-more{display:flex;justify-content:center;padding:12px}
 </style>
 </head>
@@ -1012,7 +1014,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v8.8.2</p>
+    <p class="sub">Network Asset Manager · v8.8.3</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -1028,7 +1030,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v8.8.2</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v8.8.3</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -1071,6 +1073,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <button class="backbtn" onclick="cerrarActividad()">← <span id="actBack"></span></button>
     <div class="cl-info"><h2>📜 <span data-i18n="activity">Activity</span></h2><div class="muted" data-i18n="act_sub">Who changed what, and when</div></div>
     <div class="row no-print">
+      <button class="p-solo-adm" onclick="ACT.vistaUs=!ACT.vistaUs;renderActividadTabla()">👥 <span data-i18n="act_por_us">By user</span></button>
       <button onclick="cargarActividad()"><span data-i18n="refresh">↻ Refresh</span></button>
       <button onclick="exportActCSV()">⊞ CSV</button>
     </div>
@@ -1803,7 +1806,7 @@ Object.assign(I18N.en, {
   'svcd.cloud':'Servers, backups and cloud hosting', 'svcd.prn':'Printers, toner and maintenance', 'fl.servicios':'Services',
   activity:'Activity', t_activity:'Change history: who changed what and when', act_sub:'Who changed what, and when',
   act_all:'All', act_sev:'Severity', act_events:'Events', act_users:'Users', act_clients:'Clients', act_clear:'Clear filters',
-  act_search:'Search activity...', act_n:'{n} events', act_none:'No activity for these filters.', act_loading:'Loading…', act_more:'Show more',
+  act_search:'Search activity...', act_n:'{n} events', act_none:'No activity for these filters.', act_none_us:'{u} has no activity in this period.', act_ver_todo:'See full history', act_por_us:'By user', act_por_us_h:'What each user did in the selected period. Activity records changes, sign-ins and when someone views or copies a password (it does not record what they only look at).', act_rol:'Role', act_ult_ing:'Last sign-in', act_ult_visto:'Last seen online', act_n_ev:'Events', act_n_cambios:'Changes', act_n_claves:'Viewed passwords', act_ult_acc:'Last thing they did', act_sin_ev:'No activity in this period', act_ver:'Click to see their activity', act_loading:'Loading…', act_more:'Show more',
   act_missing:'The activity log is not set up yet. Run <b>supabase-actividad.sql</b> in Supabase → SQL Editor, then press Refresh.',
   act_cat:'Category', act_event:'Event', act_desc:'Description', act_when:'Date / Time', act_today:'Today at {h}', act_yest:'Yesterday at {h}',
   act_snapshot:'Data at the moment it was deleted (passwords are never stored):', act_secret:'value hidden — passwords are never stored in the log',
@@ -1958,7 +1961,7 @@ Object.assign(I18N.es, {
   'svcd.cloud':'Servidores, backups y hosting en la nube', 'svcd.prn':'Impresoras, tóner y mantenimiento', 'fl.servicios':'Servicios',
   activity:'Actividad', t_activity:'Historial de cambios: quién cambió qué y cuándo', act_sub:'Quién cambió qué, y cuándo',
   act_all:'Todo', act_sev:'Severidad', act_events:'Eventos', act_users:'Usuarios', act_clients:'Clientes', act_clear:'Limpiar filtros',
-  act_search:'Buscar en la actividad...', act_n:'{n} eventos', act_none:'No hay actividad con estos filtros.', act_loading:'Cargando…', act_more:'Ver más',
+  act_search:'Buscar en la actividad...', act_n:'{n} eventos', act_none:'No hay actividad con estos filtros.', act_none_us:'{u} no tiene actividad en este periodo.', act_ver_todo:'Ver todo el historial', act_por_us:'Por usuario', act_por_us_h:'Qué hizo cada usuario en el periodo elegido. La actividad registra cambios, inicios de sesión y cuando alguien ve o copia una contraseña (no registra lo que solo miran).', act_rol:'Rol', act_ult_ing:'Último inicio de sesión', act_ult_visto:'Última vez conectado', act_n_ev:'Eventos', act_n_cambios:'Cambios', act_n_claves:'Vio claves', act_ult_acc:'Lo último que hizo', act_sin_ev:'Sin actividad en este periodo', act_ver:'Clic para ver su actividad', act_loading:'Cargando…', act_more:'Ver más',
   act_missing:'El historial todavía no está activado. Corre <b>supabase-actividad.sql</b> en Supabase → SQL Editor y luego presiona Actualizar.',
   act_cat:'Categoría', act_event:'Evento', act_desc:'Descripción', act_when:'Fecha / Hora', act_today:'Hoy a las {h}', act_yest:'Ayer a las {h}',
   act_snapshot:'Datos que tenía al momento de borrarlo (las contraseñas nunca se guardan):', act_secret:'valor oculto — las contraseñas nunca se guardan en el historial',
@@ -7074,7 +7077,7 @@ function abrirActividad(o = {}){
   ACT.cliente = o.cliente || null; ACT.obj = o.obj || null;
   const x = ACT.obj && items.find(i => i.id === ACT.obj);
   ACT.objNombre = x ? x.nombre : ''; if (x && !ACT.cliente) ACT.cliente = x.cliente;
-  ACT.q = ''; ACT.sev.clear(); ACT.ev.clear(); ACT.us.clear(); ACT.cl.clear(); ACT.abiertos.clear(); ACT.max = 200;
+  ACT.q = ''; ACT.sev.clear(); ACT.ev.clear(); ACT.us.clear(); ACT.cl.clear(); ACT.abiertos.clear(); ACT.max = 200; ACT.vistaUs = false;
   if (ACT.obj) ACT.dias = 0;
   cerrarDetalle(); cerrarDrawer?.();
   mostrarVista(); window.scrollTo({ top: 0 }); cargarActividad();
@@ -7090,6 +7093,7 @@ async function cargarActividad(){
   ACT.missing = !!error && /actividad|relation|schema cache|does not exist|42P01|PGRST205/i.test((error.message || '') + (error.code || ''));
   if (error && !ACT.missing) console.error(error);
   ACT.rows = data || [];
+  if ((PERM.admin || !PERM.roles) && db.rpc){ try { const u = await db.rpc('admin_usuarios'); if (u && !u.error && Array.isArray(u.data)) ACT.usrs = u.data.filter(x => x.rol && x.rol !== 'ninguno').map(x => ({ u: String(x.email || '').split('@')[0], rol: x.rol, ultimo: x.ultimo, visto: x.visto, donde: x.donde })); } catch(e){} }
   if (ACT.obj && !ACT.objNombre) ACT.objNombre = ACT.rows.find(r => r.objeto)?.objeto || '';
   renderActividad();
 }
@@ -7192,12 +7196,12 @@ function renderActividad(){
   const lista = (set, todos, cnt, lbl, ico) => {
     const ks = [...new Set([...todos, ...ACT[set]])];
     return `<div class="act-list">` + ks.map(k => { const n = cnt[k] || 0, on = ACT[set].has(k);
-      return `<label class="${!n && !on ? 'zero' : ''}"><input type="checkbox" ${on ? 'checked' : ''} ${!n && !on ? 'disabled' : ''} onchange="actToggle('${set}','${jsq(k)}')">${ico ? ico(k) : ''}<span class="nm" title="${esc(lbl(k))}">${esc(lbl(k))}</span><span class="n">${n}</span></label>`; }).join('') + `</div>`;
+      return `<label class="${!n && !on ? 'zero' : ''}"><input type="checkbox" ${on ? 'checked' : ''} ${!n && !on && set !== 'us' ? 'disabled' : ''} onchange="actToggle('${set}','${jsq(k)}')">${ico ? ico(k) : ''}<span class="nm" title="${esc(lbl(k))}">${esc(lbl(k))}</span><span class="n">${n}</span></label>`; }).join('') + `</div>`;
   };
   const EVS = ['device_created','device_updated','device_deleted','password_changed','password_viewed','password_copied','pw_history_viewed',
     'client_created','client_updated','client_deleted','location_created','location_updated','location_deleted','vpn_created','vpn_updated','vpn_deleted','group_created','group_updated','group_deleted','signed_in','account_pw_changed','user_access_changed','user_created','user_pw_reset','user_deleted','export_backup','export_csv','import_excel'];
   const evs = EVS.filter(e => F.base.some(r => r.evento === e) || ACT.ev.has(e)).concat([...new Set(F.base.map(r => r.evento))].filter(e => !EVS.includes(e)));
-  const uss = [...new Set(F.base.map(r => r.usuario || 'system'))].sort();
+  const uss = [...new Set([...F.base.map(r => r.usuario || 'system'), ...(ACT.usrs || []).map(x => x.u)])].sort((a, b) => a === 'system' ? 1 : b === 'system' ? -1 : a.localeCompare(b));
   const cls = [...new Set(F.base.map(r => r.cliente || '—'))].sort((a, b) => a.localeCompare(b));
   const hayFiltros = ACT.q || ACT.sev.size || ACT.ev.size || ACT.us.size || ACT.cl.size;
   $('actSide').innerHTML =
@@ -7218,7 +7222,8 @@ function renderActividadTabla(F){
   ].join('');
   $('actTop').innerHTML = `${chips}<span class="muted">${ACT.loading ? t('act_loading') : t('act_n', { n: F.lista.length })}</span>`;
   if (ACT.missing){ $('actWrap').innerHTML = `<div class="act-empty">⚙️ ${t('act_missing')}</div>`; return; }
-  if (!F.lista.length){ $('actWrap').innerHTML = `<div class="act-empty">${ACT.loading ? t('act_loading') : t('act_none')}</div>`; return; }
+  if (ACT.vistaUs && !ACT.loading){ $('actWrap').innerHTML = actPorUsuario(F); return; }
+  if (!F.lista.length){ $('actWrap').innerHTML = `<div class="act-empty">${ACT.loading ? t('act_loading') : ACT.us.size ? t('act_none_us', { u: esc([...ACT.us].join(', ')) }) + (ACT.dias ? ` <button class="sm" onclick="actPeriodo(0)">${t('act_ver_todo')}</button>` : '') : t('act_none')}</div>`; return; }
   const filas = F.lista.slice(0, ACT.max).map(r => {
     const det = actDetalle(r), abierto = ACT.abiertos.has(r.id);
     return `<tr class="${det ? 'r' : ''}" ${det ? `onclick="actFila(${typeof r.id === 'number' ? r.id : `'${r.id}'`})"` : ''}>
@@ -7229,6 +7234,21 @@ function renderActividadTabla(F){
   }).join('');
   $('actWrap').innerHTML = `<table class="act-tbl"><thead><tr><th>${t('act_cat')}</th><th>${t('act_event')}</th><th>${t('act_desc')}</th><th>${t('act_sev')}</th><th>${t('act_when')}</th></tr></thead><tbody>${filas}</tbody></table>` +
     (F.lista.length > ACT.max ? `<div class="act-more"><button onclick="ACT.max+=300;renderActividadTabla()">${t('act_more')} (${F.lista.length - ACT.max})</button></div>` : '');
+}
+// Resumen: qué hizo cada usuario en el periodo (y cuándo entró por última vez)
+function actPorUsuario(F){
+  const loc = LANG === 'es' ? 'es-US' : 'en-US', por = {};
+  F.base.forEach(r => { const u = r.usuario || 'system', o = por[u] = por[u] || { n: 0, cambios: 0, claves: 0, ult: null }; o.n++;
+    if (/_created$|_updated$|_deleted$|password_changed/.test(r.evento)) o.cambios++; if (/password_(viewed|copied)|pw_history/.test(r.evento)) o.claves++;
+    if (!o.ult || r.created_at > o.ult.created_at) o.ult = r; });
+  const us = [...new Set([...(ACT.usrs || []).map(x => x.u), ...Object.keys(por)])].sort((a, b) => (por[b]?.n || 0) - (por[a]?.n || 0) || a.localeCompare(b));
+  const fecha = v => v ? esc(actHora(v)) : '<span class="muted">—</span>';
+  return `<div class="muted" style="padding:8px 12px">${t('act_por_us_h')}</div><div style="overflow-x:auto"><table class="act-tbl act-us"><thead><tr><th>${t('act_users')}</th><th>${t('act_rol')}</th><th>${t('act_ult_ing')}</th><th>${t('act_ult_visto')}</th>
+      <th class="n">${t('act_n_ev')}</th><th class="n">${t('act_n_cambios')}</th><th class="n">${t('act_n_claves')}</th><th>${t('act_ult_acc')}</th></tr></thead><tbody>${us.map(u => {
+      const x = (ACT.usrs || []).find(z => z.u === u) || {}, o = por[u] || { n: 0, cambios: 0, claves: 0 };
+      return `<tr class="${o.n ? 'r' : ''}" ${o.n ? `onclick="ACT.vistaUs=false;actSolo('us','${jsq(u)}')" title="${esc(t('act_ver'))}"` : ''}><td>${avatar(u)} <b>${esc(u)}</b></td><td>${x.rol ? esc({ admin: t('u_admin'), cliente: t('u_client'), operador: t('u_oper') }[x.rol] || x.rol) : (u === 'system' ? '⚙' : '')}</td><td>${fecha(x.ultimo)}</td>
+        <td>${fecha(x.visto)}${x.donde ? `<small class="muted" style="display:block">${esc(x.donde)}</small>` : ''}</td><td class="n mono">${o.n}</td><td class="n mono">${o.cambios}</td><td class="n mono ${o.claves ? 'warn' : ''}">${o.claves}</td>
+        <td class="d">${o.ult ? actDesc(o.ult) + ` <span class="muted">· ${esc(actHora(o.ult.created_at))}</span>` : `<span class="muted">${t('act_sin_ev')}</span>`}</td></tr>`; }).join('')}</tbody></table></div>`;
 }
 function exportActCSV(){
   if (!puede('exportar')) return;

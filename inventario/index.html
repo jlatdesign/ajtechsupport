@@ -781,7 +781,7 @@ body.p-nostaff .solo-staff{display:none!important}
 .scn-box{display:flex;flex-direction:column;gap:4px;margin-bottom:10px}.scn-box input{font:600 18px "JetBrains Mono",monospace;padding:12px 14px;border:2px solid var(--c1)!important}
 .scn-msg{font-size:12.5px;padding:6px 10px;border-radius:8px;background:var(--row-hover)}.scn-lista{display:flex;flex-direction:column;gap:6px;max-height:46vh;overflow:auto}
 .scn-l{display:flex;gap:10px;align-items:center;border:1px solid var(--line);border-radius:10px;padding:8px 10px}.scn-l.esp{border-color:var(--warn);box-shadow:0 0 0 2px color-mix(in srgb,var(--warn) 25%,transparent)}
-.scn-l.nuevo{border-style:dashed}.scn-l .n{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}.scn-l .n small{overflow-wrap:anywhere}.scn-falta{color:var(--warn)}.scn-l .n>.stk-cond,.scn-found .stk-cond{align-self:flex-start;width:auto}
+.scn-l.nuevo{border-style:dashed}.scn-l .n{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}.scn-l .n small{overflow-wrap:anywhere}.scn-falta{color:var(--warn)}.scn-cat{color:var(--ok);font-weight:600}.scn-l .n>.stk-cond,.scn-found .stk-cond{align-self:flex-start;width:auto}
 .scn-q{display:flex;align-items:center;gap:4px;flex:none}.scn-q input{width:70px!important;text-align:center;padding:4px}.scn-found{border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:13px}
 .stk-full{display:flex;flex-direction:column;gap:3px;margin:8px 0;font-size:12px}.stk-span2{grid-column:span 2}
 .stk-ser{display:flex;flex-direction:column;gap:3px;margin:6px 0;max-height:180px;overflow:auto}.stk-ser-r{display:grid;grid-template-columns:1fr 1fr 1fr 30px;gap:8px;align-items:center;font-size:12px;padding:3px 6px;border:1px solid var(--line);border-radius:8px}
@@ -1012,7 +1012,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v8.8</p>
+    <p class="sub">Network Asset Manager · v8.8.1</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -1028,7 +1028,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v8.8</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v8.8.1</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -1709,7 +1709,7 @@ Object.assign(I18N.en, {
   'scn_h.contar':'Scan everything on the shelf. When done, each product quantity becomes what you counted.', 'scn_h.buscar':'Scan any code to see what it is, how many and where.',
   scn_espera:'Now scan the serial or MAC of: {n}', scn_falta_serie:'{n} serial(s) missing', scn_no_existe:'Not in stock', scn_no_existe_m:'"{c}" is not in stock. Create it below or keep scanning.',
   scn_ya_serie:'Serial {s} is already in stock.', scn_serie_no:'{s} is not a serial of this product.', scn_serie_salio:'{s} already went out ({c}).', scn_varias:'{n} conditions share this code; "{c}" was used. Change it in the list if wrong.',
-  scn_vacio:'Nothing scanned yet.', 'scn_ok.entrada':'📥 Record stock in ({n})', 'scn_ok.salida':'📤 Record stock out ({n})', 'scn_ok.contar':'⚖ Save count ({n})',
+  scn_vacio:'Nothing scanned yet.', scn_es_cat:'It is a {n} (from the catalog). Create it in one click.', scn_creado:'Created "{n}" with {c} in stock. Keep scanning.', 'scn_ok.entrada':'📥 Record stock in ({n})', 'scn_ok.salida':'📤 Record stock out ({n})', 'scn_ok.contar':'⚖ Save count ({n})',
   scn_pie:'Nothing is saved until you confirm.', scn_sin_serie_q:'These are missing their serial scan: {n}. Record anyway?', scn_nota:'With scanner', scn_nota_contar:'Scanner count', scn_listo:'{n} product(s) updated',
   scn_sql:'To save the barcode run supabase-stock.sql again (it adds the "codigo" column). Everything else was saved.',
   stk_codigo:'Barcode (UPC / EAN)', stk_codigo_ph:'Scan the box',
@@ -1864,7 +1864,7 @@ Object.assign(I18N.es, {
   'scn_h.contar':'Escanea todo lo que hay en el estante. Al terminar, la cantidad de cada producto queda igual a lo que contaste.', 'scn_h.buscar':'Escanea cualquier código para ver qué es, cuánto hay y dónde está.',
   scn_espera:'Ahora escanea el serial o la MAC de: {n}', scn_falta_serie:'faltan {n} serial(es)', scn_no_existe:'No está en el stock', scn_no_existe_m:'"{c}" no está en el stock. Créalo abajo o sigue escaneando.',
   scn_ya_serie:'El serial {s} ya está en el stock.', scn_serie_no:'{s} no es un serial de este producto.', scn_serie_salio:'{s} ya salió ({c}).', scn_varias:'Hay {n} condiciones con este código; se usó "{c}". Cámbialo en la lista si no es.',
-  scn_vacio:'Todavía no has escaneado nada.', 'scn_ok.entrada':'📥 Registrar entrada ({n})', 'scn_ok.salida':'📤 Registrar salida ({n})', 'scn_ok.contar':'⚖ Guardar conteo ({n})',
+  scn_vacio:'Todavía no has escaneado nada.', scn_es_cat:'Es un {n} (del catálogo). Créalo con un clic.', scn_creado:'Creado "{n}" con {c} en stock. Sigue escaneando.', 'scn_ok.entrada':'📥 Registrar entrada ({n})', 'scn_ok.salida':'📤 Registrar salida ({n})', 'scn_ok.contar':'⚖ Guardar conteo ({n})',
   scn_pie:'Nada se guarda hasta que confirmes.', scn_sin_serie_q:'A estos les falta escanear el serial: {n}. ¿Registrar igual?', scn_nota:'Con escáner', scn_nota_contar:'Conteo con escáner', scn_listo:'{n} producto(s) actualizados',
   scn_sql:'Para guardar el código de barras corre otra vez supabase-stock.sql (agrega la columna "codigo"). Lo demás se guardó.',
   stk_codigo:'Código de barras (UPC / EAN)', stk_codigo_ph:'Escanea la caja',
@@ -4925,7 +4925,7 @@ async function stkGuardar(){
     if (r.error && /codigo/i.test(r.error.message || '')){ delete row.codigo; alert(t('scn_sql')); r = await db.from('stock_items').update(row).eq('id', id); }
     if (r.error) return fail(r.error, t('save_fail'));
   }
-  if (STK.volverScn){ const v = STK.volverScn; STK.volverScn = null; await cargarStock(); SCN = v; const c = v.crear; delete SCN.crear; renderEscaner(); toast(t('saved')); if (c && row.codigo) scnLeer(c); return; }
+  if (STK.volverScn){ const v = STK.volverScn; STK.volverScn = null; await cargarStock(); SCN = v; delete SCN.crear; SCN.msg = '✅ ' + t('scn_creado', { n: esc(row.nombre), c: (+row.cantidad || 0).toLocaleString('en-US') }); renderEscaner(); return; }
   closeModal(); toast(t('saved')); cargarStock();
 }
 async function stkBorrar(id){
@@ -5010,7 +5010,20 @@ const scnEsMac = c => /^([0-9A-F]{2}[:\-]){5}[0-9A-F]{2}$/i.test(String(c).trim(
 function scnSerial(code){ if (scnEsMac(code)){ const sn = scnNorm(code); (SCN.macs = SCN.macs || {})[sn] = macNorm(code); return sn; } return String(code).trim(); }
 const scnNorm = c => String(c || '').trim().toUpperCase().replace(/[^0-9A-Z]/g, '');
 // Busca qué es lo que se escaneó: un serial / MAC de una unidad, o el código de barras / modelo de un producto
+// Busca el modelo en el catálogo (UniFi y accesorios). Sirve si escaneas el código del modelo de la etiqueta (U7-Pro) o un QR que lo trae dentro
+function scnCatalogo(code){
+  const k = scnNorm(code); if (!k) return null;
+  const exacto = STK_CAT.find(c => scnNorm(c[2]) === k); if (exacto) return exacto;
+  const dentro = STK_CAT.filter(c => scnNorm(c[2]).length >= 4 && new RegExp('(^|[^A-Z0-9])' + c[2].replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '($|[^A-Z0-9+])', 'i').test(String(code)));
+  return dentro.sort((a, b) => b[2].length - a[2].length)[0] || null;
+}
+const scnMacDentro = code => { const m = String(code).match(/(?:^|[^0-9A-F])((?:[0-9A-F]{2}[:\-]?){5}[0-9A-F]{2})(?:$|[^0-9A-F])/i); return m && (/[:\-]/.test(m[1]) || /[A-F]/i.test(m[1])) ? scnNorm(m[1]) : ''; };
 function scnBuscar(code){
+  const r = scnBuscar0(code); if (r || String(code).trim().length < 14) return r;
+  const mac = scnMacDentro(code); if (mac){ const r2 = scnBuscar0(mac); if (r2) return r2; }   // un QR largo con la MAC adentro
+  const cat = scnCatalogo(code); return cat ? scnBuscar0(cat[2]) : null;
+}
+function scnBuscar0(code){
   const k = scnNorm(code); if (!k) return null;
   const vivos = stkItems.filter(x => x.activo !== false);
   for (const x of vivos) for (const s of stkSeries(x)) if (scnNorm(s.s) === k || (s.mac && scnNorm(s.mac) === k)) return { x, serie: s };
@@ -5038,8 +5051,8 @@ function renderEscaner(){
         ${l.series.length ? `<small class="mono">${l.series.map(esc).join(', ')}</small>` : ''}${falta ? `<small class="scn-falta">🔢 ${t('scn_falta_serie', { n: l.cant - l.series.length })}</small>` : ''}</div>
       <div class="scn-q">${x.serializado && SCN.modo !== 'contar' ? `<b class="mono">${l.series.length || l.cant}</b>` : `<button class="sm" onclick="scnCant(${i},-1)">−</button><input type="number" step="any" min="0" value="${l.cant}" onchange="SCN.lineas[${i}].cant=+this.value;renderEscaner()"><button class="sm" onclick="scnCant(${i},1)">＋</button>`}
         <small class="muted">${t('stu.' + (x.unidad || 'u'))}</small><button class="sm danger" onclick="SCN.lineas.splice(${i},1);SCN.espera=null;renderEscaner()">✕</button></div></div>`; }).join('');
-  const nuevos = SCN.nuevos.map((c, i) => `<div class="scn-l nuevo"><div class="n"><b class="mono">${esc(c)}</b><small class="muted">${t('scn_no_existe')}</small></div>
-      <div class="scn-q"><button class="sm primary" onclick="scnCrear(${i})">＋ ${t('stk_nuevo')}</button><button class="sm danger" onclick="SCN.nuevos.splice(${i},1);renderEscaner()">✕</button></div></div>`).join('');
+  const nuevos = SCN.nuevos.map((c, i) => { const cat = scnCatalogo(c); return `<div class="scn-l nuevo"><div class="n"><b class="mono">${esc(c)}</b><small class="${cat ? 'scn-cat' : 'muted'}">${cat ? '✨ ' + t('scn_es_cat', { n: esc(cat[3]) }) : t('scn_no_existe')}</small></div>
+      <div class="scn-q"><button class="sm primary" onclick="scnCrear(${i})">＋ ${t('stk_nuevo')}</button><button class="sm danger" onclick="SCN.nuevos.splice(${i},1);renderEscaner()">✕</button></div></div>`; }).join('');
   $('modalBody').innerHTML = `<div class="stats" style="margin-bottom:8px">${modos.map(m => `<span class="chip ${SCN.modo === m ? 'on' : ''}" onclick="SCN.modo='${m}';SCN.espera=null;renderEscaner()">${t('scn_m.' + m)}</span>`).join('')}</div>
     <div class="scn-box"><input id="scnIn" autocomplete="off" placeholder="${esc(t('scn_ph'))}" onkeydown="if(event.key==='Enter'){event.preventDefault();scnLeer(this.value);this.value='';}">
       <small class="muted">${SCN.espera != null ? '🔢 ' + t('scn_espera', { n: esc(SCN.lineas[SCN.espera]?.x.nombre || '') }) : t('scn_h.' + SCN.modo)}</small>
@@ -5094,6 +5107,11 @@ function scnCrear(i){
   const code = SCN.nuevos[i], esMac = /^[0-9A-F]{12}$/.test(scnNorm(code)) && /[:\-]/.test(code) || /^([0-9A-F]{2}[:\-]){5}[0-9A-F]{2}$/i.test(code);
   SCN.nuevos.splice(i, 1); const vuelta = { ...SCN, crear: code };
   STK.volverScn = vuelta;
+  const cat = scnCatalogo(code), mac = scnMacDentro(code);
+  if (cat){ const ser = ['gateway', 'switch', 'ap', 'camara', 'nvr', 'acceso', 'voip', 'pc'].includes(cat[0]);
+    stkForm(null, { categoria: cat[0], marca: cat[1], modelo: cat[2], nombre: cat[3], unidad: cat[0] === 'cable' ? 'ft' : 'u', serializado: ser, series: [], codigo: scnNorm(code) === scnNorm(cat[2]) ? '' : (/^\d{8,14}$/.test(code) ? code : '') });
+    if (ser && mac) setTimeout(() => { const ta = $('stk_series_txt'); if (ta) ta.value = mac + ' | ' + macNorm(mac); }, 60);
+    return; }
   stkForm(null, esMac ? { serializado: true, series: [] } : { codigo: code, modelo: /^[A-Z0-9][A-Z0-9\-+.]{2,}$/i.test(code) && !/^\d{8,14}$/.test(code) ? code : '' });
   if (esMac) setTimeout(() => { const ta = $('stk_series_txt'); if (ta) ta.value = code; }, 60);
 }

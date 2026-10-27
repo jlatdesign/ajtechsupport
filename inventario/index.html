@@ -1014,7 +1014,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v8.8.3</p>
+    <p class="sub">Network Asset Manager · v8.8.4</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -1030,7 +1030,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v8.8.3</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v8.8.4</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -1704,7 +1704,7 @@ Object.assign(I18N.en, {
   sp_igual_s:'All the same and Splashtop is already Yes.', sp_campo:'Field', sp_ahora:'Now', sp_vacio:'(empty)', sp_faltan:'{n} PC(s) of this client are not in the Splashtop file',
   sp_import:'Import ({n})', sp_help:'Checked = it changes. Empty fields are filled automatically; fields with another value are your call. Splashtop is set to Yes.',
   sp_confirm:'{n} new PC(s) will be added and {a} updated. Continue?',
-  'sp_f.nombre':'Device name', 'sp_f.hostname':'Hostname', 'sp_f.so':'Operating system', 'sp_f.cpu':'CPU', 'sp_f.ram':'RAM', 'sp_f.disco':'Disk', 'sp_f.ip':'IP', 'sp_f.mac':'MAC', 'sp_f.serial':'Serial',
+  'sp_f.nombre':'Device name', 'sp_f.hostname':'Hostname', 'sp_f.so':'Operating system', 'sp_f.cpu':'CPU', 'sp_f.ram':'RAM', 'sp_f.disco':'Disk', 'sp_f.ip':'Local IP', 'sp_f.ip_pub':'Public IP', 'sp_f.ip_publica':'Public IP (internet)', 'sp_f.mac':'MAC', 'sp_f.serial':'Serial',
   'sp_f.modelo':'Model', 'sp_f.marca':'Brand', 'sp_f.pc_user':'PC user', 'sp_f.grupo':'Group (view only)', 'sp_f.visto':'Last connection (view only)', 'sp_f.nota':'Notes (view only)',
   scn_btn:'Scan', scn_tip:'Use the barcode scanner: stock in, stock out, count or search', scn_title:'Barcode scanner', scn_ph:'Scan here (or type the code and Enter)',
   'scn_m.entrada':'📥 Stock in', 'scn_m.salida':'📤 Out to client', 'scn_m.contar':'⚖ Count shelf', 'scn_m.buscar':'🔎 Search',
@@ -1859,7 +1859,7 @@ Object.assign(I18N.es, {
   sp_igual_s:'Todo igual y Splashtop ya está en Sí.', sp_campo:'Campo', sp_ahora:'Ahora', sp_vacio:'(vacío)', sp_faltan:'{n} PC(s) de este cliente no están en el archivo de Splashtop',
   sp_import:'Importar ({n})', sp_help:'Marcado = se cambia. Lo vacío se llena solo; lo que ya tiene otro valor lo decides tú. Splashtop queda en Sí.',
   sp_confirm:'Se van a agregar {n} PC(s) nuevas y actualizar {a}. ¿Continuar?',
-  'sp_f.nombre':'Nombre del equipo', 'sp_f.hostname':'Hostname', 'sp_f.so':'Sistema operativo', 'sp_f.cpu':'CPU', 'sp_f.ram':'RAM', 'sp_f.disco':'Disco', 'sp_f.ip':'IP', 'sp_f.mac':'MAC', 'sp_f.serial':'Serial',
+  'sp_f.nombre':'Nombre del equipo', 'sp_f.hostname':'Hostname', 'sp_f.so':'Sistema operativo', 'sp_f.cpu':'CPU', 'sp_f.ram':'RAM', 'sp_f.disco':'Disco', 'sp_f.ip':'IP local', 'sp_f.ip_pub':'IP pública', 'sp_f.ip_publica':'IP pública (internet)', 'sp_f.mac':'MAC', 'sp_f.serial':'Serial',
   'sp_f.modelo':'Modelo', 'sp_f.marca':'Marca', 'sp_f.pc_user':'Usuario de la PC', 'sp_f.grupo':'Grupo (solo ver)', 'sp_f.visto':'Última conexión (solo ver)', 'sp_f.nota':'Notas (solo ver)',
   scn_btn:'Escanear', scn_tip:'Usa la pistola lectora: entrada, salida, conteo o buscar', scn_title:'Escáner de códigos', scn_ph:'Escanea aquí (o escribe el código y Enter)',
   'scn_m.entrada':'📥 Entrada', 'scn_m.salida':'📤 Salida a cliente', 'scn_m.contar':'⚖ Contar estante', 'scn_m.buscar':'🔎 Buscar',
@@ -6120,7 +6120,7 @@ const conUnifi = m => { m = String(m || '').trim(); return !m ? 'UniFi' : UF_MAR
    Lee la "Computer List" y/o el "System/Hardware Inventory", compara con las PCs del cliente,
    enseña las diferencias campo por campo y al importar marca Splashtop = Yes. */
 let SP = null;
-const SP_CAMPOS = ['nombre', 'hostname', 'so', 'cpu', 'ram', 'disco', 'ip', 'mac', 'serial', 'modelo', 'marca', 'pc_user', 'grupo', 'visto', 'nota'];
+const SP_CAMPOS = ['nombre', 'hostname', 'so', 'cpu', 'ram', 'disco', 'ip', 'ip_pub', 'mac', 'serial', 'modelo', 'marca', 'pc_user', 'grupo', 'visto', 'nota'];
 const SP_INFO = ['grupo', 'visto', 'nota', 'marca'];   // se enseñan, no se guardan (marca va junto al modelo)
 const SP_ALIAS = {
   nombre: ['computername', 'computer', 'name', 'devicename', 'computeralias', 'alias', 'displayname', 'endpoint', 'endpointname', 'equipo', 'nombredelequipo', 'nombreequipo', 'computadora', 'nombredelacomputadora'],
@@ -6129,6 +6129,7 @@ const SP_ALIAS = {
   cpu: ['cpu', 'processor', 'processorname', 'cpumodel', 'cpuname', 'processors', 'procesador'],
   ram: ['ram', 'memory', 'totalmemory', 'physicalmemory', 'installedram', 'memorygb', 'rammb', 'ramgb', 'totalram', 'memorysize', 'memoria', 'memoriaram'],
   disco: ['disk', 'disks', 'disksize', 'storage', 'harddisk', 'harddrive', 'totaldisk', 'drive', 'disktotal', 'totaldisksize', 'diskcapacity', 'totalstorage', 'disco', 'discoduro', 'almacenamiento'],
+  ip_pub: ['publicip', 'publicipaddress', 'externalip', 'wanip', 'ippublica'],
   ip: ['ip', 'ipaddress', 'localip', 'privateip', 'lanip', 'internalip', 'ipv4', 'ipv4address', 'lastip', 'direccionip'],
   mac: ['mac', 'macaddress', 'macaddresses', 'physicaladdress', 'direccionmac'],
   serial: ['serial', 'serialnumber', 'serialno', 'biosserialnumber', 'servicetag', 'sn', 'numerodeserie', 'serie'],
@@ -6197,14 +6198,14 @@ function spAnalizar(){
   const mios = equiposDe(curCliente).filter(x => PC_TIPOS.includes(x.tipo)), usados = new Set();
   SP.eqs = todos.filter(o => SP.selG.has(o.grupo || sinG)).map((o, i) => {
     const ip0 = o.ip ? String(o.ip).split(/[,;\s]+/)[0] : '';
-    const sp = { ...o, ram: spCap(o.ram, 'ram'), disco: spCap(o.disco, 'disco'), mac: o.mac ? macNorm(String(o.mac).split(/[,;\s]+/)[0]) : '', ip: spPrivada(ip0) ? ip0 : '', ip_pub: ip0 && !spPrivada(ip0) ? ip0 : '' };
+    const sp = { ...o, ram: spCap(o.ram, 'ram'), disco: spCap(o.disco, 'disco'), mac: o.mac ? macNorm(String(o.mac).split(/[,;\s]+/)[0]) : '', ip: spPrivada(ip0) ? ip0 : '', ip_pub: (o.ip_pub ? String(o.ip_pub).split(/[,;\s]+/)[0] : '') || (ip0 && !spPrivada(ip0) ? ip0 : '') };
     if (sp.marca && sp.modelo && !spKey(sp.modelo).includes(spKey(sp.marca))) sp.modelo = sp.marca + ' ' + sp.modelo; else if (sp.marca && !sp.modelo) sp.modelo = sp.marca;
     const host = sp.hostname || sp.nombre;
     const ya = mios.find(x => !usados.has(x.id) && ([x.hostname, x.nombre].some(v => v && (spIgual(v, host) || spIgual(v, sp.nombre))) || (sp.mac && macNorm(x.mac) === sp.mac)));
     if (ya) usados.add(ya.id);
     const cambios = [];
     if (ya){
-      const cmp = [['hostname', host], ['so', sp.so], ['cpu', sp.cpu], ['ram', sp.ram], ['disco', sp.disco], ['ip', sp.ip], ['mac', sp.mac], ['serial', sp.serial], ['modelo', sp.modelo], ['pc_user', sp.pc_user]];
+      const cmp = [['hostname', host], ['so', sp.so], ['cpu', sp.cpu], ['ram', sp.ram], ['disco', sp.disco], ['ip', sp.ip], ['ip_publica', sp.ip_pub], ['mac', sp.mac], ['serial', sp.serial], ['modelo', sp.modelo], ['pc_user', sp.pc_user]];
       cmp.forEach(([c, v]) => { if (v && !spIgual(ya[c], v)) cambios.push({ c, de: ya[c] || '', a: v }); });
       if (ya.splashtop !== 'Yes') cambios.push({ c: 'splashtop', de: ya.splashtop || '', a: 'Yes' });
     }
@@ -6253,7 +6254,7 @@ function renderSplashtop(){
         const info = [e.sp.grupo && '🗂 ' + esc(e.sp.grupo), e.sp.visto && '🕒 ' + esc(e.sp.visto), e.sp.ip_pub && '🌐 ' + esc(e.sp.ip_pub)].filter(Boolean).join(' · ');
         let que = '';
         if (e.accion === 'nuevo') que = `<div class="sp-nuevo"><select onchange="SP.tipos['${e.id}']=this.value">${PC_TIPOS.map(k => `<option value="${k}" ${SP.tipos[e.id] === k ? 'selected' : ''}>${esc(tTipo(k))}</option>`).join('')}</select>
-          <small class="muted">${[e.sp.so, e.sp.cpu, e.sp.ram, e.sp.disco, e.sp.ip].filter(Boolean).map(esc).join(' · ') || '—'}</small></div>`;
+          <small class="muted">${[e.sp.so, e.sp.cpu, e.sp.ram, e.sp.disco, e.sp.ip, e.sp.ip_pub && '🌐 ' + e.sp.ip_pub].filter(Boolean).map(esc).join(' · ') || '—'}</small></div>`;
         else if (e.accion === 'act') que = `<div class="sp-dif"><span class="h"></span><span class="h">${t('sp_campo')}</span><span class="h">${t('sp_ahora')}</span><span class="h">Splashtop</span>${e.cambios.map(x => `<label class="r ${x.de ? 'cambia' : 'llena'}">
             <input type="checkbox" ${SP.campos[e.id].has(x.c) ? 'checked' : ''} onchange="spCampo('${e.id}','${x.c}',this.checked)"><span>${esc(x.c === 'splashtop' ? 'Splashtop' : lbl(x.c))}</span>
             <span class="de">${x.de ? esc(x.de) : `<i class="muted">${t('sp_vacio')}</i>`}</span><b class="a">${esc(x.a)}</b></label>`).join('')}</div>`;
@@ -6270,7 +6271,7 @@ async function importarSplashtop(){
   const nuevos = elegidos.filter(e => e.accion === 'nuevo').map(e => { const s = e.sp; return {
     cliente: c.nombre, direccion: (aqui && sedes.find(x => x.id === aqui)?.direccion) || c.direccion || null, tipo: SP.tipos[e.id] || 'PC', nombre: s.nombre, hostname: e.host || null,
     so: s.so || null, cpu: s.cpu || null, ram: s.ram || null, disco: s.disco || null, ip: s.ip || null, mac: s.mac || null, serial: s.serial || null, modelo: s.modelo || null,
-    pc_user: s.pc_user || null, splashtop: 'Yes', estado: 'Activo', ...(aqui ? { sede_id: aqui } : {}) }; });
+    pc_user: s.pc_user || null, ip_publica: s.ip_pub || null, splashtop: 'Yes', estado: 'Activo', ...(aqui ? { sede_id: aqui } : {}) }; });
   const cambios = elegidos.filter(e => e.accion === 'act' && SP.campos[e.id].size).map(e => ({ id: e.ya.id, patch: Object.fromEntries(e.cambios.filter(x => SP.campos[e.id].has(x.c)).map(x => [x.c, x.a])) }));
   if (!nuevos.length && !cambios.length) return toast(t('uf_nothing'));
   if (!confirm(t('sp_confirm', { n: nuevos.length, a: cambios.length }))) return;
@@ -7003,7 +7004,7 @@ function verDetalle(id, keepVis){
     html += sec(t('sec_pc')) + ['hostname','so','cpu','ram','disco','antivirus'].map(f => fila(X_LABEL(f), esc(x[f]), f === 'hostname')).join('')
       + fila(t('warranty'), x.garantia ? badgeGarantia(x.garantia) : '')
       + fila('AnyDesk', x.anydesk ? `<a href="anydesk:${esc(soloDigitos(x.anydesk))}">${esc(fmtAD(x.anydesk))}</a>` : '', 1) + fila(t('anydesk_pw'), oculto(x.anydesk_pw), 1)
-      + fila('Splashtop', x.splashtop ? esc(t('yn.' + x.splashtop)) : '') + fila(t('win_key'), oculto(x.win_key), 1) + fila(t('office_key'), oculto(x.office_key), 1);
+      + fila('Splashtop', x.splashtop ? esc(t('yn.' + x.splashtop)) : '') + fila('🌐 ' + t('ip_publica'), x.ip_publica ? `<span class="mono">${esc(x.ip_publica)}</span>` : '') + fila(t('win_key'), oculto(x.win_key), 1) + fila(t('office_key'), oculto(x.office_key), 1);
     const us = getUsers(x);
     if (us.length || x.pc_admin) html += sec(t('sec_logins')) + us.map(u => fila('👤 ' + (u.user || '—'), oculto(u.pw), 1)).join('') + fila('🛡️ ' + (x.pc_admin || 'Admin'), oculto(x.pc_admin_pw) || (x.pc_admin ? '—' : ''), 1);
     const vp = impresorasDePC(x);

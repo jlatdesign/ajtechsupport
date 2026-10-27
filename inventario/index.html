@@ -518,6 +518,22 @@ body.p-noadm [onclick^="abrirUnifi"]{display:none!important}
 .uf-tag.nuevo{color:var(--ok);border-color:color-mix(in srgb,var(--ok) 50%,transparent)}
 .uf-tag.act{color:var(--c1);border-color:color-mix(in srgb,var(--c1) 50%,transparent)}
 .uf-tag.igual{color:var(--muted)}
+.sp-pasos{border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--row-hover);font-size:13px;line-height:1.55;margin-bottom:12px}.sp-pasos ol{margin:6px 0 6px 18px;padding:0}
+.sp-drop{display:flex;flex-direction:column;align-items:center;gap:4px;border:2px dashed var(--line-strong);border-radius:12px;padding:22px;cursor:pointer;text-align:center}.sp-drop:hover{border-color:var(--c1)}
+.sp-drop input{display:none}.sp-drop.sm{flex-direction:row;padding:6px 12px;border-width:1px;border-radius:10px;font-size:12.5px}.sp-drop.sm small{display:none}
+.sp-map{margin:0 0 10px;font-size:12.5px}.sp-map summary{cursor:pointer;color:var(--muted)}.sp-map-g{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:6px 10px;margin-top:8px}
+.sp-map-g label{display:flex;align-items:center;gap:6px;font-size:12px}.sp-map-g span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:"JetBrains Mono",monospace}.sp-map-g select{width:150px;padding:4px 6px;font-size:12px}
+.sp-todos{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;margin:0 0 6px}.sp-todos input,.sp-eq input[type=checkbox]{width:auto;margin:0}
+.sp-lista{max-height:52vh;overflow:auto;display:flex;flex-direction:column;gap:8px;padding-right:4px}
+.sp-eq{border:1px solid var(--line);border-radius:10px;padding:8px 10px}.sp-eq.spe-igual{opacity:.7}
+.sp-eq-h{display:flex;align-items:center;gap:10px}.sp-eq-h .n{flex:1;min-width:0;display:flex;flex-direction:column}.sp-eq-h .n b{font-size:13.5px}
+.sp-dif{display:grid;grid-template-columns:22px minmax(110px,.8fr) 1fr 1fr;gap:0 10px;margin-top:6px;font-size:12.5px}
+.sp-dif .h{font-size:10px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);font-weight:600;padding:2px 0}
+.sp-dif .r{display:contents;cursor:pointer}.sp-dif .r>*{padding:4px 0;border-top:1px solid var(--line);align-self:stretch;display:flex;align-items:center;min-width:0;overflow-wrap:anywhere}
+.sp-dif .r.cambia .a{color:var(--warn)}.sp-dif .r.llena .a{color:var(--ok)}.sp-nuevo{margin-top:6px}
+.sp-todos{display:inline-flex!important;flex-direction:row!important}.sp-eq-h .uf-tag{flex:none;width:auto;display:inline-block!important}.sp-eq-h>small{flex:none}
+.sp-nuevo{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.sp-nuevo select{width:auto!important;padding:4px 8px;font-size:12.5px}
+.sp-nuevo{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.sp-falta{margin-top:10px;font-size:12.5px}.sp-falta summary{cursor:pointer;color:var(--muted)}
 .uf-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;vertical-align:middle}
 .uf-dot.on{background:var(--ok)}.uf-dot.off{background:var(--bad)}
 .sede-bar{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
@@ -836,7 +852,7 @@ body.p-nostaff .solo-staff{display:none!important}
 /* ===== Permisos por usuario ===== */
 body:not(.p-roles) .solo-roles{display:none!important}
 body.p-noadm [onclick*="abrirClienteModal"],body.p-noadm .site-card.add,body.p-noadm [onclick="abrirUsuarios()"]{display:none!important}
-body.p-ro [onclick="nuevoEquipo()"],body.p-ro [onclick*="edit('"],body.p-ro [onclick*="dup('"],body.p-ro [onclick*="del('"],
+body.p-ro [onclick="nuevoEquipo()"],body.p-ro [onclick="abrirSplashtop()"],body.p-ro [onclick*="edit('"],body.p-ro [onclick*="dup('"],body.p-ro [onclick*="del('"],
 body.p-ro [onclick*="getElementById('fileIn')"],body.p-ro [onclick="openGrupos()"],body.p-ro [onclick="borrarSel()"],
 body.p-ro #devTable .sel-col,body.p-ro #selBar,body.p-ro .ov-empty .row{display:none!important}
 body.p-ro .g-chip{pointer-events:none}
@@ -972,7 +988,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v8.5</p>
+    <p class="sub">Network Asset Manager · v8.6</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -988,7 +1004,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v8.5</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v8.6</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -1069,6 +1085,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
       <button onclick="document.getElementById('fileIn').click()">📥 <span data-i18n="import_excel">Import Excel</span></button>
       <button onclick="irDiseno()">📐 <span data-i18n="dis_btn">Design</span></button>
       <button onclick="abrirUnifi()" data-i18n-title="t_unifi">🔗 <span>UniFi</span></button>
+      <button onclick="abrirSplashtop()" data-i18n-title="t_splashtop">🖥 <span>Splashtop</span></button>
       <button class="primary" onclick="nuevoEquipo()">＋ <span data-i18n="add_device">Add device</span></button>
     </div>
   </div>
@@ -1649,6 +1666,17 @@ Object.assign(I18N.en, {
   'ad.vpn_created':'{u} added the VPN {o}', 'ad.vpn_updated':'{u} updated {f} on the VPN {o}', 'ad.vpn_deleted':'{u} deleted the VPN {o}',
   'fl.sede_id':'Location', 'fl.sede_a':'Side A', 'fl.sede_b':'Side B', 'fl.equipo_a':'Device A', 'fl.equipo_b':'Device B', 'fl.red_a':'Network A', 'fl.red_b':'Network B', 'fl.externo':'Destination',
   uf_search:'Search console by name, model or IP…', uf_suggested:'suggested', uf_no_match:'No console matches that search.', uf_checked:'{n} checked',
+  t_splashtop:'Import the PCs from the file you export from Splashtop', sp_elegir:'Choose the Splashtop file (.csv)', sp_mas:'Add another file', sp_elegir_s:'You can upload the computer list and the inventory together',
+  sp_como:'How to get the file in my.splashtop.com:', sp_p1:'<b>Management › All Computers</b> › export icon (top right) › <b>Computer List</b>.',
+  sp_p2:'Optional, if you have it: <b>Management › Computer Inventory</b> › <b>Export › System/Hardware Inventory</b> (CPU, RAM, disk…).',
+  sp_p3:'Upload one or both files here. Nothing is saved until you confirm.', sp_p4:'PCs are matched by name / hostname (or MAC) with this client’s PCs.',
+  sp_nada:'I could not find the computer names. Below, in "File columns", pick which column is the Device name.', sp_ignorar:'don’t use',
+  sp_resumen:'{a} with differences · {n} new · {i} same', sp_columnas:'File columns: {n} of {t} recognized (tap to review)', sp_equipo:'Device', sp_que:'What changes',
+  sp_igual_s:'All the same and Splashtop is already Yes.', sp_campo:'Field', sp_ahora:'Now', sp_vacio:'(empty)', sp_faltan:'{n} PC(s) of this client are not in the Splashtop file',
+  sp_import:'Import ({n})', sp_help:'Checked = it changes. Empty fields are filled automatically; fields with another value are your call. Splashtop is set to Yes.',
+  sp_confirm:'{n} new PC(s) will be added and {a} updated. Continue?',
+  'sp_f.nombre':'Device name', 'sp_f.hostname':'Hostname', 'sp_f.so':'Operating system', 'sp_f.cpu':'CPU', 'sp_f.ram':'RAM', 'sp_f.disco':'Disk', 'sp_f.ip':'IP', 'sp_f.mac':'MAC', 'sp_f.serial':'Serial',
+  'sp_f.modelo':'Model', 'sp_f.marca':'Brand', 'sp_f.pc_user':'PC user', 'sp_f.grupo':'Group (view only)', 'sp_f.visto':'Last connection (view only)', 'sp_f.nota':'Notes (view only)',
   t_unifi:'Bring this client’s devices from UniFi', uf_pick_help:'Check ONLY the UniFi consoles that belong to <b>{c}</b>. Consoles you don’t check are never read.',
   uf_used_by:'already linked to {c}', uf_no_hosts:'Your API key does not see any console.', uf_save_hosts:'Save consoles', uf_change_hosts:'Change consoles',
   uf_linked:'{n} console(s) linked', uf_summary:'{n} new · {a} to update · {i} already up to date', uf_online:'Online', uf_offline:'Offline',
@@ -1756,6 +1784,17 @@ Object.assign(I18N.es, {
   'ad.vpn_created':'{u} agregó la VPN {o}', 'ad.vpn_updated':'{u} cambió {f} de la VPN {o}', 'ad.vpn_deleted':'{u} borró la VPN {o}',
   'fl.sede_id':'Ubicación', 'fl.sede_a':'Lado A', 'fl.sede_b':'Lado B', 'fl.equipo_a':'Equipo A', 'fl.equipo_b':'Equipo B', 'fl.red_a':'Red A', 'fl.red_b':'Red B', 'fl.externo':'Destino',
   uf_search:'Buscar consola por nombre, modelo o IP…', uf_suggested:'sugerida', uf_no_match:'Ninguna consola coincide con esa búsqueda.', uf_checked:'{n} marcada(s)',
+  t_splashtop:'Importar las PCs desde el archivo que exportas de Splashtop', sp_elegir:'Escoge el archivo de Splashtop (.csv)', sp_mas:'Agregar otro archivo', sp_elegir_s:'Puedes subir la lista de computadoras y el inventario juntos',
+  sp_como:'Cómo bajar el archivo en my.splashtop.com:', sp_p1:'<b>Management › All Computers</b> › ícono de exportar (arriba a la derecha) › <b>Computer List</b>.',
+  sp_p2:'Opcional, si lo tienes: <b>Management › Computer Inventory</b> › <b>Export › System/Hardware Inventory</b> (trae CPU, RAM, disco…).',
+  sp_p3:'Sube aquí uno o los dos archivos. Nada se guarda hasta que tú lo confirmes.', sp_p4:'Se compara por nombre / hostname (o MAC) con las PCs de este cliente.',
+  sp_nada:'No encontré el nombre de las computadoras. Abajo, en "Columnas del archivo", escoge cuál columna es el Nombre del equipo.', sp_ignorar:'no usar',
+  sp_resumen:'{a} con diferencias · {n} nuevas · {i} iguales', sp_columnas:'Columnas del archivo: {n} de {t} reconocidas (toca para revisar)', sp_equipo:'Equipo', sp_que:'Qué cambia',
+  sp_igual_s:'Todo igual y Splashtop ya está en Sí.', sp_campo:'Campo', sp_ahora:'Ahora', sp_vacio:'(vacío)', sp_faltan:'{n} PC(s) de este cliente no están en el archivo de Splashtop',
+  sp_import:'Importar ({n})', sp_help:'Marcado = se cambia. Lo vacío se llena solo; lo que ya tiene otro valor lo decides tú. Splashtop queda en Sí.',
+  sp_confirm:'Se van a agregar {n} PC(s) nuevas y actualizar {a}. ¿Continuar?',
+  'sp_f.nombre':'Nombre del equipo', 'sp_f.hostname':'Hostname', 'sp_f.so':'Sistema operativo', 'sp_f.cpu':'CPU', 'sp_f.ram':'RAM', 'sp_f.disco':'Disco', 'sp_f.ip':'IP', 'sp_f.mac':'MAC', 'sp_f.serial':'Serial',
+  'sp_f.modelo':'Modelo', 'sp_f.marca':'Marca', 'sp_f.pc_user':'Usuario de la PC', 'sp_f.grupo':'Grupo (solo ver)', 'sp_f.visto':'Última conexión (solo ver)', 'sp_f.nota':'Notas (solo ver)',
   t_unifi:'Traer los equipos de este cliente desde UniFi', uf_pick_help:'Marca SOLO las consolas UniFi que son de <b>{c}</b>. Las que no marques nunca se leen.',
   uf_used_by:'ya está conectada a {c}', uf_no_hosts:'Tu API key no ve ninguna consola.', uf_save_hosts:'Guardar consolas', uf_change_hosts:'Cambiar consolas',
   uf_linked:'{n} consola(s) conectada(s)', uf_summary:'{n} nuevos · {a} por actualizar · {i} ya al día', uf_online:'En línea', uf_offline:'Fuera de línea',
@@ -5546,6 +5585,154 @@ function filtrarConsolas(){
 // Los equipos de UniFi llevan la marca en "Marca / Modelo" (U6+ → UniFi U6+)
 const UF_MARCA = /unifi|ubiquiti|ubnt/i;
 const conUnifi = m => { m = String(m || '').trim(); return !m ? 'UniFi' : UF_MARCA.test(m) ? m : 'UniFi ' + m; };
+/* ---------- 🖥 Splashtop: importar el CSV que exportas de my.splashtop.com ----------
+   Lee la "Computer List" y/o el "System/Hardware Inventory", compara con las PCs del cliente,
+   enseña las diferencias campo por campo y al importar marca Splashtop = Yes. */
+let SP = null;
+const SP_CAMPOS = ['nombre', 'hostname', 'so', 'cpu', 'ram', 'disco', 'ip', 'mac', 'serial', 'modelo', 'marca', 'pc_user', 'grupo', 'visto', 'nota'];
+const SP_INFO = ['grupo', 'visto', 'nota', 'marca'];   // se enseñan, no se guardan (marca va junto al modelo)
+const SP_ALIAS = {
+  nombre: ['computername', 'computer', 'name', 'devicename', 'computeralias', 'alias', 'displayname', 'endpoint', 'endpointname', 'equipo', 'nombredelequipo', 'nombreequipo', 'computadora', 'nombredelacomputadora'],
+  hostname: ['hostname', 'host', 'netbiosname', 'machinename', 'computerhostname', 'dnsname'],
+  so: ['os', 'operatingsystem', 'osname', 'osversion', 'windowsversion', 'platform', 'system', 'osedition', 'osinfo', 'sistema', 'sistemaoperativo', 'versiondewindows'],
+  cpu: ['cpu', 'processor', 'processorname', 'cpumodel', 'cpuname', 'processors', 'procesador'],
+  ram: ['ram', 'memory', 'totalmemory', 'physicalmemory', 'installedram', 'memorygb', 'rammb', 'ramgb', 'totalram', 'memorysize', 'memoria', 'memoriaram'],
+  disco: ['disk', 'disks', 'disksize', 'storage', 'harddisk', 'harddrive', 'totaldisk', 'drive', 'disktotal', 'totaldisksize', 'diskcapacity', 'totalstorage', 'disco', 'discoduro', 'almacenamiento'],
+  ip: ['ip', 'ipaddress', 'localip', 'privateip', 'lanip', 'internalip', 'ipv4', 'ipv4address', 'lastip', 'direccionip'],
+  mac: ['mac', 'macaddress', 'macaddresses', 'physicaladdress', 'direccionmac'],
+  serial: ['serial', 'serialnumber', 'serialno', 'biosserialnumber', 'servicetag', 'sn', 'numerodeserie', 'serie'],
+  modelo: ['model', 'systemmodel', 'computermodel', 'productname', 'devicemodel', 'modelo'],
+  marca: ['manufacturer', 'vendor', 'make', 'systemmanufacturer', 'brand', 'marca', 'fabricante'],
+  pc_user: ['user', 'loggedinuser', 'lastloggedonuser', 'lastloggedinuser', 'currentuser', 'username', 'lastuser', 'owner', 'usuario'],
+  grupo: ['group', 'groupname', 'computergroup', 'groups', 'grupo'],
+  visto: ['lastonline', 'lastseen', 'lastconnected', 'lastsessiontime', 'lastsession', 'lastconnectiontime', 'lastonlinetime', 'laststatus', 'ultimaconexion', 'ultimasesion', 'ultimavez'],
+  nota: ['notes', 'note', 'description', 'comment', 'comments', 'notas', 'nota', 'descripcion']
+};
+const spKey = h => String(h || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]/g, '');
+const spCampoDe = h => { const k = spKey(h); for (const [c, al] of Object.entries(SP_ALIAS)) if (al.includes(k)) return c;
+  for (const [c, al] of Object.entries(SP_ALIAS)) if (al.some(a => a.length > 4 && k.startsWith(a))) return c; return ''; };
+const spIgual = (a, b) => spKey(a) === spKey(b);
+// "17179869184" (bytes) / "16384" (MB) / "16 GB" → "16 GB"
+function spCap(v, campo){
+  const s = String(v ?? '').trim(); if (!s) return '';
+  if (/[a-z]/i.test(s) && !/^\d+(\.\d+)?\s*(b|bytes)$/i.test(s)) return s.replace(/\s+/g, ' ');
+  const n = parseFloat(s.replace(/,/g, '')); if (!isFinite(n) || n <= 0) return s;
+  const gb = n > 5e7 ? n / 1073741824 : (campo === 'ram' && n >= 512) || (campo === 'disco' && n >= 8192) ? n / 1024 : n;
+  return gb >= 1000 && campo === 'disco' ? `${+(gb / 1024).toFixed(1)} TB` : `${Math.round(gb)} GB`;
+}
+function abrirSplashtop(){
+  if (!puede('editar')) return;
+  SP = { filas: [], cols: [], map: {}, archivos: [], sel: new Set(), campos: {}, tipos: {}, paso: 'archivo' };
+  $('modal').querySelector('.modal-card').classList.add('wide');
+  $('modal').classList.remove('hidden');
+  renderSplashtop();
+}
+async function spLeer(input){
+  const files = [...(input.files || [])]; if (!files.length) return;
+  try{ await cargarXLSX(); }catch(err){ return alert(err.message); }
+  for (const f of files){
+    try{
+      const buf = await f.arrayBuffer(), wb = XLSX.read(buf, { type: 'array', cellDates: true });
+      const aoa = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], { header: 1, raw: false, defval: '' });
+      let hi = aoa.findIndex(r => r.filter(c => spCampoDe(c)).length >= 1 && r.filter(c => String(c).trim()).length >= 2); if (hi < 0) hi = 0;
+      const head = (aoa[hi] || []).map(h => String(h).trim());
+      head.forEach(h => { if (h && !SP.cols.includes(h)){ SP.cols.push(h); if (!(h in SP.map)) SP.map[h] = spCampoDe(h); } });
+      aoa.slice(hi + 1).filter(r => r.some(c => String(c).trim())).forEach(r => { const o = {}; head.forEach((h, i) => { if (h) o[h] = String(r[i] ?? '').trim(); }); SP.filas.push(o); });
+      SP.archivos.push(f.name);
+    }catch(e){ alert(t('bad_file') + ' ' + f.name); }
+  }
+  input.value = '';
+  spAnalizar();
+}
+// Convierte las filas leídas en equipos (juntando la lista y el inventario por nombre) y los compara con el inventario
+function spAnalizar(){
+  const porNombre = new Map();
+  SP.filas.forEach(r => {
+    const o = {}; Object.entries(r).forEach(([h, v]) => { const c = SP.map[h]; if (c && v && !o[c]) o[c] = v; });
+    if (!o.nombre && o.hostname) o.nombre = o.hostname;
+    if (!o.nombre) return;
+    const k = spKey(o.nombre), prev = porNombre.get(k) || {};
+    porNombre.set(k, Object.assign(prev, Object.fromEntries(Object.entries(o).filter(([c, v]) => v && !prev[c]))));
+  });
+  const mios = equiposDe(curCliente).filter(x => PC_TIPOS.includes(x.tipo)), usados = new Set();
+  SP.eqs = [...porNombre.values()].map((o, i) => {
+    const sp = { ...o, ram: spCap(o.ram, 'ram'), disco: spCap(o.disco, 'disco'), mac: o.mac ? macNorm(String(o.mac).split(/[,;\s]+/)[0]) : '', ip: o.ip ? String(o.ip).split(/[,;\s]+/)[0] : '' };
+    if (sp.marca && sp.modelo && !spKey(sp.modelo).includes(spKey(sp.marca))) sp.modelo = sp.marca + ' ' + sp.modelo; else if (sp.marca && !sp.modelo) sp.modelo = sp.marca;
+    const host = sp.hostname || sp.nombre;
+    const ya = mios.find(x => !usados.has(x.id) && ([x.hostname, x.nombre].some(v => v && (spIgual(v, host) || spIgual(v, sp.nombre))) || (sp.mac && macNorm(x.mac) === sp.mac)));
+    if (ya) usados.add(ya.id);
+    const cambios = [];
+    if (ya){
+      const cmp = [['hostname', host], ['so', sp.so], ['cpu', sp.cpu], ['ram', sp.ram], ['disco', sp.disco], ['ip', sp.ip], ['mac', sp.mac], ['serial', sp.serial], ['modelo', sp.modelo], ['pc_user', sp.pc_user]];
+      cmp.forEach(([c, v]) => { if (v && !spIgual(ya[c], v)) cambios.push({ c, de: ya[c] || '', a: v }); });
+      if (ya.splashtop !== 'Yes') cambios.push({ c: 'splashtop', de: ya.splashtop || '', a: 'Yes' });
+    }
+    const id = 'sp' + i;
+    // por defecto: llena lo vacío y enciende Splashtop; lo que ya tiene un valor distinto lo decides tú
+    SP.campos[id] = new Set(cambios.filter(x => !x.de || x.c === 'splashtop').map(x => x.c));
+    SP.tipos[id] = /server/i.test(sp.so || '') ? 'Servidor' : /laptop|notebook|book|thinkpad|latitude|elitebook|probook|surface|vostro|inspiron 1[45]/i.test([sp.modelo, sp.nombre].join(' ')) ? 'Laptop' : 'PC';
+    const accion = !ya ? 'nuevo' : cambios.length ? 'act' : 'igual';
+    return { id, sp, host, ya, cambios, accion };
+  }).sort((a, b) => ({ act: 0, nuevo: 1, igual: 2 }[a.accion] - { act: 0, nuevo: 1, igual: 2 }[b.accion]) || String(a.sp.nombre).localeCompare(String(b.sp.nombre)));
+  SP.faltan = mios.filter(x => !usados.has(x.id));
+  SP.sel = new Set(SP.eqs.filter(e => e.accion !== 'igual').map(e => e.id));
+  SP.paso = SP.filas.length ? 'revisar' : 'archivo';
+  SP.msg = SP.filas.length && !SP.eqs.length ? t('sp_nada') : '';
+  renderSplashtop();
+}
+function spCol(h, v){ SP.map[h] = v; spAnalizar(); }
+function spCampo(id, c, on){ const s = SP.campos[id]; on ? s.add(c) : s.delete(c); if (on) SP.sel.add(id); const n = $('spN'); if (n) n.textContent = t('sp_import', { n: spContar() }); }
+const spContar = () => SP.eqs.filter(e => SP.sel.has(e.id) && (e.accion === 'nuevo' || SP.campos[e.id].size)).length;
+function renderSplashtop(){
+  const c = clienteObj(curCliente) || { nombre: curCliente };
+  $('modalTitle').textContent = `🖥 Splashtop · ${c.nombre}`;
+  const lbl = k => t('sp_f.' + k);
+  let html = SP.msg ? `<div class="u-warn">⚠️ ${esc(SP.msg)}</div>` : '';
+  const subir = `<label class="sp-drop"><input type="file" accept=".csv,.xlsx,.xls" multiple onchange="spLeer(this)"><b>📄 ${t(SP.archivos.length ? 'sp_mas' : 'sp_elegir')}</b><small class="muted">${t('sp_elegir_s')}</small></label>`;
+  if (SP.paso === 'archivo'){
+    html += `<div class="sp-pasos"><b>${t('sp_como')}</b><ol><li>${t('sp_p1')}</li><li>${t('sp_p2')}</li><li>${t('sp_p3')}</li></ol><small class="muted">${t('sp_p4')}</small></div>${subir}`;
+  } else {
+    const n = k => SP.eqs.filter(e => e.accion === k).length;
+    const opts = h => `<select onchange="spCol('${jsq(h)}', this.value)"><option value="">— ${t('sp_ignorar')} —</option>${SP_CAMPOS.map(k => `<option value="${k}" ${SP.map[h] === k ? 'selected' : ''}>${esc(lbl(k))}</option>`).join('')}</select>`;
+    html += `<div class="muted" style="margin-bottom:6px">📄 ${SP.archivos.map(esc).join(', ')} · ${t('sp_resumen', { a: n('act'), n: n('nuevo'), i: n('igual') })}</div>
+      <details class="sp-map" ${SP.eqs.length ? '' : 'open'}><summary>${t('sp_columnas', { n: SP.cols.filter(h => SP.map[h]).length, t: SP.cols.length })}</summary><div class="sp-map-g">${SP.cols.map(h => `<label><span>${esc(h)}</span>${opts(h)}</label>`).join('')}</div></details>
+      <label class="sp-todos"><input type="checkbox" ${SP.eqs.filter(e => e.accion !== 'igual').every(e => SP.sel.has(e.id)) ? 'checked' : ''} onchange="SP.eqs.forEach(e => e.accion !== 'igual' && (this.checked ? SP.sel.add(e.id) : SP.sel.delete(e.id))); renderSplashtop()"> ${t('cl_all')}</label>
+      <div class="sp-lista">` +
+      SP.eqs.map(e => {
+        const ck = `<input type="checkbox" ${SP.sel.has(e.id) ? 'checked' : ''} ${e.accion === 'igual' ? 'disabled' : ''} onchange="this.checked ? SP.sel.add('${e.id}') : SP.sel.delete('${e.id}'); renderSplashtop()">`;
+        const info = [e.sp.grupo && '🗂 ' + esc(e.sp.grupo), e.sp.visto && '🕒 ' + esc(e.sp.visto)].filter(Boolean).join(' · ');
+        let que = '';
+        if (e.accion === 'nuevo') que = `<div class="sp-nuevo"><select onchange="SP.tipos['${e.id}']=this.value">${PC_TIPOS.map(k => `<option value="${k}" ${SP.tipos[e.id] === k ? 'selected' : ''}>${esc(tTipo(k))}</option>`).join('')}</select>
+          <small class="muted">${[e.sp.so, e.sp.cpu, e.sp.ram, e.sp.disco, e.sp.ip].filter(Boolean).map(esc).join(' · ') || '—'}</small></div>`;
+        else if (e.accion === 'act') que = `<div class="sp-dif"><span class="h"></span><span class="h">${t('sp_campo')}</span><span class="h">${t('sp_ahora')}</span><span class="h">Splashtop</span>${e.cambios.map(x => `<label class="r ${x.de ? 'cambia' : 'llena'}">
+            <input type="checkbox" ${SP.campos[e.id].has(x.c) ? 'checked' : ''} onchange="spCampo('${e.id}','${x.c}',this.checked)"><span>${esc(x.c === 'splashtop' ? 'Splashtop' : lbl(x.c))}</span>
+            <span class="de">${x.de ? esc(x.de) : `<i class="muted">${t('sp_vacio')}</i>`}</span><b class="a">${esc(x.a)}</b></label>`).join('')}</div>`;
+        return `<div class="sp-eq spe-${e.accion}"><div class="sp-eq-h">${ck}<div class="n"><b>${esc(e.sp.nombre)}</b>${e.ya && !spIgual(e.ya.nombre, e.sp.nombre) ? ` <small class="muted">↔ ${esc(e.ya.nombre)}</small>` : ''}${info ? `<small class="muted">${info}</small>` : ''}</div>
+          ${e.accion === 'igual' ? `<small class="muted">${t('sp_igual_s')}</small>` : ''}<span class="uf-tag ${e.accion}">${t('uf_' + e.accion)}</span></div>${que}</div>`; }).join('') + `</div>
+      ${SP.faltan.length ? `<details class="sp-falta"><summary>${t('sp_faltan', { n: SP.faltan.length })}</summary><small class="muted">${SP.faltan.map(x => esc(x.nombre) + (x.hostname && !spIgual(x.hostname, x.nombre) ? ` (${esc(x.hostname)})` : '')).join(' · ')}</small></details>` : ''}
+      <div class="uf-foot"><button class="primary" id="spN" onclick="importarSplashtop()">${t('sp_import', { n: spContar() })}</button>${subir.replace('sp-drop', 'sp-drop sm')}<small class="muted">${t('sp_help')}</small></div>`;
+  }
+  $('modalBody').innerHTML = html;
+}
+async function importarSplashtop(){
+  const c = clienteObj(curCliente) || { nombre: curCliente }, aqui = sedeEnUbicacion();
+  const elegidos = SP.eqs.filter(e => SP.sel.has(e.id));
+  const nuevos = elegidos.filter(e => e.accion === 'nuevo').map(e => { const s = e.sp; return {
+    cliente: c.nombre, direccion: (aqui && sedes.find(x => x.id === aqui)?.direccion) || c.direccion || null, tipo: SP.tipos[e.id] || 'PC', nombre: s.nombre, hostname: e.host || null,
+    so: s.so || null, cpu: s.cpu || null, ram: s.ram || null, disco: s.disco || null, ip: s.ip || null, mac: s.mac || null, serial: s.serial || null, modelo: s.modelo || null,
+    pc_user: s.pc_user || null, splashtop: 'Yes', estado: 'Activo', ...(aqui ? { sede_id: aqui } : {}) }; });
+  const cambios = elegidos.filter(e => e.accion === 'act' && SP.campos[e.id].size).map(e => ({ id: e.ya.id, patch: Object.fromEntries(e.cambios.filter(x => SP.campos[e.id].has(x.c)).map(x => [x.c, x.a])) }));
+  if (!nuevos.length && !cambios.length) return toast(t('uf_nothing'));
+  if (!confirm(t('sp_confirm', { n: nuevos.length, a: cambios.length }))) return;
+  if (nuevos.length){ let { error } = await db.from('equipos').insert(nuevos);
+    if (error && /sede_id/i.test(error.message || '')){ nuevos.forEach(r => delete r.sede_id); ({ error } = await db.from('equipos').insert(nuevos)); }
+    if (error) return fail(error, t('save_fail')); }
+  for (const x of cambios){ const { error } = await db.from('equipos').update(x.patch).eq('id', x.id); if (error) return fail(error, t('save_fail')); }
+  logAct('import_excel', null, { a: cambios.length, b: nuevos.length, origen: 'splashtop' }, { cliente: c.nombre });
+  toast(t('uf_done', { n: nuevos.length, a: cambios.length }));
+  closeModal(); await loadData();
+}
+
 async function importarUnifi(){
   const c = clienteObj(curCliente) || { nombre: curCliente };
   const elegidos = UF.equipos.filter(d => UF.sel.has(d.id) && d.accion !== 'igual');

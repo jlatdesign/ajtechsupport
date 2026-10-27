@@ -767,6 +767,22 @@ body.p-noborrar [onclick^="borrarSede("],body.p-noborrar [onclick^="borrarVpn("]
 .pl-tot{font-size:12.5px;color:var(--muted);margin:6px 2px}
 
 body.p-nostaff .solo-staff{display:none!important}
+.stk-badge{display:inline-block;min-width:18px;padding:0 5px;border-radius:999px;background:var(--bad);color:#fff;font:700 11px/18px Inter,sans-serif;text-align:center;margin-left:2px}
+.stk-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:12px}.stk-kpi{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--card-solid)}
+.stk-kpi b{display:block;font:700 22px "JetBrains Mono",monospace}.stk-kpi span{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px}.stk-kpi.warn b{color:var(--bad)}
+.stk-filtros{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}.stk-filtros .stats{display:flex;flex-wrap:wrap;gap:6px}.stk-cat-h{margin-top:16px}
+.stk-tbl td,.stk-tbl th{padding:7px 9px;font-size:13px;vertical-align:middle}.stk-tbl .n{text-align:right;white-space:nowrap}.stk-tbl tr.bajo td{background:color-mix(in srgb,var(--bad) 7%,transparent)}
+.stk-acc{white-space:nowrap;text-align:right}.stk-acc button{padding:3px 9px;margin-left:3px}
+.stk-cond{font:600 11px Inter,sans-serif;padding:2px 8px;border-radius:999px;border:1px solid var(--line-strong);white-space:nowrap}
+.stk-cond.nuevo{color:var(--ok);border-color:color-mix(in srgb,var(--ok) 50%,transparent)}.stk-cond.abierto{color:var(--c1);border-color:color-mix(in srgb,var(--c1) 50%,transparent)}
+.stk-cond.usado{color:var(--warn);border-color:color-mix(in srgb,var(--warn) 55%,transparent)}.stk-cond.reacondicionado{color:var(--c2);border-color:color-mix(in srgb,var(--c2) 50%,transparent)}
+.stk-cond.danado{color:var(--bad);border-color:color-mix(in srgb,var(--bad) 50%,transparent)}
+.stk-cant-u{display:flex;gap:6px}.stk-cant-u input{flex:1;min-width:0}.stk-cant-u select{width:auto!important;flex:none}
+.stk-full{display:flex;flex-direction:column;gap:3px;margin:8px 0;font-size:12px}.stk-span2{grid-column:span 2}
+.stk-ser{display:flex;flex-direction:column;gap:3px;margin:6px 0;max-height:180px;overflow:auto}.stk-ser-r{display:grid;grid-template-columns:1fr 1fr 1fr 30px;gap:8px;align-items:center;font-size:12px;padding:3px 6px;border:1px solid var(--line);border-radius:8px}
+.stk-ser-r.salio{opacity:.6}.stk-mov-h{display:flex;gap:12px;align-items:center;flex-wrap:wrap;font-size:13px}.stk-pick-s{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:8px 0;font-size:12.5px}.stk-pick-s>b{width:100%}
+.stm-t{font:600 11px Inter,sans-serif;padding:2px 8px;border-radius:6px;background:var(--row-hover)}.stm-t.entrada,.stm-t.devolucion{color:var(--ok)}.stm-t.salida{color:var(--c1)}.stm-t.ajuste{color:var(--warn)}
+@media (max-width:700px){.stk-span2{grid-column:auto}}
 .pr-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:8px}
 .pr-learn{font-size:12.5px;color:var(--muted);margin:4px 0 10px}
 .pr-est{font:600 11px Inter,sans-serif;padding:2px 9px;border-radius:999px;border:1px solid var(--line-strong)}
@@ -991,7 +1007,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v8.6.1</p>
+    <p class="sub">Network Asset Manager · v8.7</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -1007,7 +1023,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v8.6.1</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v8.7</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -1020,6 +1036,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <button class="icon-btn" onclick="toggleTheme()" data-i18n-title="t_theme">🌓</button>
     <button class="solo-roles" onclick="abrirUsuarios()" data-i18n-title="t_users">👥 <span data-i18n="users">Users</span><span id="onlineN" class="hidden" title=""></span></button>
     <button class="solo-staff" onclick="abrirPresupuestos()">💰 <span data-i18n="pr_btn">Quotes</span></button>
+    <button class="solo-staff" onclick="abrirStock()">📦 <span data-i18n="stk_btn">Stock</span> <span class="stk-badge hidden" id="stkBadge"></span></button>
     <button onclick="abrirActividad()" data-i18n-title="t_activity">📜 <span data-i18n="activity">Activity</span></button>
     <button onclick="openGrupos()" data-i18n-title="t_groups">🗂 <span data-i18n="groups">Groups</span></button>
     <button class="icon-btn" onclick="cambiarPassword()" data-i18n-title="t_changepw">🔑</button>
@@ -1061,6 +1078,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 
 <!-- ===== Vista: presupuestos ===== -->
 <div id="presuView" class="hidden"></div>
+<div id="stockView" class="hidden"></div>
 
 <!-- ===== Vista: ubicaciones de un cliente ===== -->
 <div id="sedesView" class="hidden">
@@ -1680,6 +1698,33 @@ Object.assign(I18N.en, {
   sp_confirm:'{n} new PC(s) will be added and {a} updated. Continue?',
   'sp_f.nombre':'Device name', 'sp_f.hostname':'Hostname', 'sp_f.so':'Operating system', 'sp_f.cpu':'CPU', 'sp_f.ram':'RAM', 'sp_f.disco':'Disk', 'sp_f.ip':'IP', 'sp_f.mac':'MAC', 'sp_f.serial':'Serial',
   'sp_f.modelo':'Model', 'sp_f.marca':'Brand', 'sp_f.pc_user':'PC user', 'sp_f.grupo':'Group (view only)', 'sp_f.visto':'Last connection (view only)', 'sp_f.nota':'Notes (view only)',
+  stk_btn:'Stock', stk_title:'Office stock', stk_sub:'Equipment and materials to install: UniFi, racks, cable, jacks, patch cords… new, open box or used.',
+  stk_productos:'Products', stk_movs:'Movements', stk_entrada:'Stock in', stk_salida:'Stock out', stk_nuevo:'New product', stk_editar:'Edit product', stk_ajuste:'Adjust count',
+  stk_missing:'The stock table is missing. Run supabase-stock.sql in Supabase > SQL Editor.', stk_k_prod:'products', stk_k_uni:'units', stk_k_bajo:'below minimum', stk_k_valor:'value at cost',
+  stk_buscar:'Search product, model, serial, MAC, location…', stk_todas_cat:'All categories', stk_producto:'Product', stk_cond:'Condition', stk_cant:'Quantity', stk_ubic:'Location',
+  stk_costo:'Cost', stk_precio:'Sale price', stk_min:'min.', stk_min_l:'Minimum (reorder point)', stk_serie_n:'{n} with serial', stk_nada:'Nothing matches the filter.', stk_vacio:'There are no products in stock yet.',
+  stk_catalogo:'Search the catalog (UniFi, racks, cable, jacks…)', stk_catalogo_ph:'Type: U7, USW, G5, rack, Cat6, keystone…', stk_categoria:'Category', stk_marca:'Brand', stk_modelo:'Model / SKU',
+  stk_nombre:'Name / description', stk_nombre_ph:'e.g. UniFi U7 Pro', stk_cant_mov:'Quantity changes with Stock in, Stock out or Adjust count', stk_min_ph:'alert at this level', stk_ubic_ph:'Shelf A2, Van 1…',
+  stk_prov:'Supplier', stk_serializado:'Has serial number (equipment): track each unit by serial', stk_series_h:'Each unit with its serial (and MAC if any). You know exactly which one went to which client.',
+  stk_series_ph:'One serial per line. With MAC: SERIAL | MAC', stk_cond_h:'The same model in another condition (new / used) is a separate product with its own price.',
+  stk_falta_nombre:'Type the product name.', stk_borrar_q:'Delete "{n}" and all its history?', stk_alta:'Initial stock', stk_ya_existe:'You already have "{n}" ({c}). If it is the same, better use Stock in on that one.',
+  stk_que_prod:'Which product comes in?', stk_seguir:'Continue', stk_hay:'On hand', stk_cuenta_real:'Real counted quantity', stk_cli_ph:'Which client is it for?', stk_por_u:'per unit', stk_nota:'Note',
+  stk_cuales:'Which ones go out?', stk_cuales_dev:'Which ones come back?', stk_sin_series:'No units with serial to choose.', stk_series_nuevas:'Serials of what comes in',
+  stk_al_inv:'Also add it to the client inventory (one row per unit, with serial and MAC)', stk_falta_cli:'Type which client it is for.', stk_falta_cant:'Type the quantity (or check the serials).',
+  stk_negativo:'Only {n} on hand. Take it out anyway? (stock will go negative)', stk_desde_stock:'From office stock on {f} ({c}).', stk_al_inv_ok:'{n} device(s) added to {c} inventory',
+  stk_sin_movs:'No movements yet.', stk_mov:'Movement', stk_saldo:'Left', stk_quien:'Who',
+  'std.nuevo':'New', 'std.abierto':'New · open box', 'std.usado':'Used', 'std.reacondicionado':'Refurbished', 'std.danado':'Damaged / RMA',
+  'stdc.nuevo':'New', 'stdc.abierto':'Open box', 'stdc.usado':'Used', 'stdc.reacondicionado':'Refurb.', 'stdc.danado':'Damaged',
+  'stu.u':'units', 'stu.ft':'ft', 'stu.caja':'boxes', 'stu.rollo':'rolls', 'stu.paquete':'packs',
+  'sts.disponible':'Available', 'sts.salio':'Out', 'sts.reservado':'Reserved',
+  'stm.entrada':'📥 Stock in', 'stm.salida':'📤 Out to client', 'stm.devolucion':'↩️ Return', 'stm.ajuste':'⚖ Count adjustment', 'stm.reserva':'Reserve', 'stm.libera':'Release',
+  'stm_ok.entrada':'📥 Record stock in', 'stm_ok.salida':'📤 Record stock out', 'stm_ok.devolucion':'↩️ Record return', 'stm_ok.ajuste':'⚖ Save count',
+  'stm_h.entrada':'Purchase or goods arriving. If you enter the cost, it is averaged with what you had.', 'stm_h.salida':'What goes to a job. The client it went to is recorded.',
+  'stm_h.devolucion':'What comes back from a job (leftover or removed). If it comes back used, better do Stock in on the "Used" product.', 'stm_h.ajuste':'When you count the shelf and it does not match. The difference stays in the history.',
+  'stm_ph.entrada':'Invoice, supplier…', 'stm_ph.salida':'Job, quote #…', 'stm_ph.devolucion':'Job leftover…', 'stm_ph.ajuste':'Shelf count…',
+  'stc.gateway':'Gateways / routers / firewalls', 'stc.switch':'Switches', 'stc.ap':'Access points / WiFi', 'stc.camara':'Cameras', 'stc.nvr':'NVR / recorders / drives', 'stc.acceso':'Access control / intercom',
+  'stc.voip':'Phones / VoIP', 'stc.sfp':'SFP / DAC / modules', 'stc.rack':'Racks / cabinets / shelves', 'stc.patch':'Patch panels / managers', 'stc.cable':'Bulk cable', 'stc.cordon':'Patch cords',
+  'stc.conector':'Jacks / RJ45 / plates / boxes', 'stc.fibra':'Fiber', 'stc.energia':'UPS / PDU / PoE', 'stc.montaje':'Mounting / J-hooks / hardware', 'stc.herramienta':'Tools', 'stc.pc':'PCs / laptops / monitors', 'stc.otro':'Other',
   t_unifi:'Bring this client’s devices from UniFi', uf_pick_help:'Check ONLY the UniFi consoles that belong to <b>{c}</b>. Consoles you don’t check are never read.',
   uf_used_by:'already linked to {c}', uf_no_hosts:'Your API key does not see any console.', uf_save_hosts:'Save consoles', uf_change_hosts:'Change consoles',
   uf_linked:'{n} console(s) linked', uf_summary:'{n} new · {a} to update · {i} already up to date', uf_online:'Online', uf_offline:'Offline',
@@ -1798,6 +1843,33 @@ Object.assign(I18N.es, {
   sp_confirm:'Se van a agregar {n} PC(s) nuevas y actualizar {a}. ¿Continuar?',
   'sp_f.nombre':'Nombre del equipo', 'sp_f.hostname':'Hostname', 'sp_f.so':'Sistema operativo', 'sp_f.cpu':'CPU', 'sp_f.ram':'RAM', 'sp_f.disco':'Disco', 'sp_f.ip':'IP', 'sp_f.mac':'MAC', 'sp_f.serial':'Serial',
   'sp_f.modelo':'Modelo', 'sp_f.marca':'Marca', 'sp_f.pc_user':'Usuario de la PC', 'sp_f.grupo':'Grupo (solo ver)', 'sp_f.visto':'Última conexión (solo ver)', 'sp_f.nota':'Notas (solo ver)',
+  stk_btn:'Stock', stk_title:'Stock de la oficina', stk_sub:'Equipos y materiales para instalar: UniFi, racks, cable, jacks, patch cords… nuevo, caja abierta o usado.',
+  stk_productos:'Productos', stk_movs:'Movimientos', stk_entrada:'Entrada', stk_salida:'Salida', stk_nuevo:'Nuevo producto', stk_editar:'Editar producto', stk_ajuste:'Ajustar conteo',
+  stk_missing:'Falta la tabla de stock. Corre supabase-stock.sql en Supabase > SQL Editor.', stk_k_prod:'productos', stk_k_uni:'unidades', stk_k_bajo:'bajo el mínimo', stk_k_valor:'valor al costo',
+  stk_buscar:'Buscar producto, modelo, serial, MAC, ubicación…', stk_todas_cat:'Todas las categorías', stk_producto:'Producto', stk_cond:'Condición', stk_cant:'Cantidad', stk_ubic:'Ubicación',
+  stk_costo:'Costo', stk_precio:'Precio venta', stk_min:'mín.', stk_min_l:'Mínimo (punto de reorden)', stk_serie_n:'{n} con serial', stk_nada:'Nada coincide con el filtro.', stk_vacio:'Todavía no hay productos en el stock.',
+  stk_catalogo:'Buscar en el catálogo (UniFi, racks, cable, jacks…)', stk_catalogo_ph:'Escribe: U7, USW, G5, rack, Cat6, keystone…', stk_categoria:'Categoría', stk_marca:'Marca', stk_modelo:'Modelo / SKU',
+  stk_nombre:'Nombre / descripción', stk_nombre_ph:'ej. UniFi U7 Pro', stk_cant_mov:'La cantidad se cambia con Entrada, Salida o Ajustar conteo', stk_min_ph:'avisa al llegar aquí', stk_ubic_ph:'Estante A2, Van 1…',
+  stk_prov:'Proveedor', stk_serializado:'Lleva número de serie (equipos): llevar cada unidad por serial', stk_series_h:'Cada unidad con su serial (y MAC si tiene). Así sabes exactamente cuál salió y a qué cliente.',
+  stk_series_ph:'Un serial por línea. Con MAC: SERIAL | MAC', stk_cond_h:'El mismo modelo en otra condición (nuevo / usado) va como otro producto, con su propio precio.',
+  stk_falta_nombre:'Escribe el nombre del producto.', stk_borrar_q:'¿Borrar "{n}" y todo su historial?', stk_alta:'Alta inicial', stk_ya_existe:'Ya tienes "{n}" ({c}). Si es lo mismo, mejor dale Entrada a ese.',
+  stk_que_prod:'¿Qué producto entra?', stk_seguir:'Seguir', stk_hay:'Hay', stk_cuenta_real:'Cantidad real contada', stk_cli_ph:'¿A qué cliente va?', stk_por_u:'por unidad', stk_nota:'Nota',
+  stk_cuales:'¿Cuáles salen?', stk_cuales_dev:'¿Cuáles regresan?', stk_sin_series:'No hay unidades con serial para escoger.', stk_series_nuevas:'Seriales de lo que entra',
+  stk_al_inv:'Agregarlo también al inventario del cliente (una fila por unidad, con serial y MAC)', stk_falta_cli:'Escribe a qué cliente va.', stk_falta_cant:'Escribe la cantidad (o marca los seriales).',
+  stk_negativo:'Solo hay {n}. ¿Sacar igual? (el stock quedará en negativo)', stk_desde_stock:'Del stock de la oficina el {f} ({c}).', stk_al_inv_ok:'{n} equipo(s) agregados al inventario de {c}',
+  stk_sin_movs:'Todavía no hay movimientos.', stk_mov:'Movimiento', stk_saldo:'Quedó', stk_quien:'Quién',
+  'std.nuevo':'Nuevo', 'std.abierto':'Nuevo · caja abierta', 'std.usado':'Usado', 'std.reacondicionado':'Reacondicionado', 'std.danado':'Dañado / RMA',
+  'stdc.nuevo':'Nuevo', 'stdc.abierto':'Caja abierta', 'stdc.usado':'Usado', 'stdc.reacondicionado':'Reacond.', 'stdc.danado':'Dañado',
+  'stu.u':'unidades', 'stu.ft':'pies', 'stu.caja':'cajas', 'stu.rollo':'rollos', 'stu.paquete':'paquetes',
+  'sts.disponible':'Disponible', 'sts.salio':'Salió', 'sts.reservado':'Reservado',
+  'stm.entrada':'📥 Entrada', 'stm.salida':'📤 Salida a cliente', 'stm.devolucion':'↩️ Devolución', 'stm.ajuste':'⚖ Ajuste de conteo', 'stm.reserva':'Reserva', 'stm.libera':'Libera',
+  'stm_ok.entrada':'📥 Registrar entrada', 'stm_ok.salida':'📤 Registrar salida', 'stm_ok.devolucion':'↩️ Registrar devolución', 'stm_ok.ajuste':'⚖ Guardar conteo',
+  'stm_h.entrada':'Compra o mercancía que llega. Si pones el costo, se promedia con lo que ya tenías.', 'stm_h.salida':'Lo que se lleva a un trabajo. Queda anotado a qué cliente fue.',
+  'stm_h.devolucion':'Lo que regresa de un trabajo (sobrante o retirado). Si regresa usado, mejor dale Entrada al producto "Usado".', 'stm_h.ajuste':'Cuando cuentas el estante y no cuadra. Queda en el historial la diferencia.',
+  'stm_ph.entrada':'Factura, proveedor…', 'stm_ph.salida':'Trabajo, presupuesto #…', 'stm_ph.devolucion':'Sobrante del trabajo…', 'stm_ph.ajuste':'Conteo del estante…',
+  'stc.gateway':'Gateways / routers / firewalls', 'stc.switch':'Switches', 'stc.ap':'Access points / WiFi', 'stc.camara':'Cámaras', 'stc.nvr':'NVR / grabadores / discos', 'stc.acceso':'Control de acceso / intercom',
+  'stc.voip':'Teléfonos / VoIP', 'stc.sfp':'SFP / DAC / módulos', 'stc.rack':'Racks / gabinetes / bandejas', 'stc.patch':'Patch panels / organizadores', 'stc.cable':'Cable a granel', 'stc.cordon':'Patch cords',
+  'stc.conector':'Jacks / RJ45 / placas / cajas', 'stc.fibra':'Fibra', 'stc.energia':'UPS / PDU / PoE', 'stc.montaje':'Montaje / J-hooks / tornillería', 'stc.herramienta':'Herramientas', 'stc.pc':'PCs / laptops / monitores', 'stc.otro':'Otros',
   t_unifi:'Traer los equipos de este cliente desde UniFi', uf_pick_help:'Marca SOLO las consolas UniFi que son de <b>{c}</b>. Las que no marques nunca se leen.',
   uf_used_by:'ya está conectada a {c}', uf_no_hosts:'Tu API key no ve ninguna consola.', uf_save_hosts:'Guardar consolas', uf_change_hosts:'Cambiar consolas',
   uf_linked:'{n} consola(s) conectada(s)', uf_summary:'{n} nuevos · {a} por actualizar · {i} ya al día', uf_online:'En línea', uf_offline:'Fuera de línea',
@@ -2842,6 +2914,7 @@ async function loadData(){
   planos = pl.error ? [] : (pl.data || []); planosOK = !pl.error;
   render();
   if (!$('gModal').classList.contains('hidden')) renderGrupos();
+  if (prVer()) (async () => { try { const r = await db.from('stock_items').select('id,cantidad,minimo,activo'); if (r && !r.error && Array.isArray(r.data) && !STK.open){ stkItems = r.data; renderStockBadge(); } } catch(e){} })();
 }
 function autoDireccion(){
   const c = $('cliente').value.trim();
@@ -3098,8 +3171,10 @@ function renderClienteHead(){
 function mostrarVista(){
   if (curCliente && enSedes === null) enSedes = sedesDe(curCliente).length >= 2;   // desde un enlace: decidir al cargar
   if (curCliente && enSedes && sedesDe(curCliente).length < 2) enSedes = false;
-  const enCliente = !!curCliente, pres = PRES.open && !ACT.open, act = ACT.open || pres, verSedes = enCliente && !!enSedes;
+  const enCliente = !!curCliente, stk = STK.open && !ACT.open && !PRES.open, pres = PRES.open && !ACT.open, act = ACT.open || pres || stk, verSedes = enCliente && !!enSedes;
   $('presuView').classList.toggle('hidden', !pres);
+  $('stockView').classList.toggle('hidden', !stk);
+  if (stk){ $('clientsView').classList.add('hidden'); $('sedesView').classList.add('hidden'); $('clientView').classList.add('hidden'); $('actView').classList.add('hidden'); renderStock(); return; }
   $('actView').classList.toggle('hidden', !ACT.open);
   if (pres){ $('clientsView').classList.add('hidden'); $('sedesView').classList.add('hidden'); $('clientView').classList.add('hidden'); renderPresupuestos(); return; }
   $('clientsView').classList.toggle('hidden', act || enCliente);
@@ -3112,12 +3187,12 @@ function mostrarVista(){
 }
 function abrirCliente(n){
   enSedes = sedesDe(n).length >= 2;
-  ACT.open = false; fSede = ''; curCliente = n; fTipo = ''; vista = 'ov'; fAlert = ''; fCat = ''; fPred = null; sel.clear(); $('q').value = ''; $('fGrupo').value = ''; $('fLugar').value = '';
+  ACT.open = false; STK.open = false; fSede = ''; curCliente = n; fTipo = ''; vista = 'ov'; fAlert = ''; fCat = ''; fPred = null; sel.clear(); $('q').value = ''; $('fGrupo').value = ''; $('fLugar').value = '';
   try{ history.pushState({ c: n }, '', '#c=' + encodeURIComponent(n)); }catch(e){}
   render(); window.scrollTo({ top: 0 });
 }
 function volverClientes(){
-  ACT.open = false; PRES.open = false; plCtx = null;
+  ACT.open = false; PRES.open = false; STK.open = false; plCtx = null;
   if (curCliente){ try{ history.pushState({}, '', location.pathname); }catch(e){} }
   curCliente = null; cerrarDrawer(); render(); window.scrollTo({ top: 0 });
 }
@@ -4644,10 +4719,274 @@ function prCalcInst(d, C){
     tablaP: [1, 2, 3, 4, 5, 6].filter(p => p >= minP).map(p => ({ p, dias: diasCon(p) })) };
 }
 
+/* ==================== 📦 STOCK DE LA OFICINA (equipos y materiales para instalar) ==================== */
+var STK = { open: false, q: '', cat: '', cond: '', bajo: false, tab: 'items' }, stkItems = [], stkMovs = [], stkOK = true;
+const STK_COND = ['nuevo', 'abierto', 'usado', 'reacondicionado', 'danado'];
+const STK_CATS = [['gateway', '🛡'], ['switch', '🔀'], ['ap', '📶'], ['camara', '📷'], ['nvr', '📹'], ['acceso', '🚪'], ['voip', '☎️'], ['sfp', '🔌'], ['rack', '🗄️'], ['patch', '🧩'],
+  ['cable', '🧵'], ['cordon', '➰'], ['conector', '🔗'], ['fibra', '💡'], ['energia', '🔋'], ['montaje', '🔩'], ['herramienta', '🧰'], ['pc', '💻'], ['otro', '📦']];
+const STK_UNIDADES = ['u', 'ft', 'caja', 'rollo', 'paquete'];
+const stkIc = c => (STK_CATS.find(x => x[0] === c) || ['', '📦'])[1];
+// tipo de equipo en el inventario del cliente cuando sale del stock
+const STK_A_TIPO = { gateway: 'Router', switch: 'Switch', ap: 'Access Point', camara: 'Cámara', nvr: 'NVR', acceso: 'Control de Acceso', voip: 'Teléfono', pc: 'PC' };
+// Catálogo para empezar (puedes escribir cualquier otro producto)
+const STK_CAT = [
+  ['gateway', 'Ubiquiti', 'UCG-Ultra', 'UniFi Cloud Gateway Ultra'], ['gateway', 'Ubiquiti', 'UCG-Max', 'UniFi Cloud Gateway Max'], ['gateway', 'Ubiquiti', 'UCG-Fiber', 'UniFi Cloud Gateway Fiber'],
+  ['gateway', 'Ubiquiti', 'UDM-Pro', 'UniFi Dream Machine Pro'], ['gateway', 'Ubiquiti', 'UDM-SE', 'UniFi Dream Machine Special Edition'], ['gateway', 'Ubiquiti', 'UDM-Pro-Max', 'UniFi Dream Machine Pro Max'],
+  ['gateway', 'Ubiquiti', 'UDR7', 'UniFi Dream Router 7'], ['gateway', 'Ubiquiti', 'UX7', 'UniFi Express 7'],
+  ['switch', 'Ubiquiti', 'USW-Flex-Mini', 'UniFi Switch Flex Mini (5 puertos)'], ['switch', 'Ubiquiti', 'USW-Lite-8-PoE', 'UniFi Switch Lite 8 PoE'], ['switch', 'Ubiquiti', 'USW-Lite-16-PoE', 'UniFi Switch Lite 16 PoE'],
+  ['switch', 'Ubiquiti', 'USW-Ultra', 'UniFi Switch Ultra (PoE)'], ['switch', 'Ubiquiti', 'USW-24-PoE', 'UniFi Switch 24 PoE'], ['switch', 'Ubiquiti', 'USW-Pro-24-PoE', 'UniFi Switch Pro 24 PoE'],
+  ['switch', 'Ubiquiti', 'USW-Pro-Max-16-PoE', 'UniFi Switch Pro Max 16 PoE'], ['switch', 'Ubiquiti', 'USW-Pro-Max-24-PoE', 'UniFi Switch Pro Max 24 PoE'], ['switch', 'Ubiquiti', 'USW-Pro-Max-48-PoE', 'UniFi Switch Pro Max 48 PoE'],
+  ['switch', 'Ubiquiti', 'USW-Pro-HD-24-PoE', 'UniFi Switch Pro HD 24 PoE'], ['switch', 'Ubiquiti', 'USW-Aggregation', 'UniFi Switch Aggregation (SFP+)'], ['switch', 'Ubiquiti', 'USW-Pro-Aggregation', 'UniFi Switch Pro Aggregation'],
+  ['ap', 'Ubiquiti', 'U6+', 'UniFi U6+'], ['ap', 'Ubiquiti', 'U6-Pro', 'UniFi U6 Pro'], ['ap', 'Ubiquiti', 'U6-LR', 'UniFi U6 Long-Range'], ['ap', 'Ubiquiti', 'U6-Enterprise', 'UniFi U6 Enterprise'], ['ap', 'Ubiquiti', 'U6-Mesh', 'UniFi U6 Mesh (exterior)'],
+  ['ap', 'Ubiquiti', 'U7-Lite', 'UniFi U7 Lite'], ['ap', 'Ubiquiti', 'U7-Pro', 'UniFi U7 Pro'], ['ap', 'Ubiquiti', 'U7-Pro-Max', 'UniFi U7 Pro Max'], ['ap', 'Ubiquiti', 'U7-Pro-Wall', 'UniFi U7 Pro Wall'],
+  ['ap', 'Ubiquiti', 'U7-LR', 'UniFi U7 Long-Range'], ['ap', 'Ubiquiti', 'U7-Outdoor', 'UniFi U7 Outdoor'], ['ap', 'Ubiquiti', 'U7-Pro-XG', 'UniFi U7 Pro XG'],
+  ['camara', 'Ubiquiti', 'G5-Bullet', 'UniFi G5 Bullet'], ['camara', 'Ubiquiti', 'G5-Turret-Ultra', 'UniFi G5 Turret Ultra'], ['camara', 'Ubiquiti', 'G5-Dome', 'UniFi G5 Dome'], ['camara', 'Ubiquiti', 'G5-Flex', 'UniFi G5 Flex'],
+  ['camara', 'Ubiquiti', 'G5-Pro', 'UniFi G5 Professional'], ['camara', 'Ubiquiti', 'G6-Bullet', 'UniFi G6 Bullet'], ['camara', 'Ubiquiti', 'G6-Turret', 'UniFi G6 Turret'], ['camara', 'Ubiquiti', 'G6-Instant', 'UniFi G6 Instant'],
+  ['camara', 'Ubiquiti', 'AI-Pro', 'UniFi AI Pro'],
+  ['nvr', 'Ubiquiti', 'UNVR', 'UniFi Network Video Recorder (4 discos)'], ['nvr', 'Ubiquiti', 'UNVR-Pro', 'UniFi NVR Pro (7 discos)'], ['nvr', 'Ubiquiti', 'UCK-G2-Plus', 'UniFi Cloud Key Gen2 Plus'],
+  ['nvr', '', 'HDD-8TB-SURV', 'Disco duro de vigilancia 8 TB (WD Purple / Seagate SkyHawk)'],
+  ['acceso', 'Ubiquiti', 'UA-G2-Pro', 'UniFi Access Reader G2 Pro'], ['acceso', 'Ubiquiti', 'UA-Hub', 'UniFi Access Hub'], ['acceso', 'Ubiquiti', 'UA-Ultra', 'UniFi Access Ultra'],
+  ['voip', 'Ubiquiti', 'UTP-Touch', 'UniFi Talk Touch'], ['voip', 'Ubiquiti', 'UTP-Flex', 'UniFi Talk Flex'],
+  ['sfp', 'Ubiquiti', 'UACC-DAC-SFP10-1M', 'Cable DAC SFP+ 10G 1 m'], ['sfp', 'Ubiquiti', 'UACC-DAC-SFP10-3M', 'Cable DAC SFP+ 10G 3 m'], ['sfp', 'Ubiquiti', 'UACC-OM-MM-10G-D-2', 'Módulo SFP+ 10G multimodo (par)'],
+  ['sfp', 'Ubiquiti', 'UACC-OM-SM-10G-D-2', 'Módulo SFP+ 10G monomodo (par)'], ['sfp', 'Ubiquiti', 'UACC-CM-RJ45-MG', 'Módulo SFP+ a RJ45 10G'], ['sfp', '', 'SFP-1G-SM', 'Módulo SFP 1G monomodo'],
+  ['rack', '', 'RACK-WALL-6U', 'Rack de pared 6U'], ['rack', '', 'RACK-WALL-9U', 'Rack de pared 9U'], ['rack', '', 'RACK-WALL-12U', 'Rack de pared 12U'], ['rack', '', 'RACK-42U-OPEN', 'Rack abierto 42U (2 postes)'],
+  ['rack', '', 'RACK-42U-CAB', 'Gabinete 42U (4 postes)'], ['rack', '', 'SHELF-1U', 'Bandeja 1U'], ['rack', '', 'SHELF-2U-V', 'Bandeja ventilada 2U'], ['rack', '', 'RACK-SCREWS', 'Tornillos y tuercas de rack (bolsa)'],
+  ['patch', '', 'PP-24-C6', 'Patch panel 24 puertos Cat6'], ['patch', '', 'PP-48-C6', 'Patch panel 48 puertos Cat6'], ['patch', '', 'PP-24-KS', 'Patch panel 24 puertos keystone (vacío)'],
+  ['patch', '', 'CM-1U', 'Organizador de cables 1U'], ['patch', '', 'CM-2U', 'Organizador de cables 2U'], ['patch', '', 'CM-VERT', 'Organizador vertical'],
+  ['cable', '', 'CAT6-CMR-1000', 'Cable Cat6 CMR (riser) caja 1000 ft'], ['cable', '', 'CAT6-CMP-1000', 'Cable Cat6 CMP (plenum) caja 1000 ft'], ['cable', '', 'CAT6A-CMR-1000', 'Cable Cat6A CMR caja 1000 ft'],
+  ['cable', '', 'CAT6-OUT-1000', 'Cable Cat6 exterior / direct burial 1000 ft'], ['cable', '', 'CAT5E-CMR-1000', 'Cable Cat5e CMR caja 1000 ft'],
+  ['cordon', '', 'PC-C6-1', 'Patch cord Cat6 1 ft'], ['cordon', '', 'PC-C6-3', 'Patch cord Cat6 3 ft'], ['cordon', '', 'PC-C6-5', 'Patch cord Cat6 5 ft'], ['cordon', '', 'PC-C6-7', 'Patch cord Cat6 7 ft'],
+  ['cordon', '', 'PC-C6-10', 'Patch cord Cat6 10 ft'], ['cordon', '', 'PC-C6-14', 'Patch cord Cat6 14 ft'],
+  ['conector', '', 'KS-C6', 'Jack keystone Cat6'], ['conector', '', 'KS-C6A', 'Jack keystone Cat6A'], ['conector', '', 'RJ45-C6-PT', 'Conector RJ45 Cat6 pass-through (bolsa 100)'],
+  ['conector', '', 'RJ45-BOOT', 'Botas para RJ45 (bolsa)'], ['conector', '', 'WP-1', 'Placa de pared 1 puerto'], ['conector', '', 'WP-2', 'Placa de pared 2 puertos'], ['conector', '', 'WP-4', 'Placa de pared 4 puertos'],
+  ['conector', '', 'SMB-1', 'Caja de superficie 1 puerto'], ['conector', '', 'SMB-2', 'Caja de superficie 2 puertos'], ['conector', '', 'LV-BRACKET', 'Bracket de bajo voltaje (low voltage ring)'],
+  ['fibra', '', 'FPC-LC-OM3-3M', 'Patch cord fibra LC-LC OM3 3 m'], ['fibra', '', 'FPC-LC-SM-3M', 'Patch cord fibra LC-LC monomodo 3 m'], ['fibra', '', 'FIB-PANEL-1U', 'Panel de fibra 1U (adaptadores LC)'],
+  ['energia', '', 'UPS-1500-RM', 'UPS 1500 VA de rack'], ['energia', '', 'UPS-1500-TW', 'UPS 1500 VA torre'], ['energia', '', 'PDU-1U-8', 'PDU 1U 8 tomas'], ['energia', 'Ubiquiti', 'U-POE-AT', 'Inyector PoE+ (802.3at)'],
+  ['energia', '', 'SURGE-6', 'Protector de picos 6 tomas'],
+  ['montaje', '', 'JHOOK-2', 'J-hook 2"'], ['montaje', '', 'JHOOK-4', 'J-hook 4"'], ['montaje', '', 'VELCRO', 'Rollo de velcro'], ['montaje', '', 'ZIPTIE', 'Amarres plásticos (bolsa)'],
+  ['montaje', '', 'CAM-JBOX', 'Caja de conexiones para cámara (junction box)'], ['montaje', '', 'AP-MOUNT', 'Soporte para AP (techo / riel)'], ['montaje', '', 'ANCHORS', 'Taquetes y tornillos (bolsa)'],
+  ['herramienta', '', 'TONER', 'Generador de tonos y sonda'], ['herramienta', '', 'TESTER', 'Probador de cable'], ['herramienta', '', 'CRIMPER', 'Ponchadora RJ45'], ['herramienta', '', 'PUNCH', 'Herramienta de impacto (punch down)'],
+  ['herramienta', '', 'FISH-TAPE', 'Guía pasacables (fish tape)'], ['herramienta', '', 'LADDER-8', 'Escalera 8 ft']];
+
+const stkCostoVer = () => !PERM.roles || PERM.admin;
+const stkMoney = v => (+v > 0 && +v < 10) ? '$' + (+v).toFixed(2) : money(v);
+const stkNum = v => { const n = +v; return isFinite(n) ? n : 0; };
+const stkCant = (x) => `${(+x.cantidad || 0).toLocaleString('en-US', { maximumFractionDigits: 2 })}${x.unidad && x.unidad !== 'u' ? ' ' + t('stu.' + x.unidad) : ''}`;
+const stkBajo = x => x.minimo != null && x.minimo !== '' && (+x.cantidad || 0) <= +x.minimo;
+const stkSeries = x => Array.isArray(x.series) ? x.series : jArr(x.series);
+
+function abrirStock(){
+  if (!prVer()) return toast(t('no_perm'));
+  STK.open = true; PRES.open = false; ACT.open = false; plCtx = null; cerrarDetalle?.(); cerrarDrawer?.();
+  mostrarVista(); window.scrollTo({ top: 0 }); cargarStock();
+}
+function cerrarStock(){ STK.open = false; render(); window.scrollTo({ top: 0 }); }
+async function cargarStock(){
+  const [a, b] = await Promise.all([db.from('stock_items').select('*').order('nombre'), db.from('stock_mov').select('*').order('created_at', { ascending: false }).limit(500)]);
+  stkOK = !a.error; stkItems = a.error ? [] : (a.data || []); stkMovs = b.error ? [] : (b.data || []);
+  renderStockBadge(); renderStock();
+}
+function renderStockBadge(){ const b = $('stkBadge'); if (!b) return; const n = stkItems.filter(x => x.activo !== false && stkBajo(x)).length; b.textContent = n || ''; b.classList.toggle('hidden', !n); }
+function stkFiltrados(){
+  const q = nrm(STK.q);
+  return stkItems.filter(x => x.activo !== false && (!STK.cat || x.categoria === STK.cat) && (!STK.cond || x.condicion === STK.cond) && (!STK.bajo || stkBajo(x))
+    && (!q || nrm([x.nombre, x.marca, x.modelo, x.ubicacion, x.proveedor, x.notas, stkSeries(x).map(s => s.s + ' ' + (s.mac || '')).join(' ')].join(' ')).includes(q)));
+}
+function renderStock(){
+  const el = $('stockView'); if (!el || !STK.open) return;
+  const vis = stkItems.filter(x => x.activo !== false), lista = stkFiltrados(), verCosto = stkCostoVer();
+  const valor = vis.reduce((a, x) => a + (+x.cantidad || 0) * (+x.costo || 0), 0), bajos = vis.filter(stkBajo).length;
+  const porCat = {}; lista.forEach(x => (porCat[x.categoria] = porCat[x.categoria] || []).push(x));
+  const nCat = c => vis.filter(x => x.categoria === c && (!STK.cond || x.condicion === STK.cond)).length, nCond = c => vis.filter(x => x.condicion === c && (!STK.cat || x.categoria === STK.cat)).length;
+  const head = `<div class="cl-head"><button class="backbtn" onclick="cerrarStock()">← ${t('clients_title')}</button>
+      <div class="cl-info"><h2>📦 ${t('stk_title')}</h2><div class="muted">${t('stk_sub')}</div></div>
+      <div class="row no-print"><button onclick="stkTab('${STK.tab === 'mov' ? 'items' : 'mov'}')">${STK.tab === 'mov' ? '📦 ' + t('stk_productos') : '🕒 ' + t('stk_movs')}</button>
+        <button onclick="stkEntradaRapida()">📥 ${t('stk_entrada')}</button><button class="primary" onclick="stkForm()">＋ ${t('stk_nuevo')}</button></div></div>`;
+  if (!stkOK){ el.innerHTML = head + `<div class="panel act-empty">📦 ${t('stk_missing')}</div>`; return; }
+  if (STK.tab === 'mov'){ el.innerHTML = head + `<div class="panel">${stkMovTabla(stkMovs)}</div>`; return; }
+  el.innerHTML = head + `<div class="stk-kpis">
+      <div class="stk-kpi"><b>${vis.length}</b><span>${t('stk_k_prod')}</span></div>
+      <div class="stk-kpi"><b>${vis.reduce((a, x) => a + (x.unidad === 'u' ? (+x.cantidad || 0) : 0), 0).toLocaleString('en-US')}</b><span>${t('stk_k_uni')}</span></div>
+      <div class="stk-kpi ${bajos ? 'warn' : ''}" onclick="STK.bajo=!STK.bajo;renderStock()" style="cursor:pointer"><b>${bajos}</b><span>${t('stk_k_bajo')}</span></div>
+      ${verCosto ? `<div class="stk-kpi"><b>${money(valor)}</b><span>${t('stk_k_valor')}</span></div>` : ''}</div>
+    <div class="panel"><div class="stk-filtros">
+      <div class="search"><input value="${esc(STK.q)}" placeholder="${esc(t('stk_buscar'))}" oninput="STK.q=this.value;renderStock();this.focus();this.setSelectionRange(this.value.length,this.value.length)"></div>
+      <div class="stats">${['', ...STK_COND].map(c => `<span class="chip ${STK.cond === c ? 'on' : ''}" onclick="STK.cond='${c}';renderStock()">${c ? stkCondB(c, true) : t('pr_all')} ${c ? `(${nCond(c)})` : ''}</span>`).join('')}
+        <span class="chip ${STK.bajo ? 'on' : ''}" onclick="STK.bajo=!STK.bajo;renderStock()">⚠ ${t('stk_k_bajo')}</span></div>
+      <div class="stats">${['', ...STK_CATS.map(c => c[0])].filter(c => !c || nCat(c)).map(c => `<span class="chip ${STK.cat === c ? 'on' : ''}" onclick="STK.cat='${c}';renderStock()">${c ? stkIc(c) + ' ' + esc(t('stc.' + c)) + ` (${nCat(c)})` : t('stk_todas_cat')}</span>`).join('')}</div></div>
+    ${lista.length ? STK_CATS.filter(([c]) => porCat[c]).map(([c, ic]) => `<h4 class="cl-h4 stk-cat-h">${ic} ${esc(t('stc.' + c))} <small class="muted">${porCat[c].length}</small></h4>
+      <div class="table-wrap"><table class="net-tbl stk-tbl"><thead><tr><th>${t('stk_producto')}</th><th>${t('stk_cond')}</th><th class="n">${t('stk_cant')}</th><th>${t('stk_ubic')}</th>${verCosto ? `<th class="n">${t('stk_costo')}</th>` : ''}<th class="n">${t('stk_precio')}</th><th></th></tr></thead><tbody>
+      ${porCat[c].sort((a, b) => String(a.nombre).localeCompare(String(b.nombre)) || STK_COND.indexOf(a.condicion) - STK_COND.indexOf(b.condicion)).map(x => { const sr = stkSeries(x), disp = sr.filter(s => s.est === 'disponible').length;
+        return `<tr class="${stkBajo(x) ? 'bajo' : ''}"><td><b class="dev-link" onclick="stkForm('${x.id}')">${esc(x.nombre)}</b><small class="muted" style="display:block">${[x.marca, x.modelo].filter(Boolean).map(esc).join(' · ')}${x.serializado ? ` · 🔢 ${t('stk_serie_n', { n: disp })}` : ''}</small></td>
+          <td>${stkCondB(x.condicion)}</td>
+          <td class="n mono"><b>${stkCant(x)}</b>${x.minimo != null && x.minimo !== '' ? `<small class="muted" style="display:block">${t('stk_min')} ${(+x.minimo).toLocaleString('en-US')}${stkBajo(x) ? ' ⚠' : ''}</small>` : ''}</td>
+          <td>${esc(x.ubicacion || '')}</td>${verCosto ? `<td class="n mono">${x.costo != null && x.costo !== '' ? stkMoney(x.costo) : ''}</td>` : ''}<td class="n mono">${x.precio != null && x.precio !== '' ? stkMoney(x.precio) : ''}</td>
+          <td class="stk-acc"><button class="sm" title="${esc(t('stk_entrada'))}" onclick="stkMov('${x.id}','entrada')">＋</button><button class="sm" title="${esc(t('stk_salida'))}" onclick="stkMov('${x.id}','salida')" ${(+x.cantidad || 0) <= 0 ? 'disabled' : ''}>－</button>
+            <button class="sm" title="${esc(t('stk_movs'))}" onclick="stkHist('${x.id}')">🕒</button></td></tr>`; }).join('')}</tbody></table></div>`).join('')
+      : `<div class="act-empty">📦 ${vis.length ? t('stk_nada') : t('stk_vacio')}<br>${vis.length ? '' : `<button class="primary" style="margin-top:10px" onclick="stkForm()">＋ ${t('stk_nuevo')}</button>`}</div>`}</div>`;
+}
+const stkCondB = (c, corto) => `<span class="stk-cond ${esc(c)}">${esc(t((corto ? 'stdc.' : 'std.') + c))}</span>`;
+function stkTab(v){ STK.tab = v; renderStock(); }
+
+/* ---- Formulario de producto ---- */
+function stkForm(id, pre){
+  const x = id ? stkItems.find(i => i.id === id) : { categoria: STK.cat || 'ap', condicion: 'nuevo', unidad: 'u', cantidad: '', serializado: false, series: [], ...(pre || {}) };
+  if (!x) return;
+  STK.edit = { id: id || null, series: stkSeries(x).map(s => ({ ...s })) };
+  const verCosto = stkCostoVer(), sel = (k, ops, lbl, v) => `<select id="stk_${k}">${ops.map(o => `<option value="${o}" ${String(v ?? '') === o ? 'selected' : ''}>${esc(lbl(o))}</option>`).join('')}</select>`;
+  const inp = (k, v, attrs = '') => `<input id="stk_${k}" value="${esc(v ?? '')}" ${attrs}>`;
+  $('modalTitle').textContent = (id ? '✏️ ' : '＋ ') + t(id ? 'stk_editar' : 'stk_nuevo');
+  $('modal').querySelector('.modal-card').classList.add('wide');
+  $('modalBody').innerHTML = `${id ? '' : `<label class="stk-full"><span>🔎 ${t('stk_catalogo')}</span><input id="stk_buscacat" list="stkCatList" placeholder="${esc(t('stk_catalogo_ph'))}" oninput="stkDelCatalogo(this.value)">
+      <datalist id="stkCatList">${STK_CAT.map(([c, m, mo, n]) => `<option value="${esc(mo + ' — ' + n)}">`).join('')}</datalist></label>`}
+    <div class="mdm-grid">
+      <label><span>${t('stk_categoria')}</span>${sel('categoria', STK_CATS.map(c => c[0]), c => stkIc(c) + ' ' + t('stc.' + c), x.categoria)}</label>
+      <label><span>${t('stk_marca')}</span>${inp('marca', x.marca, `list="stkMarcas" placeholder="Ubiquiti"`)}<datalist id="stkMarcas">${['Ubiquiti', 'TP-Link', 'Cisco', 'Meraki', 'Fortinet', 'SonicWall', 'Netgear', 'Aruba', 'Hikvision', 'Dahua', 'Axis', 'Yealink', 'Poly', 'Grandstream', 'Panduit', 'Belden', 'Leviton', 'Monoprice', 'Tripp Lite', 'APC', 'CyberPower', 'Eaton', 'StarTech', 'Dell', 'HP', 'Lenovo'].map(m => `<option value="${m}">`).join('')}</datalist></label>
+      <label><span>${t('stk_modelo')}</span>${inp('modelo', x.modelo, 'placeholder="U7-Pro"')}</label>
+      <label class="stk-span2"><span>${t('stk_nombre')}</span>${inp('nombre', x.nombre, `placeholder="${esc(t('stk_nombre_ph'))}"`)}</label>
+      <label><span>${t('stk_cond')}</span>${sel('condicion', STK_COND, c => t('std.' + c), x.condicion)}</label>
+      <label><span>${t('stk_cant')}</span><div class="stk-cant-u">${inp('cantidad', x.cantidad, `type="number" step="any" min="0" ${id ? 'disabled title="' + esc(t('stk_cant_mov')) + '"' : ''}`)}${sel('unidad', STK_UNIDADES, u => t('stu.' + u), x.unidad)}</div></label>
+      <label><span>${t('stk_min_l')}</span>${inp('minimo', x.minimo, `type="number" step="any" min="0" placeholder="${esc(t('stk_min_ph'))}"`)}</label>
+      <label><span>${t('stk_ubic')}</span>${inp('ubicacion', x.ubicacion, `list="stkUbics" placeholder="${esc(t('stk_ubic_ph'))}"`)}<datalist id="stkUbics">${[...new Set(stkItems.map(i => i.ubicacion).filter(Boolean))].map(u => `<option value="${esc(u)}">`).join('')}</datalist></label>
+      ${verCosto ? `<label><span>${t('stk_costo')} $</span>${inp('costo', x.costo, 'type="number" step="any" min="0"')}</label>` : ''}
+      <label><span>${t('stk_precio')} $</span>${inp('precio', x.precio, 'type="number" step="any" min="0"')}</label>
+      <label><span>${t('stk_prov')}</span>${inp('proveedor', x.proveedor, `list="stkProvs" placeholder="Amazon, B&H, Anixter…"`)}<datalist id="stkProvs">${[...new Set(['Ubiquiti Store', 'Amazon', 'B&H', 'CDW', 'Anixter', 'Graybar', 'Home Depot', 'Monoprice', ...stkItems.map(i => i.proveedor).filter(Boolean)])].map(u => `<option value="${esc(u)}">`).join('')}</datalist></label>
+    </div>
+    <label class="mdm-chk"><input type="checkbox" id="stk_serializado" ${x.serializado ? 'checked' : ''} onchange="$('stkSeriesBox').classList.toggle('hidden', !this.checked)"> 🔢 ${t('stk_serializado')}</label>
+    <div id="stkSeriesBox" class="${x.serializado ? '' : 'hidden'}"><small class="muted">${t('stk_series_h')}</small>
+      <div id="stkSeries">${stkSeriesFilas()}</div>
+      ${id ? '' : `<textarea id="stk_series_txt" rows="3" placeholder="${esc(t('stk_series_ph'))}"></textarea>`}</div>
+    <label class="stk-full"><span>${t('notes')}</span><textarea id="stk_notas" rows="2">${esc(x.notas || '')}</textarea></label>
+    <div class="uf-foot"><button class="primary" onclick="stkGuardar()">💾 ${t('u_save')}</button>${id ? `<button onclick="stkMov('${id}','ajuste')">⚖ ${t('stk_ajuste')}</button>${PERM.admin || !PERM.roles ? `<button class="danger" onclick="stkBorrar('${id}')">🗑 ${t('t_delete')}</button>` : ''}` : ''}
+      <small class="muted">${t('stk_cond_h')}</small></div>`;
+  $('modal').classList.remove('hidden');
+  if (!id) setTimeout(() => $('stk_buscacat')?.focus(), 50);
+}
+function stkSeriesFilas(){
+  const sr = STK.edit.series; if (!sr.length) return '';
+  return `<div class="stk-ser">${sr.map((s, i) => `<div class="stk-ser-r ${esc(s.est || '')}"><span class="mono">${esc(s.s)}</span><span class="mono muted">${esc(s.mac || '')}</span><span>${esc(t('sts.' + (s.est || 'disponible')))}${s.cli ? ' · ' + esc(s.cli) : ''}</span>
+    ${s.est === 'disponible' ? `<button class="sm danger" onclick="STK.edit.series.splice(${i},1);$('stkSeries').innerHTML=stkSeriesFilas()">✕</button>` : '<span></span>'}</div>`).join('')}</div>`;
+}
+function stkDelCatalogo(v){
+  const mo = String(v).split(' — ')[0].trim(), c = STK_CAT.find(x => x[2] === mo); if (!c) return;
+  $('stk_categoria').value = c[0]; $('stk_marca').value = c[1]; $('stk_modelo').value = c[2]; $('stk_nombre').value = c[3];
+  $('stk_unidad').value = c[0] === 'cable' ? 'ft' : 'u';
+  $('stk_serializado').checked = ['gateway', 'switch', 'ap', 'camara', 'nvr', 'acceso', 'voip', 'pc'].includes(c[0]) && c[2] !== 'HDD-8TB-SURV'; $('stkSeriesBox').classList.toggle('hidden', !$('stk_serializado').checked);
+  const ya = stkItems.find(i => i.activo !== false && nrm(i.modelo) === nrm(c[2]) && i.condicion === $('stk_condicion').value);
+  if (ya) toast(t('stk_ya_existe', { n: ya.nombre, c: t('std.' + ya.condicion) }));
+  $('stk_buscacat').value = ''; $('stk_cantidad').focus();
+}
+const stkLeerSeries = txt => String(txt || '').split(/\n+/).map(l => l.trim()).filter(Boolean).map(l => { const [s, mac] = l.split(/[|,;\t]/).map(v => v.trim()); return { s, mac: mac ? macNorm(mac) : '', est: 'disponible', f: new Date().toISOString().slice(0, 10) }; }).filter(x => x.s);
+async function stkGuardar(){
+  const g = k => $('stk_' + k) ? $('stk_' + k).value.trim() : undefined, num = k => { const v = g(k); return v === undefined ? undefined : v === '' ? null : +v; };
+  const id = STK.edit.id, serializado = $('stk_serializado').checked;
+  let series = STK.edit.series; if (!id && serializado) series = series.concat(stkLeerSeries(g('series_txt')));
+  const row = { categoria: g('categoria'), marca: g('marca') || null, modelo: g('modelo') || null, nombre: g('nombre') || g('modelo'), condicion: g('condicion'), unidad: g('unidad'),
+    minimo: num('minimo'), ubicacion: g('ubicacion') || null, precio: num('precio'), proveedor: g('proveedor') || null, serializado, series, notas: $('stk_notas').value.trim() || null };
+  if (stkCostoVer()) row.costo = num('costo');
+  if (!row.nombre) return alert(t('stk_falta_nombre'));
+  if (!id){
+    let cant = num('cantidad') || 0; if (serializado && series.length) cant = Math.max(cant, series.filter(s => s.est === 'disponible').length);
+    row.cantidad = cant;
+    const r = await db.from('stock_items').insert(row).select('id').single(); if (r.error) return fail(r.error, /stock_/.test(r.error.message || '') ? t('stk_missing') : t('save_fail'));
+    if (cant) await db.from('stock_mov').insert({ item_id: r.data.id, tipo: 'entrada', cantidad: cant, saldo: cant, series: series.map(s => s.s), costo: row.costo ?? null, nota: t('stk_alta') });
+  } else {
+    const prev = stkItems.find(i => i.id === id);
+    if (serializado) row.cantidad = Math.max(0, (+prev.cantidad || 0) - stkSeries(prev).filter(s => s.est === 'disponible').length + series.filter(s => s.est === 'disponible').length);
+    const r = await db.from('stock_items').update(row).eq('id', id); if (r.error) return fail(r.error, t('save_fail'));
+  }
+  closeModal(); toast(t('saved')); cargarStock();
+}
+async function stkBorrar(id){
+  const x = stkItems.find(i => i.id === id); if (!x || !confirm(t('stk_borrar_q', { n: x.nombre }))) return;
+  const r = await db.from('stock_items').delete().eq('id', id); if (r.error) return fail(r.error, t('save_fail'));
+  closeModal(); toast(t('deleted')); cargarStock();
+}
+
+/* ---- Movimientos: entrada, salida a un cliente, devolución, ajuste ---- */
+function stkEntradaRapida(){
+  if (!stkItems.length) return stkForm();
+  $('modalTitle').textContent = '📥 ' + t('stk_entrada'); $('modal').querySelector('.modal-card').classList.remove('wide');
+  $('modalBody').innerHTML = `<label><span>${t('stk_que_prod')}</span><input id="stk_pick" list="stkPick" placeholder="${esc(t('stk_buscar'))}" autocomplete="off">
+    <datalist id="stkPick">${stkItems.filter(x => x.activo !== false).map(x => `<option value="${esc(x.nombre + ' · ' + t('std.' + x.condicion) + (x.modelo ? ' · ' + x.modelo : ''))}">`).join('')}</datalist></label>
+    <div class="uf-foot"><button class="primary" onclick="(()=>{ const v=$('stk_pick').value; const x=stkItems.find(i=>v===i.nombre+' · '+t('std.'+i.condicion)+(i.modelo?' · '+i.modelo:'')); x ? stkMov(x.id,'entrada') : stkForm(null,{nombre:v}); })()">${t('stk_seguir')}</button>
+      <button onclick="stkForm()">＋ ${t('stk_nuevo')}</button></div>`;
+  $('modal').classList.remove('hidden'); setTimeout(() => $('stk_pick')?.focus(), 50);
+}
+function stkMov(id, tipo){
+  const x = stkItems.find(i => i.id === id); if (!x) return;
+  STK.mov = { id, tipo };
+  const sr = stkSeries(x), disp = sr.filter(s => s.est === 'disponible'), salio = sr.filter(s => s.est === 'salio');
+  const tipos = ['entrada', 'salida', 'devolucion', 'ajuste'];
+  const clientes = listaClientes().map(c => c.nombre).sort((a, b) => a.localeCompare(b));
+  $('modalTitle').textContent = `${{ entrada: '📥', salida: '📤', devolucion: '↩️', ajuste: '⚖' }[tipo]} ${x.nombre}`;
+  $('modal').querySelector('.modal-card').classList.add('wide');
+  $('modalBody').innerHTML = `<div class="stk-mov-h">${stkCondB(x.condicion)} <span>${t('stk_hay')}: <b>${stkCant(x)}</b></span>${x.ubicacion ? `<span class="muted">📍 ${esc(x.ubicacion)}</span>` : ''}</div>
+    <div class="stats" style="margin:8px 0">${tipos.map(k => `<span class="chip ${k === tipo ? 'on' : ''}" onclick="stkMov('${id}','${k}')">${t('stm.' + k)}</span>`).join('')}</div>
+    <div class="mdm-grid">
+      ${x.serializado && tipo !== 'ajuste' ? '' : `<label><span>${tipo === 'ajuste' ? t('stk_cuenta_real') : t('stk_cant')} (${t('stu.' + (x.unidad || 'u'))})</span><input id="stm_cant" type="number" step="any" min="0" value="${tipo === 'ajuste' ? esc(x.cantidad) : ''}"></label>`}
+      ${tipo === 'salida' || tipo === 'devolucion' ? `<label><span>${t('client')}</span><input id="stm_cli" list="stmClis" value="${esc(curCliente || '')}" placeholder="${esc(t('stk_cli_ph'))}"><datalist id="stmClis">${clientes.map(c => `<option value="${esc(c)}">`).join('')}</datalist></label>` : ''}
+      ${tipo === 'entrada' && stkCostoVer() ? `<label><span>${t('stk_costo')} $ (${t('stk_por_u')})</span><input id="stm_costo" type="number" step="any" min="0" value="${esc(x.costo ?? '')}"></label>` : ''}
+      <label class="stk-span2"><span>${t('stk_nota')}</span><input id="stm_nota" placeholder="${esc(t('stm_ph.' + tipo))}"></label></div>
+    ${x.serializado && tipo === 'salida' ? `<div class="stk-pick-s"><b>🔢 ${t('stk_cuales')}</b>${disp.length ? disp.map(s => `<label class="sp-g"><input type="checkbox" value="${esc(s.s)}"> <span class="mono">${esc(s.s)}</span>${s.mac ? ` <small class="mono">${esc(s.mac)}</small>` : ''}</label>`).join('') : `<small class="muted">${t('stk_sin_series')}</small>`}</div>` : ''}
+    ${x.serializado && tipo === 'devolucion' ? `<div class="stk-pick-s"><b>🔢 ${t('stk_cuales_dev')}</b>${salio.length ? salio.map(s => `<label class="sp-g"><input type="checkbox" value="${esc(s.s)}"> <span class="mono">${esc(s.s)}</span>${s.cli ? ` <small>${esc(s.cli)}</small>` : ''}</label>`).join('') : `<small class="muted">${t('stk_sin_series')}</small>`}</div>` : ''}
+    ${x.serializado && tipo === 'entrada' ? `<label class="stk-full"><span>🔢 ${t('stk_series_nuevas')}</span><textarea id="stm_series" rows="3" placeholder="${esc(t('stk_series_ph'))}"></textarea></label>` : ''}
+    ${tipo === 'salida' && STK_A_TIPO[x.categoria] ? `<label class="mdm-chk"><input type="checkbox" id="stm_inv" checked> ${t('stk_al_inv')}</label>` : ''}
+    <div class="uf-foot"><button class="primary" onclick="stkMovGuardar()">${t('stm_ok.' + tipo)}</button><small class="muted">${t('stm_h.' + tipo)}</small></div>`;
+  $('modal').classList.remove('hidden');
+  setTimeout(() => ($('stm_cant') || $('stm_cli'))?.focus(), 50);
+}
+async function stkMovGuardar(){
+  const { id, tipo } = STK.mov, x = stkItems.find(i => i.id === id); if (!x) return;
+  const hoy = new Date().toISOString().slice(0, 10), nota = $('stm_nota')?.value.trim() || null, cli = $('stm_cli')?.value.trim() || null;
+  let series = stkSeries(x).map(s => ({ ...s })), cant = +($('stm_cant')?.value || 0), movSer = [];
+  if (x.serializado && tipo !== 'ajuste'){
+    if (tipo === 'entrada'){ const nuevas = stkLeerSeries($('stm_series')?.value).filter(n => !series.some(s => nrm(s.s) === nrm(n.s))); series = series.concat(nuevas); movSer = nuevas.map(s => s.s); cant = nuevas.length || cant; }
+    else { movSer = [...document.querySelectorAll('.stk-pick-s input:checked')].map(i => i.value); cant = movSer.length;
+      series.forEach(s => { if (movSer.includes(s.s)){ if (tipo === 'salida'){ s.est = 'salio'; s.cli = cli; s.f = hoy; } else { s.est = 'disponible'; s.cli = ''; s.f = hoy; } } }); }
+  }
+  if (tipo === 'salida' && !cli) return alert(t('stk_falta_cli'));
+  if (tipo !== 'ajuste' && !(cant > 0)) return alert(t('stk_falta_cant'));
+  const antes = +x.cantidad || 0;
+  const saldo = tipo === 'ajuste' ? cant : tipo === 'salida' ? antes - cant : antes + cant;
+  if (tipo === 'salida' && saldo < 0 && !confirm(t('stk_negativo', { n: stkCant(x) }))) return;
+  const patch = { cantidad: saldo, series };
+  const costoIn = $('stm_costo') ? $('stm_costo').value : '';
+  if (tipo === 'entrada' && stkCostoVer() && costoIn !== ''){ // costo promedio
+    const c = +costoIn; patch.costo = antes > 0 && x.costo != null ? Math.round(((antes * +x.costo) + cant * c) / (antes + cant) * 100) / 100 : c; }
+  const r = await db.from('stock_items').update(patch).eq('id', id); if (r.error) return fail(r.error, t('save_fail'));
+  await db.from('stock_mov').insert({ item_id: id, tipo, cantidad: tipo === 'ajuste' ? saldo - antes : cant, saldo, cliente: cli, series: movSer, costo: tipo === 'entrada' && costoIn !== '' ? +costoIn : null, nota });
+  // al salir hacia un cliente: lo agrega a su inventario (una fila por serial)
+  if (tipo === 'salida' && $('stm_inv')?.checked && STK_A_TIPO[x.categoria]){
+    const c = clienteObj(cli) || { nombre: cli }, filas = (movSer.length ? movSer : Array.from({ length: Math.min(50, Math.round(cant)) }, () => '')).map((s, i) => {
+      const ss = series.find(z => z.s === s); return { cliente: c.nombre, direccion: c.direccion || null, tipo: STK_A_TIPO[x.categoria], nombre: x.nombre + (movSer.length > 1 || cant > 1 ? ' ' + (i + 1) : ''),
+        modelo: [x.marca && !nrm(x.nombre).includes(nrm(x.marca)) ? x.marca : '', x.modelo || ''].filter(Boolean).join(' ') || null, serial: s || null, mac: ss?.mac || null, estado: 'Activo',
+        notas: t('stk_desde_stock', { f: hoy, c: t('std.' + x.condicion) }) }; });
+    const e = await db.from('equipos').insert(filas); if (e.error) fail(e.error, t('save_fail')); else toast(t('stk_al_inv_ok', { n: filas.length, c: c.nombre }));
+  }
+  closeModal(); toast(t('saved')); await cargarStock(); if (tipo === 'salida') loadData();
+}
+function stkHist(id){
+  const x = stkItems.find(i => i.id === id); if (!x) return;
+  $('modalTitle').textContent = '🕒 ' + x.nombre; $('modal').querySelector('.modal-card').classList.add('wide');
+  $('modalBody').innerHTML = stkMovTabla(stkMovs.filter(m => m.item_id === id), true);
+  $('modal').classList.remove('hidden');
+}
+function stkMovTabla(movs, uno){
+  if (!movs.length) return `<div class="act-empty">🕒 ${t('stk_sin_movs')}</div>`;
+  return `<div class="table-wrap"><table class="net-tbl stk-tbl"><thead><tr><th>${t('pr_fecha')}</th>${uno ? '' : `<th>${t('stk_producto')}</th>`}<th>${t('stk_mov')}</th><th class="n">${t('stk_cant')}</th><th class="n">${t('stk_saldo')}</th><th>${t('client')}</th><th>${t('stk_nota')}</th><th>${t('stk_quien')}</th></tr></thead><tbody>
+    ${movs.map(m => { const x = stkItems.find(i => i.id === m.item_id), sr = jArr(m.series);
+      return `<tr><td class="muted">${esc(new Date(m.created_at).toLocaleString(LANG === 'es' ? 'es-US' : 'en-US', { dateStyle: 'short', timeStyle: 'short' }))}</td>
+        ${uno ? '' : `<td>${x ? `<b>${esc(x.nombre)}</b> ${stkCondB(x.condicion, true)}` : '<span class="muted">—</span>'}</td>`}
+        <td><span class="stm-t ${esc(m.tipo)}">${esc(t('stm.' + m.tipo))}</span></td>
+        <td class="n mono">${m.tipo === 'salida' ? '−' : m.tipo === 'ajuste' ? (+m.cantidad > 0 ? '+' : '') : '+'}${(+m.cantidad).toLocaleString('en-US')}${sr.length ? `<small class="muted" style="display:block">${sr.map(esc).join(', ')}</small>` : ''}</td>
+        <td class="n mono">${m.saldo != null ? (+m.saldo).toLocaleString('en-US') : ''}</td><td>${esc(m.cliente || '')}</td><td>${esc(m.nota || '')}</td><td class="muted">${esc(m.creado_por || '')}</td></tr>`; }).join('')}</tbody></table></div>`;
+}
+
 /* ---------- Vista de lista ---------- */
 function abrirPresupuestos(){
   if (!prVer()) return toast(t('no_perm'));
-  PRES.open = true; PRES.edit = false; ACT.open = false; plCtx = null; cerrarDetalle?.(); cerrarDrawer?.();
+  PRES.open = true; PRES.edit = false; ACT.open = false; STK.open = false; plCtx = null; cerrarDetalle?.(); cerrarDrawer?.();
   mostrarVista(); window.scrollTo({ top: 0 }); cargarPresupuestos();
 }
 function cerrarPresupuestos(){ PRES.open = false; PRES.edit = false; plCtx = null; PR = null; render(); window.scrollTo({ top: 0 }); }
@@ -4689,7 +5028,7 @@ function prNuevo(cliente, tipo){
   const q = tipo === 'web' ? { paginas: 5, idiomas: 2, revisiones: 2, f_contacto: true, f_seo: true, f_analytics: true, f_mapa: true, f_whatsapp: true } : tipo === 'reparacion' ? { diag: 1 } : tipo === 'msp' ? { sitios: 1 } : {};
   PR = { id: null, cliente: cliente || (curCliente || ''), prospecto: false, titulo: '', estado: 'borrador', d: { tipo, sitio: sitios[tipo] || {}, q, equipos: [], mat_extra: [], modo: 'hora', modulos: [], partidas: [] }, tab: 'datos' };
   PR.prospecto = !!PR.cliente && !clienteObj(PR.cliente);
-  PRES.open = true; PRES.edit = true; ACT.open = false; mostrarVista(); renderPresupuestos(); window.scrollTo({ top: 0 });
+  PRES.open = true; PRES.edit = true; ACT.open = false; STK.open = false; mostrarVista(); renderPresupuestos(); window.scrollTo({ top: 0 });
   if (!presus.length && !PRC) cargarPresupuestos();
 }
 function prVolverLista(){ if (PR?._sucio && !confirm(t('pr_unsaved'))) return; PRES.edit = false; plCtx = null; PR = null; renderPresupuestos(); }
@@ -6545,7 +6884,7 @@ function logAct(evento, x = null, detalle = null, extra = {}){
   }catch(e){}
 }
 function abrirActividad(o = {}){
-  ACT.desde = curCliente; ACT.open = true; PRES.open = false; plCtx = null;
+  ACT.desde = curCliente; ACT.open = true; PRES.open = false; STK.open = false; plCtx = null;
   ACT.cliente = o.cliente || null; ACT.obj = o.obj || null;
   const x = ACT.obj && items.find(i => i.id === ACT.obj);
   ACT.objNombre = x ? x.nombre : ''; if (x && !ACT.cliente) ACT.cliente = x.cliente;

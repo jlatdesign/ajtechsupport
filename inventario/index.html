@@ -770,6 +770,10 @@ body.p-nostaff .solo-staff{display:none!important}
 body.p-noadm .p-solo-adm{display:none!important}
 .stk-badge{display:inline-block;min-width:18px;padding:0 5px;border-radius:999px;background:var(--bad);color:#fff;font:700 11px/18px Inter,sans-serif;text-align:center;margin-left:2px}
 .trm-tbl input.trm-d{width:100%;min-width:180px;padding:4px 6px}.trm-tbl input.trm-n{width:80px;padding:4px 6px;text-align:right}.trm-tbl select.trm-s{max-width:260px;padding:4px 6px;font-size:12px}
+.trd-uso{margin:10px 0 4px;padding:10px;border:1px solid var(--line);border-radius:10px;background:color-mix(in srgb,var(--accent,#006fff) 4%,transparent)}.trd-uso .cl-h4{margin:0}.trm-uso-t td,.trm-uso-t th{padding:5px 8px}.trm-uso-u{font-size:12px;color:var(--muted);min-width:34px;align-self:center;text-align:left}
+.trb-d-u{margin-top:4px;font-size:12.5px;color:var(--muted)}.trb-d-u b{color:var(--text)}.trm-cie-b{display:block;margin-top:2px;font-size:10.5px;font-family:Inter,sans-serif;color:var(--muted)}.trm-cie-b.d-stock{color:var(--ok,#16a34a)}.trm-cie-b.d-devolver{color:var(--accent,#006fff)}
+.net-tbl.trm-cierre,.net-tbl.trm-uso-t{min-width:0;width:100%}.trm-cierre th,.trm-cierre td{padding:6px 7px!important}.trm-cierre select{padding:4px 6px;font-size:12.5px;width:auto;max-width:180px}.trm-cierre td{vertical-align:middle;font-size:12.5px}.trm-cierre td.mono,.trm-uso-t td.mono{font-size:12px}
+.trm-uso-t input.trd-uso-i,.trm-cierre input.c-n{width:90px!important;flex:none;padding:4px 6px;text-align:right}.trm-uso-t .trm-cu,.trm-cierre .trm-cu{justify-content:flex-end;align-items:center}
 .trm-cu{display:flex;gap:4px;justify-content:flex-end}.trm-tbl input.trm-u{width:80px;padding:4px 6px}.trm-tbl tr.trm-tal td{opacity:.6}.trm-tbl tr.trm-tal td:first-child{opacity:1}
 .trm-tal-b{display:inline-block;margin-top:3px;font-size:11px;padding:1px 8px;border-radius:999px;border:1px dashed var(--line-strong);color:var(--muted)}.trm-tal-c{display:inline-flex!important;flex-direction:row!important;align-items:center;gap:2px;font-size:13px;cursor:pointer;margin-right:4px}
 .trm-tal-c input{width:auto;margin:0}
@@ -1057,7 +1061,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v9.3</p>
+    <p class="sub">Network Asset Manager · v9.4</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -1073,7 +1077,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.3</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.4</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -1781,12 +1785,16 @@ Object.assign(I18N.en, {
   trm_nada_sacar:'Nothing to take: already taken, not in stock or no quantity.', trm_sacados:'{n} material(s) taken from stock', trm_serial_h:'Pick the serials that go out',
   trm_quitar_q:'Some of this was already taken from stock. Remove it from the list anyway? (stock is not returned automatically)', trm_de_lista:'From the materials list', trm_ya_falt:'Everything is already in "Missing" or there is enough stock.',
   trm_pasados:'{n} material(s) moved to "Missing"', trm_preparo:'Prepared by', trm_reviso:'Checked / received by',
-  trm_sql:'To save materials run supabase-trabajos.sql again (it adds the "materiales" column).', trm_cajas:'boxes', trm_tal:'Maybe', trm_tal_h:'Maybe: it may or may not be used. It stays on the list but is not taken from stock or ordered.', trm_n_tal:'{n} maybe', trp_btn:'PDF report', trp_title:'Daily report', trp_h:'Creates a PDF for the day with progress, timeline, time left, the day notes and what is missing. You can pick another day for a past report.', trp_dia:'Report day', trp_hist:'Earlier notes', trp_h0:'Only that day', trp_h7:'Last 7 days', trp_h30:'Last 30 days', trp_hall:'All',
+  trm_sql:'To save materials run supabase-trabajos.sql again (it adds the "materiales" column).', trm_cajas:'boxes', trm_tal:'Maybe', trm_tal_h:'Maybe: it may or may not be used. It stays on the list but is not taken from stock or ordered.', trm_n_tal:'{n} maybe', trm_uso_hoy:'Material used today', trm_uso_h:'Enter how much of each material was used today. It is subtracted from the total. Cable in boxes is entered in feet.', trm_total:'Total', trm_usado:'Used', trm_queda:'Left', trm_hoy_uso:'Used today', trm_solo_uso:'Material usage',
+  trm_cierre:'Close-out / leftover', trm_cierre_h:'When finished: leftovers can be returned to the store (conduit, boxes, etc.), sent to the office stock, left with the client or thrown away.', trm_cierre_nada:'Nothing left over: everything taken is used or already closed.', trm_llevado:'Taken', trm_sobra:'Leftover', trm_destino:'What to do',
+  trm_tienda:'Store / supplier (return)', trm_tienda_ph:'e.g. Home Depot Doral, Graybar…', trm_cierre_ok:'Process', trm_cierre_hecho:'Done: {n} line(s) closed, {s} to stock.', trm_sobro_de:'Leftover from {t}',
+  trm_dev_t:'Return', trm_dev_nada:'Nothing to return.', trm_dev_rec:'Received / credit', trm_dev_nota:'Leftover material in good condition, unused. Keep the store receipt or credit note.', trm_dev_entrega:'Delivered by', trm_dev_recibe:'Received by (store)', trm_dev_ticket:'Receipt / credit #',
+  'trmd.stock':'📦 To office stock', 'trmd.devolver':'🏪 Return to store', 'trmd.cliente':'🏢 Stays with the client', 'trmd.desecho':'🗑 Scrap', 'trmd_c.stock':'to stock', 'trmd_c.devolver':'to return', 'trmd_c.cliente':'with client', 'trmd_c.desecho':'scrap', trp_btn:'PDF report', trp_title:'Daily report', trp_h:'Creates a PDF for the day with progress, timeline, time left, the day notes and what is missing. You can pick another day for a past report.', trp_dia:'Report day', trp_hist:'Earlier notes', trp_h0:'Only that day', trp_h7:'Last 7 days', trp_h30:'Last 30 days', trp_hall:'All',
   trp_mat:'Pending materials', trp_fases:'Phases', trp_notas:'General notes', trp_firma:'Signature lines', trp_gen:'Create PDF', trp_trabajo:'Job', trp_gen_el:'Generated', trp_avance:'Progress and time',
   trp_k_av:'Total progress', trp_k_hoy:'Progress today', trp_k_dias:'Days used', trp_k_faltan:'Days left', trp_k_hab:'Business days', trp_k_atr:'Days late', trp_k_horas:'Hours worked', trp_k_ret:'Hours lost',
   trp_ini:'Start', trp_fin:'Due', trp_l_av:'Done ({p}%)', trp_l_plan:'Plan', trp_l_atr:'Late', trp_l_nota:'Daily note', trp_l_ret:'Day with delay', trp_proy:'At this pace it would finish on {f}.',
   trp_e_atr:'Behind schedule', trp_e_adel:'Ahead of schedule', trp_e_ok:'On time', trp_del_dia:'Notes of the day · {f}', trp_sin_nota:'No daily notes for this day.', trp_ant:'Notes from the last {n} days', trp_ant_all:'Earlier notes',
-  trp_falta:'What is missing', trp_nada_falta:'Nothing pending.', trp_pend:'Missing', trp_firma_tec:'Lead technician', trp_firma_cli:'Received by (client)', trm_sitio:'Already on site', trm_sitio_c:'On site', trm_n_sitio:'{n} already on site', trm_sitio_h:'Check it if this material is already available at the job site (no need to bring it, take it from stock or order it).', trm_de_ft:'Quote: {n} ft ({pc} ft boxes)',
+  trp_consumo:'Material usage', trp_usado_ac:'Used to date', trp_falta:'What is missing', trp_nada_falta:'Nothing pending.', trp_pend:'Missing', trp_firma_tec:'Lead technician', trp_firma_cli:'Received by (client)', trm_sitio:'Already on site', trm_sitio_c:'On site', trm_n_sitio:'{n} already on site', trm_sitio_h:'Check it if this material is already available at the job site (no need to bring it, take it from stock or order it).', trm_de_ft:'Quote: {n} ft ({pc} ft boxes)',
   trb_btn:'Jobs', trb_title:'Jobs in progress', trb_sub:'Progress, timeline, daily log, delays and what is missing on each job.', trb_nuevo:'New job', trb_editar:'Edit job',
   trb_missing:'The jobs table is missing. Run supabase-trabajos.sql in Supabase > SQL Editor.', trb_vacio:'There are no jobs yet.', trb_buscar:'Search job, client, lead…',
   trb_k_atr:'late', trb_k_falt:'missing items', trb_k_ret:'delay this month (ours / client)',
@@ -1988,12 +1996,16 @@ Object.assign(I18N.es, {
   trm_nada_sacar:'No hay nada que sacar: o ya se sacó, o no está en el stock, o no hay cantidad.', trm_sacados:'{n} material(es) sacados del stock', trm_serial_h:'Escoger los seriales que salen',
   trm_quitar_q:'Ya se sacó algo de esto del stock. ¿Quitarlo de la lista igual? (el stock no se devuelve solo)', trm_de_lista:'De la lista de materiales', trm_ya_falt:'Ya está todo en "Lo que falta" o hay stock suficiente.',
   trm_pasados:'{n} material(es) pasados a "Lo que falta"', trm_preparo:'Preparó', trm_reviso:'Revisó / recibió',
-  trm_sql:'Para guardar los materiales corre otra vez supabase-trabajos.sql (agrega la columna "materiales").', trm_cajas:'cajas', trm_tal:'En veremos', trm_tal_h:'En veremos: puede que se use, puede que no. Se lleva en la lista pero no se saca del stock ni se pide.', trm_n_tal:'{n} en veremos', trp_btn:'Reporte PDF', trp_title:'Reporte diario', trp_h:'Saca un PDF del día con el avance, la línea de tiempo, el tiempo que falta, las notas del día y lo que falta. Puedes escoger otro día para sacar un reporte atrasado.', trp_dia:'Día del reporte', trp_hist:'Notas anteriores', trp_h0:'Solo las del día', trp_h7:'Últimos 7 días', trp_h30:'Últimos 30 días', trp_hall:'Todas',
+  trm_sql:'Para guardar los materiales corre otra vez supabase-trabajos.sql (agrega la columna "materiales").', trm_cajas:'cajas', trm_tal:'En veremos', trm_tal_h:'En veremos: puede que se use, puede que no. Se lleva en la lista pero no se saca del stock ni se pide.', trm_n_tal:'{n} en veremos', trm_uso_hoy:'Material usado hoy', trm_uso_h:'Pon cuánto se usó hoy de cada material. Se va restando del total. El cable en cajas se escribe en pies.', trm_total:'Total', trm_usado:'Usado', trm_queda:'Queda', trm_hoy_uso:'Usado hoy', trm_solo_uso:'Uso de material',
+  trm_cierre:'Cierre / sobrante', trm_cierre_h:'Al terminar: lo que sobró se puede devolver a la tienda (tubería, cajas, etc.), mandar al stock de la oficina, dejar con el cliente o botar.', trm_cierre_nada:'No sobró nada: todo lo que se llevó está usado o ya se cerró.', trm_llevado:'Se llevó', trm_sobra:'Sobró', trm_destino:'Qué se hace',
+  trm_tienda:'Tienda / proveedor (devolución)', trm_tienda_ph:'ej. Home Depot Doral, Graybar…', trm_cierre_ok:'Procesar', trm_cierre_hecho:'Listo: {n} línea(s) cerradas, {s} al stock.', trm_sobro_de:'Sobró de {t}',
+  trm_dev_t:'Devolución', trm_dev_nada:'No hay nada para devolver.', trm_dev_rec:'Recibido / crédito', trm_dev_nota:'Material sobrante en buen estado, sin usar. Guardar el ticket o nota de crédito de la tienda.', trm_dev_entrega:'Entregado por', trm_dev_recibe:'Recibido por (tienda)', trm_dev_ticket:'# Ticket / crédito',
+  'trmd.stock':'📦 Al stock de la oficina', 'trmd.devolver':'🏪 Devolver a la tienda', 'trmd.cliente':'🏢 Se queda con el cliente', 'trmd.desecho':'🗑 Desecho / retazo', 'trmd_c.stock':'al stock', 'trmd_c.devolver':'a devolver', 'trmd_c.cliente':'con el cliente', 'trmd_c.desecho':'desecho', trp_btn:'Reporte PDF', trp_title:'Reporte diario', trp_h:'Saca un PDF del día con el avance, la línea de tiempo, el tiempo que falta, las notas del día y lo que falta. Puedes escoger otro día para sacar un reporte atrasado.', trp_dia:'Día del reporte', trp_hist:'Notas anteriores', trp_h0:'Solo las del día', trp_h7:'Últimos 7 días', trp_h30:'Últimos 30 días', trp_hall:'Todas',
   trp_mat:'Materiales pendientes', trp_fases:'Fases', trp_notas:'Notas generales', trp_firma:'Líneas de firma', trp_gen:'Generar PDF', trp_trabajo:'Trabajo', trp_gen_el:'Generado', trp_avance:'Avance y tiempo',
   trp_k_av:'Avance total', trp_k_hoy:'Avance del día', trp_k_dias:'Días usados', trp_k_faltan:'Días que faltan', trp_k_hab:'Días hábiles', trp_k_atr:'Días de atraso', trp_k_horas:'Horas trabajadas', trp_k_ret:'Horas perdidas',
   trp_ini:'Inicio', trp_fin:'Entrega', trp_l_av:'Hecho ({p}%)', trp_l_plan:'Plan', trp_l_atr:'Atraso', trp_l_nota:'Nota del diario', trp_l_ret:'Día con retraso', trp_proy:'A este ritmo terminaría el {f}.',
   trp_e_atr:'Va atrasado', trp_e_adel:'Va adelantado', trp_e_ok:'Va a tiempo', trp_del_dia:'Notas del día · {f}', trp_sin_nota:'No hay notas en el diario para este día.', trp_ant:'Notas de los últimos {n} días', trp_ant_all:'Notas anteriores',
-  trp_falta:'Lo que falta', trp_nada_falta:'No falta nada pendiente.', trp_pend:'Falta', trp_firma_tec:'Técnico responsable', trp_firma_cli:'Recibido por (cliente)', trm_sitio:'Ya está en el lugar', trm_sitio_c:'En sitio', trm_n_sitio:'{n} ya en el lugar', trm_sitio_h:'Márcalo si este material ya está disponible en el lugar del trabajo (no hay que llevarlo, ni sacarlo del stock, ni pedirlo).', trm_de_ft:'Presupuesto: {n} pies (cajas de {pc} pies)',
+  trp_consumo:'Consumo de material', trp_usado_ac:'Usado a la fecha', trp_falta:'Lo que falta', trp_nada_falta:'No falta nada pendiente.', trp_pend:'Falta', trp_firma_tec:'Técnico responsable', trp_firma_cli:'Recibido por (cliente)', trm_sitio:'Ya está en el lugar', trm_sitio_c:'En sitio', trm_n_sitio:'{n} ya en el lugar', trm_sitio_h:'Márcalo si este material ya está disponible en el lugar del trabajo (no hay que llevarlo, ni sacarlo del stock, ni pedirlo).', trm_de_ft:'Presupuesto: {n} pies (cajas de {pc} pies)',
   trb_btn:'Trabajos', trb_title:'Trabajos en proceso', trb_sub:'Avance, línea de tiempo, diario de obra, retrasos y lo que falta en cada trabajo.', trb_nuevo:'Nuevo trabajo', trb_editar:'Editar trabajo',
   trb_missing:'Falta la tabla de trabajos. Corre supabase-trabajos.sql en Supabase > SQL Editor.', trb_vacio:'Todavía no hay trabajos.', trb_buscar:'Buscar trabajo, cliente, responsable…',
   trb_k_atr:'atrasados', trb_k_falt:'cosas que faltan', trb_k_ret:'retraso este mes (nuestro / cliente)',
@@ -5533,6 +5545,7 @@ function trbDiarioHTML(j, dia){
       <label class="stk-full"><span>✅ ${t('trb_hecho')}</span><textarea id="trd_hecho" rows="2" placeholder="${esc(t('trb_hecho_ph'))}"></textarea></label>
       <label class="stk-full"><span>⚠ ${t('trb_dific')}</span><textarea id="trd_dific" rows="2" placeholder="${esc(t('trb_dific_ph'))}"></textarea></label>
       <label class="stk-full"><span>❌ ${t('trb_no_log')}</span><textarea id="trd_nolog" rows="2" placeholder="${esc(t('trb_no_log_ph'))}"></textarea></label>
+      ${trmUsoFormHTML(j)}
       <div class="trb-ret-f"><label class="mdm-chk"><input type="checkbox" id="trd_hubo" onchange="$('trdRet').classList.toggle('hidden',!this.checked)"> ⏸ ${t('trb_hubo_ret')}</label>
         <div id="trdRet" class="mdm-grid hidden"><label><span>${t('trb_ret_h')}</span><input type="number" min="0" step="any" id="trd_reth" placeholder="2"></label>
           <label><span>${t('trb_ret_causa')}</span><select id="trd_causa">${TRB_CAUSAS.map(c => `<option value="${c}">${esc(t('trc.' + c))}</option>`).join('')}</select></label>
@@ -5543,23 +5556,30 @@ function trbDiarioHTML(j, dia){
           <button class="sm danger" onclick="trbDiaBorrar('${d.id}')" title="${esc(t('t_delete'))}">✕</button></div>
         ${d.hecho ? `<div>✅ ${esc(d.hecho).replace(/\n/g, '<br>')}</div>` : ''}${d.dificultades ? `<div class="trb-d-w">⚠ ${esc(d.dificultades).replace(/\n/g, '<br>')}</div>` : ''}
         ${d.no_logrado ? `<div class="trb-d-x">❌ ${esc(d.no_logrado).replace(/\n/g, '<br>')}</div>` : ''}
-        ${+d.retraso_horas > 0 ? `<div class="trb-d-r r-${esc(d.retraso_causa || 'otro')}">⏸ ${t('trb_ret_de', { h: d.retraso_horas, c: esc(causa(d)) })}${d.retraso_motivo ? ': ' + esc(d.retraso_motivo) : ''}</div>` : ''}</div>`).join('')}</div>`
+        ${+d.retraso_horas > 0 ? `<div class="trb-d-r r-${esc(d.retraso_causa || 'otro')}">⏸ ${t('trb_ret_de', { h: d.retraso_horas, c: esc(causa(d)) })}${d.retraso_motivo ? ': ' + esc(d.retraso_motivo) : ''}</div>` : ''}
+        ${(u => u.length ? `<div class="trb-d-u">📉 ${t('trm_usado')}: ${u.map(o => `<b>${esc(o.m.d)}</b> ${trmCant(o.m, o.u)}`).join(' · ')}</div>` : '')(trmUsoDe(j, d.id))}</div>`).join('')}</div>`
       : `<div class="act-empty">📓 ${t('trb_sin_notas')}</div>`}`;
 }
 async function trbDiaGuardar(id){
   const g = k => $('trd_' + k)?.value.trim() || '', n = k => g(k) === '' ? null : +g(k), hubo = $('trd_hubo').checked;
   const row = { trabajo_id: id, fecha: g('fecha') || trbHoy(), personas: n('personas'), horas: n('horas'), avance: n('avance'), hecho: g('hecho') || null, dificultades: g('dific') || null, no_logrado: g('nolog') || null,
     retraso_horas: hubo ? n('reth') : null, retraso_causa: hubo ? g('causa') : null, retraso_motivo: hubo ? g('motivo') || null : null };
-  if (!row.hecho && !row.dificultades && !row.no_logrado && !row.retraso_horas) return alert(t('trb_nota_vacia'));
+  const usos = trmUsoLeer();
+  if (!row.hecho && !row.dificultades && !row.no_logrado && !row.retraso_horas && !usos.length) return alert(t('trb_nota_vacia'));
+  if (usos.length){ row.id = crypto.randomUUID ? crypto.randomUUID() : null; if (!row.id) delete row.id; if (!row.hecho) row.hecho = t('trm_solo_uso'); }
   if (row.avance != null) row.avance = Math.max(0, Math.min(100, row.avance));
   const r = await db.from('trabajo_diario').insert(row); if (r.error) return fail(r.error, /trabajo_/.test(r.error.message || '') ? t('trb_missing') : t('save_fail'));
   const j = trabajos.find(x => x.id === id), patch = {};
+  if (usos.length){ const L = trmLista(j).map(m => ({ ...m })); usos.forEach(u => { if (L[u.i]) L[u.i].usos = jArr(L[u.i].usos).concat([{ f: row.fecha, n: trmR(u.n), ...(row.id ? { nid: row.id } : {}) }]); }); patch.materiales = L; j.materiales = L; }
   if (row.avance != null && !j.auto_fases) patch.progreso = row.avance;
   if (j.estado === 'pendiente') { patch.estado = 'en_proceso'; if (!j.fecha_inicio) patch.fecha_inicio = row.fecha; }
   if (Object.keys(patch).length) await db.from('trabajos').update(patch).eq('id', id);
   toast(t('saved')); cargarTrabajos();
 }
-async function trbDiaBorrar(id){ if (!confirm(t('trb_borrar_nota'))) return; const r = await db.from('trabajo_diario').delete().eq('id', id); if (r.error) return fail(r.error, t('save_fail')); cargarTrabajos(); }
+async function trbDiaBorrar(id){ if (!confirm(t('trb_borrar_nota'))) return; const r = await db.from('trabajo_diario').delete().eq('id', id); if (r.error) return fail(r.error, t('save_fail'));
+  const d = trbDiario.find(x => x.id === id), j = d && trabajos.find(x => x.id === d.trabajo_id);
+  if (j && trmLista(j).some(m => jArr(m.usos).some(u => u.nid === id))){ const L = trmLista(j).map(m => ({ ...m, ...(m.usos ? { usos: jArr(m.usos).filter(u => u.nid !== id) } : {}) })); await db.from('trabajos').update({ materiales: L }).eq('id', j.id); }
+  cargarTrabajos(); }
 
 /* ---- Lo que falta ---- */
 function trbFaltHTML(j, falt){
@@ -5647,19 +5667,22 @@ function trbMatHTML(j){
       <td><select class="trm-s" onchange="trmSet('${j.id}',${i},{sid:this.value||null})">${opStock(m.sid)}</select>
         ${x && !m.sitio ? `<small class="${est === 'falta' ? 'trm-mal' : 'muted'}" style="display:block">${est === 'falta' ? '⚠ ' + t('trm_solo_hay', { n: hayTxt }) : '✅ ' + t('trb_en_stock', { n: hayTxt })}${x.ubicacion ? ' · 📍 ' + esc(x.ubicacion) : ''}</small>` : ''}</td>
       <td class="n mono">${+m.sac ? trmFmt(m.sac) : ''}</td>
+      <td class="n mono">${trmUsado(m) ? trmCant(m, trmUsado(m)) : ''}</td>
+      <td class="n mono ${trmQueda(m) != null && trmQueda(m) < 0 ? 'trm-mal' : ''}">${trmUsado(m) && trmQueda(m) != null ? trmCant(m, trmQueda(m)) : ''}${jArr(m.cierre).map(c => `<span class="trm-cie-b d-${c.dest}">↪ ${trmFmt(c.n)} ${esc(t('trmd_c.' + c.dest))}</span>`).join('')}</td>
       <td class="stk-acc"><label class="trm-tal-c" title="${esc(t('trm_tal_h'))}"><input type="checkbox" ${m.tal ? 'checked' : ''} onchange="trmSet('${j.id}',${i},{tal:this.checked})"> 🤔</label>
         ${!m.tal && !m.sitio && x && falta > 0 && hay >= (f > 1 ? 1 : 1e-9) && !x.serializado ? `<button class="sm" onclick="trmSacar('${j.id}',${i})" title="${esc(t('trb_sacar_stock'))}">📤</button>` : ''}${!m.tal && !m.sitio && x?.serializado && falta > 0 ? `<button class="sm" onclick="trmSacarSerial('${j.id}',${i})" title="${esc(t('trm_serial_h'))}">🔢📤</button>` : ''}
         <button class="sm danger" onclick="trmQuitar('${j.id}',${i})">✕</button></td></tr>`; }).join('');
   return `<div class="muted" style="margin-bottom:8px">${t('trm_h')}</div>
     <div class="row" style="margin-bottom:10px;flex-wrap:wrap;gap:6px">${presu ? `<button onclick="trmDelPresu('${j.id}')">📥 ${t('trm_del_presu')}</button>` : ''}
-      ${L.length ? `<button onclick="trmSacarTodo('${j.id}')">📤 ${t('trm_sacar_todo')}</button><button onclick="trmAFaltantes('${j.id}')" ${nFalta ? '' : 'disabled'}>🧰 ${t('trm_a_falt', { n: nFalta })}</button><button onclick="trmImprimir('${j.id}')">🖨 ${t('trm_imprimir')}</button>` : ''}</div>
+      ${L.length ? `<button onclick="trmSacarTodo('${j.id}')">📤 ${t('trm_sacar_todo')}</button><button onclick="trmAFaltantes('${j.id}')" ${nFalta ? '' : 'disabled'}>🧰 ${t('trm_a_falt', { n: nFalta })}</button><button onclick="trmImprimir('${j.id}')">🖨 ${t('trm_imprimir')}</button>
+        <button onclick="trmCierre('${j.id}')" ${L.some(m => trmSobra(m) > 0) ? '' : 'disabled'} title="${esc(t('trm_cierre_h'))}">🔚 ${t('trm_cierre')}</button>${L.some(m => jArr(m.cierre).some(c => c.dest === 'devolver')) ? `<button onclick="trmDevImprimir('${j.id}')">🏪 ${t('trm_dev_t')}</button>` : ''}` : ''}</div>
     <datalist id="trmUnis">${['ft', t('trm_cajas'), t('stu.rollo'), t('stu.u'), 'tubos', t('stu.paquete'), 'bolsas'].map(u => `<option value="${esc(u)}">`).join('')}</datalist>
     <div class="trb-dform"><div class="mdm-grid"><label class="stk-span2"><span>${t('trm_que')}</span><input id="trm_d" list="trmSug" placeholder="${esc(t('trm_que_ph'))}" oninput="trmSugStock()" onkeydown="if(event.key==='Enter'){event.preventDefault();trmAgregar('${j.id}');}">
         <datalist id="trmSug">${[...new Set([...(typeof stkItems !== 'undefined' ? stkItems.filter(x => x.activo !== false && x.nombre).map(x => x.nombre) : []), ...TRM_SUG])].map(v => `<option value="${esc(v)}">`).join('')}</datalist></label>
       <label><span>${t('stk_cant')}</span><div class="stk-cant-u"><input id="trm_c" type="number" min="0" step="any" onkeydown="if(event.key==='Enter'){event.preventDefault();trmAgregar('${j.id}');}"><input id="trm_u" list="trmUnis" placeholder="${esc(t('trb_unidad_ph'))}" style="max-width:90px"></div></label></div>
       <div class="row" style="margin-top:6px"><label class="mdm-chk" title="${esc(t('trm_tal_h'))}"><input type="checkbox" id="trm_tal"> 🤔 ${t('trm_tal')}</label><span id="trmHay" class="muted" style="flex:1;font-size:12.5px"></span><button class="primary" onclick="trmAgregar('${j.id}')">＋ ${t('trb_agregar')}</button></div></div>
     ${L.length ? `<div class="trm-res">📋 ${t('trm_res', { n: L.length, ok: nOk, f: nFalta, c: L.filter(m => m.ok).length })}${nSit ? ' · 📍 ' + t('trm_n_sitio', { n: nSit }) : ''}${nTal ? ' · 🤔 ' + t('trm_n_tal', { n: nTal }) : ''}</div>
-      <div class="table-wrap"><table class="net-tbl stk-tbl trm-tbl"><thead><tr><th title="${esc(t('trm_cargado'))}">✔</th><th class="trm-sit" title="${esc(t('trm_sitio_h'))}">📍 ${t('trm_sitio_c')}</th><th>${t('trm_que')}</th><th class="n">${t('trm_necesario')}</th><th>${t('trm_stock')}</th><th class="n">${t('trm_sacado')}</th><th></th></tr></thead><tbody>${filas}</tbody></table></div>`
+      <div class="table-wrap"><table class="net-tbl stk-tbl trm-tbl"><thead><tr><th title="${esc(t('trm_cargado'))}">✔</th><th class="trm-sit" title="${esc(t('trm_sitio_h'))}">📍 ${t('trm_sitio_c')}</th><th>${t('trm_que')}</th><th class="n">${t('trm_necesario')}</th><th>${t('trm_stock')}</th><th class="n">${t('trm_sacado')}</th><th class="n">${t('trm_usado')}</th><th class="n">${t('trm_queda')}</th><th></th></tr></thead><tbody>${filas}</tbody></table></div>`
       : `<div class="act-empty">📋 ${t('trm_vacio')}</div>`}`;
 }
 function trmSugStock(){
@@ -5735,6 +5758,103 @@ async function trmAFaltantes(id){
   toast(t('trm_pasados', { n: rows.length })); cargarTrabajos();
 }
 // Hoja para imprimir y cargar la van
+/* ---- 📉 Consumo de material por día y 🔚 cierre (sobrante: devolver a la tienda o al stock) ---- */
+// pies por caja si la línea va en cajas de cable (el uso del día se escribe en pies)
+const trmPcDe = m => trmEsCaja(m.uni) && (m.pc || trmEsCable(m.d) || trmStock(m.sid)?.unidad === 'ft') ? trmPorCaja(m, trmStock(m.sid)) : 0;
+const trmUsado = m => jArr(m.usos).reduce((a, u) => a + (+u.n || 0), 0);
+const trmCerrado = m => jArr(m.cierre).reduce((a, c) => a + (+c.n || 0), 0);
+const trmLlevado = m => +m.sac > 0 ? +m.sac : m.tal ? 0 : (+m.cant || 0);
+const trmR = v => Math.round(+v * 1000) / 1000;
+const trmQueda = m => m.cant == null ? null : trmR(+m.cant - trmUsado(m));
+const trmSobra = m => m.sitio ? 0 : Math.max(0, trmR(trmLlevado(m) - trmUsado(m) - trmCerrado(m)));
+// "2.15 cajas (2,150 ft)"
+const trmCant = (m, v) => { const pc = trmPcDe(m); return trmFmt(v) + (m.uni ? ' ' + esc(m.uni) : '') + (pc && v ? ` <small class="muted">(${trmFmt(v * pc)} ft)</small>` : ''); };
+const TRM_DEVOLVIBLE = /tub|emt|pvc|conduit|caja\s*el[eé]ctric|electrical box|regleta|canaleta|raceway|bandeja|tray|strut|unistrut|varilla|rod|abrazadera|strap|fitting|conector\s*emt|codo|elbow|coupling|uni[oó]n/i;
+const TRM_DESTINOS = ['stock', 'devolver', 'cliente', 'desecho'];
+// filas del diario: cuánto se usó hoy de cada material
+function trmUsoFormHTML(j){
+  const L = trmLista(j).map((m, i) => ({ m, i })).filter(o => o.m.d && (o.m.cant != null || +o.m.sac > 0) && !o.m.tal);
+  if (!L.length) return '';
+  return `<div class="trd-uso"><h4 class="cl-h4">📉 ${t('trm_uso_hoy')}</h4><small class="muted">${t('trm_uso_h')}</small>
+    <div class="table-wrap"><table class="net-tbl trm-uso-t"><thead><tr><th>${t('trm_que')}</th><th class="n">${t('trm_total')}</th><th class="n">${t('trm_usado')}</th><th class="n">${t('trm_queda')}</th><th class="n">${t('trm_hoy_uso')}</th></tr></thead><tbody>
+    ${L.map(({ m, i }) => { const pc = trmPcDe(m), q = trmQueda(m);
+      return `<tr><td>${esc(m.d)}${m.sitio ? ` <small class="muted">📍</small>` : ''}</td><td class="n mono">${m.cant != null ? trmCant(m, +m.cant) : ''}</td><td class="n mono">${trmUsado(m) ? trmCant(m, trmUsado(m)) : ''}</td>
+        <td class="n mono ${q != null && q < 0 ? 'trm-mal' : ''}">${q != null ? trmCant(m, q) : ''}</td>
+        <td class="n"><div class="trm-cu"><input type="number" min="0" step="any" class="trm-n trd-uso-i" data-i="${i}" data-pc="${pc}" placeholder="0"><span class="trm-uso-u">${esc(pc ? 'ft' : m.uni || t('stu.u'))}</span></div></td></tr>`; }).join('')}</tbody></table></div></div>`;
+}
+// lee el formulario: [{i, n}] en unidades de la línea
+const trmUsoLeer = () => [...document.querySelectorAll('.trd-uso-i')].map(el => ({ i: +el.dataset.i, n: el.value === '' ? 0 : +el.value / (+el.dataset.pc || 1) })).filter(o => o.n > 0);
+const trmUsoDe = (j, nid) => trmLista(j).map(m => ({ m, u: jArr(m.usos).filter(u => u.nid === nid).reduce((a, u) => a + +u.n, 0) })).filter(o => o.u > 0);
+const trmUsoDia = (j, f) => trmLista(j).map(m => ({ m, u: jArr(m.usos).filter(u => u.f === f).reduce((a, u) => a + +u.n, 0) })).filter(o => o.u > 0);
+
+// ---- Cierre: lo que sobró → devolver a la tienda / al stock de la oficina / se queda con el cliente / desecho
+function trmCierre(id){
+  const j = trabajos.find(x => x.id === id); if (!j) return;
+  const L = trmLista(j).map((m, i) => ({ m, i, s: trmSobra(m) })).filter(o => o.s > 0);
+  if (!L.length) return alert(t('trm_cierre_nada'));
+  $('modalTitle').textContent = '🔚 ' + t('trm_cierre');
+  $('modal').querySelector('.modal-card').classList.add('wide');
+  const opD = (sel) => TRM_DESTINOS.map(d => `<option value="${d}" ${d === sel ? 'selected' : ''}>${esc(t('trmd.' + d))}</option>`).join('');
+  $('modalBody').innerHTML = `<div class="u-note" style="margin:0 0 10px">${t('trm_cierre_h')}</div>
+    <div class="table-wrap"><table class="net-tbl stk-tbl trm-cierre"><thead><tr><th>${t('trm_que')}</th><th class="n">${t('trm_sobra')}</th><th class="n">${t('stk_cant')}</th><th>${t('trm_destino')}</th><th>${t('stk_cond')}</th></tr></thead><tbody>
+    ${L.map(({ m, i, s }) => { const x = trmStock(m.sid), dest = TRM_DEVOLVIBLE.test(m.d) ? 'devolver' : 'stock', pc = trmPcDe(m);
+      return `<tr data-i="${i}"><td><b>${esc(m.d)}</b>${x ? `<small class="muted" style="display:block">📦 ${esc(x.nombre)}</small>` : ''}</td><td class="n mono"><b>${trmCant(m, s)}</b><small class="muted" style="display:block;font-family:Inter,sans-serif">${t('trm_llevado')} ${trmFmt(trmLlevado(m))} · ${t('trm_usado').toLowerCase()} ${trmFmt(trmUsado(m))}</small></td>
+        <td class="n"><div class="trm-cu"><input type="number" min="0" step="any" class="trm-n c-n" value="${pc ? Math.round(s * pc) : trmR(s)}" data-pc="${pc}" data-max="${s}"><span class="trm-uso-u">${esc(pc ? 'ft' : m.uni || t('stu.u'))}</span></div></td>
+        <td><select class="c-d" onchange="this.closest('tr').querySelector('.c-c').disabled=this.value!=='stock'">${opD(dest)}</select></td>
+        <td><select class="c-c" ${dest !== 'stock' ? 'disabled' : ''}>${STK_COND.map(c => `<option value="${c}" ${c === (x ? x.condicion : 'abierto') ? 'selected' : ''}>${esc(t('std.' + c))}</option>`).join('')}</select></td></tr>`; }).join('')}</tbody></table></div>
+    <div class="mdm-grid" style="margin-top:10px"><label class="stk-span2"><span>🏪 ${t('trm_tienda')}</span><input id="trc_prov" placeholder="${esc(t('trm_tienda_ph'))}"></label></div>
+    <div class="uf-foot"><button onclick="closeModal()">${t('cancel')}</button><button class="primary" onclick="trmCierreGuardar('${id}')">✔ ${t('trm_cierre_ok')}</button></div>`;
+  $('modal').classList.remove('hidden');
+}
+const trmUniStock = (m) => trmPcDe(m) || /^(ft|pies?|feet)$/i.test(m.uni || '') ? 'ft' : /caj|box/i.test(m.uni || '') ? 'caja' : /rollo|roll/i.test(m.uni || '') ? 'rollo' : /paq|pack|bolsa|bag/i.test(m.uni || '') ? 'paquete' : 'u';
+async function trmCierreGuardar(id){
+  const j = trabajos.find(x => x.id === id); if (!j) return;
+  const L = trmLista(j).map(m => ({ ...m })), prov = $('trc_prov')?.value.trim() || '', hoy = trbHoy(), nota = t('trb_para', { n: j.numero ?? '', t: j.titulo }), dev = [];
+  const filas = [...document.querySelectorAll('.trm-cierre tbody tr')].map(tr => { const el = tr.querySelector('.c-n'), pc = +el.dataset.pc || 0;
+    return { i: +tr.dataset.i, n: Math.min(+el.dataset.max, (+el.value || 0) / (pc || 1)), dest: tr.querySelector('.c-d').value, cond: tr.querySelector('.c-c').value }; }).filter(f => f.n > 0);
+  if (!filas.length) return closeModal();
+  let nStock = 0;
+  for (const f of filas){
+    const m = L[f.i]; if (!m) continue;
+    if (f.dest === 'stock'){
+      const pc = trmPcDe(m), uni = trmUniStock(m);
+      let x = trmStock(m.sid);
+      if (x && x.condicion !== f.cond) x = stkItems.find(z => z.activo !== false && nrm(z.nombre) === nrm(x.nombre) && z.condicion === f.cond && z.unidad === x.unidad) || { ...x, _nuevo: true };
+      if (!x) x = stkItems.find(z => z.activo !== false && nrm(z.nombre) === nrm(m.d) && z.condicion === f.cond) || { _nuevo: true, nombre: m.d, unidad: uni };
+      if (x._nuevo){
+        const cat = (UPC_CAT.find(([, rx]) => rx.test(x.nombre || m.d)) || [x.categoria || (trmEsCable(m.d) ? 'cable' : 'otro')])[0];
+        const nuevo = { id: (crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random()), categoria: x.categoria || cat, nombre: x.nombre || m.d, marca: x.marca || null, modelo: x.modelo || null, condicion: f.cond, unidad: x.unidad || uni, cantidad: 0, activo: true, series: [], ubicacion: x.ubicacion || null };
+        const r = await db.from('stock_items').insert(nuevo); if (r.error){ fail(r.error, t('save_fail')); continue; }
+        stkItems.push(nuevo); x = nuevo;
+      }
+      const k = x.unidad === 'ft' && pc ? pc : 1;
+      if (!await stkAplicar(x, 'devolucion', { cant: trmR(f.n * k), nota: t('trm_sobro_de', { t: nota }) })) continue;
+      nStock++;
+    } else if (f.dest === 'devolver') dev.push({ d: m.d, n: f.n, m });
+    m.cierre = jArr(m.cierre).concat([{ dest: f.dest, n: trmR(f.n), f: hoy, ...(f.dest === 'devolver' && prov ? { prov } : {}), ...(f.dest === 'stock' ? { cond: f.cond } : {}) }]);
+  }
+  closeModal();
+  if (await trmGuardar(id, L)){ toast(t('trm_cierre_hecho', { n: filas.length, s: nStock })); if (dev.length) trmDevImprimir(id, hoy); }
+}
+// Hoja de devolución a la tienda / proveedor
+function trmDevImprimir(id, f){
+  const j = trabajos.find(x => x.id === id); if (!j) return;
+  const filas = trmLista(j).flatMap(m => jArr(m.cierre).filter(c => c.dest === 'devolver' && (!f || c.f === f)).map(c => ({ m, c })));
+  if (!filas.length) return alert(t('trm_dev_nada'));
+  const C = prConf(), E = C.empresa || {}, nom = E.nombre || 'AJ Tech Support', provs = [...new Set(filas.map(o => o.c.prov).filter(Boolean))];
+  const w = window.open('', '_blank'); if (!w) return alert(t('pr_popup'));
+  w.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>${esc(t('trm_dev_t'))} · ${esc(j.titulo)}</title><style>@page{size:letter;margin:14mm}body{font:13px/1.45 Inter,Arial,sans-serif;color:#0f172a;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .h{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:3px solid #006fff;padding-bottom:10px;margin-bottom:14px}h1{font-size:22px;margin:0;color:#006fff;letter-spacing:1px;text-transform:uppercase}.m{color:#64748b;font-size:12px}
+    .g{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}.g div{border:1px solid #e2e8f0;border-radius:8px;padding:8px 10px;background:#f8fafc}.g b{display:block;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#64748b}
+    table{width:100%;border-collapse:collapse}th{background:#0f172a;color:#fff;font-size:11px;text-transform:uppercase;letter-spacing:.6px;text-align:left;padding:7px}td{padding:9px 7px;border-bottom:1px solid #e2e8f0}.n{text-align:right;white-space:nowrap}.ck{font-size:18px;width:24px}
+    .f{margin-top:40px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:30px}.f div{border-top:1px solid #0f172a;padding-top:4px;font-size:11px;color:#64748b}</style></head><body>
+    <div class="h"><div><b style="font-size:17px">${esc(nom)}</b><div class="m">${esc([E.telefono, E.email].filter(Boolean).join(' · '))}</div></div><div style="text-align:right"><h1>${esc(t('trm_dev_t'))}</h1><div class="m">${esc(trbFecha(f || trbHoy()))}</div></div></div>
+    <div class="g"><div><b>${t('trm_tienda')}</b>${esc(provs.join(', ') || '______________________')}</div><div><b>${t('trp_trabajo')}</b>${j.numero != null ? '#' + j.numero + ' · ' : ''}${esc(j.titulo)} · ${esc(j.cliente)}</div></div>
+    <table><thead><tr><th></th><th>${t('trm_que')}</th><th class="n">${t('stk_cant')}</th><th>${t('trm_dev_rec')}</th></tr></thead><tbody>
+    ${filas.map(({ m, c }) => { const pc = trmPcDe(m); return `<tr><td class="ck">☐</td><td>${esc(m.d)}</td><td class="n"><b>${trmFmt(c.n)} ${esc(m.uni || '')}</b>${pc ? ` (${trmFmt(c.n * pc)} ft)` : ''}</td><td>________________</td></tr>`; }).join('')}</tbody></table>
+    <div class="m" style="margin-top:10px">${t('trm_dev_nota')}</div>
+    <div class="f"><div>${t('trm_dev_entrega')}</div><div>${t('trm_dev_recibe')}</div><div>${t('trm_dev_ticket')}</div></div><script>setTimeout(()=>print(),400)<\/script></body></html>`); w.document.close();
+}
 function trmImprimir(id){
   const j = trabajos.find(x => x.id === id); if (!j) return;
   const L = trmLista(j), filas = L.map(m => { const x = trmStock(m.sid); return `<tr class="${m.tal ? 'tal' : ''}"><td class="ck">☐</td><td>${esc(m.d)}${m.tal ? ` <i>(🤔 ${t('trm_tal')})</i>` : ''}${m.sitio ? ` <i>(📍 ${t('trm_sitio')})</i>` : ''}${m.nota ? `<small>${esc(m.nota)}</small>` : ''}</td><td class="n">${m.cant != null ? (+m.cant).toLocaleString('en-US') + ' ' + esc(m.uni || '') : ''}</td><td>${x?.ubicacion ? esc(x.ubicacion) : ''}</td><td class="n">${+m.sac ? (+m.sac).toLocaleString('en-US') : ''}</td></tr>`; }).join('');
@@ -5809,7 +5929,8 @@ async function trbReporte(id){
   const causa = d => d.retraso_causa ? t('trc.' + d.retraso_causa) : '';
   const notaH = (d, grande) => `<div class="nt ${grande ? 'big' : ''} ${+d.retraso_horas > 0 ? 'ret' : ''}"><div class="nh"><b>📅 ${esc(fl(d.fecha))}</b><span>${[d.personas && '👷 ' + d.personas, d.horas && '⏱ ' + nf(d.horas) + ' h', d.avance != null && '📈 ' + d.avance + '%', d.autor && '✍ ' + d.autor].filter(Boolean).map(esc).join(' · ')}</span></div>
     ${d.hecho ? `<div class="nl"><em>✅ ${t('trb_hecho')}</em>${tx(d.hecho)}</div>` : ''}${d.dificultades ? `<div class="nl w"><em>⚠ ${t('trb_dific')}</em>${tx(d.dificultades)}</div>` : ''}
-    ${d.no_logrado ? `<div class="nl x"><em>❌ ${t('trb_no_log')}</em>${tx(d.no_logrado)}</div>` : ''}${+d.retraso_horas > 0 ? `<div class="nl r"><em>⏸ ${t('trb_ret_de', { h: nf(d.retraso_horas), c: esc(causa(d)) })}</em>${tx(d.retraso_motivo)}</div>` : ''}</div>`;
+    ${d.no_logrado ? `<div class="nl x"><em>❌ ${t('trb_no_log')}</em>${tx(d.no_logrado)}</div>` : ''}${+d.retraso_horas > 0 ? `<div class="nl r"><em>⏸ ${t('trb_ret_de', { h: nf(d.retraso_horas), c: esc(causa(d)) })}</em>${tx(d.retraso_motivo)}</div>` : ''}
+    ${(u => u.length ? `<div class="nl u"><em>📉 ${t('trm_usado')}</em>${u.map(o => `${esc(o.m.d)}: <b>${trmCant(o.m, o.u)}</b>`).join(' · ')}</div>` : '')(trmUsoDe(j, d.id))}</div>`;
   const hoyH = `<section class="blk"><h2>📓 ${t('trp_del_dia', { f: fl(dia) })}</h2>${hoyN.length ? hoyN.map(d => notaH(d, true)).join('') : `<div class="vacio">${t('trp_sin_nota')}</div>`}</section>`;
   const antH = antes.length ? `<section class="blk"><h2>🗂 ${t(hist >= 9999 ? 'trp_ant_all' : 'trp_ant', { n: hist })}</h2>${antes.map(d => notaH(d)).join('')}</section>` : '';
   // ---- lo que falta
@@ -5820,6 +5941,9 @@ async function trbReporte(id){
   const mp = conMat ? trmLista(j).filter(m => !m.tal && !m.sitio && m.cant && (+m.sac || 0) < +m.cant) : [];
   const matH = mp.length ? `<section class="blk"><h2>📋 ${t('trp_mat')}</h2><table class="it"><thead><tr><th>${t('trm_que')}</th><th class="n">${t('trm_necesario')}</th><th class="n">${t('trm_sacado')}</th><th class="n">${t('trp_pend')}</th></tr></thead><tbody>
       ${mp.map(m => `<tr><td>${esc(m.d)}</td><td class="n">${nf(m.cant)} ${esc(m.uni || '')}</td><td class="n">${+m.sac ? nf(m.sac) : ''}</td><td class="n b">${nf(+m.cant - (+m.sac || 0))} ${esc(m.uni || '')}</td></tr>`).join('')}</tbody></table></section>` : '';
+  const cons = trmLista(j).filter(m => m.d && !m.tal && (jArr(m.usos).length || (m.cant != null && conMat))).map(m => { const us = jArr(m.usos).filter(u => u.f <= dia), uT = us.reduce((a, u) => a + +u.n, 0), uD = us.filter(u => u.f === dia).reduce((a, u) => a + +u.n, 0); return { m, uT, uD, q: m.cant != null ? +m.cant - uT : null }; }).filter(o => o.uT > 0);
+  const consH = cons.length ? `<section class="blk"><h2>📉 ${t('trp_consumo')}</h2><table class="it"><thead><tr><th>${t('trm_que')}</th><th class="n">${t('trm_total')}</th><th class="n">${t('trm_hoy_uso')}</th><th class="n">${t('trp_usado_ac')}</th><th class="n">${t('trm_queda')}</th><th style="width:22%"></th></tr></thead><tbody>
+      ${cons.map(o => { const pct = o.m.cant ? Math.min(100, o.uT / +o.m.cant * 100) : 0; return `<tr><td>${esc(o.m.d)}</td><td class="n">${o.m.cant != null ? trmCant(o.m, +o.m.cant) : ''}</td><td class="n b">${o.uD ? trmCant(o.m, o.uD) : '—'}</td><td class="n">${trmCant(o.m, o.uT)}</td><td class="n b ${o.q != null && o.q < 0 ? 'neg' : ''}">${o.q != null ? trmCant(o.m, o.q) : ''}</td><td><div class="fb"><i style="width:${pct.toFixed(1)}%" class="${pct >= 100 ? 'ok' : ''}"></i></div></td></tr>`; }).join('')}</tbody></table></section>` : '';
   const retH = retT ? `<section class="blk keep"><h2>⏸ ${t('trb_retrasos')}</h2><div class="rets">${TRB_CAUSAS.filter(c => ret[c]).map(c => `<div class="rt r-${c}"><b>${nf(ret[c])} h</b><span>${esc(t('trc.' + c))}</span><div class="fb"><i style="width:${(ret[c] / retT * 100).toFixed(1)}%"></i></div></div>`).join('')}</div></section>` : '';
   const genH = conNotas && j.notas ? `<section class="blk"><h2>📝 ${t('trb_t_notas')}</h2><div class="txt">${tx(j.notas)}</div></section>` : '';
   const css = `@page{size:letter;margin:0}*{box-sizing:border-box}html,body{margin:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}
@@ -5850,7 +5974,7 @@ async function trbReporte(id){
     .fb{height:10px;background:#f1f5f9;border-radius:5px;overflow:hidden}.fb i{display:block;height:100%;background:#006fff}.fb i.ok{background:#10b981}
     .nt{border:1px solid #e2e8f0;border-left:4px solid #94a3b8;border-radius:8px;padding:8px 12px;margin-bottom:8px;break-inside:avoid}.nt.big{border-left-color:#006fff;background:#f8fbff}.nt.ret{border-left-color:#dc2626}
     .nh{display:flex;justify-content:space-between;gap:10px;margin-bottom:4px}.nh span{color:#64748b;font-size:10.5px}.nl{margin-top:4px;color:#334155}.nl em{display:block;font-style:normal;font-weight:700;font-size:10.5px;color:#0f172a}
-    .nl.w em{color:#b45309}.nl.x em{color:#b91c1c}.nl.r em{color:#dc2626}.vacio{padding:10px 12px;border:1px dashed #cbd5e1;border-radius:8px;color:#64748b}.vacio.ok{color:#15803d;border-color:#86efac;background:#f0fdf4}
+    .nl.u em{color:#006fff}td.neg{color:#dc2626}.nl.w em{color:#b45309}.nl.x em{color:#b91c1c}.nl.r em{color:#dc2626}.vacio{padding:10px 12px;border:1px dashed #cbd5e1;border-radius:8px;color:#64748b}.vacio.ok{color:#15803d;border-color:#86efac;background:#f0fdf4}
     table.it{width:100%;border-collapse:collapse}table.it th{background:#0f172a;color:#fff;font-size:10px;letter-spacing:.8px;text-transform:uppercase;font-weight:600;padding:7px 8px;text-align:left}
     table.it td{padding:6px 8px;border-bottom:1px solid #e9eef5;vertical-align:top}table.it tr.urg td{background:#fef2f2}.det{color:#64748b;font-size:10.5px}.n{text-align:right;white-space:nowrap;width:1%}.b{font-weight:700}tr{break-inside:avoid}.keep{break-inside:avoid}
     .st{font-size:10px;padding:1px 8px;border-radius:999px;background:#e2e8f0}.st.s-pendiente{background:#fee2e2;color:#b91c1c}.st.s-pedido{background:#fef3c7;color:#92400e}.st.s-en_camino{background:#dbeafe;color:#1d4ed8}
@@ -5867,7 +5991,7 @@ async function trbReporte(id){
       <div class="card"><h3>${t('pdf_proyecto')}</h3><div class="v">${esc(j.titulo)}</div><div class="s">${[j.responsable && '👷 ' + esc(j.responsable), j.equipo && '👥 ' + esc(j.equipo)].filter(Boolean).join('<br>')}</div></div>
       <div class="card"><h3>${t('status')}</h3><div class="v">${esc(t('tre.' + j.estado))}</div><span class="est ${eCls}">${esc(estado)}</span></div></div>
     <section class="blk keep"><h2>📈 ${t('trp_avance')}</h2><div class="kpis">${kpis}</div><div class="pbar"><i style="width:${p}%"></i><b>${p}%</b></div>${linea}</section>
-    ${fasesH}${hoyH}${faltH}${matH}${retH}${antH}${genH}
+    ${fasesH}${hoyH}${faltH}${consH}${matH}${retH}${antH}${genH}
     ${conFirma ? `<div class="firmas keep"><div class="firma"><div class="ln"></div><b>${t('trp_firma_tec')}</b><small>${t('pdf_nom_firma')}</small></div><div class="firma"><div class="ln"></div><b>${t('trp_firma_cli')}</b><small>${t('pdf_nom_firma')}</small></div></div>` : ''}
     <div class="pie">${esc([nom, E.telefono, E.email, E.web].filter(Boolean).join(' · '))}</div>
   </td></tr></tbody></table><script>setTimeout(()=>print(),500)<\/script></body></html>`;

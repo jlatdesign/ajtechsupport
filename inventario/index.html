@@ -1057,7 +1057,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v9.2.2</p>
+    <p class="sub">Network Asset Manager · v9.3</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -1073,7 +1073,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.2.2</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.3</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -1781,7 +1781,12 @@ Object.assign(I18N.en, {
   trm_nada_sacar:'Nothing to take: already taken, not in stock or no quantity.', trm_sacados:'{n} material(s) taken from stock', trm_serial_h:'Pick the serials that go out',
   trm_quitar_q:'Some of this was already taken from stock. Remove it from the list anyway? (stock is not returned automatically)', trm_de_lista:'From the materials list', trm_ya_falt:'Everything is already in "Missing" or there is enough stock.',
   trm_pasados:'{n} material(s) moved to "Missing"', trm_preparo:'Prepared by', trm_reviso:'Checked / received by',
-  trm_sql:'To save materials run supabase-trabajos.sql again (it adds the "materiales" column).', trm_cajas:'boxes', trm_tal:'Maybe', trm_tal_h:'Maybe: it may or may not be used. It stays on the list but is not taken from stock or ordered.', trm_n_tal:'{n} maybe', trm_sitio:'Already on site', trm_sitio_c:'On site', trm_n_sitio:'{n} already on site', trm_sitio_h:'Check it if this material is already available at the job site (no need to bring it, take it from stock or order it).', trm_de_ft:'Quote: {n} ft ({pc} ft boxes)',
+  trm_sql:'To save materials run supabase-trabajos.sql again (it adds the "materiales" column).', trm_cajas:'boxes', trm_tal:'Maybe', trm_tal_h:'Maybe: it may or may not be used. It stays on the list but is not taken from stock or ordered.', trm_n_tal:'{n} maybe', trp_btn:'PDF report', trp_title:'Daily report', trp_h:'Creates a PDF for the day with progress, timeline, time left, the day notes and what is missing. You can pick another day for a past report.', trp_dia:'Report day', trp_hist:'Earlier notes', trp_h0:'Only that day', trp_h7:'Last 7 days', trp_h30:'Last 30 days', trp_hall:'All',
+  trp_mat:'Pending materials', trp_fases:'Phases', trp_notas:'General notes', trp_firma:'Signature lines', trp_gen:'Create PDF', trp_trabajo:'Job', trp_gen_el:'Generated', trp_avance:'Progress and time',
+  trp_k_av:'Total progress', trp_k_hoy:'Progress today', trp_k_dias:'Days used', trp_k_faltan:'Days left', trp_k_hab:'Business days', trp_k_atr:'Days late', trp_k_horas:'Hours worked', trp_k_ret:'Hours lost',
+  trp_ini:'Start', trp_fin:'Due', trp_l_av:'Done ({p}%)', trp_l_plan:'Plan', trp_l_atr:'Late', trp_l_nota:'Daily note', trp_l_ret:'Day with delay', trp_proy:'At this pace it would finish on {f}.',
+  trp_e_atr:'Behind schedule', trp_e_adel:'Ahead of schedule', trp_e_ok:'On time', trp_del_dia:'Notes of the day · {f}', trp_sin_nota:'No daily notes for this day.', trp_ant:'Notes from the last {n} days', trp_ant_all:'Earlier notes',
+  trp_falta:'What is missing', trp_nada_falta:'Nothing pending.', trp_pend:'Missing', trp_firma_tec:'Lead technician', trp_firma_cli:'Received by (client)', trm_sitio:'Already on site', trm_sitio_c:'On site', trm_n_sitio:'{n} already on site', trm_sitio_h:'Check it if this material is already available at the job site (no need to bring it, take it from stock or order it).', trm_de_ft:'Quote: {n} ft ({pc} ft boxes)',
   trb_btn:'Jobs', trb_title:'Jobs in progress', trb_sub:'Progress, timeline, daily log, delays and what is missing on each job.', trb_nuevo:'New job', trb_editar:'Edit job',
   trb_missing:'The jobs table is missing. Run supabase-trabajos.sql in Supabase > SQL Editor.', trb_vacio:'There are no jobs yet.', trb_buscar:'Search job, client, lead…',
   trb_k_atr:'late', trb_k_falt:'missing items', trb_k_ret:'delay this month (ours / client)',
@@ -1983,7 +1988,12 @@ Object.assign(I18N.es, {
   trm_nada_sacar:'No hay nada que sacar: o ya se sacó, o no está en el stock, o no hay cantidad.', trm_sacados:'{n} material(es) sacados del stock', trm_serial_h:'Escoger los seriales que salen',
   trm_quitar_q:'Ya se sacó algo de esto del stock. ¿Quitarlo de la lista igual? (el stock no se devuelve solo)', trm_de_lista:'De la lista de materiales', trm_ya_falt:'Ya está todo en "Lo que falta" o hay stock suficiente.',
   trm_pasados:'{n} material(es) pasados a "Lo que falta"', trm_preparo:'Preparó', trm_reviso:'Revisó / recibió',
-  trm_sql:'Para guardar los materiales corre otra vez supabase-trabajos.sql (agrega la columna "materiales").', trm_cajas:'cajas', trm_tal:'En veremos', trm_tal_h:'En veremos: puede que se use, puede que no. Se lleva en la lista pero no se saca del stock ni se pide.', trm_n_tal:'{n} en veremos', trm_sitio:'Ya está en el lugar', trm_sitio_c:'En sitio', trm_n_sitio:'{n} ya en el lugar', trm_sitio_h:'Márcalo si este material ya está disponible en el lugar del trabajo (no hay que llevarlo, ni sacarlo del stock, ni pedirlo).', trm_de_ft:'Presupuesto: {n} pies (cajas de {pc} pies)',
+  trm_sql:'Para guardar los materiales corre otra vez supabase-trabajos.sql (agrega la columna "materiales").', trm_cajas:'cajas', trm_tal:'En veremos', trm_tal_h:'En veremos: puede que se use, puede que no. Se lleva en la lista pero no se saca del stock ni se pide.', trm_n_tal:'{n} en veremos', trp_btn:'Reporte PDF', trp_title:'Reporte diario', trp_h:'Saca un PDF del día con el avance, la línea de tiempo, el tiempo que falta, las notas del día y lo que falta. Puedes escoger otro día para sacar un reporte atrasado.', trp_dia:'Día del reporte', trp_hist:'Notas anteriores', trp_h0:'Solo las del día', trp_h7:'Últimos 7 días', trp_h30:'Últimos 30 días', trp_hall:'Todas',
+  trp_mat:'Materiales pendientes', trp_fases:'Fases', trp_notas:'Notas generales', trp_firma:'Líneas de firma', trp_gen:'Generar PDF', trp_trabajo:'Trabajo', trp_gen_el:'Generado', trp_avance:'Avance y tiempo',
+  trp_k_av:'Avance total', trp_k_hoy:'Avance del día', trp_k_dias:'Días usados', trp_k_faltan:'Días que faltan', trp_k_hab:'Días hábiles', trp_k_atr:'Días de atraso', trp_k_horas:'Horas trabajadas', trp_k_ret:'Horas perdidas',
+  trp_ini:'Inicio', trp_fin:'Entrega', trp_l_av:'Hecho ({p}%)', trp_l_plan:'Plan', trp_l_atr:'Atraso', trp_l_nota:'Nota del diario', trp_l_ret:'Día con retraso', trp_proy:'A este ritmo terminaría el {f}.',
+  trp_e_atr:'Va atrasado', trp_e_adel:'Va adelantado', trp_e_ok:'Va a tiempo', trp_del_dia:'Notas del día · {f}', trp_sin_nota:'No hay notas en el diario para este día.', trp_ant:'Notas de los últimos {n} días', trp_ant_all:'Notas anteriores',
+  trp_falta:'Lo que falta', trp_nada_falta:'No falta nada pendiente.', trp_pend:'Falta', trp_firma_tec:'Técnico responsable', trp_firma_cli:'Recibido por (cliente)', trm_sitio:'Ya está en el lugar', trm_sitio_c:'En sitio', trm_n_sitio:'{n} ya en el lugar', trm_sitio_h:'Márcalo si este material ya está disponible en el lugar del trabajo (no hay que llevarlo, ni sacarlo del stock, ni pedirlo).', trm_de_ft:'Presupuesto: {n} pies (cajas de {pc} pies)',
   trb_btn:'Trabajos', trb_title:'Trabajos en proceso', trb_sub:'Avance, línea de tiempo, diario de obra, retrasos y lo que falta en cada trabajo.', trb_nuevo:'Nuevo trabajo', trb_editar:'Editar trabajo',
   trb_missing:'Falta la tabla de trabajos. Corre supabase-trabajos.sql en Supabase > SQL Editor.', trb_vacio:'Todavía no hay trabajos.', trb_buscar:'Buscar trabajo, cliente, responsable…',
   trb_k_atr:'atrasados', trb_k_falt:'cosas que faltan', trb_k_ret:'retraso este mes (nuestro / cliente)',
@@ -5494,7 +5504,7 @@ function renderTrabajo(j){
   el.innerHTML = `<div class="cl-head"><button class="backbtn" onclick="cerrarTrabajos()">← ${t('trb_title')}</button>
       <div class="cl-info"><h2>🛠 ${esc(j.titulo)} ${j.numero != null ? `<span class="mono muted" style="font-size:.6em">#${j.numero}</span>` : ''}</h2><div class="muted">🏢 ${esc(j.cliente)}${j.direccion ? ' · 📍 ' + esc(j.direccion) : ''}${j.responsable ? ' · 👷 ' + esc(j.responsable) : ''}${j.equipo ? ' · 👥 ' + esc(j.equipo) : ''}</div></div>
       <div class="row no-print"><select onchange="trbSet('${j.id}',{estado:this.value})">${TRB_ESTADOS.map(e => `<option value="${e}" ${j.estado === e ? 'selected' : ''}>${esc(t('tre.' + e))}</option>`).join('')}</select>
-        <button onclick="trbForm('${j.id}')">✏️ ${t('edit')}</button>${PERM.admin || !PERM.roles ? `<button class="danger" onclick="trbBorrar('${j.id}')">🗑</button>` : ''}</div></div>
+        <button onclick="trbReporteForm('${j.id}')">📄 ${t('trp_btn')}</button><button onclick="trbForm('${j.id}')">✏️ ${t('edit')}</button>${PERM.admin || !PERM.roles ? `<button class="danger" onclick="trbBorrar('${j.id}')">🗑</button>` : ''}</div></div>
     <div class="panel trb-top">
       <div class="trb-prog"><div class="trb-prog-n"><b>${p}%</b><small>${t(j.auto_fases && fases.length ? 'trb_por_fases' : 'trb_avance')}</small></div>
         <div style="flex:1">${trbBarra(p, a ? 'atr' : r && r.dif < -10 ? 'lento' : '')}
@@ -5735,6 +5745,133 @@ function trmImprimir(id){
     <h1>📋 ${esc(t('trm_imprimir'))}</h1><div class="m"><b>${esc(j.titulo)}</b> · ${esc(j.cliente)}${j.direccion ? ' · ' + esc(j.direccion) : ''}${j.fecha_inicio ? ' · ' + esc(trbFecha(j.fecha_inicio)) : ''}${j.equipo ? ' · ' + esc(j.equipo) : ''}</div>
     <table><thead><tr><th></th><th>${t('trm_que')}</th><th class="n">${t('trm_necesario')}</th><th>${t('stk_ubic')}</th><th class="n">${t('trm_sacado')}</th></tr></thead><tbody>${filas}</tbody></table>
     <div class="f"><div>${t('trm_preparo')}</div><div>${t('trm_reviso')}</div></div><script>setTimeout(()=>print(),400)<\/script></body></html>`); w.document.close();
+}
+
+/* ---- 📄 Reporte diario en PDF: avance, línea de tiempo, tiempo que falta, notas del día y lo que falta ---- */
+function trbReporteForm(id){
+  const j = trabajos.find(x => x.id === id); if (!j) return;
+  const dias = [...new Set(trbDiario.filter(d => d.trabajo_id === id).map(d => d.fecha))];
+  $('modalTitle').textContent = '📄 ' + t('trp_title');
+  $('modalBody').innerHTML = `<div class="u-note" style="margin:0 0 10px">${t('trp_h')}</div>
+    <div class="mdm-grid"><label><span>${t('trp_dia')}</span><input type="date" id="trp_fecha" value="${trbHoy()}" list="trpDias"><datalist id="trpDias">${dias.map(d => `<option value="${d}">`).join('')}</datalist></label>
+      <label><span>${t('trp_hist')}</span><select id="trp_hist"><option value="0">${t('trp_h0')}</option><option value="7" selected>${t('trp_h7')}</option><option value="30">${t('trp_h30')}</option><option value="9999">${t('trp_hall')}</option></select></label></div>
+    <div class="mdm-grid" style="margin-top:6px">${[['trp_mat', 1], ['trp_fases', 1], ['trp_notas', 1], ['trp_firma', 1]].map(([k, v]) => `<label class="mdm-chk"><input type="checkbox" id="${k}" ${v ? 'checked' : ''}> ${t(k)}</label>`).join('')}</div>
+    <div class="uf-foot"><button onclick="closeModal()">${t('cancel')}</button><button class="primary" onclick="trbReporte('${id}')">📄 ${t('trp_gen')}</button></div>`;
+  $('modal').classList.remove('hidden');
+}
+async function trbReporte(id){
+  const j = trabajos.find(x => x.id === id); if (!j) return;
+  const dia = $('trp_fecha')?.value || trbHoy(), hist = +($('trp_hist')?.value ?? 7), op = k => $(k) ? $(k).checked : true;
+  const conMat = op('trp_mat'), conFases = op('trp_fases'), conNotas = op('trp_notas'), conFirma = op('trp_firma');
+  closeModal?.();
+  if (!PRC){ try { const r = await db.from('presu_config').select('*'); if (!r.error) PRC = (r.data || [])[0] || null; } catch(e){} }
+  const C = prConf(), E = C.empresa || {}, nom = E.nombre || 'AJ Tech Support', loc = LANG === 'es' ? 'es-US' : 'en-US';
+  const fl = v => v ? new Date(v + 'T12:00:00').toLocaleDateString(loc, { dateStyle: 'long' }) : '—', fc = v => v ? new Date(v + 'T12:00:00').toLocaleDateString(loc, { month: 'short', day: 'numeric' }) : '—';
+  const nf = v => (Math.round(+v * 10) / 10).toLocaleString('en-US'), tx = v => esc(v || '').replace(/\n/g, '<br>');
+  const pw = nom.split(/\s+/).filter(Boolean), ini2 = (pw[0] && pw[0].length <= 3 ? pw[0] : pw.slice(0, 2).map(w => w[0]).join('')).toUpperCase();
+  const ctc = [E.direccion, [E.telefono, E.email].filter(Boolean).join(' · '), E.web].filter(Boolean).map(esc).join('<br>');
+  // ---- avance y tiempo (al día del reporte)
+  const p = trbPct(j), notas = trbDiario.filter(d => d.trabajo_id === id && d.fecha <= dia).sort((a, b) => b.fecha.localeCompare(a.fecha) || String(b.created_at || '').localeCompare(String(a.created_at || '')));
+  const hoyN = notas.filter(d => d.fecha === dia), antes = notas.filter(d => d.fecha < dia && trbDias(d.fecha, dia) <= hist);
+  const ini = j.fecha_inicio, fin = j.fecha_fin_est, activo = trbActivo(j);
+  const tot = ini && fin ? Math.max(1, trbDias(ini, fin)) : 0, pas = ini ? Math.max(0, trbDias(ini, dia)) : 0;
+  const falta = fin ? trbDias(dia, fin) : null, atr = activo && falta != null && falta < 0 ? -falta : 0;
+  const pTiempo = tot ? Math.min(100, Math.round(pas / tot * 100)) : null, dif = pTiempo != null ? p - pTiempo : null;
+  const habiles = (a, b) => { let n = 0; const x = new Date(a + 'T12:00:00'), y = new Date(b + 'T12:00:00'); while (x < y){ x.setDate(x.getDate() + 1); if (x.getDay() % 6) n++; } return n; };
+  let proy = null; if (activo && ini && p > 0 && p < 100 && pas > 0){ const dd = Math.ceil(pas / p * 100); const x = new Date(ini + 'T12:00:00'); x.setDate(x.getDate() + dd); proy = `${x.getFullYear()}-${String(x.getMonth() + 1).padStart(2, '0')}-${String(x.getDate()).padStart(2, '0')}`; }
+  const hTot = notas.reduce((a, d) => a + (+d.horas || 0), 0), hDia = hoyN.reduce((a, d) => a + (+d.horas || 0), 0);
+  const avAnt = antes.find(d => d.avance != null)?.avance, avHoy = hoyN.find(d => d.avance != null)?.avance;
+  const ret = {}; notas.forEach(d => { if (+d.retraso_horas > 0) ret[d.retraso_causa || 'otro'] = (ret[d.retraso_causa || 'otro'] || 0) + +d.retraso_horas; });
+  const retT = Object.values(ret).reduce((a, b) => a + b, 0);
+  const estado = !activo ? t('tre.' + j.estado) : atr ? '⚠ ' + t('trb_atrasado', { n: atr }) : dif == null ? t('tre.' + j.estado) : dif < -10 ? t('trp_e_atr') : dif > 5 ? t('trp_e_adel') : t('trp_e_ok');
+  const eCls = !activo ? '' : atr || (dif != null && dif < -10) ? 'mal' : dif != null && dif > 5 ? 'bien' : 'ok';
+  const kpi = (v, l, cls = '') => `<div class="kpi ${cls}"><b>${v}</b><span>${l}</span></div>`;
+  const kpis = [kpi(p + '%', t('trp_k_av')), avHoy != null && avAnt != null ? kpi((avHoy - avAnt >= 0 ? '+' : '') + (avHoy - avAnt) + '%', t('trp_k_hoy')) : '',
+    tot ? kpi(`${pas}/${tot}`, t('trp_k_dias')) : '',
+    falta != null && activo ? (atr ? kpi(atr, t('trp_k_atr'), 'mal') : kpi(falta, t('trp_k_faltan'))) : '',
+    falta != null && activo && !atr ? kpi(habiles(dia, fin), t('trp_k_hab')) : '',
+    hTot ? kpi(nf(hTot) + ' h', t('trp_k_horas')) : '', retT ? kpi(nf(retT) + ' h', t('trp_k_ret'), 'mal') : ''].filter(Boolean).join('');
+  // ---- línea de tiempo
+  let linea = '';
+  if (ini && fin){
+    const finV = dia > fin ? dia : fin, T = Math.max(1, trbDias(ini, finV)), pos = f => Math.max(0, Math.min(100, trbDias(ini, f) / T * 100));
+    const marcas = notas.map(d => `<i class="dot ${+d.retraso_horas > 0 ? 'r' : ''}" style="left:${pos(d.fecha).toFixed(2)}%"></i>`).join('');
+    linea = `<div class="tl"><div class="tlb"><div class="plan" style="width:${pos(fin).toFixed(2)}%"></div>${dia > fin ? `<div class="late" style="left:${pos(fin).toFixed(2)}%;width:${(100 - pos(fin)).toFixed(2)}%"></div>` : ''}
+        <div class="done" style="width:${(pos(fin) * p / 100).toFixed(2)}%"></div>${marcas}<span class="hoy" style="left:${pos(dia).toFixed(2)}%"><small>${esc(fc(dia))}</small></span></div>
+      <div class="tll"><span>▶ ${t('trp_ini')}: <b>${fl(ini)}</b></span><span>🏁 ${t('trp_fin')}: <b>${fl(fin)}</b></span></div>
+      <div class="ley"><span><i class="sw done"></i>${t('trp_l_av', { p })}</span><span><i class="sw plan"></i>${t('trp_l_plan')}</span>${dia > fin ? `<span><i class="sw late"></i>${t('trp_l_atr')}</span>` : ''}<span><i class="sw dotk"></i>${t('trp_l_nota')}</span><span><i class="sw dotr"></i>${t('trp_l_ret')}</span></div>
+      ${pTiempo != null && activo ? `<div class="ritmo ${eCls}">${t(dif < -10 ? 'trb_ritmo_mal' : dif > 5 ? 'trb_ritmo_bien' : 'trb_ritmo_ok', { t: pTiempo, p })}${proy ? ' ' + t('trp_proy', { f: fl(proy) }) : ''}</div>` : ''}</div>`;
+  } else linea = `<div class="muted">${t('trb_sin_fechas')}</div>`;
+  // ---- fases
+  const fases = jArr(j.fases).filter(f => f.n);
+  const fasesH = conFases && fases.length ? `<section class="blk keep"><h2>🧩 ${t('trb_t_fases')}</h2><div class="fases">${fases.map(f => `<div class="fr"><span>${esc(f.n)}</span><div class="fb"><i style="width:${+f.pct || 0}%" class="${(+f.pct || 0) >= 100 ? 'ok' : ''}"></i></div><b>${+f.pct || 0}%</b></div>`).join('')}</div></section>` : '';
+  // ---- notas
+  const causa = d => d.retraso_causa ? t('trc.' + d.retraso_causa) : '';
+  const notaH = (d, grande) => `<div class="nt ${grande ? 'big' : ''} ${+d.retraso_horas > 0 ? 'ret' : ''}"><div class="nh"><b>📅 ${esc(fl(d.fecha))}</b><span>${[d.personas && '👷 ' + d.personas, d.horas && '⏱ ' + nf(d.horas) + ' h', d.avance != null && '📈 ' + d.avance + '%', d.autor && '✍ ' + d.autor].filter(Boolean).map(esc).join(' · ')}</span></div>
+    ${d.hecho ? `<div class="nl"><em>✅ ${t('trb_hecho')}</em>${tx(d.hecho)}</div>` : ''}${d.dificultades ? `<div class="nl w"><em>⚠ ${t('trb_dific')}</em>${tx(d.dificultades)}</div>` : ''}
+    ${d.no_logrado ? `<div class="nl x"><em>❌ ${t('trb_no_log')}</em>${tx(d.no_logrado)}</div>` : ''}${+d.retraso_horas > 0 ? `<div class="nl r"><em>⏸ ${t('trb_ret_de', { h: nf(d.retraso_horas), c: esc(causa(d)) })}</em>${tx(d.retraso_motivo)}</div>` : ''}</div>`;
+  const hoyH = `<section class="blk"><h2>📓 ${t('trp_del_dia', { f: fl(dia) })}</h2>${hoyN.length ? hoyN.map(d => notaH(d, true)).join('') : `<div class="vacio">${t('trp_sin_nota')}</div>`}</section>`;
+  const antH = antes.length ? `<section class="blk"><h2>🗂 ${t(hist >= 9999 ? 'trp_ant_all' : 'trp_ant', { n: hist })}</h2>${antes.map(d => notaH(d)).join('')}</section>` : '';
+  // ---- lo que falta
+  const fp = trbFalt.filter(f => f.trabajo_id === id && !['recibido', 'resuelto'].includes(f.estado)).sort((a, b) => (b.urgente ? 1 : 0) - (a.urgente ? 1 : 0));
+  const faltH = `<section class="blk"><h2>🧰 ${t('trp_falta')} ${fp.length ? `<span class="cnt">${fp.length}</span>` : ''}</h2>${fp.length ? `<table class="it"><thead><tr><th>${t('trb_falta_que')}</th><th>${t('trb_falta_tipo')}</th><th class="n">${t('stk_cant')}</th><th>${t('status')}</th></tr></thead><tbody>
+      ${fp.map(f => `<tr class="${f.urgente ? 'urg' : ''}"><td>${f.urgente ? '🚨 ' : ''}<b>${esc(f.descripcion)}</b>${f.nota ? `<div class="det">${esc(f.nota)}</div>` : ''}</td><td>${esc(t('trt.' + f.tipo))}</td><td class="n">${f.cantidad != null ? nf(f.cantidad) + (f.unidad ? ' ' + esc(f.unidad) : '') : ''}</td><td><span class="st s-${esc(f.estado)}">${esc(t('trs.' + f.estado))}</span></td></tr>`).join('')}</tbody></table>` : `<div class="vacio ok">✅ ${t('trp_nada_falta')}</div>`}</section>`;
+  // materiales que todavía no están (ni sacados, ni en el lugar, ni "en veremos")
+  const mp = conMat ? trmLista(j).filter(m => !m.tal && !m.sitio && m.cant && (+m.sac || 0) < +m.cant) : [];
+  const matH = mp.length ? `<section class="blk"><h2>📋 ${t('trp_mat')}</h2><table class="it"><thead><tr><th>${t('trm_que')}</th><th class="n">${t('trm_necesario')}</th><th class="n">${t('trm_sacado')}</th><th class="n">${t('trp_pend')}</th></tr></thead><tbody>
+      ${mp.map(m => `<tr><td>${esc(m.d)}</td><td class="n">${nf(m.cant)} ${esc(m.uni || '')}</td><td class="n">${+m.sac ? nf(m.sac) : ''}</td><td class="n b">${nf(+m.cant - (+m.sac || 0))} ${esc(m.uni || '')}</td></tr>`).join('')}</tbody></table></section>` : '';
+  const retH = retT ? `<section class="blk keep"><h2>⏸ ${t('trb_retrasos')}</h2><div class="rets">${TRB_CAUSAS.filter(c => ret[c]).map(c => `<div class="rt r-${c}"><b>${nf(ret[c])} h</b><span>${esc(t('trc.' + c))}</span><div class="fb"><i style="width:${(ret[c] / retT * 100).toFixed(1)}%"></i></div></div>`).join('')}</div></section>` : '';
+  const genH = conNotas && j.notas ? `<section class="blk"><h2>📝 ${t('trb_t_notas')}</h2><div class="txt">${tx(j.notas)}</div></section>` : '';
+  const css = `@page{size:letter;margin:0}*{box-sizing:border-box}html,body{margin:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    body{font:12px/1.5 Inter,"Segoe UI",Arial,sans-serif;color:#0f172a;background:#fff}.muted{color:#64748b}
+    .pg{width:100%;border-collapse:collapse}.pg>thead td,.pg>tfoot td{height:12mm}.pg>tbody>tr>td{padding:0 15mm}
+    .hdr{display:flex;justify-content:space-between;gap:24px;align-items:flex-start}.brand{display:flex;gap:12px}
+    .logo{width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,#006fff,#7c4dff);color:#fff;font:800 18px/46px Inter,Arial;text-align:center;flex:none}
+    .brand h1{font-size:20px;margin:0 0 2px}.brand .ct{color:#64748b;font-size:11px;line-height:1.45}
+    .doc{text-align:right}.doc .tt{font-size:21px;font-weight:800;letter-spacing:1.5px;color:#006fff;text-transform:uppercase;margin:0 0 6px}
+    .doc table{margin-left:auto;border-collapse:collapse;font-size:11px}.doc td{padding:1px 0 1px 12px;text-align:right}.doc td:first-child{color:#64748b}
+    .bar{height:4px;border-radius:4px;background:linear-gradient(90deg,#006fff,#7c4dff);margin:14px 0 16px}
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.card{border:1px solid #e2e8f0;border-radius:10px;padding:10px 12px;background:#f8fafc}
+    .card h3{margin:0 0 4px;font-size:9.5px;letter-spacing:1.2px;text-transform:uppercase;color:#64748b}.card .v{font-weight:700;font-size:12.5px}.card .s{color:#475569;font-size:11px}
+    .est{display:inline-block;margin-top:3px;padding:2px 10px;border-radius:999px;font-size:11px;font-weight:700;background:#e2e8f0}.est.mal{background:#fee2e2;color:#b91c1c}.est.bien{background:#dcfce7;color:#15803d}.est.ok{background:#dbeafe;color:#1d4ed8}
+    .blk{margin-top:16px}h2{font-size:13px;margin:0 0 8px;padding-bottom:5px;border-bottom:2px solid #006fff;break-after:avoid;page-break-after:avoid}h2+*{break-before:avoid}.cnt{background:#ef4444;color:#fff;border-radius:999px;padding:0 8px;font-size:11px;margin-left:4px}
+    .kpis{display:flex;gap:8px;margin-bottom:12px}.kpi{flex:1;border:1px solid #e2e8f0;border-radius:10px;padding:8px 6px;text-align:center;background:#f8fafc}
+    .kpi b{display:block;font-size:20px;line-height:1.15;color:#006fff}.kpi span{font-size:9.5px;color:#64748b;text-transform:uppercase;letter-spacing:.6px}.kpi.mal b{color:#dc2626}
+    .pbar{height:16px;border-radius:8px;background:#e2e8f0;overflow:hidden;margin-bottom:12px;position:relative}.pbar i{display:block;height:100%;background:linear-gradient(90deg,#006fff,#7c4dff)}.pbar b{position:absolute;right:8px;top:0;font-size:10.5px;line-height:16px}
+    .tl{border:1px solid #e2e8f0;border-radius:10px;padding:26px 14px 10px}.tlb{position:relative;height:18px;background:#f1f5f9;border-radius:9px}
+    .tlb .plan{position:absolute;left:0;top:0;bottom:0;background:#dbeafe;border-radius:9px}.tlb .late{position:absolute;top:0;bottom:0;background:repeating-linear-gradient(45deg,#fecaca 0 6px,#fee2e2 6px 12px);border-radius:0 9px 9px 0}
+    .tlb .done{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,#006fff,#7c4dff);border-radius:9px}
+    .tlb .dot{position:absolute;top:5px;width:8px;height:8px;margin-left:-4px;border-radius:50%;background:#fff;border:2px solid #0f172a}.tlb .dot.r{border-color:#dc2626;background:#fecaca}
+    .tlb .hoy{position:absolute;top:-8px;bottom:-8px;border-left:2px solid #f59e0b}.tlb .hoy small{position:absolute;top:-17px;left:-30px;width:60px;text-align:center;font-size:9.5px;font-weight:700;color:#b45309}
+    .tll{display:flex;justify-content:space-between;margin-top:8px;font-size:11px;color:#475569}.ley{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px;font-size:10px;color:#64748b}
+    .sw{display:inline-block;width:12px;height:8px;border-radius:3px;margin-right:4px;vertical-align:middle}.sw.done{background:#006fff}.sw.plan{background:#dbeafe}.sw.late{background:#fecaca}.sw.dotk,.sw.dotr{width:8px;border-radius:50%;border:2px solid #0f172a;background:#fff}.sw.dotr{border-color:#dc2626;background:#fecaca}
+    .ritmo{margin-top:8px;padding:7px 10px;border-radius:8px;background:#eff6ff;color:#1e3a8a;font-weight:600;font-size:11.5px}.ritmo.mal{background:#fef2f2;color:#991b1b}.ritmo.bien{background:#f0fdf4;color:#166534}
+    .fases{border:1px solid #e2e8f0;border-radius:10px;padding:6px 12px}.fr{display:grid;grid-template-columns:200px 1fr 44px;gap:10px;align-items:center;padding:4px 0}.fr+.fr{border-top:1px dashed #edf1f6}.fr span{font-weight:600;font-size:11px}.fr b{text-align:right;font-size:11px}
+    .fb{height:10px;background:#f1f5f9;border-radius:5px;overflow:hidden}.fb i{display:block;height:100%;background:#006fff}.fb i.ok{background:#10b981}
+    .nt{border:1px solid #e2e8f0;border-left:4px solid #94a3b8;border-radius:8px;padding:8px 12px;margin-bottom:8px;break-inside:avoid}.nt.big{border-left-color:#006fff;background:#f8fbff}.nt.ret{border-left-color:#dc2626}
+    .nh{display:flex;justify-content:space-between;gap:10px;margin-bottom:4px}.nh span{color:#64748b;font-size:10.5px}.nl{margin-top:4px;color:#334155}.nl em{display:block;font-style:normal;font-weight:700;font-size:10.5px;color:#0f172a}
+    .nl.w em{color:#b45309}.nl.x em{color:#b91c1c}.nl.r em{color:#dc2626}.vacio{padding:10px 12px;border:1px dashed #cbd5e1;border-radius:8px;color:#64748b}.vacio.ok{color:#15803d;border-color:#86efac;background:#f0fdf4}
+    table.it{width:100%;border-collapse:collapse}table.it th{background:#0f172a;color:#fff;font-size:10px;letter-spacing:.8px;text-transform:uppercase;font-weight:600;padding:7px 8px;text-align:left}
+    table.it td{padding:6px 8px;border-bottom:1px solid #e9eef5;vertical-align:top}table.it tr.urg td{background:#fef2f2}.det{color:#64748b;font-size:10.5px}.n{text-align:right;white-space:nowrap;width:1%}.b{font-weight:700}tr{break-inside:avoid}.keep{break-inside:avoid}
+    .st{font-size:10px;padding:1px 8px;border-radius:999px;background:#e2e8f0}.st.s-pendiente{background:#fee2e2;color:#b91c1c}.st.s-pedido{background:#fef3c7;color:#92400e}.st.s-en_camino{background:#dbeafe;color:#1d4ed8}
+    .rets{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.rt{border:1px solid #e2e8f0;border-radius:8px;padding:6px 10px}.rt b{font-size:15px;color:#dc2626;margin-right:6px}.rt span{font-size:11px;color:#475569}.rt .fb{margin-top:4px;height:6px}.rt .fb i{background:#dc2626}
+    .txt{color:#334155}.firmas{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:30px}.firma .ln{border-bottom:1px solid #0f172a;height:34px}.firma b{font-size:11px}.firma small{display:block;color:#64748b;font-size:10px}
+    .pie{margin-top:22px;padding-top:10px;border-top:1px solid #e2e8f0;text-align:center;color:#94a3b8;font-size:10px}`;
+  const html = `<!doctype html><html><head><meta charset="utf-8"><title>${esc(t('trp_title'))} ${j.numero != null ? '#' + j.numero : ''} · ${esc(j.cliente)} · ${dia}</title><style>${css}</style></head><body>
+  <table class="pg"><thead><tr><td></td></tr></thead><tfoot><tr><td></td></tr></tfoot><tbody><tr><td>
+    <div class="hdr"><div class="brand"><div class="logo">${esc(ini2 || 'AJ')}</div><div><h1>${esc(nom)}</h1><div class="ct">${ctc}</div></div></div>
+      <div class="doc"><div class="tt">${esc(t('trp_title'))}</div><table><tr><td>${t('trp_trabajo')}</td><td><b>${j.numero != null ? '#' + j.numero : '—'}</b></td></tr><tr><td>${t('trp_dia')}</td><td><b>${fl(dia)}</b></td></tr>
+        <tr><td>${t('trp_gen_el')}</td><td>${new Date().toLocaleString(loc, { dateStyle: 'medium', timeStyle: 'short' })}</td></tr>${$('whoami')?.textContent ? `<tr><td>${t('pdf_prep')}</td><td>${esc($('whoami').textContent)}</td></tr>` : ''}</table></div></div>
+    <div class="bar"></div>
+    <div class="cards"><div class="card"><h3>${t('pdf_cliente')}</h3><div class="v">${esc(j.cliente)}</div><div class="s">${j.direccion ? '📍 ' + esc(j.direccion) : ''}</div></div>
+      <div class="card"><h3>${t('pdf_proyecto')}</h3><div class="v">${esc(j.titulo)}</div><div class="s">${[j.responsable && '👷 ' + esc(j.responsable), j.equipo && '👥 ' + esc(j.equipo)].filter(Boolean).join('<br>')}</div></div>
+      <div class="card"><h3>${t('status')}</h3><div class="v">${esc(t('tre.' + j.estado))}</div><span class="est ${eCls}">${esc(estado)}</span></div></div>
+    <section class="blk keep"><h2>📈 ${t('trp_avance')}</h2><div class="kpis">${kpis}</div><div class="pbar"><i style="width:${p}%"></i><b>${p}%</b></div>${linea}</section>
+    ${fasesH}${hoyH}${faltH}${matH}${retH}${antH}${genH}
+    ${conFirma ? `<div class="firmas keep"><div class="firma"><div class="ln"></div><b>${t('trp_firma_tec')}</b><small>${t('pdf_nom_firma')}</small></div><div class="firma"><div class="ln"></div><b>${t('trp_firma_cli')}</b><small>${t('pdf_nom_firma')}</small></div></div>` : ''}
+    <div class="pie">${esc([nom, E.telefono, E.email, E.web].filter(Boolean).join(' · '))}</div>
+  </td></tr></tbody></table><script>setTimeout(()=>print(),500)<\/script></body></html>`;
+  const w = window.open('', '_blank'); if (!w) return alert(t('pr_popup')); w.document.write(html); w.document.close();
 }
 
 /* ---- Fases (hitos) ---- */

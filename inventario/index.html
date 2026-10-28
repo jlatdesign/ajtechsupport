@@ -769,6 +769,9 @@ body.p-noborrar [onclick^="borrarSede("],body.p-noborrar [onclick^="borrarVpn("]
 body.p-nostaff .solo-staff{display:none!important}
 body.p-noadm .p-solo-adm{display:none!important}
 .stk-badge{display:inline-block;min-width:18px;padding:0 5px;border-radius:999px;background:var(--bad);color:#fff;font:700 11px/18px Inter,sans-serif;text-align:center;margin-left:2px}
+.trm-tbl input.trm-d{width:100%;min-width:180px;padding:4px 6px}.trm-tbl input.trm-n{width:80px;padding:4px 6px;text-align:right}.trm-tbl select.trm-s{max-width:260px;padding:4px 6px;font-size:12px}
+.trm-tbl tr.trm-falta td{background:color-mix(in srgb,var(--bad) 6%,transparent)}.trm-tbl tr.trm-listo td{opacity:.65}.trm-mal{color:var(--bad)}.trm-res{font-size:13px;margin:6px 0 8px}
+.trm-tbl input[type=checkbox]{width:auto;margin:0}
 .trb-pl{display:flex;flex-direction:column;gap:6px;max-height:60vh;overflow:auto}.trb-pq{display:flex;gap:10px;align-items:center;flex-wrap:wrap;border:1px solid var(--line);border-radius:10px;padding:8px 12px;cursor:pointer}
 .trb-pq:hover{border-color:var(--c1)}.trb-pq.ya{opacity:.6}.trb-pq b{min-width:120px}
 .trb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
@@ -1049,7 +1052,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v9.1.1</p>
+    <p class="sub">Network Asset Manager · v9.2</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -1065,7 +1068,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.1.1</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.2</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -1763,6 +1766,17 @@ Object.assign(I18N.en, {
   trb_desde_presu:'From quote', trb_desde_presu_h:'Pick an approved (or sent) quote to turn it into a job. Client, address, dates, technicians and phases are copied.',
   trb_sin_presu:'There are no approved quotes yet.', trb_ya_hay:'already has a job', trb_pasar_q:'Quote approved. Move it to Jobs now?', trb_de_presu_n:'From quote #{n}',
   trb_cli_elige:'Pick the client', trb_cli_otro:'Other (type it)', trb_cli_nuevo_ph:'Client name',
+  trb_t_mat:'Materials', trm_h:'What has to be taken and used for the setup: cable, connectors, conduit, power strips… It tells you if it is in stock and you can take it out for this job at once.',
+  trm_que:'Material', trm_que_ph:'Cat6 cable (ft), keystone jack, EMT conduit, power strip, patch cord…', trm_necesario:'Needed', trm_stock:'From stock', trm_sacado:'Taken', trm_sin_stock:'not in stock',
+  trm_solo_hay:'only {n}', trm_cargado:'Ready / loaded in the van', trm_vacio:'No materials yet. Add them above or bring them from the quote.',
+  trm_res:'{n} materials · {ok} with enough stock · {f} without enough stock · {c} ready', trm_del_presu:'Bring from quote', trm_sacar_todo:'Take from stock everything available',
+  trm_a_falt:'Move what is missing to "Missing" ({n})', trm_imprimir:'Material list to load', trm_no_presu:'Could not find this job quote.',
+  trm_nada_presu:'The quote brought no new materials (they are already listed). Save anyway?', trm_traidos:'{n} material(s) added from the quote', trm_equipo:'equipment from the quote',
+  trm_sacar_q:'Take {n} of "{d}" from stock for {c}?', trm_sacar_todo_q:'{n} material(s) will be taken from stock for {c} (whatever is available of each). Serialized equipment is taken one by one. Continue?',
+  trm_nada_sacar:'Nothing to take: already taken, not in stock or no quantity.', trm_sacados:'{n} material(s) taken from stock', trm_serial_h:'Pick the serials that go out',
+  trm_quitar_q:'Some of this was already taken from stock. Remove it from the list anyway? (stock is not returned automatically)', trm_de_lista:'From the materials list', trm_ya_falt:'Everything is already in "Missing" or there is enough stock.',
+  trm_pasados:'{n} material(s) moved to "Missing"', trm_preparo:'Prepared by', trm_reviso:'Checked / received by',
+  trm_sql:'To save materials run supabase-trabajos.sql again (it adds the "materiales" column).',
   trb_btn:'Jobs', trb_title:'Jobs in progress', trb_sub:'Progress, timeline, daily log, delays and what is missing on each job.', trb_nuevo:'New job', trb_editar:'Edit job',
   trb_missing:'The jobs table is missing. Run supabase-trabajos.sql in Supabase > SQL Editor.', trb_vacio:'There are no jobs yet.', trb_buscar:'Search job, client, lead…',
   trb_k_atr:'late', trb_k_falt:'missing items', trb_k_ret:'delay this month (ours / client)',
@@ -1954,6 +1968,17 @@ Object.assign(I18N.es, {
   trb_desde_presu:'Desde presupuesto', trb_desde_presu_h:'Escoge un presupuesto aprobado (o enviado) para pasarlo a trabajo. Se copian el cliente, la dirección, las fechas, los técnicos y las fases.',
   trb_sin_presu:'No hay presupuestos aprobados todavía.', trb_ya_hay:'ya tiene trabajo', trb_pasar_q:'Presupuesto aprobado. ¿Pasarlo ahora a Trabajos?', trb_de_presu_n:'Del presupuesto #{n}',
   trb_cli_elige:'Escoge el cliente', trb_cli_otro:'Otro (escribir)', trb_cli_nuevo_ph:'Nombre del cliente',
+  trb_t_mat:'Materiales', trm_h:'Lo que se necesita llevar y usar para la puesta en marcha: cable, conectores, tubos, regletas… Te dice si hay en el stock y lo puedes sacar de una vez para este trabajo.',
+  trm_que:'Material', trm_que_ph:'Cable Cat6 (pies), jack keystone, tubo EMT, regleta, patch cord…', trm_necesario:'Necesario', trm_stock:'Del stock', trm_sacado:'Sacado', trm_sin_stock:'no está en el stock',
+  trm_solo_hay:'solo hay {n}', trm_cargado:'Listo / cargado en la van', trm_vacio:'Todavía no hay materiales. Agrégalos arriba o tráelos del presupuesto.',
+  trm_res:'{n} materiales · {ok} con stock suficiente · {f} sin stock suficiente · {c} listos', trm_del_presu:'Traer del presupuesto', trm_sacar_todo:'Sacar del stock todo lo que hay',
+  trm_a_falt:'Pasar lo que no hay a "Lo que falta" ({n})', trm_imprimir:'Lista de materiales para cargar', trm_no_presu:'No encontré el presupuesto de este trabajo.',
+  trm_nada_presu:'El presupuesto no trajo materiales nuevos (ya están en la lista). ¿Guardar igual?', trm_traidos:'{n} material(es) agregados del presupuesto', trm_equipo:'equipo del presupuesto',
+  trm_sacar_q:'¿Sacar {n} de "{d}" del stock para {c}?', trm_sacar_todo_q:'Se van a sacar del stock {n} material(es) para {c} (lo que haya de cada uno). Los equipos con serial se sacan uno por uno. ¿Continuar?',
+  trm_nada_sacar:'No hay nada que sacar: o ya se sacó, o no está en el stock, o no hay cantidad.', trm_sacados:'{n} material(es) sacados del stock', trm_serial_h:'Escoger los seriales que salen',
+  trm_quitar_q:'Ya se sacó algo de esto del stock. ¿Quitarlo de la lista igual? (el stock no se devuelve solo)', trm_de_lista:'De la lista de materiales', trm_ya_falt:'Ya está todo en "Lo que falta" o hay stock suficiente.',
+  trm_pasados:'{n} material(es) pasados a "Lo que falta"', trm_preparo:'Preparó', trm_reviso:'Revisó / recibió',
+  trm_sql:'Para guardar los materiales corre otra vez supabase-trabajos.sql (agrega la columna "materiales").',
   trb_btn:'Trabajos', trb_title:'Trabajos en proceso', trb_sub:'Avance, línea de tiempo, diario de obra, retrasos y lo que falta en cada trabajo.', trb_nuevo:'Nuevo trabajo', trb_editar:'Editar trabajo',
   trb_missing:'Falta la tabla de trabajos. Corre supabase-trabajos.sql en Supabase > SQL Editor.', trb_vacio:'Todavía no hay trabajos.', trb_buscar:'Buscar trabajo, cliente, responsable…',
   trb_k_atr:'atrasados', trb_k_falt:'cosas que faltan', trb_k_ret:'retraso este mes (nuestro / cliente)',
@@ -3193,7 +3218,7 @@ function showHistory(id){
     : `<p class="muted">${t('hist_empty')}</p>`;
   $('modal').classList.remove('hidden');
 }
-function closeModal(){ if (typeof CAM !== 'undefined' && CAM) camCerrar(); if (typeof STK !== 'undefined'){ STK.cliPre = null; STK.trbFalta = null; } $('modal').classList.add('hidden'); $('modal').querySelector('.modal-card').classList.remove('wide'); }
+function closeModal(){ if (typeof CAM !== 'undefined' && CAM) camCerrar(); if (typeof STK !== 'undefined'){ STK.cliPre = null; STK.trbFalta = null; STK.trmLinea = null; } $('modal').classList.add('hidden'); $('modal').querySelector('.modal-card').classList.remove('wide'); }
 document.addEventListener('keydown', e => { if (e.key === 'Escape'){
   const abierto = ['modal','gModal','cModal','xModal','drawer','detail'].some(id => $(id) && !$(id).classList.contains('hidden'));
   if (!$('modal').classList.contains('hidden')) { closeModal(); return; }
@@ -5139,7 +5164,8 @@ async function stkMovGuardar(){
   if (tipo === 'salida' && (+x.cantidad || 0) - cant < 0 && !confirm(t('stk_negativo', { n: stkCant(x) }))) return;
   const ok = await stkAplicar(x, tipo, { cant, movSer, nuevas, cli, nota: $('stm_nota')?.value.trim() || null, costoIn: $('stm_costo') ? $('stm_costo').value : '', alInv: !!$('stm_inv')?.checked });
   if (!ok) return;
-  const fz = STK.trbFalta; STK.trbFalta = null; STK.cliPre = null;
+  const fz = STK.trbFalta, ml = STK.trmLinea; STK.trbFalta = null; STK.trmLinea = null; STK.cliPre = null;
+  if (ml && tipo === 'salida'){ const jj = trabajos.find(z => z.id === ml.id); if (jj){ const L = trmLista(jj).slice(); if (L[ml.i]){ L[ml.i] = { ...L[ml.i], sac: (+L[ml.i].sac || 0) + cant, ok: true }; await db.from('trabajos').update({ materiales: L }).eq('id', ml.id); jj.materiales = L; } } }
   if (fz && tipo === 'salida'){ await db.from('trabajo_faltantes').update({ estado: 'recibido', resuelto_at: new Date().toISOString() }).eq('id', fz); }
   closeModal(); toast(t('saved')); await cargarStock(); if (tipo === 'salida') loadData(); if (TRB.open) cargarTrabajos();
 }
@@ -5459,7 +5485,7 @@ function renderTrabajo(j){
       ${r ? `<div class="trb-ritmo ${r.dif < -10 ? 'mal' : r.dif > 5 ? 'bien' : ''}">${t(r.dif < -10 ? 'trb_ritmo_mal' : r.dif > 5 ? 'trb_ritmo_bien' : 'trb_ritmo_ok', { t: r.tiempo, p })}</div>` : ''}</div>`;
   } else linea = `<div class="muted" style="margin:6px 0">${t('trb_sin_fechas')}</div>`;
   const retTxt = TRB_CAUSAS.filter(c => ret[c]).map(c => `<span class="trb-ret r-${c}">${esc(t('trc.' + c))}: <b>${Math.round(ret[c] * 10) / 10} h</b></span>`).join('');
-  const tabs = [['diario', '📓 ' + t('trb_t_diario') + ` (${dia.length})`], ['falt', '🧰 ' + t('trb_t_falt') + ` (${trbFaltPend(j.id).length})`], ['fases', '🧩 ' + t('trb_t_fases') + ` (${fases.length})`], ['notas', '📝 ' + t('trb_t_notas')]];
+  const tabs = [['diario', '📓 ' + t('trb_t_diario') + ` (${dia.length})`], ['falt', '🧰 ' + t('trb_t_falt') + ` (${trbFaltPend(j.id).length})`], ['mat', '📋 ' + t('trb_t_mat') + ` (${trmLista(j).length})`], ['fases', '🧩 ' + t('trb_t_fases') + ` (${fases.length})`], ['notas', '📝 ' + t('trb_t_notas')]];
   el.innerHTML = `<div class="cl-head"><button class="backbtn" onclick="cerrarTrabajos()">← ${t('trb_title')}</button>
       <div class="cl-info"><h2>🛠 ${esc(j.titulo)} ${j.numero != null ? `<span class="mono muted" style="font-size:.6em">#${j.numero}</span>` : ''}</h2><div class="muted">🏢 ${esc(j.cliente)}${j.direccion ? ' · 📍 ' + esc(j.direccion) : ''}${j.responsable ? ' · 👷 ' + esc(j.responsable) : ''}${j.equipo ? ' · 👥 ' + esc(j.equipo) : ''}</div></div>
       <div class="row no-print"><select onchange="trbSet('${j.id}',{estado:this.value})">${TRB_ESTADOS.map(e => `<option value="${e}" ${j.estado === e ? 'selected' : ''}>${esc(t('tre.' + e))}</option>`).join('')}</select>
@@ -5471,7 +5497,7 @@ function renderTrabajo(j){
       ${linea}
       ${a ? `<div class="trb-atr-box">⚠ ${t('trb_atrasado', { n: a })}</div>` : ''}${retTxt ? `<div class="trb-rets">⏸ ${t('trb_retrasos')}: ${retTxt}</div>` : ''}</div>
     <div class="stats" style="margin:10px 0">${tabs.map(([k, l]) => `<span class="chip ${TRB.tab === k ? 'on' : ''}" onclick="TRB.tab='${k}';renderTrabajos()">${l}</span>`).join('')}</div>
-    <div class="panel">${TRB.tab === 'falt' ? trbFaltHTML(j, falt) : TRB.tab === 'fases' ? trbFasesHTML(j, fases) : TRB.tab === 'notas' ? trbNotasHTML(j) : trbDiarioHTML(j, dia)}</div>`;
+    <div class="panel">${TRB.tab === 'falt' ? trbFaltHTML(j, falt) : TRB.tab === 'mat' ? trbMatHTML(j) : TRB.tab === 'fases' ? trbFasesHTML(j, fases) : TRB.tab === 'notas' ? trbNotasHTML(j) : trbDiarioHTML(j, dia)}</div>`;
 }
 async function trbSet(id, patch){
   const j = trabajos.find(x => x.id === id); if (!j) return;
@@ -5562,6 +5588,124 @@ async function trbSacarStock(fid){
   const f = trbFalt.find(z => z.id === fid), j = f && trabajos.find(z => z.id === f.trabajo_id); if (!f || !j) return;
   STK.cliPre = j.cliente; STK.trbFalta = fid; stkMov(f.stock_item_id, 'salida');
   setTimeout(() => { const c = $('stm_cant'); if (c && f.cantidad) c.value = f.cantidad; const n = $('stm_nota'); if (n) n.value = t('trb_para', { n: j.numero ?? '', t: j.titulo }); }, 60);
+}
+
+/* ---- 📋 Materiales para la puesta en marcha (lista de lo que se necesita llevar / usar en el trabajo) ---- */
+// cada línea: { d: descripción, cant: necesario, uni, sid: id del producto en el stock, sac: cantidad sacada del stock, ok: cargado/listo, nota }
+const TRM_SUG = ['Cable Cat6 (pies)', 'Cable Cat6A (pies)', 'Cable Cat6 plenum (pies)', 'Jack keystone Cat6', 'Placa de pared 1 puerto', 'Placa de pared 2 puertos', 'Caja de superficie', 'Patch panel 24 puertos',
+  'Patch cord Cat6 3 ft', 'Patch cord Cat6 7 ft', 'J-hook 2"', 'Tubo EMT 3/4" (10 ft)', 'Tubo EMT 1" (10 ft)', 'Conector EMT 3/4"', 'Copla EMT 3/4"', 'Abrazadera / strap EMT', 'Caja eléctrica 4x4',
+  'Bracket de bajo voltaje', 'Canaleta (Wiremold) (pies)', 'Regleta / power strip', 'PDU de rack', 'UPS', 'Organizador de cables 1U', 'Bandeja de rack', 'Tornillos de rack', 'Amarres plásticos', 'Velcro (rollo)',
+  'Taquetes y tornillos', 'Cinta de etiquetas', 'Firestop / sellador cortafuego', 'Fibra LC-LC', 'Módulo SFP', 'Inyector PoE', 'Caja de conexiones para cámara', 'Soporte para AP'];
+const TRM_CLAVE = { m_cable: /cable cat ?6/i, m_jack: /keystone|jack/i, m_placa: /placa/i, m_caja: /caja de superficie|surface/i, m_patch: /patch panel/i, m_cordon: /patch cord/i, m_jhook: /j-?hook/i, m_emt: /emt|tubo/i,
+  m_fibra: /fibra|fiber/i, m_fibra_term: /fibra|fiber/i, m_rack: /rack|gabinete/i };
+const trmLista = j => jArr(j.materiales);
+const trmStock = id => id && typeof stkItems !== 'undefined' ? stkItems.find(x => x.id === id) : null;
+const trmBuscaStock = (d, clave) => { if (typeof stkItems === 'undefined') return null; const v = stkItems.filter(x => x.activo !== false && x.nombre);
+  return v.find(x => nrm(x.nombre) === nrm(d)) || (clave ? v.find(x => clave.test(x.nombre) || clave.test(x.modelo || '')) : null) || null; };
+function trbMatHTML(j){
+  const L = trmLista(j), presu = j.presupuesto_id;
+  const opStock = sel => `<option value="">— ${t('trm_sin_stock')} —</option>` + (typeof stkItems !== 'undefined' ? stkItems.filter(x => x.activo !== false && x.nombre).map(x => `<option value="${x.id}" ${sel === x.id ? 'selected' : ''}>${esc(x.nombre)} · ${esc(t('stdc.' + x.condicion))} (${esc(stkCant(x))})</option>`).join('') : '');
+  let nOk = 0, nFalta = 0;
+  const filas = L.map((m, i) => { const x = trmStock(m.sid), falta = Math.max(0, (+m.cant || 0) - (+m.sac || 0)), hay = x ? +x.cantidad || 0 : 0;
+    const est = !m.cant ? '' : (+m.sac || 0) >= +m.cant ? 'listo' : x && hay >= falta ? 'hay' : 'falta';
+    if (est === 'listo' || est === 'hay') nOk++; else if (est === 'falta') nFalta++;
+    return `<tr class="trm-${est}"><td><input type="checkbox" ${m.ok ? 'checked' : ''} onchange="trmSet('${j.id}',${i},{ok:this.checked})" title="${esc(t('trm_cargado'))}"></td>
+      <td><input class="trm-d" value="${esc(m.d || '')}" onchange="trmSet('${j.id}',${i},{d:this.value.trim()})">${m.nota ? `<small class="muted" style="display:block">${esc(m.nota)}</small>` : ''}</td>
+      <td class="n"><input type="number" min="0" step="any" class="trm-n" value="${esc(m.cant ?? '')}" onchange="trmSet('${j.id}',${i},{cant:this.value===''?null:+this.value})"> <small>${esc(m.uni || '')}</small></td>
+      <td><select class="trm-s" onchange="trmSet('${j.id}',${i},{sid:this.value||null})">${opStock(m.sid)}</select>
+        ${x ? `<small class="${est === 'falta' ? 'trm-mal' : 'muted'}" style="display:block">${est === 'falta' ? '⚠ ' + t('trm_solo_hay', { n: stkCant(x) }) : '✅ ' + t('trb_en_stock', { n: stkCant(x) })}${x.ubicacion ? ' · 📍 ' + esc(x.ubicacion) : ''}</small>` : ''}</td>
+      <td class="n mono">${+m.sac ? (+m.sac).toLocaleString('en-US') : ''}</td>
+      <td class="stk-acc">${x && falta > 0 && hay > 0 && !x.serializado ? `<button class="sm" onclick="trmSacar('${j.id}',${i})" title="${esc(t('trb_sacar_stock'))}">📤</button>` : ''}${x?.serializado && falta > 0 ? `<button class="sm" onclick="trmSacarSerial('${j.id}',${i})" title="${esc(t('trm_serial_h'))}">🔢📤</button>` : ''}
+        <button class="sm danger" onclick="trmQuitar('${j.id}',${i})">✕</button></td></tr>`; }).join('');
+  return `<div class="muted" style="margin-bottom:8px">${t('trm_h')}</div>
+    <div class="row" style="margin-bottom:10px;flex-wrap:wrap;gap:6px">${presu ? `<button onclick="trmDelPresu('${j.id}')">📥 ${t('trm_del_presu')}</button>` : ''}
+      ${L.length ? `<button onclick="trmSacarTodo('${j.id}')">📤 ${t('trm_sacar_todo')}</button><button onclick="trmAFaltantes('${j.id}')" ${nFalta ? '' : 'disabled'}>🧰 ${t('trm_a_falt', { n: nFalta })}</button><button onclick="trmImprimir('${j.id}')">🖨 ${t('trm_imprimir')}</button>` : ''}</div>
+    <div class="trb-dform"><div class="mdm-grid"><label class="stk-span2"><span>${t('trm_que')}</span><input id="trm_d" list="trmSug" placeholder="${esc(t('trm_que_ph'))}" oninput="trmSugStock()" onkeydown="if(event.key==='Enter'){event.preventDefault();trmAgregar('${j.id}');}">
+        <datalist id="trmSug">${[...new Set([...(typeof stkItems !== 'undefined' ? stkItems.filter(x => x.activo !== false && x.nombre).map(x => x.nombre) : []), ...TRM_SUG])].map(v => `<option value="${esc(v)}">`).join('')}</datalist></label>
+      <label><span>${t('stk_cant')}</span><div class="stk-cant-u"><input id="trm_c" type="number" min="0" step="any" onkeydown="if(event.key==='Enter'){event.preventDefault();trmAgregar('${j.id}');}"><input id="trm_u" placeholder="${esc(t('trb_unidad_ph'))}" style="max-width:90px"></div></label></div>
+      <div class="row" style="margin-top:6px"><span id="trmHay" class="muted" style="flex:1;font-size:12.5px"></span><button class="primary" onclick="trmAgregar('${j.id}')">＋ ${t('trb_agregar')}</button></div></div>
+    ${L.length ? `<div class="trm-res">📋 ${t('trm_res', { n: L.length, ok: nOk, f: nFalta, c: L.filter(m => m.ok).length })}</div>
+      <div class="table-wrap"><table class="net-tbl stk-tbl trm-tbl"><thead><tr><th title="${esc(t('trm_cargado'))}">✔</th><th>${t('trm_que')}</th><th class="n">${t('trm_necesario')}</th><th>${t('trm_stock')}</th><th class="n">${t('trm_sacado')}</th><th></th></tr></thead><tbody>${filas}</tbody></table></div>`
+      : `<div class="act-empty">📋 ${t('trm_vacio')}</div>`}`;
+}
+function trmSugStock(){
+  const v = $('trm_d')?.value || '', x = trmBuscaStock(v), el = $('trmHay'); if (!el) return;
+  el.innerHTML = x && nrm(x.nombre) === nrm(v) ? `📦 ${t('trb_en_stock', { n: stkCant(x) })}${x.ubicacion ? ' · 📍 ' + esc(x.ubicacion) : ''}` : '';
+  if (x && nrm(x.nombre) === nrm(v) && !$('trm_u').value && x.unidad && x.unidad !== 'u') $('trm_u').value = t('stu.' + x.unidad);
+  else if (/\(pies\)|\(ft\)/i.test(v) && !$('trm_u').value) $('trm_u').value = 'ft';
+}
+async function trmGuardar(id, L){
+  const r = await db.from('trabajos').update({ materiales: L }).eq('id', id);
+  if (r.error){ if (/materiales/i.test(r.error.message || '')) return alert(t('trm_sql')), false; fail(r.error, t('save_fail')); return false; }
+  const j = trabajos.find(x => x.id === id); if (j) j.materiales = L; renderTrabajos(); return true;
+}
+function trmAgregar(id){
+  const j = trabajos.find(x => x.id === id), d = $('trm_d').value.trim(); if (!j) return; if (!d) return $('trm_d').focus();
+  const x = trmBuscaStock(d), L = trmLista(j).slice(), cant = $('trm_c').value === '' ? null : +$('trm_c').value, uni = $('trm_u').value.trim() || (x && x.unidad !== 'u' ? t('stu.' + x.unidad) : '');
+  const ya = L.findIndex(m => nrm(m.d) === nrm(d));
+  if (ya >= 0 && cant){ L[ya] = { ...L[ya], cant: (+L[ya].cant || 0) + cant }; } else L.push({ d, cant, uni, sid: x && nrm(x.nombre) === nrm(d) ? x.id : null, sac: 0, ok: false });
+  trmGuardar(id, L).then(ok => { if (ok) setTimeout(() => $('trm_d')?.focus(), 30); });
+}
+function trmSet(id, i, patch){ const j = trabajos.find(x => x.id === id); if (!j) return; const L = trmLista(j).slice(); L[i] = { ...L[i], ...patch }; trmGuardar(id, L); }
+function trmQuitar(id, i){ const j = trabajos.find(x => x.id === id); if (!j) return; const L = trmLista(j).slice(); if ((+L[i]?.sac || 0) > 0 && !confirm(t('trm_quitar_q'))) return; L.splice(i, 1); trmGuardar(id, L); }
+// Trae los materiales y equipos que calculó el presupuesto
+async function trmDelPresu(id){
+  const j = trabajos.find(x => x.id === id); if (!j) return;
+  if (!presus.length){ try { const r = await db.from('presupuestos').select('*'); if (!r.error) presus = r.data || []; } catch(e){} }
+  const p = presus.find(x => x.id === j.presupuesto_id); if (!p) return alert(t('trm_no_presu'));
+  const antes = trmLista(j).length, P = prAbrirObj(p), R = prCalcular(P.d), L = trmLista(j).slice(), add = (d, cant, uni, clave, nota) => {
+    if (!d || !(+cant > 0)) return; const ya = L.find(m => nrm(m.d) === nrm(d)); if (ya){ ya.cant = Math.max(+ya.cant || 0, +cant); return; }
+    const x = trmBuscaStock(d, clave); L.push({ d, cant: Math.round(+cant * 100) / 100, uni, sid: x?.id || null, sac: 0, ok: false, nota }); };
+  (R.mats || []).forEach(m => add(m.k ? (m.k === 'm_cable' ? t('m_cable') + ' ' + t('prk.' + (P.d.sitio?.cable || 'cat6')) : t(m.k).replace(/\s*\(.*\)$/, '')) : m.d, m.qty, m.u === 'ft' ? 'ft' : '', TRM_CLAVE[m.k], ''));
+  (R.eqs || []).forEach(e => add(e.m, e.qty, '', null, t('trm_equipo')));
+  if (L.length === antes && !confirm(t('trm_nada_presu'))) return;
+  if (await trmGuardar(id, L)) toast(t('trm_traidos', { n: L.length - antes }));
+}
+// Saca del stock una línea (lo que falte, hasta lo que haya)
+async function trmSacar(id, i, silencio){
+  const j = trabajos.find(x => x.id === id), L = trmLista(j).slice(), m = L[i], x = trmStock(m?.sid); if (!x) return 0;
+  const falta = Math.max(0, (+m.cant || 0) - (+m.sac || 0)), n = Math.min(falta, +x.cantidad || 0); if (!(n > 0)) return 0;
+  if (!silencio && !confirm(t('trm_sacar_q', { n: n.toLocaleString('en-US') + ' ' + (m.uni || ''), d: m.d, c: j.cliente }))) return 0;
+  const ok = await stkAplicar(x, 'salida', { cant: n, cli: j.cliente, nota: t('trb_para', { n: j.numero ?? '', t: j.titulo }), alInv: false }); if (!ok) return 0;
+  L[i] = { ...m, sac: (+m.sac || 0) + n, ok: true };
+  if (!silencio){ await trmGuardar(id, L); toast(t('saved')); } else { j.materiales = L; }
+  return n;
+}
+async function trmSacarTodo(id){
+  const j = trabajos.find(x => x.id === id); if (!j) return;
+  const L = trmLista(j), cand = L.map((m, i) => ({ m, i, x: trmStock(m.sid) })).filter(o => o.x && !o.x.serializado && (+o.m.cant || 0) > (+o.m.sac || 0) && (+o.x.cantidad || 0) > 0);
+  if (!cand.length) return alert(t('trm_nada_sacar'));
+  if (!confirm(t('trm_sacar_todo_q', { n: cand.length, c: j.cliente }))) return;
+  let n = 0; for (const o of cand) if (await trmSacar(id, o.i, true)) n++;
+  await trmGuardar(id, trmLista(j)); toast(t('trm_sacados', { n })); if (typeof cargarStock === 'function' && STK.open) cargarStock();
+}
+// Equipos con serial: abre la salida normal para escoger cuál unidad sale
+function trmSacarSerial(id, i){
+  const j = trabajos.find(x => x.id === id), m = trmLista(j)[i]; if (!m?.sid) return;
+  STK.cliPre = j.cliente; STK.trmLinea = { id, i }; stkMov(m.sid, 'salida');
+  setTimeout(() => { const n = $('stm_nota'); if (n) n.value = t('trb_para', { n: j.numero ?? '', t: j.titulo }); }, 60);
+}
+// Lo que no alcanza en el stock pasa a "Lo que falta"
+async function trmAFaltantes(id){
+  const j = trabajos.find(x => x.id === id); if (!j) return;
+  const rows = trmLista(j).map(m => { const x = trmStock(m.sid), falta = Math.max(0, (+m.cant || 0) - (+m.sac || 0)), hay = x ? +x.cantidad || 0 : 0, n = falta - (x ? Math.min(hay, falta) : 0);
+    return n > 0 ? { trabajo_id: id, tipo: 'material', descripcion: m.d, cantidad: Math.round(n * 100) / 100, unidad: m.uni || null, urgente: false, estado: 'pendiente', stock_item_id: m.sid || null, nota: t('trm_de_lista') } : null; }).filter(Boolean)
+    .filter(r => !trbFalt.some(f => f.trabajo_id === id && nrm(f.descripcion) === nrm(r.descripcion) && !['recibido', 'resuelto'].includes(f.estado)));
+  if (!rows.length) return toast(t('trm_ya_falt'));
+  const r = await db.from('trabajo_faltantes').insert(rows); if (r.error) return fail(r.error, t('save_fail'));
+  toast(t('trm_pasados', { n: rows.length })); cargarTrabajos();
+}
+// Hoja para imprimir y cargar la van
+function trmImprimir(id){
+  const j = trabajos.find(x => x.id === id); if (!j) return;
+  const L = trmLista(j), filas = L.map(m => { const x = trmStock(m.sid); return `<tr><td class="ck">☐</td><td>${esc(m.d)}${m.nota ? `<small>${esc(m.nota)}</small>` : ''}</td><td class="n">${m.cant != null ? (+m.cant).toLocaleString('en-US') + ' ' + esc(m.uni || '') : ''}</td><td>${x?.ubicacion ? esc(x.ubicacion) : ''}</td><td class="n">${+m.sac ? (+m.sac).toLocaleString('en-US') : ''}</td></tr>`; }).join('');
+  const w = window.open('', '_blank'); if (!w) return alert(t('pr_popup'));
+  w.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>${esc(t('trm_imprimir'))} · ${esc(j.titulo)}</title><style>@page{size:letter;margin:12mm}body{font:13px/1.45 Inter,Arial,sans-serif;color:#0f172a}
+    h1{font-size:20px;margin:0}.m{color:#64748b;margin:2px 0 14px}table{width:100%;border-collapse:collapse}th{background:#0f172a;color:#fff;font-size:11px;text-transform:uppercase;letter-spacing:.6px;text-align:left;padding:7px}
+    td{padding:8px 7px;border-bottom:1px solid #e2e8f0;vertical-align:top}td small{display:block;color:#64748b}.n{text-align:right;white-space:nowrap}.ck{font-size:18px;width:24px}.f{margin-top:26px;display:flex;gap:40px}.f div{flex:1;border-top:1px solid #0f172a;padding-top:4px;font-size:11px;color:#64748b}</style></head><body>
+    <h1>📋 ${esc(t('trm_imprimir'))}</h1><div class="m"><b>${esc(j.titulo)}</b> · ${esc(j.cliente)}${j.direccion ? ' · ' + esc(j.direccion) : ''}${j.fecha_inicio ? ' · ' + esc(trbFecha(j.fecha_inicio)) : ''}${j.equipo ? ' · ' + esc(j.equipo) : ''}</div>
+    <table><thead><tr><th></th><th>${t('trm_que')}</th><th class="n">${t('trm_necesario')}</th><th>${t('stk_ubic')}</th><th class="n">${t('trm_sacado')}</th></tr></thead><tbody>${filas}</tbody></table>
+    <div class="f"><div>${t('trm_preparo')}</div><div>${t('trm_reviso')}</div></div><script>setTimeout(()=>print(),400)<\/script></body></html>`); w.document.close();
 }
 
 /* ---- Fases (hitos) ---- */

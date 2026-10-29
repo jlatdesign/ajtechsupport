@@ -1074,7 +1074,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v9.6</p>
+    <p class="sub">Network Asset Manager · v9.6.1</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -1090,7 +1090,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.6</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.6.1</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -1595,7 +1595,7 @@ en:{
   link_prn:'🔗 Linked to printer(s) of this client:', confirm_sync_pcs:'This printer is used by {n} PC(s) of {c}:\n{list}\n\nUpdate the connection and IP in those PCs?',
   ov:'Overview', all_devices:'All devices', d_types:'Device types', d_tools:'Tools', d_alerts:'Alerts', manage_groups:'Manage groups',
   t_computers:'Computers', t_printers:'Printers', t_network:'Network', t_cctv:'Cameras / DVR', t_phones:'Phones', t_access:'Access control', t_total:'Devices',
-  a_dup:'Duplicate IPs', a_war:'Warranty ≤ 60 days', a_noip:'Missing IP', a_rep:'In repair', no_alerts:'✅ No alerts for this client',
+  a_dup:'Duplicate IPs', a_war:'Warranty ≤ 60 days', a_noip:'Missing IP', a_rep:'In repair', a_off:'Offline in UniFi', a_sin_estado:'No status', no_alerts:'✅ No alerts for this client',
   ch_types:'Devices by type', ch_status:'Status', ch_os:'Windows / OS versions', ch_dept:'Departments', ch_groups:'Groups', ch_recent:'Recently added',
   ch_alerts:'Alerts', other:'Other', tip_n:'{n} device(s) · {p}%', export_csv:'Export CSV', print:'Print', dash_empty:'This client has no devices yet.',
   det_created:'Created', det_updated:'Updated', det_linked_prn:'Printers it uses', det_linked_pc:'Used by', det_users:'Regular users', det_hist:'History',
@@ -1694,7 +1694,7 @@ es:{
   link_prn:'🔗 Vinculada a impresora(s) de este cliente:', confirm_sync_pcs:'Esta impresora la usan {n} PC de {c}:\n{list}\n\n¿Actualizar la conexión y la IP en esas PC?',
   ov:'Resumen', all_devices:'Todos los equipos', d_types:'Tipos de equipo', d_tools:'Herramientas', d_alerts:'Alertas', manage_groups:'Administrar grupos',
   t_computers:'Computadoras', t_printers:'Impresoras', t_network:'Red', t_cctv:'Cámaras / DVR', t_phones:'Teléfonos', t_access:'Control de acceso', t_total:'Equipos',
-  a_dup:'IP duplicadas', a_war:'Garantía ≤ 60 días', a_noip:'Sin IP', a_rep:'En reparación', no_alerts:'✅ Sin alertas para este cliente',
+  a_dup:'IP duplicadas', a_war:'Garantía ≤ 60 días', a_noip:'Sin IP', a_rep:'En reparación', a_off:'Desconectados en UniFi', a_sin_estado:'Sin estado', no_alerts:'✅ Sin alertas para este cliente',
   ch_types:'Equipos por tipo', ch_status:'Estado', ch_os:'Versiones de Windows / SO', ch_dept:'Departamentos', ch_groups:'Grupos', ch_recent:'Agregados recientemente',
   ch_alerts:'Alertas', other:'Otros', tip_n:'{n} equipo(s) · {p}%', export_csv:'Exportar CSV', print:'Imprimir', dash_empty:'Este cliente todavía no tiene equipos.',
   det_created:'Creado', det_updated:'Actualizado', det_linked_prn:'Impresoras que usa', det_linked_pc:'Usada por', det_users:'Usuarios regulares', det_hist:'Historial',
@@ -7974,6 +7974,8 @@ const CATS = { comp:['PC','Laptop','Servidor'], prn:['Impresora'], net:NET_TIPOS
 const ORDEN_TIPOS = ['PC','Laptop','Servidor','Impresora', ...NET_TIPOS,'DVR','NVR','Cámara','Teléfono','Control de Acceso','Otro'];
 const necesitaIP = x => ['PC','Laptop','Servidor','Módem','Firewall','Router','Switch','Access Point','Antena','DVR','NVR','Cámara'].includes(x.tipo) || (x.tipo === 'Impresora' && usaIP(x.conexion));
 const diasHasta = d => (new Date(d + 'T00:00:00') - new Date(new Date().toDateString())) / 864e5;
+// apagado / desconectado en UniFi (el estado del inventario puede seguir en Activo)
+const ufOff = x => !!x.unifi_estado && x.unifi_estado !== 'online';
 function calcAlertas(base){
   const porIP = {}; base.forEach(x => { if (x.ip) (porIP[x.ip] = porIP[x.ip] || []).push(x); });
   const dupGrupos = Object.entries(porIP).filter(([, v]) => v.length > 1);
@@ -7981,7 +7983,8 @@ function calcAlertas(base){
     dupGrupos, dup: new Set(dupGrupos.flatMap(([, v]) => v.map(x => x.id))),
     war: base.filter(x => x.garantia && diasHasta(x.garantia) <= 60),
     noip: base.filter(x => necesitaIP(x) && !x.ip),
-    rep: base.filter(x => x.estado === 'En reparación')
+    rep: base.filter(x => x.estado === 'En reparación'),
+    off: base.filter(ufOff)
   };
 }
 let ALERTAS = null;
@@ -7993,6 +7996,7 @@ function pasaExtra(x){
     if (fAlert === 'war') return !!x.garantia && diasHasta(x.garantia) <= 60;
     if (fAlert === 'noip') return necesitaIP(x) && !x.ip;
     if (fAlert === 'rep') return x.estado === 'En reparación';
+    if (fAlert === 'off') return ufOff(x);
   }
   return true;
 }
@@ -8067,7 +8071,7 @@ function renderOverview(base){
     return;
   }
   const enCat = k => base.filter(x => CATS[k].includes(x.tipo)).length;
-  const nAlert = A.dup.size + A.war.length + A.noip.length;
+  const nAlert = A.dup.size + A.war.length + A.noip.length + A.off.length;
   const tile = (on, ic, n, lbl, cls = '') => `<div class="tile ${cls}" onclick="${on}"><span class="ic">${ic}</span><b>${n}</b><span>${lbl}</span></div>`;
   // Con servicios: cada mosaico sale si hay equipos o si el servicio lo desbloquea. Sin servicios: como siempre.
   const PT = tiposPermitidos(curCliente);
@@ -8080,14 +8084,17 @@ function renderOverview(base){
     verCat('cctv', false) ? tile("irA('list',{cat:'cctv'})", '📹', enCat('cctv'), t('t_cctv')) : '',
     verCat('tel', false) ? tile("irA('list',{cat:'tel'})", '📞', enCat('tel'), t('t_phones')) : '',
     tile("irA('list',{alert:'rep'})", '🔧', A.rep.length, t('a_rep'), A.rep.length ? 'warn' : 'dim'),
-    tile(A.dup.size ? "irA('list',{alert:'dup'})" : A.war.length ? "irA('list',{alert:'war'})" : "irA('list',{alert:'noip'})", '⚠️', nAlert, t('d_alerts'), nAlert ? 'bad' : 'dim')
+    tile(A.off.length ? "irA('list',{alert:'off'})" : A.dup.size ? "irA('list',{alert:'dup'})" : A.war.length ? "irA('list',{alert:'war'})" : "irA('list',{alert:'noip'})", '⚠️', nAlert, t('d_alerts'), nAlert ? 'bad' : 'dim')
   ].join('');
   // Equipos por tipo
   const cuenta = {}; base.forEach(x => cuenta[x.tipo] = (cuenta[x.tipo] || 0) + 1);
   const tiposRows = Object.entries(cuenta).sort((a, b) => b[1] - a[1]).map(([k, n]) => ({ label: tTipo(k), icon: TIPO_ICON[k] || '◆', n, on: `irA('list',{tipo:'${jsq(k)}'})` }));
   // Estado (colores de estado + ícono + texto)
   const EST = [['Activo','🟢','var(--ok)'],['En reparación','🟡','var(--warn)'],['Inactivo','⚪','var(--off)'],['Dado de baja','🔴','var(--bad)']];
-  const estRows = EST.map(([k, ic, c]) => ({ label: tEstado(k), icon: ic, color: c, n: base.filter(x => x.estado === k).length, on: barF(ic + ' ' + tEstado(k), x => x.estado === k) })).filter(r => r.n);
+  const estDe = x => ESTADO_REV[sinAcento(String(x.estado || '').trim())] || String(x.estado || '').trim() || '—';
+  const estRows = EST.map(([k, ic, c]) => ({ label: tEstado(k), icon: ic, color: c, n: base.filter(x => estDe(x) === k).length, on: barF(ic + ' ' + tEstado(k), x => estDe(x) === k) })).filter(r => r.n);
+  [...new Set(base.map(estDe))].filter(k => !EST.some(e => e[0] === k)).forEach(k => estRows.push({ label: k === '—' ? t('a_sin_estado') : k, icon: '🟠', color: 'var(--warn)', n: base.filter(x => estDe(x) === k).length, on: barF('🟠 ' + k, x => estDe(x) === k) }));
+  if (A.off.length) estRows.push({ label: t('a_off'), icon: '📴', color: 'var(--bad)', n: A.off.length, on: "irA('list',{alert:'off'})" });
   // Sistemas operativos (solo computadoras)
   const comps = base.filter(x => CATS.comp.includes(x.tipo));
   const esComp = x => CATS.comp.includes(x.tipo);
@@ -8105,8 +8112,9 @@ function renderOverview(base){
   const lmDev = x => `<div class="lm" onclick="verDetalle('${x.id}')"><span class="ic">${TIPO_ICON[x.tipo] || '◆'}</span><span class="nm">${esc(x.nombre)}</span><span class="mt">${esc(x.ip || tTipo(x.tipo))}</span></div>`;
   // Alertas
   const lmA = (cls, ic, txt, n, on) => `<div class="lm ${cls}" onclick="${on}"><span class="ic">${ic}</span><span class="nm">${txt}</span><span class="cnt">${n}</span></div>`;
-  const alertas = (A.dup.size || A.war.length || A.noip.length || A.rep.length)
-    ? [A.dup.size ? lmA('bad', '⚠️', t('a_dup'), A.dup.size, "irA('list',{alert:'dup'})") : '',
+  const alertas = (A.dup.size || A.war.length || A.noip.length || A.rep.length || A.off.length)
+    ? [A.off.length ? lmA('bad', '📴', t('a_off'), A.off.length, "irA('list',{alert:'off'})") : '', ...A.off.slice(0, 4).map(x => `<div class="lm" onclick="verDetalle('${x.id}')"><span class="ic"></span><span class="nm mt">${esc(x.nombre)}</span><span class="mt">${esc(x.ip || '')}</span></div>`),
+      A.dup.size ? lmA('bad', '⚠️', t('a_dup'), A.dup.size, "irA('list',{alert:'dup'})") : '',
        ...A.dupGrupos.slice(0, 4).map(([ip, v]) => `<div class="lm" onclick="irA('list',{q:'${jsq(ip)}'})"><span class="ic"></span><span class="nm mt">${esc(ip)}</span><span class="mt">${v.map(x => esc(x.nombre)).join(', ')}</span></div>`),
        A.war.length ? lmA('warn', '📅', t('a_war'), A.war.length, "irA('list',{alert:'war'})") : '',
        A.noip.length ? lmA('off', '🌐', t('a_noip'), A.noip.length, "irA('list',{alert:'noip'})") : '',
@@ -9072,7 +9080,11 @@ function xCargarHoja(){
 // Convierte una fila del Excel en un objeto con los campos de la app (limpiando formatos)
 const TIPO_REV = (() => { const m = {}; TIPOS.forEach(v => { m[sinAcento(v)] = v; ['en','es'].forEach(l => { const s = I18N[l]['tipo.' + v]; if (s) m[sinAcento(s)] = v; }); });
   Object.assign(m, { computer:'PC', desktop:'PC', workstation:'PC', notebook:'Laptop', printer:'Impresora', camera:'Cámara', phone:'Teléfono', server:'Servidor', ap:'Access Point' }); return m; })();
-const ESTADO_REV = (() => { const m = {}; ESTADOS.forEach(v => { m[sinAcento(v)] = v; ['en','es'].forEach(l => { const s = I18N[l]['estado.' + v]; if (s) m[sinAcento(s)] = v; }); }); return m; })();
+const ESTADO_REV = (() => { const m = {}; ESTADOS.forEach(v => { m[sinAcento(v)] = v; ['en','es'].forEach(l => { const s = I18N[l]['estado.' + v]; if (s) m[sinAcento(s)] = v; }); });
+  ['fuera de servicio', 'out of service', 'offline', 'apagado', 'desconectado', 'no funciona', 'inactive'].forEach(k => m[sinAcento(k)] = 'Inactivo');
+  ['reparacion', 'en reparacion', 'repair', 'danado', 'roto', 'broken'].forEach(k => m[sinAcento(k)] = 'En reparación');
+  ['baja', 'retirado', 'retired', 'decommissioned', 'desechado'].forEach(k => m[sinAcento(k)] = 'Dado de baja');
+  ['active', 'online', 'funcionando', 'en uso'].forEach(k => m[sinAcento(k)] = 'Activo'); return m; })();
 let xBadIP = 0;
 function xFila(r){
   const o = {};

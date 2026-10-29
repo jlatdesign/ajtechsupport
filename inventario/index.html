@@ -776,6 +776,7 @@ body.p-noadm .p-solo-adm{display:none!important}
 .trd-fr .trd-fn{font-size:13px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.trd-fr input[type=range]{width:100%;margin:0;padding:0}.trd-fr .trd-a{text-align:right;font-size:13px}.trd-fr.sube .trd-a{color:var(--accent,#006fff)}.trd-fr.fin .trd-a,.trd-ok{color:var(--ok,#16a34a)}
 .trd-mas{display:flex;gap:3px}.trd-mas .sm,.trd-fr .sm{padding:2px 7px;font-size:11.5px}
 @media (max-width:640px){.trd-fr{grid-template-columns:1fr 42px;}.trd-fr .trd-de{display:none}.trd-fr input[type=range]{grid-column:1/-1;grid-row:2}.trd-mas{grid-row:3}}
+.trm-renta-b{display:inline-block;margin:3px 4px 0 0;font-size:11px;padding:1px 8px;border-radius:999px;background:color-mix(in srgb,#f59e0b 15%,transparent);color:#b45309;font-weight:600}.trm-uso-t select.trd-uso-uni{width:72px;flex:none;padding:4px 4px;font-size:12px}
 .trd-uso{margin:10px 0 4px;padding:10px;border:1px solid var(--line);border-radius:10px;background:color-mix(in srgb,var(--accent,#006fff) 4%,transparent)}.trd-uso .cl-h4{margin:0}.trm-uso-t td,.trm-uso-t th{padding:5px 8px}.trm-uso-u{font-size:12px;color:var(--muted);width:64px;flex:none;align-self:center;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .trb-d-u{margin-top:4px;font-size:12.5px;color:var(--muted)}.trb-d-u b{color:var(--text)}.trm-cie-b{display:block;margin-top:2px;font-size:10.5px;font-family:Inter,sans-serif;color:var(--muted)}.trm-cie-b.d-stock{color:var(--ok,#16a34a)}.trm-cie-b.d-devolver{color:var(--accent,#006fff)}
 .net-tbl.trm-cierre,.net-tbl.trm-uso-t{min-width:0;width:100%}.trm-cierre th,.trm-cierre td{padding:6px 7px!important}.trm-cierre select{padding:4px 6px;font-size:12.5px;width:auto;max-width:180px}.trm-cierre td{vertical-align:middle;font-size:12.5px}.trm-cierre td.mono,.trm-uso-t td.mono{font-size:12px}
@@ -1067,7 +1068,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v9.5.1</p>
+    <p class="sub">Network Asset Manager · v9.5.2</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -1083,7 +1084,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.5.1</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.5.2</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -1791,7 +1792,7 @@ Object.assign(I18N.en, {
   trm_nada_sacar:'Nothing to take: already taken, not in stock or no quantity.', trm_sacados:'{n} material(s) taken from stock', trm_serial_h:'Pick the serials that go out',
   trm_quitar_q:'Some of this was already taken from stock. Remove it from the list anyway? (stock is not returned automatically)', trm_de_lista:'From the materials list', trm_ya_falt:'Everything is already in "Missing" or there is enough stock.',
   trm_pasados:'{n} material(s) moved to "Missing"', trm_preparo:'Prepared by', trm_reviso:'Checked / received by',
-  trm_sql:'To save materials run supabase-trabajos.sql again (it adds the "materiales" column).', trm_cajas:'boxes', trm_tal:'Maybe', trm_tal_h:'Maybe: it may or may not be used. It stays on the list but is not taken from stock or ordered.', trm_n_tal:'{n} maybe', trd_fases_hoy:'Phases you worked on today', trd_total:'Total job', trd_fases_tip:'Tap the phases you worked on today and move them up.', trd_terminada:'Phase done (100%)', trd_solo_fases:'Phase progress', trm_uso_hoy:'Material used today', trm_uso_h:'Enter how much of each material was used today. It is subtracted from the total. Cable in boxes is entered in feet.', trm_total:'Total', trm_usado:'Used', trm_queda:'Left', trm_hoy_uso:'Used today', trm_solo_uso:'Material usage',
+  trm_sql:'To save materials run supabase-trabajos.sql again (it adds the "materiales" column).', trm_cajas:'boxes', trm_tal:'Maybe', trm_tal_h:'Maybe: it may or may not be used. It stays on the list but is not taken from stock or ordered.', trm_n_tal:'{n} maybe', trm_renta:'Daily rental', trm_renta_h:'Daily rental (lift, scaffold…): the daily note records the days used; the quantity is not consumed.', trm_dias:'days', trm_dia1:'day', trm_uso_uni:'Choose feet or boxes', trd_fases_hoy:'Phases you worked on today', trd_total:'Total job', trd_fases_tip:'Tap the phases you worked on today and move them up.', trd_terminada:'Phase done (100%)', trd_solo_fases:'Phase progress', trm_uso_hoy:'Material used today', trm_uso_h:'Enter how much of each material was used today. It is subtracted from the total. Cable can be entered in feet or boxes. Rentals (lift) are entered in days.', trm_total:'Total', trm_usado:'Used', trm_queda:'Left', trm_hoy_uso:'Used today', trm_solo_uso:'Material usage',
   trm_cierre:'Close-out / leftover', trm_cierre_h:'When finished: leftovers can be returned to the store (conduit, boxes, etc.), sent to the office stock, left with the client or thrown away.', trm_cierre_nada:'Nothing left over: everything taken is used or already closed.', trm_llevado:'Taken', trm_sobra:'Leftover', trm_destino:'What to do',
   trm_tienda:'Store / supplier (return)', trm_tienda_ph:'e.g. Home Depot Doral, Graybar…', trm_cierre_ok:'Process', trm_cierre_hecho:'Done: {n} line(s) closed, {s} to stock.', trm_sobro_de:'Leftover from {t}',
   trm_dev_t:'Return', trm_dev_nada:'Nothing to return.', trm_dev_rec:'Received / credit', trm_dev_nota:'Leftover material in good condition, unused. Keep the store receipt or credit note.', trm_dev_entrega:'Delivered by', trm_dev_recibe:'Received by (store)', trm_dev_ticket:'Receipt / credit #',
@@ -2002,7 +2003,7 @@ Object.assign(I18N.es, {
   trm_nada_sacar:'No hay nada que sacar: o ya se sacó, o no está en el stock, o no hay cantidad.', trm_sacados:'{n} material(es) sacados del stock', trm_serial_h:'Escoger los seriales que salen',
   trm_quitar_q:'Ya se sacó algo de esto del stock. ¿Quitarlo de la lista igual? (el stock no se devuelve solo)', trm_de_lista:'De la lista de materiales', trm_ya_falt:'Ya está todo en "Lo que falta" o hay stock suficiente.',
   trm_pasados:'{n} material(es) pasados a "Lo que falta"', trm_preparo:'Preparó', trm_reviso:'Revisó / recibió',
-  trm_sql:'Para guardar los materiales corre otra vez supabase-trabajos.sql (agrega la columna "materiales").', trm_cajas:'cajas', trm_tal:'En veremos', trm_tal_h:'En veremos: puede que se use, puede que no. Se lleva en la lista pero no se saca del stock ni se pide.', trm_n_tal:'{n} en veremos', trd_fases_hoy:'Fases que trabajaste hoy', trd_total:'Trabajo total', trd_fases_tip:'Toca las fases en las que trabajaste hoy y súbelas.', trd_terminada:'Fase terminada (100%)', trd_solo_fases:'Avance de fases', trm_uso_hoy:'Material usado hoy', trm_uso_h:'Pon cuánto se usó hoy de cada material. Se va restando del total. El cable en cajas se escribe en pies.', trm_total:'Total', trm_usado:'Usado', trm_queda:'Queda', trm_hoy_uso:'Usado hoy', trm_solo_uso:'Uso de material',
+  trm_sql:'Para guardar los materiales corre otra vez supabase-trabajos.sql (agrega la columna "materiales").', trm_cajas:'cajas', trm_tal:'En veremos', trm_tal_h:'En veremos: puede que se use, puede que no. Se lleva en la lista pero no se saca del stock ni se pide.', trm_n_tal:'{n} en veremos', trm_renta:'Renta por días', trm_renta_h:'Renta por días (lift, andamio…): en la nota del día se apuntan los días que se usó, no se gasta la cantidad.', trm_dias:'días', trm_dia1:'día', trm_uso_uni:'Escoge si lo escribes en pies o en cajas', trd_fases_hoy:'Fases que trabajaste hoy', trd_total:'Trabajo total', trd_fases_tip:'Toca las fases en las que trabajaste hoy y súbelas.', trd_terminada:'Fase terminada (100%)', trd_solo_fases:'Avance de fases', trm_uso_hoy:'Material usado hoy', trm_uso_h:'Pon cuánto se usó hoy de cada material. Se va restando del total. El cable lo puedes poner en pies o en cajas. Lo que es renta (lift) se apunta en días.', trm_total:'Total', trm_usado:'Usado', trm_queda:'Queda', trm_hoy_uso:'Usado hoy', trm_solo_uso:'Uso de material',
   trm_cierre:'Cierre / sobrante', trm_cierre_h:'Al terminar: lo que sobró se puede devolver a la tienda (tubería, cajas, etc.), mandar al stock de la oficina, dejar con el cliente o botar.', trm_cierre_nada:'No sobró nada: todo lo que se llevó está usado o ya se cerró.', trm_llevado:'Se llevó', trm_sobra:'Sobró', trm_destino:'Qué se hace',
   trm_tienda:'Tienda / proveedor (devolución)', trm_tienda_ph:'ej. Home Depot Doral, Graybar…', trm_cierre_ok:'Procesar', trm_cierre_hecho:'Listo: {n} línea(s) cerradas, {s} al stock.', trm_sobro_de:'Sobró de {t}',
   trm_dev_t:'Devolución', trm_dev_nada:'No hay nada para devolver.', trm_dev_rec:'Recibido / crédito', trm_dev_nota:'Material sobrante en buen estado, sin usar. Guardar el ticket o nota de crédito de la tienda.', trm_dev_entrega:'Entregado por', trm_dev_recibe:'Recibido por (tienda)', trm_dev_ticket:'# Ticket / crédito',
@@ -5594,7 +5595,7 @@ function trbDiarioHTML(j, dia){
         ${d.no_logrado ? `<div class="trb-d-x">❌ ${esc(d.no_logrado).replace(/\n/g, '<br>')}</div>` : ''}
         ${+d.retraso_horas > 0 ? `<div class="trb-d-r r-${esc(d.retraso_causa || 'otro')}">⏸ ${t('trb_ret_de', { h: d.retraso_horas, c: esc(causa(d)) })}${d.retraso_motivo ? ': ' + esc(d.retraso_motivo) : ''}</div>` : ''}
         ${(c => c.length ? `<div class="trb-d-u">🧩 ${c.map(o => `<b>${esc(o.n)}</b> ${o.de}% → <b class="${o.a >= 100 ? 'trd-ok' : ''}">${o.a}%</b>`).join(' · ')}</div>` : '')(trdFasesDe(j, d.id))}
-        ${(u => u.length ? `<div class="trb-d-u">📉 ${t('trm_usado')}: ${u.map(o => `<b>${esc(o.m.d)}</b> ${trmCant(o.m, o.u)}`).join(' · ')}</div>` : '')(trmUsoDe(j, d.id))}</div>`).join('')}</div>`
+        ${(u => u.length ? `<div class="trb-d-u">📉 ${t('trm_usado')}: ${u.map(o => `<b>${esc(o.m.d)}</b> ${trmUsoTxt(o)}`).join(' · ')}</div>` : '')(trmUsoDe(j, d.id))}</div>`).join('')}</div>`
       : `<div class="act-empty">📓 ${t('trb_sin_notas')}</div>`}`;
 }
 async function trbDiaGuardar(id){
@@ -5611,7 +5612,7 @@ async function trbDiaGuardar(id){
   const r = await db.from('trabajo_diario').insert(row); if (r.error) return fail(r.error, /trabajo_/.test(r.error.message || '') ? t('trb_missing') : t('save_fail'));
   const patch = {};
   if (fs){ patch.fases = fs; patch.progreso = row.avance; j.fases = fs; }
-  if (usos.length){ const L = trmLista(j).map(m => ({ ...m })); usos.forEach(u => { if (L[u.i]) L[u.i].usos = jArr(L[u.i].usos).concat([{ f: row.fecha, n: trmR(u.n), ...(row.id ? { nid: row.id } : {}) }]); }); patch.materiales = L; j.materiales = L; }
+  if (usos.length){ const L = trmLista(j).map(m => ({ ...m })); usos.forEach(u => { if (L[u.i]) L[u.i].usos = jArr(L[u.i].usos).concat([{ f: row.fecha, ...(u.dias ? { dias: trmR(u.n) } : { n: trmR(u.n) }), ...(row.id ? { nid: row.id } : {}) }]); }); patch.materiales = L; j.materiales = L; }
   if (row.avance != null && !j.auto_fases) patch.progreso = row.avance;
   if (j.estado === 'pendiente') { patch.estado = 'en_proceso'; if (!j.fecha_inicio) patch.fecha_inicio = row.fecha; }
   if (Object.keys(patch).length) await db.from('trabajos').update(patch).eq('id', id);
@@ -5702,16 +5703,16 @@ function trbMatHTML(j){
     const hayTxt = x ? stkCant(x) + (f > 1 ? ` (${trmFmt(Math.floor(hay))} ${t('trm_cajas')})` : '') : '';
     return `<tr class="trm-${est}"><td><input type="checkbox" ${m.ok ? 'checked' : ''} onchange="trmSet('${j.id}',${i},{ok:this.checked})" title="${esc(t('trm_cargado'))}"></td>
       <td class="trm-sit"><input type="checkbox" ${m.sitio ? 'checked' : ''} onchange="trmSet('${j.id}',${i},{sitio:this.checked})" title="${esc(t('trm_sitio_h'))}"></td>
-      <td><input class="trm-d" value="${esc(m.d || '')}" onchange="trmSet('${j.id}',${i},{d:this.value.trim()})">${m.tal ? `<span class="trm-tal-b">🤔 ${t('trm_tal')}</span>` : ''}${m.sitio ? `<span class="trm-sit-b">📍 ${t('trm_sitio')}</span>` : ''}${m.nota ? `<small class="muted" style="display:block">${esc(m.nota)}</small>` : ''}</td>
+      <td><input class="trm-d" value="${esc(m.d || '')}" onchange="trmSet('${j.id}',${i},{d:this.value.trim()})">${m.tal ? `<span class="trm-tal-b">🤔 ${t('trm_tal')}</span>` : ''}${m.sitio ? `<span class="trm-sit-b">📍 ${t('trm_sitio')}</span>` : ''}${trmEsRenta(m) ? `<span class="trm-renta-b">📅 ${t('trm_renta')}</span>` : ''}${m.nota ? `<small class="muted" style="display:block">${esc(m.nota)}</small>` : ''}</td>
       <td class="n"><div class="trm-cu"><input type="number" min="0" step="any" class="trm-n" value="${esc(m.cant ?? '')}" onchange="trmSet('${j.id}',${i},{cant:this.value===''?null:+this.value})">
         <input class="trm-u" list="trmUnis" value="${esc(m.uni || '')}" placeholder="${esc(t('trb_unidad_ph'))}" onchange="trmUni('${j.id}',${i},this.value)"></div>
         ${f > 1 ? `<small class="muted" style="display:block">= ${trmFmt((+m.cant || 0) * f)} ${t('stu.ft')}</small>` : ''}</td>
       <td><select class="trm-s" onchange="trmSet('${j.id}',${i},{sid:this.value||null})">${opStock(m.sid)}</select>
         ${x && !m.sitio ? `<small class="${est === 'falta' ? 'trm-mal' : 'muted'}" style="display:block">${est === 'falta' ? '⚠ ' + t('trm_solo_hay', { n: hayTxt }) : '✅ ' + t('trb_en_stock', { n: hayTxt })}${x.ubicacion ? ' · 📍 ' + esc(x.ubicacion) : ''}</small>` : ''}</td>
       <td class="n mono">${+m.sac ? trmFmt(m.sac) : ''}</td>
-      <td class="n mono">${trmUsado(m) ? trmCant(m, trmUsado(m)) : ''}</td>
+      <td class="n mono">${trmEsRenta(m) ? (trmDias(m) ? '📅 ' + trmDiasTxt(trmDias(m)) : '') : trmUsado(m) ? trmCant(m, trmUsado(m)) : ''}</td>
       <td class="n mono ${trmQueda(m) != null && trmQueda(m) < 0 ? 'trm-mal' : ''}">${trmUsado(m) && trmQueda(m) != null ? trmCant(m, trmQueda(m)) : ''}${jArr(m.cierre).map(c => `<span class="trm-cie-b d-${c.dest}">↪ ${trmFmt(c.n)} ${esc(t('trmd_c.' + c.dest))}</span>`).join('')}</td>
-      <td class="stk-acc"><label class="trm-tal-c" title="${esc(t('trm_tal_h'))}"><input type="checkbox" ${m.tal ? 'checked' : ''} onchange="trmSet('${j.id}',${i},{tal:this.checked})"> 🤔</label>
+      <td class="stk-acc"><label class="trm-tal-c" title="${esc(t('trm_renta_h'))}"><input type="checkbox" ${trmEsRenta(m) ? 'checked' : ''} onchange="trmSet('${j.id}',${i},{renta:this.checked})"> 📅</label><label class="trm-tal-c" title="${esc(t('trm_tal_h'))}"><input type="checkbox" ${m.tal ? 'checked' : ''} onchange="trmSet('${j.id}',${i},{tal:this.checked})"> 🤔</label>
         ${!m.tal && !m.sitio && x && falta > 0 && hay >= (f > 1 ? 1 : 1e-9) && !x.serializado ? `<button class="sm" onclick="trmSacar('${j.id}',${i})" title="${esc(t('trb_sacar_stock'))}">📤</button>` : ''}${!m.tal && !m.sitio && x?.serializado && falta > 0 ? `<button class="sm" onclick="trmSacarSerial('${j.id}',${i})" title="${esc(t('trm_serial_h'))}">🔢📤</button>` : ''}
         <button class="sm danger" onclick="trmQuitar('${j.id}',${i})">✕</button></td></tr>`; }).join('');
   return `<div class="muted" style="margin-bottom:8px">${t('trm_h')}</div>
@@ -5813,6 +5814,13 @@ const trmSobra = m => m.sitio ? 0 : Math.max(0, trmR(trmLlevado(m) - trmUsado(m)
 const trmCant = (m, v) => { const pc = trmPcDe(m); return trmFmt(v) + (m.uni ? ' ' + esc(m.uni) : '') + (pc && v ? ` <small class="muted">(${trmFmt(v * pc)} ft)</small>` : ''); };
 const TRM_DEVOLVIBLE = /tub|emt|pvc|conduit|caja\s*el[eé]ctric|electrical box|regleta|canaleta|raceway|bandeja|tray|strut|unistrut|varilla|rod|abrazadera|strap|fitting|conector\s*emt|codo|elbow|coupling|uni[oó]n/i;
 const TRM_DESTINOS = ['stock', 'devolver', 'cliente', 'desecho'];
+// renta por días (lift, andamio…): en el diario se apuntan los días de uso, no se gasta la cantidad
+const TRM_RENTA = /\blift|renta|rent(al|a)?\b|alquil|andamio|scaffold|scissor|tijera|boom|man ?lift|genie/i;
+const trmEsRenta = m => m.renta != null ? !!m.renta : TRM_RENTA.test(m.d || '');
+const trmDias = m => jArr(m.usos).reduce((a, u) => a + (+u.dias || 0), 0);
+const trmDiasTxt = n => trmFmt(n) + ' ' + t(+n === 1 ? 'trm_dia1' : 'trm_dias');
+// lo que dice una nota: cantidad o días
+const trmUsoTxt = o => o.d ? trmDiasTxt(o.d) : trmCant(o.m, o.u);
 // filas del diario: cuánto se usó hoy de cada material
 function trmUsoFormHTML(j){
   const L = trmLista(j).map((m, i) => ({ m, i })).filter(o => o.m.d && (o.m.cant != null || +o.m.sac > 0) && !o.m.tal);
@@ -5820,14 +5828,18 @@ function trmUsoFormHTML(j){
   return `<div class="trd-uso"><h4 class="cl-h4">📉 ${t('trm_uso_hoy')}</h4><small class="muted">${t('trm_uso_h')}</small>
     <div class="table-wrap"><table class="net-tbl trm-uso-t"><thead><tr><th>${t('trm_que')}</th><th class="n">${t('trm_total')}</th><th class="n">${t('trm_usado')}</th><th class="n">${t('trm_queda')}</th><th class="n">${t('trm_hoy_uso')}</th></tr></thead><tbody>
     ${L.map(({ m, i }) => { const pc = trmPcDe(m), q = trmQueda(m);
+      if (trmEsRenta(m)) return `<tr><td>${esc(m.d)} <small class="trm-renta-b">📅 ${t('trm_renta')}</small></td><td class="n mono">${m.cant != null ? trmCant(m, +m.cant) : ''}</td><td class="n mono">${trmDias(m) ? trmDiasTxt(trmDias(m)) : ''}</td><td class="n mono"></td>
+        <td class="n"><div class="trm-cu"><input type="number" min="0" step="0.5" class="trm-n trd-uso-i" data-i="${i}" data-dias="1" placeholder="0"><span class="trm-uso-u">${t('trm_dias')}</span></div></td></tr>`;
       return `<tr><td>${esc(m.d)}${m.sitio ? ` <small class="muted">📍</small>` : ''}</td><td class="n mono">${m.cant != null ? trmCant(m, +m.cant) : ''}</td><td class="n mono">${trmUsado(m) ? trmCant(m, trmUsado(m)) : ''}</td>
         <td class="n mono ${q != null && q < 0 ? 'trm-mal' : ''}">${q != null ? trmCant(m, q) : ''}</td>
-        <td class="n"><div class="trm-cu"><input type="number" min="0" step="any" class="trm-n trd-uso-i" data-i="${i}" data-pc="${pc}" placeholder="0"><span class="trm-uso-u">${esc(pc ? 'ft' : m.uni || t('stu.u'))}</span></div></td></tr>`; }).join('')}</tbody></table></div></div>`;
+        <td class="n"><div class="trm-cu"><input type="number" min="0" step="any" class="trm-n trd-uso-i" data-i="${i}" data-pc="${pc}" placeholder="0">${pc ? `<select class="trd-uso-uni" title="${esc(t('trm_uso_uni'))}"><option value="ft">ft</option><option value="caja">${t('trm_cajas')}</option></select>` : `<span class="trm-uso-u">${esc(m.uni || t('stu.u'))}</span>`}</div></td></tr>`; }).join('')}</tbody></table></div></div>`;
 }
 // lee el formulario: [{i, n}] en unidades de la línea
-const trmUsoLeer = () => [...document.querySelectorAll('.trd-uso-i')].map(el => ({ i: +el.dataset.i, n: el.value === '' ? 0 : +el.value / (+el.dataset.pc || 1) })).filter(o => o.n > 0);
-const trmUsoDe = (j, nid) => trmLista(j).map(m => ({ m, u: jArr(m.usos).filter(u => u.nid === nid).reduce((a, u) => a + +u.n, 0) })).filter(o => o.u > 0);
-const trmUsoDia = (j, f) => trmLista(j).map(m => ({ m, u: jArr(m.usos).filter(u => u.f === f).reduce((a, u) => a + +u.n, 0) })).filter(o => o.u > 0);
+const trmUsoLeer = () => [...document.querySelectorAll('.trd-uso-i')].map(el => { const v = el.value === '' ? 0 : +el.value, uni = el.parentElement.querySelector('.trd-uso-uni')?.value;
+  return el.dataset.dias ? { i: +el.dataset.i, n: v, dias: true } : { i: +el.dataset.i, n: uni === 'caja' ? v : v / (+el.dataset.pc || 1) }; }).filter(o => o.n > 0);
+const trmUsoSum = (m, ok) => { const us = jArr(m.usos).filter(ok); return { m, u: us.reduce((a, u) => a + (+u.n || 0), 0), d: us.reduce((a, u) => a + (+u.dias || 0), 0) }; };
+const trmUsoDe = (j, nid) => trmLista(j).map(m => trmUsoSum(m, u => u.nid === nid)).filter(o => o.u > 0 || o.d > 0);
+const trmUsoDia = (j, f) => trmLista(j).map(m => trmUsoSum(m, u => u.f === f)).filter(o => o.u > 0 || o.d > 0);
 
 // ---- Cierre: lo que sobró → devolver a la tienda / al stock de la oficina / se queda con el cliente / desecho
 function trmCierre(id){
@@ -5839,7 +5851,7 @@ function trmCierre(id){
   const opD = (sel) => TRM_DESTINOS.map(d => `<option value="${d}" ${d === sel ? 'selected' : ''}>${esc(t('trmd.' + d))}</option>`).join('');
   $('modalBody').innerHTML = `<div class="u-note" style="margin:0 0 10px">${t('trm_cierre_h')}</div>
     <div class="table-wrap"><table class="net-tbl stk-tbl trm-cierre"><thead><tr><th>${t('trm_que')}</th><th class="n">${t('trm_sobra')}</th><th class="n">${t('stk_cant')}</th><th>${t('trm_destino')}</th><th>${t('stk_cond')}</th></tr></thead><tbody>
-    ${L.map(({ m, i, s }) => { const x = trmStock(m.sid), dest = TRM_DEVOLVIBLE.test(m.d) ? 'devolver' : 'stock', pc = trmPcDe(m);
+    ${L.map(({ m, i, s }) => { const x = trmStock(m.sid), dest = trmEsRenta(m) || TRM_DEVOLVIBLE.test(m.d) ? 'devolver' : 'stock', pc = trmPcDe(m);
       return `<tr data-i="${i}"><td><b>${esc(m.d)}</b>${x ? `<small class="muted" style="display:block">📦 ${esc(x.nombre)}</small>` : ''}</td><td class="n mono"><b>${trmCant(m, s)}</b><small class="muted" style="display:block;font-family:Inter,sans-serif">${t('trm_llevado')} ${trmFmt(trmLlevado(m))} · ${t('trm_usado').toLowerCase()} ${trmFmt(trmUsado(m))}</small></td>
         <td class="n"><div class="trm-cu"><input type="number" min="0" step="any" class="trm-n c-n" value="${pc ? Math.round(s * pc) : trmR(s)}" data-pc="${pc}" data-max="${s}"><span class="trm-uso-u">${esc(pc ? 'ft' : m.uni || t('stu.u'))}</span></div></td>
         <td><select class="c-d" onchange="this.closest('tr').querySelector('.c-c').disabled=this.value!=='stock'">${opD(dest)}</select></td>
@@ -5973,7 +5985,7 @@ async function trbReporte(id){
     ${d.hecho ? `<div class="nl"><em>✅ ${t('trb_hecho')}</em>${tx(d.hecho)}</div>` : ''}${d.dificultades ? `<div class="nl w"><em>⚠ ${t('trb_dific')}</em>${tx(d.dificultades)}</div>` : ''}
     ${d.no_logrado ? `<div class="nl x"><em>❌ ${t('trb_no_log')}</em>${tx(d.no_logrado)}</div>` : ''}${+d.retraso_horas > 0 ? `<div class="nl r"><em>⏸ ${t('trb_ret_de', { h: nf(d.retraso_horas), c: esc(causa(d)) })}</em>${tx(d.retraso_motivo)}</div>` : ''}
     ${(c => c.length ? `<div class="nl u"><em>🧩 ${t('trb_t_fases')}</em>${c.map(o => `${esc(o.n)}: ${o.de}% → <b>${o.a}%</b>`).join(' · ')}</div>` : '')(trdFasesDe(j, d.id))}
-    ${(u => u.length ? `<div class="nl u"><em>📉 ${t('trm_usado')}</em>${u.map(o => `${esc(o.m.d)}: <b>${trmCant(o.m, o.u)}</b>`).join(' · ')}</div>` : '')(trmUsoDe(j, d.id))}</div>`;
+    ${(u => u.length ? `<div class="nl u"><em>📉 ${t('trm_usado')}</em>${u.map(o => `${esc(o.m.d)}: <b>${trmUsoTxt(o)}</b>`).join(' · ')}</div>` : '')(trmUsoDe(j, d.id))}</div>`;
   const hoyH = `<section class="blk"><h2>📓 ${t('trp_del_dia', { f: fl(dia) })}</h2>${hoyN.length ? hoyN.map(d => notaH(d, true)).join('') : `<div class="vacio">${t('trp_sin_nota')}</div>`}</section>`;
   const antH = antes.length ? `<section class="blk"><h2>🗂 ${t(hist >= 9999 ? 'trp_ant_all' : 'trp_ant', { n: hist })}</h2>${antes.map(d => notaH(d)).join('')}</section>` : '';
   // ---- lo que falta
@@ -5984,9 +5996,9 @@ async function trbReporte(id){
   const mp = conMat ? trmLista(j).filter(m => !m.tal && !m.sitio && m.cant && (+m.sac || 0) < +m.cant) : [];
   const matH = mp.length ? `<section class="blk"><h2>📋 ${t('trp_mat')}</h2><table class="it"><thead><tr><th>${t('trm_que')}</th><th class="n">${t('trm_necesario')}</th><th class="n">${t('trm_sacado')}</th><th class="n">${t('trp_pend')}</th></tr></thead><tbody>
       ${mp.map(m => `<tr><td>${esc(m.d)}</td><td class="n">${nf(m.cant)} ${esc(m.uni || '')}</td><td class="n">${+m.sac ? nf(m.sac) : ''}</td><td class="n b">${nf(+m.cant - (+m.sac || 0))} ${esc(m.uni || '')}</td></tr>`).join('')}</tbody></table></section>` : '';
-  const cons = trmLista(j).filter(m => m.d && !m.tal && (jArr(m.usos).length || (m.cant != null && conMat))).map(m => { const us = jArr(m.usos).filter(u => u.f <= dia), uT = us.reduce((a, u) => a + +u.n, 0), uD = us.filter(u => u.f === dia).reduce((a, u) => a + +u.n, 0); return { m, uT, uD, q: m.cant != null ? +m.cant - uT : null }; }).filter(o => o.uT > 0);
+  const cons = trmLista(j).filter(m => m.d && !m.tal && (jArr(m.usos).length || (m.cant != null && conMat))).map(m => { const us = jArr(m.usos).filter(u => u.f <= dia), ren = trmEsRenta(m), k = ren ? 'dias' : 'n', uT = us.reduce((a, u) => a + (+u[k] || 0), 0), uD = us.filter(u => u.f === dia).reduce((a, u) => a + (+u[k] || 0), 0); return { m, ren, uT, uD, q: !ren && m.cant != null ? +m.cant - uT : null }; }).filter(o => o.uT > 0);
   const consH = cons.length ? `<section class="blk"><h2>📉 ${t('trp_consumo')}</h2><table class="it"><thead><tr><th>${t('trm_que')}</th><th class="n">${t('trm_total')}</th><th class="n">${t('trm_hoy_uso')}</th><th class="n">${t('trp_usado_ac')}</th><th class="n">${t('trm_queda')}</th><th style="width:22%"></th></tr></thead><tbody>
-      ${cons.map(o => { const pct = o.m.cant ? Math.min(100, o.uT / +o.m.cant * 100) : 0; return `<tr><td>${esc(o.m.d)}</td><td class="n">${o.m.cant != null ? trmCant(o.m, +o.m.cant) : ''}</td><td class="n b">${o.uD ? trmCant(o.m, o.uD) : '—'}</td><td class="n">${trmCant(o.m, o.uT)}</td><td class="n b ${o.q != null && o.q < 0 ? 'neg' : ''}">${o.q != null ? trmCant(o.m, o.q) : ''}</td><td><div class="fb"><i style="width:${pct.toFixed(1)}%" class="${pct >= 100 ? 'ok' : ''}"></i></div></td></tr>`; }).join('')}</tbody></table></section>` : '';
+      ${cons.map(o => { const pct = o.ren ? 0 : o.m.cant ? Math.min(100, o.uT / +o.m.cant * 100) : 0, fx = v => o.ren ? '📅 ' + trmDiasTxt(v) : trmCant(o.m, v); return `<tr><td>${esc(o.m.d)}</td><td class="n">${o.m.cant != null ? trmCant(o.m, +o.m.cant) : ''}</td><td class="n b">${o.uD ? fx(o.uD) : '—'}</td><td class="n">${fx(o.uT)}</td><td class="n b ${o.q != null && o.q < 0 ? 'neg' : ''}">${o.q != null ? trmCant(o.m, o.q) : ''}</td><td><div class="fb"><i style="width:${pct.toFixed(1)}%" class="${pct >= 100 ? 'ok' : ''}"></i></div></td></tr>`; }).join('')}</tbody></table></section>` : '';
   const retH = retT ? `<section class="blk keep"><h2>⏸ ${t('trb_retrasos')}</h2><div class="rets">${TRB_CAUSAS.filter(c => ret[c]).map(c => `<div class="rt r-${c}"><b>${nf(ret[c])} h</b><span>${esc(t('trc.' + c))}</span><div class="fb"><i style="width:${(ret[c] / retT * 100).toFixed(1)}%"></i></div></div>`).join('')}</div></section>` : '';
   const genH = conNotas && j.notas ? `<section class="blk"><h2>📝 ${t('trb_t_notas')}</h2><div class="txt">${tx(j.notas)}</div></section>` : '';
   const css = `@page{size:letter;margin:0}*{box-sizing:border-box}html,body{margin:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}

@@ -779,6 +779,9 @@ body.p-noadm .p-solo-adm{display:none!important}
 .trm-renta-b{display:inline-block;margin:3px 4px 0 0;font-size:11px;padding:1px 8px;border-radius:999px;background:color-mix(in srgb,#f59e0b 15%,transparent);color:#b45309;font-weight:600}.trm-uso-t select.trd-uso-uni{width:72px;flex:none;padding:4px 4px;font-size:12px}
 .trb-d.edit{border-left-color:var(--accent,#006fff);background:color-mix(in srgb,var(--accent,#006fff) 4%,transparent)}.trb-d.edit textarea{width:100%}.trd-e-us{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px}.trd-e-us label{display:flex;flex-direction:column;gap:3px;font-size:12.5px}.trd-e-us .trm-cu{justify-content:flex-start}.trd-e-us input{width:100px!important}
 .trm-pc{display:block;margin-top:2px;white-space:nowrap}.trm-pc input{width:62px!important;padding:2px 5px!important;font-size:11.5px;display:inline-block}
+.trb-com{margin-top:8px;padding-top:6px;border-top:1px dashed var(--line)}.trb-c{margin:4px 0 6px;padding:5px 9px;border-radius:8px;background:color-mix(in srgb,#7c3aed 6%,transparent)}
+.trb-c-h{display:flex;gap:8px;align-items:center;font-size:12.5px}.trb-c-h small{flex:1}.trb-c-x{padding:0 6px!important;font-size:11px;opacity:.6}.trb-c-x:hover{opacity:1}.trb-c-t{font-size:13px;margin-top:1px}
+.trb-c-new{display:flex;gap:6px;margin-top:4px}.trb-c-new input{flex:1;padding:5px 9px;font-size:13px}
 .trd-add{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:8px}.trd-add select.ta-s{flex:1;min-width:220px;max-width:420px;padding:5px 8px;font-size:13px}.trd-add input{width:180px;padding:5px 8px;font-size:13px}.trd-add input.ta-u{width:110px}.ta-nueva td:first-child,.ta-nueva span{color:var(--accent,#006fff);font-weight:600}
 .trd-uso{margin:10px 0 4px;padding:10px;border:1px solid var(--line);border-radius:10px;background:color-mix(in srgb,var(--accent,#006fff) 4%,transparent)}.trd-uso .cl-h4{margin:0}.trm-uso-t td,.trm-uso-t th{padding:5px 8px}.trm-uso-u{font-size:12px;color:var(--muted);width:64px;flex:none;align-self:center;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .trb-d-u{margin-top:4px;font-size:12.5px;color:var(--muted)}.trb-d-u b{color:var(--text)}.trm-cie-b{display:block;margin-top:2px;font-size:10.5px;font-family:Inter,sans-serif;color:var(--muted)}.trm-cie-b.d-stock{color:var(--ok,#16a34a)}.trm-cie-b.d-devolver{color:var(--accent,#006fff)}
@@ -1071,7 +1074,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v9.5.6</p>
+    <p class="sub">Network Asset Manager · v9.6</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -1087,7 +1090,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.5.6</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.6</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -1795,7 +1798,7 @@ Object.assign(I18N.en, {
   trm_nada_sacar:'Nothing to take: already taken, not in stock or no quantity.', trm_sacados:'{n} material(s) taken from stock', trm_serial_h:'Pick the serials that go out',
   trm_quitar_q:'Some of this was already taken from stock. Remove it from the list anyway? (stock is not returned automatically)', trm_de_lista:'From the materials list', trm_ya_falt:'Everything is already in "Missing" or there is enough stock.',
   trm_pasados:'{n} material(s) moved to "Missing"', trm_preparo:'Prepared by', trm_reviso:'Checked / received by',
-  trm_sql:'To save materials run supabase-trabajos.sql again (it adds the "materiales" column).', trm_cajas:'boxes', trm_tal:'Maybe', trm_tal_h:'Maybe: it may or may not be used. It stays on the list but is not taken from stock or ordered.', trm_n_tal:'{n} maybe', trm_x_caja:'per box:', trm_add_olv:'Add a forgotten material', trm_add_trab:'Job materials', trm_add_stock:'From office stock', trm_add_otro:'Other (type a name)', trm_add_nom:'Material name', trm_add_nota:'Added from the daily log', trd_corregir:'Edit note', trd_corregir_h:'Only administrators can edit or delete notes.', trm_renta:'Daily rental', trm_renta_h:'Daily rental (lift, scaffold…): the daily note records the days used; the quantity is not consumed.', trm_dias:'days', trm_dia1:'day', trm_uso_uni:'Choose feet or boxes', trd_fases_hoy:'Phases you worked on today', trd_total:'Total job', trd_fases_tip:'Tap the phases you worked on today and move them up.', trd_terminada:'Phase done (100%)', trd_solo_fases:'Phase progress', trm_uso_hoy:'Material used today', trm_uso_h:'Enter how much of each material was used today. It is subtracted from the total. Cable can be entered in feet or boxes. Rentals (lift) are entered in days.', trm_total:'Total', trm_usado:'Used', trm_queda:'Left', trm_hoy_uso:'Used today', trm_solo_uso:'Material usage',
+  trm_sql:'To save materials run supabase-trabajos.sql again (it adds the "materiales" column).', trm_cajas:'boxes', trm_tal:'Maybe', trm_tal_h:'Maybe: it may or may not be used. It stays on the list but is not taken from stock or ordered.', trm_n_tal:'{n} maybe', trb_com_ph:'Write a comment about this summary…', trb_com_env:'Comment', trb_com_t:'Comments', trb_com_borrar:'Delete this comment?', trb_com_sql:'To use comments run supabase-trabajos.sql again in Supabase (it adds the trabajo_coment table).', trm_x_caja:'per box:', trm_add_olv:'Add a forgotten material', trm_add_trab:'Job materials', trm_add_stock:'From office stock', trm_add_otro:'Other (type a name)', trm_add_nom:'Material name', trm_add_nota:'Added from the daily log', trd_corregir:'Edit note', trd_corregir_h:'Only administrators can edit or delete notes.', trm_renta:'Daily rental', trm_renta_h:'Daily rental (lift, scaffold…): the daily note records the days used; the quantity is not consumed.', trm_dias:'days', trm_dia1:'day', trm_uso_uni:'Choose feet or boxes', trd_fases_hoy:'Phases you worked on today', trd_total:'Total job', trd_fases_tip:'Tap the phases you worked on today and move them up.', trd_terminada:'Phase done (100%)', trd_solo_fases:'Phase progress', trm_uso_hoy:'Material used today', trm_uso_h:'Enter how much of each material was used today. It is subtracted from the total. Cable can be entered in feet or boxes. Rentals (lift) are entered in days.', trm_total:'Total', trm_usado:'Used', trm_queda:'Left', trm_hoy_uso:'Used today', trm_solo_uso:'Material usage',
   trm_cierre:'Close-out / leftover', trm_cierre_h:'When finished: leftovers can be returned to the store (conduit, boxes, etc.), sent to the office stock, left with the client or thrown away.', trm_cierre_nada:'Nothing left over: everything taken is used or already closed.', trm_llevado:'Taken', trm_sobra:'Leftover', trm_destino:'What to do',
   trm_tienda:'Store / supplier (return)', trm_tienda_ph:'e.g. Home Depot Doral, Graybar…', trm_cierre_ok:'Process', trm_cierre_hecho:'Done: {n} line(s) closed, {s} to stock.', trm_sobro_de:'Leftover from {t}',
   trm_dev_t:'Return', trm_dev_nada:'Nothing to return.', trm_dev_rec:'Received / credit', trm_dev_nota:'Leftover material in good condition, unused. Keep the store receipt or credit note.', trm_dev_entrega:'Delivered by', trm_dev_recibe:'Received by (store)', trm_dev_ticket:'Receipt / credit #',
@@ -2006,7 +2009,7 @@ Object.assign(I18N.es, {
   trm_nada_sacar:'No hay nada que sacar: o ya se sacó, o no está en el stock, o no hay cantidad.', trm_sacados:'{n} material(es) sacados del stock', trm_serial_h:'Escoger los seriales que salen',
   trm_quitar_q:'Ya se sacó algo de esto del stock. ¿Quitarlo de la lista igual? (el stock no se devuelve solo)', trm_de_lista:'De la lista de materiales', trm_ya_falt:'Ya está todo en "Lo que falta" o hay stock suficiente.',
   trm_pasados:'{n} material(es) pasados a "Lo que falta"', trm_preparo:'Preparó', trm_reviso:'Revisó / recibió',
-  trm_sql:'Para guardar los materiales corre otra vez supabase-trabajos.sql (agrega la columna "materiales").', trm_cajas:'cajas', trm_tal:'En veremos', trm_tal_h:'En veremos: puede que se use, puede que no. Se lleva en la lista pero no se saca del stock ni se pide.', trm_n_tal:'{n} en veremos', trm_x_caja:'por caja:', trm_add_olv:'Agregar material que se olvidó', trm_add_trab:'Materiales del trabajo', trm_add_stock:'Del stock de la oficina', trm_add_otro:'Otro (escribir nombre)', trm_add_nom:'Nombre del material', trm_add_nota:'Agregado desde el diario', trd_corregir:'Corregir nota', trd_corregir_h:'Solo los administradores pueden corregir o borrar notas.', trm_renta:'Renta por días', trm_renta_h:'Renta por días (lift, andamio…): en la nota del día se apuntan los días que se usó, no se gasta la cantidad.', trm_dias:'días', trm_dia1:'día', trm_uso_uni:'Escoge si lo escribes en pies o en cajas', trd_fases_hoy:'Fases que trabajaste hoy', trd_total:'Trabajo total', trd_fases_tip:'Toca las fases en las que trabajaste hoy y súbelas.', trd_terminada:'Fase terminada (100%)', trd_solo_fases:'Avance de fases', trm_uso_hoy:'Material usado hoy', trm_uso_h:'Pon cuánto se usó hoy de cada material. Se va restando del total. El cable y lo que va en cajas (conectores RJ45…) lo puedes poner por caja o por pie / unidad. Lo que es renta (lift) se apunta en días.', trm_total:'Total', trm_usado:'Usado', trm_queda:'Queda', trm_hoy_uso:'Usado hoy', trm_solo_uso:'Uso de material',
+  trm_sql:'Para guardar los materiales corre otra vez supabase-trabajos.sql (agrega la columna "materiales").', trm_cajas:'cajas', trm_tal:'En veremos', trm_tal_h:'En veremos: puede que se use, puede que no. Se lleva en la lista pero no se saca del stock ni se pide.', trm_n_tal:'{n} en veremos', trb_com_ph:'Escribe un comentario sobre este resumen…', trb_com_env:'Comentar', trb_com_t:'Comentarios', trb_com_borrar:'¿Borrar este comentario?', trb_com_sql:'Para usar los comentarios corre otra vez supabase-trabajos.sql en Supabase (agrega la tabla trabajo_coment).', trm_x_caja:'por caja:', trm_add_olv:'Agregar material que se olvidó', trm_add_trab:'Materiales del trabajo', trm_add_stock:'Del stock de la oficina', trm_add_otro:'Otro (escribir nombre)', trm_add_nom:'Nombre del material', trm_add_nota:'Agregado desde el diario', trd_corregir:'Corregir nota', trd_corregir_h:'Solo los administradores pueden corregir o borrar notas.', trm_renta:'Renta por días', trm_renta_h:'Renta por días (lift, andamio…): en la nota del día se apuntan los días que se usó, no se gasta la cantidad.', trm_dias:'días', trm_dia1:'día', trm_uso_uni:'Escoge si lo escribes en pies o en cajas', trd_fases_hoy:'Fases que trabajaste hoy', trd_total:'Trabajo total', trd_fases_tip:'Toca las fases en las que trabajaste hoy y súbelas.', trd_terminada:'Fase terminada (100%)', trd_solo_fases:'Avance de fases', trm_uso_hoy:'Material usado hoy', trm_uso_h:'Pon cuánto se usó hoy de cada material. Se va restando del total. El cable y lo que va en cajas (conectores RJ45…) lo puedes poner por caja o por pie / unidad. Lo que es renta (lift) se apunta en días.', trm_total:'Total', trm_usado:'Usado', trm_queda:'Queda', trm_hoy_uso:'Usado hoy', trm_solo_uso:'Uso de material',
   trm_cierre:'Cierre / sobrante', trm_cierre_h:'Al terminar: lo que sobró se puede devolver a la tienda (tubería, cajas, etc.), mandar al stock de la oficina, dejar con el cliente o botar.', trm_cierre_nada:'No sobró nada: todo lo que se llevó está usado o ya se cerró.', trm_llevado:'Se llevó', trm_sobra:'Sobró', trm_destino:'Qué se hace',
   trm_tienda:'Tienda / proveedor (devolución)', trm_tienda_ph:'ej. Home Depot Doral, Graybar…', trm_cierre_ok:'Procesar', trm_cierre_hecho:'Listo: {n} línea(s) cerradas, {s} al stock.', trm_sobro_de:'Sobró de {t}',
   trm_dev_t:'Devolución', trm_dev_nada:'No hay nada para devolver.', trm_dev_rec:'Recibido / crédito', trm_dev_nota:'Material sobrante en buen estado, sin usar. Guardar el ticket o nota de crédito de la tienda.', trm_dev_entrega:'Entregado por', trm_dev_recibe:'Recibido por (tienda)', trm_dev_ticket:'# Ticket / crédito',
@@ -5438,7 +5441,7 @@ function stkMovTabla(movs, uno){
 
 /* ==================== 🛠 TRABAJOS EN PROCESO ==================== */
 var TRB = { open: false, q: '', estado: 'activos', id: null, tab: 'diario' };
-let trabajos = [], trbDiario = [], trbFalt = [], trbOK = true;
+let trabajos = [], trbDiario = [], trbFalt = [], trbOK = true, trbCom = [], trbComOK = true;
 const TRB_ESTADOS = ['pendiente', 'en_proceso', 'pausado', 'terminado', 'cancelado'];
 const TRB_CAUSAS = ['nuestro', 'cliente', 'proveedor', 'clima', 'permiso', 'otro'];
 const TRF_ESTADOS = ['pendiente', 'pedido', 'en_camino', 'recibido', 'resuelto'];
@@ -5468,6 +5471,7 @@ function cerrarTrabajos(){ if (TRB.id){ TRB.id = null; return renderTrabajos(); 
 async function cargarTrabajos(){
   const [a, b, c] = await Promise.all([db.from('trabajos').select('*').order('created_at', { ascending: false }), db.from('trabajo_diario').select('*').order('fecha', { ascending: false }), db.from('trabajo_faltantes').select('*').order('created_at', { ascending: false })]);
   trbOK = !a.error; trabajos = a.error ? [] : (a.data || []); trbDiario = b.error ? [] : (b.data || []); trbFalt = c.error ? [] : (c.data || []);
+  try { const k = await db.from('trabajo_coment').select('*').order('created_at', { ascending: true }); trbComOK = !k.error; trbCom = k.error ? [] : (k.data || []); } catch(e){ trbComOK = false; trbCom = []; }
   if (!stkItems.some(x => x.nombre)) { try { const s = await db.from('stock_items').select('*'); if (!s.error && Array.isArray(s.data)) stkItems = s.data; } catch(e){} }
   TRB.cargado = true; renderTrabajosBadge(); renderTrabajos();
 }
@@ -5617,9 +5621,27 @@ function trbDiarioHTML(j, dia){
         ${d.no_logrado ? `<div class="trb-d-x">❌ ${esc(d.no_logrado).replace(/\n/g, '<br>')}</div>` : ''}
         ${+d.retraso_horas > 0 ? `<div class="trb-d-r r-${esc(d.retraso_causa || 'otro')}">⏸ ${t('trb_ret_de', { h: d.retraso_horas, c: esc(causa(d)) })}${d.retraso_motivo ? ': ' + esc(d.retraso_motivo) : ''}</div>` : ''}
         ${(c => c.length ? `<div class="trb-d-u">🧩 ${c.map(o => `<b>${esc(o.n)}</b> ${o.de}% → <b class="${o.a >= 100 ? 'trd-ok' : ''}">${o.a}%</b>`).join(' · ')}</div>` : '')(trdFasesDe(j, d.id))}
-        ${(u => u.length ? `<div class="trb-d-u">📉 ${t('trm_usado')}: ${u.map(o => `<b>${esc(o.m.d)}</b> ${trmUsoTxt(o)}`).join(' · ')}</div>` : '')(trmUsoDe(j, d.id))}</div>`).join('')}</div>`
+        ${(u => u.length ? `<div class="trb-d-u">📉 ${t('trm_usado')}: ${u.map(o => `<b>${esc(o.m.d)}</b> ${trmUsoTxt(o)}`).join(' · ')}</div>` : '')(trmUsoDe(j, d.id))}
+        ${trbComHTML(d)}</div>`).join('')}</div>`
       : `<div class="act-empty">📓 ${t('trb_sin_notas')}</div>`}`;
 }
+/* ---- 💬 Comentarios sobre una nota del día (todos los usuarios del equipo) ---- */
+const trbYo = () => ($('whoami')?.textContent || '').trim();
+const trbComDe = id => trbCom.filter(c => c.diario_id === id);
+const trbHora = v => v ? new Date(v).toLocaleString(LANG === 'es' ? 'es-US' : 'en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }) : '';
+function trbComHTML(d){
+  const cs = trbComDe(d.id), yo = trbYo(), adm = PERM.admin || !PERM.roles;
+  return `<div class="trb-com">${cs.map(c => `<div class="trb-c"><div class="trb-c-h"><b>💬 ${esc(c.autor || '—')}</b><small class="muted">${esc(trbHora(c.created_at))}</small>
+      ${adm || (c.autor && c.autor === yo) ? `<button class="sm trb-c-x" onclick="trbComBorrar('${c.id}')" title="${esc(t('t_delete'))}">✕</button>` : ''}</div><div class="trb-c-t">${esc(c.texto).replace(/\n/g, '<br>')}</div></div>`).join('')}
+    <div class="trb-c-new"><input id="trbC_${d.id}" placeholder="${esc(t('trb_com_ph'))}" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();trbComGuardar('${d.id}');}"><button class="sm" onclick="trbComGuardar('${d.id}')">💬 ${t('trb_com_env')}</button></div></div>`;
+}
+async function trbComGuardar(id){
+  const el = $('trbC_' + id), texto = el?.value.trim(), d = trbDiario.find(x => x.id === id); if (!texto || !d) return el?.focus();
+  const r = await db.from('trabajo_coment').insert({ diario_id: id, trabajo_id: d.trabajo_id, texto, autor: trbYo() || null });
+  if (r.error) return /trabajo_coment/.test(r.error.message || '') || r.error.code === '42P01' ? alert(t('trb_com_sql')) : fail(r.error, t('save_fail'));
+  el.value = ''; await cargarTrabajos(); setTimeout(() => $('trbC_' + id)?.focus(), 30);
+}
+async function trbComBorrar(cid){ if (!confirm(t('trb_com_borrar'))) return; const r = await db.from('trabajo_coment').delete().eq('id', cid); if (r.error) return fail(r.error, t('save_fail')); cargarTrabajos(); }
 async function trbDiaGuardar(id){
   const g = k => $('trd_' + k)?.value.trim() || '', n = k => g(k) === '' ? null : +g(k), hubo = $('trd_hubo').checked;
   const row = { trabajo_id: id, fecha: g('fecha') || trbHoy(), personas: n('personas'), horas: n('horas'), avance: n('avance'), hecho: g('hecho') || null, dificultades: g('dific') || null, no_logrado: g('nolog') || null,
@@ -6102,7 +6124,8 @@ async function trbReporte(id){
     ${d.hecho ? `<div class="nl"><em>✅ ${t('trb_hecho')}</em>${tx(d.hecho)}</div>` : ''}${d.dificultades ? `<div class="nl w"><em>⚠ ${t('trb_dific')}</em>${tx(d.dificultades)}</div>` : ''}
     ${d.no_logrado ? `<div class="nl x"><em>❌ ${t('trb_no_log')}</em>${tx(d.no_logrado)}</div>` : ''}${+d.retraso_horas > 0 ? `<div class="nl r"><em>⏸ ${t('trb_ret_de', { h: nf(d.retraso_horas), c: esc(causa(d)) })}</em>${tx(d.retraso_motivo)}</div>` : ''}
     ${(c => c.length ? `<div class="nl u"><em>🧩 ${t('trb_t_fases')}</em>${c.map(o => `${esc(o.n)}: ${o.de}% → <b>${o.a}%</b>`).join(' · ')}</div>` : '')(trdFasesDe(j, d.id))}
-    ${(u => u.length ? `<div class="nl u"><em>📉 ${t('trm_usado')}</em>${u.map(o => `${esc(o.m.d)}: <b>${trmUsoTxt(o)}</b>`).join(' · ')}</div>` : '')(trmUsoDe(j, d.id))}</div>`;
+    ${(u => u.length ? `<div class="nl u"><em>📉 ${t('trm_usado')}</em>${u.map(o => `${esc(o.m.d)}: <b>${trmUsoTxt(o)}</b>`).join(' · ')}</div>` : '')(trmUsoDe(j, d.id))}
+    ${(cs => cs.length ? `<div class="nl c"><em>💬 ${t('trb_com_t')}</em>${cs.map(c => `<div class="cm"><b>${esc(c.autor || '—')}</b> <span class="muted">${esc(trbHora(c.created_at))}</span> · ${tx(c.texto)}</div>`).join('')}</div>` : '')(trbComDe(d.id))}</div>`;
   const hoyH = `<section class="blk"><h2>📓 ${t('trp_del_dia', { f: fl(dia) })}</h2>${hoyN.length ? hoyN.map(d => notaH(d, true)).join('') : `<div class="vacio">${t('trp_sin_nota')}</div>`}</section>`;
   const antH = antes.length ? `<section class="blk"><h2>🗂 ${t(hist >= 9999 ? 'trp_ant_all' : 'trp_ant', { n: hist })}</h2>${antes.map(d => notaH(d)).join('')}</section>` : '';
   // ---- lo que falta
@@ -6146,7 +6169,7 @@ async function trbReporte(id){
     .fb{height:10px;background:#f1f5f9;border-radius:5px;overflow:hidden}.fb i{display:block;height:100%;background:#006fff}.fb i.ok{background:#10b981}
     .nt{border:1px solid #e2e8f0;border-left:4px solid #94a3b8;border-radius:8px;padding:8px 12px;margin-bottom:8px;break-inside:avoid}.nt.big{border-left-color:#006fff;background:#f8fbff}.nt.ret{border-left-color:#dc2626}
     .nh{display:flex;justify-content:space-between;gap:10px;margin-bottom:4px}.nh span{color:#64748b;font-size:10.5px}.nl{margin-top:4px;color:#334155}.nl em{display:block;font-style:normal;font-weight:700;font-size:10.5px;color:#0f172a}
-    .nl.u em{color:#006fff}td.neg{color:#dc2626}.nl.w em{color:#b45309}.nl.x em{color:#b91c1c}.nl.r em{color:#dc2626}.vacio{padding:10px 12px;border:1px dashed #cbd5e1;border-radius:8px;color:#64748b}.vacio.ok{color:#15803d;border-color:#86efac;background:#f0fdf4}
+    .nl.u em{color:#006fff}.nl.c{border-top:1px dashed #e2e8f0;padding-top:4px}.nl.c em{color:#7c3aed}.nl .cm{font-size:11px;margin-top:2px}td.neg{color:#dc2626}.nl.w em{color:#b45309}.nl.x em{color:#b91c1c}.nl.r em{color:#dc2626}.vacio{padding:10px 12px;border:1px dashed #cbd5e1;border-radius:8px;color:#64748b}.vacio.ok{color:#15803d;border-color:#86efac;background:#f0fdf4}
     table.it{width:100%;border-collapse:collapse}table.it th{background:#0f172a;color:#fff;font-size:10px;letter-spacing:.8px;text-transform:uppercase;font-weight:600;padding:7px 8px;text-align:left}
     table.it td{padding:6px 8px;border-bottom:1px solid #e9eef5;vertical-align:top}table.it tr.urg td{background:#fef2f2}.det{color:#64748b;font-size:10.5px}.n{text-align:right;white-space:nowrap;width:1%}.b{font-weight:700}tr{break-inside:avoid}.keep{break-inside:avoid}
     .st{font-size:10px;padding:1px 8px;border-radius:999px;background:#e2e8f0}.st.s-pendiente{background:#fee2e2;color:#b91c1c}.st.s-pedido{background:#fef3c7;color:#92400e}.st.s-en_camino{background:#dbeafe;color:#1d4ed8}

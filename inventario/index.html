@@ -792,6 +792,16 @@ body.p-noadm .p-solo-adm{display:none!important}
 .ri-tipos{margin:4px 0 8px}.ri-cuando{padding:8px 10px;border:1px solid var(--line);border-radius:10px}.ri-horas{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:6px}.ri-h{display:inline-flex;gap:3px;align-items:center}.ri-h input{width:140px}
 .ri-dias{display:flex;flex-wrap:wrap;gap:5px;align-items:center}.ri-dia{display:inline-flex!important;flex-direction:row!important;align-items:center;gap:4px;padding:4px 10px;border:1px solid var(--line);border-radius:999px;cursor:pointer;font-size:13px}.ri-dia input{width:auto;margin:0}.ri-dia.on{background:color-mix(in srgb,var(--accent,#006fff) 12%,transparent);border-color:var(--accent,#006fff)}
 .ri-mes{display:flex;gap:8px;align-items:center;margin-bottom:6px}.ri-mes select{width:auto}.ri-prev{margin-top:10px;font-size:13px}.ri-pf{display:inline-block;margin:2px 4px;padding:1px 8px;border-radius:999px;background:color-mix(in srgb,var(--accent,#006fff) 10%,transparent);font-size:12px}
+.ts-gauge{text-align:center;padding:14px 10px 10px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(180deg,color-mix(in srgb,var(--accent,#006fff) 7%,transparent),transparent)}
+.ts-g-n{font:800 54px/1 Inter,sans-serif;letter-spacing:-1px;color:var(--accent,#006fff)}.ts-g-u{font-size:13px;color:var(--muted);margin-top:2px}.ts-g-f{font-size:13px;margin:6px 0 8px;min-height:18px}
+.ts-bar{height:6px;border-radius:999px;background:var(--line);overflow:hidden;max-width:420px;margin:0 auto}.ts-bar i{display:block;height:100%;background:linear-gradient(90deg,#006fff,#7c4dff);transition:width .25s}
+.ts-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin-top:10px}.ts-kpi{border:1px solid var(--line);border-radius:10px;padding:8px 10px;text-align:center}
+.ts-kpi b{font:700 22px/1.1 Inter,sans-serif}.ts-kpi small{color:var(--muted);margin-left:3px}.ts-kpi span{display:block;font-size:11.5px;color:var(--muted);margin-top:2px}
+.ts-kpi.bien{border-color:color-mix(in srgb,var(--ok,#16a34a) 50%,transparent)}.ts-kpi.bien b{color:var(--ok,#16a34a)}.ts-kpi.reg b{color:#d97706}.ts-kpi.mal{border-color:color-mix(in srgb,var(--bad,#dc2626) 50%,transparent)}.ts-kpi.mal b{color:var(--bad,#dc2626)}
+.ts-meta{margin-top:8px;font-size:12.5px}.ts-diag{margin-top:10px;padding:8px 12px;border-radius:10px;background:color-mix(in srgb,var(--accent,#006fff) 6%,transparent);font-size:13px;line-height:1.7}
+.ts-lan2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.ts-lan-op{margin:0}@media (max-width:700px){.ts-lan2{grid-template-columns:1fr}}
+.ts-code-box{text-align:center;padding:16px;border:1px dashed var(--line-strong);border-radius:14px;display:flex;flex-direction:column;gap:8px;align-items:center}.ts-code{font:800 40px/1 'JetBrains Mono',monospace;letter-spacing:8px;color:var(--accent,#006fff)}
+.ts-info{font-size:13.5px;line-height:1.65}.ts-info table{width:100%;border-collapse:collapse;margin:8px 0}.ts-info td,.ts-info th{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
 .trd-add{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:8px}.trd-add select.ta-s{flex:1;min-width:220px;max-width:420px;padding:5px 8px;font-size:13px}.trd-add input{width:180px;padding:5px 8px;font-size:13px}.trd-add input.ta-u{width:110px}.ta-nueva td:first-child,.ta-nueva span{color:var(--accent,#006fff);font-weight:600}
 .trd-uso{margin:10px 0 4px;padding:10px;border:1px solid var(--line);border-radius:10px;background:color-mix(in srgb,var(--accent,#006fff) 4%,transparent)}.trd-uso .cl-h4{margin:0}.trm-uso-t td,.trm-uso-t th{padding:5px 8px}.trm-uso-u{font-size:12px;color:var(--muted);width:64px;flex:none;align-self:center;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .trb-d-u{margin-top:4px;font-size:12.5px;color:var(--muted)}.trb-d-u b{color:var(--text)}.trm-cie-b{display:block;margin-top:2px;font-size:10.5px;font-family:Inter,sans-serif;color:var(--muted)}.trm-cie-b.d-stock{color:var(--ok,#16a34a)}.trm-cie-b.d-devolver{color:var(--accent,#006fff)}
@@ -1084,7 +1094,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v9.7</p>
+    <p class="sub">Network Asset Manager · v9.8</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -1100,7 +1110,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.7</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.8</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -1187,6 +1197,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
       <button onclick="irDiseno()">📐 <span data-i18n="dis_btn">Design</span></button>
       <button onclick="abrirUnifi()" data-i18n-title="t_unifi">🔗 <span>UniFi</span></button>
       <button onclick="abrirSplashtop()" data-i18n-title="t_splashtop">🖥 <span>Splashtop</span></button>
+ <button class="solo-staff" onclick="abrirTest()" data-i18n-title="ts_title">🧪 <span>Test</span></button>
       <button class="p-solo-adm" onclick="abrirReinicios()" data-i18n-title="ri_title">🔄 <span data-i18n="ri_btn">Restarts</span></button>
       <button class="primary" onclick="nuevoEquipo()">＋ <span data-i18n="add_device">Add device</span></button>
     </div>
@@ -1810,7 +1821,28 @@ Object.assign(I18N.en, {
   trm_quitar_q:'Some of this was already taken from stock. Remove it from the list anyway? (stock is not returned automatically)', trm_de_lista:'From the materials list', trm_ya_falt:'Everything is already in "Missing" or there is enough stock.',
   trm_pasados:'{n} material(s) moved to "Missing"', trm_preparo:'Prepared by', trm_reviso:'Checked / received by',
   trm_sql:'To save materials run supabase-trabajos.sql again (it adds the "materiales" column).', trm_cajas:'boxes', trm_tal:'Maybe', trm_tal_h:'Maybe: it may or may not be used. It stays on the list but is not taken from stock or ordered.', trm_n_tal:'{n} maybe', ri_sin_equipos:'Add at least one device.', ri_agregar_eq:'Add device', ri_todos_ap:'All APs', ri_todos_tel:'All phones', ri_todos_sw:'All switches', ri_grupo:'Add a group', ri_quitar_todos:'Remove all',
-  ri_esc:'How they restart:', ri_esc_0:'All at once', ri_esc_n:'One by one, every {n} min', ri_esc_h:'{n} devices in this rule.', ri_infra_final:'Switches and the router go last.', ri_n_equipos:'{n} devices', ri_q_varios:'Restart these {n} devices?', ri_equipos_t:'Devices to restart', ri_btn:'Restarts', ri_title:'Restarts', ri_t_prog:'Scheduled', ri_t_ahora:'Restart now', ri_t_log:'History',
+  ri_esc:'How they restart:', ri_esc_0:'All at once', ri_esc_n:'One by one, every {n} min', ri_esc_h:'{n} devices in this rule.', ri_infra_final:'Switches and the router go last.', ri_n_equipos:'{n} devices', ri_q_varios:'Restart these {n} devices?', ts_title:'Network test', ts_t_inet:'Internet', ts_t_lan:'Local network', ts_t_hist:'History', ts_t_info:'What it measures',
+  ts_inet_h:'Measures the internet of THIS device (where the app is open): download, upload, ping, jitter, loaded ping and stability. To measure the client internet run it from a wired PC on their network.',
+  ts_bajada:'Download', ts_subida:'Upload', ts_ping_carga:'Loaded ping', ts_perdida_web:'Lost requests', ts_servidor:'server', ts_listo:'Done', ts_listo_para:'Ready to start',
+  ts_empezar:'Start test', ts_otra_vez:'Test again', ts_largo:'Long test (more accurate)', ts_parar:'Stop', ts_parado:'Test stopped.',
+  ts_f_conectando:'Connecting…', ts_f_ping:'Measuring ping…', ts_f_estab:'Checking stability…', ts_sin_inet:'No internet response from this device.', ts_err_cf:'Could not reach the test server (no internet, or a firewall blocks speed.cloudflare.com?).',
+  ts_d_lento:'The internet is slow (under 25 Mbps download).', ts_d_asim:'Upload is very low compared to download: it can affect video calls, cloud cameras and backups.',
+  ts_d_bloat:'Ping rises {n} ms during downloads (bufferbloat): calls and VoIP break up when someone downloads. Fix it with Smart Queues / QoS on the router.',
+  ts_d_perdida:'{n} % of requests were lost: unstable connection (check cable, Wi-Fi or the ISP).', ts_d_jitter:'Jitter is high: VoIP calls may sound choppy.',
+  ts_d_wifi:'This device is on Wi-Fi: the result includes Wi-Fi quality. To measure only the internet use a wired PC.', ts_d_bien:'Everything looks good.',
+  ts_lan_h:'Measures the INTERNAL network (cables, switches, Wi-Fi) between two devices on the same network, with no internet in between. Open the app on both: one creates the test and the other joins with the code. Data goes straight from one device to the other.',
+  ts_lan_a:'On the first device', ts_lan_a_h:'Create the test and get a code.', ts_lan_crear:'Create test', ts_lan_b:'On the second device', ts_lan_b_h:'Open Test → Local network and type the code.', ts_lan_unir:'Join',
+  ts_lan_codigo:'Test code', ts_lan_esp:'Open the app on the other device (same network) → Test → Local network → type this code.', ts_lan_conect:'Connecting both devices…', ts_lan_buscando:'Looking for the other device…', ts_lan_negocia:'Connecting directly over the local network…',
+  ts_lan_ok:'Connected. Press Start.', ts_lan_con:'Connected to', ts_lan_ab:'This → other', ts_lan_ba:'Other → this', ts_lan_lat:'Latency', ts_lan_perd:'Packet loss', ts_lan_f_lat:'Measuring latency and loss…',
+  ts_lan_b_espera:'The other device runs the test. You see the results here.', ts_lan_fin:'Finish',
+  ts_lan_sin_rt:'Could not open the channel to connect both devices (Supabase Realtime).', ts_lan_no_resp:'Nobody answered that code. Check the code and that the other device created the test.',
+  ts_lan_fallo:'The two devices could not connect directly.', ts_lan_corto:'The connection between the devices dropped.',
+  ts_lan_err_h:'Common causes: the devices are on different networks / VLANs, the Wi-Fi has client isolation (Guest) on, or a firewall blocks device-to-device traffic. That is also a finding of the test.',
+  ts_dl_perd:'{n} % loss inside the network: check cables, switch ports or Wi-Fi interference.', ts_dl_lat:'High latency for a local network (should be under 5 ms wired, under 15 ms on Wi-Fi).',
+  ts_dl_jit:'High jitter on the local network: typical of congested or weak Wi-Fi.', ts_dl_lento:'Low speed: if wired it may be a 100 Mbps port or cable; on Wi-Fi, weak signal or a congested channel.',
+  ts_dl_asim:'One direction is much faster than the other: typical of weak Wi-Fi on one of the devices.', ts_dl_tope:'Browsers top out around 300–600 Mbps; on 1 Gbps wired networks the real speed may be higher.',
+  ts_hist_vacio:'No saved tests for this client yet.', ts_sql:'To save the history run supabase-test.sql in Supabase.', ts_prueba:'Test', ts_vel:'Speed', ts_perd_c:'Loss',
+  ts_info:'<b>What this tab measures (nothing to install):</b><table><tr><th>Test</th><th>How</th></tr><tr><td>🌐 Internet speed</td><td>Download and upload with several parallel connections to Cloudflare test servers; ping, jitter and loaded ping (bufferbloat).</td></tr><tr><td>📉 Internet stability</td><td>Many small requests in a row: counts lost ones and latency spikes. It is an estimate (browsers cannot send ICMP pings).</td></tr><tr><td>🖧 Local network speed</td><td>Two devices connect directly (WebRTC) and send data both ways: measures cables, switches and Wi-Fi with no internet in between.</td></tr><tr><td>📶 LAN latency, jitter and packet loss</td><td>UDP-like packets (no retransmission) echoed by the other device: the loss is real.</td></tr></table><b>What a browser cannot do</b> (no web page can, for security): scan IPs and ports, detect the OS, hop-by-hop traceroute with real pings, and capture / analyze packets. That needs a program installed on the network.', ri_equipos_t:'Devices to restart', ri_btn:'Restarts', ri_title:'Restarts', ri_t_prog:'Scheduled', ri_t_ahora:'Restart now', ri_t_log:'History',
   ri_h:'Schedule restarts of UniFi devices: once, every X hours, daily, on weekdays or monthly, at one or more times. A device can have several rules (e.g. daily at 3 AM plus the 1st Sunday of every month). The system clock runs them even when nobody has the app open.',
   ri_nuevo:'Schedule restart', ri_editar:'Edit restart', ri_vacio:'No scheduled restarts for this client yet.', ri_log_vacio:'Nothing has been restarted yet.',
   ri_equipo:'Device', ri_cuando:'When', ri_proximo:'Next', ri_ultimo:'Last', ri_activo:'Active', ri_origen:'Who', ri_detalle:'Detail', ri_o_prog:'Scheduled', ri_o_man:'Manual',
@@ -2044,7 +2076,28 @@ Object.assign(I18N.es, {
   trm_quitar_q:'Ya se sacó algo de esto del stock. ¿Quitarlo de la lista igual? (el stock no se devuelve solo)', trm_de_lista:'De la lista de materiales', trm_ya_falt:'Ya está todo en "Lo que falta" o hay stock suficiente.',
   trm_pasados:'{n} material(es) pasados a "Lo que falta"', trm_preparo:'Preparó', trm_reviso:'Revisó / recibió',
   trm_sql:'Para guardar los materiales corre otra vez supabase-trabajos.sql (agrega la columna "materiales").', trm_cajas:'cajas', trm_tal:'En veremos', trm_tal_h:'En veremos: puede que se use, puede que no. Se lleva en la lista pero no se saca del stock ni se pide.', trm_n_tal:'{n} en veremos', ri_sin_equipos:'Agrega al menos un equipo.', ri_agregar_eq:'Agregar equipo', ri_todos_ap:'Todos los APs', ri_todos_tel:'Todos los teléfonos', ri_todos_sw:'Todos los switches', ri_grupo:'Agregar un grupo', ri_quitar_todos:'Quitar todos',
-  ri_esc:'Cómo se reinician:', ri_esc_0:'Todos a la vez', ri_esc_n:'Uno por uno, cada {n} min', ri_esc_h:'{n} equipos en esta regla.', ri_infra_final:'Los switches y el router van al final.', ri_n_equipos:'{n} equipos', ri_q_varios:'¿Reiniciar estos {n} equipos?', ri_equipos_t:'Equipos a reiniciar', ri_btn:'Reinicios', ri_title:'Reinicios', ri_t_prog:'Programados', ri_t_ahora:'Reiniciar ahora', ri_t_log:'Historial',
+  ri_esc:'Cómo se reinician:', ri_esc_0:'Todos a la vez', ri_esc_n:'Uno por uno, cada {n} min', ri_esc_h:'{n} equipos en esta regla.', ri_infra_final:'Los switches y el router van al final.', ri_n_equipos:'{n} equipos', ri_q_varios:'¿Reiniciar estos {n} equipos?', ts_title:'Test de red', ts_t_inet:'Internet', ts_t_lan:'Red local', ts_t_hist:'Historial', ts_t_info:'Qué mide',
+  ts_inet_h:'Mide el internet de ESTE equipo (donde tienes la app abierta): bajada, subida, ping, jitter, ping con carga y estabilidad. Para medir el internet del cliente hazlo desde una PC conectada por cable en su red.',
+  ts_bajada:'Bajada', ts_subida:'Subida', ts_ping_carga:'Ping con carga', ts_perdida_web:'Solicitudes perdidas', ts_servidor:'servidor', ts_listo:'Listo', ts_listo_para:'Listo para empezar',
+  ts_empezar:'Empezar prueba', ts_otra_vez:'Probar otra vez', ts_largo:'Prueba larga (más exacta)', ts_parar:'Parar', ts_parado:'Prueba parada.',
+  ts_f_conectando:'Conectando…', ts_f_ping:'Midiendo ping…', ts_f_estab:'Revisando estabilidad…', ts_sin_inet:'No hay respuesta de internet desde este equipo.', ts_err_cf:'No se pudo llegar al servidor de pruebas (¿sin internet o un firewall bloquea speed.cloudflare.com?).',
+  ts_d_lento:'El internet está lento (menos de 25 Mbps de bajada).', ts_d_asim:'La subida es muy baja comparada con la bajada: puede afectar videollamadas, cámaras en la nube y backups.',
+  ts_d_bloat:'El ping sube {n} ms cuando hay descargas (bufferbloat): las llamadas y la VoIP se cortan cuando alguien descarga. Se arregla con Smart Queues / QoS en el router.',
+  ts_d_perdida:'{n} % de las solicitudes se perdieron: conexión inestable (revisa cable, Wi-Fi o el proveedor).', ts_d_jitter:'El jitter es alto: la voz por internet (VoIP) se puede oír entrecortada.',
+  ts_d_wifi:'Este equipo está por Wi-Fi: el resultado incluye la calidad del Wi-Fi. Para medir solo el internet usa una PC por cable.', ts_d_bien:'Todo se ve bien.',
+  ts_lan_h:'Mide la red INTERNA (cables, switches, Wi-Fi) entre dos equipos de la misma red, sin internet de por medio. Abre la app en los dos equipos: uno crea la prueba y el otro se une con el código. Los datos van directo de un equipo al otro.',
+  ts_lan_a:'En el primer equipo', ts_lan_a_h:'Crea la prueba y te da un código.', ts_lan_crear:'Crear prueba', ts_lan_b:'En el segundo equipo', ts_lan_b_h:'Abre Test → Red local y escribe el código.', ts_lan_unir:'Unirme',
+  ts_lan_codigo:'Código de la prueba', ts_lan_esp:'Abre la app en el otro equipo (misma red) → Test → Red local → escribe este código.', ts_lan_conect:'Conectando los dos equipos…', ts_lan_buscando:'Buscando el otro equipo…', ts_lan_negocia:'Conectando directo por la red local…',
+  ts_lan_ok:'Conectados. Dale a Empezar.', ts_lan_con:'Conectado con', ts_lan_ab:'Este → otro', ts_lan_ba:'Otro → este', ts_lan_lat:'Latencia', ts_lan_perd:'Pérdida de paquetes', ts_lan_f_lat:'Midiendo latencia y pérdida…',
+  ts_lan_b_espera:'La prueba la maneja el otro equipo. Aquí ves los resultados.', ts_lan_fin:'Terminar',
+  ts_lan_sin_rt:'No se pudo abrir el canal para conectar los dos equipos (Supabase Realtime).', ts_lan_no_resp:'Nadie respondió a ese código. Revisa el código y que el otro equipo tenga la prueba creada.',
+  ts_lan_fallo:'Los dos equipos no se pudieron conectar directo.', ts_lan_corto:'Se cortó la conexión entre los dos equipos.',
+  ts_lan_err_h:'Causas comunes: los equipos están en redes / VLAN distintas, el Wi-Fi tiene "aislamiento de clientes" (Client Isolation / Guest) encendido, o un firewall bloquea el tráfico entre equipos. Eso también es un hallazgo de la prueba.',
+  ts_dl_perd:'{n} % de pérdida dentro de la red: revisa cables, puertos del switch o interferencia del Wi-Fi.', ts_dl_lat:'Latencia alta para una red local (debería ser menos de 5 ms por cable, menos de 15 ms por Wi-Fi).',
+  ts_dl_jit:'Jitter alto en la red local: típico de Wi-Fi congestionado o con señal débil.', ts_dl_lento:'Velocidad baja: si es por cable puede ser un puerto o cable a 100 Mbps; si es Wi-Fi, señal débil o canal congestionado.',
+  ts_dl_asim:'Un sentido es mucho más rápido que el otro: típico de Wi-Fi con señal débil en uno de los equipos.', ts_dl_tope:'El navegador llega a unos 300–600 Mbps como máximo; en redes de 1 Gbps por cable el resultado real puede ser mayor.',
+  ts_hist_vacio:'Todavía no hay pruebas guardadas para este cliente.', ts_sql:'Para guardar el historial corre supabase-test.sql en Supabase.', ts_prueba:'Prueba', ts_vel:'Velocidad', ts_perd_c:'Pérdida',
+  ts_info:'<b>Lo que mide esta pestaña (sin instalar nada):</b><table><tr><th>Prueba</th><th>Cómo</th></tr><tr><td>🌐 Velocidad del internet</td><td>Bajada y subida con varias conexiones a la vez a los servidores de prueba de Cloudflare; ping, jitter y ping con carga (bufferbloat).</td></tr><tr><td>📉 Estabilidad del internet</td><td>Muchas solicitudes pequeñas seguidas: cuenta las que se pierden y los picos de latencia. Es un estimado (el navegador no puede hacer ping ICMP).</td></tr><tr><td>🖧 Velocidad de la red local</td><td>Dos equipos se conectan directo (WebRTC) y se mandan datos en los dos sentidos: mide cables, switches y Wi-Fi sin internet de por medio.</td></tr><tr><td>📶 Latencia, jitter y pérdida de paquetes en la LAN</td><td>Paquetes tipo UDP (sin reenvío) que el otro equipo devuelve: la pérdida es real.</td></tr></table><b>Lo que un navegador no puede hacer</b> (por seguridad, ninguna página web puede): escanear IPs y puertos, detectar el sistema operativo, traceroute salto por salto con ping real y capturar / analizar paquetes. Para eso hace falta un programa instalado en la red.', ri_equipos_t:'Equipos a reiniciar', ri_btn:'Reinicios', ri_title:'Reinicios', ri_t_prog:'Programados', ri_t_ahora:'Reiniciar ahora', ri_t_log:'Historial',
   ri_h:'Programa reinicios de equipos UniFi: una vez, cada X horas, diario, por días de la semana o por mes, a una o varias horas. Para un mismo equipo puedes tener varias reglas (ej. diario a las 3 a. m. y además el 1er domingo de cada mes). Los ejecuta el reloj del sistema aunque nadie tenga la app abierta.',
   ri_nuevo:'Programar reinicio', ri_editar:'Editar reinicio', ri_vacio:'Todavía no hay reinicios programados para este cliente.', ri_log_vacio:'Todavía no se ha reiniciado nada.',
   ri_equipo:'Equipo', ri_cuando:'Cuándo', ri_proximo:'Próximo', ri_ultimo:'Último', ri_activo:'Activo', ri_origen:'Quién', ri_detalle:'Detalle', ri_o_prog:'Programado', ri_o_man:'Manual',
@@ -7779,6 +7832,321 @@ async function riGuardar(){
 }
 async function riActivo(id, on){ const r = await db.from('reinicio_prog').update({ activo: on }).eq('id', id); if (r.error) return fail(r.error, t('save_fail')); await riCargar(); }
 async function riBorrar(id){ if (!confirm(t('ri_borrar_q'))) return; const r = await db.from('reinicio_prog').delete().eq('id', id); if (r.error) return fail(r.error, t('save_fail')); await riCargar(); }
+
+/* ---------- 🧪 Test de red (todo desde el navegador, sin instalar nada) ----------
+   🌐 Internet: velocidad de bajada / subida, ping, jitter, ping con carga (bufferbloat) y estabilidad (solicitudes perdidas).
+       Usa los servidores de prueba de Cloudflare (speed.cloudflare.com).
+   🖧 Red local: dos equipos con la app abierta en la misma red se conectan DIRECTO entre ellos (WebRTC, sin servidor en medio)
+       y miden velocidad LAN / Wi-Fi en los dos sentidos, latencia, jitter y pérdida real de paquetes (canal tipo UDP).
+       El "apretón de manos" pasa por Supabase Realtime; los datos de la prueba van solo por la red local. */
+let TS = null;
+const TS_CF = 'https://speed.cloudflare.com';
+const tsMbps = (bytes, ms) => ms > 0 ? bytes * 8 / ms / 1000 : 0;
+const tsF = (v, d = 1) => v == null || !isFinite(v) ? '—' : (+v).toLocaleString('en-US', { maximumFractionDigits: d, minimumFractionDigits: d });
+const tsMed = a => { const s = a.filter(v => isFinite(v)).sort((x, y) => x - y); return s.length ? s[Math.floor(s.length / 2)] : null; };
+const tsJit = a => { let s = 0, n = 0; for (let i = 1; i < a.length; i++){ if (isFinite(a[i]) && isFinite(a[i - 1])){ s += Math.abs(a[i] - a[i - 1]); n++; } } return n ? s / n : null; };
+const tsPct = (a, p) => { const s = a.filter(v => isFinite(v)).sort((x, y) => x - y); return s.length ? s[Math.min(s.length - 1, Math.floor(s.length * p))] : null; };
+const tsDormir = ms => new Promise(r => setTimeout(r, ms));
+function abrirTest(){
+  if (!prVer()) return toast(t('no_perm'));
+  TS = { tab: 'inet', hist: [], ok: true, inet: null, lan: { fase: 'inicio' }, corriendo: false };
+  $('modalTitle').textContent = '🧪 ' + t('ts_title') + ' · ' + curCliente;
+  $('modal').querySelector('.modal-card').classList.add('wide');
+  $('modal').classList.remove('hidden');
+  tsRender(); tsCargarHist();
+}
+async function tsCargarHist(){
+  try { const r = await db.from('test_red').select('*').eq('cliente', curCliente).order('created_at', { ascending: false }).limit(50); TS.ok = !r.error; TS.hist = r.error ? [] : (r.data || []); }
+  catch(e){ TS.ok = false; TS.hist = []; }
+  if (TS.tab === 'hist') tsRender();
+}
+async function tsGuardar(tipo, datos){
+  try { const r = await db.from('test_red').insert({ cliente: curCliente, tipo, datos, equipo: navigator.userAgent.slice(0, 160), autor: ($('whoami')?.textContent || '').trim() || null });
+    if (r.error){ TS.ok = false; return false; } tsCargarHist(); return true; } catch(e){ return false; }
+}
+function tsRender(){
+  if (!TS) return;
+  const tab = (k, l) => `<span class="chip ${TS.tab === k ? 'on' : ''}" onclick="${TS.corriendo ? '' : `TS.tab='${k}';tsRender()`}">${l}</span>`;
+  const cab = `<div class="stats" style="margin:0 0 10px">${tab('inet', '🌐 ' + t('ts_t_inet'))}${tab('lan', '🖧 ' + t('ts_t_lan'))}${tab('hist', '🗂 ' + t('ts_t_hist') + ` (${TS.hist.length})`)}${tab('info', 'ℹ️ ' + t('ts_t_info'))}</div>`;
+  const b = $('modalBody');
+  if (TS.tab === 'inet') b.innerHTML = cab + tsInetHTML();
+  else if (TS.tab === 'lan') b.innerHTML = cab + tsLanHTML();
+  else if (TS.tab === 'info') b.innerHTML = cab + `<div class="ts-info">${t('ts_info')}</div>`;
+  else b.innerHTML = cab + tsHistHTML();
+}
+const tsKpi = (v, u, l, cls = '') => `<div class="ts-kpi ${cls}"><b>${v}</b><small>${u}</small><span>${l}</span></div>`;
+// nota según el resultado (para que sea fácil de leer)
+const tsNota = (v, bueno, malo, menorEsMejor) => v == null ? '' : (menorEsMejor ? (v <= bueno ? 'bien' : v >= malo ? 'mal' : 'reg') : (v >= bueno ? 'bien' : v <= malo ? 'mal' : 'reg'));
+
+/* ======================= 🌐 Internet ======================= */
+function tsInetHTML(){
+  const r = TS.inet || {}, c = TS.corriendo && TS.tab === 'inet';
+  return `<div class="u-note" style="margin:0 0 10px">${t('ts_inet_h')}</div>
+    <div class="ts-gauge"><div class="ts-g-n" id="tsNow">${c ? tsF(r.ahora || 0) : r.bajada != null ? tsF(r.bajada) : '—'}</div><div class="ts-g-u">Mbps</div><div class="ts-g-f" id="tsFase">${esc(r.fase || (r.bajada != null ? t('ts_listo') : t('ts_listo_para')))}</div>
+      <div class="ts-bar"><i id="tsProg" style="width:${r.prog || 0}%"></i></div></div>
+    <div class="ts-kpis">${tsKpi(tsF(r.bajada), 'Mbps', '⬇ ' + t('ts_bajada'), tsNota(r.bajada, 100, 25))}${tsKpi(tsF(r.subida), 'Mbps', '⬆ ' + t('ts_subida'), tsNota(r.subida, 50, 10))}
+      ${tsKpi(tsF(r.ping, 0), 'ms', '📶 Ping', tsNota(r.ping, 30, 100, true))}${tsKpi(tsF(r.jitter, 1), 'ms', '〰 Jitter', tsNota(r.jitter, 5, 30, true))}
+      ${tsKpi(tsF(r.pingCarga, 0), 'ms', '🚦 ' + t('ts_ping_carga'), tsNota(r.pingCarga != null && r.ping != null ? r.pingCarga - r.ping : null, 30, 150, true))}${tsKpi(tsF(r.perdida, 1), '%', '📉 ' + t('ts_perdida_web'), tsNota(r.perdida, 0.5, 3, true))}</div>
+    ${r.meta ? `<div class="muted ts-meta">🌐 ${esc(r.meta.ip || '')}${r.meta.isp ? ' · ' + esc(r.meta.isp) : ''}${r.meta.ciudad ? ' · 📍 ' + esc(r.meta.ciudad) : ''}${r.meta.colo ? ' · ' + t('ts_servidor') + ' ' + esc(r.meta.colo) : ''}</div>` : ''}
+    ${r.diag ? `<div class="ts-diag">${r.diag}</div>` : ''}${r.error ? `<div class="u-warn">⚠️ ${esc(r.error)}</div>` : ''}
+    <div class="row" style="margin-top:10px"><button class="primary" ${c ? 'disabled' : ''} onclick="tsInet()">▶ ${t(r.bajada != null ? 'ts_otra_vez' : 'ts_empezar')}</button>
+      <label class="mdm-chk"><input type="checkbox" id="tsLargo" ${TS.largo ? 'checked' : ''} onchange="TS.largo=this.checked"> ${t('ts_largo')}</label>${c ? `<button onclick="TS.parar=true">⏹ ${t('ts_parar')}</button>` : ''}</div>`;
+}
+function tsPintarInet(){ const r = TS.inet; if (!r) return; const n = $('tsNow'), f = $('tsFase'), p = $('tsProg'); if (n) n.textContent = tsF(r.ahora || 0); if (f) f.textContent = r.fase || ''; if (p) p.style.width = (r.prog || 0) + '%'; }
+async function tsPing(n, timeout = 2000){
+  const out = [];
+  for (let i = 0; i < n && !TS.parar; i++){
+    const ctl = new AbortController(), to = setTimeout(() => ctl.abort(), timeout), t0 = performance.now();
+    try { const r = await fetch(`${TS_CF}/__down?bytes=0&r=${Math.random()}`, { cache: 'no-store', signal: ctl.signal }); await r.arrayBuffer(); out.push(performance.now() - t0); }
+    catch(e){ out.push(NaN); }
+    clearTimeout(to);
+  }
+  return out;
+}
+// bajada: varias conexiones a la vez durante X segundos
+async function tsBajada(seg, onTick){
+  let bytes = 0; const t0 = performance.now(), fin = t0 + seg * 1000, muestras = [];
+  const hilo = async () => {
+    while (performance.now() < fin && !TS.parar){
+      try { const r = await fetch(`${TS_CF}/__down?bytes=25000000&r=${Math.random()}`, { cache: 'no-store' }), rd = r.body.getReader();
+        while (true){ const { done, value } = await rd.read(); if (done) break; bytes += value.length; if (performance.now() > fin || TS.parar){ try { rd.cancel(); } catch(e){} break; } } }
+      catch(e){ await tsDormir(200); }
+    }
+  };
+  const tick = setInterval(() => { const ms = performance.now() - t0; muestras.push([ms, bytes]); onTick?.(tsMbps(bytes, ms), Math.min(1, ms / (seg * 1000))); }, 250);
+  await Promise.all(Array.from({ length: 6 }, hilo)); clearInterval(tick);
+  return tsVelEstable(muestras, bytes, performance.now() - t0);
+}
+// subida: varias conexiones mandando bloques
+async function tsSubida(seg, onTick){
+  let bytes = 0; const t0 = performance.now(), fin = t0 + seg * 1000, muestras = [];
+  const blob = new Blob([new Uint8Array(2 * 1024 * 1024)]);
+  const hilo = async () => {
+    while (performance.now() < fin && !TS.parar){
+      try { const r = await fetch(`${TS_CF}/__up?r=${Math.random()}`, { method: 'POST', body: blob, cache: 'no-store' }); await r.text(); bytes += blob.size; }
+      catch(e){ await tsDormir(200); }
+    }
+  };
+  const tick = setInterval(() => { const ms = performance.now() - t0; muestras.push([ms, bytes]); onTick?.(tsMbps(bytes, ms), Math.min(1, ms / (seg * 1000))); }, 250);
+  await Promise.all(Array.from({ length: 4 }, hilo)); clearInterval(tick);
+  return tsVelEstable(muestras, bytes, performance.now() - t0);
+}
+// velocidad sin el arranque lento (se ignora el primer 30 %)
+function tsVelEstable(m, bytes, ms){
+  if (m.length < 4) return tsMbps(bytes, ms);
+  const i = Math.floor(m.length * 0.3), a = m[i], z = m[m.length - 1];
+  return z[0] > a[0] ? tsMbps(z[1] - a[1], z[0] - a[0]) : tsMbps(bytes, ms);
+}
+async function tsInet(){
+  if (TS.corriendo) return;
+  TS.corriendo = true; TS.parar = false; TS.inet = { fase: t('ts_f_conectando'), prog: 0 }; tsRender();
+  const r = TS.inet, largo = !!TS.largo, segB = largo ? 15 : 8, segS = largo ? 12 : 7;
+  try {
+    try { const m = await (await fetch(`${TS_CF}/meta`, { cache: 'no-store' })).json(); r.meta = { ip: m.clientIp, isp: m.asOrganization, ciudad: [m.city, m.region].filter(Boolean).join(', '), colo: m.colo }; } catch(e){}
+    r.fase = t('ts_f_ping'); r.prog = 3; tsRender();
+    const p = await tsPing(largo ? 30 : 15); const ok = p.filter(isFinite);
+    if (!ok.length) throw new Error(t('ts_sin_inet'));
+    r.ping = tsMed(ok); r.jitter = tsJit(ok); r.prog = 10; tsRender();
+    r.fase = '⬇ ' + t('ts_bajada') + '…';
+    let pc = []; const pingCarga = (async () => { await tsDormir(1500); pc = await tsPing(largo ? 12 : 6, 3000); })();
+    r.bajada = await tsBajada(segB, (v, f) => { r.ahora = v; r.prog = 10 + f * 45; tsPintarInet(); });
+    await pingCarga; r.pingCarga = tsMed(pc.filter(isFinite));
+    if (TS.parar) throw new Error(t('ts_parado'));
+    r.fase = '⬆ ' + t('ts_subida') + '…'; r.ahora = 0; tsRender();
+    r.subida = await tsSubida(segS, (v, f) => { r.ahora = v; r.prog = 55 + f * 30; tsPintarInet(); });
+    if (TS.parar) throw new Error(t('ts_parado'));
+    r.fase = '📉 ' + t('ts_f_estab'); r.ahora = r.bajada; r.prog = 88; tsRender();
+    const est = await tsPing(largo ? 120 : 40, 1500), perd = est.filter(v => !isFinite(v)).length, lento = est.filter(v => isFinite(v) && v > (r.ping || 50) * 4 + 50).length;
+    r.perdida = est.length ? perd / est.length * 100 : null; r.picos = lento; r.p95 = tsPct(est.filter(isFinite), 0.95);
+    r.prog = 100; r.fase = t('ts_listo'); r.ahora = r.bajada; r.fecha = new Date().toISOString();
+    r.diag = tsDiagInet(r);
+    tsGuardar('internet', { bajada: r.bajada, subida: r.subida, ping: r.ping, jitter: r.jitter, pingCarga: r.pingCarga, perdida: r.perdida, picos: r.picos, p95: r.p95, meta: r.meta, largo });
+  } catch(e){ r.error = e.message || String(e); r.fase = ''; if (/fetch|network|Failed/i.test(r.error)) r.error = t('ts_err_cf'); }
+  TS.corriendo = false; tsRender();
+}
+function tsDiagInet(r){
+  const L = [];
+  if (r.bajada != null && r.bajada < 25) L.push('🐢 ' + t('ts_d_lento'));
+  if (r.subida != null && r.bajada && r.subida < r.bajada * 0.1) L.push('⬆ ' + t('ts_d_asim'));
+  if (r.pingCarga != null && r.ping != null && r.pingCarga - r.ping > 100) L.push('🚦 ' + t('ts_d_bloat', { n: Math.round(r.pingCarga - r.ping) }));
+  if (r.perdida != null && r.perdida >= 2) L.push('📉 ' + t('ts_d_perdida', { n: tsF(r.perdida, 1) }));
+  if (r.jitter != null && r.jitter > 30) L.push('〰 ' + t('ts_d_jitter'));
+  if (/Mobile|Android|iPhone/i.test(navigator.userAgent) || navigator.connection?.type === 'wifi') L.push('📶 ' + t('ts_d_wifi'));
+  return L.length ? L.map(x => `<div>${x}</div>`).join('') : `<div>✅ ${t('ts_d_bien')}</div>`;
+}
+
+/* ======================= 🖧 Red local (WebRTC directo) ======================= */
+function tsLanHTML(){
+  const L = TS.lan, R = L.res;
+  let cuerpo = '';
+  if (L.fase === 'inicio') cuerpo = `<div class="ts-lan2"><div class="panel ts-lan-op"><h4 class="cl-h4">1️⃣ ${t('ts_lan_a')}</h4><p class="muted">${t('ts_lan_a_h')}</p><button class="primary" onclick="tsLanCrear()">🖧 ${t('ts_lan_crear')}</button></div>
+      <div class="panel ts-lan-op"><h4 class="cl-h4">2️⃣ ${t('ts_lan_b')}</h4><p class="muted">${t('ts_lan_b_h')}</p><div class="row"><input id="tsCod" maxlength="6" placeholder="ABC123" style="max-width:140px;text-transform:uppercase;font:700 18px/1 'JetBrains Mono',monospace;letter-spacing:3px"><button class="primary" onclick="tsLanUnir($('tsCod').value)">🔗 ${t('ts_lan_unir')}</button></div></div></div>`;
+  else if (L.fase === 'esperando') cuerpo = `<div class="ts-code-box"><div class="muted">${t('ts_lan_codigo')}</div><div class="ts-code">${esc(L.codigo)}</div><div class="muted">${t('ts_lan_esp')}</div><button onclick="tsLanCerrar()">✕ ${t('cancel')}</button></div>`;
+  else if (L.fase === 'conectando') cuerpo = `<div class="ts-code-box"><div class="ts-code" style="font-size:28px">⏳</div><div>${t('ts_lan_conect')}</div><div class="muted">${esc(L.msg || '')}</div><button onclick="tsLanCerrar()">✕ ${t('cancel')}</button></div>`;
+  else if (L.fase === 'conectado' || L.fase === 'probando' || L.fase === 'listo') cuerpo = `
+      <div class="ts-gauge"><div class="ts-g-n" id="tsNow">${tsF(L.ahora ?? (R?.ab ?? 0))}</div><div class="ts-g-u">Mbps</div><div class="ts-g-f" id="tsFase">${esc(L.msg || (L.fase === 'listo' ? t('ts_listo') : t('ts_lan_ok')))}</div><div class="ts-bar"><i id="tsProg" style="width:${L.prog || 0}%"></i></div></div>
+      <div class="ts-kpis">${tsKpi(tsF(R?.ab), 'Mbps', '➡ ' + t('ts_lan_ab'), tsNota(R?.ab, 300, 50))}${tsKpi(tsF(R?.ba), 'Mbps', '⬅ ' + t('ts_lan_ba'), tsNota(R?.ba, 300, 50))}
+        ${tsKpi(tsF(R?.rtt, 1), 'ms', '📶 ' + t('ts_lan_lat'), tsNota(R?.rtt, 5, 30, true))}${tsKpi(tsF(R?.jitter, 1), 'ms', '〰 Jitter', tsNota(R?.jitter, 3, 15, true))}${tsKpi(tsF(R?.perdida, 2), '%', '📉 ' + t('ts_lan_perd'), tsNota(R?.perdida, 0.1, 1, true))}${tsKpi(tsF(R?.p95, 1), 'ms', '⏱ p95', tsNota(R?.p95, 15, 60, true))}</div>
+      ${L.par ? `<div class="muted ts-meta">🔗 ${t('ts_lan_con')} <b>${esc(L.par)}</b>${L.ruta ? ' · ' + esc(L.ruta) : ''}</div>` : ''}${R?.diag ? `<div class="ts-diag">${R.diag}</div>` : ''}
+      <div class="row" style="margin-top:10px">${L.rol === 'a' ? `<button class="primary" ${L.fase === 'probando' ? 'disabled' : ''} onclick="tsLanProbar()">▶ ${t(R ? 'ts_otra_vez' : 'ts_empezar')}</button>
+        <label class="mdm-chk"><input type="checkbox" ${TS.largo ? 'checked' : ''} onchange="TS.largo=this.checked"> ${t('ts_largo')}</label>` : `<span class="muted">${t('ts_lan_b_espera')}</span>`}<button onclick="tsLanCerrar()">✕ ${t('ts_lan_fin')}</button></div>`;
+  else if (L.fase === 'error') cuerpo = `<div class="u-warn">⚠️ ${esc(L.msg || '')}</div><div class="ts-diag">${t('ts_lan_err_h')}</div><button onclick="tsLanCerrar()">↺ ${t('ts_otra_vez')}</button>`;
+  return `<div class="u-note" style="margin:0 0 10px">${t('ts_lan_h')}</div>${cuerpo}`;
+}
+const tsLanSet = (patch) => { Object.assign(TS.lan, patch); if (TS.tab === 'lan') tsRender(); };
+function tsLanPintar(){ const L = TS.lan, n = $('tsNow'), f = $('tsFase'), p = $('tsProg'); if (n) n.textContent = tsF(L.ahora || 0); if (f) f.textContent = L.msg || ''; if (p) p.style.width = (L.prog || 0) + '%'; }
+function tsLanCanal(codigo){
+  const ch = db.channel('lantest-' + codigo, { config: { broadcast: { self: false } } });
+  ch.on('broadcast', { event: 'sig' }, ({ payload }) => tsLanSenal(payload));
+  return ch;
+}
+const tsSend = (p) => TS.lan.ch?.send({ type: 'broadcast', event: 'sig', payload: { ...p, de: TS.lan.yo } });
+const tsQuien = () => `${($('whoami')?.textContent || '').trim() || '—'} · ${/Mobile|Android|iPhone|iPad/i.test(navigator.userAgent) ? '📱' : '💻'} ${(navigator.userAgentData?.platform || navigator.platform || '').slice(0, 20)}`;
+async function tsLanCrear(){
+  if (!db?.channel) return tsLanSet({ fase: 'error', msg: t('ts_lan_sin_rt') });
+  const codigo = Array.from(crypto.getRandomValues(new Uint8Array(6)), b => 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'[b % 32]).join('');
+  tsLanSet({ fase: 'esperando', rol: 'a', codigo, yo: 'a' + Math.random().toString(36).slice(2, 7), res: null });
+  const ch = tsLanCanal(codigo); TS.lan.ch = ch;
+  ch.subscribe(st => { if (st === 'CHANNEL_ERROR' || st === 'TIMED_OUT') tsLanSet({ fase: 'error', msg: t('ts_lan_sin_rt') }); });
+}
+async function tsLanUnir(codigo){
+  codigo = String(codigo || '').trim().toUpperCase(); if (codigo.length < 6) return $('tsCod')?.focus();
+  if (!db?.channel) return tsLanSet({ fase: 'error', msg: t('ts_lan_sin_rt') });
+  tsLanSet({ fase: 'conectando', rol: 'b', codigo, yo: 'b' + Math.random().toString(36).slice(2, 7), msg: t('ts_lan_buscando'), res: null });
+  const ch = tsLanCanal(codigo); TS.lan.ch = ch;
+  ch.subscribe(st => { if (st === 'SUBSCRIBED') tsSend({ t: 'hola', quien: tsQuien() }); else if (st === 'CHANNEL_ERROR' || st === 'TIMED_OUT') tsLanSet({ fase: 'error', msg: t('ts_lan_sin_rt') }); });
+  TS.lan.espera = setTimeout(() => { if (TS?.lan.fase === 'conectando') tsLanSet({ fase: 'error', msg: t('ts_lan_no_resp') }); }, 20000);
+}
+// Solo red local: sin servidores STUN / TURN, así los datos no salen a internet
+function tsPC(){
+  const pc = new RTCPeerConnection({ iceServers: [] });
+  pc.onicecandidate = e => { if (e.candidate) tsSend({ t: 'ice', c: e.candidate.toJSON() }); };
+  pc.onconnectionstatechange = async () => {
+    const s = pc.connectionState;
+    if (s === 'connected'){ clearTimeout(TS.lan.espera); try { const st = await pc.getStats(); st.forEach(r => { if (r.type === 'candidate-pair' && r.nominated && r.state === 'succeeded'){ const l = st.get(r.localCandidateId), rr = st.get(r.remoteCandidateId); TS.lan.ruta = `${l?.protocol || ''} · ${l?.candidateType || ''}→${rr?.candidateType || ''}`; } }); } catch(e){} }
+    if (s === 'failed') tsLanSet({ fase: 'error', msg: t('ts_lan_fallo') });
+    if (s === 'disconnected' && TS?.lan.fase !== 'inicio') tsLanSet({ fase: 'error', msg: t('ts_lan_corto') });
+  };
+  return pc;
+}
+function tsCanales(pc, rel, udp){
+  rel.binaryType = 'arraybuffer'; udp.binaryType = 'arraybuffer';
+  TS.lan.rel = rel; TS.lan.udp = udp;
+  rel.onmessage = e => tsRelMsg(e.data);
+  udp.onmessage = e => tsUdpMsg(e.data);
+  const listo = () => { if (rel.readyState === 'open' && udp.readyState === 'open') tsLanSet({ fase: 'conectado', msg: t('ts_lan_ok') }); };
+  rel.onopen = listo; udp.onopen = listo;
+}
+async function tsLanSenal(p){
+  const L = TS?.lan; if (!L || p.de === L.yo) return;
+  try {
+    if (p.t === 'hola' && L.rol === 'a' && !L.pc){
+      L.par = p.quien; tsLanSet({ fase: 'conectando', msg: t('ts_lan_negocia') });
+      const pc = tsPC(); L.pc = pc;
+      tsCanales(pc, pc.createDataChannel('rel', { ordered: true }), pc.createDataChannel('udp', { ordered: false, maxRetransmits: 0 }));
+      await pc.setLocalDescription(await pc.createOffer());
+      tsSend({ t: 'oferta', sdp: { type: pc.localDescription.type, sdp: pc.localDescription.sdp }, quien: tsQuien() });
+      L.espera = setTimeout(() => { if (TS?.lan.fase === 'conectando') tsLanSet({ fase: 'error', msg: t('ts_lan_fallo') }); }, 20000);
+    } else if (p.t === 'oferta' && L.rol === 'b' && !L.pc){
+      L.par = p.quien; tsLanSet({ msg: t('ts_lan_negocia') });
+      const pc = tsPC(); L.pc = pc; const ch = {};
+      pc.ondatachannel = e => { ch[e.channel.label] = e.channel; if (ch.rel && ch.udp) tsCanales(pc, ch.rel, ch.udp); };
+      await pc.setRemoteDescription(p.sdp); await pc.setLocalDescription(await pc.createAnswer());
+      tsSend({ t: 'respuesta', sdp: { type: pc.localDescription.type, sdp: pc.localDescription.sdp } });
+    } else if (p.t === 'respuesta' && L.rol === 'a' && L.pc) await L.pc.setRemoteDescription(p.sdp);
+    else if (p.t === 'ice' && L.pc) await L.pc.addIceCandidate(p.c).catch(() => {});
+  } catch(e){ tsLanSet({ fase: 'error', msg: e.message || String(e) }); }
+}
+// mensajes de control por el canal confiable (texto JSON) y datos (binario)
+function tsRelMsg(d){
+  const L = TS?.lan; if (!L) return;
+  if (typeof d !== 'string'){ L.rx = (L.rx || 0) + d.byteLength; return; }
+  const m = JSON.parse(d);
+  if (m.t === 'rx0'){ L.rx = 0; L.rx0 = performance.now(); }
+  else if (m.t === 'rxq') L.rel.send(JSON.stringify({ t: 'rxr', bytes: L.rx || 0, ms: performance.now() - (L.rx0 || performance.now()) }));
+  else if (m.t === 'rxr') L.rxr?.(m);
+  else if (m.t === 'envia') tsEnviar(m.seg).then(() => L.rel.send(JSON.stringify({ t: 'enviado' })));
+  else if (m.t === 'enviado') L.enviado?.();
+  else if (m.t === 'estado'){ L.msg = m.msg; L.prog = m.prog; L.ahora = m.ahora; if (m.res) L.res = m.res; if (m.fase) L.fase = m.fase; m.res || m.fase ? tsRender() : tsLanPintar(); }
+}
+// eco inmediato de los paquetes tipo UDP (para medir ida y vuelta y pérdida)
+function tsUdpMsg(d){
+  const L = TS?.lan; if (!L) return; const v = new DataView(d);
+  if (v.getUint8(0) === 1){ const r = new Uint8Array(d.slice(0)); r[0] = 2; try { L.udp.send(r.buffer); } catch(e){} }
+  else if (v.getUint8(0) === 2){ const seq = v.getUint32(1), t0 = v.getFloat64(5); L.ecos?.set(seq, performance.now() - t0); }
+}
+// manda datos lo más rápido posible por X segundos (respetando el buffer)
+async function tsEnviar(seg){
+  const L = TS.lan, ch = L.rel, trozo = new Uint8Array(64 * 1024), fin = performance.now() + seg * 1000; let enviados = 0;
+  ch.bufferedAmountLowThreshold = 1024 * 1024;
+  while (performance.now() < fin && ch.readyState === 'open'){
+    if (ch.bufferedAmount > 4 * 1024 * 1024){ await new Promise(r => { ch.onbufferedamountlow = () => { ch.onbufferedamountlow = null; r(); }; setTimeout(r, 200); }); continue; }
+    try { ch.send(trozo); enviados += trozo.length; } catch(e){ await tsDormir(20); }
+  }
+  while (ch.bufferedAmount > 0 && ch.readyState === 'open') await tsDormir(20);
+  return enviados;
+}
+const tsEstado = (o) => { const L = TS.lan; Object.assign(L, { msg: o.msg ?? L.msg, prog: o.prog ?? L.prog, ahora: o.ahora ?? L.ahora }); if (o.res) L.res = o.res; if (o.fase) L.fase = o.fase; try { L.rel.send(JSON.stringify({ t: 'estado', ...o })); } catch(e){} o.res || o.fase ? tsRender() : tsLanPintar(); };
+const tsPreguntaRx = () => new Promise(r => { TS.lan.rxr = m => { TS.lan.rxr = null; r(m); }; TS.lan.rel.send(JSON.stringify({ t: 'rxq' })); setTimeout(() => r({ bytes: 0, ms: 0 }), 5000); });
+async function tsLanProbar(){
+  const L = TS.lan; if (L.rol !== 'a' || L.fase === 'probando') return;
+  const largo = !!TS.largo, seg = largo ? 10 : 5, nPk = largo ? 1000 : 400;
+  L.fase = 'probando'; L.res = null; tsRender();
+  try {
+    // 1) latencia, jitter y pérdida: paquetes tipo UDP cada 10 ms, el otro equipo los devuelve
+    tsEstado({ msg: '📶 ' + t('ts_lan_f_lat'), prog: 2, ahora: 0 });
+    L.ecos = new Map();
+    for (let i = 0; i < nPk; i++){
+      const b = new ArrayBuffer(64), v = new DataView(b); v.setUint8(0, 1); v.setUint32(1, i); v.setFloat64(5, performance.now());
+      try { L.udp.send(b); } catch(e){}
+      await tsDormir(10); if (i % 20 === 0) tsEstado({ prog: 2 + i / nPk * 28 });
+    }
+    await tsDormir(1000);
+    const rtts = Array.from({ length: nPk }, (_, i) => L.ecos.get(i)), ok = rtts.filter(v => v != null);
+    const res = { rtt: tsMed(ok), jitter: tsJit(ok), perdida: (nPk - ok.length) / nPk * 100, p95: tsPct(ok, 0.95), paquetes: nPk };
+    // 2) velocidad A → B
+    tsEstado({ msg: '➡ ' + t('ts_lan_ab') + '…', prog: 32, res: { ...res } , fase: 'probando' });
+    L.rel.send(JSON.stringify({ t: 'rx0' }));
+    const t0 = performance.now(); let tick = setInterval(async () => { const m = await tsPreguntaRx(); if (m.ms > 0) tsEstado({ ahora: tsMbps(m.bytes, m.ms), prog: 32 + Math.min(1, (performance.now() - t0) / (seg * 1000)) * 30 }); }, 700);
+    await tsEnviar(seg); clearInterval(tick); await tsDormir(300);
+    const mA = await tsPreguntaRx(); res.ab = tsMbps(mA.bytes, mA.ms);
+    // 3) velocidad B → A
+    tsEstado({ msg: '⬅ ' + t('ts_lan_ba') + '…', prog: 64, ahora: 0, res: { ...res } });
+    L.rx = 0; L.rx0 = performance.now(); const t1 = performance.now();
+    tick = setInterval(() => tsEstado({ ahora: tsMbps(L.rx, performance.now() - L.rx0), prog: 64 + Math.min(1, (performance.now() - t1) / (seg * 1000)) * 34 }), 500);
+    await new Promise(r => { L.enviado = () => { L.enviado = null; r(); }; L.rel.send(JSON.stringify({ t: 'envia', seg })); setTimeout(r, (seg + 15) * 1000); });
+    clearInterval(tick); res.ba = tsMbps(L.rx, performance.now() - L.rx0);
+    res.diag = tsDiagLan(res);
+    tsEstado({ msg: t('ts_listo'), prog: 100, ahora: res.ab, res, fase: 'listo' });
+    tsGuardar('lan', { ab: res.ab, ba: res.ba, rtt: res.rtt, jitter: res.jitter, perdida: res.perdida, p95: res.p95, paquetes: nPk, par: L.par, ruta: L.ruta, largo });
+  } catch(e){ tsLanSet({ fase: 'error', msg: e.message || String(e) }); }
+}
+function tsDiagLan(r){
+  const L = [], min = Math.min(r.ab ?? 1e9, r.ba ?? 1e9);
+  if (r.perdida >= 1) L.push('📉 ' + t('ts_dl_perd', { n: tsF(r.perdida, 2) }));
+  if (r.rtt > 20) L.push('📶 ' + t('ts_dl_lat'));
+  if (r.jitter > 10) L.push('〰 ' + t('ts_dl_jit'));
+  if (min < 50) L.push('🐢 ' + t('ts_dl_lento'));
+  if (r.ab && r.ba && Math.max(r.ab, r.ba) / Math.max(1, Math.min(r.ab, r.ba)) > 2.5) L.push('↔ ' + t('ts_dl_asim'));
+  L.push('ℹ️ ' + t('ts_dl_tope'));
+  return L.map(x => `<div>${x}</div>`).join('');
+}
+function tsLanCerrar(){
+  const L = TS?.lan; if (!L) return;
+  clearTimeout(L.espera); try { L.rel?.close(); L.udp?.close(); } catch(e){} try { L.pc?.close(); } catch(e){} try { L.ch && db.removeChannel(L.ch); } catch(e){}
+  TS.lan = { fase: 'inicio' }; tsRender();
+}
+
+/* ======================= 🗂 Historial ======================= */
+function tsHistHTML(){
+  if (!TS.ok) return `<div class="u-warn">⚠️ ${t('ts_sql')}</div>`;
+  if (!TS.hist.length) return `<div class="act-empty">🗂 ${t('ts_hist_vacio')}</div>`;
+  const fila = h => { const d = h.datos || {};
+    return h.tipo === 'lan'
+      ? `<tr><td class="mono">${esc(riFecha(h.created_at))}</td><td>🖧 ${t('ts_t_lan')}</td><td class="n">➡ ${tsF(d.ab)} · ⬅ ${tsF(d.ba)} Mbps</td><td class="n">${tsF(d.rtt, 1)} ms</td><td class="n">${tsF(d.jitter, 1)} ms</td><td class="n">${tsF(d.perdida, 2)} %</td><td class="muted" style="font-size:12px">${esc(h.autor || '')}${d.par ? ' ↔ ' + esc(d.par) : ''}</td></tr>`
+      : `<tr><td class="mono">${esc(riFecha(h.created_at))}</td><td>🌐 ${t('ts_t_inet')}</td><td class="n">⬇ ${tsF(d.bajada)} · ⬆ ${tsF(d.subida)} Mbps</td><td class="n">${tsF(d.ping, 0)} ms${d.pingCarga != null ? ` <small class="muted">(${tsF(d.pingCarga, 0)})</small>` : ''}</td><td class="n">${tsF(d.jitter, 1)} ms</td><td class="n">${tsF(d.perdida, 1)} %</td><td class="muted" style="font-size:12px">${esc(h.autor || '')}${d.meta?.isp ? ' · ' + esc(d.meta.isp) : ''}</td></tr>`; };
+  return `<div class="table-wrap"><table class="net-tbl ri-tbl"><thead><tr><th>${t('ri_cuando')}</th><th>${t('ts_prueba')}</th><th class="n">${t('ts_vel')}</th><th class="n">Ping</th><th class="n">Jitter</th><th class="n">${t('ts_perd_c')}</th><th></th></tr></thead><tbody>${TS.hist.map(fila).join('')}</tbody></table></div>`;
+}
 
 /* ---------- Clientes: 📌 fijar y ordenar arrastrando (se guarda en Supabase) ---------- */
 async function asegurarFilaCliente(c){

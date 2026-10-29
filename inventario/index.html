@@ -1071,7 +1071,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v9.5.5</p>
+    <p class="sub">Network Asset Manager · v9.5.6</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -1087,7 +1087,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.5.5</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.5.6</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -5564,9 +5564,28 @@ function trdFaseTog(i, quitar){
     <button type="button" class="sm danger" onclick="trdFaseTog(${i},true)" title="${esc(t('t_delete'))}">✕</button></div>`);
   ch?.classList.add('hidden'); trdFaseTotal();
 }
-function trdFaseMov(el){ const r = el.closest('.trd-fr'), v = +el.value; r.querySelector('.trd-a').textContent = v + '%'; r.classList.toggle('sube', v > +r.dataset.de); r.classList.toggle('fin', v >= 100); trdFaseTotal(); }
+function trdFaseMov(el){ const r = el.closest('.trd-fr'), v = +el.value; r.querySelector('.trd-a').textContent = v + '%'; r.classList.toggle('sube', v > +r.dataset.de); r.classList.toggle('fin', v >= 100); (r.closest('.trd-ed-f') ? trdEdTotal(r.closest('.trd-ed-f')) : trdFaseTotal()); }
 function trdFaseSum(b, n){ const el = b.closest('.trd-fr').querySelector('input[type=range]'); el.value = Math.min(100, +el.value + n); trdFaseMov(el); }
-const trdFaseLeer = () => [...document.querySelectorAll('.trd-fr')].map(r => ({ i: +r.dataset.i, de: +r.dataset.de, a: +r.querySelector('input[type=range]').value }));
+const trdFaseLeer = (root = $('trdFases')) => !root ? [] : [...root.querySelectorAll('.trd-frows .trd-fr, #trdFRows .trd-fr')].map(r => ({ i: +r.dataset.i, k: r.dataset.k != null ? +r.dataset.k : -1, de: +r.dataset.de, a: +r.querySelector('input[type=range]').value }));
+// fases dentro de "Corregir nota": las que movió esa nota (se pueden cambiar) y las que se olvidó mover
+function trdEdFasesHTML(j, nid){
+  const fs = jArr(j.fases).map((f, i) => ({ f, i, k: jArr(f.hist).findIndex(h => h.nid === nid) })).filter(o => o.f.n);
+  const fila = (o, de, a, k) => `<div class="trd-fr ${a > de ? 'sube' : ''}" data-i="${o.i}" data-de="${de}" data-k="${k}"><span class="trd-fn">${esc(o.f.n)}</span><small class="muted trd-de">${de}% →</small>
+    <input type="range" min="0" max="100" step="5" value="${a}" oninput="trdFaseMov(this)"><b class="mono trd-a">${a}%</b>
+    <span class="trd-mas"><button type="button" class="sm" onclick="trdFaseSum(this,5)">+5</button><button type="button" class="sm" onclick="trdFaseSum(this,10)">+10</button><button type="button" class="sm" onclick="trdFaseSum(this,100)">✔</button></span>
+    <button type="button" class="sm danger" onclick="trdEdQuitar(this)" title="${esc(t('t_delete'))}">✕</button></div>`;
+  return `<div class="trd-fases trd-ed-f" data-j="${j.id}"><div class="trd-f-h"><b>🧩 ${t('trd_fases_hoy')}</b><span class="muted">${t('trd_total')}: <b class="trd-tot">${trbPct(j)}%</b></span></div>
+    <div class="trd-f-chips">${fs.filter(o => o.k < 0).map(o => `<button type="button" class="trd-chip" data-i="${o.i}" onclick="trdEdAgregar(this)">＋ ${esc(o.f.n)} <small>${+o.f.pct || 0}%</small></button>`).join('')}</div>
+    <div class="trd-frows">${fs.filter(o => o.k >= 0).map(o => { const h = o.f.hist[o.k]; return fila(o, +h.de || 0, +h.a || 0, o.k); }).join('')}</div>
+    <template>${fs.filter(o => o.k < 0).map(o => fila(o, +o.f.pct || 0, +o.f.pct || 0, -1)).join('')}</template></div>`;
+}
+function trdEdAgregar(b){ const w = b.closest('.trd-ed-f'), i = b.dataset.i, tpl = w.querySelector('template').content.querySelector(`.trd-fr[data-i="${i}"]`); if (tpl) w.querySelector('.trd-frows').appendChild(tpl.cloneNode(true)); b.classList.add('hidden'); trdEdTotal(w); }
+function trdEdQuitar(b){ const r = b.closest('.trd-fr'), w = r.closest('.trd-ed-f');
+  if (+r.dataset.k >= 0){ r.querySelector('input[type=range]').value = r.dataset.de; trdFaseMov(r.querySelector('input[type=range]')); r.classList.add('hidden'); return; }   // se quita el cambio
+  w.querySelector(`.trd-chip[data-i="${r.dataset.i}"]`)?.classList.remove('hidden'); r.remove(); trdEdTotal(w); }
+function trdEdTotal(w){ const j = trabajos.find(x => x.id === w.dataset.j); if (!j) return; const fs = jArr(j.fases).map(f => ({ ...f }));
+  trdFaseLeer(w).forEach(o => { if (fs[o.i] && (o.k < 0 || o.k === jArr(fs[o.i].hist).length - 1)) fs[o.i].pct = o.a; }); const n = trbPctFases({ fases: fs }), el = w.querySelector('.trd-tot');
+  if (el) el.textContent = n + '%' + (n !== trbPct(j) ? ` (${n > trbPct(j) ? '+' : ''}${n - trbPct(j)}%)` : ''); }
 function trdFaseTotal(){
   const j = trabajos.find(x => x.id === $('trdFases')?.dataset.j); if (!j) return;
   const fs = jArr(j.fases).map(f => ({ ...f })); trdFaseLeer().forEach(o => { if (fs[o.i]) fs[o.i].pct = o.a; });
@@ -5605,7 +5624,7 @@ async function trbDiaGuardar(id){
   const g = k => $('trd_' + k)?.value.trim() || '', n = k => g(k) === '' ? null : +g(k), hubo = $('trd_hubo').checked;
   const row = { trabajo_id: id, fecha: g('fecha') || trbHoy(), personas: n('personas'), horas: n('horas'), avance: n('avance'), hecho: g('hecho') || null, dificultades: g('dific') || null, no_logrado: g('nolog') || null,
     retraso_horas: hubo ? n('reth') : null, retraso_causa: hubo ? g('causa') : null, retraso_motivo: hubo ? g('motivo') || null : null };
-  const j = trabajos.find(x => x.id === id), usos = trmUsoLeer(), nuevos = trmNuevosLeer($('trabajosView') || document), fcam = trdFaseLeer().filter(o => o.a !== o.de);
+  const j = trabajos.find(x => x.id === id), usos = trmUsoLeer(), nuevos = trmNuevosLeer(document.querySelector('#trabajosView .trb-dform') || document), fcam = trdFaseLeer().filter(o => o.a !== o.de);
   if (!row.hecho && !row.dificultades && !row.no_logrado && !row.retraso_horas && !usos.length && !nuevos.length && !fcam.length) return alert(t('trb_nota_vacia'));
   if (usos.length || nuevos.length || fcam.length){ row.id = crypto.randomUUID ? crypto.randomUUID() : null; if (!row.id) delete row.id; if (!row.hecho) row.hecho = t(fcam.length ? 'trd_solo_fases' : 'trm_solo_uso'); }
   let fs = null;
@@ -5632,6 +5651,7 @@ function trbDiaEditar(id){
   el.innerHTML = `<div class="trb-d-h"><b>✏️ ${t('trd_corregir')}</b><span class="muted">${esc(d.autor ? '✍ ' + d.autor : '')}</span></div>
     <div class="mdm-grid"><label><span>${t('trb_fecha')}</span><input type="date" data-e="fecha" value="${esc(d.fecha)}"></label><label><span>${t('trb_personas')}</span><input type="number" min="0" data-e="personas" value="${esc(d.personas ?? '')}"></label>
       <label><span>${t('trb_horas')}</span><input type="number" min="0" step="any" data-e="horas" value="${esc(d.horas ?? '')}"></label>${trdUsaFases(j) ? '' : `<label><span>${t('trb_avance_dia')}</span><input type="number" min="0" max="100" data-e="avance" value="${esc(d.avance ?? '')}"></label>`}</div>
+    ${trdUsaFases(j) ? trdEdFasesHTML(j, id) : ''}
     <label class="stk-full"><span>✅ ${t('trb_hecho')}</span>${ta('hecho', d.hecho)}</label>
     <label class="stk-full"><span>⚠ ${t('trb_dific')}</span>${ta('dificultades', d.dificultades)}</label>
     <label class="stk-full"><span>❌ ${t('trb_no_log')}</span>${ta('no_logrado', d.no_logrado)}</label>
@@ -5650,7 +5670,15 @@ async function trbDiaEdGuardar(id){
     retraso_horas: n('retraso_horas'), retraso_causa: n('retraso_horas') ? v('retraso_causa') || 'otro' : null, retraso_motivo: n('retraso_horas') ? v('retraso_motivo') || null : null };
   if (el.querySelector('[data-e="avance"]')) patch.avance = n('avance') == null ? null : Math.max(0, Math.min(100, n('avance')));
   if (!patch.hecho && !patch.dificultades && !patch.no_logrado && !patch.retraso_horas) return alert(t('trb_nota_vacia'));
+  // fases: cambios de esta nota
+  const jf = trabajos.find(x => x.id === d.trabajo_id), fw = el.querySelector('.trd-ed-f'); let fsN = null;
+  if (jf && fw){ fsN = jArr(jf.fases).map(f => ({ ...f, ...(f.hist ? { hist: jArr(f.hist).map(h => ({ ...h })) } : {}) }));
+    trdFaseLeer(fw).forEach(o => { const f = fsN[o.i]; if (!f) return; const H = jArr(f.hist);
+      if (o.k >= 0 && H[o.k]){ const ult = o.k === H.length - 1; if (o.a === o.de){ H.splice(o.k, 1); if (ult) f.pct = o.de; } else { H[o.k].a = o.a; if (ult) f.pct = o.a; } f.hist = H; }
+      else if (o.k < 0 && o.a !== o.de){ f.hist = H.concat([{ f: patch.fecha, de: o.de, a: o.a, nid: id }]); f.pct = o.a; } });
+    patch.avance = trbPctFases({ fases: fsN }); }
   const r = await db.from('trabajo_diario').update(patch).eq('id', id); if (r.error) return fail(r.error, t('save_fail'));
+  if (fsN) await db.from('trabajos').update({ fases: fsN, progreso: patch.avance }).eq('id', d.trabajo_id);
   // material usado de esta nota (y la fecha, si cambió)
   const j = trabajos.find(x => x.id === d.trabajo_id), ins = [...el.querySelectorAll('[data-us]')], nuevos = trmNuevosLeer(el);
   if (j && (ins.length || nuevos.length || patch.fecha !== d.fecha)){
@@ -5659,7 +5687,7 @@ async function trbDiaEdGuardar(id){
       if (inp.dataset.dias) u.dias = trmR(x); else u.n = trmR(x / (+inp.dataset.pc || 1)); });
     L.forEach(m => { if (m.usos) m.usos = m.usos.map(u => u.nid === id ? { ...u, f: patch.fecha } : u).filter(u => u.nid !== id || (+u.n || 0) > 0 || (+u.dias || 0) > 0); });
     trmNuevosAplicar(L, nuevos, patch.fecha, id);
-    const fs = jArr(j.fases).map(f => ({ ...f, ...(f.hist ? { hist: jArr(f.hist).map(h => h.nid === id ? { ...h, f: patch.fecha } : h) } : {}) }));
+    const fs = (fsN || jArr(j.fases)).map(f => ({ ...f, ...(f.hist ? { hist: jArr(f.hist).map(h => h.nid === id ? { ...h, f: patch.fecha } : h) } : {}) }));
     await db.from('trabajos').update({ materiales: L, fases: fs }).eq('id', j.id);
   }
   toast(t('saved')); cargarTrabajos();

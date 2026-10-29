@@ -794,6 +794,10 @@ body.p-noadm .p-solo-adm{display:none!important}
 .ri-mes{display:flex;gap:8px;align-items:center;margin-bottom:6px}.ri-mes select{width:auto}.ri-prev{margin-top:10px;font-size:13px}.ri-pf{display:inline-block;margin:2px 4px;padding:1px 8px;border-radius:999px;background:color-mix(in srgb,var(--accent,#006fff) 10%,transparent);font-size:12px}
 .tm-ctl{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;margin-bottom:8px}.tm-ctl label{display:flex;flex-direction:column;gap:3px;font-size:12px;color:var(--muted)}.tm-ctl select{width:auto}
 .tm-dest{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;margin-bottom:10px;font-size:13px}.tm-gwip{width:120px;padding:3px 6px!important;font-size:12.5px;margin-left:-8px}.ts-rap{margin:0}
+.tm-gr{display:inline-block;border:1px solid var(--line);border-radius:8px;padding:2px 8px;font-size:12.5px}.tm-gr summary{cursor:pointer;color:var(--muted)}.tm-gr>div{display:flex;flex-wrap:wrap;gap:4px 12px;padding:4px 0}
+.tq-paso{border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin-bottom:6px}.tq-paso.off{opacity:.55}.tq-p-h{display:flex;gap:10px;align-items:center}.tq-p-h .mdm-chk{flex:1}.tq-mv{display:flex;gap:3px}.tq-ops{margin:6px 0 0 24px}.tq-dest{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;font-size:13px;width:100%}
+.tq-prog{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:10px}.tq-chip{padding:4px 12px;border-radius:999px;border:1px solid var(--line);font-size:13px}.tq-chip.act{border-color:var(--accent,#006fff);background:color-mix(in srgb,var(--accent,#006fff) 10%,transparent)}.tq-fl{color:var(--muted)}
+.tq-live button{pointer-events:none;opacity:.5}.tq-r-w{position:relative;border-top:1px dashed var(--line);padding-top:8px;margin-top:8px}.tq-r-pdf{position:absolute;top:8px;right:0}.tq-r-h{font-size:14px;margin-bottom:4px}.tq-r .tm-res{margin-top:4px}
 .tm-extra{display:flex!important;flex-direction:row!important;gap:4px;align-items:center}.tm-extra input{width:220px;padding:4px 8px}
 .net-tbl.tm-tbl{min-width:0;width:100%}.tm-tbl td{font-size:12.5px;padding:4px 8px!important}.tm-tbl tr{cursor:pointer}.tm-tbl tr.on td{background:color-mix(in srgb,var(--accent,#006fff) 9%,transparent)}.tm-tbl tr.tm-sr td{opacity:.55}
 .tm-sp{width:34%}.tm-spark{width:100%;height:18px;display:block}.tm-spark .ok{fill:#16a34a}.tm-spark .reg{fill:#d97706}.tm-spark .mal{fill:#dc2626}.tm-spark .l{fill:#dc2626;opacity:.85}
@@ -1106,7 +1110,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v9.9.1</p>
+    <p class="sub">Network Asset Manager · v9.9.2</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -1122,7 +1126,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.9.1</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.9.2</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -1833,7 +1837,16 @@ Object.assign(I18N.en, {
   trm_quitar_q:'Some of this was already taken from stock. Remove it from the list anyway? (stock is not returned automatically)', trm_de_lista:'From the materials list', trm_ya_falt:'Everything is already in "Missing" or there is enough stock.',
   trm_pasados:'{n} material(s) moved to "Missing"', trm_preparo:'Prepared by', trm_reviso:'Checked / received by',
   trm_sql:'To save materials run supabase-trabajos.sql again (it adds the "materiales" column).', trm_cajas:'boxes', trm_tal:'Maybe', trm_tal_h:'Maybe: it may or may not be used. It stays on the list but is not taken from stock or ordered.', trm_n_tal:'{n} maybe', ri_sin_equipos:'Add at least one device.', ri_agregar_eq:'Add device', ri_todos_ap:'All APs', ri_todos_tel:'All phones', ri_todos_sw:'All switches', ri_grupo:'Add a group', ri_quitar_todos:'Remove all',
-  ri_esc:'How they restart:', ri_esc_0:'All at once', ri_esc_n:'One by one, every {n} min', ri_esc_h:'{n} devices in this rule.', ri_infra_final:'Switches and the router go last.', ri_n_equipos:'{n} devices', ri_q_varios:'Restart these {n} devices?', tr_t:'Quick test (one device)', tr_h:'Measures latency and loss from THIS device to the router (or any network IP) without opening anything on another device. The first time Chrome asks to "access devices on your local network": press Allow.',
+  ri_esc:'How they restart:', ri_esc_0:'All at once', ri_esc_n:'One by one, every {n} min', ri_esc_h:'{n} devices in this rule.', ri_infra_final:'Switches and the router go last.', ri_n_equipos:'{n} devices', ri_q_varios:'Restart these {n} devices?', ts_t_seq:'Scheduled tests', tq_h:'Check the tests you want, pick each one options and the order: they run one after another. At the end you get an analysis of everything together (where the problem is and what to do) and a report of all of them or each one. Keep this window open while it runs.',
+  'tq_p.inet':'Internet speed', 'tq_p.rap':'Local network (router)', 'tq_p.mon':'Monitor', tq_cuando:'When', tq_ahora:'Now', tq_a_las:'At a time', tq_empezar:'Start tests', tq_total:'Total ≈ {d}', tq_nada:'Check at least one test.',
+  tq_ocupado:'Another test is running. Wait for it to finish.', tq_espera:'Tests start in', tq_cancelar:'Cancel tests', tq_res_h:'{n} tests · {d}', tq_rep_todo:'Full report', tq_rep_t:'Network tests report',
+  tq_hall:'What was found', tq_sol:'Possible solutions (in this order)', tq_detalle:'Detail of each test',
+  tqa_ok:'Everything is fine', tqa_lan:'The main problem is in the local network', tqa_isp:'The main problem is the internet exit', tqa_vel:'The internet speed is low or saturates',
+  'tqa_l.ninguno':'No problems found', 'tqa_l.lan':'Local network: Wi-Fi or cable between the device and the router', 'tqa_l.isp':'From the router outwards: router, modem or ISP', 'tqa_l.vel':'The internet plan or bandwidth saturation', 'tqa_l.servicio':'One specific internet service',
+  tqa_h_rap:'Local network: {p} % loss, {a} ms and {j} ms jitter to the router.', tqa_h_rap_ok:'Local network fine: {a} ms to the router, no loss.', tqa_h_inet:'Internet: ⬇ {b} Mbps · ⬆ {s} Mbps · ping {p} ms.',
+  tqa_h_bloat:'During downloads ping rises {n} ms (bufferbloat).', tqa_h_lento:'Download is under 25 Mbps.', tqa_h_mon:'Monitor ({d}): {r}.', tqa_h_mos:'Call quality (MOS): {m} of 4.5.',
+  tqp_plan:'Compare the speed with the contracted plan; if lower, complain to the ISP; if equal, consider a faster plan.', tqp_subida:'Upload is very low: for video calls, cloud cameras or backups ask for a plan with more upload (symmetric fiber).',
+  'tmg.dns':'DNS', 'tmg.trabajo':'Work (M365, Teams, Zoom…)', 'tmg.voip':'VoIP and messaging', 'tmg.media':'Video and others', tr_t:'Quick test (one device)', tr_h:'Measures latency and loss from THIS device to the router (or any network IP) without opening anything on another device. The first time Chrome asks to "access devices on your local network": press Allow.',
   tr_ip:'IP to test (router)', tr_probar:'Test', tr_medidas:'Samples', tr_ip_mal:'Type a local network IP (e.g. 192.168.1.1).',
   tr_bloq:'The browser did not allow testing the local network. In Chrome: click the lock 🔒 left of the address → "Local network devices" → Allow, and test again. (On Safari / Firefox this test does not work: use Chrome or Edge.)',
   tr_nadie:'{ip} did not answer. Check it is the router IP and that this device is on that network.',
@@ -1841,7 +1854,7 @@ Object.assign(I18N.en, {
   tr_d_jit:'High jitter to the router: typical of congested Wi-Fi or many connected users.', tr_d_bien:'This device connection to the router is fine ({a} ms, no loss).',
   tr_d_wifi:'This device is on Wi-Fi: this measures the Wi-Fi quality where you stand. Move near the AP and compare.', tr_d_info:'It is an estimate: it includes the router answer time. For network SPEED use the two-device test below.',
   ts_lan_dos:'Full test with two devices (speed)', tm_router:'Router', tm_bloq:'no local network permission', ts_t_mon:'Monitor', tm_h:'Continuously measures latency and loss to several targets at once for the time you choose. If you connect another device in "Local network" it also watches the internal network. When it ends it tells you what is happening, where the problem is and what to do. Keep this window open while it runs.',
-  tm_dur:'Duration', tm_int:'Every', tm_sin_limite:'Until I stop it', tm_empezar:'Start monitor', tm_parar:'Stop and see summary', tm_termino:'Lasted {d}.', tm_lan:'Local network', tm_lan_no:'connect another device in the Local network tab', tm_extra_ph:'another target: e.g. the client website or their VoIP',
+  tm_dur:'Duration', tm_int:'Every', tm_sin_limite:'Until I stop it', tm_empezar:'Start monitor', tm_parar:'Stop and see summary', tm_termino:'Lasted {d}.', tm_lan:'Local network', tm_lan_no:'connect another device in the Local network tab', tm_extra_ph:'other targets (comma separated): e.g. company.com, voip.provider.com',
   tm_url_mal:'That target is not a valid address.', tm_sin_dest:'Pick at least one target.', tm_destino:'Target', tm_prom:'Avg', tm_act:'Cur', tm_picos:'Spikes', tm_ultimos:'Latest samples', tm_sin_resp:'no response',
   tm_mos:'Call quality (MOS)', tm_res_dur:'{d} test', tm_reporte:'Report', tm_reporte_t:'Connection report', tm_donde:'Where the problem is', tm_que_hacer:'What to do', tm_peores:'Moments with problems', tm_perdidos:'lost', tm_perd_c:'loss', tm_no_contesto:'Did not answer (may be blocked by a firewall or filter): {n}. Not counted.', tm_ver:'View',
   'tml.lan':'Inside the local network (Wi-Fi, cable or switch)', 'tml.isp':'Internet connection: router, modem or ISP', 'tml.isp_o_lan':'In the connection: local network or ISP (run the local network test to tell them apart)', 'tml.servicio':'Outside the client network: that service or its route', 'tml.ninguno':'No problems found', 'tml.sin_datos':'No responses',
@@ -2118,7 +2131,16 @@ Object.assign(I18N.es, {
   trm_quitar_q:'Ya se sacó algo de esto del stock. ¿Quitarlo de la lista igual? (el stock no se devuelve solo)', trm_de_lista:'De la lista de materiales', trm_ya_falt:'Ya está todo en "Lo que falta" o hay stock suficiente.',
   trm_pasados:'{n} material(es) pasados a "Lo que falta"', trm_preparo:'Preparó', trm_reviso:'Revisó / recibió',
   trm_sql:'Para guardar los materiales corre otra vez supabase-trabajos.sql (agrega la columna "materiales").', trm_cajas:'cajas', trm_tal:'En veremos', trm_tal_h:'En veremos: puede que se use, puede que no. Se lleva en la lista pero no se saca del stock ni se pide.', trm_n_tal:'{n} en veremos', ri_sin_equipos:'Agrega al menos un equipo.', ri_agregar_eq:'Agregar equipo', ri_todos_ap:'Todos los APs', ri_todos_tel:'Todos los teléfonos', ri_todos_sw:'Todos los switches', ri_grupo:'Agregar un grupo', ri_quitar_todos:'Quitar todos',
-  ri_esc:'Cómo se reinician:', ri_esc_0:'Todos a la vez', ri_esc_n:'Uno por uno, cada {n} min', ri_esc_h:'{n} equipos en esta regla.', ri_infra_final:'Los switches y el router van al final.', ri_n_equipos:'{n} equipos', ri_q_varios:'¿Reiniciar estos {n} equipos?', tr_t:'Prueba rápida (un solo equipo)', tr_h:'Mide la latencia y la pérdida de ESTE equipo al router (o a cualquier IP de la red) sin abrir nada en otro equipo. La primera vez Chrome pregunta "acceder a dispositivos de tu red local": dale Permitir.',
+  ri_esc:'Cómo se reinician:', ri_esc_0:'Todos a la vez', ri_esc_n:'Uno por uno, cada {n} min', ri_esc_h:'{n} equipos en esta regla.', ri_infra_final:'Los switches y el router van al final.', ri_n_equipos:'{n} equipos', ri_q_varios:'¿Reiniciar estos {n} equipos?', ts_t_seq:'Test programados', tq_h:'Marca las pruebas que quieres, escoge las opciones de cada una y el orden: se hacen una detrás de otra. Al final te da un análisis de todo junto (dónde está el problema y qué hacer) y puedes sacar el reporte de todo o de cada prueba. Deja esta ventana abierta mientras corre.',
+  'tq_p.inet':'Velocidad de internet', 'tq_p.rap':'Red local (router)', 'tq_p.mon':'Monitor', tq_cuando:'Cuándo', tq_ahora:'Ahora', tq_a_las:'A una hora', tq_empezar:'Empezar pruebas', tq_total:'Total ≈ {d}', tq_nada:'Marca al menos una prueba.',
+  tq_ocupado:'Hay otra prueba corriendo. Espera a que termine.', tq_espera:'Las pruebas empiezan en', tq_cancelar:'Cancelar pruebas', tq_res_h:'{n} pruebas · {d}', tq_rep_todo:'Reporte de todo', tq_rep_t:'Reporte de pruebas de red',
+  tq_hall:'Lo que se encontró', tq_sol:'Posibles soluciones (en este orden)', tq_detalle:'Detalle de cada prueba',
+  tqa_ok:'Todo está bien', tqa_lan:'El problema principal está en la red local', tqa_isp:'El problema principal está en la salida a internet', tqa_vel:'La velocidad de internet es baja o se satura',
+  'tqa_l.ninguno':'No se encontraron problemas', 'tqa_l.lan':'Red local: Wi-Fi o cable entre el equipo y el router', 'tqa_l.isp':'Del router hacia afuera: router, módem o proveedor', 'tqa_l.vel':'El plan de internet o la saturación del ancho de banda', 'tqa_l.servicio':'Un servicio de internet en particular',
+  tqa_h_rap:'Red local: {p} % de pérdida, {a} ms y jitter de {j} ms hasta el router.', tqa_h_rap_ok:'Red local bien: {a} ms hasta el router, sin pérdida.', tqa_h_inet:'Internet: ⬇ {b} Mbps · ⬆ {s} Mbps · ping {p} ms.',
+  tqa_h_bloat:'Cuando hay descargas el ping sube {n} ms (bufferbloat).', tqa_h_lento:'La bajada es menor de 25 Mbps.', tqa_h_mon:'Monitor ({d}): {r}.', tqa_h_mos:'Calidad de llamadas (MOS): {m} de 4.5.',
+  tqp_plan:'Compara la velocidad con el plan contratado; si es menor, reclama al proveedor; si es igual, considera un plan más rápido.', tqp_subida:'La subida es muy baja: si usan videollamadas, cámaras en la nube o backups, pide un plan con más subida (fibra simétrica).',
+  'tmg.dns':'DNS', 'tmg.trabajo':'Trabajo (M365, Teams, Zoom…)', 'tmg.voip':'VoIP y mensajería', 'tmg.media':'Video y otros', tr_t:'Prueba rápida (un solo equipo)', tr_h:'Mide la latencia y la pérdida de ESTE equipo al router (o a cualquier IP de la red) sin abrir nada en otro equipo. La primera vez Chrome pregunta "acceder a dispositivos de tu red local": dale Permitir.',
   tr_ip:'IP a probar (router)', tr_probar:'Probar', tr_medidas:'Mediciones', tr_ip_mal:'Escribe una IP de la red local (ej. 192.168.1.1).',
   tr_bloq:'El navegador no dejó probar la red local. En Chrome: toca el candado 🔒 a la izquierda de la dirección → "Dispositivos de la red local" → Permitir, y vuelve a probar. (En Safari / Firefox esta prueba no funciona: usa Chrome o Edge.)',
   tr_nadie:'{ip} no respondió. Revisa que la IP sea la del router y que este equipo esté conectado a esa red.',
@@ -2126,7 +2148,7 @@ Object.assign(I18N.es, {
   tr_d_jit:'Jitter alto hacia el router: típico de Wi-Fi congestionado o con mucha gente conectada.', tr_d_bien:'La conexión de este equipo al router está bien ({a} ms, sin pérdida).',
   tr_d_wifi:'Este equipo está por Wi-Fi: esto mide la calidad del Wi-Fi donde estás parado. Muévete cerca del AP y compara.', tr_d_info:'Es un estimado: incluye lo que tarda el router en contestar. Para la VELOCIDAD de la red usa la prueba con dos equipos de abajo.',
   ts_lan_dos:'Prueba completa con dos equipos (velocidad)', tm_router:'Router', tm_bloq:'sin permiso de red local', ts_t_mon:'Monitor', tm_h:'Mide sin parar la latencia y la pérdida a varios destinos a la vez, durante el tiempo que escojas. Con "Router" marcado también vigila la red interna (de este equipo al router), así el resumen puede decir si el problema está adentro o en el proveedor. Al terminar te dice qué está pasando, dónde está el problema y qué hacer. Deja esta ventana abierta mientras corre.',
-  tm_dur:'Duración', tm_int:'Cada', tm_sin_limite:'Hasta que la pare', tm_empezar:'Empezar monitor', tm_parar:'Parar y ver resumen', tm_termino:'Duró {d}.', tm_lan:'Red local', tm_lan_no:'conecta otro equipo en la pestaña Red local', tm_extra_ph:'otro destino: ej. la página del cliente o su VoIP',
+  tm_dur:'Duración', tm_int:'Cada', tm_sin_limite:'Hasta que la pare', tm_empezar:'Empezar monitor', tm_parar:'Parar y ver resumen', tm_termino:'Duró {d}.', tm_lan:'Red local', tm_lan_no:'conecta otro equipo en la pestaña Red local', tm_extra_ph:'otros destinos (separados por coma): ej. empresa.com, voip.proveedor.com',
   tm_url_mal:'Ese destino no es una dirección válida.', tm_sin_dest:'Escoge al menos un destino.', tm_destino:'Destino', tm_prom:'Prom', tm_act:'Actual', tm_picos:'Picos', tm_ultimos:'Últimas mediciones', tm_sin_resp:'no responde',
   tm_mos:'Calidad de llamadas (MOS)', tm_res_dur:'Prueba de {d}', tm_reporte:'Reporte', tm_reporte_t:'Reporte de conexión', tm_donde:'Dónde está el problema', tm_que_hacer:'Qué hacer', tm_peores:'Momentos con problemas', tm_perdidos:'perdidos', tm_perd_c:'pérdida', tm_no_contesto:'No contestó (puede estar bloqueado por un firewall o filtro): {n}. No se tomó en cuenta.', tm_ver:'Ver',
   'tml.lan':'Dentro de la red local (Wi-Fi, cable o switch)', 'tml.isp':'Conexión a internet: router, módem o proveedor', 'tml.isp_o_lan':'En la conexión: red local o proveedor (falta la prueba de red local para separarlos)', 'tml.servicio':'Fuera de la red del cliente: en ese servicio o su ruta', 'tml.ninguno':'No se encontraron problemas', 'tml.sin_datos':'No hubo respuestas',
@@ -3440,7 +3462,7 @@ function showHistory(id){
     : `<p class="muted">${t('hist_empty')}</p>`;
   $('modal').classList.remove('hidden');
 }
-function closeModal(){ if (typeof CAM !== 'undefined' && CAM) camCerrar(); if (typeof TS !== 'undefined' && TS?.mon?.estado === 'corriendo') tmParar(); if (typeof STK !== 'undefined'){ STK.cliPre = null; STK.trbFalta = null; STK.trmLinea = null; } $('modal').classList.add('hidden'); $('modal').querySelector('.modal-card').classList.remove('wide'); }
+function closeModal(){ if (typeof CAM !== 'undefined' && CAM) camCerrar(); if (typeof TS !== 'undefined' && TS?.seq && ['corriendo', 'esperando'].includes(TS.seq.estado)) tqCancelar(); if (typeof TS !== 'undefined' && TS?.mon?.estado === 'corriendo') tmParar(); if (typeof STK !== 'undefined'){ STK.cliPre = null; STK.trbFalta = null; STK.trmLinea = null; } $('modal').classList.add('hidden'); $('modal').querySelector('.modal-card').classList.remove('wide'); }
 document.addEventListener('keydown', e => { if (e.key === 'Escape'){
   const abierto = ['modal','gModal','cModal','xModal','drawer','detail'].some(id => $(id) && !$(id).classList.contains('hidden'));
   if (!$('modal').classList.contains('hidden')) { closeModal(); return; }
@@ -7939,11 +7961,12 @@ async function tsGuardar(tipo, datos){
 function tsRender(){
   if (!TS) return;
   const tab = (k, l) => `<span class="chip ${TS.tab === k ? 'on' : ''}" onclick="${TS.corriendo ? '' : `TS.tab='${k}';tsRender()`}">${l}</span>`;
-  const cab = `<div class="stats" style="margin:0 0 10px">${tab('inet', '🌐 ' + t('ts_t_inet'))}${tab('lan', '🖧 ' + t('ts_t_lan'))}${tab('mon', '📈 ' + t('ts_t_mon') + (TS.mon?.estado === 'corriendo' ? ' ⏺' : ''))}${tab('hist', '🗂 ' + t('ts_t_hist') + ` (${TS.hist.length})`)}${tab('info', 'ℹ️ ' + t('ts_t_info'))}</div>`;
+  const cab = `<div class="stats" style="margin:0 0 10px">${tab('inet', '🌐 ' + t('ts_t_inet'))}${tab('lan', '🖧 ' + t('ts_t_lan'))}${tab('mon', '📈 ' + t('ts_t_mon') + (TS.mon?.estado === 'corriendo' && TS.seq?.estado !== 'corriendo' ? ' ⏺' : ''))}${tab('seq', '🗓 ' + t('ts_t_seq') + (['corriendo', 'esperando'].includes(TS.seq?.estado) ? ' ⏺' : ''))}${tab('hist', '🗂 ' + t('ts_t_hist') + ` (${TS.hist.length})`)}${tab('info', 'ℹ️ ' + t('ts_t_info'))}</div>`;
   const b = $('modalBody');
   if (TS.tab === 'inet') b.innerHTML = cab + tsInetHTML();
   else if (TS.tab === 'lan') b.innerHTML = cab + tsLanHTML();
   else if (TS.tab === 'mon') b.innerHTML = cab + tmHTML();
+  else if (TS.tab === 'seq') b.innerHTML = cab + tqHTML();
   else if (TS.tab === 'info') b.innerHTML = cab + `<div class="ts-info">${t('ts_info')}</div>`;
   else b.innerHTML = cab + tsHistHTML();
 }
@@ -8274,11 +8297,31 @@ function tsLanCerrar(){
    Mide cada X segundos la latencia a varios destinos a la vez (internet y, si está conectada, la red local)
    durante el tiempo que escojas. Al parar da un resumen: si va bien o mal, DÓNDE está el problema y qué hacer. */
 const TM_DESTINOS = [
-  { id: 'cf', ic: '🌐', nombre: 'Cloudflare', tipo: 'cf' },
-  { id: 'gg', ic: '🔎', nombre: 'Google', tipo: 'nc', url: 'https://www.google.com/generate_204' },
-  { id: 'ms', ic: '🪟', nombre: 'Microsoft', tipo: 'nc', url: 'https://www.bing.com/favicon.ico' },
-  { id: 'aw', ic: '☁️', nombre: 'Amazon AWS', tipo: 'nc', url: 'https://s3.amazonaws.com/favicon.ico' }
+  { id: 'cf', ic: '🌐', nombre: 'Cloudflare', tipo: 'cf', g: 'base', def: true },
+  { id: 'gg', ic: '🔎', nombre: 'Google', tipo: 'nc', url: 'https://www.google.com/generate_204', g: 'base', def: true },
+  { id: 'ms', ic: '🪟', nombre: 'Microsoft', tipo: 'nc', url: 'https://www.bing.com/favicon.ico', g: 'base', def: true },
+  { id: 'aw', ic: '☁️', nombre: 'Amazon AWS', tipo: 'nc', url: 'https://s3.amazonaws.com/favicon.ico', g: 'base' },
+  { id: 'd1', ic: '🧭', nombre: 'DNS Cloudflare 1.1.1.1', tipo: 'nc', url: 'https://1.1.1.1/favicon.ico', g: 'dns' },
+  { id: 'd8', ic: '🧭', nombre: 'DNS Google 8.8.8.8', tipo: 'nc', url: 'https://dns.google/', g: 'dns' },
+  { id: 'q9', ic: '🧭', nombre: 'DNS Quad9', tipo: 'nc', url: 'https://www.quad9.net/favicon.ico', g: 'dns' },
+  { id: 'o3', ic: '📧', nombre: 'Microsoft 365 (Outlook)', tipo: 'nc', url: 'https://outlook.office.com/favicon.ico', g: 'trabajo' },
+  { id: 'tm', ic: '👥', nombre: 'Microsoft Teams', tipo: 'nc', url: 'https://teams.microsoft.com/favicon.ico', g: 'trabajo' },
+  { id: 'zm', ic: '🎥', nombre: 'Zoom', tipo: 'nc', url: 'https://zoom.us/favicon.ico', g: 'trabajo' },
+  { id: 'gw2', ic: '📨', nombre: 'Google Workspace (Gmail)', tipo: 'nc', url: 'https://mail.google.com/favicon.ico', g: 'trabajo' },
+  { id: 'rc', ic: '☎️', nombre: 'RingCentral', tipo: 'nc', url: 'https://www.ringcentral.com/favicon.ico', g: 'voip' },
+  { id: 'wa', ic: '💬', nombre: 'WhatsApp', tipo: 'nc', url: 'https://web.whatsapp.com/favicon.ico', g: 'voip' },
+  { id: 'ui', ic: '🔗', nombre: 'UniFi Cloud', tipo: 'nc', url: 'https://unifi.ui.com/favicon.ico', g: 'voip' },
+  { id: 'yt', ic: '▶️', nombre: 'YouTube', tipo: 'nc', url: 'https://www.youtube.com/favicon.ico', g: 'media' },
+  { id: 'nf', ic: '🎬', nombre: 'Netflix (fast.com)', tipo: 'nc', url: 'https://fast.com/favicon.ico', g: 'media' },
+  { id: 'ap', ic: '🍎', nombre: 'Apple', tipo: 'nc', url: 'https://www.apple.com/favicon.ico', g: 'media' }
 ];
+const TM_GRUPOS = ['base', 'dns', 'trabajo', 'voip', 'media'];
+// casillas de servidores agrupadas (on = "tqSet(…,'dest.$ID',this.checked)" o el del monitor)
+function tmDestChecks(usar, on, dis){
+  return TM_GRUPOS.map(g => { const L = TM_DESTINOS.filter(d => d.g === g), n = L.filter(d => usar[d.id]).length;
+    const cks = L.map(d => `<label class="mdm-chk"><input type="checkbox" ${usar[d.id] ? 'checked' : ''} ${dis ? 'disabled' : ''} onchange="${on.replace('$ID', d.id)}"> ${d.ic} ${esc(d.nombre)}</label>`).join('');
+    return g === 'base' ? cks : `<details class="tm-gr" ${n ? 'open' : ''}><summary>${t('tmg.' + g)}${n ? ` <b>(${n})</b>` : ''}</summary><div>${cks}</div></details>`; }).join('');
+}
 const TM_DUR = [1, 5, 15, 30, 60, 120, 240, 480, 0];         // minutos (0 = hasta que la pares)
 const TM_INT = [1000, 2500, 5000, 10000];
 const tmDurTxt = m => !m ? t('tm_sin_limite') : m < 60 ? m + ' min' : (m / 60) + ' h';
@@ -8315,7 +8358,7 @@ function tmHTML(){
       <label><span>🔁 ${t('tm_int')}</span><select ${corr ? 'disabled' : ''} onchange="TS.mon.int=+this.value">${op(TM_INT, M.int, tmIntTxt)}</select></label>
       ${corr ? `<button class="danger" onclick="tmParar()">⏹ ${t('tm_parar')}</button>` : `<button class="primary" onclick="tmEmpezar()">▶ ${t('tm_empezar')}</button>`}
       <span class="muted" id="tmReloj">${corr ? '' : M.estado === 'fin' ? t('tm_termino', { d: tmDurPaso(M.fin - M.inicio) }) : ''}</span></div>
-    <div class="tm-dest">${TM_DESTINOS.map(d => ck(d.id, d.ic + ' ' + d.nombre)).join('')}${ck('lan', '🏠 ' + t('tm_lan') + (lanOk ? ` <small class="muted">(${esc(TS.lan.par || '')})</small>` : ` <small class="muted">— ${t('tm_lan_no')}</small>`), !lanOk)}
+    <div class="tm-dest">${tmDestChecks(M.usar, "TS.mon.usar['$ID']=this.checked", corr)}${ck('lan', '🏠 ' + t('tm_lan') + (lanOk ? ` <small class="muted">(${esc(TS.lan.par || '')})</small>` : ` <small class="muted">— ${t('tm_lan_no')}</small>`), !lanOk)}
       <label class="mdm-chk"><input type="checkbox" ${M.usar.gw ? 'checked' : ''} ${corr ? 'disabled' : ''} onchange="TS.mon.usar.gw=this.checked"> 🏠 ${t('tm_router')}</label><input class="tm-gwip" ${corr ? 'disabled' : ''} value="${esc(M.gwip || tsGwIP())}" onchange="TS.mon.gwip=this.value.trim()">
       <label class="tm-extra"><span>➕</span><input ${corr ? 'disabled' : ''} value="${esc(M.extra)}" placeholder="${esc(t('tm_extra_ph'))}" onchange="TS.mon.extra=this.value.trim()"></label></div>
     <div id="tmVivo">${tmVivoHTML()}</div>
@@ -8349,7 +8392,7 @@ function tmGrafSVG(tg, t0, t1, W = 940, H = 210){
   return `<svg viewBox="0 0 ${W} ${H}" class="tm-svg">${banda(0, 100, 'tm-b-ok')}${banda(100, 200, 'tm-b-reg')}${banda(200, 1e9, 'tm-b-mal')}${marcas}${perd}
     <path d="${path}" class="tm-lat"/><path d="${jit}" class="tm-jit"/><text x="${L}" y="9" class="tm-ax">jitter</text><text x="10" y="${T + h / 2}" class="tm-ax" transform="rotate(-90 10 ${T + h / 2})" text-anchor="middle">ms</text>${ticks}</svg>`;
 }
-function tmPintar(){ if (TS?.tab !== 'mon') return; const v = $('tmVivo'); if (v) v.innerHTML = tmVivoHTML(); const r = $('tmReloj'), M = TS.mon;
+function tmPintar(){ if (TS?.tab !== 'mon' && TS?.tab !== 'seq') return; const v = $('tmVivo'); if (v) v.innerHTML = tmVivoHTML(); const r = $('tmReloj'), M = TS.mon;
   if (r && M.estado === 'corriendo') r.textContent = `⏺ ${tmDurPaso(Date.now() - M.inicio)}${M.dur ? ' / ' + tmDurTxt(M.dur) : ''}`; }
 // ---- mediciones
 async function tmProbar(tg){
@@ -8373,7 +8416,7 @@ function tmEmpezar(){
   const M = tmIni(); if (M.estado === 'corriendo') return;
   const lanOk = TS.lan && ['conectado', 'listo'].includes(TS.lan.fase);
   M.targets = TM_DESTINOS.filter(d => M.usar[d.id]).map(d => ({ ...d, s: [] }));
-  if (M.extra){ let u = M.extra; if (!/^https?:\/\//i.test(u)) u = 'https://' + u; try { const h = new URL(u); M.targets.push({ id: 'ex', ic: '🎯', nombre: h.hostname, tipo: 'nc', url: h.origin + h.pathname, s: [] }); } catch(e){ return alert(t('tm_url_mal')); } }
+  for (const [k, raw] of String(M.extra || '').split(/[\s,;]+/).filter(Boolean).entries()){ let u = raw; if (!/^https?:\/\//i.test(u)) u = 'https://' + u; try { const h = new URL(u); M.targets.push({ id: 'ex' + k, ic: '🎯', nombre: h.hostname, tipo: 'nc', url: h.origin + h.pathname, s: [] }); } catch(e){ return alert(t('tm_url_mal') + '\n' + raw); } }
   if (M.usar.gw){ const ip = (M.gwip || tsGwIP()).trim(); if (!tsIPok(ip)) return alert(t('tr_ip_mal')); M.gwip = ip; M.targets.unshift({ id: 'gw', ic: '🏠', nombre: t('tm_router') + ' ' + ip, tipo: 'gw', ip, s: [] }); }
   if (lanOk && M.usar.lan) M.targets.unshift({ id: 'lan', ic: '🏠', nombre: t('tm_lan') + (TS.lan.par ? ' · ' + TS.lan.par.split(' · ')[0] : ''), tipo: 'lan', s: [] });
   if (!M.targets.length) return alert(t('tm_sin_dest'));
@@ -8418,7 +8461,7 @@ function tmDiagnostico(M){
   const ticks = Object.values(porTick), comunes = ticks.filter(x => x.n >= 2 && x.malos >= Math.max(2, Math.ceil(x.n * 0.6))).length, pctComun = ticks.length ? comunes / ticks.length * 100 : 0;
   const malosNet = net.filter(x => tmMalo(x.st)), lanMal = lan && tmMalo(lan.st);
   // peores ventanas de 1 minuto (para mostrárselas al proveedor)
-  const vent = {}; T.forEach(({ tg, st }) => tg.s.forEach(([ms, v]) => { const m = Math.floor(ms / 60000); const w = (vent[m] = vent[m] || { m, perd: 0, picos: 0, n: 0 }); w.n++; if (v == null) w.perd++; else if (v > st.lim) w.picos++; }));
+  const vent = {}; T.filter(x => !x.st.sinResp).forEach(({ tg, st }) => tg.s.forEach(([ms, v]) => { const m = Math.floor(ms / 60000); const w = (vent[m] = vent[m] || { m, perd: 0, picos: 0, n: 0 }); w.n++; if (v == null) w.perd++; else if (v > st.lim) w.picos++; }));
   const peores = Object.values(vent).filter(w => w.perd + w.picos > 0).sort((a, b) => (b.perd * 3 + b.picos) - (a.perd * 3 + a.picos)).slice(0, 5).sort((a, b) => a.m - b.m)
     .map(w => ({ desde: w.m * 60000, perd: w.perd, picos: w.picos }));
   const best = net.length ? net.slice().sort((a, b) => (a.st.avg ?? 1e9) - (b.st.avg ?? 1e9))[0] : null, mos = best ? tmMOS(best.st) : null;
@@ -8464,7 +8507,7 @@ function tmResumenHTML(r){
 function tmImprimir(dat){
   const M = dat || TS.mon, r = M.resumen; if (!r) return;
   const C = prConf(), E = C.empresa || {}, nom = E.nombre || 'AJ Tech Support';
-  const graf = (M.targets || []).map(tg => `<div class="g"><b>${tg.ic} ${esc(tg.nombre)}</b>${tmGrafSVG({ s: (tg.s || []).map(x => [x[0], x[1], 0]) }, M.inicio, M.fin, 940, 170)}</div>`).join('');
+  const graf = (M.targets || []).filter(tg => (tg.s || []).some(z => z[1] != null)).map(tg => `<div class="g"><b>${tg.ic} ${esc(tg.nombre)}</b>${tmGrafSVG({ s: (tg.s || []).map(x => [x[0], x[1], 0]) }, M.inicio, M.fin, 940, 170)}</div>`).join('');
   const w = window.open('', '_blank'); if (!w) return alert(t('pr_popup'));
   const css = `@page{size:letter;margin:12mm}body{font:12px/1.5 Inter,Arial,sans-serif;color:#0f172a;-webkit-print-color-adjust:exact;print-color-adjust:exact}h1{font-size:20px;margin:0;color:#006fff}.m{color:#64748b}
     .h{display:flex;justify-content:space-between;border-bottom:3px solid #006fff;padding-bottom:8px;margin-bottom:12px}.res{border:1px solid #e2e8f0;border-left:5px solid ${r.nivel === 'bien' ? '#16a34a' : r.nivel === 'reg' ? '#d97706' : '#dc2626'};border-radius:8px;padding:10px 14px;margin-bottom:12px}
@@ -8487,11 +8530,162 @@ function tmVerGuardado(id){
   tsRender();
 }
 
+/* ======================= 🗓 Test programados: varias pruebas una detrás de otra + reporte de todo junto ======================= */
+const TQ_TIPOS = { inet: '🌐', rap: '⚡', mon: '📈' };
+const tqKey = () => 'tq_cfg:' + curCliente;
+function tqIni(){
+  if (TS.seq) return TS.seq;
+  let cfg = null; try { cfg = JSON.parse(localStorage.getItem(tqKey()) || 'null'); } catch(e){}
+  TS.seq = cfg && Array.isArray(cfg.pasos) ? { ...cfg, estado: 'config', res: [] } : { cuando: 'ahora', hora: '02:00', estado: 'config', res: [], pasos: [
+    { tipo: 'inet', on: true, largo: false },
+    { tipo: 'rap', on: true, ip: tsGwIP(), seg: 60 },
+    { tipo: 'mon', on: true, dur: 15, int: 2500, gw: true, gwip: tsGwIP(), dest: Object.fromEntries(TM_DESTINOS.map(d => [d.id, !!d.def])), extra: '' } ] };
+  return TS.seq;
+}
+function tqGuardarCfg(){ try { const { pasos, cuando, hora } = TS.seq; localStorage.setItem(tqKey(), JSON.stringify({ pasos, cuando, hora })); } catch(e){} }
+function tqSet(i, k, v){ const p = TS.seq.pasos[i]; if (!p) return; if (k.startsWith('dest.')) p.dest[k.slice(5)] = v; else p[k] = v; tqGuardarCfg(); if (/^(on|tipo)$/.test(k)) tsRender(); }
+function tqMover(i, d){ const L = TS.seq.pasos, j = i + d; if (j < 0 || j >= L.length) return; [L[i], L[j]] = [L[j], L[i]]; tqGuardarCfg(); tsRender(); }
+function tqHTML(){
+  const Q = tqIni(), corr = ['corriendo', 'esperando'].includes(Q.estado);
+  if (corr) return tqVivoHTML();
+  const op = (arr, v, f) => arr.map(x => `<option value="${x}" ${+v === x ? 'selected' : ''}>${esc(f(x))}</option>`).join('');
+  const paso = (p, i) => {
+    let ops = '';
+    if (p.tipo === 'inet') ops = `<label class="mdm-chk"><input type="checkbox" ${p.largo ? 'checked' : ''} onchange="tqSet(${i},'largo',this.checked)"> ${t('ts_largo')}</label>`;
+    if (p.tipo === 'rap') ops = `<label><span>🎯 ${t('tr_ip')}</span><input value="${esc(p.ip)}" style="width:150px" onchange="tqSet(${i},'ip',this.value.trim())"></label>
+      <label><span>⏱ ${t('tm_dur')}</span><select onchange="tqSet(${i},'seg',+this.value)">${op([15, 30, 60, 120, 300, 600], p.seg, s => s < 60 ? s + ' s' : s / 60 + ' min')}</select></label>`;
+    if (p.tipo === 'mon') ops = `<label><span>⏱ ${t('tm_dur')}</span><select onchange="tqSet(${i},'dur',+this.value)">${op(TM_DUR.filter(x => x), p.dur, tmDurTxt)}</select></label>
+      <label><span>🔁 ${t('tm_int')}</span><select onchange="tqSet(${i},'int',+this.value)">${op(TM_INT, p.int, tmIntTxt)}</select></label>
+      <div class="tq-dest">${tmDestChecks(p.dest, `tqSet(${i},'dest.$ID',this.checked)`, false)}
+        <label class="mdm-chk"><input type="checkbox" ${p.gw ? 'checked' : ''} onchange="tqSet(${i},'gw',this.checked)"> 🏠 ${t('tm_router')}</label><input class="tm-gwip" value="${esc(p.gwip)}" onchange="tqSet(${i},'gwip',this.value.trim())">
+        <label class="tm-extra"><span>➕</span><input value="${esc(p.extra)}" placeholder="${esc(t('tm_extra_ph'))}" onchange="tqSet(${i},'extra',this.value.trim())"></label></div>`;
+    return `<div class="tq-paso ${p.on ? '' : 'off'}"><div class="tq-p-h"><label class="mdm-chk"><input type="checkbox" ${p.on ? 'checked' : ''} onchange="tqSet(${i},'on',this.checked)"> <b>${i + 1}. ${TQ_TIPOS[p.tipo]} ${t('tq_p.' + p.tipo)}</b></label>
+      <span class="muted">${esc(tqDurTxt(p))}</span><span class="tq-mv"><button class="sm" ${i ? '' : 'disabled'} onclick="tqMover(${i},-1)">↑</button><button class="sm" ${i < Q.pasos.length - 1 ? '' : 'disabled'} onclick="tqMover(${i},1)">↓</button></span></div>
+      ${p.on ? `<div class="tm-ctl tq-ops">${ops}</div>` : ''}</div>`; };
+  const total = Q.pasos.filter(p => p.on).reduce((a, p) => a + tqDurMs(p), 0);
+  return `<div class="u-note" style="margin:0 0 10px">${t('tq_h')}</div>${Q.pasos.map(paso).join('')}
+    <div class="tm-ctl" style="margin-top:10px"><label><span>🕒 ${t('tq_cuando')}</span><select onchange="TS.seq.cuando=this.value;tqGuardarCfg();tsRender()"><option value="ahora" ${Q.cuando === 'ahora' ? 'selected' : ''}>${t('tq_ahora')}</option><option value="hora" ${Q.cuando === 'hora' ? 'selected' : ''}>${t('tq_a_las')}</option></select></label>
+      ${Q.cuando === 'hora' ? `<label><span>&nbsp;</span><input type="time" value="${esc(Q.hora)}" onchange="TS.seq.hora=this.value;tqGuardarCfg()"></label>` : ''}
+      <button class="primary" onclick="tqEmpezar()">▶ ${t('tq_empezar')}</button><span class="muted">${t('tq_total', { d: tmDurPaso(total) })}</span></div>
+    ${Q.res?.length && Q.estado === 'fin' ? tqResHTML(Q) : ''}`;
+}
+const tqDurMs = p => p.tipo === 'inet' ? (p.largo ? 50 : 30) * 1000 : p.tipo === 'rap' ? p.seg * 1000 + 3000 : p.dur * 60000;
+const tqDurTxt = p => '≈ ' + tmDurPaso(tqDurMs(p));
+function tqVivoHTML(){
+  const Q = TS.seq, p = Q.pasos[Q.idx];
+  const lista = Q.pasos.filter(x => x.on).map(x => { const r = Q.res.find(z => z.p === x), act = x === p;
+    return `<span class="tq-chip ${r ? (r.nivel || 'bien') : act ? 'act' : ''}">${r ? { bien: '🟢', reg: '🟡', mal: '🔴' }[r.nivel] || '✔' : act ? '⏳' : '○'} ${TQ_TIPOS[x.tipo]} ${t('tq_p.' + x.tipo)}</span>`; }).join('<span class="tq-fl">→</span>');
+  let vivo = '';
+  if (Q.estado === 'esperando') vivo = `<div class="ts-code-box"><div class="muted">${t('tq_espera')}</div><div class="ts-code" id="tqCuenta" style="font-size:30px;letter-spacing:2px">…</div></div>`;
+  else if (p?.tipo === 'inet') vivo = tsInetHTML(); else if (p?.tipo === 'rap') vivo = tsRapHTML(); else if (p?.tipo === 'mon') vivo = `<div id="tmVivo">${tmVivoHTML()}</div><div class="muted" id="tmReloj"></div>`;
+  return `<div class="tq-prog">${lista}</div><div class="tq-live">${vivo}</div><div class="row" style="margin-top:10px"><button class="danger" onclick="tqCancelar()">⏹ ${t('tq_cancelar')}</button></div>`;
+}
+const tqEspera = cond => new Promise(r => { const iv = setInterval(() => { if (cond()){ clearInterval(iv); r(); } }, 400); });
+async function tqEmpezar(){
+  const Q = TS.seq, L = Q.pasos.filter(p => p.on); if (!L.length) return alert(t('tq_nada'));
+  if (TS.corriendo || TS.mon?.estado === 'corriendo' || TS.rap?.estado === 'corriendo') return alert(t('tq_ocupado'));
+  Object.assign(Q, { res: [], cancelar: false, idx: -1 }); TS.tab = 'seq';
+  if (Q.cuando === 'hora'){
+    const [H, Mi] = String(Q.hora || '00:00').split(':').map(Number), d = new Date(); d.setHours(H, Mi, 0, 0); if (d <= new Date()) d.setDate(d.getDate() + 1);
+    Q.estado = 'esperando'; Q.esperaHasta = d.getTime(); tsRender();
+    await tqEspera(() => { const el = $('tqCuenta'); if (el) el.textContent = tmDurPaso(Math.max(0, Q.esperaHasta - Date.now())) + ' · ' + tmHora(Q.esperaHasta); return Q.cancelar || Date.now() >= Q.esperaHasta; });
+    if (Q.cancelar){ Q.estado = 'config'; return tsRender(); }
+  }
+  Q.estado = 'corriendo'; Q.inicio = Date.now();
+  for (const p of L){
+    if (Q.cancelar) break;
+    Q.idx = Q.pasos.indexOf(p); tsRender();
+    try {
+      if (p.tipo === 'inet'){ TS.largo = !!p.largo; await tsInet(); const r = TS.inet || {}; Q.res.push({ p, tipo: 'inet', r: { ...r, diag: undefined }, diag: r.diag, nivel: tqNivelInet(r) }); }
+      if (p.tipo === 'rap'){ TS.rap = { ...(TS.rap || {}), ip: p.ip, seg: p.seg, estado: 'listo' }; tsRender(); await tsRap(); const R = TS.rap; Q.res.push({ p, tipo: 'rap', r: { ...(R.res || {}), ip: R.ip, error: R.error }, graf: R.graf, nivel: tqNivelRap(R) }); }
+      if (p.tipo === 'mon'){
+        const M = tmIni(); Object.assign(M, { dur: p.dur, int: p.int, usar: { ...p.dest, gw: p.gw, lan: false }, gwip: p.gwip, extra: p.extra, estado: 'parado' });
+        tmEmpezar(); tsRender();
+        await tqEspera(() => Q.cancelar || TS.mon.estado !== 'corriendo'); if (Q.cancelar && TS.mon.estado === 'corriendo') tmParar();
+        const Mo = TS.mon; if (Mo.resumen) Q.res.push({ p, tipo: 'mon', r: Mo.resumen, inicio: Mo.inicio, fin: Mo.fin, targets: Mo.targets.map(tg => ({ ic: tg.ic, nombre: tg.nombre, tipo: tg.tipo, s: tmReducir(tg.s, 720) })), nivel: Mo.resumen.nivel });
+      }
+    } catch(e){ Q.res.push({ p, tipo: p.tipo, error: e.message || String(e), nivel: 'mal' }); }
+  }
+  Q.fin = Date.now(); Q.estado = 'fin'; Q.analisis = tqAnalisis(Q.res); TS.tab = 'seq'; tsRender();
+  setTimeout(() => $('tqRes')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 60);
+  tsGuardar('secuencia', { inicio: Q.inicio, fin: Q.fin, analisis: Q.analisis, res: Q.res.map(x => ({ ...x, p: { tipo: x.p.tipo, largo: x.p.largo, ip: x.p.ip, seg: x.p.seg, dur: x.p.dur, int: x.p.int } })) });
+}
+function tqCancelar(){ const Q = TS.seq; Q.cancelar = true; TS.parar = true; if (TS.rap) TS.rap.parar = true; if (TS.mon?.estado === 'corriendo') tmParar(); }
+const tqNivelInet = r => r.error ? 'mal' : (r.bajada < 10 || r.perdida >= 3 || (r.pingCarga - r.ping) > 150) ? 'mal' : (r.bajada < 25 || r.perdida >= 0.5 || (r.pingCarga - r.ping) > 60 || r.jitter > 30) ? 'reg' : 'bien';
+const tqNivelRap = R => !R.res ? 'mal' : (R.res.perdida >= 1 || (R.res.p95 ?? 0) > 60) ? 'mal' : ((R.res.jitter ?? 0) > 10 || (R.res.avg ?? 0) > 20) ? 'reg' : 'bien';
+// 🩺 análisis de todo junto: cuál es el problema principal y qué hacer primero
+function tqAnalisis(res){
+  const g = k => res.find(x => x.tipo === k), I = g('inet'), R = g('rap'), M = g('mon'), pasos = [], hall = [];
+  const peor = res.reduce((a, x) => ({ bien: 0, reg: 1, mal: 2 }[x.nivel] > { bien: 0, reg: 1, mal: 2 }[a] ? x.nivel : a), 'bien');
+  let lugar = 'ninguno', titulo = t('tqa_ok');
+  if (R && R.nivel !== 'bien'){ lugar = 'lan'; titulo = t('tqa_lan'); hall.push(t('tqa_h_rap', { p: tsF(R.r.perdida, 1), a: tsF(R.r.avg, 1), j: tsF(R.r.jitter, 1) })); pasos.push('tmp_wifi_1', 'tmp_lan_cable', 'tmp_lan_puerto', 'tmp_wifi_2', 'tmp_wifi_4'); }
+  else if (M && ['isp', 'isp_o_lan'].includes(M.r.lugar)){ lugar = 'isp'; titulo = t('tqa_isp'); pasos.push('tmp_isp_uso', 'tmp_isp_modem', 'tmp_isp_cable', 'tmp_isp_unifi', 'tmp_isp_llamar', 'tmp_isp_failover'); }
+  else if (I && I.nivel !== 'bien'){ lugar = 'vel'; titulo = t('tqa_vel'); }
+  else if (M && M.r.lugar === 'servicio'){ lugar = 'servicio'; titulo = M.r.titulo; pasos.push('tmp_serv_1', 'tmp_serv_2'); }
+  if (R && R.nivel === 'bien') hall.push(t('tqa_h_rap_ok', { a: tsF(R.r.avg, 1) }));
+  if (I && !I.r.error){
+    hall.push(t('tqa_h_inet', { b: tsF(I.r.bajada), s: tsF(I.r.subida), p: tsF(I.r.ping, 0) }));
+    if (I.r.pingCarga != null && I.r.ping != null && I.r.pingCarga - I.r.ping > 60){ hall.push(t('tqa_h_bloat', { n: Math.round(I.r.pingCarga - I.r.ping) })); pasos.push('tmp_isp_sq'); }
+    if (I.r.bajada < 25){ hall.push(t('tqa_h_lento')); pasos.push('tqp_plan'); }
+    if (I.r.subida != null && I.r.bajada && I.r.subida < I.r.bajada * 0.1) pasos.push('tqp_subida');
+  } else if (I?.r?.error) hall.push('⚠ ' + I.r.error);
+  if (M){ hall.push(t('tqa_h_mon', { d: tmDurPaso(M.fin - M.inicio), r: M.r.titulo })); if (M.r.mos != null){ hall.push(t('tqa_h_mos', { m: tsF(M.r.mos, 1) })); if (M.r.mos < 3.6) pasos.push('tmp_voip_qos'); } }
+  if (!pasos.length) pasos.push('tmp_ok_1');
+  return { nivel: peor, lugar, titulo, hallazgos: hall, pasos: [...new Set(pasos)] };
+}
+const tqIcN = n => ({ bien: '🟢', reg: '🟡', mal: '🔴' }[n] || '⚪');
+function tqResHTML(Q){
+  const A = Q.analisis || tqAnalisis(Q.res);
+  const sec = x => {
+    if (x.error) return `<div class="tq-r"><b>${TQ_TIPOS[x.tipo]} ${t('tq_p.' + x.tipo)}</b> <span class="trm-mal">⚠ ${esc(x.error)}</span></div>`;
+    if (x.tipo === 'inet') return `<div class="tq-r"><div class="tq-r-h">${tqIcN(x.nivel)} <b>🌐 ${t('tq_p.inet')}</b></div><div class="ts-kpis">${tsKpi(tsF(x.r.bajada), 'Mbps', '⬇ ' + t('ts_bajada'))}${tsKpi(tsF(x.r.subida), 'Mbps', '⬆ ' + t('ts_subida'))}${tsKpi(tsF(x.r.ping, 0), 'ms', 'Ping')}${tsKpi(tsF(x.r.jitter, 1), 'ms', 'Jitter')}${tsKpi(tsF(x.r.pingCarga, 0), 'ms', t('ts_ping_carga'))}${tsKpi(tsF(x.r.perdida, 1), '%', t('ts_perdida_web'))}</div>${x.diag ? `<div class="ts-diag">${x.diag}</div>` : ''}</div>`;
+    if (x.tipo === 'rap') return `<div class="tq-r"><div class="tq-r-h">${tqIcN(x.nivel)} <b>⚡ ${t('tq_p.rap')}</b> <span class="muted">→ ${esc(x.r.ip || '')}</span></div>${x.r.error ? `<div class="u-warn">⚠️ ${x.r.error}</div>` : `<div class="ts-kpis">${tsKpi(tsF(x.r.avg, 1), 'ms', t('ts_lan_lat'))}${tsKpi(tsF(x.r.p95, 1), 'ms', 'p95')}${tsKpi(tsF(x.r.jitter, 1), 'ms', 'Jitter')}${tsKpi(tsF(x.r.perdida, 1), '%', t('ts_lan_perd'))}</div>${x.graf || ''}${x.r.diag ? `<div class="ts-diag">${x.r.diag}</div>` : ''}`}</div>`;
+    return `<div class="tq-r"><div class="tq-r-h">${tqIcN(x.nivel)} <b>📈 ${t('tq_p.mon')}</b> <span class="muted">${esc(tmDurPaso(x.fin - x.inicio))}</span></div>${tmResumenHTML(x.r).replace(/<button class="sm" onclick="tmImprimir\(\)">[^<]*<\/button>/, '')}</div>`;
+  };
+  return `<div id="tqRes" class="tm-res ${A.nivel}" style="margin-top:12px"><div class="tm-res-h"><span class="tm-res-ic">${tqIcN(A.nivel)}</span><div><b>${esc(A.titulo)}</b><div class="muted">${t('tq_res_h', { n: Q.res.length, d: tmDurPaso((Q.fin || Date.now()) - (Q.inicio || Date.now())) })}</div></div>
+      <button class="sm" onclick="tqImprimir()">🖨 ${t('tq_rep_todo')}</button></div>
+    <div class="tm-donde">📍 <b>${t('tm_donde')}:</b> ${esc(t('tqa_l.' + A.lugar))}</div>
+    <h4 class="cl-h4">🔎 ${t('tq_hall')}</h4><ul class="tm-pasos">${A.hallazgos.map(h => `<li>${esc(h)}</li>`).join('')}</ul>
+    <h4 class="cl-h4">🛠 ${t('tq_sol')}</h4><ol class="tm-pasos">${A.pasos.map(k => `<li>${t(k)}</li>`).join('')}</ol>
+    <h4 class="cl-h4">📋 ${t('tq_detalle')}</h4>${Q.res.map((x, i) => `<div class="tq-r-w">${sec(x)}<button class="sm tq-r-pdf" onclick="tqImprimir(${i})">🖨 ${t('tm_reporte')}</button></div>`).join('')}</div>`;
+}
+// reporte para imprimir / PDF: todo junto (sin i) o una sola prueba (i)
+function tqImprimir(i, Q = TS.seq){
+  const A = Q.analisis || tqAnalisis(Q.res), solo = i != null ? [Q.res[i]] : Q.res, C = prConf(), E = C.empresa || {}, nom = E.nombre || 'AJ Tech Support';
+  const kv = (l, v) => `<td><div class="k">${l}</div><div class="v">${v}</div></td>`;
+  const sec = x => {
+    if (x.error) return `<h2>${TQ_TIPOS[x.tipo]} ${t('tq_p.' + x.tipo)}</h2><p class="mal">⚠ ${esc(x.error)}</p>`;
+    if (x.tipo === 'inet') return `<h2>${tqIcN(x.nivel)} 🌐 ${t('tq_p.inet')}</h2><table class="kv"><tr>${kv('⬇ ' + t('ts_bajada'), tsF(x.r.bajada) + ' Mbps')}${kv('⬆ ' + t('ts_subida'), tsF(x.r.subida) + ' Mbps')}${kv('Ping', tsF(x.r.ping, 0) + ' ms')}${kv('Jitter', tsF(x.r.jitter, 1) + ' ms')}${kv(t('ts_ping_carga'), tsF(x.r.pingCarga, 0) + ' ms')}${kv(t('ts_perdida_web'), tsF(x.r.perdida, 1) + ' %')}</tr></table>${x.r.meta ? `<div class="m">${esc([x.r.meta.ip, x.r.meta.isp, x.r.meta.ciudad].filter(Boolean).join(' · '))}</div>` : ''}${x.diag ? `<div class="d">${x.diag}</div>` : ''}`;
+    if (x.tipo === 'rap') return `<h2>${tqIcN(x.nivel)} ⚡ ${t('tq_p.rap')} → ${esc(x.r.ip || '')}</h2>${x.r.error ? `<p class="mal">⚠ ${x.r.error}</p>` : `<table class="kv"><tr>${kv(t('ts_lan_lat'), tsF(x.r.avg, 1) + ' ms')}${kv('Min', tsF(x.r.min, 1) + ' ms')}${kv('p95', tsF(x.r.p95, 1) + ' ms')}${kv('Jitter', tsF(x.r.jitter, 1) + ' ms')}${kv(t('ts_lan_perd'), tsF(x.r.perdida, 1) + ' %')}</tr></table>${x.graf || ''}${x.r.diag ? `<div class="d">${x.r.diag}</div>` : ''}`}`;
+    const r = x.r;
+    return `<h2>${tqIcN(x.nivel)} 📈 ${t('tq_p.mon')} · ${esc(tmDurPaso(x.fin - x.inicio))}</h2><p><b>${esc(r.titulo)}</b> — 📍 ${esc(t('tml.' + r.lugar))}</p><p>${esc(r.explica)}</p>${r.mos != null ? `<p>📞 ${t('tm_mos')}: <b>${tsF(r.mos, 1)} / 4.5</b></p>` : ''}
+      <table><thead><tr><th>${t('tm_destino')}</th><th class="n">${t('tm_prom')}</th><th class="n">Min</th><th class="n">p95</th><th class="n">Jitter</th><th class="n">${t('tm_perd_c')}</th><th class="n">${t('tm_picos')}</th></tr></thead><tbody>${r.filas.map(f => `<tr><td>${f.ic} ${esc(f.nombre)}${f.sinResp ? ' (' + t('tm_sin_resp') + ')' : ''}</td><td class="n">${tsF(f.avg, 1)}</td><td class="n">${tsF(f.min, 1)}</td><td class="n">${tsF(f.p95, 0)}</td><td class="n">${tsF(f.jitter, 1)}</td><td class="n ${f.perdida >= 1 ? 'mal' : ''}">${tsF(f.perdida, 1)} %</td><td class="n">${f.picos}</td></tr>`).join('')}</tbody></table>
+      ${r.peores?.length ? `<div class="m">🕒 ${t('tm_peores')}: ${r.peores.map(w => `${esc(tmHora(w.desde))} (${w.perd} ${t('tm_perdidos')}, ${w.picos} ${t('tm_picos').toLowerCase()})`).join(' · ')}</div>` : ''}
+      ${(x.targets || []).filter(tg => (tg.s || []).some(z => z[1] != null)).map(tg => `<div class="g"><b>${tg.ic} ${esc(tg.nombre)}</b>${tmGrafSVG({ s: (tg.s || []).map(z => [z[0], z[1], 0]) }, x.inicio, x.fin, 940, 140)}</div>`).join('')}`;
+  };
+  const css = `@page{size:letter;margin:12mm}body{font:12px/1.5 Inter,Arial,sans-serif;color:#0f172a;-webkit-print-color-adjust:exact;print-color-adjust:exact}h1{font-size:20px;margin:0;color:#006fff}h2{font-size:14px;margin:16px 0 6px;padding-bottom:4px;border-bottom:2px solid #006fff;break-after:avoid}.m{color:#64748b}
+    .h{display:flex;justify-content:space-between;border-bottom:3px solid #006fff;padding-bottom:8px;margin-bottom:12px}.res{border:1px solid #e2e8f0;border-left:5px solid ${A.nivel === 'bien' ? '#16a34a' : A.nivel === 'reg' ? '#d97706' : '#dc2626'};border-radius:8px;padding:10px 14px}
+    table{width:100%;border-collapse:collapse;margin:6px 0}th{background:#0f172a;color:#fff;font-size:10px;text-transform:uppercase;padding:5px 6px;text-align:left}td{padding:5px 6px;border-bottom:1px solid #e2e8f0}.n{text-align:right}.mal{color:#dc2626;font-weight:700}
+    table.kv td{border:1px solid #e2e8f0;text-align:center}.kv .k{font-size:10px;color:#64748b;text-transform:uppercase}.kv .v{font-size:15px;font-weight:700}.d{background:#f1f5f9;border-radius:6px;padding:6px 10px;margin:6px 0}
+    .g{margin:6px 0;break-inside:avoid}svg{width:100%}${TM_SVG_CSS}`;
+  const w = window.open('', '_blank'); if (!w) return alert(t('pr_popup'));
+  w.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>${esc(t('tq_rep_t'))} · ${esc(curCliente)}</title><style>${css}</style></head><body>
+    <div class="h"><div><b style="font-size:16px">${esc(nom)}</b><div class="m">${esc([E.telefono, E.email].filter(Boolean).join(' · '))}</div></div><div style="text-align:right"><h1>${esc(t(i != null ? 'tm_reporte_t' : 'tq_rep_t'))}</h1><div class="m">${esc(curCliente)} · ${esc(new Date(Q.inicio || Date.now()).toLocaleString())}${Q.fin ? ' → ' + esc(tmHora(Q.fin)) : ''}</div></div></div>
+    ${i == null ? `<div class="res"><b style="font-size:15px">${tqIcN(A.nivel)} ${esc(A.titulo)}</b><div>📍 <b>${t('tm_donde')}:</b> ${esc(t('tqa_l.' + A.lugar))}</div>
+      <b>🔎 ${t('tq_hall')}</b><ul>${A.hallazgos.map(h => `<li>${esc(h)}</li>`).join('')}</ul><b>🛠 ${t('tq_sol')}</b><ol>${A.pasos.map(k => `<li>${t(k)}</li>`).join('')}</ol></div>` : ''}
+    ${solo.map(sec).join('')}<script>setTimeout(()=>print(),500)<\/script></body></html>`); w.document.close();
+}
+function tqVerGuardado(id){
+  const h = TS.hist.find(x => x.id === id); if (!h?.datos?.res) return;
+  const d = h.datos; tqIni(); Object.assign(TS.seq, { estado: 'fin', inicio: d.inicio, fin: d.fin, analisis: d.analisis, res: d.res }); TS.tab = 'seq'; tsRender();
+}
+
 /* ======================= 🗂 Historial ======================= */
 function tsHistHTML(){
   if (!TS.ok) return `<div class="u-warn">⚠️ ${t('ts_sql')}</div>`;
   if (!TS.hist.length) return `<div class="act-empty">🗂 ${t('ts_hist_vacio')}</div>`;
   const fila = h => { const d = h.datos || {};
+    if (h.tipo === 'secuencia'){ const A = d.analisis || {}; return `<tr><td class="mono">${esc(riFecha(h.created_at))}</td><td>🗓 ${t('ts_t_seq')} <small class="muted">${(d.res || []).map(x => TQ_TIPOS[x.tipo]).join(' ')}</small></td><td colspan="4">${tqIcN(A.nivel)} ${esc(A.titulo || '')}</td><td><button class="sm" onclick="tqVerGuardado('${h.id}')">👁 ${t('tm_ver')}</button></td></tr>`; }
     if (h.tipo === 'monitor'){ const R = d.resumen || {}; return `<tr><td class="mono">${esc(riFecha(h.created_at))}</td><td>📈 ${t('ts_t_mon')} <small class="muted">${esc(tmDurPaso((d.fin || 0) - (d.inicio || 0)))}</small></td><td colspan="4">${{ bien: '🟢', reg: '🟡', mal: '🔴' }[R.nivel] || ''} ${esc(R.titulo || '')}</td><td><button class="sm" onclick="tmVerGuardado('${h.id}')">👁 ${t('tm_ver')}</button></td></tr>`; }
     if (h.tipo === 'lan' && d.modo === 'rapida') return `<tr><td class="mono">${esc(riFecha(h.created_at))}</td><td>⚡ ${t('tr_t')}</td><td class="n">→ ${esc(d.ip || '')}${d.wifi ? ' 📶' : ''}</td><td class="n">${tsF(d.rtt, 1)} ms</td><td class="n">${tsF(d.jitter, 1)} ms</td><td class="n">${tsF(d.perdida, 1)} %</td><td class="muted" style="font-size:12px">${esc(h.autor || '')}</td></tr>`;
     return h.tipo === 'lan'

@@ -782,6 +782,16 @@ body.p-noadm .p-solo-adm{display:none!important}
 .trb-com{margin-top:8px;padding-top:6px;border-top:1px dashed var(--line)}.trb-c{margin:4px 0 6px;padding:5px 9px;border-radius:8px;background:color-mix(in srgb,#7c3aed 6%,transparent)}
 .trb-c-h{display:flex;gap:8px;align-items:center;font-size:12.5px}.trb-c-h small{flex:1}.trb-c-x{padding:0 6px!important;font-size:11px;opacity:.6}.trb-c-x:hover{opacity:1}.trb-c-t{font-size:13px;margin-top:1px}
 .trb-c-new{display:flex;gap:6px;margin-top:4px}.trb-c-new input{flex:1;padding:5px 9px;font-size:13px}
+.net-tbl.ri-tbl{min-width:0;width:100%}.ri-tbl td{vertical-align:top;font-size:13px}.ri-tbl td.mono{font-size:12px;white-space:nowrap}.ri-tbl tr.ri-off td{opacity:.5}.ri-est{display:inline-block;font-size:11px;padding:1px 8px;border-radius:999px;font-weight:600}.ri-est.ok{background:color-mix(in srgb,var(--ok,#16a34a) 15%,transparent);color:var(--ok,#16a34a)}.ri-est.error{background:color-mix(in srgb,var(--bad,#dc2626) 15%,transparent);color:var(--bad,#dc2626)}.ri-est.omitido{background:color-mix(in srgb,#f59e0b 18%,transparent);color:#b45309}
+.ri-poe{margin-top:6px;padding:8px 10px;border:1px dashed var(--line-strong);border-radius:10px}.ri-ports{display:flex;flex-wrap:wrap;gap:4px;margin:8px 0 4px}.ri-port{min-width:42px;padding:4px 6px;font:600 12px Inter,sans-serif;border-radius:6px}.ri-port.poe{border-color:var(--accent,#006fff)}.ri-port.on{background:var(--accent,#006fff);color:#fff}.ri-port:disabled{opacity:.45}
+.ri-objs{border:1px solid var(--line);border-radius:10px;padding:4px 8px}.ri-obj{display:grid;grid-template-columns:minmax(160px,1.2fr) 190px minmax(0,1.6fr) auto;gap:8px;align-items:center;padding:6px 0;border-bottom:1px dashed var(--line)}.ri-obj:last-child{border-bottom:0}
+.ri-obj select{padding:4px 6px;font-size:12.5px}.ri-on{font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.o-poe{display:flex;gap:4px;align-items:center}.o-poe select{flex:1;min-width:0}.o-poe input{width:70px;padding:4px 6px}
+.o-ports,.o-av{grid-column:1/-1}.o-ports:empty{display:none}.o-av{font-size:12px;color:var(--warn,#b45309)}.ri-add{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:8px}.ri-add select{width:auto;max-width:280px;padding:5px 8px;font-size:13px}
+.ri-esc{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:8px}.ri-esc label{display:flex!important;flex-direction:row!important;gap:6px;align-items:center;font-size:13px;margin:0}.ri-esc select{width:auto}.ri-res{margin-top:8px;font-size:13px;line-height:1.7}
+@media (max-width:700px){.ri-obj{grid-template-columns:1fr auto}.ri-obj .o-m,.ri-obj .o-poe{grid-column:1/-1}}
+.ri-tipos{margin:4px 0 8px}.ri-cuando{padding:8px 10px;border:1px solid var(--line);border-radius:10px}.ri-horas{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:6px}.ri-h{display:inline-flex;gap:3px;align-items:center}.ri-h input{width:140px}
+.ri-dias{display:flex;flex-wrap:wrap;gap:5px;align-items:center}.ri-dia{display:inline-flex!important;flex-direction:row!important;align-items:center;gap:4px;padding:4px 10px;border:1px solid var(--line);border-radius:999px;cursor:pointer;font-size:13px}.ri-dia input{width:auto;margin:0}.ri-dia.on{background:color-mix(in srgb,var(--accent,#006fff) 12%,transparent);border-color:var(--accent,#006fff)}
+.ri-mes{display:flex;gap:8px;align-items:center;margin-bottom:6px}.ri-mes select{width:auto}.ri-prev{margin-top:10px;font-size:13px}.ri-pf{display:inline-block;margin:2px 4px;padding:1px 8px;border-radius:999px;background:color-mix(in srgb,var(--accent,#006fff) 10%,transparent);font-size:12px}
 .trd-add{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:8px}.trd-add select.ta-s{flex:1;min-width:220px;max-width:420px;padding:5px 8px;font-size:13px}.trd-add input{width:180px;padding:5px 8px;font-size:13px}.trd-add input.ta-u{width:110px}.ta-nueva td:first-child,.ta-nueva span{color:var(--accent,#006fff);font-weight:600}
 .trd-uso{margin:10px 0 4px;padding:10px;border:1px solid var(--line);border-radius:10px;background:color-mix(in srgb,var(--accent,#006fff) 4%,transparent)}.trd-uso .cl-h4{margin:0}.trm-uso-t td,.trm-uso-t th{padding:5px 8px}.trm-uso-u{font-size:12px;color:var(--muted);width:64px;flex:none;align-self:center;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .trb-d-u{margin-top:4px;font-size:12.5px;color:var(--muted)}.trb-d-u b{color:var(--text)}.trm-cie-b{display:block;margin-top:2px;font-size:10.5px;font-family:Inter,sans-serif;color:var(--muted)}.trm-cie-b.d-stock{color:var(--ok,#16a34a)}.trm-cie-b.d-devolver{color:var(--accent,#006fff)}
@@ -1074,7 +1084,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v9.6.1</p>
+    <p class="sub">Network Asset Manager · v9.7</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -1090,7 +1100,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.6.1</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.7</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -1177,6 +1187,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
       <button onclick="irDiseno()">📐 <span data-i18n="dis_btn">Design</span></button>
       <button onclick="abrirUnifi()" data-i18n-title="t_unifi">🔗 <span>UniFi</span></button>
       <button onclick="abrirSplashtop()" data-i18n-title="t_splashtop">🖥 <span>Splashtop</span></button>
+      <button class="p-solo-adm" onclick="abrirReinicios()" data-i18n-title="ri_title">🔄 <span data-i18n="ri_btn">Restarts</span></button>
       <button class="primary" onclick="nuevoEquipo()">＋ <span data-i18n="add_device">Add device</span></button>
     </div>
   </div>
@@ -1798,7 +1809,30 @@ Object.assign(I18N.en, {
   trm_nada_sacar:'Nothing to take: already taken, not in stock or no quantity.', trm_sacados:'{n} material(s) taken from stock', trm_serial_h:'Pick the serials that go out',
   trm_quitar_q:'Some of this was already taken from stock. Remove it from the list anyway? (stock is not returned automatically)', trm_de_lista:'From the materials list', trm_ya_falt:'Everything is already in "Missing" or there is enough stock.',
   trm_pasados:'{n} material(s) moved to "Missing"', trm_preparo:'Prepared by', trm_reviso:'Checked / received by',
-  trm_sql:'To save materials run supabase-trabajos.sql again (it adds the "materiales" column).', trm_cajas:'boxes', trm_tal:'Maybe', trm_tal_h:'Maybe: it may or may not be used. It stays on the list but is not taken from stock or ordered.', trm_n_tal:'{n} maybe', trb_com_ph:'Write a comment about this summary…', trb_com_env:'Comment', trb_com_t:'Comments', trb_com_borrar:'Delete this comment?', trb_com_sql:'To use comments run supabase-trabajos.sql again in Supabase (it adds the trabajo_coment table).', trm_x_caja:'per box:', trm_add_olv:'Add a forgotten material', trm_add_trab:'Job materials', trm_add_stock:'From office stock', trm_add_otro:'Other (type a name)', trm_add_nom:'Material name', trm_add_nota:'Added from the daily log', trd_corregir:'Edit note', trd_corregir_h:'Only administrators can edit or delete notes.', trm_renta:'Daily rental', trm_renta_h:'Daily rental (lift, scaffold…): the daily note records the days used; the quantity is not consumed.', trm_dias:'days', trm_dia1:'day', trm_uso_uni:'Choose feet or boxes', trd_fases_hoy:'Phases you worked on today', trd_total:'Total job', trd_fases_tip:'Tap the phases you worked on today and move them up.', trd_terminada:'Phase done (100%)', trd_solo_fases:'Phase progress', trm_uso_hoy:'Material used today', trm_uso_h:'Enter how much of each material was used today. It is subtracted from the total. Cable can be entered in feet or boxes. Rentals (lift) are entered in days.', trm_total:'Total', trm_usado:'Used', trm_queda:'Left', trm_hoy_uso:'Used today', trm_solo_uso:'Material usage',
+  trm_sql:'To save materials run supabase-trabajos.sql again (it adds the "materiales" column).', trm_cajas:'boxes', trm_tal:'Maybe', trm_tal_h:'Maybe: it may or may not be used. It stays on the list but is not taken from stock or ordered.', trm_n_tal:'{n} maybe', ri_sin_equipos:'Add at least one device.', ri_agregar_eq:'Add device', ri_todos_ap:'All APs', ri_todos_tel:'All phones', ri_todos_sw:'All switches', ri_grupo:'Add a group', ri_quitar_todos:'Remove all',
+  ri_esc:'How they restart:', ri_esc_0:'All at once', ri_esc_n:'One by one, every {n} min', ri_esc_h:'{n} devices in this rule.', ri_infra_final:'Switches and the router go last.', ri_n_equipos:'{n} devices', ri_q_varios:'Restart these {n} devices?', ri_equipos_t:'Devices to restart', ri_btn:'Restarts', ri_title:'Restarts', ri_t_prog:'Scheduled', ri_t_ahora:'Restart now', ri_t_log:'History',
+  ri_h:'Schedule restarts of UniFi devices: once, every X hours, daily, on weekdays or monthly, at one or more times. A device can have several rules (e.g. daily at 3 AM plus the 1st Sunday of every month). The system clock runs them even when nobody has the app open.',
+  ri_nuevo:'Schedule restart', ri_editar:'Edit restart', ri_vacio:'No scheduled restarts for this client yet.', ri_log_vacio:'Nothing has been restarted yet.',
+  ri_equipo:'Device', ri_cuando:'When', ri_proximo:'Next', ri_ultimo:'Last', ri_activo:'Active', ri_origen:'Who', ri_detalle:'Detail', ri_o_prog:'Scheduled', ri_o_man:'Manual',
+  ri_como:'How', ri_reinicio:'Device restart', ri_poe:'PoE port power cycle', ri_switch:'Switch it is plugged into', ri_puerto:'Port', ri_ver_puertos:'Show ports',
+  ri_escoge:'pick the device', ri_escoge_sw:'pick the switch', ri_sin_mac:'no MAC', ri_ports_h:'⚡ = PoE · 🔗 = powers another network device (not allowed). Tap a port to pick it.',
+  ri_sin_puertos:'That switch returned no ports.', ri_alimenta:'Powers {n}: power cycle not allowed here', ri_sin_poe:'No PoE',
+  ri_av_mac:'This device has no MAC in the inventory. Without a MAC it cannot be found in UniFi.', ri_av_tel:'UniFi Talk phones are not restarted with "Device restart": use "PoE port power cycle".',
+  ri_av_gw:'This is the router / gateway: restarting it drops the INTERNET for the whole site for 3–5 minutes (and VPN / Splashtop to this client).', ri_av_sw:'This is a switch: everything plugged into it drops while it boots (phones, cameras, APs).',
+  ri_falta_poe:'For a PoE power cycle pick the switch and the port.', ri_poe_mismo:'The switch and the device cannot be the same.',
+  ri_ahora_h:'Restart a device right now. You can first use "Test connection" to check UniFi can find it (it does not restart anything).', ri_probar:'Test connection', ri_ya:'Restart now',
+  ri_sw_ok:'Switch found: {n}', ri_enviando:'Sending…', ri_ok:'Restart sent',
+  ri_q:'Restart {n} now?\nIt goes offline 1–3 minutes.', ri_q_poe:'Power cycle {n}?\n({s} · port {p})\nIt turns off and back on by itself; an active call will drop.',
+  ri_q_sw:'Restart switch {n}?\nEVERYTHING plugged into it drops while it boots (2–3 minutes).', ri_q_gw:'⚠ {n} is the ROUTER / GATEWAY: the whole site loses internet for 3–5 minutes.\nTo confirm type the exact device name:',
+  ri_q_gw_prog:'{n} is the router / gateway: every scheduled restart leaves the site without internet for 3–5 minutes. Sure?',
+  ri_fn:'The "reinicios" Edge Function is not deployed in Supabase yet (see instructions).', ri_sql:'To use restarts run supabase-reinicios.sql in Supabase and deploy the "reinicios" Edge Function.',
+  ri_tipo:'', 'ri_tipo.una_vez':'Once', 'ri_tipo.cada_horas':'Every X hours', 'ri_tipo.diario':'Every day', 'ri_tipo.semanal':'Every week', 'ri_tipo.mensual':'Every month',
+  ri_a_las:'at', ri_otra_hora:'another time', ri_fecha_hora:'Date and time', ri_cada:'Every', ri_horas:'hours', ri_empezando:'Starting', ri_lun_vie:'Mon–Fri', ri_fin_sem:'Weekend',
+  ri_el_dia:'On day', ri_el:'On the', ri_ultimo_dia:'last day', 'ri_nth.1':'first', 'ri_nth.2':'second', 'ri_nth.3':'third', 'ri_nth.4':'fourth', 'ri_nth.-1':'last',
+  ri_zona:'Time zone', ri_hasta_l:'Until (optional)', ri_hasta:'until', ri_desde:'from', ri_nota_ph:'e.g. the AP gets slow after a few days', ri_proximos:'Next restarts', ri_nunca:'With these settings no restart would ever happen.',
+  ri_falta_hora:'Add at least one time.', ri_falta_dia:'Pick at least one weekday.', ri_fecha_pasada:'Pick a date and time that has not passed yet.', ri_borrar_q:'Delete this scheduled restart?',
+  ri_txt_una:'Once: {f}', ri_txt_horas:'Every {n} hours', ri_txt_diario:'Every day at {h}', ri_txt_sem:'Every week: {d} at {h}', ri_txt_nth:'Every month, the {n} {d} at {h}', ri_txt_ult:'Every month, the last day at {h}', ri_txt_dia:'Every month, on day {n} at {h}',
+  'ri_e.ok':'OK', 'ri_e.error':'Error', 'ri_e.omitido':'Skipped', trb_com_ph:'Write a comment about this summary…', trb_com_env:'Comment', trb_com_t:'Comments', trb_com_borrar:'Delete this comment?', trb_com_sql:'To use comments run supabase-trabajos.sql again in Supabase (it adds the trabajo_coment table).', trm_x_caja:'per box:', trm_add_olv:'Add a forgotten material', trm_add_trab:'Job materials', trm_add_stock:'From office stock', trm_add_otro:'Other (type a name)', trm_add_nom:'Material name', trm_add_nota:'Added from the daily log', trd_corregir:'Edit note', trd_corregir_h:'Only administrators can edit or delete notes.', trm_renta:'Daily rental', trm_renta_h:'Daily rental (lift, scaffold…): the daily note records the days used; the quantity is not consumed.', trm_dias:'days', trm_dia1:'day', trm_uso_uni:'Choose feet or boxes', trd_fases_hoy:'Phases you worked on today', trd_total:'Total job', trd_fases_tip:'Tap the phases you worked on today and move them up.', trd_terminada:'Phase done (100%)', trd_solo_fases:'Phase progress', trm_uso_hoy:'Material used today', trm_uso_h:'Enter how much of each material was used today. It is subtracted from the total. Cable can be entered in feet or boxes. Rentals (lift) are entered in days.', trm_total:'Total', trm_usado:'Used', trm_queda:'Left', trm_hoy_uso:'Used today', trm_solo_uso:'Material usage',
   trm_cierre:'Close-out / leftover', trm_cierre_h:'When finished: leftovers can be returned to the store (conduit, boxes, etc.), sent to the office stock, left with the client or thrown away.', trm_cierre_nada:'Nothing left over: everything taken is used or already closed.', trm_llevado:'Taken', trm_sobra:'Leftover', trm_destino:'What to do',
   trm_tienda:'Store / supplier (return)', trm_tienda_ph:'e.g. Home Depot Doral, Graybar…', trm_cierre_ok:'Process', trm_cierre_hecho:'Done: {n} line(s) closed, {s} to stock.', trm_sobro_de:'Leftover from {t}',
   trm_dev_t:'Return', trm_dev_nada:'Nothing to return.', trm_dev_rec:'Received / credit', trm_dev_nota:'Leftover material in good condition, unused. Keep the store receipt or credit note.', trm_dev_entrega:'Delivered by', trm_dev_recibe:'Received by (store)', trm_dev_ticket:'Receipt / credit #',
@@ -2009,7 +2043,30 @@ Object.assign(I18N.es, {
   trm_nada_sacar:'No hay nada que sacar: o ya se sacó, o no está en el stock, o no hay cantidad.', trm_sacados:'{n} material(es) sacados del stock', trm_serial_h:'Escoger los seriales que salen',
   trm_quitar_q:'Ya se sacó algo de esto del stock. ¿Quitarlo de la lista igual? (el stock no se devuelve solo)', trm_de_lista:'De la lista de materiales', trm_ya_falt:'Ya está todo en "Lo que falta" o hay stock suficiente.',
   trm_pasados:'{n} material(es) pasados a "Lo que falta"', trm_preparo:'Preparó', trm_reviso:'Revisó / recibió',
-  trm_sql:'Para guardar los materiales corre otra vez supabase-trabajos.sql (agrega la columna "materiales").', trm_cajas:'cajas', trm_tal:'En veremos', trm_tal_h:'En veremos: puede que se use, puede que no. Se lleva en la lista pero no se saca del stock ni se pide.', trm_n_tal:'{n} en veremos', trb_com_ph:'Escribe un comentario sobre este resumen…', trb_com_env:'Comentar', trb_com_t:'Comentarios', trb_com_borrar:'¿Borrar este comentario?', trb_com_sql:'Para usar los comentarios corre otra vez supabase-trabajos.sql en Supabase (agrega la tabla trabajo_coment).', trm_x_caja:'por caja:', trm_add_olv:'Agregar material que se olvidó', trm_add_trab:'Materiales del trabajo', trm_add_stock:'Del stock de la oficina', trm_add_otro:'Otro (escribir nombre)', trm_add_nom:'Nombre del material', trm_add_nota:'Agregado desde el diario', trd_corregir:'Corregir nota', trd_corregir_h:'Solo los administradores pueden corregir o borrar notas.', trm_renta:'Renta por días', trm_renta_h:'Renta por días (lift, andamio…): en la nota del día se apuntan los días que se usó, no se gasta la cantidad.', trm_dias:'días', trm_dia1:'día', trm_uso_uni:'Escoge si lo escribes en pies o en cajas', trd_fases_hoy:'Fases que trabajaste hoy', trd_total:'Trabajo total', trd_fases_tip:'Toca las fases en las que trabajaste hoy y súbelas.', trd_terminada:'Fase terminada (100%)', trd_solo_fases:'Avance de fases', trm_uso_hoy:'Material usado hoy', trm_uso_h:'Pon cuánto se usó hoy de cada material. Se va restando del total. El cable y lo que va en cajas (conectores RJ45…) lo puedes poner por caja o por pie / unidad. Lo que es renta (lift) se apunta en días.', trm_total:'Total', trm_usado:'Usado', trm_queda:'Queda', trm_hoy_uso:'Usado hoy', trm_solo_uso:'Uso de material',
+  trm_sql:'Para guardar los materiales corre otra vez supabase-trabajos.sql (agrega la columna "materiales").', trm_cajas:'cajas', trm_tal:'En veremos', trm_tal_h:'En veremos: puede que se use, puede que no. Se lleva en la lista pero no se saca del stock ni se pide.', trm_n_tal:'{n} en veremos', ri_sin_equipos:'Agrega al menos un equipo.', ri_agregar_eq:'Agregar equipo', ri_todos_ap:'Todos los APs', ri_todos_tel:'Todos los teléfonos', ri_todos_sw:'Todos los switches', ri_grupo:'Agregar un grupo', ri_quitar_todos:'Quitar todos',
+  ri_esc:'Cómo se reinician:', ri_esc_0:'Todos a la vez', ri_esc_n:'Uno por uno, cada {n} min', ri_esc_h:'{n} equipos en esta regla.', ri_infra_final:'Los switches y el router van al final.', ri_n_equipos:'{n} equipos', ri_q_varios:'¿Reiniciar estos {n} equipos?', ri_equipos_t:'Equipos a reiniciar', ri_btn:'Reinicios', ri_title:'Reinicios', ri_t_prog:'Programados', ri_t_ahora:'Reiniciar ahora', ri_t_log:'Historial',
+  ri_h:'Programa reinicios de equipos UniFi: una vez, cada X horas, diario, por días de la semana o por mes, a una o varias horas. Para un mismo equipo puedes tener varias reglas (ej. diario a las 3 a. m. y además el 1er domingo de cada mes). Los ejecuta el reloj del sistema aunque nadie tenga la app abierta.',
+  ri_nuevo:'Programar reinicio', ri_editar:'Editar reinicio', ri_vacio:'Todavía no hay reinicios programados para este cliente.', ri_log_vacio:'Todavía no se ha reiniciado nada.',
+  ri_equipo:'Equipo', ri_cuando:'Cuándo', ri_proximo:'Próximo', ri_ultimo:'Último', ri_activo:'Activo', ri_origen:'Quién', ri_detalle:'Detalle', ri_o_prog:'Programado', ri_o_man:'Manual',
+  ri_como:'Cómo', ri_reinicio:'Reinicio del equipo', ri_poe:'Ciclo de PoE del puerto', ri_switch:'Switch donde está conectado', ri_puerto:'Puerto', ri_ver_puertos:'Ver puertos',
+  ri_escoge:'escoge el equipo', ri_escoge_sw:'escoge el switch', ri_sin_mac:'sin MAC', ri_ports_h:'⚡ = tiene PoE · 🔗 = alimenta otro equipo de la red (no se puede). Toca un puerto para escogerlo.',
+  ri_sin_puertos:'Ese switch no devolvió puertos.', ri_alimenta:'Alimenta a {n}: no se puede hacer ciclo aquí', ri_sin_poe:'Sin PoE',
+  ri_av_mac:'Este equipo no tiene MAC en el inventario. Sin MAC no se puede encontrar en UniFi.', ri_av_tel:'Los teléfonos de UniFi Talk no se reinician con "Reinicio del equipo": usa "Ciclo de PoE del puerto".',
+  ri_av_gw:'Es el router / gateway: al reiniciarlo se cae el INTERNET de todo el sitio 3–5 minutos (y la VPN / Splashtop a ese cliente).', ri_av_sw:'Es un switch: se caen todos los equipos conectados a él mientras arranca (teléfonos, cámaras, APs).',
+  ri_falta_poe:'Para el ciclo de PoE escoge el switch y el puerto.', ri_poe_mismo:'El switch y el equipo no pueden ser el mismo.',
+  ri_ahora_h:'Reinicia uno o varios equipos en este momento. Primero puedes darle a "Probar conexión" para ver si UniFi los encuentra (no reinicia nada).', ri_probar:'Probar conexión', ri_ya:'Reiniciar ahora',
+  ri_sw_ok:'Switch encontrado: {n}', ri_enviando:'Enviando…', ri_ok:'Reinicio enviado',
+  ri_q:'¿Reiniciar {n} ahora?\nSe desconecta 1–3 minutos.', ri_q_poe:'¿Hacer ciclo de PoE a {n}?\n({s} · puerto {p})\nSe apaga y vuelve a prender solo; si está en una llamada se corta.',
+  ri_q_sw:'¿Reiniciar el switch {n}?\nTODO lo conectado a él se cae mientras arranca (2–3 minutos).', ri_q_gw:'⚠ {n} es el ROUTER / GATEWAY: se cae el internet de todo el sitio 3–5 minutos.\nPara confirmar escribe el nombre exacto del equipo:',
+  ri_q_gw_prog:'{n} es el router / gateway: cada reinicio programado deja al sitio sin internet 3–5 minutos. ¿Seguro?',
+  ri_fn:'Falta publicar la Edge Function "reinicios" en Supabase (ver instrucciones).', ri_sql:'Para usar los reinicios corre supabase-reinicios.sql en Supabase y publica la Edge Function "reinicios".',
+  ri_tipo:'', 'ri_tipo.una_vez':'Una sola vez', 'ri_tipo.cada_horas':'Cada X horas', 'ri_tipo.diario':'Todos los días', 'ri_tipo.semanal':'Cada semana', 'ri_tipo.mensual':'Cada mes',
+  ri_a_las:'a las', ri_otra_hora:'otra hora', ri_fecha_hora:'Fecha y hora', ri_cada:'Cada', ri_horas:'horas', ri_empezando:'Empezando', ri_lun_vie:'Lun–Vie', ri_fin_sem:'Fin de semana',
+  ri_el_dia:'El día', ri_el:'El', ri_ultimo_dia:'último día', 'ri_nth.1':'primer', 'ri_nth.2':'segundo', 'ri_nth.3':'tercer', 'ri_nth.4':'cuarto', 'ri_nth.-1':'último',
+  ri_zona:'Zona horaria', ri_hasta_l:'Hasta (opcional)', ri_hasta:'hasta', ri_desde:'desde', ri_nota_ph:'ej. el AP se pone lento después de varios días', ri_proximos:'Próximos reinicios', ri_nunca:'Con estos datos nunca tocaría un reinicio.',
+  ri_falta_hora:'Pon al menos una hora.', ri_falta_dia:'Escoge al menos un día de la semana.', ri_fecha_pasada:'Escoge una fecha y hora que todavía no haya pasado.', ri_borrar_q:'¿Borrar este reinicio programado?',
+  ri_txt_una:'Una vez: {f}', ri_txt_horas:'Cada {n} horas', ri_txt_diario:'Todos los días a las {h}', ri_txt_sem:'Cada semana: {d} a las {h}', ri_txt_nth:'Cada mes, el {n} {d} a las {h}', ri_txt_ult:'Cada mes, el último día a las {h}', ri_txt_dia:'Cada mes, el día {n} a las {h}',
+  'ri_e.ok':'OK', 'ri_e.error':'Error', 'ri_e.omitido':'Omitido', trb_com_ph:'Escribe un comentario sobre este resumen…', trb_com_env:'Comentar', trb_com_t:'Comentarios', trb_com_borrar:'¿Borrar este comentario?', trb_com_sql:'Para usar los comentarios corre otra vez supabase-trabajos.sql en Supabase (agrega la tabla trabajo_coment).', trm_x_caja:'por caja:', trm_add_olv:'Agregar material que se olvidó', trm_add_trab:'Materiales del trabajo', trm_add_stock:'Del stock de la oficina', trm_add_otro:'Otro (escribir nombre)', trm_add_nom:'Nombre del material', trm_add_nota:'Agregado desde el diario', trd_corregir:'Corregir nota', trd_corregir_h:'Solo los administradores pueden corregir o borrar notas.', trm_renta:'Renta por días', trm_renta_h:'Renta por días (lift, andamio…): en la nota del día se apuntan los días que se usó, no se gasta la cantidad.', trm_dias:'días', trm_dia1:'día', trm_uso_uni:'Escoge si lo escribes en pies o en cajas', trd_fases_hoy:'Fases que trabajaste hoy', trd_total:'Trabajo total', trd_fases_tip:'Toca las fases en las que trabajaste hoy y súbelas.', trd_terminada:'Fase terminada (100%)', trd_solo_fases:'Avance de fases', trm_uso_hoy:'Material usado hoy', trm_uso_h:'Pon cuánto se usó hoy de cada material. Se va restando del total. El cable y lo que va en cajas (conectores RJ45…) lo puedes poner por caja o por pie / unidad. Lo que es renta (lift) se apunta en días.', trm_total:'Total', trm_usado:'Usado', trm_queda:'Queda', trm_hoy_uso:'Usado hoy', trm_solo_uso:'Uso de material',
   trm_cierre:'Cierre / sobrante', trm_cierre_h:'Al terminar: lo que sobró se puede devolver a la tienda (tubería, cajas, etc.), mandar al stock de la oficina, dejar con el cliente o botar.', trm_cierre_nada:'No sobró nada: todo lo que se llevó está usado o ya se cerró.', trm_llevado:'Se llevó', trm_sobra:'Sobró', trm_destino:'Qué se hace',
   trm_tienda:'Tienda / proveedor (devolución)', trm_tienda_ph:'ej. Home Depot Doral, Graybar…', trm_cierre_ok:'Procesar', trm_cierre_hecho:'Listo: {n} línea(s) cerradas, {s} al stock.', trm_sobro_de:'Sobró de {t}',
   trm_dev_t:'Devolución', trm_dev_nada:'No hay nada para devolver.', trm_dev_rec:'Recibido / crédito', trm_dev_nota:'Material sobrante en buen estado, sin usar. Guardar el ticket o nota de crédito de la tienda.', trm_dev_entrega:'Entregado por', trm_dev_recibe:'Recibido por (tienda)', trm_dev_ticket:'# Ticket / crédito',
@@ -7460,6 +7517,269 @@ async function importarUnifi(){
   toast(t('uf_done', { n: nuevos.length, a: cambios.length }));
   await loadData(); await buscarUnifi();
 }
+/* ---------- 🔄 Reinicios de equipos UniFi (ahora y programados) — solo Super admin ----------
+   Reinicio normal (AP, switch, gateway) o ciclo de PoE del puerto (teléfonos, cámaras…).
+   Las reglas viven en Supabase (reinicio_prog) y las ejecuta el reloj de la base de datos (pg_cron) → Edge Function "reinicios". */
+let RI = null;
+const RI_ZONAS = ['America/New_York', 'America/Chicago', 'America/Denver', 'America/Los_Angeles', 'America/Puerto_Rico', 'America/Bogota', 'America/Caracas', 'America/Mexico_City', 'Europe/Madrid', 'UTC'];
+const RI_TIPOS = ['una_vez', 'cada_horas', 'diario', 'semanal', 'mensual'];
+const riGateway = x => ['Router', 'Firewall'].includes(x?.tipo) || /\b(UDM|UCG|UXG|UDR|USG|DREAM ?MACHINE|GATEWAY|CLOUD GATEWAY)\b/i.test(`${x?.modelo || ''} ${x?.nombre || ''}`);
+const riPoePorDefecto = x => ['Teléfono', 'Cámara', 'Control de Acceso'].includes(x?.tipo) || !UF_MARCA.test(`${x?.modelo || ''} ${x?.nombre || ''}`) && !x?.unifi_id;
+async function llamarReinicios(body){
+  try{
+    const { data, error } = await db.functions.invoke('reinicios', { body });
+    if (!error) return { data };
+    let msg = error.message || String(error), st = error.context?.status;
+    try{ const j = await error.context?.json?.(); if (j?.error) msg = j.error; }catch(e){}
+    return { error: msg, falta: st === 404 && !/encontr|found/i.test(msg) || /Failed to send|FunctionsFetchError|FunctionsRelayError/i.test((error.name || '') + ' ' + msg) };
+  }catch(e){ return { error: e.message || String(e), falta: true }; }
+}
+async function abrirReinicios(){
+  if (!(PERM.admin || !PERM.roles)) return toast(t('no_perm'));
+  RI = { tab: 'prog', progs: [], log: [], ok: true, edit: null, cargando: true };
+  $('modalTitle').textContent = '🔄 ' + t('ri_title') + ' · ' + curCliente;
+  $('modal').querySelector('.modal-card').classList.add('wide');
+  $('modal').classList.remove('hidden');
+  riRender(); await riCargar();
+}
+async function riCargar(){
+  const [a, b] = await Promise.all([db.from('reinicio_prog').select('*').eq('cliente', curCliente).order('created_at', { ascending: true }),
+    db.from('reinicio_log').select('*').eq('cliente', curCliente).order('created_at', { ascending: false }).limit(100)]);
+  RI.ok = !a.error; RI.progs = a.error ? [] : (a.data || []); RI.log = b.error ? [] : (b.data || []); RI.cargando = false; riRender();
+}
+const riEq = id => items.find(x => x.id === id);
+const riEqNom = id => { const x = riEq(id); return x ? `${TIPO_ICON[x.tipo] || '◆'} ${x.nombre}` : '—'; };
+const riHora = h => { const [H, M] = String(h).split(':').map(Number); const d = new Date(2000, 0, 1, H, M); return d.toLocaleTimeString(LANG === 'es' ? 'es-US' : 'en-US', { hour: 'numeric', minute: '2-digit' }); };
+const riFecha = (v, tz) => v ? new Date(v).toLocaleString(LANG === 'es' ? 'es-US' : 'en-US', { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', ...(tz ? { timeZone: tz } : {}) }) : '—';
+const RI_DOW = () => LANG === 'es' ? ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'] : ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+const RI_DOWL = () => LANG === 'es' ? ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'] : ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+// "Todos los días a las 3:00 a. m." etc.
+function riTexto(p){
+  const hs = jArr(p.horas).map(riHora).join(', '), D = RI_DOW(), DL = RI_DOWL();
+  if (p.tipo === 'una_vez') return t('ri_txt_una', { f: riFecha(p.fecha_hora, p.zona) });
+  if (p.tipo === 'cada_horas') return t('ri_txt_horas', { n: p.cada_h }) + (p.fecha_hora ? ' · ' + t('ri_desde') + ' ' + riFecha(p.fecha_hora, p.zona) : '');
+  if (p.tipo === 'diario') return t('ri_txt_diario', { h: hs });
+  if (p.tipo === 'semanal') return t('ri_txt_sem', { d: jArr(p.dias).slice().sort().map(i => D[i]).join(', '), h: hs });
+  if (p.mes_modo === 'nth') return t('ri_txt_nth', { n: t('ri_nth.' + p.nth), d: DL[p.nth_dia], h: hs });
+  return p.dia_mes === -1 ? t('ri_txt_ult', { h: hs }) : t('ri_txt_dia', { n: p.dia_mes, h: hs });
+}
+const riModoTxt = p => p.modo === 'poe' ? `⚡ ${t('ri_poe')} · ${esc(riEq(p.switch_id)?.nombre || '?')} · ${t('ri_puerto')} ${p.puerto}` : `🔄 ${t('ri_reinicio')}`;
+const riEstB = e => e ? `<span class="ri-est ${esc(e)}">${esc(t('ri_e.' + e))}</span>` : '';
+function riRender(){
+  if (!RI) return;
+  const b = $('modalBody'), tab = (k, l) => `<span class="chip ${RI.tab === k ? 'on' : ''}" onclick="RI.tab='${k}';RI.edit=null;riRender()">${l}</span>`;
+  const cab = `<div class="stats" style="margin:0 0 10px">${tab('prog', '📅 ' + t('ri_t_prog') + ` (${RI.progs.length})`)}${tab('ahora', '⚡ ' + t('ri_t_ahora'))}${tab('log', '🗂 ' + t('ri_t_log') + ` (${RI.log.length})`)}</div>`;
+  if (RI.cargando){ b.innerHTML = cab + `<p class="muted">${t('act_loading')}</p>`; return; }
+  if (!RI.ok){ b.innerHTML = cab + `<div class="u-warn">⚠️ ${t('ri_sql')}</div>`; return; }
+  if (RI.edit) return riForm();
+  if (RI.tab === 'ahora') return riAhoraHTML(cab);
+  if (RI.tab === 'log'){
+    b.innerHTML = cab + (RI.log.length ? `<div class="table-wrap"><table class="net-tbl ri-tbl"><thead><tr><th>${t('ri_cuando')}</th><th>${t('ri_equipo')}</th><th>${t('ri_origen')}</th><th>${t('status')}</th><th>${t('ri_detalle')}</th></tr></thead><tbody>
+      ${RI.log.map(l => `<tr><td class="mono">${esc(riFecha(l.created_at))}</td><td>${esc(l.nombre || '')}</td><td>${l.origen === 'programado' ? '⏰ ' + t('ri_o_prog') : '👤 ' + esc(l.autor || t('ri_o_man'))}</td><td>${riEstB(l.estado)}</td><td class="muted" style="font-size:12.5px">${esc(l.mensaje || '')}</td></tr>`).join('')}</tbody></table></div>`
+      : `<div class="act-empty">🗂 ${t('ri_log_vacio')}</div>`);
+    return;
+  }
+  b.innerHTML = cab + `<div class="u-note" style="margin:0 0 10px">${t('ri_h')}</div>
+    <div class="row" style="margin-bottom:10px"><button class="primary" onclick="riNuevo()">＋ ${t('ri_nuevo')}</button></div>
+    ${RI.progs.length ? `<div class="table-wrap"><table class="net-tbl ri-tbl"><thead><tr><th>${t('ri_equipo')}</th><th>${t('ri_cuando')}</th><th>${t('ri_proximo')}</th><th>${t('ri_ultimo')}</th><th>${t('ri_activo')}</th><th></th></tr></thead><tbody>
+      ${RI.progs.map(p => `<tr class="${p.activo ? '' : 'ri-off'}"><td>${(o => o.length === 1 ? `<b>${esc(riEqNom(o[0].equipo_id))}</b><small class="muted" style="display:block">${riModoTxt(o[0])}</small>` : `<b>${t('ri_n_equipos', { n: o.length })}</b><small class="muted" style="display:block">${o.slice(0, 4).map(z => esc(riEq(z.equipo_id)?.nombre || '?') + (z.modo === 'poe' ? ' ⚡' : '')).join(', ')}${o.length > 4 ? ` +${o.length - 4}` : ''}</small><small class="muted" style="display:block">⏱ ${esc(riEscTxt(p.escalonar_seg ?? 60))}</small>`)(riObjs(p))}${p.nota ? `<small class="muted" style="display:block">📝 ${esc(p.nota)}</small>` : ''}</td>
+        <td>${esc(riTexto(p))}${p.hasta ? `<small class="muted" style="display:block">${t('ri_hasta')} ${esc(riFecha(p.hasta, p.zona))}</small>` : ''}${p.zona !== 'America/New_York' ? `<small class="muted" style="display:block">🌎 ${esc(p.zona)}</small>` : ''}</td>
+        <td class="mono">${p.activo && p.proxima ? esc(riFecha(p.proxima, p.zona)) : '—'}</td>
+        <td>${p.ultima ? `<span class="mono">${esc(riFecha(p.ultima, p.zona))}</span> ${riEstB(p.ultimo_estado)}${p.ultimo_msg ? `<small class="muted" style="display:block">${esc(p.ultimo_msg)}</small>` : ''}` : '—'}</td>
+        <td><label class="mdm-chk"><input type="checkbox" ${p.activo ? 'checked' : ''} onchange="riActivo('${p.id}',this.checked)"></label></td>
+        <td class="stk-acc"><button class="sm" onclick="riAhora('${p.id}')" title="${esc(t('ri_ya'))}">▶</button><button class="sm" onclick="riEditar('${p.id}')">✏️</button><button class="sm danger" onclick="riBorrar('${p.id}')">🗑</button></td></tr>`).join('')}</tbody></table></div>`
+      : `<div class="act-empty">📅 ${t('ri_vacio')}</div>`}`;
+}
+// ---- equipos del cliente
+const riEquipos = () => equiposDe(curCliente).filter(x => x.nombre).sort((a, b) => String(a.tipo).localeCompare(String(b.tipo)) || String(a.nombre).localeCompare(String(b.nombre)));
+const riSwitches = () => equiposDe(curCliente).filter(x => x.tipo === 'Switch' || /USW|SWITCH/i.test(x.modelo || ''));
+function riOpEquipos(sel){
+  const g = {}; riEquipos().forEach(x => (g[x.tipo || '—'] = g[x.tipo || '—'] || []).push(x));
+  return `<option value="">— ${t('ri_escoge')} —</option>` + Object.keys(g).map(k => `<optgroup label="${esc(tTipo(k))}">${g[k].map(x => `<option value="${x.id}" ${sel === x.id ? 'selected' : ''}>${esc(x.nombre)}${x.ip ? ' · ' + esc(x.ip) : ''}${x.mac ? '' : ' ⚠ ' + t('ri_sin_mac')}</option>`).join('')}</optgroup>`).join('');
+}
+const riOpSw = sel => `<option value="">— ${t('ri_escoge_sw')} —</option>` + riSwitches().map(x => `<option value="${x.id}" ${sel === x.id ? 'selected' : ''}>${esc(x.nombre)}${x.ip ? ' · ' + esc(x.ip) : ''}</option>`).join('');
+// ---- Varios equipos por regla: objetivos = [{equipo_id, modo, switch_id, puerto}]
+const riObjs = p => jArr(p?.objetivos).length ? jArr(p.objetivos) : (p?.equipo_id ? [{ equipo_id: p.equipo_id, modo: p.modo || 'reinicio', switch_id: p.switch_id || null, puerto: p.puerto ?? null }] : []);
+const riOrden = o => { const x = riEq(o.equipo_id); return o.modo === 'poe' ? 0 : riGateway(x) ? 2 : x?.tipo === 'Switch' ? 1 : 0; };
+const RI_ESC = [0, 60, 120, 180, 300, 600];
+const riEscTxt = s => +s ? t('ri_esc_n', { n: Math.round(+s / 60) }) : t('ri_esc_0');
+// el switch y puerto que ya se usaron antes para este equipo (teléfonos)
+const riPoeConocido = id => { for (const p of RI?.progs || []) { const o = riObjs(p).find(z => z.equipo_id === id && z.modo === 'poe' && z.switch_id && z.puerto); if (o) return o; } return null; };
+function riObjNuevo(id){
+  const x = riEq(id); if (!x) return null; const poe = riPoePorDefecto(x), k = poe ? riPoeConocido(id) : null;
+  return { equipo_id: id, modo: poe ? 'poe' : 'reinicio', switch_id: k?.switch_id || null, puerto: k?.puerto ?? null };
+}
+function riObjAvisos(o){
+  const x = riEq(o.equipo_id), av = [];
+  if (!x) return av;
+  if (o.modo !== 'poe' && !x.mac) av.push('⚠ ' + t('ri_av_mac'));
+  if (o.modo !== 'poe' && x.tipo === 'Teléfono') av.push('📞 ' + t('ri_av_tel'));
+  if (o.modo !== 'poe' && riGateway(x)) av.push('🌐 ' + t('ri_av_gw'));
+  if (o.modo !== 'poe' && x.tipo === 'Switch') av.push('🔀 ' + t('ri_av_sw'));
+  return av;
+}
+// editor de la lista de equipos (RI.cur = la lista que se está editando)
+function riObjsHTML(){
+  const L = RI.cur || [], ya = new Set(L.map(o => o.equipo_id)), gr = (typeof grupos !== 'undefined' ? grupos : []).filter(g => mismoCliente(g.cliente, curCliente) && miembros(g.id).length);
+  const g = {}; riEquipos().filter(x => !ya.has(x.id)).forEach(x => (g[x.tipo || '—'] = g[x.tipo || '—'] || []).push(x));
+  const lote = (tipos, ic, k) => riEquipos().some(x => tipos.includes(x.tipo) && !ya.has(x.id)) ? `<button type="button" class="sm" onclick="riObjLote(${JSON.stringify(tipos).replace(/"/g, '&quot;')})">${ic} ${t(k)}</button>` : '';
+  const infra = L.some(o => riOrden(o) > 0) && L.length > 1;
+  return `<div class="ri-objs">${L.map((o, i) => { const x = riEq(o.equipo_id), av = riObjAvisos(o);
+      return `<div class="ri-obj"><span class="ri-on">${x ? `${TIPO_ICON[x.tipo] || '◆'} <b>${esc(x.nombre)}</b>${x.ip ? ` <small class="muted">${esc(x.ip)}</small>` : ''}` : '—'}</span>
+        <select class="o-m" onchange="riObjSet(${i},'modo',this.value)"><option value="reinicio" ${o.modo !== 'poe' ? 'selected' : ''}>🔄 ${t('ri_reinicio')}</option><option value="poe" ${o.modo === 'poe' ? 'selected' : ''}>⚡ ${t('ri_poe')}</option></select>
+        ${o.modo === 'poe' ? `<span class="o-poe"><select onchange="riObjSet(${i},'switch_id',this.value||null)">${riOpSw(o.switch_id)}</select><input type="number" min="1" max="64" placeholder="${esc(t('ri_puerto'))}" value="${esc(o.puerto ?? '')}" onchange="riObjSet(${i},'puerto',this.value?+this.value:null,true)"><button type="button" class="sm" onclick="riVerPuertos(${i})" title="${esc(t('ri_ver_puertos'))}">🔍</button></span>` : '<span></span>'}
+        <button type="button" class="sm danger" onclick="riObjQuitar(${i})">✕</button>
+        <div class="o-ports" id="riPorts${i}"></div>${av.length ? `<div class="o-av">${av.map(a => `<div>${esc(a)}</div>`).join('')}</div>` : ''}</div>`; }).join('') || `<div class="muted" style="padding:6px 2px">${t('ri_sin_equipos')}</div>`}</div>
+    <div class="ri-add"><select onchange="if(this.value){riObjAdd([this.value]);}"><option value="">＋ ${t('ri_agregar_eq')}…</option>${Object.keys(g).map(k => `<optgroup label="${esc(tTipo(k))}">${g[k].map(x => `<option value="${x.id}">${esc(x.nombre)}${x.ip ? ' · ' + esc(x.ip) : ''}${x.mac ? '' : ' ⚠ ' + t('ri_sin_mac')}</option>`).join('')}</optgroup>`).join('')}</select>
+      ${lote(['Access Point'], '📶', 'ri_todos_ap')}${lote(['Teléfono'], '📞', 'ri_todos_tel')}${lote(['Switch'], '🔀', 'ri_todos_sw')}
+      ${gr.length ? `<select onchange="if(this.value){riObjAdd(miembros(this.value).map(x=>x.id));}"><option value="">🗂 ${t('ri_grupo')}…</option>${gr.map(z => `<option value="${z.id}">${esc(z.nombre)} (${miembros(z.id).length})</option>`).join('')}</select>` : ''}
+      ${L.length ? `<button type="button" class="sm" onclick="RI.cur.length=0;riObjsPintar()">🧹 ${t('ri_quitar_todos')}</button>` : ''}</div>
+    ${L.length > 1 ? `<div class="ri-esc"><label><span>${t('ri_esc')}</span><select id="ri_esc" onchange="RI.esc=+this.value;riLeerForm&&RI.edit&&riLeerForm()">${RI_ESC.map(s => `<option value="${s}" ${+(RI.esc ?? 60) === s ? 'selected' : ''}>${esc(riEscTxt(s))}</option>`).join('')}</select></label>
+      <small class="muted">${t('ri_esc_h', { n: L.length })}${infra ? ' ' + t('ri_infra_final') : ''}</small></div>` : ''}`;
+}
+function riObjsPintar(){ const el = $('riObjs'); if (el) el.innerHTML = riObjsHTML(); if (RI.edit) riLeerForm(); }
+function riObjAdd(ids){ ids.forEach(id => { if (!RI.cur.some(o => o.equipo_id === id)){ const o = riObjNuevo(id); if (o) RI.cur.push(o); } }); riObjsPintar(); }
+function riObjLote(tipos){ riObjAdd(riEquipos().filter(x => tipos.includes(x.tipo)).map(x => x.id)); }
+function riObjQuitar(i){ RI.cur.splice(i, 1); riObjsPintar(); }
+function riObjSet(i, k, v, sinPintar){ const o = RI.cur[i]; if (!o) return; o[k] = v; if (k === 'modo' && v === 'poe' && !o.switch_id){ const c = riPoeConocido(o.equipo_id); if (c){ o.switch_id = c.switch_id; o.puerto = c.puerto; } } if (!sinPintar) riObjsPintar(); }
+async function riVerPuertos(i){
+  const o = RI.cur[i], el = $('riPorts' + i); if (!o?.switch_id) return alert(t('ri_falta_poe'));
+  el.innerHTML = `<p class="muted">${t('act_loading')}</p>`;
+  const r = await llamarReinicios({ accion: 'puertos', switch_id: o.switch_id });
+  if (r.error){ el.innerHTML = `<div class="u-warn">⚠️ ${esc(r.falta ? t('ri_fn') : r.error)}</div>`; return; }
+  const P = r.data?.puertos || [];
+  el.innerHTML = P.length ? `<div class="ri-ports">${P.map(p => `<button type="button" class="ri-port ${p.poe ? 'poe' : ''} ${+o.puerto === p.idx ? 'on' : ''}" ${p.poe && !p.alimenta ? '' : 'disabled'} onclick="riObjSet(${i},'puerto',${p.idx},true);this.parentElement.querySelectorAll('.ri-port').forEach(b=>b.classList.remove('on'));this.classList.add('on');this.closest('.ri-obj').querySelector('.o-poe input').value=${p.idx}" title="${esc(p.alimenta ? t('ri_alimenta', { n: p.alimenta }) : p.poe ? 'PoE' : t('ri_sin_poe'))}">${p.idx}${p.poe ? '⚡' : ''}${p.alimenta ? '🔗' : ''}</button>`).join('')}</div><small class="muted">${t('ri_ports_h')}</small>` : `<p class="muted">${t('ri_sin_puertos')}</p>`;
+}
+function riObjsValida(L){
+  if (!L.length){ alert(t('ri_sin_equipos')); return false; }
+  for (const o of L){ const x = riEq(o.equipo_id);
+    if (o.modo === 'poe' && (!o.switch_id || !o.puerto)){ alert(t('ri_falta_poe') + '\n→ ' + (x?.nombre || '')); return false; }
+    if (o.modo === 'poe' && o.switch_id === o.equipo_id){ alert(t('ri_poe_mismo') + '\n→ ' + (x?.nombre || '')); return false; } }
+  return true;
+}
+const riObjsLimpios = L => L.map(o => ({ equipo_id: o.equipo_id, modo: o.modo === 'poe' ? 'poe' : 'reinicio', switch_id: o.modo === 'poe' ? o.switch_id : null, puerto: o.modo === 'poe' ? +o.puerto : null }));
+// ---- Reiniciar ahora
+function riAhoraHTML(cab){
+  RI.ahora = RI.ahora || { objetivos: [] }; RI.cur = RI.ahora.objetivos;
+  $('modalBody').innerHTML = cab + `<div class="u-note" style="margin:0 0 10px">${t('ri_ahora_h')}</div><div id="riObjs">${riObjsHTML()}</div>
+    <div class="row" style="margin-top:10px"><button onclick="riProbar()">🔌 ${t('ri_probar')}</button><button class="primary" onclick="riAhora()">⚡ ${t('ri_ya')}</button></div><div id="riRes" class="ri-res">${RI.res || ''}</div>`;
+}
+async function riProbar(){
+  const L = RI.cur; if (!riObjsValida(L)) return; const el = $('riRes'); el.innerHTML = '';
+  for (const o of L){ const x = riEq(o.equipo_id), id = 'rp' + Math.random().toString(36).slice(2);
+    el.insertAdjacentHTML('beforeend', `<div id="${id}">⏳ ${esc(x?.nombre || '')}…</div>`);
+    const r = o.modo === 'poe' ? await llamarReinicios({ accion: 'puertos', switch_id: o.switch_id }) : await llamarReinicios({ accion: 'probar', equipo_id: o.equipo_id });
+    $(id).innerHTML = r.error ? `⚠️ <b>${esc(x?.nombre || '')}</b>: ${esc(r.falta ? t('ri_fn') : r.error)}` : `✅ <b>${esc(x?.nombre || '')}</b>: ${esc(o.modo === 'poe' ? t('ri_sw_ok', { n: r.data.switch }) + ' · ' + t('ri_puerto') + ' ' + o.puerto : r.data.msg)}`;
+    if (r.falta) break; }
+}
+// confirmación: si va el router hay que escribir su nombre
+function riConfirma(L, esc0){
+  const xs = L.map(o => riEq(o.equipo_id)).filter(Boolean), gw = L.find(o => o.modo !== 'poe' && riGateway(riEq(o.equipo_id)));
+  if (gw){ const n = riEq(gw.equipo_id).nombre, v = prompt(t('ri_q_gw', { n }) + (xs.length > 1 ? '\n\n' + t('ri_q_varios', { n: xs.length }) : '')); return v != null && v.trim().toLowerCase() === String(n).trim().toLowerCase(); }
+  if (xs.length === 1){ const o = L[0], x = xs[0]; if (o.modo === 'poe') return confirm(t('ri_q_poe', { n: x.nombre, s: riEq(o.switch_id)?.nombre || '', p: o.puerto })); if (x.tipo === 'Switch') return confirm(t('ri_q_sw', { n: x.nombre })); return confirm(t('ri_q', { n: x.nombre })); }
+  const sw = L.some(o => o.modo !== 'poe' && riEq(o.equipo_id)?.tipo === 'Switch');
+  return confirm(t('ri_q_varios', { n: xs.length }) + '\n' + xs.slice(0, 12).map(x => '• ' + x.nombre).join('\n') + (xs.length > 12 ? '\n…' : '') + '\n\n' + riEscTxt(esc0) + (sw ? '\n' + t('ri_infra_final') : ''));
+}
+async function riAhora(progId){
+  let L, esc0;
+  if (progId){ const p = RI.progs.find(z => z.id === progId); if (!p) return; L = riObjs(p); esc0 = p.escalonar_seg ?? 60; }
+  else { L = RI.cur || []; esc0 = L.length > 1 ? +($('ri_esc')?.value ?? RI.esc ?? 60) : 0; if (!riObjsValida(L)) return; }
+  if (!riConfirma(L, esc0)) return;
+  const el = $('riRes'); if (el) el.innerHTML = '⏳ ' + t('ri_enviando');
+  const r = await llamarReinicios({ accion: 'ahora', objetivos: riObjsLimpios(L), escalonar_seg: esc0, prog_id: progId || null });
+  const m = r.error ? (r.falta ? t('ri_fn') : r.error) : (r.data?.msg || t('ri_ok'));
+  if (el){ RI.res = (r.error ? '⚠️ ' : '✅ ') + esc(m); el.innerHTML = RI.res; } else r.error ? alert(m) : toast('✅ ' + m);
+  await riCargar();
+}
+// ---- Programar
+function riNuevo(){ RI.edit = { tipo: 'diario', horas: ['03:00'], dias: [0], dia_mes: 1, mes_modo: 'dia', nth: 1, nth_dia: 0, cada_h: 24, zona: 'America/New_York', activo: true, objetivos: [], escalonar_seg: 60 }; RI.esc = 60; riRender(); }
+function riEditar(id){ const p = RI.progs.find(z => z.id === id); if (!p) return; RI.edit = { ...p, objetivos: riObjs(p).map(o => ({ ...o })), horas: jArr(p.horas).map(h => String(h).slice(0, 5)), dias: jArr(p.dias) }; RI.esc = p.escalonar_seg ?? 60; riRender(); }
+// fecha y hora local de la zona ↔ ISO
+const riTzOff = (ms, tz) => { const p = Object.fromEntries(new Intl.DateTimeFormat('en-US', { timeZone: tz, hourCycle: 'h23', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).formatToParts(new Date(ms)).map(x => [x.type, x.value]));
+  return Date.UTC(+p.year, +p.month - 1, +p.day, +p.hour, +p.minute, +p.second) - ms; };
+const riLocalAUtc = (y, m, d, H, M, tz) => { const g = Date.UTC(y, m - 1, d, H, M); let ms = g - riTzOff(g, tz); ms = g - riTzOff(ms, tz); return ms; };
+const riIsoDeInput = (v, tz) => { if (!v) return null; const [f, h] = v.split('T'), [y, m, d] = f.split('-').map(Number), [H, M] = (h || '00:00').split(':').map(Number); return new Date(riLocalAUtc(y, m, d, H, M, tz)).toISOString(); };
+const riInputDeIso = (v, tz) => { if (!v) return ''; const ms = new Date(v).getTime() + riTzOff(new Date(v).getTime(), tz), d = new Date(ms); return d.toISOString().slice(0, 16); };
+// mismo cálculo que la base de datos (reinicio_siguiente), para ver las próximas fechas antes de guardar
+function riSiguiente(p, desde){
+  const tz = p.zona || 'America/New_York';
+  if (p.tipo === 'una_vez') return p.fecha_hora && new Date(p.fecha_hora) > desde ? new Date(p.fecha_hora) : null;
+  if (p.tipo === 'cada_horas'){ if (!(p.cada_h >= 1)) return null; const paso = p.cada_h * 3600e3, a = p.fecha_hora ? new Date(p.fecha_hora).getTime() : Math.floor(Date.now() / 3600e3) * 3600e3;
+    const c = a > desde ? a : a + (Math.floor((desde - a) / paso) + 1) * paso; return p.hasta && c > new Date(p.hasta) ? null : new Date(c); }
+  const hs = jArr(p.horas).filter(Boolean).slice().sort(); if (!hs.length) return null;
+  const off = riTzOff(desde.getTime(), tz), loc = new Date(desde.getTime() + off), y0 = loc.getUTCFullYear(), m0 = loc.getUTCMonth(), d0 = loc.getUTCDate();
+  for (let i = 0; i <= 400; i++){
+    const dd = new Date(Date.UTC(y0, m0, d0 + i)), y = dd.getUTCFullYear(), m = dd.getUTCMonth() + 1, d = dd.getUTCDate(), dow = dd.getUTCDay(), ult = new Date(Date.UTC(y, m, 0)).getUTCDate();
+    let ok = p.tipo === 'diario' || (p.tipo === 'semanal' && jArr(p.dias).map(Number).includes(dow));
+    if (p.tipo === 'mensual') ok = p.mes_modo === 'nth' ? dow === +p.nth_dia && ((+p.nth > 0 && Math.ceil(d / 7) === +p.nth) || (+p.nth === -1 && d > ult - 7)) : d === (+p.dia_mes === -1 ? ult : Math.min(+p.dia_mes, ult));
+    if (!ok) continue;
+    for (const h of hs){ const [H, M] = h.split(':').map(Number), c = new Date(riLocalAUtc(y, m, d, H, M, tz)); if (c > desde) return p.hasta && c > new Date(p.hasta) ? null : c; }
+  }
+  return null;
+}
+function riForm(){
+  const e = RI.edit, D = RI_DOW(), DL = RI_DOWL(), tz = e.zona || 'America/New_York';
+  const sel = (id, ops, v, on = 'riLeerForm()') => `<select id="${id}" onchange="${on}">${ops.map(([k, l]) => `<option value="${k}" ${String(v) === String(k) ? 'selected' : ''}>${esc(l)}</option>`).join('')}</select>`;
+  const horasH = `<div class="ri-horas"><span>${t('ri_a_las')}</span>${jArr(e.horas).map((h, i) => `<span class="ri-h"><input type="time" value="${esc(h)}" onchange="RI.edit.horas[${i}]=this.value;riLeerForm()">${e.horas.length > 1 ? `<button type="button" class="sm" onclick="RI.edit.horas.splice(${i},1);riForm()">✕</button>` : ''}</span>`).join('')}<button type="button" class="sm" onclick="RI.edit.horas.push('12:00');riForm()">＋ ${t('ri_otra_hora')}</button></div>`;
+  let cuando = '';
+  if (e.tipo === 'una_vez') cuando = `<label><span>${t('ri_fecha_hora')}</span><input type="datetime-local" id="ri_fh" value="${esc(riInputDeIso(e.fecha_hora, tz))}" onchange="riLeerForm()"></label>`;
+  else if (e.tipo === 'cada_horas') cuando = `<div class="mdm-grid"><label><span>${t('ri_cada')}</span><div class="stk-cant-u"><input type="number" id="ri_ch" min="1" max="168" value="${esc(e.cada_h ?? 24)}" onchange="riLeerForm()"><span class="trm-uso-u">${t('ri_horas')}</span></div></label>
+      <label><span>${t('ri_empezando')}</span><input type="datetime-local" id="ri_fh" value="${esc(riInputDeIso(e.fecha_hora, tz))}" onchange="riLeerForm()"></label></div>`;
+  else if (e.tipo === 'diario') cuando = horasH;
+  else if (e.tipo === 'semanal') cuando = `<div class="ri-dias">${D.map((d, i) => `<label class="ri-dia ${jArr(e.dias).includes(i) ? 'on' : ''}"><input type="checkbox" ${jArr(e.dias).includes(i) ? 'checked' : ''} onchange="riDia(${i},this.checked)">${d}</label>`).join('')}
+      <button type="button" class="sm" onclick="RI.edit.dias=[1,2,3,4,5];riForm()">${t('ri_lun_vie')}</button><button type="button" class="sm" onclick="RI.edit.dias=[0,6];riForm()">${t('ri_fin_sem')}</button></div>${horasH}`;
+  else cuando = `<div class="ri-mes"><label class="mdm-chk"><input type="radio" name="ri_mm" ${e.mes_modo !== 'nth' ? 'checked' : ''} onchange="RI.edit.mes_modo='dia';riForm()"> ${t('ri_el_dia')}</label>
+        ${sel('ri_dm', [...Array.from({ length: 31 }, (_, i) => [i + 1, String(i + 1)]), [-1, t('ri_ultimo_dia')]], e.dia_mes ?? 1)}</div>
+      <div class="ri-mes"><label class="mdm-chk"><input type="radio" name="ri_mm" ${e.mes_modo === 'nth' ? 'checked' : ''} onchange="RI.edit.mes_modo='nth';riForm()"> ${t('ri_el')}</label>
+        ${sel('ri_nth', [[1, t('ri_nth.1')], [2, t('ri_nth.2')], [3, t('ri_nth.3')], [4, t('ri_nth.4')], [-1, t('ri_nth.-1')]], e.nth ?? 1)}${sel('ri_nthd', DL.map((d, i) => [i, d]), e.nth_dia ?? 0)}</div>${horasH}`;
+  $('modalBody').innerHTML = `<h4 class="cl-h4" style="margin-top:0">${e.id ? '✏️ ' + t('ri_editar') : '＋ ' + t('ri_nuevo')}</h4>
+    <h4 class="cl-h4" style="margin-top:6px">🖥 ${t('ri_equipos_t')}</h4><div id="riObjs">${(RI.cur = e.objetivos, riObjsHTML())}</div>
+    <h4 class="cl-h4">📅 ${t('ri_cuando')}</h4>
+    <div class="stats ri-tipos">${RI_TIPOS.map(k => `<span class="chip ${e.tipo === k ? 'on' : ''}" onclick="riLeerForm(true);RI.edit.tipo='${k}';riForm()">${t('ri_tipo.' + k)}</span>`).join('')}</div>
+    <div class="ri-cuando">${cuando}</div>
+    <div class="mdm-grid" style="margin-top:8px"><label><span>🌎 ${t('ri_zona')}</span>${sel('ri_tz', RI_ZONAS.map(z => [z, z.replace('America/', '').replace('_', ' ')]), tz)}</label>
+      ${e.tipo !== 'una_vez' ? `<label><span>${t('ri_hasta_l')}</span><input type="date" id="ri_hasta" value="${esc(e.hasta ? riInputDeIso(e.hasta, tz).slice(0, 10) : '')}" onchange="riLeerForm()"></label>` : ''}
+      <label class="stk-span2"><span>📝 ${t('stk_nota')}</span><input id="ri_nota" value="${esc(e.nota || '')}" placeholder="${esc(t('ri_nota_ph'))}"></label></div>
+    <div id="riPrev" class="ri-prev"></div>
+    <div class="uf-foot"><button onclick="RI.edit=null;riRender()">${t('cancel')}</button><button class="primary" onclick="riGuardar()">💾 ${t('u_save')}</button></div>`;
+  riLeerForm();
+}
+function riDia(i, on){ const s = new Set(jArr(RI.edit.dias)); on ? s.add(i) : s.delete(i); RI.edit.dias = [...s].sort(); riForm(); }
+// lee el formulario a RI.edit y enseña las próximas fechas
+function riLeerForm(silencio){
+  const e = RI.edit; if (!e || !$('ri_tz')) return; const tz = $('ri_tz').value; e.zona = tz;
+  e.escalonar_seg = $('ri_esc') ? +$('ri_esc').value : (RI.esc ?? 60);
+  if ($('ri_fh')) e.fecha_hora = riIsoDeInput($('ri_fh').value, tz);
+  if ($('ri_ch')) e.cada_h = +$('ri_ch').value || null;
+  if ($('ri_dm')) e.dia_mes = +$('ri_dm').value;
+  if ($('ri_nth')) e.nth = +$('ri_nth').value;
+  if ($('ri_nthd')) e.nth_dia = +$('ri_nthd').value;
+  if ($('ri_hasta')) e.hasta = $('ri_hasta').value ? riIsoDeInput($('ri_hasta').value + 'T23:59', tz) : null;
+  if ($('ri_nota')) e.nota = $('ri_nota').value.trim() || null;
+  if (silencio === true) return;
+  const out = []; let d = new Date(); for (let i = 0; i < 5; i++){ const c = riSiguiente(e, d); if (!c) break; out.push(c); d = c; if (e.tipo === 'una_vez') break; }
+  const el = $('riPrev'); if (el) el.innerHTML = out.length ? `<b>🗓 ${t('ri_proximos')}:</b> ${out.map(c => `<span class="ri-pf">${esc(riFecha(c.toISOString(), tz))}</span>`).join('')}` : `<span class="trm-mal">⚠ ${t('ri_nunca')}</span>`;
+}
+async function riGuardar(){
+  riLeerForm(true); const e = RI.edit, L = e.objetivos; if (!riObjsValida(L)) return;
+  if (['diario', 'semanal', 'mensual'].includes(e.tipo) && !jArr(e.horas).filter(Boolean).length) return alert(t('ri_falta_hora'));
+  if (e.tipo === 'semanal' && !jArr(e.dias).length) return alert(t('ri_falta_dia'));
+  if (e.tipo === 'una_vez' && (!e.fecha_hora || new Date(e.fecha_hora) <= new Date())) return alert(t('ri_fecha_pasada'));
+  if (!riSiguiente(e, new Date())) return alert(t('ri_nunca'));
+  const gw = L.find(o => o.modo !== 'poe' && riGateway(riEq(o.equipo_id)));
+  if (gw && !confirm(t('ri_q_gw_prog', { n: riEq(gw.equipo_id).nombre }))) return;
+  const O = riObjsLimpios(L), o0 = O[0], noms = O.map(o => riEq(o.equipo_id)?.nombre).filter(Boolean);
+  const row = { cliente: curCliente, objetivos: O, escalonar_seg: O.length > 1 ? (e.escalonar_seg ?? 60) : 0, equipo_id: o0.equipo_id, nombre: (noms.length > 3 ? noms.slice(0, 3).join(', ') + ` +${noms.length - 3}` : noms.join(', ')) || null, modo: o0.modo, switch_id: o0.switch_id, puerto: o0.puerto, tipo: e.tipo,
+    fecha_hora: ['una_vez', 'cada_horas'].includes(e.tipo) ? e.fecha_hora : null, horas: ['diario', 'semanal', 'mensual'].includes(e.tipo) ? [...new Set(jArr(e.horas).filter(Boolean))].sort() : [],
+    dias: e.tipo === 'semanal' ? jArr(e.dias) : [], cada_h: e.tipo === 'cada_horas' ? e.cada_h : null, mes_modo: e.mes_modo || 'dia', dia_mes: e.tipo === 'mensual' && e.mes_modo !== 'nth' ? e.dia_mes : null,
+    nth: e.tipo === 'mensual' && e.mes_modo === 'nth' ? e.nth : null, nth_dia: e.tipo === 'mensual' && e.mes_modo === 'nth' ? e.nth_dia : null, zona: e.zona, hasta: e.tipo === 'una_vez' ? null : e.hasta || null, nota: e.nota || null, activo: e.id ? e.activo !== false : true };
+  const r = e.id ? await db.from('reinicio_prog').update(row).eq('id', e.id) : await db.from('reinicio_prog').insert(row);
+  if (r.error) return /reinicio_prog|objetivos|escalonar/.test(r.error.message || '') ? alert(t('ri_sql')) : fail(r.error, t('save_fail'));
+  toast(t('saved')); RI.edit = null; RI.tab = 'prog'; await riCargar();
+}
+async function riActivo(id, on){ const r = await db.from('reinicio_prog').update({ activo: on }).eq('id', id); if (r.error) return fail(r.error, t('save_fail')); await riCargar(); }
+async function riBorrar(id){ if (!confirm(t('ri_borrar_q'))) return; const r = await db.from('reinicio_prog').delete().eq('id', id); if (r.error) return fail(r.error, t('save_fail')); await riCargar(); }
+
 /* ---------- Clientes: 📌 fijar y ordenar arrastrando (se guarda en Supabase) ---------- */
 async function asegurarFilaCliente(c){
   if (c.id) return c.id;

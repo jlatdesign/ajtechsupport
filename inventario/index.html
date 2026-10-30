@@ -812,6 +812,7 @@ body.p-noadm .p-solo-adm{display:none!important}
 .tm-graf{margin-top:8px;border:1px solid var(--line);border-radius:10px;padding:6px 8px}.tm-g-h{display:flex;justify-content:space-between;font-size:13px;margin-bottom:2px}.tm-svg{width:100%;height:auto;display:block}
 .tm-b-ok{fill:color-mix(in srgb,#16a34a 12%,transparent)}.tm-b-reg{fill:color-mix(in srgb,#f59e0b 14%,transparent)}.tm-b-mal{fill:color-mix(in srgb,#dc2626 12%,transparent)}.tm-ln{stroke:var(--line-strong,#94a3b8);stroke-width:.5;stroke-dasharray:3 3}
 .tm-ax{font:9px Inter,sans-serif;fill:var(--muted,#64748b)}.tm-lat{fill:none;stroke:var(--text,#0f172a);stroke-width:1.2}.tm-jit{fill:none;stroke:#dc2626;stroke-width:.8}.tm-perd{fill:#dc2626}
+.th-file{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border:1px dashed var(--accent,#006fff);border-radius:9px;cursor:pointer;font-weight:600}.th-file input{display:none}.th-prin{margin:10px 0;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg2,rgba(0,111,255,.05))}.th-prin code{font-size:12.5px}.th-pre{white-space:pre-wrap;word-break:break-all;max-height:160px;overflow:auto;font-size:11px;background:var(--bg2,#f1f5f9);padding:6px;border-radius:6px;margin:4px 0}
 .tm-res{margin-top:12px;border:1px solid var(--line);border-left:5px solid var(--muted);border-radius:12px;padding:12px 14px}.tm-res.bien{border-left-color:var(--ok,#16a34a)}.tm-res.reg{border-left-color:#d97706}.tm-res.mal{border-left-color:var(--bad,#dc2626)}
 .tm-res-h{display:flex;gap:10px;align-items:center}.tm-res-h>div{flex:1}.tm-res-h b{font-size:16px}.tm-res-ic{font-size:30px}.tm-donde{margin:8px 0 4px;font-size:14px}.tm-res p{margin:4px 0 8px;font-size:13.5px;line-height:1.55}
 .tm-pasos{margin:4px 0 0 18px;padding:0;font-size:13.5px;line-height:1.6}.tm-pasos li{margin-bottom:3px}.tm-peores{display:flex;flex-wrap:wrap;gap:6px}.tm-peores span{font-size:12.5px;padding:2px 9px;border-radius:999px;background:color-mix(in srgb,#dc2626 9%,transparent)}
@@ -1117,7 +1118,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v9.9.5</p>
+    <p class="sub">Network Asset Manager · v9.9.6</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -1133,7 +1134,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.9.5</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.9.6</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -7984,12 +7985,13 @@ async function tsGuardar(tipo, datos){
 function tsRender(){
   if (!TS) return;
   const tab = (k, l) => `<span class="chip ${TS.tab === k ? 'on' : ''}" onclick="${TS.corriendo ? '' : `TS.tab='${k}';tsRender()`}">${l}</span>`;
-  const cab = `<div class="stats" style="margin:0 0 10px">${tab('inet', '🌐 ' + t('ts_t_inet'))}${tab('lan', '🖧 ' + t('ts_t_lan'))}${tab('mon', '📈 ' + t('ts_t_mon') + (TS.mon?.estado === 'corriendo' && TS.seq?.estado !== 'corriendo' ? ' ⏺' : ''))}${tab('seq', '🗓 ' + t('ts_t_seq') + (['corriendo', 'esperando'].includes(TS.seq?.estado) ? ' ⏺' : ''))}${tab('hist', '🗂 ' + t('ts_t_hist') + ` (${TS.hist.length})`)}${tab('info', 'ℹ️ ' + t('ts_t_info'))}</div>`;
+  const cab = `<div class="stats" style="margin:0 0 10px">${tab('inet', '🌐 ' + t('ts_t_inet'))}${tab('lan', '🖧 ' + t('ts_t_lan'))}${tab('mon', '📈 ' + t('ts_t_mon') + (TS.mon?.estado === 'corriendo' && TS.seq?.estado !== 'corriendo' ? ' ⏺' : ''))}${tab('seq', '🗓 ' + t('ts_t_seq') + (['corriendo', 'esperando'].includes(TS.seq?.estado) ? ' ⏺' : ''))}${tab('har', '🔎 ' + t('ts_t_har'))}${tab('hist', '🗂 ' + t('ts_t_hist') + ` (${TS.hist.length})`)}${tab('info', 'ℹ️ ' + t('ts_t_info'))}</div>`;
   const b = $('modalBody');
   if (TS.tab === 'inet') b.innerHTML = cab + tsInetHTML();
   else if (TS.tab === 'lan') b.innerHTML = cab + tsLanHTML();
   else if (TS.tab === 'mon') b.innerHTML = cab + tmHTML();
   else if (TS.tab === 'seq') b.innerHTML = cab + tqHTML();
+  else if (TS.tab === 'har') b.innerHTML = cab + thHTML();
   else if (TS.tab === 'info') b.innerHTML = cab + `<div class="ts-info">${t('ts_info')}</div>`;
   else b.innerHTML = cab + tsHistHTML();
 }
@@ -8840,12 +8842,322 @@ function tqVerGuardado(id){
   const d = h.datos; tqIni(); Object.assign(TS.seq, { estado: 'fin', inicio: d.inicio, fin: d.fin, analisis: d.analisis, res: d.res }); TS.tab = 'seq'; tsRender();
 }
 
+/* 🔎 Analizar sistema (v9.9.6) */
+Object.assign(I18N.es, {
+  "ts_t_har":"Analizar sistema",
+  "th_h":"Para cuando un <b>sistema web del cliente</b> (su software de almacén, facturación, etc.) da errores o está lento. Sube la grabación (.har) de lo que hizo el navegador y te digo <b>a qué servidores habla</b>, <b>qué falló y por qué</b> (los datos del formulario, la sesión, su servidor o la red) y después puedes <b>probar su servidor</b> con el Monitor.",
+  "th_paso1":"Grabar el problema en la PC del cliente (Edge o Chrome)",
+  "th_i1":"Abre el sistema web y deja la pantalla justo antes del error (ej. el formulario lleno, antes de darle SAVE).",
+  "th_i2":"Presiona <b>F12</b> → pestaña <b>Network</b> (Red). Marca <b>Preserve log</b> (Conservar registro).",
+  "th_i3":"Haz lo que da el error (dale <b>SAVE</b>) y espera a que salga el mensaje.",
+  "th_i4":"En Network, botón <b>⤓ Export HAR</b> (flecha hacia abajo) o clic derecho en la lista → <b>Save all as HAR</b>.",
+  "th_i5":"Guarda el archivo .har y súbelo aquí abajo (puedes mandártelo por correo o USB).",
+  "th_paso2":"Subir y analizar",
+  "th_subir":"Subir archivo .har",
+  "th_o":"o escribe su dirección:",
+  "th_dom_ph":"ej. app.sistemadelcliente.com",
+  "th_usar_dom":"Probar ese servidor",
+  "th_priv":"El archivo se lee solo en este navegador, no se sube a ningún lado. Ojo: un .har puede traer contraseñas o datos del cliente; bórralo cuando termines. Solo se guarda el resumen (sin las respuestas del servidor).",
+  "th_grande":"El archivo es demasiado grande (más de 300 MB). Graba solo el momento del error.",
+  "th_no_har":"Ese archivo no parece un .har válido.",
+  "th_c_ok":"No se ve ningún error en lo que se grabó",
+  "th_s_ok":"Si el problema no salió, vuelve a grabar asegurándote de que <b>Preserve log</b> esté marcado y que el error ocurra mientras graba.",
+  "th_c_red":"{n} petición(es) no llegaron al servidor: problema de red o conexión",
+  "th_s_red1":"Corre el <b>Monitor</b> contra su servidor (botón ⚡ abajo) por 30 min o más mientras trabajan, para ver si hay pérdidas o cortes.",
+  "th_s_red2":"Revisa el firewall / filtro web (UniFi, antivirus, proxy): que no bloquee ni inspeccione el dominio del sistema.",
+  "th_s_red3":"Prueba en la misma PC con cable y luego por Wi-Fi, o con el celular como hotspot, para separar la red local del internet.",
+  "th_s_har":"Manda este reporte al soporte del software: lleva la hora exacta, la dirección y el código de cada falla.",
+  "th_c_serv":"{n} petición(es) fallaron en el servidor de ellos (error 5xx o se le acabó el tiempo)",
+  "th_s_serv1":"El problema está del lado del proveedor del software: abre un ticket con la hora exacta y el código (5xx / timeout) de este reporte.",
+  "th_c_datos":"El servidor rechazó los datos ({n} petición(es) con código 400/409/422)",
+  "th_s_datos1":"Abre el detalle de la petición que falló (“Respuesta del servidor”): normalmente dice qué campo está mal.",
+  "th_s_datos2":"Revisa campos obligatorios, formatos (fechas, números con coma, caracteres especiales, letras en campos de número) y que el registro no exista ya (409).",
+  "th_c_sesion":"La sesión venció o el usuario no tiene permiso (401/403)",
+  "th_s_sesion1":"Cierra sesión y vuelve a entrar; si pasa con un solo usuario, revisa sus permisos en el sistema.",
+  "th_s_sesion2":"Si se le cierra la sesión seguido, revisa que la hora de la PC esté bien y que no cambie la IP pública (doble internet / failover).",
+  "th_c_form":"El formulario nunca se envió: el error lo dio la pantalla, no la red",
+  "th_s_form1":"El navegador no mandó nada al servidor al darle SAVE: es una validación del propio sistema (un campo vacío o con formato que no acepta).",
+  "th_s_form2":"Busca campos en rojo, campos ocultos en otras pestañas del formulario, o valores con espacios o caracteres raros.",
+  "th_s_form3":"Si todo está bien llenado, es un fallo del software: repórtalo al proveedor con capturas. La red no es la causa.",
+  "th_c_lento_red":"{n} petición(es) muy lentas, el tiempo se fue en la red",
+  "th_c_lento_serv":"{n} petición(es) muy lentas, el tiempo se fue esperando al servidor de ellos",
+  "th_s_bloq":"Hay peticiones bloqueadas por una extensión del navegador (bloqueador de anuncios): desactívala para ese sitio.",
+  "th_peticiones":"{n} peticiones · {e} envíos de datos",
+  "thl.ninguno":"No se encontró problema",
+  "thl.red":"Red / conexión (local, internet o firewall)",
+  "thl.servidor":"Servidor del proveedor del software",
+  "thl.datos":"Datos del formulario",
+  "thl.sesion":"Sesión o permisos del usuario",
+  "thl.form":"La pantalla del sistema (no se envió nada)",
+  "thc.red":"Sin conexión",
+  "thc.servidor":"Error del servidor",
+  "thc.tiempo":"Se acabó el tiempo",
+  "thc.datos":"Datos rechazados",
+  "thc.sesion":"Sesión / permisos",
+  "thc.noexiste":"No existe (404)",
+  "thc.limite":"Demasiadas peticiones",
+  "thc.ok":"OK",
+  "thc.cancel":"Cancelada",
+  "thc.bloq":"Bloqueada",
+  "th_sin_err":"Sin errores",
+  "th_lentas":"Lentas (+3 s)",
+  "th_servidor":"Servidor del sistema",
+  "th_probar_ya":"Probar su servidor ahora (5 min)",
+  "th_al_monitor":"Llevar al Monitor",
+  "th_al_seq":"Agregar a Test programados",
+  "th_pathping":"Para ver los saltos, en la PC del cliente abre CMD y corre: <code>pathping {h}</code> (o <code>tracert {h}</code>).",
+  "th_fallaron":"Peticiones que fallaron",
+  "th_que":"Petición",
+  "th_cod":"Código",
+  "th_tipo":"Tipo",
+  "th_tiempo":"Tiempo",
+  "th_respuesta":"Respuesta del servidor",
+  "thp.red":"red",
+  "thp.servidor":"servidor",
+  "thp.banda":"velocidad",
+  "thp.mixto":"mixto",
+  "th_lentas_t":"Peticiones más lentas",
+  "th_conexion":"Conexión",
+  "th_espera":"Espera servidor",
+  "th_bajando":"Bajando",
+  "th_causa":"Causa",
+  "th_servidores":"Servidores con los que habla el sistema",
+  "th_servidor_c":"Servidor",
+  "th_errores":"Errores",
+  "th_leyenda":"DNS + Conexión = red (tu lado). Espera servidor = lo que tarda su servidor en contestar. Bajando = velocidad de internet. 🎯 = servidor principal del sistema; CDN = librerías y fuentes de terceros.",
+  "th_rep_t":"Análisis de sistema web"
+});
+Object.assign(I18N.en, {
+  "ts_t_har":"Analyze system",
+  "th_h":"For when a client's <b>web system</b> (warehouse, billing software, etc.) throws errors or is slow. Upload the browser recording (.har) and I'll tell you <b>which servers it talks to</b>, <b>what failed and why</b> (form data, session, their server or the network), and then you can <b>test their server</b> with the Monitor.",
+  "th_paso1":"Record the problem on the client's PC (Edge or Chrome)",
+  "th_i1":"Open the web system and get to the screen right before the error (e.g. form filled in, before clicking SAVE).",
+  "th_i2":"Press <b>F12</b> → <b>Network</b> tab. Check <b>Preserve log</b>.",
+  "th_i3":"Do what causes the error (click <b>SAVE</b>) and wait for the message.",
+  "th_i4":"In Network, click <b>⤓ Export HAR</b> (down arrow) or right-click the list → <b>Save all as HAR</b>.",
+  "th_i5":"Save the .har file and upload it below (email it to yourself or use a USB drive).",
+  "th_paso2":"Upload and analyze",
+  "th_subir":"Upload .har file",
+  "th_o":"or type its address:",
+  "th_dom_ph":"e.g. app.clientsystem.com",
+  "th_usar_dom":"Test that server",
+  "th_priv":"The file is read only in this browser and is not uploaded anywhere. Note: a .har can contain passwords or client data; delete it when done. Only the summary is saved (without server responses).",
+  "th_grande":"The file is too large (over 300 MB). Record only the moment of the error.",
+  "th_no_har":"That file does not look like a valid .har.",
+  "th_c_ok":"No errors found in the recording",
+  "th_s_ok":"If the problem did not show up, record again making sure <b>Preserve log</b> is checked and the error happens while recording.",
+  "th_c_red":"{n} request(s) never reached the server: network or connection problem",
+  "th_s_red1":"Run the <b>Monitor</b> against their server (⚡ button below) for 30+ minutes while people work, to see loss or drops.",
+  "th_s_red2":"Check the firewall / web filter (UniFi, antivirus, proxy): make sure it does not block or inspect the system's domain.",
+  "th_s_red3":"Test the same PC wired and then on Wi-Fi, or on a phone hotspot, to separate the local network from the internet.",
+  "th_s_har":"Send this report to the software's support: it has the exact time, address and code of each failure.",
+  "th_c_serv":"{n} request(s) failed on their server (5xx error or timeout)",
+  "th_s_serv1":"The problem is on the software vendor's side: open a ticket with the exact time and code (5xx / timeout) from this report.",
+  "th_c_datos":"The server rejected the data ({n} request(s) with code 400/409/422)",
+  "th_s_datos1":"Open the failed request's detail (\"Server response\"): it usually says which field is wrong.",
+  "th_s_datos2":"Check required fields, formats (dates, decimal commas, special characters, letters in number fields) and that the record does not already exist (409).",
+  "th_c_sesion":"The session expired or the user lacks permission (401/403)",
+  "th_s_sesion1":"Log out and back in; if it happens to a single user, check their permissions in the system.",
+  "th_s_sesion2":"If sessions keep dropping, check the PC clock and that the public IP is not changing (dual WAN / failover).",
+  "th_c_form":"The form was never sent: the error came from the screen, not the network",
+  "th_s_form1":"The browser sent nothing to the server on SAVE: it is the system's own validation (an empty field or a format it does not accept).",
+  "th_s_form2":"Look for fields in red, fields hidden on other tabs of the form, or values with spaces or odd characters.",
+  "th_s_form3":"If everything is filled correctly, it is a software bug: report it to the vendor with screenshots. The network is not the cause.",
+  "th_c_lento_red":"{n} very slow request(s); the time went to the network",
+  "th_c_lento_serv":"{n} very slow request(s); the time went waiting for their server",
+  "th_s_bloq":"Some requests were blocked by a browser extension (ad blocker): disable it for that site.",
+  "th_peticiones":"{n} requests · {e} data submissions",
+  "thl.ninguno":"No problem found",
+  "thl.red":"Network / connection (local, internet or firewall)",
+  "thl.servidor":"Software vendor's server",
+  "thl.datos":"Form data",
+  "thl.sesion":"User session or permissions",
+  "thl.form":"The system's screen (nothing was sent)",
+  "thc.red":"No connection",
+  "thc.servidor":"Server error",
+  "thc.tiempo":"Timed out",
+  "thc.datos":"Data rejected",
+  "thc.sesion":"Session / permissions",
+  "thc.noexiste":"Not found (404)",
+  "thc.limite":"Too many requests",
+  "thc.ok":"OK",
+  "thc.cancel":"Canceled",
+  "thc.bloq":"Blocked",
+  "th_sin_err":"No errors",
+  "th_lentas":"Slow (3 s+)",
+  "th_servidor":"System server",
+  "th_probar_ya":"Test their server now (5 min)",
+  "th_al_monitor":"Send to Monitor",
+  "th_al_seq":"Add to Scheduled tests",
+  "th_pathping":"To see the hops, on the client's PC open CMD and run: <code>pathping {h}</code> (or <code>tracert {h}</code>).",
+  "th_fallaron":"Failed requests",
+  "th_que":"Request",
+  "th_cod":"Code",
+  "th_tipo":"Type",
+  "th_tiempo":"Time",
+  "th_respuesta":"Server response",
+  "thp.red":"network",
+  "thp.servidor":"server",
+  "thp.banda":"bandwidth",
+  "thp.mixto":"mixed",
+  "th_lentas_t":"Slowest requests",
+  "th_conexion":"Connect",
+  "th_espera":"Server wait",
+  "th_bajando":"Download",
+  "th_causa":"Cause",
+  "th_servidores":"Servers the system talks to",
+  "th_servidor_c":"Server",
+  "th_errores":"Errors",
+  "th_leyenda":"DNS + Connect = network (your side). Server wait = how long their server takes to answer. Download = internet speed. 🎯 = the system's main server; CDN = third-party libraries and fonts.",
+  "th_rep_t":"Web system analysis"
+});
+/* ======================= 🔎 Analizar sistema web (archivo HAR) =======================
+   El HAR se saca en el navegador de la PC del cliente (F12 → Network → Export HAR) con el sistema que falla.
+   Aquí se lee SOLO en este navegador: a qué servidores habla el sistema, qué peticiones fallaron y por qué
+   (datos del formulario, sesión, servidor o red), cuáles fueron lentas y en qué se fue el tiempo.
+   Después se pueden probar esos servidores con el Monitor. */
+const TH_CDN = /(googleapis|gstatic|cloudflare|jsdelivr|unpkg|cdnjs|fontawesome|fonts\.|google-analytics|googletagmanager|doubleclick|hotjar|clarity\.ms|sentry|intercom|zendesk|facebook|bing\.com|msftconnect|cdn\.)/i;
+function thHTML(){
+  const H = TS.har || {};
+  return `<div class="u-note" style="margin:0 0 10px">${t('th_h')}</div>
+    <div class="panel" style="margin:0"><h4 class="cl-h4" style="margin-top:0">1️⃣ ${t('th_paso1')}</h4>
+      <ol class="tm-pasos" style="margin-bottom:8px">${['th_i1', 'th_i2', 'th_i3', 'th_i4', 'th_i5'].map(k => `<li>${t(k)}</li>`).join('')}</ol>
+      <h4 class="cl-h4">2️⃣ ${t('th_paso2')}</h4>
+      <div class="row" style="flex-wrap:wrap;gap:8px"><label class="th-file"><input type="file" accept=".har,application/json" onchange="thLeer(this.files[0])"> 📂 ${t('th_subir')}</label>
+        <span class="muted">${t('th_o')}</span><input id="thDom" placeholder="${esc(t('th_dom_ph'))}" style="width:260px" value="${esc(H.manual || '')}" onchange="TS.har=TS.har||{};TS.har.manual=this.value.trim()">
+        <button onclick="thManual()">➕ ${t('th_usar_dom')}</button></div>
+      <small class="muted">🔒 ${t('th_priv')}</small></div>
+    ${H.error ? `<div class="u-warn" style="margin-top:10px">⚠️ ${esc(H.error)}</div>` : ''}
+    ${H.res ? thResHTML(H.res) : ''}`;
+}
+async function thLeer(f){
+  if (!f) return;
+  TS.har = { ...(TS.har || {}), error: '', res: null, archivo: f.name };
+  try {
+    if (f.size > 300 * 1024 * 1024) throw new Error(t('th_grande'));
+    const j = JSON.parse(await f.text()), E = j?.log?.entries;
+    if (!Array.isArray(E)) throw new Error(t('th_no_har'));
+    TS.har.res = thAnalizar(E, f.name);
+    tsGuardar('sistema', thParaGuardar(TS.har.res));
+  } catch(e){ TS.har.error = e instanceof SyntaxError ? t('th_no_har') : (e.message || String(e)); }
+  tsRender();
+}
+// tipo de problema de una petición
+function thClase(e){
+  const st = +e.response?.status || 0, err = String(e.response?._error || e._error || e.response?.statusText || '');
+  if (!st){ if (/BLOCKED_BY_CLIENT/i.test(err)) return 'bloq'; if (/ABORTED|canceled/i.test(err) || e._wasCanceled) return 'cancel'; return 'red'; }
+  if (st === 400 || st === 422 || st === 409) return 'datos';
+  if (st === 401 || st === 403 || st === 419 || st === 440) return 'sesion';
+  if (st === 404 || st === 405) return 'noexiste';
+  if (st === 408 || st === 504 || st === 524) return 'tiempo';
+  if (st === 429) return 'limite';
+  if (st >= 500) return 'servidor';
+  return 'ok';
+}
+const thTm = (e, k) => { const v = +e.timings?.[k]; return v > 0 ? v : 0; };
+function thAnalizar(E, archivo){
+  const ini = Math.min(...E.map(e => new Date(e.startedDateTime).getTime()).filter(isFinite)), fin = Math.max(...E.map(e => new Date(e.startedDateTime).getTime() + (+e.time || 0)).filter(isFinite));
+  const hosts = {}, malas = [], lentas = []; let bloq = 0;
+  for (const e of E){
+    let u; try { u = new URL(e.request?.url); } catch(x){ continue; }
+    if (!/^https?:$/.test(u.protocol)) continue;
+    const c = thClase(e); if (c === 'bloq'){ bloq++; continue; }
+    const h = u.hostname, metodo = e.request?.method || 'GET', tipo = e._resourceType || (/(json|xml)/i.test(e.response?.content?.mimeType || '') ? 'xhr' : '');
+    const api = ['xhr', 'fetch'].includes(tipo) || /json/i.test(e.response?.content?.mimeType || '') || metodo !== 'GET';
+    const H = hosts[h] = hosts[h] || { host: h, ip: '', n: 0, errores: 0, api: 0, envios: 0, tiempos: [], wait: [], con: [], dns: [], cdn: TH_CDN.test(h) };
+    H.n++; if (api) H.api++; if (metodo !== 'GET' && metodo !== 'OPTIONS') H.envios++; if (e.serverIPAddress) H.ip = e.serverIPAddress.replace(/^\[|\]$/g, '');
+    const tt = +e.time || 0; H.tiempos.push(tt); H.wait.push(thTm(e, 'wait')); H.con.push(thTm(e, 'connect') + thTm(e, 'ssl')); H.dns.push(thTm(e, 'dns'));
+    const fila = { ms: new Date(e.startedDateTime).getTime(), metodo, host: h, ruta: u.pathname.slice(0, 120), st: +e.response?.status || 0, err: String(e.response?._error || e._error || '').slice(0, 80), c, tt,
+      dns: thTm(e, 'dns'), con: thTm(e, 'connect') + thTm(e, 'ssl'), wait: thTm(e, 'wait'), rec: thTm(e, 'receive'), size: +e.response?.content?.size || +e.response?.bodySize || 0,
+      resp: c === 'datos' || c === 'servidor' || c === 'sesion' ? String(e.response?.content?.text || '').slice(0, 400) : '' };
+    if (!['ok', 'cancel', 'bloq'].includes(c)){ H.errores++; malas.push(fila); }
+    else if (tt > 3000) lentas.push(fila);
+  }
+  const lista = Object.values(hosts).map(H => ({ host: H.host, ip: H.ip, n: H.n, errores: H.errores, api: H.api, envios: H.envios, cdn: H.cdn,
+    prom: H.tiempos.reduce((a, b) => a + b, 0) / Math.max(1, H.tiempos.length), p95: tsPct(H.tiempos, 0.95), wait: tsMed(H.wait), con: tsMed(H.con.filter(v => v > 0)), dns: tsMed(H.dns.filter(v => v > 0)) }))
+    .sort((a, b) => (b.envios - a.envios) || (b.api - a.api) || (b.n - a.n));
+  const principales = lista.filter(h => !h.cdn && (h.api || h.envios)).slice(0, 3).map(h => h.host);
+  if (!principales.length && lista[0]) principales.push(lista[0].host);
+  const envios = E.filter(e => !['GET', 'OPTIONS', 'HEAD'].includes(e.request?.method || 'GET')).length;
+  const cuenta = k => malas.filter(m => m.c === k).length;
+  // por qué tardan las lentas: red (DNS / conexión), servidor (espera) o ancho de banda (bajando)
+  const porQue = f => f.dns + f.con > f.tt * 0.4 ? 'red' : f.wait > f.tt * 0.6 ? 'servidor' : f.rec > f.tt * 0.5 ? 'banda' : 'mixto';
+  lentas.forEach(f => f.porQue = porQue(f)); malas.forEach(f => { if (f.c === 'tiempo') f.porQue = porQue(f); });
+  // conclusión
+  let nivel = 'bien', lugar = 'ninguno', titulo = tL('th_c_ok'), pasos = ['th_s_ok'];
+  if (cuenta('red')){ nivel = 'mal'; lugar = 'red'; titulo = tL('th_c_red', { n: cuenta('red') }); pasos = ['th_s_red1', 'th_s_red2', 'th_s_red3', 'th_s_har']; }
+  else if (cuenta('servidor') || cuenta('tiempo')){ nivel = 'mal'; lugar = 'servidor'; titulo = tL('th_c_serv', { n: cuenta('servidor') + cuenta('tiempo') }); pasos = ['th_s_serv1', 'th_s_har', 'th_s_red2']; }
+  else if (cuenta('datos')){ nivel = 'reg'; lugar = 'datos'; titulo = tL('th_c_datos', { n: cuenta('datos') }); pasos = ['th_s_datos1', 'th_s_datos2', 'th_s_har']; }
+  else if (cuenta('sesion')){ nivel = 'reg'; lugar = 'sesion'; titulo = tL('th_c_sesion'); pasos = ['th_s_sesion1', 'th_s_sesion2']; }
+  else if (!envios){ nivel = 'reg'; lugar = 'form'; titulo = tL('th_c_form'); pasos = ['th_s_form1', 'th_s_form2', 'th_s_form3']; }
+  else if (lentas.length){ const r = lentas.filter(f => f.porQue === 'red').length, s = lentas.filter(f => f.porQue === 'servidor').length;
+    nivel = 'reg'; lugar = r > s ? 'red' : 'servidor'; titulo = tL(r > s ? 'th_c_lento_red' : 'th_c_lento_serv', { n: lentas.length }); pasos = r > s ? ['th_s_red1', 'th_s_red2', 'th_s_red3'] : ['th_s_serv1', 'th_s_har']; }
+  if (lugar !== 'datos' && cuenta('datos')) pasos.push('th_s_datos1');
+  if (bloq) pasos.push('th_s_bloq');
+  return { archivo, ini, fin, total: E.length, envios, hosts: lista, principales, malas: malas.sort((a, b) => a.ms - b.ms), lentas: lentas.sort((a, b) => b.tt - a.tt).slice(0, 15), nivel, lugar, titulo, pasos,
+    cuentas: { red: cuenta('red'), servidor: cuenta('servidor'), tiempo: cuenta('tiempo'), datos: cuenta('datos'), sesion: cuenta('sesion'), noexiste: cuenta('noexiste'), limite: cuenta('limite') } };
+}
+// lo que se guarda (sin las respuestas del servidor ni parámetros de las direcciones)
+const thParaGuardar = r => ({ ...r, malas: r.malas.slice(0, 40).map(m => ({ ...m, resp: '' })), lentas: r.lentas.map(m => ({ ...m, resp: '' })) });
+function thManual(){
+  let v = ($('thDom')?.value || '').trim(); if (!v) return $('thDom')?.focus();
+  try { const h = new URL(/^https?:\/\//i.test(v) ? v : 'https://' + v).hostname; TS.har = { ...(TS.har || {}), manual: h, res: TS.har?.res || null }; thMonitorear([h], true); }
+  catch(e){ alert(t('tm_url_mal')); }
+}
+// pasa los servidores del sistema al Monitor (y lo arranca si "ya")
+function thMonitorear(hosts, ya){
+  const M = tmIni(); if (M.estado === 'corriendo') return alert(t('tq_ocupado'));
+  M.extra = [...new Set(hosts)].join(', ');
+  if (ya){ M.dur = 5; M.int = 1000; M.usar = { ...M.usar, gg: true, cf: true, gw: true }; }
+  TS.tab = 'mon'; tsRender(); if (ya) tmEmpezar();
+}
+function thProgramar(hosts){
+  const Q = tqIni(), m = Q.pasos.find(p => p.tipo === 'mon'); if (m){ m.on = true; m.extra = [...new Set([...(m.extra || '').split(/[\s,;]+/).filter(Boolean), ...hosts])].join(', '); }
+  tqGuardarCfg(); TS.tab = 'seq'; tsRender();
+}
+const TH_CL_IC = { red: '🌐', servidor: '🖥', tiempo: '⏳', datos: '📝', sesion: '🔑', noexiste: '❓', limite: '🚦' };
+function thResHTML(r){
+  const fmt = ms => ms == null ? '—' : ms >= 1000 ? tsF(ms / 1000, 1) + ' s' : tsF(ms, 0) + ' ms';
+  const hora = ms => new Date(ms).toLocaleTimeString(LANG === 'es' ? 'es-US' : 'en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit' });
+  const prin = r.principales;
+  return `<div class="tm-res ${r.nivel}" style="margin-top:12px"><div class="tm-res-h"><span class="tm-res-ic">${tqIcN(r.nivel)}</span><div><b>${esc(tx(r.titulo))}</b>
+      <div class="muted">${esc(r.archivo || '')} · ${t('th_peticiones', { n: r.total, e: r.envios })} · ${esc(hora(r.ini))} → ${esc(hora(r.fin))}</div></div>
+      <span class="rep-w">${repLangSel()}<button class="sm" onclick="thImprimir()">🖨 ${t('tm_reporte')}</button></span></div>
+    <div class="tm-donde">📍 <b>${t('tm_donde')}:</b> ${esc(t('thl.' + r.lugar))}</div>
+    <div class="ts-kpis">${Object.entries(r.cuentas).filter(([, n]) => n).map(([k, n]) => `<div class="ts-kpi mal"><b>${n}</b><span>${TH_CL_IC[k] || ''} ${t('thc.' + k)}</span></div>`).join('') || `<div class="ts-kpi bien"><b>0</b><span>✅ ${t('th_sin_err')}</span></div>`}
+      <div class="ts-kpi ${r.lentas.length ? 'reg' : 'bien'}"><b>${r.lentas.length}</b><span>🐢 ${t('th_lentas')}</span></div></div>
+    <h4 class="cl-h4">🛠 ${t('tm_que_hacer')}</h4><ol class="tm-pasos">${r.pasos.map(k => `<li>${t(k)}</li>`).join('')}</ol>
+    ${prin.length ? `<div class="th-prin"><b>🎯 ${t('th_servidor')}:</b> ${prin.map(h => `<code>${esc(h)}</code>`).join(' ')}
+      <div class="row" style="flex-wrap:wrap;gap:6px;margin-top:6px"><button class="primary sm" onclick='thMonitorear(${JSON.stringify(prin)}, true)'>⚡ ${t('th_probar_ya')}</button><button class="sm" onclick='thMonitorear(${JSON.stringify(prin)})'>📈 ${t('th_al_monitor')}</button><button class="sm" onclick='thProgramar(${JSON.stringify(prin)})'>🗓 ${t('th_al_seq')}</button></div>
+      <small class="muted">💡 ${t('th_pathping', { h: prin[0] })}</small></div>` : ''}
+    ${r.malas.length ? `<h4 class="cl-h4">❌ ${t('th_fallaron')}</h4><div class="table-wrap"><table class="net-tbl tm-tbl"><thead><tr><th>${t('ri_cuando')}</th><th>${t('th_que')}</th><th class="n">${t('th_cod')}</th><th>${t('th_tipo')}</th><th class="n">${t('th_tiempo')}</th></tr></thead><tbody>
+      ${r.malas.slice(0, 40).map(m => `<tr><td class="mono">${esc(hora(m.ms))}</td><td><b>${esc(m.metodo)}</b> ${esc(m.host)}<small class="muted" style="display:block">${esc(m.ruta)}</small>${m.resp ? `<details><summary class="muted">${t('th_respuesta')}</summary><pre class="th-pre">${esc(m.resp)}</pre></details>` : ''}</td>
+        <td class="n mono">${m.st || esc(m.err || '—')}</td><td>${TH_CL_IC[m.c] || ''} ${t('thc.' + m.c)}${m.porQue ? ` <small class="muted">(${t('thp.' + m.porQue)})</small>` : ''}</td><td class="n">${fmt(m.tt)}</td></tr>`).join('')}</tbody></table></div>` : ''}
+    ${r.lentas.length ? `<h4 class="cl-h4">🐢 ${t('th_lentas_t')}</h4><div class="table-wrap"><table class="net-tbl tm-tbl"><thead><tr><th>${t('th_que')}</th><th class="n">${t('th_tiempo')}</th><th class="n">DNS</th><th class="n">${t('th_conexion')}</th><th class="n">${t('th_espera')}</th><th class="n">${t('th_bajando')}</th><th>${t('th_causa')}</th></tr></thead><tbody>
+      ${r.lentas.map(m => `<tr><td><b>${esc(m.metodo)}</b> ${esc(m.host)}<small class="muted" style="display:block">${esc(m.ruta)}</small></td><td class="n"><b>${fmt(m.tt)}</b></td><td class="n">${fmt(m.dns)}</td><td class="n">${fmt(m.con)}</td><td class="n">${fmt(m.wait)}</td><td class="n">${fmt(m.rec)}</td><td>${t('thp.' + m.porQue)}</td></tr>`).join('')}</tbody></table></div>` : ''}
+    <h4 class="cl-h4">🗺 ${t('th_servidores')}</h4><div class="table-wrap"><table class="net-tbl tm-tbl"><thead><tr><th>${t('th_servidor_c')}</th><th>IP</th><th class="n">#</th><th class="n">${t('th_errores')}</th><th class="n">${t('tm_prom')}</th><th class="n">p95</th><th class="n">${t('th_espera')}</th><th class="n">${t('th_conexion')}</th></tr></thead><tbody>
+      ${r.hosts.slice(0, 25).map(h => `<tr><td>${prin.includes(h.host) ? '🎯 ' : h.cdn ? '<span class="muted">CDN</span> ' : ''}<b>${esc(h.host)}</b></td><td class="mono">${esc(h.ip || '')}</td><td class="n">${h.n}</td><td class="n ${h.errores ? 'trm-mal' : ''}">${h.errores || ''}</td><td class="n">${fmt(h.prom)}</td><td class="n">${fmt(h.p95)}</td><td class="n">${fmt(h.wait)}</td><td class="n">${fmt(h.con)}</td></tr>`).join('')}</tbody></table></div>
+    <small class="muted">ℹ️ ${t('th_leyenda')}</small></div>`;
+}
+function thImprimir(r = TS.har?.res){ if (!r) return; conIdioma(TS?.repLang || LANG, () => {
+  const C = prConf(), E = C.empresa || {}, nom = E.nombre || 'AJ Tech Support', html = thResHTML(thParaGuardar(r)).replace(/<span class="rep-w">[\s\S]*?<\/span><\/div>/, '</div>').replace(/<div class="th-prin">[\s\S]*?<\/small><\/div>/, `<p><b>🎯 ${t('th_servidor')}:</b> ${r.principales.map(esc).join(', ')}</p>`);
+  const w = window.open('', '_blank'); if (!w) return alert(t('pr_popup'));
+  w.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>${esc(t('th_rep_t'))} · ${esc(curCliente)}</title><style>@page{size:letter;margin:12mm}body{font:11.5px/1.5 Inter,Arial,sans-serif;color:#0f172a;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .h{display:flex;justify-content:space-between;border-bottom:3px solid #006fff;padding-bottom:8px;margin-bottom:12px}h1{font-size:20px;margin:0;color:#006fff}.muted,.m{color:#64748b}h4{font-size:13px;margin:14px 0 6px;border-bottom:2px solid #006fff;padding-bottom:3px}
+    table{width:100%;border-collapse:collapse}th{background:#0f172a;color:#fff;font-size:9.5px;text-transform:uppercase;padding:5px;text-align:left}td{padding:5px;border-bottom:1px solid #e2e8f0;vertical-align:top}.n{text-align:right}.trm-mal{color:#dc2626;font-weight:700}
+    .ts-kpis{display:flex;gap:8px;flex-wrap:wrap}.ts-kpi{border:1px solid #e2e8f0;border-radius:8px;padding:6px 12px;text-align:center}.ts-kpi b{display:block;font-size:18px}.ts-kpi.mal b{color:#dc2626}.ts-kpi span{font-size:10px;color:#64748b}
+    .tm-res-h{display:flex;gap:10px;align-items:center}.tm-res-ic{font-size:26px}details{display:none}code{background:#f1f5f9;padding:1px 5px;border-radius:4px}</style></head><body>
+    <div class="h"><div><b style="font-size:16px">${esc(nom)}</b><div class="m">${esc([E.telefono, E.email].filter(Boolean).join(' · '))}</div></div><div style="text-align:right"><h1>${esc(t('th_rep_t'))}</h1><div class="m">${esc(curCliente)} · ${esc(new Date(r.ini).toLocaleString())}</div></div></div>
+    ${html}<script>setTimeout(()=>print(),400)<\/script></body></html>`); w.document.close(); }); }
+function thVerGuardado(id){ const h = TS.hist.find(x => x.id === id); if (!h?.datos?.hosts) return; TS.har = { res: h.datos }; TS.tab = 'har'; tsRender(); }
+
 /* ======================= 🗂 Historial ======================= */
 function tsHistHTML(){
   if (!TS.ok) return `<div class="u-warn">⚠️ ${t('ts_sql')}</div>`;
   if (!TS.hist.length) return `<div class="act-empty">🗂 ${t('ts_hist_vacio')}</div>`;
   const fila = h => { const d = h.datos || {};
     if (h.tipo === 'secuencia'){ const A = d.analisis || {}; return `<tr><td class="mono">${esc(riFecha(h.created_at))}</td><td>🗓 ${t('ts_t_seq')} <small class="muted">${(d.res || []).map(x => TQ_TIPOS[x.tipo]).join(' ')}</small></td><td colspan="4">${tqIcN(A.nivel)} ${esc(tx(A.titulo))}</td><td><button class="sm" onclick="tqVerGuardado('${h.id}')">👁 ${t('tm_ver')}</button></td></tr>`; }
+    if (h.tipo === 'sistema'){ return `<tr><td class="mono">${esc(riFecha(h.created_at))}</td><td>🔎 ${t('ts_t_har')} <small class="muted">${esc((d.principales || [])[0] || '')}</small></td><td colspan="4">${tqIcN(d.nivel)} ${esc(tx(d.titulo))}</td><td><button class="sm" onclick="thVerGuardado('${h.id}')">👁 ${t('tm_ver')}</button></td></tr>`; }
     if (h.tipo === 'monitor'){ const R = d.resumen || {}; return `<tr><td class="mono">${esc(riFecha(h.created_at))}</td><td>📈 ${t('ts_t_mon')} <small class="muted">${esc(tmDurPaso((d.fin || 0) - (d.inicio || 0)))}</small></td><td colspan="4">${{ bien: '🟢', reg: '🟡', mal: '🔴' }[R.nivel] || ''} ${esc(tx(R.titulo))}</td><td><button class="sm" onclick="tmVerGuardado('${h.id}')">👁 ${t('tm_ver')}</button></td></tr>`; }
     if (h.tipo === 'lan' && d.modo === 'rapida') return `<tr><td class="mono">${esc(riFecha(h.created_at))}</td><td>⚡ ${t('tr_t')}</td><td class="n">→ ${esc(d.ip || '')}${d.wifi ? ' 📶' : ''}</td><td class="n">${tsF(d.rtt, 1)} ms</td><td class="n">${tsF(d.jitter, 1)} ms</td><td class="n">${tsF(d.perdida, 1)} %</td><td class="muted" style="font-size:12px">${esc(h.autor || '')}</td></tr>`;
     return h.tipo === 'lan'

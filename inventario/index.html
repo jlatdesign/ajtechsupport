@@ -803,6 +803,8 @@ body.p-noadm .p-solo-adm{display:none!important}
 .tm-ley{display:flex;gap:6px;align-items:center;color:var(--muted);margin-left:auto}.tm-ley i{display:inline-block;width:12px;height:9px;border-radius:2px}.tm-ley i.ok{background:#bbf7d0}.tm-ley i.reg{background:#fde68a}.tm-ley i.mal{background:#fecaca}.tm-ley i.pl{background:#dc2626}
 .tm-hop{color:var(--muted);width:24px}.tm-bar{width:100%;height:16px;display:block;border-radius:3px}.tm-wh{stroke:#334155;stroke-width:1.2}.tm-avg{fill:#fff;stroke:#dc2626;stroke-width:1.6}.tm-cur{font:700 10px Inter,sans-serif;fill:#1d4ed8}
 .tm-lat-h{display:flex!important;justify-content:space-between;gap:6px;min-width:220px}.tm-lat-h span:nth-child(2){flex:1;text-align:center}.tm-tbl td.tm-pl{color:#fff!important;background:#dc2626!important;font-weight:700}.tm-tbl tfoot td{font-size:12px;border-top:2px solid var(--line);padding:4px 8px}.tm-ax-pl{fill:#dc2626}
+.tg-panel{margin-top:10px;border:1px solid var(--line);border-radius:10px;padding:6px 10px}.tg-panel summary{cursor:pointer;font-weight:600;font-size:13.5px}.tg-box{margin:10px 0;padding:8px 10px;border:1px dashed var(--line-strong);border-radius:10px}
+.tg-max{fill:none;stroke:#d97706;stroke-width:1;stroke-dasharray:4 3}
 .tm-extra{display:flex!important;flex-direction:row!important;gap:4px;align-items:center}.tm-extra input{width:220px;padding:4px 8px}
 .net-tbl.tm-tbl{min-width:0;width:100%}.tm-tbl td{font-size:12.5px;padding:4px 8px!important}.tm-tbl tr{cursor:pointer}.tm-tbl tr.on td{background:color-mix(in srgb,var(--accent,#006fff) 9%,transparent)}.tm-tbl tr.tm-sr td{opacity:.55}
 .tm-sp{width:34%}.tm-spark{width:100%;height:18px;display:block}.tm-spark .ok{fill:#16a34a}.tm-spark .reg{fill:#d97706}.tm-spark .mal{fill:#dc2626}.tm-spark .l{fill:#dc2626;opacity:.85}
@@ -1115,7 +1117,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v9.9.3</p>
+    <p class="sub">Network Asset Manager · v9.9.4</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -1131,7 +1133,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.9.3</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.9.4</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -1851,7 +1853,14 @@ Object.assign(I18N.en, {
   tqa_h_rap:'Local network: {p} % loss, {a} ms and {j} ms jitter to the router.', tqa_h_rap_ok:'Local network fine: {a} ms to the router, no loss.', tqa_h_inet:'Internet: ⬇ {b} Mbps · ⬆ {s} Mbps · ping {p} ms.',
   tqa_h_bloat:'During downloads ping rises {n} ms (bufferbloat).', tqa_h_lento:'Download is under 25 Mbps.', tqa_h_mon:'Monitor ({d}): {r}.', tqa_h_mos:'Call quality (MOS): {m} of 4.5.',
   tqp_plan:'Compare the speed with the contracted plan; if lower, complain to the ISP; if equal, consider a faster plan.', tqp_subida:'Upload is very low: for video calls, cloud cameras or backups ask for a plan with more upload (symmetric fiber).',
-  'tmg.dns':'DNS', 'tmg.trabajo':'Work (M365, Teams, Zoom…)', 'tmg.voip':'VoIP and messaging', 'tmg.media':'Video and others', rep_idioma:'Report language', tr_t:'Quick test (one device)', tr_h:'Measures latency and loss from THIS device to the router (or any network IP) without opening anything on another device. The first time Chrome asks to "access devices on your local network": press Allow.',
+  'tmg.dns':'DNS', 'tmg.trabajo':'Work (M365, Teams, Zoom…)', 'tmg.voip':'VoIP and messaging', 'tmg.media':'Video and others', tg_t:'Internet according to the UniFi gateway', tg_h:'Measured by the client gateway itself with real pings (ICMP) 24/7, even when nobody has the app open. Every 5 minutes for the last 24 h and hourly for the last 30 days.',
+  tg_24h:'Last 24 h (every 5 min)', tg_7d:'Last 7 days (hourly)', tg_30d:'Last 30 days (hourly)', tg_sin:'UniFi returned no data for that time.', tg_sin_consola:'This client has no UniFi console connected (🔗 UniFi button).',
+  tg_bloques:'5-min blocks', tg_horas:'hours', tg_lat:'Average latency', tg_max:'Max latency', tg_perd:'Average loss', tg_perd_max:'Worst loss', tg_uso_b:'Download usage', tg_uso_s:'Upload usage',
+  tg_ley:'black line = average latency · dashed = max · red bars = loss (%)', tg_consultando:'Checking what the UniFi gateway measured…',
+  tg_confirma:'The UniFi gateway also saw loss ({p} % average, up to {m} %): it confirms the problem is the internet exit (modem / ISP).',
+  tg_limpio:'The UniFi gateway did NOT see problems in that period: the internet exit was fine. Most likely the problem is between this device and the router (Wi-Fi or cable) or in this device itself.',
+  tg_tambien:'The UniFi gateway also saw loss ({p} % average).', tg_ok:'The UniFi gateway saw no significant loss ({p} %).',
+  tqa_h_gw_mal:'UniFi gateway: {p} % average loss (up to {m} %), latency {l} ms → confirmed problem at the internet exit.', tqa_h_gw_ok:'UniFi gateway: no significant loss ({p} %), latency {l} ms.', rep_idioma:'Report language', tr_t:'Quick test (one device)', tr_h:'Measures latency and loss from THIS device to the router (or any network IP) without opening anything on another device. The first time Chrome asks to "access devices on your local network": press Allow.',
   tr_ip:'IP to test (router)', tr_probar:'Test', tr_medidas:'Samples', tr_ip_mal:'Type a local network IP (e.g. 192.168.1.1).',
   tr_bloq:'The browser did not allow testing the local network. In Chrome: click the lock 🔒 left of the address → "Local network devices" → Allow, and test again. (On Safari / Firefox this test does not work: use Chrome or Edge.)',
   tr_nadie:'{ip} did not answer. Check it is the router IP and that this device is on that network.',
@@ -1860,7 +1869,7 @@ Object.assign(I18N.en, {
   tr_d_wifi:'This device is on Wi-Fi: this measures the Wi-Fi quality where you stand. Move near the AP and compare.', tr_d_info:'It is an estimate: it includes the router answer time. For network SPEED use the two-device test below.',
   ts_lan_dos:'Full test with two devices (speed)', tm_router:'Router', tm_bloq:'no local network permission', ts_t_mon:'Monitor', tm_h:'Continuously measures latency and loss to several targets at once for the time you choose. If you connect another device in "Local network" it also watches the internal network. When it ends it tells you what is happening, where the problem is and what to do. Keep this window open while it runs.',
   tm_dur:'Duration', tm_int:'Every', tm_sin_limite:'Until I stop it', tm_empezar:'Start monitor', tm_parar:'Stop and see summary', tm_termino:'Lasted {d}.', tm_lan:'Local network', tm_lan_no:'connect another device in the Local network tab', tm_extra_ph:'other targets (comma separated): e.g. company.com, voip.provider.com',
-  tm_url_mal:'That target is not a valid address.', tm_sin_dest:'Pick at least one target.', tm_destino:'Target', tm_foco:'Focus', tm_foco_todo:'All', tm_cuenta:'Count', tm_latencia:'Latency', tm_ida_vuelta:'Round trip (ms)', tm_prom:'Avg', tm_act:'Cur', tm_picos:'Spikes', tm_ultimos:'Latest samples', tm_sin_resp:'no response',
+  tm_url_mal:'That target is not a valid address.', tm_sin_dest:'Pick at least one target.', tm_destino:'Target', tm_foco:'Focus', tm_pl_est:'PL% est.', tm_pl_est_h:'Estimated loss: truly lost packets plus big sudden spikes (that is how loss shows up in this test).', tm_ajustar:'Subtract server time', tm_ajustar_h:'Subtracts each target server answer time (its minimum vs the fastest target) so it looks more like a ping.', tm_foco_todo:'All', tm_cuenta:'Count', tm_latencia:'Latency', tm_ida_vuelta:'Round trip (ms)', tm_prom:'Avg', tm_act:'Cur', tm_picos:'Spikes', tm_ultimos:'Latest samples', tm_sin_resp:'no response',
   tm_mos:'Call quality (MOS)', tm_res_dur:'{d} test', tm_reporte:'Report', tm_reporte_t:'Connection report', tm_donde:'Where the problem is', tm_que_hacer:'What to do', tm_peores:'Moments with problems', tm_perdidos:'lost', tm_perd_c:'loss', tm_no_contesto:'Did not answer (may be blocked by a firewall or filter): {n}. Not counted.', tm_ver:'View',
   'tml.lan':'Inside the local network (Wi-Fi, cable or switch)', 'tml.isp':'Internet connection: router, modem or ISP', 'tml.isp_o_lan':'In the connection: local network or ISP (run the local network test to tell them apart)', 'tml.servicio':'Outside the client network: that service or its route', 'tml.ninguno':'No problems found', 'tml.sin_datos':'No responses',
   tmd_sin_datos:'Nothing could be measured', tmd_sin_datos_h:'No target answered. Check this device has internet and that a firewall is not blocking the tests.',
@@ -2145,7 +2154,14 @@ Object.assign(I18N.es, {
   tqa_h_rap:'Red local: {p} % de pérdida, {a} ms y jitter de {j} ms hasta el router.', tqa_h_rap_ok:'Red local bien: {a} ms hasta el router, sin pérdida.', tqa_h_inet:'Internet: ⬇ {b} Mbps · ⬆ {s} Mbps · ping {p} ms.',
   tqa_h_bloat:'Cuando hay descargas el ping sube {n} ms (bufferbloat).', tqa_h_lento:'La bajada es menor de 25 Mbps.', tqa_h_mon:'Monitor ({d}): {r}.', tqa_h_mos:'Calidad de llamadas (MOS): {m} de 4.5.',
   tqp_plan:'Compara la velocidad con el plan contratado; si es menor, reclama al proveedor; si es igual, considera un plan más rápido.', tqp_subida:'La subida es muy baja: si usan videollamadas, cámaras en la nube o backups, pide un plan con más subida (fibra simétrica).',
-  'tmg.dns':'DNS', 'tmg.trabajo':'Trabajo (M365, Teams, Zoom…)', 'tmg.voip':'VoIP y mensajería', 'tmg.media':'Video y otros', rep_idioma:'Idioma del reporte', tr_t:'Prueba rápida (un solo equipo)', tr_h:'Mide la latencia y la pérdida de ESTE equipo al router (o a cualquier IP de la red) sin abrir nada en otro equipo. La primera vez Chrome pregunta "acceder a dispositivos de tu red local": dale Permitir.',
+  'tmg.dns':'DNS', 'tmg.trabajo':'Trabajo (M365, Teams, Zoom…)', 'tmg.voip':'VoIP y mensajería', 'tmg.media':'Video y otros', tg_t:'Internet según el gateway UniFi', tg_h:'Lo mide el propio gateway del cliente con pings reales (ICMP) las 24 horas, aunque nadie tenga la app abierta. Cada 5 minutos para las últimas 24 h y por hora para los últimos 30 días.',
+  tg_24h:'Últimas 24 h (cada 5 min)', tg_7d:'Últimos 7 días (por hora)', tg_30d:'Últimos 30 días (por hora)', tg_sin:'UniFi no devolvió datos para ese tiempo.', tg_sin_consola:'Este cliente no tiene la consola UniFi conectada (botón 🔗 UniFi).',
+  tg_bloques:'bloques de 5 min', tg_horas:'horas', tg_lat:'Latencia promedio', tg_max:'Latencia máxima', tg_perd:'Pérdida promedio', tg_perd_max:'Peor pérdida', tg_uso_b:'Uso bajada', tg_uso_s:'Uso subida',
+  tg_ley:'línea negra = latencia promedio · punteada = máxima · barras rojas = pérdida (%)', tg_consultando:'Consultando lo que midió el gateway UniFi…',
+  tg_confirma:'El gateway UniFi también vio pérdida ({p} % promedio, hasta {m} %): confirma que el problema está en la salida a internet (módem / proveedor).',
+  tg_limpio:'El gateway UniFi NO vio problemas en ese rato: la salida a internet estaba bien. Lo más probable es que el problema esté entre este equipo y el router (Wi-Fi o cable) o en este mismo equipo.',
+  tg_tambien:'El gateway UniFi también vio pérdida ({p} % promedio).', tg_ok:'El gateway UniFi no vio pérdida importante ({p} %).',
+  tqa_h_gw_mal:'Gateway UniFi: {p} % de pérdida promedio (hasta {m} %), latencia {l} ms → problema confirmado en la salida a internet.', tqa_h_gw_ok:'Gateway UniFi: sin pérdida importante ({p} %), latencia {l} ms.', rep_idioma:'Idioma del reporte', tr_t:'Prueba rápida (un solo equipo)', tr_h:'Mide la latencia y la pérdida de ESTE equipo al router (o a cualquier IP de la red) sin abrir nada en otro equipo. La primera vez Chrome pregunta "acceder a dispositivos de tu red local": dale Permitir.',
   tr_ip:'IP a probar (router)', tr_probar:'Probar', tr_medidas:'Mediciones', tr_ip_mal:'Escribe una IP de la red local (ej. 192.168.1.1).',
   tr_bloq:'El navegador no dejó probar la red local. En Chrome: toca el candado 🔒 a la izquierda de la dirección → "Dispositivos de la red local" → Permitir, y vuelve a probar. (En Safari / Firefox esta prueba no funciona: usa Chrome o Edge.)',
   tr_nadie:'{ip} no respondió. Revisa que la IP sea la del router y que este equipo esté conectado a esa red.',
@@ -2154,7 +2170,7 @@ Object.assign(I18N.es, {
   tr_d_wifi:'Este equipo está por Wi-Fi: esto mide la calidad del Wi-Fi donde estás parado. Muévete cerca del AP y compara.', tr_d_info:'Es un estimado: incluye lo que tarda el router en contestar. Para la VELOCIDAD de la red usa la prueba con dos equipos de abajo.',
   ts_lan_dos:'Prueba completa con dos equipos (velocidad)', tm_router:'Router', tm_bloq:'sin permiso de red local', ts_t_mon:'Monitor', tm_h:'Mide sin parar la latencia y la pérdida a varios destinos a la vez, durante el tiempo que escojas. Con "Router" marcado también vigila la red interna (de este equipo al router), así el resumen puede decir si el problema está adentro o en el proveedor. Al terminar te dice qué está pasando, dónde está el problema y qué hacer. Deja esta ventana abierta mientras corre.',
   tm_dur:'Duración', tm_int:'Cada', tm_sin_limite:'Hasta que la pare', tm_empezar:'Empezar monitor', tm_parar:'Parar y ver resumen', tm_termino:'Duró {d}.', tm_lan:'Red local', tm_lan_no:'conecta otro equipo en la pestaña Red local', tm_extra_ph:'otros destinos (separados por coma): ej. empresa.com, voip.proveedor.com',
-  tm_url_mal:'Ese destino no es una dirección válida.', tm_sin_dest:'Escoge al menos un destino.', tm_destino:'Destino', tm_foco:'Enfoque', tm_foco_todo:'Todo', tm_cuenta:'Cuenta', tm_latencia:'Latencia', tm_ida_vuelta:'Ida y vuelta (ms)', tm_prom:'Prom', tm_act:'Actual', tm_picos:'Picos', tm_ultimos:'Últimas mediciones', tm_sin_resp:'no responde',
+  tm_url_mal:'Ese destino no es una dirección válida.', tm_sin_dest:'Escoge al menos un destino.', tm_destino:'Destino', tm_foco:'Enfoque', tm_pl_est:'PL% est.', tm_pl_est_h:'Pérdida estimada: los paquetes perdidos de verdad más los saltos grandes y repentinos (así se ve una pérdida en esta prueba).', tm_ajustar:'Restar tiempo del servidor', tm_ajustar_h:'Le resta a cada destino lo que tarda su servidor en contestar (su mínimo comparado con el destino más rápido), para que se parezca más a un ping.', tm_foco_todo:'Todo', tm_cuenta:'Cuenta', tm_latencia:'Latencia', tm_ida_vuelta:'Ida y vuelta (ms)', tm_prom:'Prom', tm_act:'Actual', tm_picos:'Picos', tm_ultimos:'Últimas mediciones', tm_sin_resp:'no responde',
   tm_mos:'Calidad de llamadas (MOS)', tm_res_dur:'Prueba de {d}', tm_reporte:'Reporte', tm_reporte_t:'Reporte de conexión', tm_donde:'Dónde está el problema', tm_que_hacer:'Qué hacer', tm_peores:'Momentos con problemas', tm_perdidos:'perdidos', tm_perd_c:'pérdida', tm_no_contesto:'No contestó (puede estar bloqueado por un firewall o filtro): {n}. No se tomó en cuenta.', tm_ver:'Ver',
   'tml.lan':'Dentro de la red local (Wi-Fi, cable o switch)', 'tml.isp':'Conexión a internet: router, módem o proveedor', 'tml.isp_o_lan':'En la conexión: red local o proveedor (falta la prueba de red local para separarlos)', 'tml.servicio':'Fuera de la red del cliente: en ese servicio o su ruta', 'tml.ninguno':'No se encontraron problemas', 'tml.sin_datos':'No hubo respuestas',
   tmd_sin_datos:'No se pudo medir nada', tmd_sin_datos_h:'Ningún destino respondió. Revisa que este equipo tenga internet o que un firewall no bloquee las pruebas.',
@@ -8311,10 +8327,10 @@ const tx = v => v == null ? '' : typeof v === 'string' ? v : Array.isArray(v) ? 
 // cambia el idioma solo mientras se arma un reporte
 function conIdioma(l, fn){ const v = LANG; if (l && I18N[l]) LANG = l; try { return fn(); } finally { LANG = v; } }
 const TM_DESTINOS = [
-  { id: 'cf', ic: '🌐', nombre: 'Cloudflare', tipo: 'cf', g: 'base', def: true },
+  { id: 'cf', ic: '🌐', nombre: 'Cloudflare', tipo: 'nc', url: 'https://www.cloudflare.com/cdn-cgi/trace', g: 'base', def: true },
   { id: 'gg', ic: '🔎', nombre: 'Google', tipo: 'nc', url: 'https://www.google.com/generate_204', g: 'base', def: true },
-  { id: 'ms', ic: '🪟', nombre: 'Microsoft', tipo: 'nc', url: 'https://www.bing.com/favicon.ico', g: 'base', def: true },
-  { id: 'aw', ic: '☁️', nombre: 'Amazon AWS', tipo: 'nc', url: 'https://s3.amazonaws.com/favicon.ico', g: 'base' },
+  { id: 'ms', ic: '🪟', nombre: 'Microsoft', tipo: 'nc', url: 'https://www.msftconnecttest.com/connecttest.txt', g: 'base', def: true },
+  { id: 'aw', ic: '☁️', nombre: 'Amazon AWS', tipo: 'nc', url: 'https://aws.amazon.com/favicon.ico', g: 'base' },
   { id: 'd1', ic: '🧭', nombre: 'DNS Cloudflare 1.1.1.1', tipo: 'nc', url: 'https://1.1.1.1/favicon.ico', g: 'dns' },
   { id: 'd8', ic: '🧭', nombre: 'DNS Google 8.8.8.8', tipo: 'nc', url: 'https://dns.google/', g: 'dns' },
   { id: 'q9', ic: '🧭', nombre: 'DNS Quad9', tipo: 'nc', url: 'https://www.quad9.net/favicon.ico', g: 'dns' },
@@ -8351,7 +8367,9 @@ function tmStats(tg, desde){
   const v = (desde ? tg.s.filter(x => x[0] >= desde) : tg.s).map(x => x[1]), ok = v.filter(x => x != null), n = v.length;
   const base = tsMed(ok.slice(0, Math.max(10, Math.min(60, ok.length)))) ?? tsMed(ok) ?? 0;
   const lim = Math.max(base * 3, base + 60), picos = ok.filter(x => x > lim).length;
-  return { n, ok: ok.length, perdida: n ? (n - ok.length) / n * 100 : 0, avg: ok.length ? ok.reduce((a, b) => a + b, 0) / ok.length : null, min: ok.length ? Math.min(...ok) : null,
+  // "pérdida probable": un salto grande y de golpe (la conexión web reenvía el paquete perdido y se ve como un pico)
+  const limP = Math.max(base * 4, base + 150); let probables = 0; for (let i = 1; i < v.length; i++) if (v[i] != null && v[i] > limP && v[i - 1] != null && v[i - 1] <= lim) probables++;
+  return { n, ok: ok.length, perdida: n ? (n - ok.length) / n * 100 : 0, probables, perdidaEst: n ? (n - ok.length + probables) / n * 100 : 0, avg: ok.length ? ok.reduce((a, b) => a + b, 0) / ok.length : null, min: ok.length ? Math.min(...ok) : null,
     max: ok.length ? Math.max(...ok) : null, cur: v.length ? v[v.length - 1] : null, jitter: tsJit(ok), p95: tsPct(ok, 0.95), base, lim, picos, picosPct: n ? picos / n * 100 : 0, sinResp: n >= 5 && !ok.length };
 }
 // MOS (calidad de una llamada VoIP, 1 a 4.5) con el modelo E simplificado
@@ -8376,6 +8394,7 @@ function tmHTML(){
       <label class="mdm-chk"><input type="checkbox" ${M.usar.gw ? 'checked' : ''} ${corr ? 'disabled' : ''} onchange="TS.mon.usar.gw=this.checked"> 🏠 ${t('tm_router')}</label><input class="tm-gwip" ${corr ? 'disabled' : ''} value="${esc(M.gwip || tsGwIP())}" onchange="TS.mon.gwip=this.value.trim()">
       <label class="tm-extra"><span>➕</span><input ${corr ? 'disabled' : ''} value="${esc(M.extra)}" placeholder="${esc(t('tm_extra_ph'))}" onchange="TS.mon.extra=this.value.trim()"></label></div>
     <div id="tmVivo">${tmVivoHTML()}</div>
+    ${tgPanelHTML()}
     <div id="tmRes">${M.resumen ? tmResumenHTML(M.resumen) : ''}</div>`;
 }
 // tabla (una fila por destino) + gráfica del destino escogido
@@ -8392,17 +8411,21 @@ function tmBarra(st, esc0){
 const TM_FOCO = [0, 1, 5, 10, 30, 60];
 function tmVivoHTML(){
   const M = TS.mon; if (!M?.targets?.length) return '';
-  const fin = M.fin || Date.now(), desde = M.focus ? fin - M.focus * 60000 : 0, S = M.targets.map(tg => tmStats(tg, desde));
+  const fin = M.fin || Date.now(), desde = M.focus ? fin - M.focus * 60000 : 0, S0 = M.targets.map(tg => tmStats(tg, desde));
+  // 📐 restar lo que tarda cada servidor en contestar: se compara su mínimo con el destino más rápido
+  const aj = M.ajustar !== false, esNet = tg => !['gw', 'lan'].includes(tg.tipo), mins = S0.filter((st, i) => esNet(M.targets[i]) && st.min != null).map(st => st.min), ref = mins.length ? Math.min(...mins) : 0;
+  const off = M.targets.map((tg, i) => aj && esNet(tg) && S0[i].min != null ? Math.max(0, S0[i].min - ref) : 0);
+  const mov = (v, o) => v == null ? v : Math.max(0.1, v - o), S = S0.map((st, i) => off[i] ? { ...st, avg: mov(st.avg, off[i]), min: mov(st.min, off[i]), max: mov(st.max, off[i]), cur: mov(st.cur, off[i]), p95: mov(st.p95, off[i]) } : st);
   const esc0 = Math.max(250, Math.ceil(Math.max(...S.map(st => st.p95 ?? 0)) * 1.1 / 50) * 50);
   const filas = M.targets.map((tg, i) => { const st = S[i];
     return `<tr class="${M.sel === i ? 'on' : ''} ${st.sinResp ? 'tm-sr' : ''}" onclick="TS.mon.sel=${i};tmPintar()"><td class="n tm-hop">${i + 1}</td><td>${tg.ic} <b>${esc(tg.nombre)}</b>${st.sinResp ? ` <small class="trm-mal">${t(tg.bloq ? 'tm_bloq' : 'tm_sin_resp')}</small>` : ''}</td><td class="n">${st.n}</td><td class="n">${tsF(st.avg, 1)}</td><td class="n">${tsF(st.min, 1)}</td>
-      <td class="n tm-c-${tmColor(st.cur)}">${st.cur == null && st.n ? '✕' : tsF(st.cur, 1)}</td><td class="n">${tsF(st.jitter, 1)}</td><td class="n ${st.perdida >= 1 ? 'tm-pl' : ''}">${st.perdida > 0 ? tsF(st.perdida, 1) : ''}</td><td class="tm-sp">${tmBarra(st, esc0)}</td></tr>`; }).join('');
+      <td class="n tm-c-${tmColor(st.cur)}">${st.cur == null && st.n ? '✕' : tsF(st.cur, 1)}</td><td class="n">${tsF(st.jitter, 1)}</td><td class="n ${st.perdida >= 1 ? 'tm-pl' : ''}">${st.perdida > 0 ? tsF(st.perdida, 1) : ''}</td><td class="n ${st.perdidaEst >= 1 ? 'trm-mal' : 'muted'}">${st.perdidaEst > 0 ? tsF(st.perdidaEst, 1) : ''}</td><td class="tm-sp">${tmBarra(st, esc0)}</td></tr>`; }).join('');
   const tg = M.targets[M.sel] || M.targets[0], focoOp = TM_FOCO.map(f => `<option value="${f}" ${+(M.focus || 0) === f ? 'selected' : ''}>${f ? f + ' min' : t('tm_foco_todo')}</option>`).join('');
-  return `<div class="tm-dash-h"><label>🔍 ${t('tm_foco')} <select onchange="TS.mon.focus=+this.value;tmPintar()">${focoOp}</select></label><span class="muted">${desde ? tmHora(Math.max(desde, M.inicio)) : tmHora(M.inicio)} → ${tmHora(fin)}</span>
+  return `<div class="tm-dash-h"><label>🔍 ${t('tm_foco')} <select onchange="TS.mon.focus=+this.value;tmPintar()">${focoOp}</select></label><label class="mdm-chk" title="${esc(t('tm_ajustar_h'))}"><input type="checkbox" ${aj ? 'checked' : ''} onchange="TS.mon.ajustar=this.checked;tmPintar()"> 📐 ${t('tm_ajustar')}</label><span class="muted">${desde ? tmHora(Math.max(desde, M.inicio)) : tmHora(M.inicio)} → ${tmHora(fin)}</span>
       <span class="tm-ley"><i class="ok"></i>&lt;100 ms <i class="reg"></i>100–200 <i class="mal"></i>&gt;200 <b>●</b> ${t('tm_prom')} <b>✕</b> ${t('tm_act')} <i class="pl"></i> PL%</span></div>
-    <div class="table-wrap"><table class="net-tbl tm-tbl"><thead><tr><th class="n">#</th><th>${t('tm_destino')}</th><th class="n">${t('tm_cuenta')}</th><th class="n">${t('tm_prom')}</th><th class="n">Min</th><th class="n">${t('tm_act')}</th><th class="n">Jitter</th><th class="n">PL%</th><th class="tm-lat-h"><span>0 ms</span><span>${t('tm_latencia')}</span><span>${esc0} ms</span></th></tr></thead><tbody>${filas}</tbody>
-      <tfoot><tr><td></td><td class="muted">${t('tm_ida_vuelta')}</td><td class="n">${Math.max(0, ...S.map(st => st.n))}</td><td class="n"><b>${tsF(tsMed(S.map(st => st.avg).filter(v => v != null)), 1)}</b></td><td class="n">${tsF(Math.min(...S.map(st => st.min ?? 1e9).filter(v => v < 1e9)), 1)}</td><td colspan="4"></td></tr></tfoot></table></div>
-    <div class="tm-graf"><div class="tm-g-h"><b>${tg.ic} ${esc(tg.nombre)}</b><span class="muted">${desde ? t('tm_foco') + ' ' + M.focus + ' min' : ''}</span></div>${tmGrafSVG({ s: desde ? tg.s.filter(x => x[0] >= desde) : tg.s }, desde ? Math.max(desde, M.inicio) : M.inicio, fin)}</div>`;
+    <div class="table-wrap"><table class="net-tbl tm-tbl"><thead><tr><th class="n">#</th><th>${t('tm_destino')}</th><th class="n">${t('tm_cuenta')}</th><th class="n">${t('tm_prom')}</th><th class="n">Min</th><th class="n">${t('tm_act')}</th><th class="n">Jitter</th><th class="n">PL%</th><th class="n" title="${esc(t('tm_pl_est_h'))}">${t('tm_pl_est')}</th><th class="tm-lat-h"><span>0 ms</span><span>${t('tm_latencia')}</span><span>${esc0} ms</span></th></tr></thead><tbody>${filas}</tbody>
+      <tfoot><tr><td></td><td class="muted">${t('tm_ida_vuelta')}</td><td class="n">${Math.max(0, ...S.map(st => st.n))}</td><td class="n"><b>${tsF(tsMed(S.map(st => st.avg).filter(v => v != null)), 1)}</b></td><td class="n">${tsF(Math.min(...S.map(st => st.min ?? 1e9).filter(v => v < 1e9)), 1)}</td><td colspan="5"></td></tr></tfoot></table></div>
+    <div class="tm-graf"><div class="tm-g-h"><b>${tg.ic} ${esc(tg.nombre)}</b><span class="muted">${desde ? t('tm_foco') + ' ' + M.focus + ' min' : ''}</span></div>${tmGrafSVG({ s: (desde ? tg.s.filter(x => x[0] >= desde) : tg.s).map(x => [x[0], x[1] == null ? null : mov(x[1], off[M.sel] || 0), x[2]]) }, desde ? Math.max(desde, M.inicio) : M.inicio, fin)}</div>`;
 }
 function tmGrafSVG(tg, t0, t1, W = 940, H = 210){
   const s = tg.s; if (!s.length) return '';
@@ -8469,10 +8492,88 @@ function tmParar(){
   try { TM_WORKER?.postMessage(0); TM_WORKER?.terminate(); } catch(e){} TM_WORKER = null; clearInterval(M.iv);
   try { M.wake?.release(); } catch(e){}
   M.estado = 'fin'; M.fin = Date.now(); M.resumen = tmDiagnostico(M);
+  if (tgHay()) M.resumen.gwCargando = true;
   tsRender();
   setTimeout(() => $('tmRes')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 60);
+  tmTerminar(M);
+}
+async function tmTerminar(M){
+  M.gwListo = (async () => { try { await Promise.race([tgCruzar(M), tsDormir(20000)]); } catch(e){} delete M.resumen.gwCargando; })();
+  await M.gwListo; tsRender();
   tsGuardar('monitor', { inicio: M.inicio, fin: M.fin, int: M.int, resumen: M.resumen, targets: M.targets.map(tg => ({ id: tg.id, ic: tg.ic, nombre: tg.nombre, tipo: tg.tipo, st: tmStats(tg), s: tmReducir(tg.s, 720) })) });
 }
+/* ---- 🛰 Internet según el gateway UniFi (ISP Metrics): ping real del gateway, 24/7 ----
+   5m = cada 5 minutos (últimas 24 h) · 1h = cada hora (últimos 30 días). Sale de la API de UniFi, no del navegador. */
+const tgHay = () => hostsDe(clienteObj(curCliente)).length > 0;
+async function tgCargar(desde, hasta, tipo){
+  const r = await llamarUnifi({ accion: 'isp', cliente: curCliente, desde: desde ? new Date(desde).toISOString() : undefined, hasta: hasta ? new Date(hasta).toISOString() : undefined, tipo });
+  if (r.error) return { error: r.falta ? t('uf_fn_missing') : r.error };
+  return r.data;
+}
+// junta los periodos de todos los sitios del cliente y saca el resumen
+function tgResumen(d){
+  const P = (d?.sitios || []).flatMap(x => x.periodos.map(p => ({ ...p, sitio: x.sitio, ms: new Date(p.t).getTime() }))).sort((a, b) => a.ms - b.ms);
+  if (!P.length) return null;
+  const vals = k => P.map(p => p[k]).filter(v => v != null);
+  const pl = vals('perdida'), lat = vals('lat'), mx = vals('max'), bj = vals('bajada'), sb = vals('subida');
+  const prom = a => a.length ? a.reduce((x, y) => x + y, 0) / a.length : null;
+  const malos = P.filter(p => (p.perdida ?? 0) >= 1 || (p.max ?? 0) > 250);
+  return { n: P.length, tipo: d.tipo, desde: d.desde, hasta: d.hasta, perdida: prom(pl), perdidaMax: pl.length ? Math.max(...pl) : null, lat: prom(lat), latMax: mx.length ? Math.max(...mx) : null,
+    bajada: prom(bj), subida: prom(sb), isp: (P.find(p => p.isp) || {}).isp || '', malos: malos.length, peores: malos.slice().sort((a, b) => (b.perdida ?? 0) - (a.perdida ?? 0) || (b.max ?? 0) - (a.max ?? 0)).slice(0, 6).sort((a, b) => a.ms - b.ms).map(p => ({ ms: p.ms, perdida: p.perdida, max: p.max })),
+    P: P.map(p => [p.ms, p.lat, p.max, p.perdida]) };
+}
+const tgMalo = g => g && ((g.perdida ?? 0) >= 0.5 || (g.perdidaMax ?? 0) >= 3 || g.malos >= Math.max(2, g.n * 0.05));
+// gráfica: barras rojas = pérdida %, línea = latencia promedio, punteada = máxima
+function tgSVG(g, W = 940, H = 170){
+  const P = g?.P || []; if (!P.length) return '';
+  const t0 = P[0][0], t1 = P[P.length - 1][0] || t0 + 1, span = Math.max(1, t1 - t0), L = 34, R = 30, T = 10, B = 18, w = W - L - R, h = H - T - B;
+  const top = Math.max(100, Math.min(1000, Math.max(...P.map(p => p[2] ?? p[1] ?? 0)) * 1.15)), plTop = Math.max(5, Math.ceil(Math.max(...P.map(p => p[3] ?? 0)) / 5) * 5);
+  const X = ms => L + (ms - t0) / span * w, Y = v => T + h - Math.min(v, top) / top * h, bw = Math.max(1.5, w / P.length);
+  const lin = k => P.filter(p => p[k] != null).map((p, i) => `${i ? 'L' : 'M'}${X(p[0]).toFixed(1)},${Y(p[k]).toFixed(1)}`).join('');
+  const bars = P.filter(p => (p[3] ?? 0) > 0).map(p => { const hh = Math.max(2, p[3] / plTop * h); return `<rect x="${(X(p[0]) - bw / 2).toFixed(1)}" y="${(T + h - hh).toFixed(1)}" width="${bw.toFixed(1)}" height="${hh.toFixed(1)}" class="tm-perd" opacity=".8"/>`; }).join('');
+  const marcas = [0, 50, 100, 150, 200, 250, 500, 750, 1000].filter(v => v <= top).map(v => `<line x1="${L}" x2="${L + w}" y1="${Y(v)}" y2="${Y(v)}" class="tm-ln"/><text x="${L - 4}" y="${Y(v) + 3}" class="tm-ax" text-anchor="end">${v}</text>`).join('');
+  const dias = span > 30 * 3600e3, ticks = Array.from({ length: 7 }, (_, i) => t0 + span * i / 6).map(ms => `<text x="${X(ms)}" y="${H - 4}" class="tm-ax" text-anchor="middle">${esc(new Date(ms).toLocaleString(LANG === 'es' ? 'es-US' : 'en-US', dias ? { month: 'short', day: 'numeric', hour: 'numeric' } : { hour: 'numeric', minute: '2-digit' }))}</text>`).join('');
+  return `<svg viewBox="0 0 ${W} ${H}" class="tm-svg">${marcas}${bars}<path d="${lin(2)}" class="tg-max"/><path d="${lin(1)}" class="tm-lat"/>
+    <text x="${L + w + 4}" y="${T + 6}" class="tm-ax tm-ax-pl">${plTop}%</text><text x="${L + w + 4}" y="${T + h}" class="tm-ax tm-ax-pl">0</text>${ticks}</svg>`;
+}
+function tgHTML(g, cab = true){
+  if (!g) return `<div class="muted">${t('tg_sin')}</div>`;
+  const kpi = (v, u, l, cls) => tsKpi(v, u, l, cls);
+  return `${cab ? `<div class="muted" style="margin-bottom:6px">${esc(riFecha(g.desde))} → ${esc(riFecha(g.hasta))} · ${g.n} ${t(g.tipo === '1h' ? 'tg_horas' : 'tg_bloques')}${g.isp ? ' · 🏢 ' + esc(g.isp) : ''}</div>` : ''}
+    <div class="ts-kpis">${kpi(tsF(g.lat, 1), 'ms', '📶 ' + t('tg_lat'), tsNota(g.lat, 30, 100, true))}${kpi(tsF(g.latMax, 0), 'ms', '⏫ ' + t('tg_max'), tsNota(g.latMax, 100, 300, true))}
+      ${kpi(tsF(g.perdida, 2), '%', '📉 ' + t('tg_perd'), tsNota(g.perdida, 0.1, 1, true))}${kpi(tsF(g.perdidaMax, 1), '%', '📉 ' + t('tg_perd_max'), tsNota(g.perdidaMax, 1, 5, true))}
+      ${g.bajada != null ? kpi(tsF(g.bajada / 1000, 1), 'Mbps', '⬇ ' + t('tg_uso_b')) : ''}${g.subida != null ? kpi(tsF(g.subida / 1000, 1), 'Mbps', '⬆ ' + t('tg_uso_s')) : ''}</div>
+    <div class="tm-graf" style="margin-top:6px">${tgSVG(g)}<div class="muted" style="font-size:11.5px">— ${t('tg_ley')}</div></div>
+    ${g.peores.length ? `<div class="tm-peores" style="margin-top:6px">${g.peores.map(p => `<span>${esc(new Date(p.ms).toLocaleString(LANG === 'es' ? 'es-US' : 'en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }))} — ${p.perdida ? '❌ ' + tsF(p.perdida, 1) + '%' : ''}${p.perdida && p.max ? ' · ' : ''}${p.max ? '⏫ ' + tsF(p.max, 0) + ' ms' : ''}</span>`).join('')}</div>` : ''}`;
+}
+// panel en el Monitor: ver lo que el gateway midió (también de ayer / la semana pasada)
+function tgPanelHTML(){
+  if (!tgHay()) return `<details class="tg-panel"><summary>🛰 ${t('tg_t')}</summary><div class="muted">${t('tg_sin_consola')}</div></details>`;
+  const G = TS.gw || {};
+  return `<details class="tg-panel" ${G.res || G.cargando || G.error ? 'open' : ''}><summary>🛰 ${t('tg_t')}</summary><p class="muted" style="margin:4px 0 8px">${t('tg_h')}</p>
+    <div class="row" style="flex-wrap:wrap;gap:6px">${[['24h5', 'tg_24h'], ['7d', 'tg_7d'], ['30d', 'tg_30d']].map(([k, l]) => `<button class="sm ${G.k === k ? 'primary' : ''}" onclick="tgVer('${k}')">${t(l)}</button>`).join('')}</div>
+    <div style="margin-top:8px">${G.cargando ? `<p class="muted">${t('act_loading')}</p>` : G.error ? `<div class="u-warn">⚠️ ${esc(G.error)}</div>` : G.res ? tgHTML(G.res) : ''}</div></details>`;
+}
+async function tgVer(k){
+  TS.gw = { k, cargando: true }; tsRender();
+  const ahora = Date.now(), d = k === '24h5' ? await tgCargar(ahora - 24 * 3600e3, ahora, '5m') : await tgCargar(ahora - (k === '7d' ? 7 : 30) * 24 * 3600e3, ahora, '1h');
+  TS.gw = d.error ? { k, error: d.error } : { k, res: tgResumen(d) || null, error: tgResumen(d) ? '' : t('tg_sin') }; tsRender();
+}
+// después de un monitor: trae lo que vio el gateway en ese mismo rato y lo cruza con el resumen
+async function tgCruzar(M){
+  if (!tgHay() || !M?.resumen) return;
+  const d = await tgCargar(M.inicio - 5 * 60000, M.fin + 5 * 60000, '5m'); if (d.error) { M.resumen.gwError = d.error; return; }
+  const g = tgResumen(d); if (!g) return;
+  const r = M.resumen; r.gw = { ...g, P: g.P };
+  const malo = tgMalo(g);
+  if (malo && ['isp_o_lan', 'ninguno', 'servicio', 'isp'].includes(r.lugar)){
+    if (r.lugar !== 'isp'){ r.lugar = 'isp'; r.nivel = (g.perdidaMax ?? 0) >= 5 ? 'mal' : 'reg'; r.titulo = tL('tmd_isp_t'); r.pasos = ['tmp_isp_modem', 'tmp_isp_cable', 'tmp_isp_unifi', 'tmp_isp_llamar', 'tmp_isp_failover']; }
+    r.gwNota = tL('tg_confirma', { p: tsF(g.perdida, 2), m: tsF(g.perdidaMax, 1) });
+  } else if (!malo && ['isp', 'isp_o_lan'].includes(r.lugar)){
+    r.gwNota = tL('tg_limpio'); if (!r.pasos.includes('tmp_wifi_prueba')) r.pasos.unshift('tmp_wifi_prueba', 'tmp_wifi_1');
+  } else r.gwNota = tL(malo ? 'tg_tambien' : 'tg_ok', { p: tsF(g.perdida, 2) });
+}
+
 // para guardar: máximo N puntos (cada punto = peor latencia del grupo; pérdida si hubo)
 function tmReducir(s, N){
   if (s.length <= N) return s.map(x => [x[0], x[1]]);
@@ -8518,7 +8619,7 @@ function tmDiagnostico(M){
   }
   if (dur < 5 * 60000) pasos.push('tmp_corta');
   return { nivel, lugar, titulo, explica, pasos, peores, pctComun, mos, dur, sinResp, wifi: M.wifi,
-    filas: T.map(({ tg, st }) => ({ ic: tg.ic, nombre: tg.nombre, tipo: tg.tipo, avg: st.avg, min: st.min, max: st.max, p95: st.p95, jitter: st.jitter, perdida: st.perdida, picos: st.picos, n: st.n, sinResp: st.sinResp, malo: tmMalo(st) })) };
+    filas: T.map(({ tg, st }) => ({ ic: tg.ic, nombre: tg.nombre, tipo: tg.tipo, avg: st.avg, min: st.min, max: st.max, p95: st.p95, jitter: st.jitter, perdida: st.perdida, perdidaEst: st.perdidaEst, picos: st.picos, n: st.n, sinResp: st.sinResp, malo: tmMalo(st) })) };
 }
 function tmResumenHTML(r){
   const ic = { bien: '🟢', reg: '🟡', mal: '🔴' }[r.nivel] || '⚪', lugarTxt = t('tml.' + r.lugar);
@@ -8529,6 +8630,7 @@ function tmResumenHTML(r){
     <div class="tm-donde">📍 <b>${t('tm_donde')}:</b> ${esc(lugarTxt)}</div>
     <p>${esc(tx(r.explica))}</p>
     <div class="ts-kpis">${mosTxt}${r.filas.filter(f => !f.sinResp).map(f => `<div class="ts-kpi ${f.malo ? 'mal' : 'bien'}"><b>${tsF(f.avg, 0)}</b><small>ms</small><span>${f.ic} ${esc(f.nombre)} · ${tsF(f.perdida, 1)}% ${t('tm_perd_c')}</span></div>`).join('')}</div>
+    ${r.gwCargando ? `<div class="muted">🛰 ${t('tg_consultando')}</div>` : r.gw ? `<div class="tg-box"><h4 class="cl-h4" style="margin-top:0">🛰 ${t('tg_t')}</h4>${r.gwNota ? `<p><b>${esc(tx(r.gwNota))}</b></p>` : ''}${tgHTML(r.gw, false)}</div>` : r.gwError ? `<div class="muted">🛰 ${esc(r.gwError)}</div>` : ''}
     <h4 class="cl-h4">🛠 ${t('tm_que_hacer')}</h4><ol class="tm-pasos">${r.pasos.map(k => `<li>${t(k)}</li>`).join('')}</ol>
     ${r.peores.length ? `<h4 class="cl-h4">🕒 ${t('tm_peores')}</h4><div class="tm-peores">${r.peores.map(w => `<span>${esc(tmHora(w.desde).replace(/:\d\d(?=\s|$)/, ''))} — ${w.perd ? `❌ ${w.perd} ${t('tm_perdidos')}` : ''}${w.perd && w.picos ? ' · ' : ''}${w.picos ? `⚡ ${w.picos} ${t('tm_picos').toLowerCase()}` : ''}</span>`).join('')}</div>` : ''}
     ${r.sinResp.length ? `<div class="muted" style="margin-top:6px">⚠ ${t('tm_no_contesto', { n: r.sinResp.join(', ') })}</div>` : ''}</div>`;
@@ -8550,11 +8652,12 @@ function tmImprimir0(dat){
     <div class="res"><b style="font-size:15px">${esc(tx(r.titulo))}</b><div>📍 <b>${t('tm_donde')}:</b> ${esc(t('tml.' + r.lugar))}</div><p>${esc(tx(r.explica))}</p>${r.mos != null ? `<div>📞 ${t('tm_mos')}: <b>${tsF(r.mos, 1)} / 4.5</b></div>` : ''}</div>
     <table><thead><tr><th>${t('tm_destino')}</th><th class="n">#</th><th class="n">${t('tm_prom')}</th><th class="n">Min</th><th class="n">Max</th><th class="n">p95</th><th class="n">Jitter</th><th class="n">${t('tm_perd_c')}</th><th class="n">${t('tm_picos')}</th><th>${t('tm_latencia')}</th></tr></thead><tbody>
     ${r.filas.map(f => `<tr><td>${f.ic} ${esc(f.nombre)}</td><td class="n">${f.n}</td><td class="n">${tsF(f.avg, 1)}</td><td class="n">${tsF(f.min, 1)}</td><td class="n">${tsF(f.max, 0)}</td><td class="n">${tsF(f.p95, 0)}</td><td class="n">${tsF(f.jitter, 1)}</td><td class="n ${f.perdida >= 1 ? 'mal' : ''}">${tsF(f.perdida, 1)} %</td><td class="n">${f.picos}</td><td style="width:30%">${tmBarra({ ...f, cur: null }, Math.max(250, Math.ceil(Math.max(...r.filas.map(z => z.p95 ?? 0)) * 1.1 / 50) * 50))}</td></tr>`).join('')}</tbody></table>
+    ${r.gw ? `<h3>🛰 ${t('tg_t')}</h3>${r.gwNota ? `<p><b>${esc(tx(r.gwNota))}</b></p>` : ''}<p>${t('tg_lat')}: <b>${tsF(r.gw.lat, 1)} ms</b> · ${t('tg_max')}: <b>${tsF(r.gw.latMax, 0)} ms</b> · ${t('tg_perd')}: <b>${tsF(r.gw.perdida, 2)} %</b> · ${t('tg_perd_max')}: <b>${tsF(r.gw.perdidaMax, 1)} %</b>${r.gw.isp ? ' · ' + esc(r.gw.isp) : ''}</p><div class="g">${tgSVG(r.gw)}</div>` : ''}
     <b>🛠 ${t('tm_que_hacer')}</b><ol>${r.pasos.map(k => `<li>${t(k)}</li>`).join('')}</ol>
     ${r.peores.length ? `<b>🕒 ${t('tm_peores')}</b><div>${r.peores.map(w => `${esc(tmHora(w.desde))}: ${w.perd} ${t('tm_perdidos')}, ${w.picos} ${t('tm_picos').toLowerCase()}`).join(' · ')}</div>` : ''}
     ${graf}<script>setTimeout(()=>print(),500)<\/script></body></html>`); w.document.close();
 }
-const TM_SVG_CSS = `.tm-b-ok{fill:#dcfce7}.tm-b-reg{fill:#fef3c7}.tm-b-mal{fill:#fee2e2}.tm-ln{stroke:#94a3b8;stroke-width:.5;stroke-dasharray:3 3}.tm-ax{font:9px Inter,Arial,sans-serif;fill:#64748b}.tm-lat{fill:none;stroke:#0f172a;stroke-width:1.2}.tm-jit{fill:none;stroke:#b91c1c;stroke-width:.8}.tm-perd{fill:#dc2626}.tm-bar{width:100%;height:14px;display:block}.tm-wh{stroke:#334155;stroke-width:1.2}.tm-avg{fill:#fff;stroke:#dc2626;stroke-width:1.6}`;
+const TM_SVG_CSS = `.tm-b-ok{fill:#dcfce7}.tm-b-reg{fill:#fef3c7}.tm-b-mal{fill:#fee2e2}.tm-ln{stroke:#94a3b8;stroke-width:.5;stroke-dasharray:3 3}.tm-ax{font:9px Inter,Arial,sans-serif;fill:#64748b}.tm-lat{fill:none;stroke:#0f172a;stroke-width:1.2}.tm-jit{fill:none;stroke:#b91c1c;stroke-width:.8}.tm-perd{fill:#dc2626}.tg-max{fill:none;stroke:#d97706;stroke-width:1;stroke-dasharray:4 3}.tm-bar{width:100%;height:14px;display:block}.tm-wh{stroke:#334155;stroke-width:1.2}.tm-avg{fill:#fff;stroke:#dc2626;stroke-width:1.6}`;
 // abrir un monitor guardado desde el historial
 function tmVerGuardado(id){
   const h = TS.hist.find(x => x.id === id); if (!h?.datos?.resumen) return;
@@ -8634,6 +8737,7 @@ async function tqEmpezar(){
         const M = tmIni(); Object.assign(M, { dur: p.dur, int: p.int, usar: { ...p.dest, gw: p.gw, lan: false }, gwip: p.gwip, extra: p.extra, estado: 'parado' });
         tmEmpezar(); tsRender();
         await tqEspera(() => Q.cancelar || TS.mon.estado !== 'corriendo'); if (Q.cancelar && TS.mon.estado === 'corriendo') tmParar();
+        await tsDormir(50); if (TS.mon.gwListo) await TS.mon.gwListo;
         const Mo = TS.mon; if (Mo.resumen) Q.res.push({ p, tipo: 'mon', r: Mo.resumen, inicio: Mo.inicio, fin: Mo.fin, targets: Mo.targets.map(tg => ({ ic: tg.ic, nombre: tg.nombre, tipo: tg.tipo, s: tmReducir(tg.s, 720) })), nivel: Mo.resumen.nivel });
       }
     } catch(e){ Q.res.push({ p, tipo: p.tipo, error: e.message || String(e), nivel: 'mal' }); }
@@ -8651,7 +8755,7 @@ function tqAnalisis(res){
   const peor = res.reduce((a, x) => ({ bien: 0, reg: 1, mal: 2 }[x.nivel] > { bien: 0, reg: 1, mal: 2 }[a] ? x.nivel : a), 'bien');
   let lugar = 'ninguno', titulo = tL('tqa_ok');
   if (R && R.nivel !== 'bien'){ lugar = 'lan'; titulo = tL('tqa_lan'); hall.push(tL('tqa_h_rap', { p: tsF(R.r.perdida, 1), a: tsF(R.r.avg, 1), j: tsF(R.r.jitter, 1) })); pasos.push('tmp_wifi_1', 'tmp_lan_cable', 'tmp_lan_puerto', 'tmp_wifi_2', 'tmp_wifi_4'); }
-  else if (M && ['isp', 'isp_o_lan'].includes(M.r.lugar)){ lugar = 'isp'; titulo = tL('tqa_isp'); pasos.push('tmp_isp_uso', 'tmp_isp_modem', 'tmp_isp_cable', 'tmp_isp_unifi', 'tmp_isp_llamar', 'tmp_isp_failover'); }
+  else if (M && (['isp', 'isp_o_lan'].includes(M.r.lugar) || tgMalo(M.r.gw))){ lugar = 'isp'; titulo = tL('tqa_isp'); pasos.push('tmp_isp_uso', 'tmp_isp_modem', 'tmp_isp_cable', 'tmp_isp_unifi', 'tmp_isp_llamar', 'tmp_isp_failover'); }
   else if (I && I.nivel !== 'bien'){ lugar = 'vel'; titulo = tL('tqa_vel'); }
   else if (M && M.r.lugar === 'servicio'){ lugar = 'servicio'; titulo = M.r.titulo; pasos.push('tmp_serv_1', 'tmp_serv_2'); }
   if (R && R.nivel === 'bien') hall.push(tL('tqa_h_rap_ok', { a: tsF(R.r.avg, 1) }));
@@ -8661,6 +8765,7 @@ function tqAnalisis(res){
     if (I.r.bajada < 25){ hall.push(tL('tqa_h_lento')); pasos.push('tqp_plan'); }
     if (I.r.subida != null && I.r.bajada && I.r.subida < I.r.bajada * 0.1) pasos.push('tqp_subida');
   } else if (I?.r?.error) hall.push('⚠ ' + tx(I.r.error));
+  if (M?.r?.gw) hall.push(tL(tgMalo(M.r.gw) ? 'tqa_h_gw_mal' : 'tqa_h_gw_ok', { p: tsF(M.r.gw.perdida, 2), m: tsF(M.r.gw.perdidaMax, 1), l: tsF(M.r.gw.lat, 1) }));
   if (M){ hall.push(tL('tqa_h_mon', { d: tmDurPaso(M.fin - M.inicio), r: M.r.titulo })); if (M.r.mos != null){ hall.push(tL('tqa_h_mos', { m: tsF(M.r.mos, 1) })); if (M.r.mos < 3.6) pasos.push('tmp_voip_qos'); } }
   if (!pasos.length) pasos.push('tmp_ok_1');
   return { nivel: peor, lugar, titulo, hallazgos: hall, pasos: [...new Set(pasos)] };
@@ -8693,6 +8798,7 @@ function tqImprimir0(i, Q = TS.seq){
     const r = x.r;
     return `<h2>${tqIcN(x.nivel)} 📈 ${t('tq_p.mon')} · ${esc(tmDurPaso(x.fin - x.inicio))}</h2><p><b>${esc(tx(r.titulo))}</b> — 📍 ${esc(t('tml.' + r.lugar))}</p><p>${esc(tx(r.explica))}</p>${r.mos != null ? `<p>📞 ${t('tm_mos')}: <b>${tsF(r.mos, 1)} / 4.5</b></p>` : ''}
       <table><thead><tr><th>${t('tm_destino')}</th><th class="n">${t('tm_prom')}</th><th class="n">Min</th><th class="n">p95</th><th class="n">Jitter</th><th class="n">${t('tm_perd_c')}</th><th class="n">${t('tm_picos')}</th><th>${t('tm_latencia')}</th></tr></thead><tbody>${r.filas.map(f => `<tr><td>${f.ic} ${esc(f.nombre)}${f.sinResp ? ' (' + t('tm_sin_resp') + ')' : ''}</td><td class="n">${tsF(f.avg, 1)}</td><td class="n">${tsF(f.min, 1)}</td><td class="n">${tsF(f.p95, 0)}</td><td class="n">${tsF(f.jitter, 1)}</td><td class="n ${f.perdida >= 1 ? 'mal' : ''}">${tsF(f.perdida, 1)} %</td><td class="n">${f.picos}</td><td style="width:30%">${tmBarra({ ...f, cur: null }, Math.max(250, Math.ceil(Math.max(...r.filas.map(z => z.p95 ?? 0)) * 1.1 / 50) * 50))}</td></tr>`).join('')}</tbody></table>
+      ${r.gw ? `<p>🛰 <b>${t('tg_t')}:</b> ${r.gwNota ? esc(tx(r.gwNota)) + ' — ' : ''}${t('tg_lat')} ${tsF(r.gw.lat, 1)} ms · ${t('tg_max')} ${tsF(r.gw.latMax, 0)} ms · ${t('tg_perd')} ${tsF(r.gw.perdida, 2)} % (máx. ${tsF(r.gw.perdidaMax, 1)} %)</p><div class="g">${tgSVG(r.gw, 940, 130)}</div>` : ''}
       ${r.peores?.length ? `<div class="m">🕒 ${t('tm_peores')}: ${r.peores.map(w => `${esc(tmHora(w.desde))} (${w.perd} ${t('tm_perdidos')}, ${w.picos} ${t('tm_picos').toLowerCase()})`).join(' · ')}</div>` : ''}
       ${(x.targets || []).filter(tg => (tg.s || []).some(z => z[1] != null)).map(tg => `<div class="g"><b>${tg.ic} ${esc(tg.nombre)}</b>${tmGrafSVG({ s: (tg.s || []).map(z => [z[0], z[1], 0]) }, x.inicio, x.fin, 940, 140)}</div>`).join('')}`;
   };

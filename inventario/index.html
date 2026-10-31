@@ -936,6 +936,7 @@ body.p-noadm .p-solo-adm{display:none!important}
 .pr-eq{display:grid;grid-template-columns:minmax(0,2fr) 70px 100px 90px auto;gap:6px;align-items:center;margin-top:6px}
 .pr-eq input,.pr-eq select{padding:6px 8px!important;font-size:13px!important}
 .pr-eq .e-t{text-align:right}
+body.p-noadm .pr-eq .e-p,body.p-noadm .pr-eq .e-t,body.p-noadm .pr-eq .x-p,body.p-noadm .pr-eq .p-p{visibility:hidden}
 .pr-mat td{font-size:12.5px}
 .pr-tipos{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
 .pr-tipo{display:flex;flex-direction:column;align-items:flex-start;gap:4px;text-align:left;padding:14px;border-radius:12px;height:auto;white-space:normal}
@@ -1118,7 +1119,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v9.9.6</p>
+    <p class="sub">Network Asset Manager · v9.10.0</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -1134,7 +1135,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.9.6</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.10.0</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -2599,7 +2600,7 @@ Object.assign(I18N.es, {
   pr_dur:'Duración estimada: {s} ({d} días hábiles) con un equipo de {p} técnico(s).', pr_firma:'Aceptado por: ____________________________   Fecha: ____________', pr_popup:'Permite las ventanas emergentes para ver el PDF.',
   pr_cfg_help:'Estos valores se usan en todos los presupuestos. Las horas son por unidad; los factores multiplican las horas.', pr_cfg_t:'Horas por tarea', pr_cfg_alt:'Factor por altura',
   pr_cfg_techo:'Factor por tipo de techo', pr_cfg_dif:'Factor por dificultad', pr_cfg_pp:'Precio por punto', pr_cfg_rec:'Recargo por punto según altura', pr_cfg_mat:'Precios de materiales',
-  pr_cfg_renta:'Renta por semana', pr_cfg_eq:'Lista de precios de equipos (costo)', pr_cfg_reset:'Volver a los valores iniciales', pr_cfg_reset_q:'¿Volver a los valores iniciales?',
+  pr_cfg_renta:'Renta por semana', pr_cfg_eq:'Lista de precios de equipos (costo)', pr_cfg_reset:'Volver a los valores iniciales', pr_cfg_reset_q:'¿Volver a los valores iniciales? Solo cambia tiempos y factores: tarifas, márgenes y precios se quedan igual.', pr_priv_falta:'No se pudieron cargar las tarifas y márgenes privados. No se puede cotizar: corre supabase-precios-priv.sql en Supabase o recarga la página.', pr_pendiente:'Pendiente', pr_op_pend:'El total aparece cuando el administrador lo libera.', pr_liberar:'Liberar el total al operador', pr_liberado:'Total liberado al operador: {v}', pr_retirar:'Retirar',
   'pcf.tarifa':'Tarifa por hora ($)', 'pcf.salario':'Salario del técnico por hora ($)', 'pcf.cargas':'Cargas del empleado % (impuestos, seguro)', 'pcf.extra':'Multiplicador fuera de horario', 'pcf.horas_dia':'Horas por día', 'pcf.eficiencia':'Eficiencia (0–1)', 'pcf.margen_mat':'Margen materiales %',
   'pcf.margen_eq':'Margen equipos %', 'pcf.impuesto':'Impuesto %', 'pcf.contingencia':'Contingencia %', 'pcf.validez':'Validez (días)',
   'pct.drop':'Por punto: terminar y probar (h)', 'pct.pies_hora':'Pies de cable por hora', 'pct.conduit_pies_hora':'Pies por hora en tubo', 'pct.prueba':'Prueba por punto (h)', 'pct.ap':'Montar AP (h)',
@@ -2664,7 +2665,7 @@ Object.assign(I18N.en, {
   pr_dur:'Estimated duration: {s} ({d} business days) with a crew of {p} technician(s).', pr_firma:'Accepted by: ____________________________   Date: ____________', pr_popup:'Allow pop-ups to see the PDF.',
   pr_cfg_help:'These values are used in every quote. Hours are per unit; factors multiply the hours.', pr_cfg_t:'Hours per task', pr_cfg_alt:'Height factor',
   pr_cfg_techo:'Ceiling type factor', pr_cfg_dif:'Difficulty factor', pr_cfg_pp:'Price per point', pr_cfg_rec:'Surcharge per point by height', pr_cfg_mat:'Material prices',
-  pr_cfg_renta:'Rental per week', pr_cfg_eq:'Equipment price list (cost)', pr_cfg_reset:'Back to the initial values', pr_cfg_reset_q:'Go back to the initial values?',
+  pr_cfg_renta:'Rental per week', pr_cfg_eq:'Equipment price list (cost)', pr_cfg_reset:'Back to the initial values', pr_cfg_reset_q:'Go back to the initial values? Only times and factors change: rates, margins and prices stay the same.', pr_priv_falta:'The private rates and margins could not be loaded. Quoting is blocked: run supabase-precios-priv.sql in Supabase or reload the page.', pr_pendiente:'Pending', pr_op_pend:'The total appears when the administrator releases it.', pr_liberar:'Release the total to the operator', pr_liberado:'Total released to the operator: {v}', pr_retirar:'Withdraw',
   'pcf.tarifa':'Hourly rate ($)', 'pcf.salario':'Technician hourly wage ($)', 'pcf.cargas':'Employer burden % (taxes, insurance)', 'pcf.extra':'After-hours multiplier', 'pcf.horas_dia':'Hours per day', 'pcf.eficiencia':'Efficiency (0–1)', 'pcf.margen_mat':'Materials margin %',
   'pcf.margen_eq':'Equipment margin %', 'pcf.impuesto':'Tax %', 'pcf.contingencia':'Contingency %', 'pcf.validez':'Valid (days)',
   'pct.drop':'Per point: terminate and test (h)', 'pct.pies_hora':'Cable feet per hour', 'pct.conduit_pies_hora':'Feet per hour in conduit', 'pct.prueba':'Test per point (h)', 'pct.ap':'Mount AP (h)',
@@ -5040,37 +5041,62 @@ async function plBorrar(){
   planoAct = null; closeModal(); toast(t('cl_deleted')); await loadData();
 }
 /* ================== 💰 PRESUPUESTOS ================== */
-// Valores de partida (todos se cambian en ⚙ Precios y tiempos). Horas por tarea basadas en estándares de la industria
+// Valores de partida (todos se cambian en ⚙ Precios y tiempos). Tarifas, salarios, márgenes y precios NO van aquí: están en presu_config_priv (solo admin). Horas por tarea basadas en estándares de la industria
 // (IPVM: ~1.85 h por corrida de 50 ft en techo falso, ~2.5 h en techo duro de 12 ft; ~50–60 ft de cable por hora).
 const PRESU_DEF = {
   empresa: { nombre: 'AJ Tech Support', direccion: '', telefono: '', email: '', web: 'ajtechsupport.net', licencia: '' }, terminos: '',
-  tarifa: 85, salario: 25, cargas: 0, extra: 1.5, horas_dia: 8, eficiencia: 0.85, margen_mat: 20, margen_eq: 15, impuesto: 7, contingencia: 10, validez: 30,
+  tarifa: 0, salario: 0, cargas: 0, extra: 0, horas_dia: 8, eficiencia: 0.85, margen_mat: 0, margen_eq: 0, impuesto: 7, contingencia: 0, validez: 30,
   t: { drop: 0.75, pies_hora: 80, conduit_pies_hora: 30, prueba: 0.1, ap: 0.5, ap_cfg: 0.15, cam_int: 0.75, cam_ext: 1.25, cam_cfg: 0.25,
        rack: 3, patch: 1, switch: 1.5, nvr: 2, fibra: 3, fibra_term: 1.5, survey: 2, pm: 8 },
   f_alt: { 10: 1, 14: 1.15, 20: 1.25, 30: 1.4, 99: 1.7 },
   f_techo: { falso: 1, drywall: 1.35, abierto: 1.1, concreto: 1.5 },
   f_dif: { facil: 0.9, normal: 1, dificil: 1.3 },
-  pp: { drop_pared: 225, drop_techo: 250, cam_int: 300, cam_ext: 350, switch: 200, nvr: 250, rack: 450, fibra: 650 },
-  recargo_alt: { 14: 0, 20: 35, 30: 60, 99: 90 },
-  mat: { cat6: 0.35, cat6p: 0.55, cat6a: 0.75, jack: 6, placa: 3, caja: 6, patch24: 95, cordon: 4, jhook: 1.5, emt: 1.2, fibra_pie: 1.5, fibra_term: 150, rack: 260, misc: 5, desperdicio: 10 },
-  renta: { tijera: 600, boom: 1200 },
+  pp: { drop_pared: 0, drop_techo: 0, cam_int: 0, cam_ext: 0, switch: 0, nvr: 0, rack: 0, fibra: 0 },
+  recargo_alt: { 14: 0, 20: 0, 30: 0, 99: 0 },
+  mat: { cat6: 0, cat6p: 0, cat6a: 0, jack: 0, placa: 0, caja: 0, patch24: 0, cordon: 0, jhook: 0, emt: 0, fibra_pie: 0, fibra_term: 0, rack: 0, misc: 0, desperdicio: 10 },
+  renta: { tijera: 0, boom: 0 },
   equipos: [
-    { m: 'U7 Pro', c: 'ap', p: 189 }, { m: 'U7 Pro Max', c: 'ap', p: 279 }, { m: 'U7 Lite', c: 'ap', p: 99 }, { m: 'U7 Long-Range', c: 'ap', p: 159 }, { m: 'U7 Outdoor', c: 'ap', p: 249 },
-    { m: 'U6+', c: 'ap', p: 129 }, { m: 'U6 Mesh', c: 'ap', p: 179 },
-    { m: 'G5 Bullet', c: 'cam', p: 129 }, { m: 'G5 Turret Ultra', c: 'cam', p: 129 }, { m: 'G5 Dome', c: 'cam', p: 179 }, { m: 'G5 Pro', c: 'cam', p: 379 }, { m: 'AI Pro', c: 'cam', p: 499 },
-    { m: 'USW Lite 16 PoE', c: 'sw', p: 199 }, { m: 'USW Pro Max 24 PoE', c: 'sw', p: 799 }, { m: 'USW Pro Max 48 PoE', c: 'sw', p: 1199 }, { m: 'USW Enterprise 24 PoE', c: 'sw', p: 899 },
-    { m: 'UDM Pro Max', c: 'gw', p: 599 }, { m: 'UCG Fiber', c: 'gw', p: 279 }, { m: 'UNVR', c: 'nvr', p: 299 }, { m: 'UNVR Pro', c: 'nvr', p: 499 }, { m: 'HDD 8TB Surveillance', c: 'otro', p: 199 },
-    { m: 'UPS 1500VA rack', c: 'otro', p: 650 }, { m: 'Rack 12U pared', c: 'otro', p: 260 } ] };
+    { m: 'U7 Pro', c: 'ap' }, { m: 'U7 Pro Max', c: 'ap' }, { m: 'U7 Lite', c: 'ap' }, { m: 'U7 Long-Range', c: 'ap' }, { m: 'U7 Outdoor', c: 'ap' },
+    { m: 'U6+', c: 'ap' }, { m: 'U6 Mesh', c: 'ap' },
+    { m: 'G5 Bullet', c: 'cam' }, { m: 'G5 Turret Ultra', c: 'cam' }, { m: 'G5 Dome', c: 'cam' }, { m: 'G5 Pro', c: 'cam' }, { m: 'AI Pro', c: 'cam' },
+    { m: 'USW Lite 16 PoE', c: 'sw' }, { m: 'USW Pro Max 24 PoE', c: 'sw' }, { m: 'USW Pro Max 48 PoE', c: 'sw' }, { m: 'USW Enterprise 24 PoE', c: 'sw' },
+    { m: 'UDM Pro Max', c: 'gw' }, { m: 'UCG Fiber', c: 'gw' }, { m: 'UNVR', c: 'nvr' }, { m: 'UNVR Pro', c: 'nvr' }, { m: 'HDD 8TB Surveillance', c: 'otro' },
+    { m: 'UPS 1500VA rack', c: 'otro' }, { m: 'Rack 12U pared', c: 'otro' } ] };
 const PR_TIPOS = ['oficina', 'almacen', 'mixto', 'retail', 'exterior'];
 const PR_TECHOS = ['falso', 'drywall', 'abierto', 'concreto'];
 const PR_PUNTOS = [['drop_pared', '🔌'], ['drop_techo', '📶'], ['cam_int', '📷'], ['cam_ext', '🎥'], ['switch', '🔀'], ['nvr', '📹'], ['rack', '🗄️'], ['fibra', '🧵']];
 const PR_ESTADOS = ['borrador', 'enviado', 'aprobado', 'perdido', 'completado'];
-let presus = [], presuOK = true, PRC = null, PR = null, PRES = { open: false, edit: false, q: '', estado: '' };
-const prConf = () => { const c = jObj(PRC?.datos), d = PRESU_DEF, m = (a, b) => ({ ...a, ...jObj(b) });
+let presus = [], presuOK = true, PRC = null, PRCP = null, PR = null, PRES = { open: false, edit: false, q: '', estado: '' };
+// 🔒 Lo privado (solo admin) vive en presu_config_priv y presupuesto_priv. Si cambias estas listas, cambia también supabase-precios-priv.sql.
+const PR_PRIV_TOP = ['tarifa', 'salario', 'cargas', 'extra', 'margen_mat', 'margen_eq', 'contingencia'], PR_PRIV_OBJ = ['pp', 'recargo_alt', 'renta'];
+const PR_PRIV_TT = ['tarifa', 'salario', 'nivel', 'servidor', 'sitio', 'backup_tb', 'm365', 'hosting', 'dominio', 'mant', 'soporte', 'red', 'impresora'];
+const prJunta = (a, b) => { const r = { ...a }, esO = v => v && typeof v === 'object' && !Array.isArray(v); Object.keys(b || {}).forEach(k => { r[k] = esO(r[k]) && esO(b[k]) ? prJunta(r[k], b[k]) : b[k]; }); return r; };
+const prConfArmar = (pub, priv) => { const { equipos_p, ...resto } = jObj(priv), c = prJunta(jObj(pub), resto), d = PRESU_DEF, m = (a, b) => ({ ...a, ...jObj(b) }), ep = jObj(equipos_p);
   return { ...d, ...c, t: m(d.t, c.t), f_alt: m(d.f_alt, c.f_alt), f_techo: m(d.f_techo, c.f_techo), f_dif: m(d.f_dif, c.f_dif), pp: m(d.pp, c.pp),
-    recargo_alt: m(d.recargo_alt, c.recargo_alt), mat: m(d.mat, c.mat), renta: m(d.renta, c.renta), empresa: m(d.empresa, c.empresa), equipos: Array.isArray(c.equipos) && c.equipos.length ? c.equipos : d.equipos }; };
+    recargo_alt: m(d.recargo_alt, c.recargo_alt), mat: m(d.mat, c.mat), renta: m(d.renta, c.renta), empresa: m(d.empresa, c.empresa),
+    equipos: (Array.isArray(c.equipos) && c.equipos.length ? c.equipos : d.equipos).map(e => ({ ...e, p: n0(ep[e.m]) || n0(e.p) })) }; };
+const prConf = () => prConfArmar(PRC?.datos, PRCP?.datos);
+// Parte la configuración del formulario ⚙ en lo que ve el operador y lo que solo ve el admin
+const prSepararConf = datos => { const pub = JSON.parse(JSON.stringify(jObj(datos))), priv = {};
+  PR_PRIV_TOP.concat(PR_PRIV_OBJ).forEach(k => { if (pub[k] !== undefined){ priv[k] = pub[k]; delete pub[k]; } });
+  if (pub.mat){ const { desperdicio, ...resto } = pub.mat; priv.mat = resto; pub.mat = desperdicio === undefined ? {} : { desperdicio }; }   // el desperdicio cambia cantidades, no es un precio
+  if (Array.isArray(pub.equipos)){ priv.equipos_p = {}; pub.equipos = pub.equipos.map(({ p, ...e }) => { if (e.m && p != null) priv.equipos_p[e.m] = p; return e; }); }
+  if (pub.tt){ priv.tt = {}; Object.keys(pub.tt).forEach(tp => { const T = pub.tt[tp], v = {}; PR_PRIV_TT.forEach(k => { if (T[k] !== undefined){ v[k] = T[k]; delete T[k]; } });
+    if (T.items){ v.items = {}; Object.keys(T.items).forEach(i => { if (T.items[i].f !== undefined){ v.items[i] = { f: T.items[i].f }; delete T.items[i].f; } }); } priv.tt[tp] = v; }); }
+  return { pub, priv }; };
+// Parte un presupuesto: tarifa, salario, % de ganancia y precios por línea van a presupuesto_priv
+const prSepararDatos = d => { const sinP = a => jArr(a).map(({ p, ...x }) => x), conP = (a, k) => jArr(a).filter(x => n0(x.p)).map(x => ({ [k]: x[k], p: x.p }));
+  const { tarifa, salario, meta, ...pub } = d; ['equipos', 'mat_extra', 'partidas'].forEach(k => { if (pub[k] !== undefined) pub[k] = sinP(pub[k]); });
+  return { pub, priv: { tarifa, salario, meta, precios: { eq: conP(d.equipos, 'm'), mat: conP(d.mat_extra, 'd'), par: conP(d.partidas, 'd') } } }; };
+const prPonP = (a, ps, k) => { const r = jArr(ps).slice(); return jArr(a).map(x => { if (n0(x.p)) return x; const i = r.findIndex(y => y[k] === x[k]); return i < 0 ? x : { ...x, p: r.splice(i, 1)[0].p }; }); };
+const prUnirDatos = (d, pv) => { const v = jObj(pv), c = jObj(v.precios), r = { ...d }; ['tarifa', 'salario', 'meta'].forEach(k => { if (v[k] != null) r[k] = v[k]; });
+  if (d.equipos) r.equipos = prPonP(d.equipos, c.eq, 'm'); if (d.mat_extra) r.mat_extra = prPonP(d.mat_extra, c.mat, 'd'); if (d.partidas) r.partidas = prPonP(d.partidas, c.par, 'd'); return r; };
+// Un equipo sin precio (lo agregó un operador) toma el de la lista
+const prConPrecios = (d, C) => ({ ...d, equipos: jArr(d.equipos).map(e => n0(e.p) ? e : { ...e, p: C.equipos.find(x => x.m === e.m)?.p ?? e.p }) });
+const prTotVer = p => ({ ...jObj(p.totales), ...(PERM.admin ? jObj(p.priv?.totales) : { total: p.total_liberado, mensual: p.mensual_liberado }) });
+const prPrivOK = () => { if (PRCP) return true; alert(t('pr_priv_falta')); return false; };
 // Lo que le pagas al técnico por hora (costo interno; no sale en el PDF). Se puede cambiar en cada presupuesto.
-const prSalarioDef = (C, tp) => n0(tp === 'instalacion' ? C.salario : prTT(C, tp).salario) || n0(C.salario) || 25;
+const prSalarioDef = (C, tp) => n0(tp === 'instalacion' ? C.salario : prTT(C, tp).salario) || n0(C.salario);
 const prSalario = (d, C, tp) => n0(d?.salario) || prSalarioDef(C, tp);
 const prTarifaDef = (C, tp) => n0(tp === 'instalacion' ? C.tarifa : prTT(C, tp).tarifa);
 const prTarifa = (d, C, tp) => n0(d?.tarifa) || prTarifaDef(C, tp);   // tarifa de este presupuesto (o la de ⚙)
@@ -5216,7 +5242,7 @@ function abrirStock(){
 }
 function cerrarStock(){ STK.open = false; render(); window.scrollTo({ top: 0 }); }
 async function cargarStock(){
-  const [a, b] = await Promise.all([db.from('stock_items').select('*').order('nombre'), db.from('stock_mov').select('*').order('created_at', { ascending: false }).limit(500)]);
+  const [a, b] = await Promise.all([db.rpc('stock_listar'), db.rpc('stock_mov_listar', { p_limite: 500 })]);   // sin costo para el operador
   stkOK = !a.error; stkItems = a.error ? [] : (a.data || []); stkMovs = b.error ? [] : (b.data || []);
   renderStockBadge(); renderStock();
 }
@@ -5700,7 +5726,7 @@ async function cargarTrabajos(){
   const [a, b, c] = await Promise.all([db.from('trabajos').select('*').order('created_at', { ascending: false }), db.from('trabajo_diario').select('*').order('fecha', { ascending: false }), db.from('trabajo_faltantes').select('*').order('created_at', { ascending: false })]);
   trbOK = !a.error; trabajos = a.error ? [] : (a.data || []); trbDiario = b.error ? [] : (b.data || []); trbFalt = c.error ? [] : (c.data || []);
   try { const k = await db.from('trabajo_coment').select('*').order('created_at', { ascending: true }); trbComOK = !k.error; trbCom = k.error ? [] : (k.data || []); } catch(e){ trbComOK = false; trbCom = []; }
-  if (!stkItems.some(x => x.nombre)) { try { const s = await db.from('stock_items').select('*'); if (!s.error && Array.isArray(s.data)) stkItems = s.data; } catch(e){} }
+  if (!stkItems.some(x => x.nombre)) { try { const s = await db.rpc('stock_listar'); if (!s.error && Array.isArray(s.data)) stkItems = s.data; } catch(e){} }
   TRB.cargado = true; renderTrabajosBadge(); renderTrabajos();
 }
 function renderTrabajosBadge(){ const b = $('trbBadge'); if (!b) return; const n = trabajos.filter(j => trbAtraso(j) > 0).length; b.textContent = n || ''; b.classList.toggle('hidden', !n); }
@@ -6082,7 +6108,7 @@ function trmQuitar(id, i){ const j = trabajos.find(x => x.id === id); if (!j) re
 // Trae los materiales y equipos que calculó el presupuesto
 async function trmDelPresu(id){
   const j = trabajos.find(x => x.id === id); if (!j) return;
-  if (!presus.length){ try { const r = await db.from('presupuestos').select('*'); if (!r.error) presus = r.data || []; } catch(e){} }
+  if (!presus.length){ try { await prTraer(); } catch(e){} }
   const p = presus.find(x => x.id === j.presupuesto_id); if (!p) return alert(t('trm_no_presu'));
   const antes = trmLista(j).length, P = prAbrirObj(p), R = prCalcular(P.d), L = trmLista(j).slice(), add = (d, cant, uni, clave, nota) => {
     if (!d || !(+cant > 0)) return; const ya = L.find(m => nrm(m.d) === nrm(d)); if (ya){ ya.cant = Math.max(+ya.cant || 0, +cant); return; }
@@ -6515,12 +6541,12 @@ async function trbDesdePresu(pObj){
 }
 // Escoger un presupuesto aprobado para pasarlo a Trabajos
 async function trbElegirPresu(){
-  if (!presus.length){ try { const r = await db.from('presupuestos').select('*').order('created_at', { ascending: false }); if (!r.error) presus = r.data || []; } catch(e){} }
+  if (!presus.length){ try { await prTraer(); } catch(e){} }
   const ok = presus.filter(p => ['aprobado', 'enviado', 'completado'].includes(p.estado));
   const hecho = id => trabajos.some(j => j.presupuesto_id === id);
   $('modalTitle').textContent = '📥 ' + t('trb_desde_presu'); $('modal').querySelector('.modal-card').classList.add('wide');
   $('modalBody').innerHTML = ok.length ? `<p class="muted" style="margin-top:0">${t('trb_desde_presu_h')}</p><div class="search" style="margin-bottom:8px"><input id="trbPq" placeholder="${esc(t('cl_search'))}" oninput="document.querySelectorAll('#trbPl .trb-pq').forEach(r=>r.classList.toggle('hidden',!r.dataset.q.includes(nrm(this.value))))"></div>
-    <div id="trbPl" class="trb-pl">${ok.sort((a, b) => (hecho(a.id) - hecho(b.id)) || ({ aprobado: 0, enviado: 1, completado: 2 }[a.estado] - { aprobado: 0, enviado: 1, completado: 2 }[b.estado])).map(p => { const tt = jObj(p.totales);
+    <div id="trbPl" class="trb-pl">${ok.sort((a, b) => (hecho(a.id) - hecho(b.id)) || ({ aprobado: 0, enviado: 1, completado: 2 }[a.estado] - { aprobado: 0, enviado: 1, completado: 2 }[b.estado])).map(p => { const tt = prTotVer(p);
       return `<div class="trb-pq ${hecho(p.id) ? 'ya' : ''}" data-q="${esc(nrm([p.numero, p.cliente, p.titulo].join(' ')))}" onclick="closeModal();trbDesdePresu(presus.find(x=>x.id==='${p.id}'))">
         <span class="mono muted">#${p.numero ?? ''}</span><span title="${esc(t('ptt.' + prTipo(jObj(p.datos))))}">${prIc(prTipo(jObj(p.datos)))}</span><b>${esc(p.cliente)}</b><span class="muted">${esc(p.titulo || '')}</span>
         <span class="pr-est ${esc(p.estado)}">${esc(t('pre.' + p.estado))}</span><span class="mono">${tt.total ? money(tt.total) : ''}</span>${hecho(p.id) ? `<small class="muted">✔ ${t('trb_ya_hay')}</small>` : ''}</div>`; }).join('')}</div>`
@@ -6535,9 +6561,16 @@ function abrirPresupuestos(){
   mostrarVista(); window.scrollTo({ top: 0 }); cargarPresupuestos();
 }
 function cerrarPresupuestos(){ PRES.open = false; PRES.edit = false; plCtx = null; PR = null; render(); window.scrollTo({ top: 0 }); }
-async function cargarPresupuestos(){
+async function prTraer(){
   const [a, b] = await Promise.all([db.from('presupuestos').select('*').order('created_at', { ascending: false }), db.from('presu_config').select('*')]);
-  presuOK = !a.error; presus = a.error ? [] : (a.data || []); PRC = b.error ? null : (b.data || [])[0] || null;
+  presuOK = !a.error; presus = a.error ? [] : (a.data || []); PRC = b.error ? null : (b.data || [])[0] || null; PRCP = null;
+  if (!PERM.admin) return;
+  const [c, e] = await Promise.all([db.from('presu_config_priv').select('*'), db.from('presupuesto_priv').select('*')]);
+  if (c.error || e.error) return;   // sin esto no se cotiza: prPrivOK() lo detiene y nunca salen precios en $0
+  PRCP = (c.data || [])[0] || null; const pv = new Map((e.data || []).map(x => [x.presupuesto_id, x])); presus.forEach(p => { p.priv = pv.get(p.id) || null; });
+}
+async function cargarPresupuestos(){
+  await prTraer();
   if (PRES.edit && PR?.id){ const f = presus.find(p => p.id === PR.id); if (f && !PR._sucio) PR = prAbrirObj(f); }
   renderPresupuestos();
 }
@@ -6554,16 +6587,16 @@ function renderPresupuestos(){
         <div class="search"><input value="${esc(PRES.q)}" placeholder="${esc(t('cl_search'))}" oninput="PRES.q=this.value;renderPresupuestos();this.focus();this.setSelectionRange(this.value.length,this.value.length)"></div></div>
       <div class="pr-learn">📈 ${ap.n ? t(ap.f >= 1 ? 'pr_learn' : 'pr_learn_m', { n: ap.n, p: Math.abs(Math.round((ap.f - 1) * 100)) }) : t('pr_learn0')}</div>
       ${lista.length ? `<div class="table-wrap"><table class="net-tbl pr-tbl"><thead><tr><th>#</th><th>${t('client')}</th><th>${t('pr_titulo')}</th><th>${t('status')}</th><th>${t('pr_horas')}</th><th>${t('pr_total')}</th><th>${t('pr_fecha')}</th></tr></thead><tbody>
-        ${lista.map(p => { const tt = jObj(p.totales); return `<tr class="r" onclick="prAbrir('${p.id}')"><td class="mono">${p.numero ?? ''}</td>
+        ${lista.map(p => { const tt = prTotVer(p); return `<tr class="r" onclick="prAbrir('${p.id}')"><td class="mono">${p.numero ?? ''}</td>
           <td><span title="${esc(t('ptt.' + prTipo(jObj(p.datos))))}">${prIc(prTipo(jObj(p.datos)))}</span> <b>${esc(p.cliente)}</b>${p.prospecto ? ` <span class="pr-prosp">${t('pr_prospect')}</span>` : ''}</td><td>${esc(p.titulo || '')}</td>
           <td><span class="pr-est ${esc(p.estado)}">${esc(t('pre.' + p.estado))}</span></td>
           <td class="mono">${tt.horas ? Math.round(tt.horas) + ' h' : ''}${p.horas_real ? ` <span class="muted">/ ${Math.round(p.horas_real)} ${t('pr_real')}</span>` : ''}</td>
-          <td class="mono"><b>${tt.total ? money(tt.total) : ''}</b>${tt.mensual ? `<small class="muted" style="display:block">+ ${money(tt.mensual)}/${t('pr_mes')}</small>` : ''}</td><td class="muted">${esc(new Date(p.created_at).toLocaleDateString(LANG === 'es' ? 'es-US' : 'en-US'))}</td></tr>`; }).join('')}
+          <td class="mono"><b>${tt.total ? money(tt.total) : (PERM.admin ? '' : `<span class="muted">${t('pr_pendiente')}</span>`)}</b>${tt.mensual ? `<small class="muted" style="display:block">+ ${money(tt.mensual)}/${t('pr_mes')}</small>` : ''}</td><td class="muted">${esc(new Date(p.created_at).toLocaleDateString(LANG === 'es' ? 'es-US' : 'en-US'))}</td></tr>`; }).join('')}
       </tbody></table></div>` : `<div class="act-empty">💰 ${t('pr_empty')}<br><button class="primary" style="margin-top:10px" onclick="prElegirTipo()">＋ ${t('pr_new')}</button></div>`}</div>`}`;
 }
 
 /* ---------- Editor ---------- */
-function prAbrirObj(p){ const d = jObj(p.datos); return { ...p, d: { sitio: {}, q: {}, equipos: [], mat_extra: [], modo: 'hora', ...d } }; }
+function prAbrirObj(p){ const d = prUnirDatos(jObj(p.datos), p.priv?.datos); return { ...p, d: { sitio: {}, q: {}, equipos: [], mat_extra: [], modo: 'hora', ...d } }; }
 function prAbrir(id){ const p = presus.find(x => x.id === id); if (!p) return; PR = prAbrirObj(p); PRES.edit = true; PR.tab = 'datos'; renderPresupuestos(); window.scrollTo({ top: 0 }); }
 function prNuevo(cliente, tipo){
   if (!tipo) return prElegirTipo(cliente);
@@ -6586,7 +6619,7 @@ function renderPresuEditor(){
   const tab = (k, ic) => `<span class="chip ${PR.tab === k ? 'on' : ''}" onclick="prTab('${k}')">${ic} ${t('pr_tab.' + k)}</span>`;
   el.innerHTML = `<div class="cl-head"><button class="backbtn" onclick="prVolverLista()">← ${t('pr_title')}</button>
       <div class="cl-info"><h2>💰 ${PR.numero ? '#' + PR.numero + ' · ' : ''}${esc(PR.cliente || t('pr_new'))}</h2><div class="muted">${esc(PR.titulo || '')}</div></div>
-      <div class="row no-print"><span class="muted" id="prEstadoG"></span><button class="primary" onclick="prGuardar()">💾 ${t('u_save')}</button><button onclick="prPdf()">🖨 ${t('pr_pdf')}</button>
+      <div class="row no-print"><span class="muted" id="prEstadoG"></span><button class="primary" onclick="prGuardar()">💾 ${t('u_save')}</button>${PERM.admin ? `<button onclick="prPdf()">🖨 ${t('pr_pdf')}</button>` : ''}
         ${PR.id ? `<button onclick="prDuplicar()">⧉ ${t('dup')}</button>` : ''}${PR.id && ['aprobado', 'enviado', 'completado'].includes(PR.estado) ? `<button onclick="trbDesdePresu()">🛠 ${t('trb_crear_presu')}</button>` : ''}${PR.id && (PR.estado === 'aprobado' || PR.estado === 'completado') ? `<button onclick="prCerrarAbrir()">✅ ${t('pr_close')}</button>` : ''}
         ${PR.id && PR.prospecto && (PERM.admin || !PERM.roles) ? `<button onclick="prConvertir()">➕ ${t('pr_to_client')}</button>` : ''}${PR.id && (PERM.admin || !PERM.roles) ? `<button class="danger" onclick="prBorrar()">🗑</button>` : ''}</div></div>
     <div class="pr-grid">
@@ -6638,7 +6671,7 @@ function renderPrTab(){
   } else if (PR.tab === 'equipos'){
     const R = prCalcular(d, C), L = C.equipos;
     b.innerHTML = `<div class="panel"><h4 class="cl-h4">📦 ${t(prTipo(d) === 'instalacion' ? 'pr_equipos' : 'pr_productos')} ${PERM.admin ? `<small class="muted">${t('pr_margen', { p: C.margen_eq })}</small>` : ''}</h4>
-        <datalist id="prEqList">${L.map(e => `<option value="${esc(e.m)}" label="${esc(money(e.p))}">`).join('')}</datalist>
+        <datalist id="prEqList">${L.map(e => `<option value="${esc(e.m)}" ${PERM.admin ? `label="${esc(money(e.p))}"` : ''}>`).join('')}</datalist>
         <div id="prEqRows">${jArr(d.equipos).map((e, i) => prEqFila(e, i)).join('')}</div>
         <div class="row" style="margin-top:8px"><button class="sm" onclick="prEqAdd()">＋ ${t('pr_eq_add')}</button>${prTipo(d) === 'instalacion' ? `<button class="sm" onclick="prEqSugerir()">✨ ${t('pr_eq_sug')}</button>` : ''}</div></div>
       <div class="panel"><h4 class="cl-h4">🧰 ${t('pr_mat')} ${PERM.admin ? `<small class="muted">${t(prTipo(d) === 'instalacion' ? 'pr_mat_s' : 'pr_mat_s2', { p: C.margen_mat })}</small>` : ''}</h4>
@@ -6665,7 +6698,7 @@ function renderPrTab(){
 }
 const prEqFila = (e, i) => `<div class="pr-eq" data-i="${i}"><input class="e-m" list="prEqList" value="${esc(e.m || '')}" placeholder="${esc(t('pr_modelo'))}" oninput="prEqModelo(this)">
   <input class="e-q" type="number" min="0" value="${esc(e.qty ?? 1)}" oninput="prLeer()"><input class="e-p" type="number" min="0" step="any" value="${esc(e.p ?? '')}" placeholder="$" oninput="prLeer()">
-  <span class="mono e-t">${money(n0(e.qty) * n0(e.p))}</span><button class="sm danger" onclick="this.parentElement.remove();prLeer()">✕</button></div>`;
+  <span class="mono e-t">${PERM.admin ? money(n0(e.qty) * n0(e.p)) : ''}</span><button class="sm danger" onclick="this.parentElement.remove();prLeer()">✕</button></div>`;
 const prMatFila = (m, i) => `<div class="pr-eq pr-mx"><input class="x-d" value="${esc(m.d || '')}" placeholder="${esc(t('pr_mat_d'))}" oninput="prLeer()">
   <input class="x-q" type="number" min="0" value="${esc(m.qty ?? 1)}" oninput="prLeer()"><input class="x-p" type="number" min="0" step="any" value="${esc(m.p ?? '')}" placeholder="$" oninput="prLeer()">
   <span></span><button class="sm danger" onclick="this.parentElement.remove();prLeer()">✕</button></div>`;
@@ -6730,7 +6763,7 @@ function prLeer(){
     if (k.startsWith('s.')) d.sitio[k.slice(2)] = v; else if (k.startsWith('q.')) d.q[k.slice(2)] = v; else if (k.startsWith('d.')) d[k.slice(2)] = v; else PR[k] = v;
   });
   if ($('prEqRows')) d.equipos = [...document.querySelectorAll('#prEqRows .pr-eq')].map(r => { const o = { m: r.querySelector('.e-m').value.trim(), qty: r.querySelector('.e-q').value, p: r.querySelector('.e-p').value };
-    r.querySelector('.e-t').textContent = money(n0(o.qty) * n0(o.p)); return o; }).filter(o => o.m || o.p);
+    if (PERM.admin) r.querySelector('.e-t').textContent = money(n0(o.qty) * n0(o.p)); return o; }).filter(o => o.m || o.p);
   if ($('prMatRows')) d.mat_extra = [...document.querySelectorAll('#prMatRows .pr-eq')].map(r => ({ d: r.querySelector('.x-d').value.trim(), qty: r.querySelector('.x-q').value, p: r.querySelector('.x-p').value })).filter(o => o.d);
   if ($('prModRows')) d.modulos = [...document.querySelectorAll('#prModRows .pr-mod')].map(r => ({ n: r.querySelector('.m-n').value.trim(), t: r.querySelector('.m-t').value })).filter(m => m.n);
   if ($('prParRows')) d.partidas = [...document.querySelectorAll('#prParRows .pr-par')].map(r => ({ d: r.querySelector('.p-d').value.trim(), qty: r.querySelector('.p-q').value, p: r.querySelector('.p-p').value, h: r.querySelector('.p-h').checked })).filter(p => p.d);
@@ -6740,7 +6773,7 @@ function prLeer(){
 }
 // Horario: normal, mixto (parte en horario y parte fuera) o todo fuera de horario
 function prHorario(s, C){
-  const x = n0(C.extra) || 1.5, h = s.horario || 'normal';
+  const x = n0(C.extra) || 1, h = s.horario || 'normal';
   const pct = h === 'fuera' ? 100 : h === 'mixto' ? Math.min(100, Math.max(0, s.pct_fuera === '' || s.pct_fuera == null ? 50 : n0(s.pct_fuera))) : 0;
   return { h, pct, x, f: 1 + pct / 100 * (x - 1) };
 }
@@ -6757,6 +6790,31 @@ function prFactores(){
   const hor = H.h === 'mixto' && R.tarifaBase ? t('prh_hint', { n: 100 - H.pct, f: H.pct, hn: (R.total * (100 - H.pct) / 100).toFixed(1), hf: (R.total * H.pct / 100).toFixed(1), x: H.x, t: money(R.tarifa) }) : '';
   el.innerHTML = (R.fA != null ? `${t('pr_fact', { a: (R.fA || 1).toFixed(2), t: (R.fT || 1).toFixed(2), d: (R.fD || 1).toFixed(2) })}${R.lift ? ' · ' + t('prl.' + R.lift) + (R.lift === 'tijera' || R.lift === 'boom' ? ' (' + t('pr_renta') + ')' : '') : ''}` : '') + (hor ? (R.fA != null ? '<br>' : '') + '🕒 ' + hor : '');
 }
+// 👷 El operador solo ve el total general, y solo cuando el admin lo libera
+function prResumenOp(){
+  const fila = (k, v, cls = '') => `<div class="pr-r ${cls}"><span>${k}</span><b>${v}</b></div>`;
+  return `<h4 class="cl-h4">💵 ${t('pr_precio')}</h4>` + (PR.total_liberado == null ? `<div class="muted">${t('pr_op_pend')}</div>`
+    : fila('<b>' + t('pr_total') + '</b>', money(+PR.total_liberado), 'big total') + (+PR.mensual_liberado ? fila(t('pr_mensual'), money(+PR.mensual_liberado) + '/' + t('pr_mes')) : ''));
+}
+function prLiberarHTML(){
+  return PR.total_liberado == null ? `<button class="sm" style="margin-top:8px" onclick="prLiberar(true)">👷 ${t('pr_liberar')}</button>`
+    : `<div class="muted" style="margin-top:8px">✔ ${t('pr_liberado', { v: money(+PR.total_liberado) })} <a href="#" onclick="prLiberar(false);return false">${t('pr_retirar')}</a></div>`;
+}
+async function prLiberar(si){
+  if (!puede('admin') || !prPrivOK()) return;
+  await prGuardar(true); if (!PR?.id) return;
+  const tt = prTotVer(presus.find(p => p.id === PR.id) || {}), patch = si ? { total_liberado: tt.total || 0, mensual_liberado: tt.mensual || 0, liberado_at: new Date().toISOString() } : { total_liberado: null, mensual_liberado: null, liberado_at: null };
+  const r = await db.from('presupuestos').update(patch).eq('id', PR.id); if (r.error) return fail(r.error, t('save_fail'));
+  Object.assign(PR, patch); const i = presus.findIndex(p => p.id === PR.id); if (i >= 0) Object.assign(presus[i], patch);
+  toast(t('saved')); prResumen();
+}
+// 👷 Después de guardar, el servidor recalcula con los precios privados y solo devuelve horas y el total ya liberado
+async function prRecalcServidor(){
+  const id = PR?.id; if (!id) return;
+  try { const { data, error } = await db.functions.invoke('presupuesto-calcular', { body: { presupuesto_id: id } }); if (error) return console.warn(error);
+    const patch = { total_liberado: data?.total ?? null, mensual_liberado: data?.mensual ?? null }, i = presus.findIndex(p => p.id === id); if (i >= 0) Object.assign(presus[i], patch);
+    if (PR?.id === id){ Object.assign(PR, patch); prResumen(); } } catch(e){ console.warn(e); }
+}
 function prResumen(){
   const el = $('prSide'); if (!el) return; const R = prCalcular(PR.d), C = prConf(), d = PR.d, tp = R.tipo, kM = PERM.admin ? 1 : (R.fm || 1);
   const fila = (k, v, cls = '') => `<div class="pr-r ${cls}"><span>${k}</span><b>${v}</b></div>`;
@@ -6771,7 +6829,7 @@ function prResumen(){
       <div class="pr-crew-big">👷 ${R.pers} · 📅 ${R.dias} ${t('pr_dias')} · ${R.semanas < 1 ? t('pr_menos_sem') : R.semanas.toFixed(1) + ' ' + t('pr_sem')}</div>
       ${R.tablaP?.length ? `<div class="pr-crew-t">${R.tablaP.map(x => `<span class="${x.p === R.pers ? 'on' : ''}">${x.p}👷 ${x.dias}d</span>`).join('')}</div>` : ''}
       ${R.minP > 1 ? `<small class="muted">${t('pr_min2')}</small>` : ''}${tp === 'software' || tp === 'web' ? `<small class="muted">${t('pr_sem_dev', { h: tp === 'web' ? 30 : prTT(C, 'software').horas_sem })}</small>` : ''}</div>` : ''}
-    <h4 class="cl-h4">💵 ${t('pr_precio')}</h4>
+    ${!PERM.admin ? prResumenOp() : !PRCP ? `<div class="u-note">⚠ ${t('pr_priv_falta')}</div>` : `<h4 class="cl-h4">💵 ${t('pr_precio')}</h4>
     ${PERM.admin ? `<div class="pr-sal pr-tar"><label>${t('pr_tar')} $<input type="number" min="0" step="any" value="${esc(d.tarifa ?? '')}" placeholder="${prTarifaDef(C, tp)}" onchange="PR.d.tarifa=this.value;prLeer()"></label>
       <small class="muted">${n0(d.tarifa) ? t('pr_tar_esp', { t: money(prTarifaDef(C, tp)) }) : t('pr_tar_s')}</small></div>` : ''}
     ${tp === 'instalacion' ? `<div class="pr-modo"><label class="${R.modo === 'hora' ? 'on' : ''}"><input type="radio" name="prm" ${R.modo === 'hora' ? 'checked' : ''} onchange="PR.d.modo='hora';prLeer()"> ${t('pr_por_hora')}<b>${money(R.porHora * kM)}</b><small>${R.total.toFixed(1)} h${PERM.admin ? ' × ' + money(R.tarifa) : ''}</small></label>
@@ -6788,6 +6846,7 @@ function prResumen(){
       return `<div class="pr-gan-r"><span>${t('pr_gan')}: <b>${money(R.ganancia)}</b></span><label class="${fijo ? 'fijo' : 'auto'}"><input type="number" step="any" min="1" max="89" value="${fijo ? prMeta(d) : pct}" onchange="PR.d.meta=this.value;prLeer()"> %</label></div>
       <small class="muted">${fijo ? t('pr_gm_fijo', { p: prMeta(d) }) + ` <a href="#" onclick="PR.d.meta='';prLeer();return false">↺ ${t('pr_gm_auto_b')}</a>` : t('pr_gm_auto')}</small>`; })()}<div class="pr-sal"><label>${t('pr_sal')} $<input type="number" min="0" step="any" value="${esc(d.salario ?? '')}" placeholder="${prSalarioDef(C, tp)}" onchange="PR.d.salario=this.value;prLeer()"></label>
       <small class="muted">${t('pr_sal_s', { h: R.total.toFixed(1), s: money(prSalario(d, C, tp)), c: n0(C.cargas) ? ' + ' + n0(C.cargas) + '%' : '', v: money(prCostoMO(R.total, d, C, tp)) })}</small></div></div>` : ''}
+    ${PR.id ? prLiberarHTML() : ''}`}
     ${PR.horas_real ? `<div class="pr-real">✅ ${t('pr_real_h', { r: (+PR.horas_real).toFixed(1), e: (+PR.horas_est || 0).toFixed(1) })}</div>` : ''}
   </div>`;
   PR._R = R;
@@ -6795,10 +6854,10 @@ function prResumen(){
 async function prGuardar(auto){
   if (!PR) return;
   if (!PR.cliente?.trim()){ if (!auto) { alert(t('pr_need_client')); document.querySelector('[data-pk="cliente"]')?.focus(); } return; }
-  const R = prCalcular(PR.d), d = { ...PR.d }; delete d.aprendido;
-  const row = { cliente: PR.cliente.trim(), prospecto: !clienteObj(PR.cliente), titulo: PR.titulo || null, estado: PR.estado, datos: d,
-    totales: { horas: +R.total.toFixed(2), personas: R.pers, dias: R.dias, semanas: +(R.semanas || 0).toFixed(2), total: Math.round(R.total$), mano: Math.round(R.mano), modo: R.modo || null, factor: R.ap.f || 1, tipo: R.tipo,
-      mensual: Math.round(jArr(R.rec).filter(r => r[2] === 'mes').reduce((a, r) => a + r[1], 0)), sitio: { altura: R.s?.altura, tipo: R.s?.tipo } },
+  if (PERM.admin && !prPrivOK()) return;
+  const R = prCalcular(PR.d), d = { ...PR.d }; delete d.aprendido; const { pub, priv } = prSepararDatos(d);
+  const row = { cliente: PR.cliente.trim(), prospecto: !clienteObj(PR.cliente), titulo: PR.titulo || null, estado: PR.estado, datos: pub,
+    totales: { horas: +R.total.toFixed(2), personas: R.pers, dias: R.dias, semanas: +(R.semanas || 0).toFixed(2), modo: R.modo || null, factor: R.ap.f || 1, tipo: R.tipo, sitio: { altura: R.s?.altura, tipo: R.s?.tipo } },
     horas_est: +R.total.toFixed(2) };
   $('prEstadoG') && ($('prEstadoG').textContent = t('pl_saving'));
   const estAntes = presus.find(p => p.id === PR.id)?.estado;
@@ -6806,13 +6865,20 @@ async function prGuardar(auto){
   if (r.error){ $('prEstadoG') && ($('prEstadoG').textContent = '⚠'); return fail(r.error, /presupuestos/.test(r.error.message || '') ? t('pr_missing') : t('save_fail')); }
   if (!PR.id){ PR.id = r.data.id; PR.numero = r.data.numero; }
   PR._sucio = false; const i = presus.findIndex(p => p.id === PR.id), obj = { ...presus[i], ...row, id: PR.id, numero: PR.numero, created_at: presus[i]?.created_at || new Date().toISOString() };
+  if (PERM.admin){
+    const totales = { total: Math.round(R.total$), mano: Math.round(R.mano), mensual: Math.round(jArr(R.rec).filter(r => r[2] === 'mes').reduce((a, r) => a + r[1], 0)) };
+    const v = await db.from('presupuesto_priv').upsert({ presupuesto_id: PR.id, datos: priv, totales }); if (v.error){ $('prEstadoG') && ($('prEstadoG').textContent = '⚠'); return fail(v.error, t('save_fail')); }
+    obj.priv = { presupuesto_id: PR.id, datos: priv, totales };
+    if (PR.total_liberado != null){ const lib = { total_liberado: totales.total, mensual_liberado: totales.mensual }, l = await db.from('presupuestos').update(lib).eq('id', PR.id); if (!l.error){ Object.assign(PR, lib); Object.assign(obj, lib); } }
+  }
   if (i >= 0) presus[i] = obj; else presus.unshift(obj);
+  if (!PERM.admin) prRecalcServidor();
   $('prEstadoG') && ($('prEstadoG').textContent = '✓ ' + t('pl_saved'));
   if (!auto){ toast(t('saved')); renderPresuEditor(); }
   if (!auto && row.estado === 'aprobado' && estAntes !== 'aprobado' && confirm(t('trb_pasar_q'))) trbDesdePresu();
 }
 async function prDuplicar(){
-  const c = JSON.parse(JSON.stringify(PR)); c.id = null; c.numero = null; c.estado = 'borrador'; c.horas_real = null; c.titulo = (c.titulo || '') + ' (copia)'; PR = c; PR.tab = 'datos';
+  const c = JSON.parse(JSON.stringify(PR)); c.id = null; c.numero = null; c.estado = 'borrador'; c.horas_real = null; c.total_liberado = null; c.mensual_liberado = null; c.liberado_at = null; delete c.priv; c.titulo = (c.titulo || '') + ' (copia)'; PR = c; PR.tab = 'datos';
   await prGuardar();
 }
 async function prBorrar(){
@@ -6898,6 +6964,7 @@ async function prConvertir(){
 
 /* ---------- PDF para el cliente ---------- */
 async function prPdf(){
+  if (!puede('admin') || !prPrivOK()) return;
   const R = prCalcular(PR.d), d = PR.d, C = prConf(), fecha = new Date(), tp = R.tipo, E = C.empresa || {};
   const fm = R.fm || 1, M = v => money(v * fm);   // el margen va repartido dentro de cada línea
   const loc = LANG === 'es' ? 'es-US' : 'en-US', fdate = x => x.toLocaleDateString(loc, { dateStyle: 'long' }), fcorta = x => x.toLocaleDateString(loc, { month: 'short', day: 'numeric' });
@@ -7037,7 +7104,7 @@ async function prPdf(){
 
 /* ---------- ⚙ Precios y tiempos ---------- */
 function prConfigAbrir(){
-  if (!puede('admin')) return;
+  if (!puede('admin') || !prPrivOK()) return;
   const C = prConf();
   const num = (path, v, step = 'any') => `<input type="number" step="${step}" data-cp="${path}" value="${esc(v)}">`;
   const grupo = (tit, obj, base, lbl) => `<h4 class="cl-h4">${tit}</h4><div class="mdm-grid">${Object.keys(obj).map(k => `<label><span>${esc(lbl(k))}</span>${num(base + '.' + k, obj[k])}</label>`).join('')}</div>`;
@@ -7074,31 +7141,33 @@ async function prConfigGuardar(reset){
     document.querySelectorAll('[data-cpt]').forEach(el => { const ps = el.dataset.cpt.split('.'); let o = datos; ps.slice(0, -1).forEach(p => { o = o[p] = o[p] || {}; }); o[ps[ps.length - 1]] = el.value.trim(); });
     datos.equipos = [...document.querySelectorAll('#pcEq .pc-eq')].map(r => ({ m: r.querySelector('.q-m').value.trim(), c: r.querySelector('.q-c').value, p: n0(r.querySelector('.q-p').value) })).filter(e => e.m);
   }
-  const r = await db.from('presu_config').update({ datos }).eq('id', 1);
+  const { pub, priv } = prSepararConf(datos);   // "valores iniciales" solo toca tiempos y factores: las tarifas y precios privados se quedan
+  if (!reset){ const v = await db.from('presu_config_priv').upsert({ id: 1, datos: priv }); if (v.error) return fail(v.error, t('save_fail')); PRCP = { id: 1, datos: priv }; }
+  const r = await db.from('presu_config').update({ datos: pub }).eq('id', 1);
   if (r.error) return fail(r.error, /presu_config/.test(r.error.message || '') ? t('pr_missing') : t('save_fail'));
-  PRC = { id: 1, datos }; closeModal(); toast(t('saved')); renderPresupuestos();
+  PRC = { id: 1, datos: pub }; closeModal(); toast(t('saved')); renderPresupuestos();
 }
 
 /* ---------- 💰 Tipos de trabajo (cada uno con su forma de calcular) ---------- */
 // item: [clave, horas por unidad, cargo por unidad ($), 'fa' = le afecta la altura/techo]
 const PR_TT = {
-  desmontaje: { salario: 22, tarifa: 75, items: [
+  desmontaje: { salario: 0, tarifa: 0, items: [
     ['cables', .35, 0, 'fa'], ['soportes', .1, 0, 'fa'], ['ap', .3, 0, 'fa'], ['cam', .4, 0, 'fa'], ['acceso', .75, 0], ['tv', .75, 0], ['rack', 2.5, 0], ['rack_eq', .3, 0],
-    ['pc', .25, 4], ['monitor', .15, 0], ['impresora', .4, 0], ['telefono', .1, 0], ['placas', .15, 2], ['rec_pc', .05, 15], ['rec_monitor', .05, 25], ['discos', .1, 15], ['viajes', 1, 300],
-    ['levantamiento', 2, 0], ['conduit', .02, 0, 'fa'], ['plafones', .1, 12, 'fa'], ['firestop', .5, 15, 'fa'], ['ups_bat', .1, 20], ['isp', 1, 0], ['contenedor', 0, 650], ['reporte', 2, 0]] },
-  mudanza: { salario: 22, tarifa: 75, items: [
-    ['pc', .75, 4], ['monitor', .2, 1], ['impresora', 1, 0], ['servidor', 2.5, 0], ['rack_red', 6, 0], ['telefono', .25, 0], ['tv', 1, 0], ['otros', .5, 0], ['red_h', 1, 0], ['isp', 2, 0], ['viajes', 1, 300]] },
-  reparacion: { salario: 25, tarifa: 85, items: [
-    ['diag', .5, 0], ['virus', 1.5, 0], ['os', 2.5, 0], ['datos', 1, 0], ['recuperacion', 1, 300], ['ssd', 1.5, 0], ['pieza', .5, 0], ['pantalla', 1.5, 0], ['limpieza', 1, 0],
-    ['imp_mant', 1.5, 0], ['imp_rep', 2, 0], ['imp_cfg', .75, 0], ['servidor', 3, 0], ['red', 1.5, 0], ['correo', 1, 0], ['visitas', .5, 75]] },
-  web: { salario: 35, tarifa: 95, base: { landing: 8, corporativo: 12, ecommerce: 30, webapp: 60 }, pagina: 4, idioma: 30, producto: .25, pagos: 8, envios: 6, integracion: 6, revision: 8, pm: 10, qa: 10,
+    ['pc', .25, 0], ['monitor', .15, 0], ['impresora', .4, 0], ['telefono', .1, 0], ['placas', .15, 0], ['rec_pc', .05, 0], ['rec_monitor', .05, 0], ['discos', .1, 0], ['viajes', 1, 0],
+    ['levantamiento', 2, 0], ['conduit', .02, 0, 'fa'], ['plafones', .1, 0, 'fa'], ['firestop', .5, 0, 'fa'], ['ups_bat', .1, 0], ['isp', 1, 0], ['contenedor', 0, 0], ['reporte', 2, 0]] },
+  mudanza: { salario: 0, tarifa: 0, items: [
+    ['pc', .75, 0], ['monitor', .2, 0], ['impresora', 1, 0], ['servidor', 2.5, 0], ['rack_red', 6, 0], ['telefono', .25, 0], ['tv', 1, 0], ['otros', .5, 0], ['red_h', 1, 0], ['isp', 2, 0], ['viajes', 1, 0]] },
+  reparacion: { salario: 0, tarifa: 0, items: [
+    ['diag', .5, 0], ['virus', 1.5, 0], ['os', 2.5, 0], ['datos', 1, 0], ['recuperacion', 1, 0], ['ssd', 1.5, 0], ['pieza', .5, 0], ['pantalla', 1.5, 0], ['limpieza', 1, 0],
+    ['imp_mant', 1.5, 0], ['imp_rep', 2, 0], ['imp_cfg', .75, 0], ['servidor', 3, 0], ['red', 1.5, 0], ['correo', 1, 0], ['visitas', .5, 0]] },
+  web: { salario: 0, tarifa: 0, base: { landing: 8, corporativo: 12, ecommerce: 30, webapp: 60 }, pagina: 4, idioma: 30, producto: .25, pagos: 8, envios: 6, integracion: 6, revision: 8, pm: 10, qa: 10,
     feat: { contacto: 2, blog: 8, galeria: 3, citas: 12, whatsapp: 1, mapa: 1, newsletter: 3, login: 16, seo: 6, analytics: 2, accesibilidad: 6, branding: 12, copy: 2, migracion: 1 },
-    hosting: 25, dominio: 20, mant: 75 },
-  software: { salario: 50, tarifa: 125, tam: { S: 12, M: 32, L: 80, XL: 160 }, plat: { web: 1, movil: 1.3, escritorio: 1.1, ambas: 1.6 },
-    extra: { roles: 16, admin: 24, notif: 8, pagos: 24, reporte: 8, integracion: 20, deploy: 12, docs: 8 }, diseno: 15, qa: 15, pm: 10, incert: { baja: 10, media: 20, alta: 30 }, idioma: 10, soporte: 18, horas_sem: 30 },
-  msp: { salario: 30, tarifa: 85, nivel: { basico: 75, estandar: 125, premium: 200 }, servidor: { basico: 150, estandar: 200, premium: 300 }, red: 10, impresora: 5, sitio: 50, backup_tb: 40, m365: 15,
+    hosting: 0, dominio: 0, mant: 0 },
+  software: { salario: 0, tarifa: 0, tam: { S: 12, M: 32, L: 80, XL: 160 }, plat: { web: 1, movil: 1.3, escritorio: 1.1, ambas: 1.6 },
+    extra: { roles: 16, admin: 24, notif: 8, pagos: 24, reporte: 8, integracion: 20, deploy: 12, docs: 8 }, diseno: 15, qa: 15, pm: 10, incert: { baja: 10, media: 20, alta: 30 }, idioma: 10, soporte: 0, horas_sem: 30 },
+  msp: { salario: 0, tarifa: 0, nivel: { basico: 0, estandar: 0, premium: 0 }, servidor: { basico: 0, estandar: 0, premium: 0 }, red: 0, impresora: 0, sitio: 0, backup_tb: 0, m365: 0,
     onb_u: .5, onb_pc: .5, onb_s: 3, onb_base: 4 },
-  libre: { salario: 25, tarifa: 85 } };
+  libre: { salario: 0, tarifa: 0 } };
 const PR_TRABAJOS = [['instalacion', '🏗'], ['desmontaje', '📦'], ['mudanza', '🚚'], ['reparacion', '🔧'], ['web', '🌐'], ['software', '💻'], ['msp', '🛡'], ['libre', '✏️']];
 const PR_CAMPO = ['instalacion', 'desmontaje', 'mudanza'];   // trabajos en sitio (con plano, altura, cuadrilla)
 const prTipo = d => d?.tipo || 'instalacion';
@@ -7131,7 +7200,7 @@ const prCrew = (total, minP, d, C, maxDias = 10) => { const hd = n0(C.horas_dia)
   return { pers, dias: dc(pers), semanas: dc(pers) / 5, tablaP: [1, 2, 3, 4, 5, 6].filter(p => p >= minP).map(p => ({ p, dias: dc(p) })) }; };
 
 function prCalcular(d, C = prConf()){
-  const tp = prTipo(d);
+  d = prConPrecios(d, C); const tp = prTipo(d);
   if (tp === 'instalacion'){ const R = prCalcInst(d, n0(d.tarifa) ? { ...C, tarifa: n0(d.tarifa) } : C);
     R.tipo = tp; R.hl = [[t('pr_h_cable', { n: R.runs, f: R.corrida }), R.h.cable, 'cable'], [t('pr_h_mont'), R.h.montaje, 'montaje'], [t('pr_h_eq'), R.h.equipos, 'equipos'], [t('pr_h_survey'), R.h.survey, 'survey'], [t('pr_extra_h'), R.h.extra, 'extra'], [t('pr_h_pm', { p: C.t.pm }), R.h.pm, 'pm']].filter(x => x[1]);
     R.cargos = R.renta ? [[t('pr_renta_l', { l: t('prl.' + R.lift) }), R.renta]] : []; R.cargosT = R.renta; R.campo = true; return R; }
@@ -7230,8 +7299,8 @@ function renderPrDatosTipo(b){
         ${num('revisiones', '🔁 ' + t('pw_revs'), T.revision + '% ' + t('pw_por_ronda'))}${num('extra_h', '⏱ ' + t('pr_extra_h'))}</div></div>
       <div class="panel"><h4 class="cl-h4">✨ ${t('pw_feat')}</h4><div class="pr-chks">${Object.keys(T.feat).map(k => chk('f_' + k, `${t('pwf.' + k)} <small class="muted">${T.feat[k]} h${k === 'copy' || k === 'migracion' ? ' ' + t('pw_x_pag') : ''}</small>`)).join('')}
         ${chk('f_pagos', `${t('pwf.pagos')} <small class="muted">${T.pagos} h</small>`, true)}${chk('f_envios', `${t('pwf.envios')} <small class="muted">${T.envios} h</small>`)}${chk('f_traduccion', t('pwf.traduccion'))}</div></div>
-      <div class="panel"><h4 class="cl-h4">🔁 ${t('pr_rec')}</h4><div class="pr-chks">${chk('r_hosting', `${t('pwr.hosting')} <small class="muted">$${T.hosting}/${t('pr_mes')}</small>`, true)}
-        ${chk('r_mant', `${t('pwr.mant')} <small class="muted">$${T.mant}/${t('pr_mes')}</small>`, true)}${chk('r_dominio', `${t('pwr.dominio')} <small class="muted">$${T.dominio}/${t('pr_anio')}</small>`, true)}</div></div>`;
+      <div class="panel"><h4 class="cl-h4">🔁 ${t('pr_rec')}</h4><div class="pr-chks">${chk('r_hosting', `${t('pwr.hosting')} ${PERM.admin ? `<small class="muted">$${T.hosting}/${t('pr_mes')}</small>` : ''}`, true)}
+        ${chk('r_mant', `${t('pwr.mant')} ${PERM.admin ? `<small class="muted">$${T.mant}/${t('pr_mes')}</small>` : ''}`, true)}${chk('r_dominio', `${t('pwr.dominio')} ${PERM.admin ? `<small class="muted">$${T.dominio}/${t('pr_anio')}</small>` : ''}`, true)}</div></div>`;
     return;
   }
   if (tp === 'software'){
@@ -7250,7 +7319,7 @@ function renderPrDatosTipo(b){
     return;
   }
   if (tp === 'msp'){
-    b.innerHTML = `<div class="panel"><h4 class="cl-h4">🛡 ${t('ptt.msp')}</h4><div class="mdm-grid"><label><span>${t('pms_nivel')}</span>${sel('nivel', Object.keys(T.nivel), o => t('pmsn.' + o) + ' · $' + T.nivel[o] + '/' + t('pms_usuario'))}</label></div>
+    b.innerHTML = `<div class="panel"><h4 class="cl-h4">🛡 ${t('ptt.msp')}</h4><div class="mdm-grid"><label><span>${t('pms_nivel')}</span>${sel('nivel', Object.keys(T.nivel), o => t('pmsn.' + o) + (PERM.admin ? ' · $' + T.nivel[o] + '/' + t('pms_usuario') : ''))}</label></div>
         <div class="pr-hint">${t('pmsn_d.' + (s.nivel || 'estandar'))}</div></div>
       <div class="panel"><div class="pr-puntos">${['usuarios', 'pcs', 'servidores', 'red', 'impresoras', 'sitios', 'backup_tb', 'm365'].map(k => num(k, t('pms.' + k))).join('')}${num('extra_h', '⏱ ' + t('pr_extra_h'))}</div>
         <div class="pr-chks" style="margin-top:8px">${chk('onboarding', t('pms_onb_c'), true)}</div></div>`;

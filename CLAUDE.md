@@ -32,7 +32,8 @@ The file is ordered as `<style>`, then the static HTML (views and modals, shown 
 ## Conventions
 
 - **Versioning:** the portal version appears twice and both must always match: the login screen (`inventario/index.html:1121`) and the app header (`:1137`). Small changes bump the last number (9.9.6 → 9.9.7); large changes bump the second number. Do not move to version 10 until the owner says so.
-- **Confidential pricing:** operators must never see rates (tarifas) or profit percentages (% de utilidad).
+- **Confidential pricing:** operators must never see rates, wages, burden, margins, or stock cost, not even with F12. Those values live only in `presu_config_priv` and `presupuesto_priv` (admin-only RLS), and `stock_items.costo` is read through `stock_listar()`. Never put them back in the HTML, in `presu_config`, or in `presupuestos`. Operators see hours plus the total an admin released (`total_liberado`), and an operator edit withdraws that total.
+- **Budget engine has two copies:** the calculation in `inventario/index.html` is copied into `supabase/functions/presupuesto-calcular/index.ts`. Change both, and republish the function. The `PR_PRIV_*` lists must also match `supabase/supabase-precios-priv.sql`.
 - **Database changes:** every database change goes in its own `supabase/supabase-*.sql` file.
 - **Translations:** English is the primary language. Everything is bilingual ES/EN: add every UI string as a flat key to both `I18N.en` and `I18N.es`, use `t('key', {var})` in JS, and use `data-i18n`, `data-i18n-ph`, or `data-i18n-title` in HTML. Stored values such as `tipo` and `estado` stay in Spanish; only their labels are translated, through `tTipo` and `tEstado`.
 - **Rendering:** views are built as template strings, so pass all dynamic values through `esc()`.

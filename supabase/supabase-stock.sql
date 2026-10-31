@@ -76,8 +76,9 @@ begin
   execute 'create policy stm_crear  on public.stock_mov for insert to authenticated with check (es_staff())';
   execute 'create policy stm_borrar on public.stock_mov for delete to authenticated using (es_admin())';
   execute 'revoke all on public.stock_items, public.stock_mov from anon';
-  execute 'grant select, insert, update, delete on public.stock_items to authenticated';
-  execute 'grant select, insert, delete on public.stock_mov to authenticated';
+  -- select: lo controla supabase-precios-priv-cierre.sql (v9.10), sin la columna costo
+  execute 'grant insert, update, delete on public.stock_items to authenticated';
+  execute 'grant insert, delete on public.stock_mov to authenticated';
 end $$;
 
 create or replace function public.stock_fecha()

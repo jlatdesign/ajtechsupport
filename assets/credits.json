@@ -22,28 +22,6 @@
     "saved": "2026-11-01T18:26:59.856Z"
   },
   {
-    "file": "assets/colorful-patch-panel-telefunken-rat-7002-analog.jpg",
-    "media": "image",
-    "ref": "commons:24689405",
-    "title": "Colorful Patch Panel, Telefunken RAT 7002 analog computer, Computer History Museum",
-    "creator": "Don DeBold",
-    "creatorUrl": null,
-    "date": "2011-07-02",
-    "license": "CC BY 2.0",
-    "licenseCode": "by",
-    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
-    "creditRequired": true,
-    "page": "https://commons.wikimedia.org/wiki/File:Colorful_Patch_Panel,_Telefunken_RAT_7002_analog_computer,_Computer_History_Museum.jpg",
-    "via": "Wikimedia Commons",
-    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fb/Colorful_Patch_Panel%2C_Telefunken_RAT_7002_analog_computer%2C_Computer_History_Museum.jpg/1920px-Colorful_Patch_Panel%2C_Telefunken_RAT_7002_analog_computer%2C_Computer_History_Museum.jpg",
-    "width": 1920,
-    "height": 1281,
-    "bytes": 747489,
-    "credit": "\"Colorful Patch Panel, Telefunken RAT 7002 analog computer, Computer History Museum\" by Don DeBold, CC BY 2.0, via Wikimedia Commons",
-    "notes": [],
-    "saved": "2026-11-01T18:27:00.702Z"
-  },
-  {
     "file": "assets/wisconsin-bell-telephone-company-switchboard.jpg",
     "media": "image",
     "ref": "commons:101987692",
@@ -184,5 +162,27 @@
       "Share-alike: an altered version (recoloured, combined with other pictures) must be shared under the same licence."
     ],
     "saved": "2026-11-01T20:18:28.606Z"
+  },
+  {
+    "file": "assets/ethernet-flickr-dave-ruske.jpg",
+    "media": "image",
+    "ref": "commons:183717852",
+    "title": "Ethernet - Flickr - Dave Ruske",
+    "creator": "Dave Ruske",
+    "creatorUrl": null,
+    "date": "Taken on 7 February 2026, 23:00",
+    "license": "CC BY 4.0",
+    "licenseCode": "by",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "creditRequired": true,
+    "page": "https://commons.wikimedia.org/wiki/File:Ethernet_-_Flickr_-_Dave_Ruske.jpg",
+    "via": "Wikimedia Commons",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e1/Ethernet_-_Flickr_-_Dave_Ruske.jpg/1920px-Ethernet_-_Flickr_-_Dave_Ruske.jpg",
+    "width": 1920,
+    "height": 1280,
+    "bytes": 373520,
+    "credit": "\"Ethernet - Flickr - Dave Ruske\" by Dave Ruske, CC BY 4.0, via Wikimedia Commons",
+    "notes": [],
+    "saved": "2026-11-01T20:35:59.583Z"
   }
 ]

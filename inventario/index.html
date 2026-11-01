@@ -1134,6 +1134,13 @@ details.u-help summary{cursor:pointer;font-weight:600}
   .col-item .mv button{min-width:44px;min-height:44px}
   .sel-col input,.bulk-chk input{width:24px;height:24px}
 }
+/* ===== Teléfonos: el mismo brillo con un degradado; los filtros en vivo gastan GPU y batería ===== */
+@media (max-width:760px),(pointer:coarse){
+  header,.card,.modal,.drawer{backdrop-filter:none;-webkit-backdrop-filter:none}
+  .glow{filter:none;width:760px;height:760px}
+  .glow.g1{background:radial-gradient(closest-side,var(--c2),transparent)}
+  .glow.g2{background:radial-gradient(closest-side,var(--c1),transparent)}
+}
 </style>
 </head>
 <body>
@@ -1145,7 +1152,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v9.10.3</p>
+    <p class="sub">Network Asset Manager · v9.10.4</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -1161,7 +1168,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.10.3</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.10.4</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -1191,7 +1198,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
   <div class="cv-top">
     <div><h2 data-i18n="clients_title">Clients</h2><small class="muted" id="cvCount"></small><br><small class="muted solo-roles" data-i18n="clients_drag">Drag the cards or use ↑↓ to change the order</small></div>
     <div class="row">
-      <div class="search"><input id="cq" data-i18n-ph="search_clients" placeholder="Search clients..." oninput="renderClientes()"></div>
+      <div class="search"><input id="cq" data-i18n-ph="search_clients" placeholder="Search clients..." oninput="busca(renderClientes)"></div>
       <button class="primary" onclick="abrirClienteModal()">＋ <span data-i18n="new_client">New client</span></button>
     </div>
   </div>
@@ -1232,7 +1239,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     </div>
   </div>
   <div class="cv-top" style="margin-bottom:12px"><div><h2 style="font-size:18px">📍 <span data-i18n="sede_title">Locations</span></h2><small class="muted" id="sdvCount"></small></div>
-    <div class="search"><input id="sdq" data-i18n-ph="sede_search" placeholder="Search locations..." oninput="renderSedesGrid()"></div></div>
+    <div class="search"><input id="sdq" data-i18n-ph="sede_search" placeholder="Search locations..." oninput="busca(renderSedesGrid)"></div></div>
   <div id="sedeGrid" class="site-grid"></div>
 </div>
 
@@ -1462,7 +1469,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
   <div class="card">
     <div class="card-title"><h3><span data-i18n="registered">Registered devices</span> <span id="listSub" class="list-sub"></span></h3><span class="muted mono" id="count"></span></div>
     <div class="row no-print" style="margin-bottom:12px">
-      <div class="search"><input id="q" data-i18n-ph="search_ph" placeholder="Search by client, name, IP, MAC, serial, model, notes..." oninput="render()"></div>
+      <div class="search"><input id="q" data-i18n-ph="search_ph" placeholder="Search by client, name, IP, MAC, serial, model, notes..." oninput="busca(render)"></div>
       <select id="fCliente" onchange="render()" style="max-width:220px"><option value=""></option></select>
       <select id="fLugar" onchange="render()" style="max-width:200px"><option value=""></option></select>
       <select id="fGrupo" onchange="render()" style="max-width:200px"><option value=""></option></select>
@@ -1599,6 +1606,21 @@ const revealed = new Set();
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const ipNum = ip => { const p = String(ip).split('.').map(Number); return p.length===4 && p.every(n=>!isNaN(n)) ? p.reduce((a,n)=>a*256+n,0) : null; };
+// Buscadores: esperan una pausa al escribir para no redibujar en cada tecla
+const busca = (fn, ms = 140) => { clearTimeout(busca.t); busca.t = setTimeout(fn, ms); };
+// Pone una vista sin destruir el buscador que se está usando (en teléfono, recrearlo cierra el teclado)
+function ponVista(el, html){
+  const s = document.activeElement?.closest?.('.search');
+  if (s && el.contains(s)){
+    const tmp = document.createElement('div'); tmp.innerHTML = html;
+    const parche = (v, n) => { const nk = [...n.children].find(x => x.matches('.search') || x.querySelector('.search')), vk = [...v.children].find(x => x.contains(s)); if (!nk || !vk) return false;
+      if (vk !== s){ if (!parche(vk, nk)) return false; vk.className = nk.className; }
+      const antes = [], desp = []; let f = antes; [...n.childNodes].forEach(x => { if (x === nk) f = desp; else f.push(x); });
+      [...v.childNodes].forEach(x => { if (x !== vk) x.remove(); }); vk.before(...antes); vk.after(...desp); return true; };
+    if (parche(el, tmp)) return;
+  }
+  el.innerHTML = html;
+}
 function toast(msg){ const t=$('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),1800); }
 function fail(error, msg){ console.error(error); alert((msg||t('e_generic')) + ':\n' + (error?.message || error)); }
 const clean = x => { const o = {}; FIELDS.forEach(f => { const v = String(x[f] ?? '').trim(); o[f] = v || null; }); if(!o.tipo) o.tipo='Otro'; if(!o.estado) o.estado='Activo'; return o; };
@@ -4062,7 +4084,7 @@ function renderCloud(){
   const n = k => k === 'log' ? cloudLog.length : k === 'ov' ? '' : cloudDe(curCliente, k).length;
   const tabs = CL_TABS.map(k => `<span class="chip ${cloudTab === k ? 'on' : ''}" onclick="cloudTab='${k}';cloudQ='';renderCloud()">${k === 'ov' ? '📊' : k === 'log' ? '📒' : CL[k].ic} ${t('cl_tab.' + k)}${n(k) !== '' ? ` (${n(k)})` : ''}</span>`).join('');
   const add = cloudTab !== 'ov' && cloudTab !== 'log' && PERM.editar ? `<button class="primary" onclick="cloudNuevo('${cloudTab}')">＋ ${t('cl_add.' + cloudTab)}</button>` : '';
-  const buscar = cloudTab !== 'ov' ? `<div class="search"><input id="clq" value="${esc(cloudQ)}" placeholder="${esc(t('cl_search'))}" oninput="cloudQ=this.value;renderCloudBody()"></div>` : '';
+  const buscar = cloudTab !== 'ov' ? `<div class="search"><input id="clq" value="${esc(cloudQ)}" placeholder="${esc(t('cl_search'))}" oninput="cloudQ=this.value;busca(renderCloudBody)"></div>` : '';
   el.innerHTML = `<div class="panel net-panel">
     <div class="net-head"><div><h3>☁️ Cloud Server</h3><small class="muted">${t('cl_sub')}</small></div><div class="row">${buscar}${add}</div></div>
     <div class="stats" style="margin:12px 0">${tabs}</div><div id="cloudBody"></div></div>`;
@@ -5291,13 +5313,13 @@ function renderStock(){
         <button onclick="abrirEscaner()" title="${esc(t('scn_tip'))}">🔫 ${t('scn_btn')}</button><button onclick="stkEntradaRapida()">📥 ${t('stk_entrada')}</button><button class="primary" onclick="stkForm()">＋ ${t('stk_nuevo')}</button></div></div>`;
   if (!stkOK){ el.innerHTML = head + `<div class="panel act-empty">📦 ${t('stk_missing')}</div>`; return; }
   if (STK.tab === 'mov'){ el.innerHTML = head + `<div class="panel">${stkMovTabla(stkMovs)}</div>`; return; }
-  el.innerHTML = head + `<div class="stk-kpis">
+  ponVista(el, head + `<div class="stk-kpis">
       <div class="stk-kpi"><b>${vis.length}</b><span>${t('stk_k_prod')}</span></div>
       <div class="stk-kpi"><b>${vis.reduce((a, x) => a + (x.unidad === 'u' ? (+x.cantidad || 0) : 0), 0).toLocaleString('en-US')}</b><span>${t('stk_k_uni')}</span></div>
       <div class="stk-kpi ${bajos ? 'warn' : ''}" onclick="STK.bajo=!STK.bajo;renderStock()" style="cursor:pointer"><b>${bajos}</b><span>${t('stk_k_bajo')}</span></div>
       ${verCosto ? `<div class="stk-kpi"><b>${money(valor)}</b><span>${t('stk_k_valor')}</span></div>` : ''}</div>
     <div class="panel"><div class="stk-filtros">
-      <div class="search"><input value="${esc(STK.q)}" placeholder="${esc(t('stk_buscar'))}" oninput="STK.q=this.value;renderStock();this.focus();this.setSelectionRange(this.value.length,this.value.length)"></div>
+      <div class="search"><input value="${esc(STK.q)}" placeholder="${esc(t('stk_buscar'))}" oninput="STK.q=this.value;busca(renderStock)"></div>
       <div class="stats">${['', ...STK_COND].map(c => `<span class="chip ${STK.cond === c ? 'on' : ''}" onclick="STK.cond='${c}';renderStock()">${c ? stkCondB(c, true) : t('pr_all')} ${c ? `(${nCond(c)})` : ''}</span>`).join('')}
         <span class="chip ${STK.bajo ? 'on' : ''}" onclick="STK.bajo=!STK.bajo;renderStock()">⚠ ${t('stk_k_bajo')}</span></div>
       <div class="stats">${['', ...STK_CATS.map(c => c[0])].filter(c => !c || nCat(c)).map(c => `<span class="chip ${STK.cat === c ? 'on' : ''}" onclick="STK.cat='${c}';renderStock()">${c ? stkIc(c) + ' ' + esc(t('stc.' + c)) + ` (${nCat(c)})` : t('stk_todas_cat')}</span>`).join('')}</div></div>
@@ -5310,7 +5332,7 @@ function renderStock(){
           <td>${esc(x.ubicacion || '')}</td>${verCosto ? `<td class="n mono">${x.costo != null && x.costo !== '' ? stkMoney(x.costo) : ''}</td>` : ''}<td class="n mono">${x.precio != null && x.precio !== '' ? stkMoney(x.precio) : ''}</td>
           <td class="stk-acc"><button class="sm" title="${esc(t('stk_entrada'))}" onclick="stkMov('${x.id}','entrada')">＋</button><button class="sm" title="${esc(t('stk_salida'))}" onclick="stkMov('${x.id}','salida')" ${(+x.cantidad || 0) <= 0 ? 'disabled' : ''}>－</button>
             <button class="sm" title="${esc(t('stk_movs'))}" onclick="stkHist('${x.id}')">🕒</button></td></tr>`; }).join('')}</tbody></table></div>`).join('')
-      : `<div class="act-empty">📦 ${vis.length ? t('stk_nada') : t('stk_vacio')}<br>${vis.length ? '' : `<button class="primary" style="margin-top:10px" onclick="stkForm()">＋ ${t('stk_nuevo')}</button>`}</div>`}</div>`;
+      : `<div class="act-empty">📦 ${vis.length ? t('stk_nada') : t('stk_vacio')}<br>${vis.length ? '' : `<button class="primary" style="margin-top:10px" onclick="stkForm()">＋ ${t('stk_nuevo')}</button>`}</div>`}</div>`);
 }
 const stkCondB = (c, corto) => `<span class="stk-cond ${esc(c)}">${esc(t((corto ? 'stdc.' : 'std.') + c))}</span>`;
 function stkTab(v){ STK.tab = v; renderStock(); }
@@ -5769,7 +5791,7 @@ function renderTrabajos(){
   const act = trabajos.filter(trbActivo), atr = trabajos.filter(j => trbAtraso(j) > 0), faltP = trbFalt.filter(f => !['recibido', 'resuelto'].includes(f.estado) && trabajos.some(j => j.id === f.trabajo_id && trbActivo(j)));
   const ret = {}; trbDiario.filter(d => +d.retraso_horas > 0 && d.fecha >= hoy.slice(0, 7) + '-01').forEach(d => ret[d.retraso_causa || 'otro'] = (ret[d.retraso_causa || 'otro'] || 0) + +d.retraso_horas);
   const chip = (k, n) => `<span class="chip ${TRB.estado === k ? 'on' : ''}" onclick="TRB.estado='${k}';renderTrabajos()">${t('trf_' + k)}${n != null ? ` (${n})` : ''}</span>`;
-  el.innerHTML = `<div class="cl-head"><button class="backbtn" onclick="cerrarTrabajos()">← ${t('clients_title')}</button>
+  ponVista(el, `<div class="cl-head"><button class="backbtn" onclick="cerrarTrabajos()">← ${t('clients_title')}</button>
       <div class="cl-info"><h2>🛠 ${t('trb_title')}</h2><div class="muted">${t('trb_sub')}</div></div>
       <div class="row no-print"><button onclick="trbElegirPresu()">📥 ${t('trb_desde_presu')}</button><button class="primary" onclick="trbForm()">＋ ${t('trb_nuevo')}</button></div></div>
     ${!trbOK ? `<div class="panel act-empty">🛠 ${t('trb_missing')}</div>` : `
@@ -5777,7 +5799,7 @@ function renderTrabajos(){
       <div class="stk-kpi ${atr.length ? 'warn' : ''}" style="cursor:pointer" onclick="TRB.estado='atrasados';renderTrabajos()"><b>${atr.length}</b><span>${t('trb_k_atr')}</span></div>
       <div class="stk-kpi ${faltP.some(f => f.urgente) ? 'warn' : ''}"><b>${faltP.length}</b><span>${t('trb_k_falt')}</span></div>
       <div class="stk-kpi"><b>${Math.round((ret.nuestro || 0) * 10) / 10} h / ${Math.round((ret.cliente || 0) * 10) / 10} h</b><span>${t('trb_k_ret')}</span></div></div>
-    <div class="panel"><div class="stk-filtros"><div class="search"><input value="${esc(TRB.q)}" placeholder="${esc(t('trb_buscar'))}" oninput="TRB.q=this.value;renderTrabajos();this.focus();this.setSelectionRange(this.value.length,this.value.length)"></div>
+    <div class="panel"><div class="stk-filtros"><div class="search"><input value="${esc(TRB.q)}" placeholder="${esc(t('trb_buscar'))}" oninput="TRB.q=this.value;busca(renderTrabajos)"></div>
       <div class="stats">${chip('activos', act.length)}${chip('atrasados', atr.length)}${TRB_ESTADOS.map(e => chip(e, trabajos.filter(j => j.estado === e).length)).join('')}${chip('todos', trabajos.length)}</div></div>
       ${lista.length ? `<div class="trb-grid">${lista.map(j => { const p = trbPct(j), a = trbAtraso(j), r = trbRitmo(j), fp = trbFaltPend(j.id), ult = trbDiario.find(d => d.trabajo_id === j.id);
         return `<div class="trb-card ${a ? 'atr' : ''}" onclick="TRB.id='${j.id}';TRB.tab='diario';renderTrabajos();window.scrollTo({top:0})">
@@ -5787,7 +5809,7 @@ function renderTrabajos(){
           <div class="trb-c-f">${j.fecha_inicio || j.fecha_fin_est ? `📅 ${trbFecha(j.fecha_inicio)} → ${trbFecha(j.fecha_fin_est)}` : ''}
             ${a ? `<span class="trb-atr">⚠ ${t('trb_atrasado', { n: a })}</span>` : r && j.fecha_fin_est ? `<span class="muted">${t('trb_faltan_d', { n: Math.max(0, trbDias(hoy, j.fecha_fin_est)) })}</span>` : ''}</div>
           <div class="trb-c-f">${fp.length ? `<span class="trb-falt ${fp.some(f => f.urgente) ? 'urg' : ''}">🧰 ${t('trb_n_falt', { n: fp.length })}</span>` : ''}${ult ? `<span class="muted">📓 ${trbFecha(ult.fecha)}</span>` : ''}</div></div>`; }).join('')}</div>`
-      : `<div class="act-empty">🛠 ${trabajos.length ? t('stk_nada') : t('trb_vacio')}<br>${trabajos.length ? '' : `<button class="primary" style="margin-top:10px" onclick="trbForm()">＋ ${t('trb_nuevo')}</button>`}</div>`}</div>`}`;
+      : `<div class="act-empty">🛠 ${trabajos.length ? t('stk_nada') : t('trb_vacio')}<br>${trabajos.length ? '' : `<button class="primary" style="margin-top:10px" onclick="trbForm()">＋ ${t('trb_nuevo')}</button>`}</div>`}</div>`}`);
 }
 
 /* ---- Un trabajo ---- */
@@ -6606,12 +6628,12 @@ function renderPresupuestos(){
   if (PRES.edit && PR) return renderPresuEditor();
   const q = nrm(PRES.q), lista = presus.filter(p => (!PRES.estado || p.estado === PRES.estado) && (!q || nrm([p.numero, p.cliente, p.titulo].join(' ')).includes(q)));
   const cerr = presus.filter(p => p.estado === 'completado' && +p.horas_est > 0 && +p.horas_real > 0), ap = cerr.length ? (() => { const r = cerr.reduce((a, p) => a + Math.min(2, Math.max(.5, p.horas_real / p.horas_est)) * p.horas_est, 0) / cerr.reduce((a, p) => a + +p.horas_est, 0), n = cerr.length; return { n, f: (n * r + 3) / (n + 3) }; })() : { n: 0, f: 1 }, tot = e => presus.filter(p => !e || p.estado === e).length;
-  el.innerHTML = `<div class="cl-head"><button class="backbtn" onclick="cerrarPresupuestos()">← ${t('clients_title')}</button>
+  ponVista(el, `<div class="cl-head"><button class="backbtn" onclick="cerrarPresupuestos()">← ${t('clients_title')}</button>
       <div class="cl-info"><h2>💰 ${t('pr_title')}</h2><div class="muted">${t('pr_sub')}</div></div>
       <div class="row no-print">${PERM.admin || !PERM.roles ? `<button onclick="prConfigAbrir()">⚙ ${t('pr_cfg')}</button>` : ''}<button class="primary" onclick="prElegirTipo()">＋ ${t('pr_new')}</button></div></div>
     ${!presuOK ? `<div class="panel act-empty">💰 ${t('pr_missing')}</div>` : `<div class="panel">
       <div class="pr-top"><div class="stats">${['', ...PR_ESTADOS].map(e => `<span class="chip ${PRES.estado === e ? 'on' : ''}" onclick="PRES.estado='${e}';renderPresupuestos()">${e ? esc(t('pre.' + e)) : t('pr_all')} (${tot(e)})</span>`).join('')}</div>
-        <div class="search"><input value="${esc(PRES.q)}" placeholder="${esc(t('cl_search'))}" oninput="PRES.q=this.value;renderPresupuestos();this.focus();this.setSelectionRange(this.value.length,this.value.length)"></div></div>
+        <div class="search"><input value="${esc(PRES.q)}" placeholder="${esc(t('cl_search'))}" oninput="PRES.q=this.value;busca(renderPresupuestos)"></div></div>
       <div class="pr-learn">📈 ${ap.n ? t(ap.f >= 1 ? 'pr_learn' : 'pr_learn_m', { n: ap.n, p: Math.abs(Math.round((ap.f - 1) * 100)) }) : t('pr_learn0')}</div>
       ${lista.length ? `<div class="table-wrap"><table class="net-tbl pr-tbl"><thead><tr><th>#</th><th>${t('client')}</th><th>${t('pr_titulo')}</th><th>${t('status')}</th><th>${t('pr_horas')}</th><th>${t('pr_total')}</th><th>${t('pr_fecha')}</th></tr></thead><tbody>
         ${lista.map(p => { const tt = prTotVer(p); return `<tr class="r" onclick="prAbrir('${p.id}')"><td class="mono">${p.numero ?? ''}</td>
@@ -6619,7 +6641,7 @@ function renderPresupuestos(){
           <td><span class="pr-est ${esc(p.estado)}">${esc(t('pre.' + p.estado))}</span></td>
           <td class="mono">${tt.horas ? Math.round(tt.horas) + ' h' : ''}${p.horas_real ? ` <span class="muted">/ ${Math.round(p.horas_real)} ${t('pr_real')}</span>` : ''}</td>
           <td class="mono"><b>${tt.total ? money(tt.total) : (PERM.admin ? '' : `<span class="muted">${t('pr_pendiente')}</span>`)}</b>${tt.mensual ? `<small class="muted" style="display:block">+ ${money(tt.mensual)}/${t('pr_mes')}</small>` : ''}</td><td class="muted">${esc(new Date(p.created_at).toLocaleDateString(LANG === 'es' ? 'es-US' : 'en-US'))}</td></tr>`; }).join('')}
-      </tbody></table></div>` : `<div class="act-empty">💰 ${t('pr_empty')}<br><button class="primary" style="margin-top:10px" onclick="prElegirTipo()">＋ ${t('pr_new')}</button></div>`}</div>`}`;
+      </tbody></table></div>` : `<div class="act-empty">💰 ${t('pr_empty')}<br><button class="primary" style="margin-top:10px" onclick="prElegirTipo()">＋ ${t('pr_new')}</button></div>`}</div>`}`);
 }
 
 /* ---------- Editor ---------- */
@@ -10173,7 +10195,7 @@ function renderActividad(){
   const cls = [...new Set(F.base.map(r => r.cliente || '—'))].sort((a, b) => a.localeCompare(b));
   const hayFiltros = ACT.q || ACT.sev.size || ACT.ev.size || ACT.us.size || ACT.cl.size;
   $('actSide').innerHTML =
-    `<div class="search"><input id="actQ" value="${esc(ACT.q)}" placeholder="${esc(t('act_search'))}" oninput="ACT.q=this.value;ACT.max=200;renderActividadTabla()"></div>
+    `<div class="search"><input id="actQ" value="${esc(ACT.q)}" placeholder="${esc(t('act_search'))}" oninput="ACT.q=this.value;ACT.max=200;busca(renderActividadTabla)"></div>
     <div class="act-seg">${ACT_PERIODOS.map(([d, l]) => `<button class="${ACT.dias === d ? 'on' : ''}" onclick="actPeriodo(${d})">${l.startsWith('act_') ? t(l) : l}</button>`).join('')}</div>
     <div class="act-sevs" title="${esc(t('act_sev'))}">${[1, 2, 3, 4].map(n => `<button class="${ACT.sev.has(n) ? 'on' : ''}" onclick="actToggle('sev',${n})" title="${esc(t('sev.' + n))}">${sevHTML(n)}</button>`).join('')}</div>` +
     sec('ev', t('act_events')) + (ACT.secs.ev ? lista('ev', evs, F.cEv, e => t('ev.' + e)) : '') +
@@ -10555,12 +10577,12 @@ function aplicarColumnas(){
   const ocultas = new Set(colCfg.ocultas); if (curCliente) ocultas.add('cliente');
   if (curCliente && (!sedesDe(curCliente).length || (fSede && fSede !== '-'))) ocultas.add('sede');   // la columna Ubicación sale cuando hace falta
   if (!PERM.claves){ ocultas.add('password'); ocultas.add('licencias'); }
-  const pos = COLS.map(c => colCfg.orden.indexOf(c));     // posición nueva de cada columna original
+  const pos = COLS.map(c => colCfg.orden.indexOf(c)), ordenBase = pos.every((p, i) => p === i);     // posición nueva de cada columna original
   const fila = (tr, celdas) => {
     if (celdas.length !== COLS.length + 2) return;        // filas vacías (colspan) se dejan igual
     const mov = celdas.slice(1, -1), nuevo = [];
-    mov.forEach((td, i) => { nuevo[pos[i]] = td; td.dataset.col = COLS[i]; td.classList.toggle('col-off', ocultas.has(COLS[i])); });
-    nuevo.forEach(td => tr.insertBefore(td, celdas[celdas.length - 1]));
+    mov.forEach((td, i) => { nuevo[pos[i]] = td; td.dataset.col = COLS[i]; if (ocultas.has(COLS[i])) td.classList.add('col-off'); });
+    if (!ordenBase) nuevo.forEach(td => tr.insertBefore(td, celdas[celdas.length - 1]));
   };
   const hr = tabla.tHead.rows[0], ths = [...hr.children];
   const orig = COLS.map(c => ths.find(th => th.dataset.col === c));
@@ -10571,8 +10593,9 @@ function aplicarColumnas(){
   // Anchos a gusto
   const anchoDe = c => colCfg.anchos[c];
   orig.forEach((th, i) => { const w = anchoDe(COLS[i]); fijarAncho(th, w); if (!th.querySelector('.col-rs')){ const h = document.createElement('span'); h.className = 'col-rs'; h.title = t('cols_resize'); th.appendChild(h); } });
-  for (const tr of $('tbody').rows){ const cs = [...tr.children]; if (cs.length !== COLS.length + 2) continue;
-    COLS.forEach(c => { const w = anchoDe(c); if (w) fijarAncho(tr.querySelector(`:scope > td[data-col="${c}"]`), w); }); }
+  const conAncho = COLS.filter(anchoDe);
+  if (conAncho.length) for (const tr of $('tbody').rows){ const cs = [...tr.children]; if (cs.length !== COLS.length + 2) continue;
+    conAncho.forEach(c => fijarAncho(tr.querySelector(`:scope > td[data-col="${c}"]`), anchoDe(c))); }
   const n = colCfg.ocultas.length + (colCfg.sinAcciones ? 1 : 0); $('colsN').textContent = n ? t('cols_hidden', { n }) : '';
   if (!$('colsPop').classList.contains('hidden')) renderColsPop();
 }

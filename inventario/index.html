@@ -1160,6 +1160,19 @@ header{padding-top:max(14px,env(safe-area-inset-top,0px))}
 .toast,.idle-warn{bottom:calc(24px + env(safe-area-inset-bottom,0px))}
 /* Mantener presionado no selecciona el texto de un control; el contenido se sigue pudiendo copiar */
 button,.chip,.sede-tab{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+/* ===== Entradas: solo al abrir; cerrar es instantáneo. Navegadores sin @starting-style abren sin animación ===== */
+.modal,.drawer{overflow:hidden;transition:opacity .15s linear}
+.modal-card{transition:opacity .2s var(--ease-out),transform .2s var(--ease-out)}
+.drawer-panel,.detail-panel{transition:transform .24s var(--ease-drawer)}
+.cols-pop{transform-origin:top right;transition:opacity .15s var(--ease-out),transform .15s var(--ease-out)}
+.idle-warn{transition:opacity .2s var(--ease-out),transform .2s var(--ease-out)}
+@starting-style{
+  .modal,.drawer{opacity:0}
+  .modal-card{opacity:0;transform:scale(.97)}
+  .drawer-panel,.detail-panel{transform:translateX(100%)}
+  .cols-pop{opacity:0;transform:scale(.97)}
+  .idle-warn{opacity:0;transform:translate(-50%,8px)}
+}
 /* ===== Movimiento ===== */
 .tema-cambia *{transition:none!important}
 @media (prefers-reduced-motion:reduce){
@@ -1177,7 +1190,7 @@ button,.chip,.sede-tab{-webkit-user-select:none;user-select:none;-webkit-touch-c
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v9.10.7</p>
+    <p class="sub">Network Asset Manager · v9.10.8</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" enterkeyhint="next" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" enterkeyhint="go" required placeholder="••••••••"></label>
@@ -1193,7 +1206,7 @@ button,.chip,.sede-tab{-webkit-user-select:none;user-select:none;-webkit-touch-c
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.10.7</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.10.8</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>

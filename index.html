@@ -42,7 +42,9 @@ h1{font-family:var(--disp);font-weight:800;text-transform:uppercase;font-size:9.
 .res{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center}.res>p{font-size:var(--step-lead);line-height:1.3}
 .acc{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center}.acc a:not(.btn){padding:8px 0}
 
-.foto{height:62vh;overflow:hidden}.foto img{width:100%;height:112%!important;object-fit:cover;will-change:transform}
+.abre{height:190svh;background:var(--night)}.abre-s{position:sticky;top:0;height:100svh;overflow:hidden}.abre-s img{width:100%;height:100%!important;object-fit:cover;clip-path:inset(var(--c,14%) calc(var(--c,14%) * 1.4));transform:scale(var(--z,1.12));will-change:clip-path,transform}
+.abre-t{position:absolute;left:var(--m);right:var(--m);bottom:48px;color:#fff;font-family:var(--disp);font-weight:800;text-transform:uppercase;font-size:clamp(2.75rem,1.5rem + 5vw,6.5rem);line-height:.92;max-width:none;opacity:var(--t,0);transform:translateY(calc((1 - var(--t,0)) * 28px))}
+.abre-s::after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.4);opacity:var(--t,0);pointer-events:none}.abre-t{z-index:1}
 
 #ahora{background:var(--surface);padding:96px var(--m)}
 h2{font-family:var(--disp);font-weight:800;text-transform:uppercase;font-size:clamp(3rem,1.5rem + 6vw,7rem);line-height:.9;margin-bottom:48px}
@@ -63,11 +65,14 @@ h2{font-family:var(--disp);font-weight:800;text-transform:uppercase;font-size:cl
 .cifra span{line-height:1.3}
 
 section{padding:140px var(--m) 0}
-.sv{display:grid;grid-template-columns:repeat(2,1fr);gap:56px 48px}
-.sv h3{font-family:var(--disp);font-weight:800;text-transform:uppercase;font-size:2.5rem;line-height:1}.sv p{margin-top:8px}.sv .n{color:var(--muted)}
-.dos{margin-top:56px}.dos img{width:100%;aspect-ratio:21/9;object-fit:cover}
-.par{display:grid;grid-template-columns:7fr 5fr;gap:48px;align-items:start}.par img{width:100%;aspect-ratio:4/3;object-fit:cover}
-.par ol{margin:0;padding-left:1.2em;display:grid;gap:24px}.par b{font-weight:600}
+#servicios{padding-bottom:56px}#servicios h2{margin-bottom:0}
+.esc-w{height:135svh;background:var(--night)}.esc{position:sticky;top:0;height:100svh;overflow:hidden;color:#fff;display:flex;align-items:flex-end;background:var(--night)}
+.esc img{position:absolute;inset:-3%;width:106%;max-width:none;height:106%!important;object-fit:cover;transform:translate3d(var(--x,0),var(--y,0),0) scale(var(--z,1.14));will-change:transform}
+.esc::after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.54);pointer-events:none}
+.esc-t{position:relative;z-index:1;padding:0 var(--m) 56px;opacity:var(--t,1);transform:translateY(calc((1 - var(--t,1)) * 36px))}
+.esc h3{font-family:var(--disp);font-weight:800;text-transform:uppercase;font-size:clamp(3.25rem,1.5rem + 7vw,8.5rem);line-height:.9;margin-bottom:14px}.esc p{font-size:var(--step-lead);line-height:1.3;max-width:34em}.esc .n{margin-top:6px;font-size:var(--step-body);line-height:1.5}
+.esc .btn{margin-top:22px}.sw-oscura{filter:brightness(.72)}
+.par ol{margin:0;padding:0;list-style-position:inside;display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.par li{padding:8px 16px 8px 0;font-size:var(--step-body)}.par b{display:block;font-family:var(--disp);font-weight:800;text-transform:uppercase;font-size:2.25rem;line-height:1;margin-bottom:10px}
 .fq{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:start}
 details{background:var(--surface);padding:20px 24px}summary{cursor:pointer;font-weight:600}details p{margin-top:12px}
 
@@ -81,20 +86,20 @@ form .btn{cursor:pointer;justify-self:start}#okMsg{background:#fff;color:var(--i
 
 footer{background:var(--warm);padding:40px var(--m)}
 footer b{display:block;font-family:var(--disp);font-weight:800;font-size:12vw;text-transform:uppercase;line-height:.9;margin-bottom:24px;white-space:nowrap}
-.pie{display:flex;flex-wrap:wrap;gap:8px 24px}.credits{margin-top:16px;max-width:75ch;font-size:var(--step-small)}
+.pie{display:flex;flex-wrap:wrap;gap:8px 24px}.credits{margin-top:16px;padding:0;background:none}.credits p{max-width:75ch;font-size:var(--step-small)}
 
 .rv{transition:opacity .5s var(--ease),transform .5s var(--ease)}.js .rv:not(.on){opacity:0;transform:translateY(22px)}
 @media (hover:hover) and (pointer:fine){.pr button:not([aria-pressed=true]):hover{background:#2b3140}.btn:hover,.llamar:hover{background:#ffa83d}.cifra:hover{background:var(--warm)}.dia:hover i{background:var(--muted)}.dia.hoy:hover i,.dia[aria-pressed=true]:hover i{background:var(--accent)}}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition-property:opacity,color,background-color!important}.js .rv:not(.on){opacity:1;transform:none}.foto img{height:100%!important;transform:none!important}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition-property:opacity,color,background-color!important}.js .rv:not(.on){opacity:1;transform:none}.abre,.esc-w{height:auto}.abre-s,.esc{position:relative}.abre-s img{clip-path:none;transform:none}.abre-t,.abre-s::after{opacity:1;transform:none}.esc img{transform:none}.esc-t{opacity:1;transform:none}}
 @media (max-width:900px){
   :root{--m:16px}
   .marca{font-size:15px}.llamar{padding:10px;font-size:15px}.lg button{padding:4px}
   .nl{order:3;width:100%}
-  section{padding-top:96px}#contacto{margin-top:96px}.foto{height:40vh}
-  .res,.sv,.par,.fq,.tablero,#contacto{grid-template-columns:1fr}.sv{gap:88px}.acc .btn{flex:1;text-align:center}.pr button{flex:1 1 45%}
+  section{padding-top:96px}#contacto{margin-top:96px}.esc-w{height:120svh}.esc-t{padding-bottom:36px}.abre{height:150svh}
+  .res,.fq,.tablero,#contacto{grid-template-columns:1fr}.par ol{grid-template-columns:1fr 1fr}.acc .btn{flex:1;text-align:center}.pr button{flex:1 1 45%}
   #ahora{padding-top:72px;padding-bottom:72px}.panel{padding:20px}.dia{min-height:150px}
 }
-@media (max-width:500px){.row2{grid-template-columns:1fr}.dos img{aspect-ratio:4/3}.dia span{font-size:15px}}
+@media (max-width:500px){.row2,.par ol{grid-template-columns:1fr}.dia span{font-size:15px}}
 </style>
 </head>
 <body id="top">
@@ -119,11 +124,11 @@ footer b{display:block;font-family:var(--disp);font-weight:800;font-size:12vw;te
   <div class="pr" id="pr" role="group" aria-label="¿Qué está pasando?"></div>
   <div class="res">
     <p id="res" aria-live="polite"></p>
-    <div class="acc"><a class="btn" href="tel:+17866551741"><span data-i18n="call">Llamar</span> 786-655-1741</a><a href="https://wa.me/17866551741" target="_blank" rel="noopener">WhatsApp</a></div>
+    <div class="acc"><a class="btn" href="tel:+17866551741"><span data-i18n="call">Llamar</span> 786-655-1741</a><a id="ver" href="#s-2" data-i18n="ver">Ver cómo lo resolvemos</a><a href="https://wa.me/17866551741" target="_blank" rel="noopener">WhatsApp</a></div>
   </div>
 </header>
 
-<div class="foto"><img id="par" src="assets/miami-florida-skyline.jpg" alt="Edificios de Miami junto a la bahía" width="1920" height="810"></div>
+<div class="abre" id="abre"><div class="abre-s"><img src="assets/miami-florida-skyline.jpg" alt="Edificios de Miami junto a la bahía" width="1920" height="810"><h2 class="abre-t" data-i18n="abre">Todo Miami-Dade y Broward.</h2></div></div>
 
 <div id="ahora">
   <h2 class="rv" data-i18n="now_t">La oficina, ahora</h2>
@@ -143,16 +148,12 @@ footer b{display:block;font-family:var(--disp);font-weight:800;font-size:12vw;te
   </div>
 </div>
 
-<section id="servicios">
-  <h2 class="rv" data-i18n="sv_t">Lo que resolvemos</h2>
-  <div class="sv" id="sv"></div>
-  <div class="dos rv"><img src="assets/colorful-patch-panel-telefunken-rat-7002-analog.jpg" alt="Panel de conexiones con clavijas de colores" loading="lazy" width="1920" height="1281"></div>
-</section>
+<section id="servicios"><h2 class="rv" data-i18n="sv_t">Lo que resolvemos</h2></section>
+<div id="sv"></div>
 
 <section id="proceso">
   <h2 class="rv" data-i18n="pr_t">Cómo trabajamos</h2>
   <div class="par">
-    <img class="rv" src="assets/wisconsin-bell-telephone-company-switchboard.jpg" alt="Operador de una central telefónica en 1930" loading="lazy" width="1920" height="1118">
     <ol>
       <li class="rv"><b data-i18n="p1t">Consulta.</b> <span data-i18n="p1p">Hablamos de lo que necesitas, sin costo ni compromiso.</span></li>
       <li class="rv"><b data-i18n="p2t">Diagnóstico.</b> <span data-i18n="p2p">Revisamos tu tecnología y diseñamos la solución.</span></li>
@@ -211,14 +212,14 @@ footer b{display:block;font-family:var(--disp);font-weight:800;font-size:12vw;te
 <footer>
   <b>AJ Tech Support</b>
   <div class="pie"><span>© <span id="yr"></span> AJ Tech Support. <span data-i18n="ft">Todos los derechos reservados.</span></span><a href="/inventario/" target="_blank" rel="noopener" data-i18n="ft_portal">Portal técnico</a></div>
-  <p class="credits"><span data-i18n="cr">Fotos</span>: <a href="https://commons.wikimedia.org/wiki/File:Miami,_Florida_skyline.jpg">Miami, Florida skyline</a>, Wilfredor, CC0 · <a href="https://commons.wikimedia.org/wiki/File:Colorful_Patch_Panel,_Telefunken_RAT_7002_analog_computer,_Computer_History_Museum.jpg">Colorful Patch Panel</a>, Don DeBold, CC BY 2.0 · <a href="https://commons.wikimedia.org/wiki/File:Wisconsin_Bell_Telephone_Company_Switchboard.jpg">Wisconsin Bell Switchboard</a>, Gary Langebartels / FortepanIowa, CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File:Everglades_Sawgrass_Prairie_Moni3.JPG">Everglades Sawgrass Prairie</a>, Moni3, CC BY 3.0 · Wikimedia Commons.</p>
+  <details class="credits"><summary data-i18n="cr">Fotos</summary><p><a href="https://commons.wikimedia.org/wiki/File:Miami,_Florida_skyline.jpg">Miami, Florida skyline</a>, Wilfredor, CC0 · <a href="https://commons.wikimedia.org/wiki/File:Colorful_Patch_Panel,_Telefunken_RAT_7002_analog_computer,_Computer_History_Museum.jpg">Colorful Patch Panel, Telefunken RAT 7002 an</a>, Don DeBold, CC BY 2.0 · <a href="https://commons.wikimedia.org/wiki/File:Wisconsin_Bell_Telephone_Company_Switchboard.jpg">Wisconsin Bell Telephone Company Switchboard</a>, ID#: Gary Langebartels / FortepanIowa, CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File:Everglades_Sawgrass_Prairie_Moni3.JPG">Everglades Sawgrass Prairie Moni3</a>, Moni3, CC BY 3.0 · <a href="https://commons.wikimedia.org/wiki/File:Security_camera,_September_2018.jpg">Security camera, September 2018</a>, Cody Logan, CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File:Computer_repair_in_progress.jpg">Computer repair in progress</a>, Vintechcomputerservices, CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File:Macro_circuit_board.JPG">Macro circuit board</a>, Ingo Dierking, CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File:Laptop_keyboard_abstraction.jpg">Laptop keyboard abstraction</a>, Martin Vorel, CC BY-SA 4.0 · Wikimedia Commons.</p></details>
 </footer>
 
 <script>
 /* ============ TRADUCCIONES ============ */
 const T = {
 es:{
-nav_now:"Ahora",nav_services:"Servicios",nav_how:"Cómo trabajamos",nav_faq:"Preguntas",nav_contact:"Contacto",call:"Llamar",
+abre:"Todo Miami-Dade y Broward.",ver:"Ver cómo lo resolvemos",cot:"Consultar este servicio",nav_now:"Ahora",nav_services:"Servicios",nav_how:"Cómo trabajamos",nav_faq:"Preguntas",nav_contact:"Contacto",call:"Llamar",
 now_t:"La oficina, ahora",n1:"horas por semana, y sábado con cita",n2:"servicios con un solo equipo",n3:"condados: Miami-Dade y Broward",n4:"idiomas: español e inglés",
 sv_t:"Lo que resolvemos",pr_t:"Cómo trabajamos",p1t:"Consulta.",p1p:"Hablamos de lo que necesitas, sin costo ni compromiso.",p2t:"Diagnóstico.",p2p:"Revisamos tu tecnología y diseñamos la solución.",p3t:"Instalación.",p3p:"Instalamos y configuramos sin detener tu negocio.",p4t:"Soporte.",p4p:"Seguimos contigo con mantenimiento y soporte continuo.",
 fq_t:"Preguntas",q1:"¿Puedo mantener mi número de teléfono actual?",a1:"Sí. Transferimos tu número actual a tu nuevo sistema VoIP.",q2:"¿Ofrecen soporte en sitio?",a2:"Sí. Vamos a tu negocio en Miami-Dade y Broward cuando es necesario.",q3:"¿Cuánto tarda un sitio web?",a3:"Normalmente entre 1 y 3 semanas, según el tamaño del proyecto.",q4:"¿Qué puede hacer la IA por mi negocio?",a4:"Contestar preguntas, agendar citas, tomar mensajes y automatizar tareas repetitivas.",q5:"¿Atienden los sábados?",a5:"Sí, con cita. De lunes a viernes atendemos de 9 a 5.",q6:"¿Hay contratos a largo plazo?",a6:"Ofrecemos planes mensuales flexibles.",
@@ -228,7 +229,7 @@ days:["Lun","Mar","Mié","Jue","Vie","Sáb","Dom"],daysL:["Lunes","Martes","Mié
 title:"AJ Tech Support | Soporte de IT en Miami y Broward",grp:"¿Qué está pasando?",week:"Horario de la semana"
 },
 en:{
-nav_now:"Now",nav_services:"Services",nav_how:"How we work",nav_faq:"Questions",nav_contact:"Contact",call:"Call",
+abre:"All of Miami-Dade and Broward.",ver:"See how we fix it",cot:"Ask about this service",nav_now:"Now",nav_services:"Services",nav_how:"How we work",nav_faq:"Questions",nav_contact:"Contact",call:"Call",
 now_t:"The office, right now",n1:"hours a week, plus Saturdays by appointment",n2:"services from one team",n3:"counties: Miami-Dade and Broward",n4:"languages: English and Spanish",
 sv_t:"What we fix",pr_t:"How we work",p1t:"Consultation.",p1p:"We talk about what you need, at no cost and no commitment.",p2t:"Assessment.",p2p:"We review your technology and design the solution.",p3t:"Installation.",p3p:"We install and configure without stopping your business.",p4t:"Support.",p4p:"We stay with you with maintenance and ongoing support.",
 fq_t:"Questions",q1:"Can I keep my current phone number?",a1:"Yes. We port your current number to your new VoIP system.",q2:"Do you offer on-site support?",a2:"Yes. We come to your business in Miami-Dade and Broward when needed.",q3:"How long does a website take?",a3:"Usually 1 to 3 weeks, depending on project size.",q4:"What can AI do for my business?",a4:"Answer questions, book appointments, take messages and automate repetitive tasks.",q5:"Are you open on Saturdays?",a5:"Yes, by appointment. Monday to Friday we work 9 to 5.",q6:"Are there long-term contracts?",a6:"We offer flexible monthly plans.",
@@ -244,11 +245,12 @@ const SV=[
 {es:["Cámaras y seguridad","Cámaras con acceso remoto, control de acceso y protección de datos.","Ves tu negocio desde el celular."],en:["Cameras and security","Cameras with remote access, access control and data protection.","See your business from your phone."]},
 {es:["Sitios web","Sitios rápidos, optimizados para Google, con hosting, dominio y SSL.","Normalmente listos entre 1 y 3 semanas."],en:["Websites","Fast, Google-optimized sites with hosting, domain and SSL.","Usually ready in 1 to 3 weeks."]},
 {es:["Inteligencia artificial","Asistentes que atienden clientes y agendan citas en tu web o WhatsApp.","Recepcionista virtual con voz."],en:["Artificial intelligence","Assistants that serve customers and book appointments on your site or WhatsApp.","Voice AI receptionist."]}];
+const FT=[["computer-repair-in-progress","Manos reparando una laptop abierta",1920,1272],["wisconsin-bell-telephone-company-switchboard","Operador de una central telefónica en 1930",1920,1118],["colorful-patch-panel-telefunken-rat-7002-analog","Panel de conexiones con clavijas de colores",1920,1281],["security-camera-september-2018","Cámara de seguridad en un edificio",1920,1285],["laptop-keyboard-abstraction","Teclado de una laptop",1920,1311],["macro-circuit-board","Componentes de una tarjeta electrónica",1920,1280]];
 const PR=[
 {es:"Se cayó el internet.",en:"The internet is down.",s:2},{es:"El teléfono no suena.",en:"The phone won’t ring.",s:1},{es:"La PC no prende.",en:"The PC won’t start.",s:0},
 {es:"Las cámaras no graban.",en:"The cameras stopped.",s:3},{es:"Necesito una web nueva.",en:"I need a new website.",s:4},{es:"Quiero contestar con IA.",en:"I want AI to answer.",s:5}];
 const $=id=>document.getElementById(id);
-let lang="es",ac=0,diaSel=null;
+let lang="es",ac=0,diaSel=null,escenas=[];
 try{lang=localStorage.getItem("aj_lang")||(navigator.language||"es").slice(0,2)}catch(e){}
 if(!T[lang])lang="es";
 
@@ -256,7 +258,7 @@ if(!T[lang])lang="es";
 function pinta(){
   const p=PR[ac],s=SV[p.s][lang];
   $("fr").innerHTML=p[lang]+"<br>"+T[lang].callus;
-  $("res").textContent=s[1]+" "+s[2];
+  $("res").textContent=s[1]+" "+s[2];$("ver").href="#s-"+p.s;
   document.querySelectorAll("#pr button").forEach((b,i)=>b.setAttribute("aria-pressed",i===ac));
 }
 /* ---------- Tablero: hora de la oficina (Medley) ---------- */
@@ -283,11 +285,12 @@ function applyLang(l){
   document.querySelectorAll("[data-i18n]").forEach(el=>{const k=el.dataset.i18n;if(T[l][k])el.textContent=T[l][k]});
   document.querySelectorAll(".lg button").forEach(b=>{const on=b.dataset.lang===l;b.classList.toggle("on",on);b.setAttribute("aria-pressed",on)});
   document.title=T[l].title;$("pr").setAttribute("aria-label",T[l].grp);
-  $("sv").innerHTML=SV.map(s=>`<article class="rv on"><h3>${s[l][0]}</h3><p>${s[l][1]}</p><p class="n">${s[l][2]}</p></article>`).join("");
+  $("sv").innerHTML=SV.map((s,i)=>`<div class="esc-w" id="s-${i}"><article class="esc"><img src="assets/${FT[i][0]}.jpg" alt="${FT[i][1]}" width="${FT[i][2]}" height="${FT[i][3]}" ${i>0?'loading="lazy"':""}><div class="esc-t"><h3>${s[l][0]}</h3><p>${s[l][1]}</p><p class="n">${s[l][2]}</p><a class="btn" href="#contacto" data-s="${s[l][0]}">${T[l].cot}</a></div></article></div>`).join("");
+  document.querySelectorAll(".esc .btn").forEach(b=>b.onclick=()=>{$("fs").value=b.dataset.s});escenas=[...document.querySelectorAll(".esc-w")].map(w=>({w,e:w.firstElementChild,i:w.querySelector("img"),t:w.querySelector(".esc-t")}));
   $("fs").innerHTML=SV.map(s=>`<option>${s[l][0]}</option>`).join("");
   $("pr").innerHTML=PR.map((p,i)=>`<button data-i="${i}">${p[l].replace(".","")}</button>`).join("");
   document.querySelectorAll("#pr button").forEach(b=>b.onclick=()=>{ac=+b.dataset.i;pinta()});
-  pinta();tablero();
+  pinta();tablero();window.pinta2&&window.pinta2();
 }
 document.querySelectorAll(".lg button").forEach(b=>b.onclick=()=>applyLang(b.dataset.lang));
 /* ---------- Formulario (FormSubmit) ---------- */
@@ -295,9 +298,17 @@ $("nextUrl").value=location.href.split("?")[0].split("#")[0]+"?enviado=1#contact
 if(new URLSearchParams(location.search).get("enviado")==="1")$("okMsg").hidden=false;
 $("contactForm").addEventListener("submit",e=>{e.target.querySelector("button[type=submit]").textContent=T[lang].fm_sending});
 /* ---------- Movimiento ---------- */
-const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add("on");io.unobserve(x.target)}}),{threshold:.12});
+const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add("on");io.unobserve(x.target)}}),{threshold:0,rootMargin:"0px 0px -6% 0px"});
 document.querySelectorAll(".rv").forEach((el,i)=>{el.style.transitionDelay=(i%4)*70+"ms";io.observe(el)});
-if(!matchMedia("(prefers-reduced-motion:reduce)").matches){const im=$("par"),mv=()=>{const r=im.parentElement.getBoundingClientRect();if(r.bottom>0&&r.top<innerHeight)im.style.transform="translateY("+(-(r.top/innerHeight)*6-6)+"%)"};addEventListener("scroll",mv,{passive:true});mv()}
+/* ---------- Escenas: la foto se fija, se acerca y el texto entra con el scroll ---------- */
+if(!matchMedia("(prefers-reduced-motion:reduce)").matches){
+  const cl=(v,a=0,b=1)=>Math.min(b,Math.max(a,v)),abre=$("abre"),abreS=abre.firstElementChild;let pend=false;
+  const pinta2=()=>{pend=false;const H=innerHeight;
+    {const r=abre.getBoundingClientRect(),p=cl(-r.top/(r.height-H));abreS.style.setProperty("--c",(14*(1-cl(p*1.7))).toFixed(2)+"%");abreS.style.setProperty("--z",(1.12-.12*p).toFixed(3));abreS.style.setProperty("--t",cl((p-.55)/.3).toFixed(2))}
+    for(const s of escenas){const r=s.w.getBoundingClientRect();if(r.bottom<-H||r.top>H)continue;const p=cl((H-r.top)/(r.height+H));s.e.style.setProperty("--z",(1.14-.14*p).toFixed(3));s.e.style.setProperty("--t",cl((H-r.top-H*.25)/(H*.45)).toFixed(2))}};
+  const pide=()=>{if(!pend){pend=true;requestAnimationFrame(pinta2)}};addEventListener("scroll",pide,{passive:true});addEventListener("resize",pide);window.pinta2=pide;pinta2();
+  if(matchMedia("(hover:hover) and (pointer:fine)").matches)addEventListener("pointermove",e=>{const x=(e.clientX/innerWidth-.5)*-16,y=(e.clientY/innerHeight-.5)*-12;for(const s of escenas){s.e.style.setProperty("--x",x.toFixed(1)+"px");s.e.style.setProperty("--y",y.toFixed(1)+"px")}},{passive:true});
+}
 $("yr").textContent=new Date().getFullYear();
 applyLang(lang);setInterval(tablero,30000);
 </script>

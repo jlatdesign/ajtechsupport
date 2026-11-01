@@ -88,5 +88,101 @@
     "credit": "\"Everglades Sawgrass Prairie Moni3\" by Moni3, CC BY 3.0, via Wikimedia Commons",
     "notes": [],
     "saved": "2026-11-01T18:27:02.297Z"
+  },
+  {
+    "file": "assets/security-camera-september-2018.jpg",
+    "media": "image",
+    "ref": "commons:73325666",
+    "title": "Security camera, September 2018",
+    "creator": "Cody Logan",
+    "creatorUrl": null,
+    "date": "2018-09-02",
+    "license": "CC BY-SA 4.0",
+    "licenseCode": "by-sa",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "creditRequired": true,
+    "page": "https://commons.wikimedia.org/wiki/File:Security_camera,_September_2018.jpg",
+    "via": "Wikimedia Commons",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/10/Security_camera%2C_September_2018.jpg/1920px-Security_camera%2C_September_2018.jpg",
+    "width": 1920,
+    "height": 1285,
+    "bytes": 286128,
+    "credit": "\"Security camera, September 2018\" by Cody Logan, CC BY-SA 4.0, via Wikimedia Commons",
+    "notes": [
+      "Share-alike: an altered version (recoloured, combined with other pictures) must be shared under the same licence."
+    ],
+    "saved": "2026-11-01T20:18:20.039Z"
+  },
+  {
+    "file": "assets/computer-repair-in-progress.jpg",
+    "media": "image",
+    "ref": "commons:79707048",
+    "title": "Computer repair in progress",
+    "creator": "Vintechcomputerservices",
+    "creatorUrl": null,
+    "date": "2019-06-15",
+    "license": "CC BY-SA 4.0",
+    "licenseCode": "by-sa",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "creditRequired": true,
+    "page": "https://commons.wikimedia.org/wiki/File:Computer_repair_in_progress.jpg",
+    "via": "Wikimedia Commons",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/57/Computer_repair_in_progress.jpg/1920px-Computer_repair_in_progress.jpg",
+    "width": 1920,
+    "height": 1272,
+    "bytes": 345369,
+    "credit": "\"Computer repair in progress\" by Vintechcomputerservices, CC BY-SA 4.0, via Wikimedia Commons",
+    "notes": [
+      "Share-alike: an altered version (recoloured, combined with other pictures) must be shared under the same licence."
+    ],
+    "saved": "2026-11-01T20:18:20.862Z"
+  },
+  {
+    "file": "assets/macro-circuit-board.jpg",
+    "media": "image",
+    "ref": "commons:44973060",
+    "title": "Macro circuit board",
+    "creator": "Ingo Dierking",
+    "creatorUrl": null,
+    "date": "2013-03-15",
+    "license": "CC BY-SA 4.0",
+    "licenseCode": "by-sa",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "creditRequired": true,
+    "page": "https://commons.wikimedia.org/wiki/File:Macro_circuit_board.JPG",
+    "via": "Wikimedia Commons",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c4/Macro_circuit_board.JPG/1920px-Macro_circuit_board.JPG",
+    "width": 1920,
+    "height": 1280,
+    "bytes": 369323,
+    "credit": "\"Macro circuit board\" by Ingo Dierking, CC BY-SA 4.0, via Wikimedia Commons",
+    "notes": [
+      "Share-alike: an altered version (recoloured, combined with other pictures) must be shared under the same licence."
+    ],
+    "saved": "2026-11-01T20:18:22.356Z"
+  },
+  {
+    "file": "assets/laptop-keyboard-abstraction.jpg",
+    "media": "image",
+    "ref": "commons:113409651",
+    "title": "Laptop keyboard abstraction",
+    "creator": "Martin Vorel",
+    "creatorUrl": null,
+    "date": "2017-02-08",
+    "license": "CC BY-SA 4.0",
+    "licenseCode": "by-sa",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "creditRequired": true,
+    "page": "https://commons.wikimedia.org/wiki/File:Laptop_keyboard_abstraction.jpg",
+    "via": "Wikimedia Commons",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1f/Laptop_keyboard_abstraction.jpg/1920px-Laptop_keyboard_abstraction.jpg",
+    "width": 1920,
+    "height": 1311,
+    "bytes": 276379,
+    "credit": "\"Laptop keyboard abstraction\" by Martin Vorel, CC BY-SA 4.0, via Wikimedia Commons",
+    "notes": [
+      "Share-alike: an altered version (recoloured, combined with other pictures) must be shared under the same licence."
+    ],
+    "saved": "2026-11-01T20:18:28.606Z"
   }
 ]

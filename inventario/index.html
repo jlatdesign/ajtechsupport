@@ -2,7 +2,8 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
+<meta name="theme-color" id="metaTema" content="#ffffff">
 <title>Inventario · AJ Tech Support</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1146,6 +1147,21 @@ button,a,label,input,select,textarea,summary,[onclick]{touch-action:manipulation
 @media (pointer:coarse){input:not(#_),select:not(#_),textarea:not(#_){font-size:16px!important}}   /* iOS amplía la página con menos de 16px */
 button:active:not(:disabled),.chip:active{transform:scale(.97);transition-duration:.1s}
 .site-card:active:not(:has(button:active)),.tile:active{transform:scale(.985);transition-duration:.1s}
+/* Scroll: un modal no mueve la página de atrás. En tablas solo se contiene el eje horizontal; el vertical debe seguir a la página */
+.modal-card,.drawer-panel,.detail-panel{overscroll-behavior:contain}
+.table-wrap{overscroll-behavior-x:contain}
+/* Muesca y barra inferior */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px)}
+header{padding-top:max(14px,env(safe-area-inset-top,0px))}
+#login{padding:max(20px,env(safe-area-inset-top,0px)) 20px max(20px,env(safe-area-inset-bottom,0px))}
+.modal{padding:max(20px,env(safe-area-inset-top,0px)) max(20px,env(safe-area-inset-right,0px)) max(20px,env(safe-area-inset-bottom,0px)) max(20px,env(safe-area-inset-left,0px))}
+.cam-ov{padding:max(12px,env(safe-area-inset-top,0px)) max(12px,env(safe-area-inset-right,0px)) max(12px,env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px))}
+.drawer-panel{padding-top:max(22px,env(safe-area-inset-top,0px));padding-bottom:calc(22px + env(safe-area-inset-bottom,0px))}
+.detail-panel{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.toast,.idle-warn{bottom:calc(24px + env(safe-area-inset-bottom,0px))}
+/* Mantener presionado no selecciona el texto de un control; el contenido se sigue pudiendo copiar */
+button,.chip,.sede-tab{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 </style>
 </head>
 <body>
@@ -1157,10 +1173,10 @@ button:active:not(:disabled),.chip:active{transform:scale(.97);transition-durati
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v9.10.5</p>
+    <p class="sub">Network Asset Manager · v9.10.6</p>
     <form onsubmit="doLogin(event)">
-      <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
-      <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
+      <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" enterkeyhint="next" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
+      <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" enterkeyhint="go" required placeholder="••••••••"></label>
       <button class="primary" id="lgBtn" data-i18n="sign_in">Sign in →</button>
       <p class="err" id="lgErr"></p>
     </form>
@@ -1173,7 +1189,7 @@ button:active:not(:disabled),.chip:active{transform:scale(.97);transition-durati
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.10.5</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.10.6</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -1203,7 +1219,7 @@ button:active:not(:disabled),.chip:active{transform:scale(.97);transition-durati
   <div class="cv-top">
     <div><h2 data-i18n="clients_title">Clients</h2><small class="muted" id="cvCount"></small><br><small class="muted solo-roles" data-i18n="clients_drag">Drag the cards or use ↑↓ to change the order</small></div>
     <div class="row">
-      <div class="search"><input id="cq" data-i18n-ph="search_clients" placeholder="Search clients..." oninput="busca(renderClientes)"></div>
+      <div class="search"><input enterkeyhint="search" id="cq" data-i18n-ph="search_clients" placeholder="Search clients..." oninput="busca(renderClientes)"></div>
       <button class="primary" onclick="abrirClienteModal()">＋ <span data-i18n="new_client">New client</span></button>
     </div>
   </div>
@@ -1244,7 +1260,7 @@ button:active:not(:disabled),.chip:active{transform:scale(.97);transition-durati
     </div>
   </div>
   <div class="cv-top" style="margin-bottom:12px"><div><h2 style="font-size:18px">📍 <span data-i18n="sede_title">Locations</span></h2><small class="muted" id="sdvCount"></small></div>
-    <div class="search"><input id="sdq" data-i18n-ph="sede_search" placeholder="Search locations..." oninput="busca(renderSedesGrid)"></div></div>
+    <div class="search"><input enterkeyhint="search" id="sdq" data-i18n-ph="sede_search" placeholder="Search locations..." oninput="busca(renderSedesGrid)"></div></div>
   <div id="sedeGrid" class="site-grid"></div>
 </div>
 
@@ -1474,7 +1490,7 @@ button:active:not(:disabled),.chip:active{transform:scale(.97);transition-durati
   <div class="card">
     <div class="card-title"><h3><span data-i18n="registered">Registered devices</span> <span id="listSub" class="list-sub"></span></h3><span class="muted mono" id="count"></span></div>
     <div class="row no-print" style="margin-bottom:12px">
-      <div class="search"><input id="q" data-i18n-ph="search_ph" placeholder="Search by client, name, IP, MAC, serial, model, notes..." oninput="busca(render)"></div>
+      <div class="search"><input enterkeyhint="search" id="q" data-i18n-ph="search_ph" placeholder="Search by client, name, IP, MAC, serial, model, notes..." oninput="busca(render)"></div>
       <select id="fCliente" onchange="render()" style="max-width:220px"><option value=""></option></select>
       <select id="fLugar" onchange="render()" style="max-width:200px"><option value=""></option></select>
       <select id="fGrupo" onchange="render()" style="max-width:200px"><option value=""></option></select>
@@ -4089,7 +4105,7 @@ function renderCloud(){
   const n = k => k === 'log' ? cloudLog.length : k === 'ov' ? '' : cloudDe(curCliente, k).length;
   const tabs = CL_TABS.map(k => `<span class="chip ${cloudTab === k ? 'on' : ''}" onclick="cloudTab='${k}';cloudQ='';renderCloud()">${k === 'ov' ? '📊' : k === 'log' ? '📒' : CL[k].ic} ${t('cl_tab.' + k)}${n(k) !== '' ? ` (${n(k)})` : ''}</span>`).join('');
   const add = cloudTab !== 'ov' && cloudTab !== 'log' && PERM.editar ? `<button class="primary" onclick="cloudNuevo('${cloudTab}')">＋ ${t('cl_add.' + cloudTab)}</button>` : '';
-  const buscar = cloudTab !== 'ov' ? `<div class="search"><input id="clq" value="${esc(cloudQ)}" placeholder="${esc(t('cl_search'))}" oninput="cloudQ=this.value;busca(renderCloudBody)"></div>` : '';
+  const buscar = cloudTab !== 'ov' ? `<div class="search"><input enterkeyhint="search" id="clq" value="${esc(cloudQ)}" placeholder="${esc(t('cl_search'))}" oninput="cloudQ=this.value;busca(renderCloudBody)"></div>` : '';
   el.innerHTML = `<div class="panel net-panel">
     <div class="net-head"><div><h3>☁️ Cloud Server</h3><small class="muted">${t('cl_sub')}</small></div><div class="row">${buscar}${add}</div></div>
     <div class="stats" style="margin:12px 0">${tabs}</div><div id="cloudBody"></div></div>`;
@@ -5324,7 +5340,7 @@ function renderStock(){
       <div class="stk-kpi ${bajos ? 'warn' : ''}" onclick="STK.bajo=!STK.bajo;renderStock()" style="cursor:pointer"><b>${bajos}</b><span>${t('stk_k_bajo')}</span></div>
       ${verCosto ? `<div class="stk-kpi"><b>${money(valor)}</b><span>${t('stk_k_valor')}</span></div>` : ''}</div>
     <div class="panel"><div class="stk-filtros">
-      <div class="search"><input value="${esc(STK.q)}" placeholder="${esc(t('stk_buscar'))}" oninput="STK.q=this.value;busca(renderStock)"></div>
+      <div class="search"><input enterkeyhint="search" value="${esc(STK.q)}" placeholder="${esc(t('stk_buscar'))}" oninput="STK.q=this.value;busca(renderStock)"></div>
       <div class="stats">${['', ...STK_COND].map(c => `<span class="chip ${STK.cond === c ? 'on' : ''}" onclick="STK.cond='${c}';renderStock()">${c ? stkCondB(c, true) : t('pr_all')} ${c ? `(${nCond(c)})` : ''}</span>`).join('')}
         <span class="chip ${STK.bajo ? 'on' : ''}" onclick="STK.bajo=!STK.bajo;renderStock()">⚠ ${t('stk_k_bajo')}</span></div>
       <div class="stats">${['', ...STK_CATS.map(c => c[0])].filter(c => !c || nCat(c)).map(c => `<span class="chip ${STK.cat === c ? 'on' : ''}" onclick="STK.cat='${c}';renderStock()">${c ? stkIc(c) + ' ' + esc(t('stc.' + c)) + ` (${nCat(c)})` : t('stk_todas_cat')}</span>`).join('')}</div></div>
@@ -5804,7 +5820,7 @@ function renderTrabajos(){
       <div class="stk-kpi ${atr.length ? 'warn' : ''}" style="cursor:pointer" onclick="TRB.estado='atrasados';renderTrabajos()"><b>${atr.length}</b><span>${t('trb_k_atr')}</span></div>
       <div class="stk-kpi ${faltP.some(f => f.urgente) ? 'warn' : ''}"><b>${faltP.length}</b><span>${t('trb_k_falt')}</span></div>
       <div class="stk-kpi"><b>${Math.round((ret.nuestro || 0) * 10) / 10} h / ${Math.round((ret.cliente || 0) * 10) / 10} h</b><span>${t('trb_k_ret')}</span></div></div>
-    <div class="panel"><div class="stk-filtros"><div class="search"><input value="${esc(TRB.q)}" placeholder="${esc(t('trb_buscar'))}" oninput="TRB.q=this.value;busca(renderTrabajos)"></div>
+    <div class="panel"><div class="stk-filtros"><div class="search"><input enterkeyhint="search" value="${esc(TRB.q)}" placeholder="${esc(t('trb_buscar'))}" oninput="TRB.q=this.value;busca(renderTrabajos)"></div>
       <div class="stats">${chip('activos', act.length)}${chip('atrasados', atr.length)}${TRB_ESTADOS.map(e => chip(e, trabajos.filter(j => j.estado === e).length)).join('')}${chip('todos', trabajos.length)}</div></div>
       ${lista.length ? `<div class="trb-grid">${lista.map(j => { const p = trbPct(j), a = trbAtraso(j), r = trbRitmo(j), fp = trbFaltPend(j.id), ult = trbDiario.find(d => d.trabajo_id === j.id);
         return `<div class="trb-card ${a ? 'atr' : ''}" onclick="TRB.id='${j.id}';TRB.tab='diario';renderTrabajos();window.scrollTo({top:0})">
@@ -6638,7 +6654,7 @@ function renderPresupuestos(){
       <div class="row no-print">${PERM.admin || !PERM.roles ? `<button onclick="prConfigAbrir()">⚙ ${t('pr_cfg')}</button>` : ''}<button class="primary" onclick="prElegirTipo()">＋ ${t('pr_new')}</button></div></div>
     ${!presuOK ? `<div class="panel act-empty">💰 ${t('pr_missing')}</div>` : `<div class="panel">
       <div class="pr-top"><div class="stats">${['', ...PR_ESTADOS].map(e => `<span class="chip ${PRES.estado === e ? 'on' : ''}" onclick="PRES.estado='${e}';renderPresupuestos()">${e ? esc(t('pre.' + e)) : t('pr_all')} (${tot(e)})</span>`).join('')}</div>
-        <div class="search"><input value="${esc(PRES.q)}" placeholder="${esc(t('cl_search'))}" oninput="PRES.q=this.value;busca(renderPresupuestos)"></div></div>
+        <div class="search"><input enterkeyhint="search" value="${esc(PRES.q)}" placeholder="${esc(t('cl_search'))}" oninput="PRES.q=this.value;busca(renderPresupuestos)"></div></div>
       <div class="pr-learn">📈 ${ap.n ? t(ap.f >= 1 ? 'pr_learn' : 'pr_learn_m', { n: ap.n, p: Math.abs(Math.round((ap.f - 1) * 100)) }) : t('pr_learn0')}</div>
       ${lista.length ? `<div class="table-wrap"><table class="net-tbl pr-tbl"><thead><tr><th>#</th><th>${t('client')}</th><th>${t('pr_titulo')}</th><th>${t('status')}</th><th>${t('pr_horas')}</th><th>${t('pr_total')}</th><th>${t('pr_fecha')}</th></tr></thead><tbody>
         ${lista.map(p => { const tt = prTotVer(p); return `<tr class="r" onclick="prAbrir('${p.id}')"><td class="mono">${p.numero ?? ''}</td>
@@ -10200,7 +10216,7 @@ function renderActividad(){
   const cls = [...new Set(F.base.map(r => r.cliente || '—'))].sort((a, b) => a.localeCompare(b));
   const hayFiltros = ACT.q || ACT.sev.size || ACT.ev.size || ACT.us.size || ACT.cl.size;
   $('actSide').innerHTML =
-    `<div class="search"><input id="actQ" value="${esc(ACT.q)}" placeholder="${esc(t('act_search'))}" oninput="ACT.q=this.value;ACT.max=200;busca(renderActividadTabla)"></div>
+    `<div class="search"><input enterkeyhint="search" id="actQ" value="${esc(ACT.q)}" placeholder="${esc(t('act_search'))}" oninput="ACT.q=this.value;ACT.max=200;busca(renderActividadTabla)"></div>
     <div class="act-seg">${ACT_PERIODOS.map(([d, l]) => `<button class="${ACT.dias === d ? 'on' : ''}" onclick="actPeriodo(${d})">${l.startsWith('act_') ? t(l) : l}</button>`).join('')}</div>
     <div class="act-sevs" title="${esc(t('act_sev'))}">${[1, 2, 3, 4].map(n => `<button class="${ACT.sev.has(n) ? 'on' : ''}" onclick="actToggle('sev',${n})" title="${esc(t('sev.' + n))}">${sevHTML(n)}</button>`).join('')}</div>` +
     sec('ev', t('act_events')) + (ACT.secs.ev ? lista('ev', evs, F.cEv, e => t('ev.' + e)) : '') +
@@ -11073,8 +11089,10 @@ function toggleTheme(){
   const d = document.documentElement;
   d.dataset.theme = d.dataset.theme === 'light' ? 'dark' : 'light';
   try{ localStorage.setItem('inv_theme', d.dataset.theme); }catch(e){}
+  colorBarra();
 }
-{ let th = null; try{ th = localStorage.getItem('inv_theme'); }catch(e){} document.documentElement.dataset.theme = th || 'light'; }
+function colorBarra(){ $('metaTema').content = document.documentElement.dataset.theme === 'light' ? '#ffffff' : '#05070f'; }
+{ let th = null; try{ th = localStorage.getItem('inv_theme'); }catch(e){} document.documentElement.dataset.theme = th || 'light'; colorBarra(); }
 
 applyLang();
 emptyUsers();

@@ -22,6 +22,7 @@
   --ok-t:#2bff88; --warn-t:#ffc53d; --off-t:#8f99b8; --bad-t:#ff4d6d; --on-bad:#05070f;   /* texto de estado */
   --sc-peso:62%;
   --glow:.22; --grid-line:rgba(124,77,255,.07);
+  --ease-out:cubic-bezier(0.23,1,0.32,1); --ease-drawer:cubic-bezier(0.32,0.72,0,1);
 }
 /* ===== Tema claro ===== */
 :root[data-theme="light"]{
@@ -76,8 +77,7 @@ header{
 .brand small{display:block;color:var(--muted);font:500 11px/1.2 "JetBrains Mono",monospace;letter-spacing:.12em;text-transform:uppercase;margin-top:3px}
 .actions{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
 .user-chip{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border:1px solid var(--line);border-radius:999px;background:var(--card);font:500 12px "JetBrains Mono",monospace;color:var(--muted)}
-.dot{width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 8px var(--ok);animation:pulse 1.8s infinite}
-@keyframes pulse{50%{opacity:.35}}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 8px var(--ok)}
 
 .wrap{max-width:1440px;margin:0 auto;padding:22px 20px 40px}
 
@@ -110,7 +110,7 @@ header{
 label{display:flex;flex-direction:column;gap:6px;font-size:12px;color:var(--muted);font-weight:500}
 input,select,textarea{
   font:inherit;color:var(--text);background:var(--input);border:1px solid var(--line);
-  border-radius:10px;padding:10px 12px;width:100%;outline:none;transition:border-color .2s,box-shadow .2s;
+  border-radius:10px;padding:10px 12px;width:100%;outline:none;transition:border-color .12s var(--ease-out),box-shadow .12s var(--ease-out);
 }
 input::placeholder,textarea::placeholder{color:var(--dim)}
 input:focus,select:focus,textarea:focus{border-color:var(--c1);box-shadow:0 0 0 3px rgba(0,229,255,.12)}
@@ -141,12 +141,12 @@ td.addr a{color:var(--muted);text-decoration:none}
 /* ===== Botones ===== */
 button{
   font:500 13px Inter,sans-serif;cursor:pointer;border:1px solid var(--line);background:var(--card);
-  color:var(--text);border-radius:10px;padding:9px 14px;transition:border-color .2s,color .2s,transform .15s,box-shadow .2s;
+  color:var(--text);border-radius:10px;padding:9px 14px;transition:border-color .13s var(--ease-out),color .13s var(--ease-out),transform .13s var(--ease-out),box-shadow .13s var(--ease-out);
 }
 @media (hover:hover) and (pointer:fine){button:hover{border-color:var(--c1);color:var(--c1)}}
 button.sm{padding:4px 8px;font-size:12px;border-radius:8px}
 button.primary{background:var(--grad);color:#05070f;border:0;font-weight:700;box-shadow:0 8px 24px -8px rgba(124,77,255,.7)}
-@media (hover:hover) and (pointer:fine){button.primary:hover{color:#05070f;transform:translateY(-1px);box-shadow:0 12px 30px -8px rgba(0,229,255,.7)}}
+@media (hover:hover) and (pointer:fine){button.primary:hover{color:#05070f;box-shadow:0 12px 30px -8px rgba(0,229,255,.7)}}
 @media (hover:hover) and (pointer:fine){button.danger:hover{border-color:var(--bad);color:var(--bad-t)}}
 button:disabled{opacity:.6;cursor:wait}
 .icon-btn{width:38px;height:38px;padding:0;display:grid;place-items:center;font-size:15px}
@@ -158,7 +158,7 @@ button:disabled{opacity:.6;cursor:wait}
 .search input{padding-left:38px}
 .search::before{content:"⌕";position:absolute;left:13px;top:50%;transform:translateY(-52%);color:var(--c1);font-size:18px}
 .stats{display:flex;flex-wrap:wrap;gap:8px}
-.chip{border:1px solid var(--line);border-radius:999px;padding:5px 12px;font:500 12px Inter,sans-serif;cursor:pointer;background:var(--card);color:var(--muted);transition:.2s}
+.chip{border:1px solid var(--line);border-radius:999px;padding:5px 12px;font:500 12px Inter,sans-serif;cursor:pointer;background:var(--card);color:var(--muted);transition:border-color .13s var(--ease-out),color .13s var(--ease-out),background .13s var(--ease-out),transform .13s var(--ease-out)}
 @media (hover:hover) and (pointer:fine){.chip:hover{border-color:var(--c1);color:var(--c1)}}
 .chip.on{background:var(--grad);color:#05070f;border-color:transparent;font-weight:700}
 
@@ -172,7 +172,6 @@ thead th{
   cursor:pointer;user-select:none;white-space:nowrap;border-bottom:1px solid var(--line-strong);
 }
 @media (hover:hover) and (pointer:fine){thead th:hover{color:var(--c1)}}
-tbody tr{transition:background .15s}
 @media (hover:hover) and (pointer:fine){tbody tr:hover td{background:var(--row-hover)}}
 tbody tr:last-child td{border-bottom:0}
 td.mono{font-size:12.5px;white-space:nowrap}
@@ -208,14 +207,13 @@ td.client b{font-family:"Space Grotesk",sans-serif;font-weight:600}
 @media (hover:hover) and (pointer:fine){.back:hover{color:var(--c1)}}
 
 /* ===== Toast ===== */
-.toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,10px);background:var(--card-solid);color:var(--text);border:1px solid var(--c1);box-shadow:0 0 24px rgba(0,229,255,.25);padding:10px 18px;border-radius:12px;opacity:0;transition:.25s;pointer-events:none;z-index:50;font-weight:500}
+.toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,10px);background:var(--card-solid);color:var(--text);border:1px solid var(--c1);box-shadow:0 0 24px rgba(0,229,255,.25);padding:10px 18px;border-radius:12px;opacity:0;transition:opacity .2s var(--ease-out),transform .2s var(--ease-out);pointer-events:none;z-index:50;font-weight:500}
 .toast.show{opacity:1;transform:translate(-50%,0)}
 
 .hidden{display:none!important}
 ::-webkit-scrollbar{width:10px;height:10px}
 ::-webkit-scrollbar-thumb{background:var(--line-strong);border-radius:10px}
 ::-webkit-scrollbar-track{background:transparent}
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 @media print{
   header .actions,.no-print,.glow{display:none!important}
   body{background:#fff;color:#000} body::before{display:none}
@@ -314,11 +312,11 @@ td.actions-col .acts .hist-btn b{position:absolute;top:-5px;right:-5px;min-width
 .cv-top h2,.cl-info h2{margin:0;font:700 22px "Space Grotesk",sans-serif}
 .cv-top .search{min-width:260px}
 .site-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px}
-.site-card{background:var(--card-solid);border:1px solid var(--line);border-radius:12px;padding:16px;cursor:pointer;transition:border-color .15s,box-shadow .15s,transform .15s;display:flex;flex-direction:column;gap:10px;min-height:178px}
-@media (hover:hover) and (pointer:fine){.site-card:hover{border-color:var(--c1);box-shadow:0 6px 20px -10px rgba(0,111,255,.45);transform:translateY(-1px)}}
+.site-card{background:var(--card-solid);border:1px solid var(--line);border-radius:12px;padding:16px;cursor:pointer;transition:border-color .13s var(--ease-out),box-shadow .13s var(--ease-out),transform .13s var(--ease-out);display:flex;flex-direction:column;gap:10px;min-height:178px}
+@media (hover:hover) and (pointer:fine){.site-card:hover{border-color:var(--c1);box-shadow:0 6px 20px -10px rgba(0,111,255,.45)}}
 .site-card h3{margin:0;font:700 14.5px Inter,sans-serif;letter-spacing:.02em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .sc-sub{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:12.5px}
-.sc-sub .dot{width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:none;animation:none}
+.sc-sub .dot{width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:none}
 .sc-sub .dot.warn{background:var(--warn)} .sc-sub .dot.off{background:var(--off)}
 .sc-bar{display:flex;height:7px;border-radius:4px;overflow:hidden;background:var(--line)}
 .sc-bar i{display:block;height:100%}
@@ -339,7 +337,7 @@ td.actions-col .acts .hist-btn b{position:absolute;top:-5px;right:-5px;min-width
 #devTable.no-acciones .actions-col{display:none}
 #devTable thead th[data-col]{position:sticky;top:0}
 #devTable thead th .col-rs{position:absolute;top:0;right:0;width:8px;height:100%;cursor:col-resize;z-index:4}
-#devTable thead th .col-rs::after{content:"";position:absolute;top:25%;bottom:25%;right:2px;width:2px;border-radius:2px;background:var(--line-strong);opacity:0;transition:.15s}
+#devTable thead th .col-rs::after{content:"";position:absolute;top:25%;bottom:25%;right:2px;width:2px;border-radius:2px;background:var(--line-strong);opacity:0;transition:opacity .13s var(--ease-out)}
 body.col-resizing #devTable .col-rs::after{opacity:1;background:var(--c1)}@media (hover:hover) and (pointer:fine){#devTable thead th:hover .col-rs::after{opacity:1;background:var(--c1)}}
 body.col-resizing{cursor:col-resize;user-select:none}
 #devTable td.col-w{overflow:hidden;text-overflow:ellipsis}
@@ -347,8 +345,8 @@ body.col-resizing{cursor:col-resize;user-select:none}
 #devTable th.col-w{overflow:hidden;text-overflow:ellipsis}
 .col-item.act-opt{display:none}
 #devTable th.actions-col,#devTable td.actions-col{display:none}
-button.type-btn{cursor:pointer;font:inherit;font-size:12px;color:var(--text);box-shadow:none;transition:.15s}
-@media (hover:hover) and (pointer:fine){button.type-btn:hover{border-color:var(--c1);background:color-mix(in srgb,var(--c1) 14%,transparent);transform:translateY(-1px)}}
+button.type-btn{cursor:pointer;font:inherit;font-size:12px;color:var(--text);box-shadow:none;transition:border-color .13s var(--ease-out),background .13s var(--ease-out),transform .13s var(--ease-out)}
+@media (hover:hover) and (pointer:fine){button.type-btn:hover{border-color:var(--c1);background:color-mix(in srgb,var(--c1) 14%,transparent)}}
 button.type-btn:focus-visible{outline:2px solid var(--c1);outline-offset:2px}
 /* ===== Columnas: mover y ocultar ===== */
 #devTable thead th[draggable=true]{cursor:grab}
@@ -416,8 +414,8 @@ tbody tr.is-sel td{background:var(--row-hover)}
 .ds-item.alert .n{color:var(--bad-t);font-weight:700}
 .ds-sep{height:1px;background:var(--line);margin:8px 6px}
 .ov-tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:12px;margin-bottom:14px}
-.tile{background:var(--card-solid);border:1px solid var(--line);border-radius:12px;padding:16px;cursor:pointer;transition:border-color .15s,transform .15s}
-@media (hover:hover) and (pointer:fine){.tile:hover{border-color:var(--c1);transform:translateY(-1px)}}
+.tile{background:var(--card-solid);border:1px solid var(--line);border-radius:12px;padding:16px;cursor:pointer;transition:border-color .13s var(--ease-out),transform .13s var(--ease-out)}
+@media (hover:hover) and (pointer:fine){.tile:hover{border-color:var(--c1)}}
 .tile .ic{float:right;font-size:22px;opacity:.75}
 .tile b{display:block;font:700 30px/1.15 "Space Grotesk",sans-serif;margin-top:2px}
 .tile span{color:var(--muted);font-size:12.5px}
@@ -477,11 +475,11 @@ a.dev-link{color:var(--text);cursor:pointer;text-decoration:none;font-weight:500
 .site-card.drop-r{box-shadow:inset -4px 0 0 var(--c1)}
 .site-card.pinned{border-color:color-mix(in srgb,var(--c1) 55%,var(--line))}
 .sc-pin{position:absolute;top:10px;right:10px;width:28px;height:28px;padding:0;display:grid;place-items:center;border-radius:8px;font-size:14px;
-  background:transparent;border:1px solid transparent;opacity:0;transition:.15s;filter:grayscale(1);box-shadow:none}
+  background:transparent;border:1px solid transparent;opacity:0;transition:opacity .13s var(--ease-out),border-color .13s var(--ease-out);filter:grayscale(1);box-shadow:none}
 @media (hover:hover) and (pointer:fine){.site-card:hover .sc-pin{opacity:.7}}
 @media (hover:hover) and (pointer:fine){.sc-pin:hover{opacity:1!important;border-color:var(--line-strong);filter:none}}
 .sc-pin.on{opacity:1;filter:none}
-.sc-mv{position:absolute;right:10px;bottom:10px;display:flex;gap:4px;opacity:0;transition:.15s;background:var(--card-solid);border-radius:8px}
+.sc-mv{position:absolute;right:10px;bottom:10px;display:flex;gap:4px;opacity:0;transition:opacity .13s var(--ease-out);background:var(--card-solid);border-radius:8px}
 .sc-mv button{box-shadow:none}.sc-mv button:disabled{opacity:.35;cursor:default}
 .sc-mv:focus-within{opacity:1}@media (hover:hover) and (pointer:fine){.site-card:hover .sc-mv{opacity:1}}
 .site-card h3{padding-right:30px}
@@ -825,7 +823,7 @@ body.p-noadm .p-solo-adm{display:none!important}
 .tm-pasos{margin:4px 0 0 18px;padding:0;font-size:13.5px;line-height:1.6}.tm-pasos li{margin-bottom:3px}.tm-peores{display:flex;flex-wrap:wrap;gap:6px}.tm-peores span{font-size:12.5px;padding:2px 9px;border-radius:999px;background:color-mix(in srgb,#dc2626 9%,transparent)}
 .ts-gauge{text-align:center;padding:14px 10px 10px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(180deg,color-mix(in srgb,var(--accent,#006fff) 7%,transparent),transparent)}
 .ts-g-n{font:800 54px/1 Inter,sans-serif;letter-spacing:-1px;color:var(--accent,#006fff)}.ts-g-u{font-size:13px;color:var(--muted);margin-top:2px}.ts-g-f{font-size:13px;margin:6px 0 8px;min-height:18px}
-.ts-bar{height:6px;border-radius:999px;background:var(--line);overflow:hidden;max-width:420px;margin:0 auto}.ts-bar i{display:block;height:100%;background:linear-gradient(90deg,#006fff,#7c4dff);transition:width .25s}
+.ts-bar{height:6px;border-radius:999px;background:var(--line);overflow:hidden;max-width:420px;margin:0 auto}.ts-bar i{display:block;height:100%;background:linear-gradient(90deg,#006fff,#7c4dff);transform-origin:left;transition:transform .25s linear}
 .ts-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin-top:10px}.ts-kpi{border:1px solid var(--line);border-radius:10px;padding:8px 10px;text-align:center}
 .ts-kpi b{font:700 22px/1.1 Inter,sans-serif}.ts-kpi small{color:var(--muted);margin-left:3px}.ts-kpi span{display:block;font-size:11.5px;color:var(--muted);margin-top:2px}
 .ts-kpi.bien{border-color:color-mix(in srgb,var(--ok,#16a34a) 50%,transparent)}.ts-kpi.bien b{color:var(--ok,#16a34a)}.ts-kpi.reg b{color:#d97706}.ts-kpi.mal{border-color:color-mix(in srgb,var(--bad,#dc2626) 50%,transparent)}.ts-kpi.mal b{color:var(--bad,#dc2626)}
@@ -1052,10 +1050,10 @@ details.u-help summary{cursor:pointer;font-weight:600}
 .svc-row .tx{flex:1;min-width:0}
 .svc-row .tx b{display:block;font-size:13.5px;color:var(--text)}
 .svc-row .tx small{color:var(--muted);font-size:12px}
-.sw{width:38px;height:22px;border-radius:999px;background:var(--line-strong);position:relative;flex:none;transition:.15s}
-.sw::after{content:"";position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:.15s;box-shadow:0 1px 2px rgba(0,0,0,.3)}
+.sw{width:38px;height:22px;border-radius:999px;background:var(--line-strong);position:relative;flex:none;transition:background .15s var(--ease-out)}
+.sw::after{content:"";position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:transform .15s var(--ease-out);box-shadow:0 1px 2px rgba(0,0,0,.3)}
 .svc-card.on .sw{background:var(--sc)}
-.svc-card.on .sw::after{left:19px}
+.svc-card.on .sw::after{transform:translateX(16px)}
 .svc-more{display:none;margin-top:10px;padding-left:42px;gap:8px;flex-direction:column}
 .svc-card.on .svc-more{display:flex}
 .svc-cov{display:flex;flex-wrap:wrap;gap:6px}
@@ -1162,6 +1160,12 @@ header{padding-top:max(14px,env(safe-area-inset-top,0px))}
 .toast,.idle-warn{bottom:calc(24px + env(safe-area-inset-bottom,0px))}
 /* Mantener presionado no selecciona el texto de un control; el contenido se sigue pudiendo copiar */
 button,.chip,.sede-tab{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+/* ===== Movimiento ===== */
+.tema-cambia *{transition:none!important}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition-property:opacity,color,background-color,border-color!important}
+  button:active:not(:disabled),.chip:active,.site-card:active,.tile:active{transform:none}
+}
 </style>
 </head>
 <body>
@@ -1173,7 +1177,7 @@ button,.chip,.sede-tab{-webkit-user-select:none;user-select:none;-webkit-touch-c
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v9.10.6</p>
+    <p class="sub">Network Asset Manager · v9.10.7</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" enterkeyhint="next" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" enterkeyhint="go" required placeholder="••••••••"></label>
@@ -1189,7 +1193,7 @@ button,.chip,.sede-tab{-webkit-user-select:none;user-select:none;-webkit-touch-c
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.10.6</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.10.7</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -1642,7 +1646,7 @@ function ponVista(el, html){
   }
   el.innerHTML = html;
 }
-function toast(msg){ const t=$('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),1800); }
+function toast(msg){ const t=$('toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(toast.t); toast.t=setTimeout(()=>t.classList.remove('show'),1800); }
 function fail(error, msg){ console.error(error); alert((msg||t('e_generic')) + ':\n' + (error?.message || error)); }
 const clean = x => { const o = {}; FIELDS.forEach(f => { const v = String(x[f] ?? '').trim(); o[f] = v || null; }); if(!o.tipo) o.tipo='Otro'; if(!o.estado) o.estado='Activo'; return o; };
 
@@ -8143,7 +8147,7 @@ function tsInetHTML(){
   const r = TS.inet || {}, c = TS.corriendo && TS.tab === 'inet';
   return `<div class="u-note" style="margin:0 0 10px">${t('ts_inet_h')}</div>
     <div class="ts-gauge"><div class="ts-g-n" id="tsNow">${c ? tsF(r.ahora || 0) : r.bajada != null ? tsF(r.bajada) : '—'}</div><div class="ts-g-u">Mbps</div><div class="ts-g-f" id="tsFase">${esc(r.fase || (r.bajada != null ? t('ts_listo') : t('ts_listo_para')))}</div>
-      <div class="ts-bar"><i id="tsProg" style="width:${r.prog || 0}%"></i></div></div>
+      <div class="ts-bar"><i id="tsProg" style="transform:scaleX(${(r.prog || 0) / 100})"></i></div></div>
     <div class="ts-kpis">${tsKpi(tsF(r.bajada), 'Mbps', '⬇ ' + t('ts_bajada'), tsNota(r.bajada, 100, 25))}${tsKpi(tsF(r.subida), 'Mbps', '⬆ ' + t('ts_subida'), tsNota(r.subida, 50, 10))}
       ${tsKpi(tsF(r.ping, 0), 'ms', '📶 Ping', tsNota(r.ping, 30, 100, true))}${tsKpi(tsF(r.jitter, 1), 'ms', '〰 Jitter', tsNota(r.jitter, 5, 30, true))}
       ${tsKpi(tsF(r.pingCarga, 0), 'ms', '🚦 ' + t('ts_ping_carga'), tsNota(r.pingCarga != null && r.ping != null ? r.pingCarga - r.ping : null, 30, 150, true))}${tsKpi(tsF(r.perdida, 1), '%', '📉 ' + t('ts_perdida_web'), tsNota(r.perdida, 0.5, 3, true))}</div>
@@ -8152,7 +8156,7 @@ function tsInetHTML(){
     <div class="row" style="margin-top:10px"><button class="primary" ${c ? 'disabled' : ''} onclick="tsInet()">▶ ${t(r.bajada != null ? 'ts_otra_vez' : 'ts_empezar')}</button>
       <label class="mdm-chk"><input type="checkbox" id="tsLargo" ${TS.largo ? 'checked' : ''} onchange="TS.largo=this.checked"> ${t('ts_largo')}</label>${c ? `<button onclick="TS.parar=true">⏹ ${t('ts_parar')}</button>` : ''}</div>`;
 }
-function tsPintarInet(){ const r = TS.inet; if (!r) return; const n = $('tsNow'), f = $('tsFase'), p = $('tsProg'); if (n) n.textContent = tsF(r.ahora || 0); if (f) f.textContent = r.fase || ''; if (p) p.style.width = (r.prog || 0) + '%'; }
+function tsPintarInet(){ const r = TS.inet; if (!r) return; const n = $('tsNow'), f = $('tsFase'), p = $('tsProg'); if (n) n.textContent = tsF(r.ahora || 0); if (f) f.textContent = r.fase || ''; if (p) p.style.transform = 'scaleX(' + (r.prog || 0) / 100 + ')'; }
 async function tsPing(n, timeout = 2000){
   const out = [];
   for (let i = 0; i < n && !TS.parar; i++){
@@ -8306,7 +8310,7 @@ function tsLanHTML(){
   else if (L.fase === 'esperando') cuerpo = `<div class="ts-code-box"><div class="muted">${t('ts_lan_codigo')}</div><div class="ts-code">${esc(L.codigo)}</div><div class="muted">${t('ts_lan_esp')}</div><button onclick="tsLanCerrar()">✕ ${t('cancel')}</button></div>`;
   else if (L.fase === 'conectando') cuerpo = `<div class="ts-code-box"><div class="ts-code" style="font-size:28px">⏳</div><div>${t('ts_lan_conect')}</div><div class="muted">${esc(L.msg || '')}</div><button onclick="tsLanCerrar()">✕ ${t('cancel')}</button></div>`;
   else if (L.fase === 'conectado' || L.fase === 'probando' || L.fase === 'listo') cuerpo = `
-      <div class="ts-gauge"><div class="ts-g-n" id="tsNow">${tsF(L.ahora ?? (R?.ab ?? 0))}</div><div class="ts-g-u">Mbps</div><div class="ts-g-f" id="tsFase">${esc(L.msg || (L.fase === 'listo' ? t('ts_listo') : t('ts_lan_ok')))}</div><div class="ts-bar"><i id="tsProg" style="width:${L.prog || 0}%"></i></div></div>
+      <div class="ts-gauge"><div class="ts-g-n" id="tsNow">${tsF(L.ahora ?? (R?.ab ?? 0))}</div><div class="ts-g-u">Mbps</div><div class="ts-g-f" id="tsFase">${esc(L.msg || (L.fase === 'listo' ? t('ts_listo') : t('ts_lan_ok')))}</div><div class="ts-bar"><i id="tsProg" style="transform:scaleX(${(L.prog || 0) / 100})"></i></div></div>
       <div class="ts-kpis">${tsKpi(tsF(R?.ab), 'Mbps', '➡ ' + t('ts_lan_ab'), tsNota(R?.ab, 300, 50))}${tsKpi(tsF(R?.ba), 'Mbps', '⬅ ' + t('ts_lan_ba'), tsNota(R?.ba, 300, 50))}
         ${tsKpi(tsF(R?.rtt, 1), 'ms', '📶 ' + t('ts_lan_lat'), tsNota(R?.rtt, 5, 30, true))}${tsKpi(tsF(R?.jitter, 1), 'ms', '〰 Jitter', tsNota(R?.jitter, 3, 15, true))}${tsKpi(tsF(R?.perdida, 2), '%', '📉 ' + t('ts_lan_perd'), tsNota(R?.perdida, 0.1, 1, true))}${tsKpi(tsF(R?.p95, 1), 'ms', '⏱ p95', tsNota(R?.p95, 15, 60, true))}</div>
       ${L.par ? `<div class="muted ts-meta">🔗 ${t('ts_lan_con')} <b>${esc(L.par)}</b>${L.ruta ? ' · ' + esc(L.ruta) : ''}</div>` : ''}${R?.diag ? `<div class="ts-diag">${R.diag}</div>` : ''}
@@ -8316,7 +8320,7 @@ function tsLanHTML(){
   return `${tsRapHTML()}<div class="panel" style="margin-top:10px"><h4 class="cl-h4" style="margin-top:0">🖧 ${t('ts_lan_dos')}</h4><div class="u-note" style="margin:0 0 10px">${t('ts_lan_h')}</div>${cuerpo}</div>`;
 }
 const tsLanSet = (patch) => { Object.assign(TS.lan, patch); if (TS.tab === 'lan') tsRender(); };
-function tsLanPintar(){ const L = TS.lan, n = $('tsNow'), f = $('tsFase'), p = $('tsProg'); if (n) n.textContent = tsF(L.ahora || 0); if (f) f.textContent = L.msg || ''; if (p) p.style.width = (L.prog || 0) + '%'; }
+function tsLanPintar(){ const L = TS.lan, n = $('tsNow'), f = $('tsFase'), p = $('tsProg'); if (n) n.textContent = tsF(L.ahora || 0); if (f) f.textContent = L.msg || ''; if (p) p.style.transform = 'scaleX(' + (L.prog || 0) / 100 + ')'; }
 function tsLanCanal(codigo){
   const ch = db.channel('lantest-' + codigo, { config: { broadcast: { self: false } } });
   ch.on('broadcast', { event: 'sig' }, ({ payload }) => tsLanSenal(payload));
@@ -11086,8 +11090,9 @@ async function migrarLocal(){
 
 /* ---------- Tema ---------- */
 function toggleTheme(){
-  const d = document.documentElement;
+  const d = document.documentElement; d.classList.add('tema-cambia');
   d.dataset.theme = d.dataset.theme === 'light' ? 'dark' : 'light';
+  requestAnimationFrame(() => requestAnimationFrame(() => d.classList.remove('tema-cambia')));
   try{ localStorage.setItem('inv_theme', d.dataset.theme); }catch(e){}
   colorBarra();
 }

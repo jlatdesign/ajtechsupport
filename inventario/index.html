@@ -329,7 +329,7 @@ td.actions-col .acts .hist-btn b{position:absolute;top:-5px;right:-5px;min-width
 @media (hover:hover) and (pointer:fine){.site-card.add:hover{background:var(--row-hover)}}
 /* Cabecera del cliente */
 .cl-head{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:18px}
-.cl-info{flex:1;min-width:220px}
+.cl-info{flex:1 1 220px;min-width:0;overflow-wrap:anywhere}
 .cl-info .muted{font-size:13px;margin-top:3px}
 .cl-info .muted a{color:var(--muted)}
 .backbtn{padding:8px 12px}
@@ -1179,6 +1179,8 @@ button,.chip,.sede-tab{-webkit-user-select:none;user-select:none;-webkit-touch-c
   *{animation:none!important;transition-property:opacity,color,background-color,border-color!important}
   button:active:not(:disabled),.chip:active,.site-card:active,.tile:active{transform:none}
 }
+/* La tabla se desplaza dentro de su caja; sin esto ensancha toda la página en pantallas de una columna */
+.dash>*{min-width:0}
 </style>
 </head>
 <body>
@@ -1190,7 +1192,7 @@ button,.chip,.sede-tab{-webkit-user-select:none;user-select:none;-webkit-touch-c
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v9.10.8</p>
+    <p class="sub">Network Asset Manager · v9.10.9</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" enterkeyhint="next" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" enterkeyhint="go" required placeholder="••••••••"></label>
@@ -1206,7 +1208,7 @@ button,.chip,.sede-tab{-webkit-user-select:none;user-select:none;-webkit-touch-c
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.10.8</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.10.9</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -1685,7 +1687,7 @@ en:{
   editing:'Editing: ', duplicating:'Duplicating', copy_suffix:' (copy)',
   registered:'Registered devices', search_ph:'Search by client, name, IP, MAC, serial, model, notes...',
   all_clients:'All clients', all_areas:'All areas', show_pw:'Show passwords', all:'All',
-  th_area:'Area', th_model:'Model', edit:'Edit', count:'{n} / {t} devices',
+  th_area:'Area', th_model:'Model', edit:'Edit', count:'{n} / {t} devices', count1:'{n} / 1 device', sin_nombre:'Unnamed',
   no_results:'No results', empty:'No devices yet. Click ＋ Add device to add the first one.',
   // Tipos y estados (la clave es el valor guardado)
   'tipo.DVR':'DVR','tipo.NVR':'NVR','tipo.Cámara':'Camera','tipo.PC':'PC','tipo.Laptop':'Laptop','tipo.Teléfono':'Phone',
@@ -1747,7 +1749,7 @@ en:{
   client_has_devices:'This client has {n} device(s). Delete or move them first.', confirm_del_client:'Delete client "{n}"?',
   client_exists:'A client named "{n}" already exists', client_saved:'Client saved', client_deleted:'Client deleted',
   update_addr_devices:'Also update the address in {n} device(s) of this client?', n_devices:'{n} devices', n_groups:'{n} groups', n_device1:'1 device', n_group1:'1 group',
-  no_devices_yet:'No devices yet', edit_device:'Edit device', clients_count:'{n} clients · {d} devices', no_clients:'No clients found.',
+  no_devices_yet:'No devices yet', edit_device:'Edit device', n_clients:'{n} clients', n_client1:'1 client', no_clients:'No clients found.',
   clients_missing:'The clients table is not set up yet. Run the clients SQL in Supabase.', n_repair:'{n} in repair', all_ok:'All active',
   prn_used_by:'PCs that use this printer', pc_reg_prns:'Registered printers this PC uses', other_prns:'Other printers (not registered as devices)',
   no_pcs_client:'This client has no PCs yet.', no_prns_client:'This client has no registered printers yet (add one with Type = Printer).',
@@ -1787,7 +1789,7 @@ es:{
   editing:'Editando: ', duplicating:'Duplicando', copy_suffix:' (copia)',
   registered:'Equipos registrados', search_ph:'Buscar por cliente, nombre, IP, MAC, serial, modelo, notas...',
   all_clients:'Todos los clientes', all_areas:'Todas las áreas', show_pw:'Mostrar passwords', all:'Todos',
-  th_area:'Área', th_model:'Modelo', edit:'Editar', count:'{n} / {t} equipos',
+  th_area:'Área', th_model:'Modelo', edit:'Editar', count:'{n} / {t} equipos', count1:'{n} / 1 equipo', sin_nombre:'Sin nombre',
   no_results:'No hay resultados', empty:'Aún no hay equipos. Haz clic en ＋ Agregar equipo para agregar el primero.',
   'tipo.DVR':'DVR','tipo.NVR':'NVR','tipo.Cámara':'Cámara','tipo.PC':'PC','tipo.Laptop':'Laptop','tipo.Teléfono':'Teléfono',
   'tipo.Router':'Router','tipo.Switch':'Switch','tipo.Access Point':'Access Point','tipo.Impresora':'Impresora','tipo.Servidor':'Servidor',
@@ -1846,7 +1848,7 @@ es:{
   client_has_devices:'Este cliente tiene {n} equipo(s). Bórralos o muévelos primero.', confirm_del_client:'¿Eliminar el cliente "{n}"?',
   client_exists:'Ya existe un cliente llamado "{n}"', client_saved:'Cliente guardado', client_deleted:'Cliente eliminado',
   update_addr_devices:'¿Actualizar también la dirección en {n} equipo(s) de este cliente?', n_devices:'{n} equipos', n_groups:'{n} grupos', n_device1:'1 equipo', n_group1:'1 grupo',
-  no_devices_yet:'Sin equipos todavía', edit_device:'Editar equipo', clients_count:'{n} clientes · {d} equipos', no_clients:'No se encontraron clientes.',
+  no_devices_yet:'Sin equipos todavía', edit_device:'Editar equipo', n_clients:'{n} clientes', n_client1:'1 cliente', no_clients:'No se encontraron clientes.',
   clients_missing:'La tabla de clientes aún no está configurada. Corre el SQL de clientes en Supabase.', n_repair:'{n} en reparación', all_ok:'Todos activos',
   prn_used_by:'PC que usan esta impresora', pc_reg_prns:'Impresoras registradas que usa esta PC', other_prns:'Otras impresoras (no registradas como equipo)',
   no_pcs_client:'Este cliente todavía no tiene PC.', no_prns_client:'Este cliente todavía no tiene impresoras registradas (agrega una con Tipo = Printer).',
@@ -1871,7 +1873,7 @@ es:{
 }};
 Object.assign(I18N.en, {
   uf_pick_sede:'Then choose which <b>location</b> each console belongs to.', uf_hidden:'{n} from other locations hidden', uf_hidden_help:'Devices from consoles assigned to other locations. Open “All locations” to see them all.',
-  sede_title:'Locations', sede_search:'Search locations...', sede_count:'{n} locations · {d} devices',
+  sede_title:'Locations', sede_search:'Search locations...', n_sedes:'{n} locations', n_sede1:'1 location',
   sede:'Location', sede_all:'All locations', sede_none:'No location', sede_none_opt:'— No location —', sede_add:'Add location', sede_add_first:'Add locations (if this client has more than one)',
   sede_edit:'Edit location', sede_name:'Location name', sede_name_ph:'e.g. Main office, Doral warehouse', sede_main:'Main office',
   sede_first_help:'The first location gets all the devices this client already has. Then add the others and move devices with Edit → Location.',
@@ -2173,7 +2175,7 @@ Object.assign(I18N.en, {
 });
 Object.assign(I18N.es, {
   uf_pick_sede:'Luego escoge a qué <b>ubicación</b> pertenece cada consola.', uf_hidden:'{n} de otras ubicaciones ocultos', uf_hidden_help:'Equipos de consolas asignadas a otras ubicaciones. Abre “Todas las ubicaciones” para verlos todos.',
-  sede_title:'Ubicaciones', sede_search:'Buscar ubicaciones...', sede_count:'{n} ubicaciones · {d} equipos',
+  sede_title:'Ubicaciones', sede_search:'Buscar ubicaciones...', n_sedes:'{n} ubicaciones', n_sede1:'1 ubicación',
   sede:'Ubicación', sede_all:'Todas las ubicaciones', sede_none:'Sin ubicación', sede_none_opt:'— Sin ubicación —', sede_add:'Agregar ubicación', sede_add_first:'Agregar ubicaciones (si este cliente tiene más de una)',
   sede_edit:'Editar ubicación', sede_name:'Nombre de la ubicación', sede_name_ph:'ej. Oficina principal, Bodega Doral', sede_main:'Oficina principal',
   sede_first_help:'La primera ubicación se queda con todos los equipos que ya tiene este cliente. Después agregas las otras y mueves equipos con Editar → Ubicación.',
@@ -3649,7 +3651,7 @@ function renderClientes(){
   $('svcFilter').innerHTML = todos.some(c => svcActivos(c).length) ? `<span class="chip ${!fSvc ? 'on' : ''}" onclick="fSvc='';renderClientes()">${t('svc_all')} (${todos.length})</span>` +
     SERVICIOS.filter(S => nSvc(S.k) || fSvc === S.k).map(S => `<span class="chip ${fSvc === S.k ? 'on' : ''}" onclick="fSvc='${S.k}';renderClientes()" style="${fSvc === S.k ? '' : 'color:' + S.color}">${svcIcon(S.k)} ${esc(t('svc.' + S.k))} (${nSvc(S.k)})</span>`).join('') +
     (nSvc('-') ? `<span class="chip ${fSvc === '-' ? 'on' : ''}" onclick="fSvc='-';renderClientes()">${t('svc_none')} (${nSvc('-')})</span>` : '') : '';
-  $('cvCount').textContent = t('clients_count', { n: todos.length, d: items.length });
+  $('cvCount').textContent = (todos.length === 1 ? t('n_client1') : t('n_clients', { n: todos.length })) + ' · ' + tN('n_devices', items.length);
   const orden = ['DVR','NVR','Cámara','PC','Laptop','Servidor','Impresora', ...NET_TIPOS,'Teléfono','Control de Acceso','Otro'];
   $('clientGrid').innerHTML = `<div class="site-card add" onclick="abrirClienteModal()">＋ ${t('new_client')}</div>` + lista.map((c, i) => {
     const d = equiposDe(c.nombre), n = d.length || 1;
@@ -3913,7 +3915,7 @@ function renderSedesGrid(){
   $('sdvNombre').textContent = c.nombre;
   $('sdvMeta').innerHTML = [c.contacto ? `👤 ${esc(c.contacto)}` : '', c.telefono ? `📞 ${esc(c.telefono)}` : '', c.email ? `✉️ ${esc(c.email)}` : ''].filter(Boolean).join(' &nbsp;·&nbsp; ');
   $('sdvSvc').innerHTML = svcActivos(c).map(S => `<span class="svc-pill" style="--sc:${S.color};cursor:default">${svcIcon(S.k)}${esc(t('svc.' + S.k))}</span>`).join('');
-  $('sdvCount').textContent = t('sede_count', { n: lista.length, d: todos.length });
+  $('sdvCount').textContent = (lista.length === 1 ? t('n_sede1') : t('n_sedes', { n: lista.length })) + ' · ' + tN('n_devices', todos.length);
   const q = nrm($('sdq').value);
   const vpnN = id => vpns.filter(v => v.sede_a === id || v.sede_b === id).length;
   const tarjeta = (onclick, titulo, d, dir, extra = '', cls = '') => { const b = cuerpoTarjeta(d);
@@ -7490,6 +7492,7 @@ function nuevoEquipoRed(){
 }
 /* ---------- UniFi: conectar consolas a un cliente e importar sus equipos ---------- */
 let UF = { consolas: [], equipos: [], sel: new Set(), tipos: {}, paso: '', cargando: false, msg: '' };
+const nombreEq = x => x.nombre || x.modelo || x.serial || x.ip || t('sin_nombre');
 const macNorm = m => String(m || '').toUpperCase().replace(/[^0-9A-F]/g, '').replace(/(..)(?!$)/g, '$1:');
 const hostsDe = c => { let v = c?.unifi_hosts; if (typeof v === 'string'){ try{ v = JSON.parse(v); }catch(e){ v = []; } } return Array.isArray(v) ? v : []; };
 function tipoUnifi(d){
@@ -10069,7 +10072,7 @@ function verDetalle(id, keepVis){
   const tieneSecretos = SECRET_FIELDS.some(f => x[f]) || getUsers(x).some(u => u.pw);
   const nh = (x.pw_history || []).length;
   $('detBody').innerHTML = `<div class="det-head"><span class="det-ic">${TIPO_ICON[x.tipo] || '◆'}</span>
-      <div><h3>${esc(x.nombre)}</h3><div class="det-sub">${[x.ip, x.mac].filter(Boolean).map(esc).join(' · ') || esc(tTipo(x.tipo))}</div></div><span class="sp"></span>
+      <div><h3>${esc(nombreEq(x))}</h3><div class="det-sub">${[x.ip, x.mac].filter(Boolean).map(esc).join(' · ') || esc(tTipo(x.tipo))}</div></div><span class="sp"></span>
       ${tieneSecretos ? `<button class="sm" onclick="detVis=!detVis;if(detVis)logAct('password_viewed',items.find(i=>i.id==='${x.id}'));verDetalle('${x.id}',true)" title="${t('t_view')}">👁</button>` : ''}
       <button class="sm" onclick="cerrarDetalle()">✕</button></div>
     <div class="kv">${html}</div>
@@ -10558,7 +10561,7 @@ function render(){
     return `<tr>
     <td class="no-print sel-col"><input type="checkbox" class="rowsel" data-id="${x.id}" ${sel.has(x.id) ? 'checked' : ''} onclick="selUno(this)"></td>
     <td class="client"><b>${esc(x.cliente)}</b></td><td class="addr">${x.direccion ? `<a href="${mapUrl(x.direccion)}" target="_blank" rel="noopener" title="${esc(x.direccion)} · ${t('t_openmap')}">📍 ${esc(x.direccion)}</a>` : ''}</td>
-    <td><button type="button" class="type type-btn" onclick="verDetalle('${x.id}')" title="${t('view')}">${TIPO_ICON[x.tipo] || '◆'} ${esc(tTipo(x.tipo))}</button></td><td><a class="dev-link" onclick="verDetalle('${x.id}')">${esc(x.nombre)}</a></td><td>${esc(x.first_name)}</td><td>${esc(x.last_name)}</td><td>${grupoDe(x) ? `<span class="g-chip" onclick="openGrupos('${x.grupo_id}')">🗂 ${esc(grupoDe(x).nombre)}</span>` : ''}</td><td>${sedeDe(x) ? `<span class="sede-chip">📍 ${esc(sedeDe(x).nombre)}</span>` : ''}</td><td>${esc(x.lugar)}</td><td>${esc(x.modelo)}</td>
+    <td><button type="button" class="type type-btn" onclick="verDetalle('${x.id}')" title="${t('view')}">${TIPO_ICON[x.tipo] || '◆'} ${esc(tTipo(x.tipo))}</button></td><td><a class="dev-link" onclick="verDetalle('${x.id}')">${esc(nombreEq(x))}</a></td><td>${esc(x.first_name)}</td><td>${esc(x.last_name)}</td><td>${grupoDe(x) ? `<span class="g-chip" onclick="openGrupos('${x.grupo_id}')">🗂 ${esc(grupoDe(x).nombre)}</span>` : ''}</td><td>${sedeDe(x) ? `<span class="sede-chip">📍 ${esc(sedeDe(x).nombre)}</span>` : ''}</td><td>${esc(x.lugar)}</td><td>${esc(x.modelo)}</td>
     <td class="mono">${esc(x.serial)}</td>
     <td class="mono ip">${x.ip ? `<a href="http://${esc(x.ip)}" target="_blank" rel="noopener">${esc(x.ip)}</a>` : ''}</td>
     <td class="mono">${esc(x.mac)}</td><td class="mono">${esc(x.usuario)}</td><td class="mono">${pw}</td>
@@ -10569,7 +10572,7 @@ function render(){
     </div></td></tr>`;
   }).join('')
     : `<tr><td colspan="26" class="empty">${(curCliente ? equiposDe(curCliente).length : items.length) ? t('no_results') : t('empty')}</td></tr>`;
-  $('count').textContent = t('count', {n: rows.length, t: base.length});
+  $('count').textContent = t(base.length === 1 ? 'count1' : 'count', {n: rows.length, t: base.length});
   $('kTotal').textContent = base.length;
   $('kClientes').textContent = curCliente ? grupos.filter(g => mismoCliente(g.cliente, curCliente)).length : clientes.length;
   $('kActivos').textContent = base.filter(x => x.estado === 'Activo').length;

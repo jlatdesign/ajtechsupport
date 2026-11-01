@@ -481,6 +481,9 @@ a.dev-link:hover{color:var(--c1);text-decoration:underline}
 .site-card:hover .sc-pin{opacity:.7}
 .sc-pin:hover{opacity:1!important;border-color:var(--line-strong);filter:none}
 .sc-pin.on{opacity:1;filter:none}
+.sc-mv{position:absolute;right:10px;bottom:10px;display:flex;gap:4px;opacity:0;transition:.15s;background:var(--card-solid);border-radius:8px}
+.sc-mv button{box-shadow:none}.sc-mv button:disabled{opacity:.35;cursor:default}
+.site-card:hover .sc-mv,.sc-mv:focus-within{opacity:1}
 .site-card h3{padding-right:30px}
 td.actions-col .acts button.ver-btn{width:auto;padding:0 9px;font-size:12px;gap:4px;display:inline-flex;align-items:center}
 body.p-noborrar [onclick*="del('"],body.p-noborrar [onclick="borrarSel()"],body.p-noborrar #devTable .sel-col,body.p-noborrar #selBar,
@@ -1112,6 +1115,25 @@ details.u-help summary{cursor:pointer;font-weight:600}
 .act-empty{padding:40px;text-align:center;color:var(--muted)}
 .act-us td,.act-us th{white-space:nowrap}.act-us td.d{white-space:normal;min-width:260px}.act-us .n{text-align:right}.act-us td.warn{color:var(--warn-t);font-weight:700}
 .act-more{display:flex;justify-content:center;padding:12px}
+/* ===== Pantalla estrecha: el encabezado envuelve varias filas; fijo taparía casi media pantalla ===== */
+@media (max-width:760px){header{position:static}}
+/* ===== Táctil: el mínimo es 44px con dedo; el ratón conserva la densidad ===== */
+@media (hover:none){.sc-pin:not(.on),.sc-edit{opacity:.85}}
+@media (pointer:coarse){
+  button{min-height:44px}
+  button.sm{min-height:44px;min-width:44px}
+  .icon-btn{width:44px;height:44px}
+  td.actions-col .acts{gap:6px}
+  td.actions-col .acts button.sm{width:44px;height:44px;font-size:14px}
+  .chip,.pl-fil .chip,.lang button,.sede-tab{min-height:44px;display:inline-flex;align-items:center}
+  .lang button{min-width:44px;justify-content:center}
+  .sc-pin{width:44px;height:44px;top:4px;right:4px}
+  .site-card h3{padding-right:46px}
+  .sc-mv{position:static;opacity:1;justify-content:flex-end;order:9}
+  .col-item .mv{gap:6px}
+  .col-item .mv button{min-width:44px;min-height:44px}
+  .sel-col input,.bulk-chk input{width:24px;height:24px}
+}
 </style>
 </head>
 <body>
@@ -1123,7 +1145,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v9.10.2</p>
+    <p class="sub">Network Asset Manager · v9.10.3</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
@@ -1139,7 +1161,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.10.2</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.10.3</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -1167,7 +1189,7 @@ details.u-help summary{cursor:pointer;font-weight:600}
 <!-- ===== Vista: lista de clientes ===== -->
 <div id="clientsView">
   <div class="cv-top">
-    <div><h2 data-i18n="clients_title">Clients</h2><small class="muted" id="cvCount"></small><br><small class="muted solo-roles" data-i18n="clients_drag">Drag the cards to change the order</small></div>
+    <div><h2 data-i18n="clients_title">Clients</h2><small class="muted" id="cvCount"></small><br><small class="muted solo-roles" data-i18n="clients_drag">Drag the cards or use ↑↓ to change the order</small></div>
     <div class="row">
       <div class="search"><input id="cq" data-i18n-ph="search_clients" placeholder="Search clients..." oninput="renderClientes()"></div>
       <button class="primary" onclick="abrirClienteModal()">＋ <span data-i18n="new_client">New client</span></button>
@@ -2021,7 +2043,7 @@ Object.assign(I18N.en, {
   idle_warn:'You will be signed out for inactivity in {s} s', idle_stay:'Stay signed in', logout_idle:'Your session was closed for inactivity. Sign in again.',
   'ev.signed_out_idle':'Signed Out (Inactivity)', 'ad.signed_out_idle':'{u} was signed out for inactivity.',
   view:'View', pin:'Pin to the top', unpin:'Unpin', pinned:'📌 {c} pinned to the top', unpinned:'{c} unpinned',
-  orden_missing:'To pin and reorder clients, run supabase-orden.sql in Supabase first.', clients_drag:'Drag the cards to change the order · 📌 pins a client to the top',
+  orden_missing:'To pin and reorder clients, run supabase-orden.sql in Supabase first.', clients_drag:'Drag the cards or use ↑↓ to change the order · 📌 pins a client to the top', cl_antes:'Move earlier', cl_despues:'Move later',
   svc_tel_red:'Includes the network for the phones (switch, router, AP…) — not a Network Management service',
   svc_tel_red_inc:'Network already covered by the Network Management service', svc_tel_red_short:'+ phone network',
   net_tel_only:'Phone network only', net_tel_only_sub:'Comes with the Telephony service, just to manage the phones. It is not the Network Management service.',
@@ -2323,7 +2345,7 @@ Object.assign(I18N.es, {
   idle_warn:'Se cerrará tu sesión por inactividad en {s} s', idle_stay:'Seguir conectado', logout_idle:'Tu sesión se cerró por inactividad. Vuelve a entrar.',
   'ev.signed_out_idle':'Sesión cerrada (inactividad)', 'ad.signed_out_idle':'{u} fue desconectado por inactividad.',
   view:'Ver', pin:'Fijar arriba', unpin:'Quitar de arriba', pinned:'📌 {c} fijado arriba', unpinned:'{c} ya no está fijado',
-  orden_missing:'Para fijar y ordenar clientes, primero corre supabase-orden.sql en Supabase.', clients_drag:'Arrastra las tarjetas para cambiar el orden · 📌 fija un cliente arriba',
+  orden_missing:'Para fijar y ordenar clientes, primero corre supabase-orden.sql en Supabase.', clients_drag:'Arrastra las tarjetas o usa ↑↓ para cambiar el orden · 📌 fija un cliente arriba', cl_antes:'Mover antes', cl_despues:'Mover después',
   svc_tel_red:'Incluye la red para los teléfonos (switch, router, AP…) — no es el servicio de Administración de red',
   svc_tel_red_inc:'La red ya la cubre el servicio de Administración de red', svc_tel_red_short:'+ red de teléfonos',
   net_tel_only:'Red solo de telefonía', net_tel_only_sub:'Viene con el servicio de Telefonía, solo para el manejo de los teléfonos. No es el servicio de Administración de red.',
@@ -3569,7 +3591,7 @@ function renderClientes(){
     (nSvc('-') ? `<span class="chip ${fSvc === '-' ? 'on' : ''}" onclick="fSvc='-';renderClientes()">${t('svc_none')} (${nSvc('-')})</span>` : '') : '';
   $('cvCount').textContent = t('clients_count', { n: todos.length, d: items.length });
   const orden = ['DVR','NVR','Cámara','PC','Laptop','Servidor','Impresora', ...NET_TIPOS,'Teléfono','Control de Acceso','Otro'];
-  $('clientGrid').innerHTML = `<div class="site-card add" onclick="abrirClienteModal()">＋ ${t('new_client')}</div>` + lista.map(c => {
+  $('clientGrid').innerHTML = `<div class="site-card add" onclick="abrirClienteModal()">＋ ${t('new_client')}</div>` + lista.map((c, i) => {
     const d = equiposDe(c.nombre), n = d.length || 1;
     const cnt = k => d.filter(x => x.estado === k).length;
     const rep = cnt('En reparación'), act = cnt('Activo');
@@ -3582,6 +3604,7 @@ function renderClientes(){
     const bar = d.length ? `<i style="width:${act / n * 100}%;background:var(--ok)"></i><i style="width:${rep / n * 100}%;background:var(--warn)"></i><i style="width:${cnt('Inactivo') / n * 100}%;background:var(--off)"></i><i style="width:${cnt('Dado de baja') / n * 100}%;background:var(--bad)"></i>` : '';
     return `<div class="site-card ${c.fijado ? 'pinned' : ''}" onclick="abrirCliente(this.dataset.n)" data-n="${esc(c.nombre)}" ${PERM.admin ? 'draggable="true"' : ''}>
       ${PERM.admin ? `<button class="sc-pin ${c.fijado ? 'on' : ''}" onclick="event.stopPropagation();fijarCliente(this.closest('.site-card').dataset.n)" title="${esc(t(c.fijado ? 'unpin' : 'pin'))}">📌</button>` : (c.fijado ? '<span class="sc-pin on">📌</span>' : '')}
+      ${PERM.admin ? `<span class="sc-mv no-print"><button class="sm" ${lista[i - 1] && !!lista[i - 1].fijado === !!c.fijado ? '' : 'disabled'} onclick="event.stopPropagation();clPaso(this,-1)" title="${esc(t('cl_antes'))}" aria-label="${esc(t('cl_antes'))}: ${esc(c.nombre)}">↑</button><button class="sm" ${lista[i + 1] && !!lista[i + 1].fijado === !!c.fijado ? '' : 'disabled'} onclick="event.stopPropagation();clPaso(this,1)" title="${esc(t('cl_despues'))}" aria-label="${esc(t('cl_despues'))}: ${esc(c.nombre)}">↓</button></span>` : ''}
       <h3 title="${esc(c.nombre)}">${esc(c.nombre)}</h3>
       <div class="sc-sub">${estado}</div>
       <div class="sc-bar">${bar}</div>
@@ -9268,6 +9291,14 @@ async function moverCliente(origen, destino, despues){
     if (error) throw error;
     await loadData();
   }catch(e){ faltaOrden(e) ? alert(t('orden_missing')) : fail(e, t('save_fail')); }
+}
+// ↑↓ en la tarjeta: lo mismo que arrastrar, para teléfono y teclado. Se mueve dentro de su grupo (fijados o no fijados); para cambiar de grupo está 📌
+let clPasoOc = false;
+async function clPaso(btn, dir){
+  if (clPasoOc || !puede('admin')) return;
+  const cards = [...document.querySelectorAll('#clientGrid .site-card[data-n]')], el = btn.closest('.site-card'), n = el.dataset.n, v = cards[cards.indexOf(el) + dir]; if (!v) return;
+  clPasoOc = true; try { await moverCliente(n, v.dataset.n, dir > 0); } finally { clPasoOc = false; }
+  document.querySelector(`#clientGrid .site-card[data-n="${CSS.escape(n)}"] .sc-mv button:nth-child(${dir < 0 ? 1 : 2})`)?.focus();
 }
 let cliArr = null;
 document.addEventListener('dragstart', e => {

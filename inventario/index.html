@@ -1181,6 +1181,12 @@ button,.chip,.sede-tab{-webkit-user-select:none;user-select:none;-webkit-touch-c
 }
 /* La tabla se desplaza dentro de su caja; sin esto ensancha toda la página en pantallas de una columna */
 .dash>*{min-width:0}
+/* Textos largos en tarjetas y tabla */
+.site-card h3{white-space:normal;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;overflow-wrap:anywhere}
+.sc-sedes{align-self:flex-start}
+#devTable .type,#devTable .badge{display:inline-block;max-width:200px;overflow:hidden;text-overflow:ellipsis;vertical-align:top}
+#devTable .badge::before{display:inline-block;margin-right:6px;vertical-align:middle}
+@media (pointer:coarse){#devTable .type{line-height:36px}}
 </style>
 </head>
 <body>
@@ -1192,7 +1198,7 @@ button,.chip,.sede-tab{-webkit-user-select:none;user-select:none;-webkit-touch-c
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v9.10.9</p>
+    <p class="sub">Network Asset Manager · v9.10.10</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" enterkeyhint="next" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" enterkeyhint="go" required placeholder="••••••••"></label>
@@ -1208,7 +1214,7 @@ button,.chip,.sede-tab{-webkit-user-select:none;user-select:none;-webkit-touch-c
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.10.9</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.10.10</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -1529,7 +1535,7 @@ button,.chip,.sede-tab{-webkit-user-select:none;user-select:none;-webkit-touch-c
       <table id="devTable">
         <thead><tr>
           <th class="no-print sel-col"><input type="checkbox" id="selAll" onclick="selTodos(this.checked)" data-i18n-title="t_selall"></th><th data-k="cliente" data-i18n="client">Client</th><th data-k="direccion" data-i18n="address">Address</th>
-          <th data-k="tipo" data-i18n="type">Type</th><th data-k="nombre" data-i18n="name">Name</th><th data-k="first_name" data-i18n="first_name">First name</th><th data-k="last_name" data-i18n="last_name">Last name</th><th data-i18n="group">Group</th><th data-i18n="sede">Location</th><th data-k="lugar" data-i18n="th_area">Area</th>
+          <th data-k="tipo" data-i18n="type">Type</th><th data-k="nombre" data-i18n="th_device">Name</th><th data-k="first_name" data-i18n="first_name">First name</th><th data-k="last_name" data-i18n="last_name">Last name</th><th data-i18n="group">Group</th><th data-i18n="sede">Location</th><th data-k="lugar" data-i18n="th_area">Area</th>
           <th data-k="modelo" data-i18n="th_model">Model</th><th data-k="serial" data-i18n="serial">Serial</th><th data-k="ip">IP</th>
           <th data-k="mac">MAC</th><th data-k="usuario" data-i18n="username">Username</th><th data-i18n="password">Password</th>
           <th data-k="departamento" data-i18n="th_user">Department / contact</th><th data-k="hostname" data-i18n="th_pc">Computer</th><th data-k="anydesk" data-i18n="th_remote">Remote access</th><th data-k="pc_user" data-i18n="th_logins">PC logins</th><th data-k="lbl_modelo" data-i18n="th_printers">Printers</th><th data-i18n="th_licenses">Licenses</th><th data-k="garantia" data-i18n="th_warranty">Warranty</th>
@@ -1663,7 +1669,7 @@ function ponVista(el, html){
 }
 function toast(msg){ const t=$('toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(toast.t); toast.t=setTimeout(()=>t.classList.remove('show'),1800); }
 function fail(error, msg){ console.error(error); alert((msg||t('e_generic')) + ':\n' + (error?.message || error)); }
-const clean = x => { const o = {}; FIELDS.forEach(f => { const v = String(x[f] ?? '').trim(); o[f] = v || null; }); if(!o.tipo) o.tipo='Otro'; if(!o.estado) o.estado='Activo'; return o; };
+const clean = x => { const o = {}; FIELDS.forEach(f => { const v = String(x[f] ?? '').trim(); o[f] = v || null; }); if(o.mac) o.mac=macVer(o.mac); if(!o.tipo) o.tipo='Otro'; if(!o.estado) o.estado='Activo'; return o; };
 
 /* ================== IDIOMAS / LANGUAGES ==================
    Inglés es el idioma principal. Los valores guardados en la base
@@ -1687,7 +1693,7 @@ en:{
   editing:'Editing: ', duplicating:'Duplicating', copy_suffix:' (copy)',
   registered:'Registered devices', search_ph:'Search by client, name, IP, MAC, serial, model, notes...',
   all_clients:'All clients', all_areas:'All areas', show_pw:'Show passwords', all:'All',
-  th_area:'Area', th_model:'Model', edit:'Edit', count:'{n} / {t} devices', count1:'{n} / 1 device', sin_nombre:'Unnamed',
+  th_area:'Area', th_model:'Model', edit:'Edit', count:'{n} / {t} devices', count1:'{n} / 1 device', th_device:'Name', sin_nombre:'Unnamed',
   no_results:'No results', empty:'No devices yet. Click ＋ Add device to add the first one.',
   // Tipos y estados (la clave es el valor guardado)
   'tipo.DVR':'DVR','tipo.NVR':'NVR','tipo.Cámara':'Camera','tipo.PC':'PC','tipo.Laptop':'Laptop','tipo.Teléfono':'Phone',
@@ -1789,7 +1795,7 @@ es:{
   editing:'Editando: ', duplicating:'Duplicando', copy_suffix:' (copia)',
   registered:'Equipos registrados', search_ph:'Buscar por cliente, nombre, IP, MAC, serial, modelo, notas...',
   all_clients:'Todos los clientes', all_areas:'Todas las áreas', show_pw:'Mostrar passwords', all:'Todos',
-  th_area:'Área', th_model:'Modelo', edit:'Editar', count:'{n} / {t} equipos', count1:'{n} / 1 equipo', sin_nombre:'Sin nombre',
+  th_area:'Área', th_model:'Modelo', edit:'Editar', count:'{n} / {t} equipos', count1:'{n} / 1 equipo', th_device:'Equipo', sin_nombre:'Sin nombre',
   no_results:'No hay resultados', empty:'Aún no hay equipos. Haz clic en ＋ Agregar equipo para agregar el primero.',
   'tipo.DVR':'DVR','tipo.NVR':'NVR','tipo.Cámara':'Cámara','tipo.PC':'PC','tipo.Laptop':'Laptop','tipo.Teléfono':'Teléfono',
   'tipo.Router':'Router','tipo.Switch':'Switch','tipo.Access Point':'Access Point','tipo.Impresora':'Impresora','tipo.Servidor':'Servidor',
@@ -3670,7 +3676,7 @@ function renderClientes(){
       <h3 title="${esc(c.nombre)}">${esc(c.nombre)}</h3>
       <div class="sc-sub">${estado}</div>
       <div class="sc-bar">${bar}</div>
-      <div class="sc-addr">${c.direccion ? `📍 ${esc(c.direccion)}` : '&nbsp;'}${nSd > 1 ? ` <b class="sc-sedes">+${nSd - 1} ${t(nSd - 1 === 1 ? 'sede_more1' : 'sede_more')}</b>` : ''}</div>
+      <div class="sc-addr" title="${esc(c.direccion || '')}">${c.direccion ? `📍 ${esc(c.direccion)}` : '&nbsp;'}</div>${nSd > 1 ? `<b class="sc-sedes">+${nSd - 1} ${t(nSd - 1 === 1 ? 'sede_more1' : 'sede_more')}</b>` : ''}
       <div class="sc-svc">${svcActivos(c).map(S => `<span style="--sc:${S.color}" title="${esc(t('svc.' + S.k) + (S.k === 'it' && svcSinIT(svcDe(c).it) ? ' · ' + svcSinIT(svcDe(c).it) : ''))}">${svcIcon(S.k)}</span>`).join('')}</div>
       <div class="sc-icons">${Object.keys(tipos).length ? Object.keys(tipos).sort((a, b) => orden.indexOf(a) - orden.indexOf(b)).map(k => `<span title="${esc(tTipo(k))}">${TIPO_ICON[k] || '◆'} ${tipos[k]}</span>`).join('') : `<span class="empty">＋ ${t('add_device')}</span>`}</div>
     </div>`;
@@ -3919,8 +3925,8 @@ function renderSedesGrid(){
   const q = nrm($('sdq').value);
   const vpnN = id => vpns.filter(v => v.sede_a === id || v.sede_b === id).length;
   const tarjeta = (onclick, titulo, d, dir, extra = '', cls = '') => { const b = cuerpoTarjeta(d);
-    return `<div class="site-card ${cls}" onclick="${onclick}">${extra}<h3>${titulo}</h3><div class="sc-sub">${b.estado}</div><div class="sc-bar">${b.bar}</div>
-      <div class="sc-addr">${dir ? `📍 ${esc(dir)}` : '&nbsp;'}</div><div class="sc-icons">${b.iconos}</div></div>`; };
+    return `<div class="site-card ${cls}" onclick="${onclick}">${extra}<h3 title="${String(titulo).replace(/<[^>]*>/g, '').trim()}">${titulo}</h3><div class="sc-sub">${b.estado}</div><div class="sc-bar">${b.bar}</div>
+      <div class="sc-addr" title="${esc(dir || '')}">${dir ? `📍 ${esc(dir)}` : '&nbsp;'}</div><div class="sc-icons">${b.iconos}</div></div>`; };
   const sinSede = todos.filter(x => !x.sede_id || !sedes.some(s => s.id === x.sede_id));
   $('sedeGrid').innerHTML =
     (PERM.editar ? `<div class="site-card add" onclick="nuevaSede()">＋ ${t('sede_add')}</div>` : '') +
@@ -7493,6 +7499,8 @@ function nuevoEquipoRed(){
 /* ---------- UniFi: conectar consolas a un cliente e importar sus equipos ---------- */
 let UF = { consolas: [], equipos: [], sel: new Set(), tipos: {}, paso: '', cargando: false, msg: '' };
 const nombreEq = x => x.nombre || x.modelo || x.serial || x.ip || t('sin_nombre');
+// MAC con 12 dígitos se muestra siempre igual; cualquier otro texto se deja como está
+const macVer = m => String(m || '').replace(/[^0-9A-Fa-f]/g, '').length === 12 && /^[0-9A-Fa-f:. -]+$/.test(m) ? macNorm(m) : (m || '');
 const macNorm = m => String(m || '').toUpperCase().replace(/[^0-9A-F]/g, '').replace(/(..)(?!$)/g, '$1:');
 const hostsDe = c => { let v = c?.unifi_hosts; if (typeof v === 'string'){ try{ v = JSON.parse(v); }catch(e){ v = []; } } return Array.isArray(v) ? v : []; };
 function tipoUnifi(d){
@@ -10024,7 +10032,7 @@ function verDetalle(id, keepVis){
   const oculto = v => v ? (detVis ? esc(v) : '••••••') : '';
   const grupo = grupoDe(x);
   const camposBase = [['tipo', esc(tTipo(x.tipo))], ['estado', x.estado ? `<span class="badge ${ESTADO_CLS[x.estado] || 'b-off'}">${esc(tEstado(x.estado))}</span>` : ''],
-    ['modelo', esc(x.modelo)], ['serial', esc(x.serial), 1], ['ip', x.ip ? `<a href="http://${esc(x.ip)}" target="_blank" rel="noopener">${esc(x.ip)}</a>` : '', 1], ['mac', esc(x.mac), 1],
+    ['modelo', esc(x.modelo)], ['serial', esc(x.serial), 1], ['ip', x.ip ? `<a href="http://${esc(x.ip)}" target="_blank" rel="noopener">${esc(x.ip)}</a>` : '', 1], ['mac', esc(macVer(x.mac)), 1],
     ['lugar', esc(x.lugar)], ['direccion', x.direccion ? `<a href="${mapUrl(x.direccion)}" target="_blank" rel="noopener">📍 ${esc(x.direccion)}</a>` : ''],
     ['usuario', esc(x.usuario), 1], ['password', oculto(x.password), 1]];
   let html = camposBase.map(([f, v, m]) => fila(X_LABEL(f), v, m)).join('') + fila(t('group'), grupo ? '🗂 ' + esc(grupo.nombre) : '') + fila(t('sede'), sedeDe(x) ? '📍 ' + esc(sedeDe(x).nombre) + (sedeDe(x).direccion ? ` <small class="muted">· ${esc(sedeDe(x).direccion)}</small>` : '') : '');
@@ -10072,7 +10080,7 @@ function verDetalle(id, keepVis){
   const tieneSecretos = SECRET_FIELDS.some(f => x[f]) || getUsers(x).some(u => u.pw);
   const nh = (x.pw_history || []).length;
   $('detBody').innerHTML = `<div class="det-head"><span class="det-ic">${TIPO_ICON[x.tipo] || '◆'}</span>
-      <div><h3>${esc(nombreEq(x))}</h3><div class="det-sub">${[x.ip, x.mac].filter(Boolean).map(esc).join(' · ') || esc(tTipo(x.tipo))}</div></div><span class="sp"></span>
+      <div><h3>${esc(nombreEq(x))}</h3><div class="det-sub">${[x.ip, macVer(x.mac)].filter(Boolean).map(esc).join(' · ') || esc(tTipo(x.tipo))}</div></div><span class="sp"></span>
       ${tieneSecretos ? `<button class="sm" onclick="detVis=!detVis;if(detVis)logAct('password_viewed',items.find(i=>i.id==='${x.id}'));verDetalle('${x.id}',true)" title="${t('t_view')}">👁</button>` : ''}
       <button class="sm" onclick="cerrarDetalle()">✕</button></div>
     <div class="kv">${html}</div>
@@ -10561,12 +10569,12 @@ function render(){
     return `<tr>
     <td class="no-print sel-col"><input type="checkbox" class="rowsel" data-id="${x.id}" ${sel.has(x.id) ? 'checked' : ''} onclick="selUno(this)"></td>
     <td class="client"><b>${esc(x.cliente)}</b></td><td class="addr">${x.direccion ? `<a href="${mapUrl(x.direccion)}" target="_blank" rel="noopener" title="${esc(x.direccion)} · ${t('t_openmap')}">📍 ${esc(x.direccion)}</a>` : ''}</td>
-    <td><button type="button" class="type type-btn" onclick="verDetalle('${x.id}')" title="${t('view')}">${TIPO_ICON[x.tipo] || '◆'} ${esc(tTipo(x.tipo))}</button></td><td><a class="dev-link" onclick="verDetalle('${x.id}')">${esc(nombreEq(x))}</a></td><td>${esc(x.first_name)}</td><td>${esc(x.last_name)}</td><td>${grupoDe(x) ? `<span class="g-chip" onclick="openGrupos('${x.grupo_id}')">🗂 ${esc(grupoDe(x).nombre)}</span>` : ''}</td><td>${sedeDe(x) ? `<span class="sede-chip">📍 ${esc(sedeDe(x).nombre)}</span>` : ''}</td><td>${esc(x.lugar)}</td><td>${esc(x.modelo)}</td>
+    <td><button type="button" class="type type-btn" onclick="verDetalle('${x.id}')" title="${esc(tTipo(x.tipo))} · ${t('view')}">${TIPO_ICON[x.tipo] || '◆'} ${esc(tTipo(x.tipo))}</button></td><td><a class="dev-link" onclick="verDetalle('${x.id}')">${esc(nombreEq(x))}</a></td><td>${esc(x.first_name)}</td><td>${esc(x.last_name)}</td><td>${grupoDe(x) ? `<span class="g-chip" onclick="openGrupos('${x.grupo_id}')">🗂 ${esc(grupoDe(x).nombre)}</span>` : ''}</td><td>${sedeDe(x) ? `<span class="sede-chip">📍 ${esc(sedeDe(x).nombre)}</span>` : ''}</td><td>${esc(x.lugar)}</td><td>${esc(x.modelo)}</td>
     <td class="mono">${esc(x.serial)}</td>
     <td class="mono ip">${x.ip ? `<a href="http://${esc(x.ip)}" target="_blank" rel="noopener">${esc(x.ip)}</a>` : ''}</td>
-    <td class="mono">${esc(x.mac)}</td><td class="mono">${esc(x.usuario)}</td><td class="mono">${pw}</td>
+    <td class="mono">${esc(macVer(x.mac))}</td><td class="mono">${esc(x.usuario)}</td><td class="mono">${pw}</td>
     <td class="stack">${cUser}</td><td class="stack">${cPC}</td><td class="stack">${cAD}</td><td class="stack">${cLog}</td><td class="stack">${cPrn}</td><td class="stack">${cLic}</td><td>${badgeGarantia(x.garantia)}</td>
-    <td>${x.estado ? `<span class="badge ${ESTADO_CLS[x.estado] || 'b-off'}">${esc(tEstado(x.estado))}</span>` : ''}</td><td class="notes">${esc(x.notas)}</td>
+    <td>${x.estado ? `<span class="badge ${ESTADO_CLS[x.estado] || 'b-off'}" title="${esc(tEstado(x.estado))}">${esc(tEstado(x.estado))}</span>` : ''}</td><td class="notes">${esc(x.notas)}</td>
     <td class="no-print actions-col"><div class="acts">
       <button class="sm ver-btn" onclick="verDetalle('${x.id}')" title="${t('view')}">👁 ${t('view')}</button>
     </div></td></tr>`;

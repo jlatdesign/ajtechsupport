@@ -1201,7 +1201,7 @@ button,.chip,.sede-tab{-webkit-user-select:none;user-select:none;-webkit-touch-c
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v9.12.2</p>
+    <p class="sub">Network Asset Manager · v9.13.0</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" enterkeyhint="next" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" enterkeyhint="go" required placeholder="••••••••"></label>
@@ -1217,7 +1217,7 @@ button,.chip,.sede-tab{-webkit-user-select:none;user-select:none;-webkit-touch-c
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.12.2</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.13.0</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -2531,7 +2531,10 @@ Object.assign(I18N.en, {
   'cl_lc.cambio':'Change', 'cl_lc.mantenimiento':'Maintenance', 'cl_lc.incidente':'Incident', 'cl_lc.backup':'Backup', 'cl_lc.actualizacion':'Update', 'cl_lc.llamada':'Provider call', 'cl_lc.nota':'Note',
   cl_al_nobk:'no backup', cl_al_bkprueba:'restore not tested in 90+ days', cl_al_ssl:'SSL expires', cl_al_renueva:'renewal',
   cl_claves_nop:'You do not have permission to see passwords.', cl_claves_none:'No users saved.', cl_clave_add:'Add user', cl_clave_nota:'What for (admin, app, SQL…)',
-  'cl_claves_help.server':'admin and service accounts (RDP users go in their tab)', 'cl_claves_help.software':'logins for this software',
+  pw_menu:'Users and passwords', pw_sub:'Logins for this client: email, websites, WiFi, devices, banks… Only users allowed to see passwords can see them, and every view or copy is logged.', pw_mas:'+{n} more', pw_nada:'Nothing matches the search.', pw_sql:'Run supabase-claves.sql in Supabase first to save users and passwords.',
+  'cl_add.clave':'Add login', 'cl_empty.clave':'No users or passwords saved for this client yet.', 'cf.nombre.clave':'Account / what it is for', 'cf.tipo_acc':'Type', 'cf.sitio':'Website, IP or where it is used', 'cf_ph.sitio':'https://… or 192.168.1.1',
+  'cl_tacc.correo':'Email', 'cl_tacc.web':'Website / portal', 'cl_tacc.wifi':'WiFi', 'cl_tacc.equipo':'Device', 'cl_tacc.servidor':'Server', 'cl_tacc.software':'Software', 'cl_tacc.banco':'Bank', 'cl_tacc.otro':'Other',
+  'cl_claves_help.clave':'(you can save several for the same account)', 'cl_claves_help.server':'admin and service accounts (RDP users go in their tab)', 'cl_claves_help.software':'logins for this software',
   cl_no_pcs:'This client has no PCs in the inventory yet.', cl_confirm_del:'Delete "{n}"?', cl_deleted:'Deleted',
   cl_prn_help:'The printer is installed on the server and each RDP user gets the printers they use (RDP users tab). The server prints to the office public IP + external port, and the office router forwards it to the printer. Limit the forward to the server IP.',
   'cat.cloud':'Cloud', 'ev.cloud_created':'Cloud Item Added', 'ev.cloud_updated':'Cloud Item Updated', 'ev.cloud_deleted':'Cloud Item Deleted',
@@ -2579,7 +2582,10 @@ Object.assign(I18N.es, {
   'cl_lc.cambio':'Cambio', 'cl_lc.mantenimiento':'Mantenimiento', 'cl_lc.incidente':'Incidente', 'cl_lc.backup':'Backup', 'cl_lc.actualizacion':'Actualización', 'cl_lc.llamada':'Llamada al proveedor', 'cl_lc.nota':'Nota',
   cl_al_nobk:'no tiene backup', cl_al_bkprueba:'el backup no se ha probado en más de 90 días', cl_al_ssl:'vence el SSL', cl_al_renueva:'renovación',
   cl_claves_nop:'No tienes permiso para ver contraseñas.', cl_claves_none:'No hay usuarios guardados.', cl_clave_add:'Agregar usuario', cl_clave_nota:'Para qué (admin, app, SQL…)',
-  'cl_claves_help.server':'admin y cuentas de servicio (los usuarios RDP van en su pestaña)', 'cl_claves_help.software':'accesos de este software',
+  pw_menu:'Usuarios y contraseñas', pw_sub:'Accesos de este cliente: correo, páginas web, WiFi, equipos, bancos… Solo los ve quien tiene permiso para ver contraseñas, y cada vez que alguien ve o copia una queda registrado.', pw_mas:'+{n} más', pw_nada:'Nada coincide con la búsqueda.', pw_sql:'Primero corre supabase-claves.sql en Supabase para guardar usuarios y contraseñas.',
+  'cl_add.clave':'Agregar acceso', 'cl_empty.clave':'Todavía no hay usuarios ni contraseñas guardados para este cliente.', 'cf.nombre.clave':'Cuenta / para qué es', 'cf.tipo_acc':'Tipo', 'cf.sitio':'Página, IP o dónde se usa', 'cf_ph.sitio':'https://… o 192.168.1.1',
+  'cl_tacc.correo':'Correo', 'cl_tacc.web':'Página web / portal', 'cl_tacc.wifi':'WiFi', 'cl_tacc.equipo':'Equipo', 'cl_tacc.servidor':'Servidor', 'cl_tacc.software':'Software', 'cl_tacc.banco':'Banco', 'cl_tacc.otro':'Otro',
+  'cl_claves_help.clave':'(puedes guardar varios en la misma cuenta)', 'cl_claves_help.server':'admin y cuentas de servicio (los usuarios RDP van en su pestaña)', 'cl_claves_help.software':'accesos de este software',
   cl_no_pcs:'Este cliente todavía no tiene PCs en el inventario.', cl_confirm_del:'¿Borrar "{n}"?', cl_deleted:'Borrado',
   cl_prn_help:'La impresora se instala en el server y a cada usuario RDP se le asignan las que usa (pestaña Usuarios RDP). El server imprime a la IP pública de la oficina + el puerto externo, y el router de la oficina lo pasa a la impresora. Limita el forward a la IP del server.',
   'cat.cloud':'Cloud', 'ev.cloud_created':'Cloud: agregado', 'ev.cloud_updated':'Cloud: modificado', 'ev.cloud_deleted':'Cloud: borrado',
@@ -3235,7 +3241,7 @@ function haceCuanto(d){
 function dondeEstoy(){
   if (ACT.open) return t('activity');
   if (!curCliente) return t('clients_title');
-  return curCliente + (vista === 'net' ? ' · Network' : vista === 'cloud' ? ' · Cloud Server' : vista === 'dis' ? ' · ' + t('dis_title') : vista === 'list' ? ' · ' + t('all_devices') : '');
+  return curCliente + (vista === 'net' ? ' · Network' : vista === 'cloud' ? ' · Cloud Server' : vista === 'pw' ? ' · ' + t('pw_menu') : vista === 'dis' ? ' · ' + t('dis_title') : vista === 'list' ? ' · ' + t('all_devices') : '');
 }
 async function latido(forzar){
   if (!PERM.roles || !db?.rpc) return;
@@ -4070,6 +4076,8 @@ const CL = {
   contacto: { ic: '📇', campos: [
     ['nombre', 'txt'], ['rol', 'sel', ['datacenter', 'isp', 'software', 'cliente', 'otro']], ['persona', 'txt'], ['telefono', 'tel'], ['email', 'txt'],
     ['horario', 'txt'], ['cuenta', 'txt'], ['web', 'txt'], ['notas', 'area']] },
+  clave: { ic: '🔑', claves: true, campos: [
+    ['nombre', 'txt'], ['tipo_acc', 'sel', ['correo', 'web', 'wifi', 'equipo', 'servidor', 'software', 'banco', 'otro']], ['sitio', 'txt'], ['sede_id', 'sede'], ['notas', 'area']] },
 };
 const SW_CAT = {"carga": [{"n": "Magaya Supply Chain", "f": "Magaya", "w": "magaya.com"}, {"n": "Magaya Digital Freight Platform", "f": "Magaya", "w": "magaya.com"}, {"n": "CargoWise", "f": "WiseTech Global", "w": "cargowise.com"}, {"n": "Descartes (Kewill) Forwarding", "f": "Descartes Systems", "w": "descartes.com"}, {"n": "GoFreight", "f": "GoFreight", "w": "gofreight.com"}, {"n": "Logitude World", "f": "Logitude", "w": "logitudeworld.com"}, {"n": "Freightdata", "f": "Freightdata", "w": "freightdata.com"}, {"n": "Shipthis", "f": "Shipthis", "w": "shipthis.co"}, {"n": "Cargo Expert", "f": "Cargo Expert", "w": "cargoexpert.com"}, {"n": "Flexport", "f": "Flexport", "w": "flexport.com"}, {"n": "Freightos", "f": "Freightos", "w": "freightos.com"}, {"n": "CargoSphere", "f": "CargoSphere", "w": "cargosphere.com"}, {"n": "Catapult (Catapult International)", "f": "Catapult", "w": "catapult-intl.com"}, {"n": "Cargo Logistics (CLI)", "f": "Cargo Logistics", "w": "cargologistics.com"}], "aduana": [{"n": "Descartes CustomsInfo / ABI", "f": "Descartes Systems", "w": "descartes.com"}, {"n": "CargoWise Customs", "f": "WiseTech Global", "w": "cargowise.com"}, {"n": "Magaya Customs", "f": "Magaya", "w": "magaya.com"}, {"n": "Kewill / Descartes Customs Filing", "f": "Descartes Systems", "w": "descartes.com"}, {"n": "NetChb", "f": "NetChb", "w": "netchb.com"}, {"n": "ACE Portal (CBP)", "f": "U.S. CBP", "w": "cbp.gov"}, {"n": "AESDirect (ACE)", "f": "U.S. Census / CBP", "w": "census.gov"}, {"n": "Thomson Reuters ONESOURCE Global Trade", "f": "Thomson Reuters", "w": "tax.thomsonreuters.com"}, {"n": "Integration Point", "f": "Thomson Reuters", "w": "integrationpoint.com"}], "transporte": [{"n": "McLeod LoadMaster", "f": "McLeod Software", "w": "mcleodsoftware.com"}, {"n": "McLeod PowerBroker", "f": "McLeod Software", "w": "mcleodsoftware.com"}, {"n": "Trimble TMW Suite", "f": "Trimble", "w": "transportation.trimble.com"}, {"n": "Trimble TruckMate", "f": "Trimble", "w": "transportation.trimble.com"}, {"n": "MercuryGate TMS", "f": "MercuryGate", "w": "mercurygate.com"}, {"n": "Aljex", "f": "Aljex", "w": "aljex.com"}, {"n": "Tailwind TMS", "f": "Tailwind", "w": "tailwindtms.com"}, {"n": "Ascend TMS", "f": "Ascend", "w": "ascendtms.com"}, {"n": "Rose Rocket", "f": "Rose Rocket", "w": "roserocket.com"}, {"n": "Revenova TMS", "f": "Revenova", "w": "revenova.com"}, {"n": "DAT One / DAT Power", "f": "DAT Freight & Analytics", "w": "dat.com"}, {"n": "Truckstop", "f": "Truckstop", "w": "truckstop.com"}, {"n": "Samsara", "f": "Samsara", "w": "samsara.com"}, {"n": "Motive (KeepTruckin)", "f": "Motive", "w": "gomotive.com"}], "almacen": [{"n": "Magaya WMS", "f": "Magaya", "w": "magaya.com"}, {"n": "Extensiv 3PL Warehouse Manager (3PL Central)", "f": "Extensiv", "w": "extensiv.com"}, {"n": "Deposco", "f": "Deposco", "w": "deposco.com"}, {"n": "Manhattan Active WM", "f": "Manhattan Associates", "w": "manh.com"}, {"n": "Infor WMS", "f": "Infor", "w": "infor.com"}, {"n": "SAP EWM", "f": "SAP", "w": "sap.com"}, {"n": "Logiwa", "f": "Logiwa", "w": "logiwa.com"}, {"n": "ShipHero", "f": "ShipHero", "w": "shiphero.com"}, {"n": "Fishbowl Inventory", "f": "Fishbowl", "w": "fishbowlinventory.com"}, {"n": "Korber (HighJump)", "f": "Körber", "w": "koerber-supplychain-software.com"}, {"n": "Datex FootPrint", "f": "Datex", "w": "datexcorp.com"}, {"n": "Camelot 3PL", "f": "Camelot", "w": "3plsoftware.com"}], "envios": [{"n": "UPS WorldShip", "f": "UPS", "w": "ups.com"}, {"n": "FedEx Ship Manager", "f": "FedEx", "w": "fedex.com"}, {"n": "DHL Express Commerce", "f": "DHL", "w": "dhl.com"}, {"n": "ShipStation", "f": "ShipStation", "w": "shipstation.com"}, {"n": "Shippo", "f": "Shippo", "w": "goshippo.com"}, {"n": "EasyPost", "f": "EasyPost", "w": "easypost.com"}, {"n": "Stamps.com", "f": "Stamps.com", "w": "stamps.com"}, {"n": "Pitney Bowes SendPro", "f": "Pitney Bowes", "w": "pitneybowes.com"}, {"n": "BarTender (Seagull)", "f": "Seagull Scientific", "w": "seagullscientific.com"}, {"n": "ZebraDesigner", "f": "Zebra Technologies", "w": "zebra.com"}], "contable": [{"n": "QuickBooks Desktop Enterprise", "f": "Intuit", "w": "quickbooks.intuit.com"}, {"n": "QuickBooks Desktop Pro / Premier", "f": "Intuit", "w": "quickbooks.intuit.com"}, {"n": "QuickBooks Online", "f": "Intuit", "w": "quickbooks.intuit.com"}, {"n": "Sage 50", "f": "Sage", "w": "sage.com"}, {"n": "Sage 100", "f": "Sage", "w": "sage.com"}, {"n": "Sage 300", "f": "Sage", "w": "sage.com"}, {"n": "Sage Intacct", "f": "Sage", "w": "sage.com"}, {"n": "Xero", "f": "Xero", "w": "xero.com"}, {"n": "Oracle NetSuite", "f": "Oracle", "w": "netsuite.com"}, {"n": "Microsoft Dynamics 365 Business Central", "f": "Microsoft", "w": "dynamics.microsoft.com"}, {"n": "Microsoft Dynamics GP", "f": "Microsoft", "w": "dynamics.microsoft.com"}, {"n": "Acumatica", "f": "Acumatica", "w": "acumatica.com"}, {"n": "FreshBooks", "f": "FreshBooks", "w": "freshbooks.com"}, {"n": "Zoho Books", "f": "Zoho", "w": "zoho.com"}, {"n": "Bill.com (BILL)", "f": "BILL", "w": "bill.com"}, {"n": "Expensify", "f": "Expensify", "w": "expensify.com"}, {"n": "Ramp", "f": "Ramp", "w": "ramp.com"}], "nomina": [{"n": "ADP Workforce Now", "f": "ADP", "w": "adp.com"}, {"n": "ADP RUN", "f": "ADP", "w": "adp.com"}, {"n": "Paychex Flex", "f": "Paychex", "w": "paychex.com"}, {"n": "Gusto", "f": "Gusto", "w": "gusto.com"}, {"n": "Paycom", "f": "Paycom", "w": "paycom.com"}, {"n": "Paylocity", "f": "Paylocity", "w": "paylocity.com"}, {"n": "Paycor", "f": "Paycor", "w": "paycor.com"}, {"n": "Rippling", "f": "Rippling", "w": "rippling.com"}, {"n": "QuickBooks Payroll", "f": "Intuit", "w": "quickbooks.intuit.com"}, {"n": "UKG Ready", "f": "UKG", "w": "ukg.com"}], "impuestos": [{"n": "Drake Tax", "f": "Drake Software", "w": "drakesoftware.com"}, {"n": "Lacerte", "f": "Intuit", "w": "proconnect.intuit.com"}, {"n": "ProSeries", "f": "Intuit", "w": "proconnect.intuit.com"}, {"n": "UltraTax CS", "f": "Thomson Reuters", "w": "tax.thomsonreuters.com"}, {"n": "CCH Axcess Tax", "f": "Wolters Kluwer", "w": "wolterskluwer.com"}, {"n": "CCH ProSystem fx", "f": "Wolters Kluwer", "w": "wolterskluwer.com"}, {"n": "TaxAct Professional", "f": "TaxAct", "w": "taxact.com"}, {"n": "TaxSlayer Pro", "f": "TaxSlayer", "w": "taxslayerpro.com"}, {"n": "ATX", "f": "Wolters Kluwer", "w": "wolterskluwer.com"}], "oficina": [{"n": "Microsoft 365 Business", "f": "Microsoft", "w": "microsoft.com"}, {"n": "Microsoft Office LTSC 2024", "f": "Microsoft", "w": "microsoft.com"}, {"n": "Microsoft Outlook", "f": "Microsoft", "w": "microsoft.com"}, {"n": "Microsoft Teams", "f": "Microsoft", "w": "microsoft.com"}, {"n": "Microsoft Excel", "f": "Microsoft", "w": "microsoft.com"}, {"n": "Adobe Acrobat Pro", "f": "Adobe", "w": "adobe.com"}, {"n": "Adobe Acrobat Reader", "f": "Adobe", "w": "adobe.com"}, {"n": "Google Workspace", "f": "Google", "w": "workspace.google.com"}, {"n": "Google Chrome", "f": "Google", "w": "google.com/chrome"}, {"n": "Zoom Workplace", "f": "Zoom", "w": "zoom.com"}, {"n": "Dropbox", "f": "Dropbox", "w": "dropbox.com"}, {"n": "OneDrive / SharePoint", "f": "Microsoft", "w": "microsoft.com"}, {"n": "DocuSign", "f": "DocuSign", "w": "docusign.com"}, {"n": "Adobe Acrobat Sign", "f": "Adobe", "w": "adobe.com"}, {"n": "Foxit PDF Editor", "f": "Foxit", "w": "foxit.com"}, {"n": "Nitro PDF Pro", "f": "Nitro", "w": "gonitro.com"}, {"n": "WinRAR", "f": "win.rar GmbH", "w": "win-rar.com"}, {"n": "7-Zip", "f": "Igor Pavlov", "w": "7-zip.org"}], "crm": [{"n": "Salesforce", "f": "Salesforce", "w": "salesforce.com"}, {"n": "HubSpot", "f": "HubSpot", "w": "hubspot.com"}, {"n": "Zoho CRM", "f": "Zoho", "w": "zoho.com"}, {"n": "Microsoft Dynamics 365 Sales", "f": "Microsoft", "w": "dynamics.microsoft.com"}, {"n": "Pipedrive", "f": "Pipedrive", "w": "pipedrive.com"}, {"n": "Monday.com", "f": "monday.com", "w": "monday.com"}, {"n": "Asana", "f": "Asana", "w": "asana.com"}, {"n": "Smartsheet", "f": "Smartsheet", "w": "smartsheet.com"}], "erp": [{"n": "SAP Business One", "f": "SAP", "w": "sap.com"}, {"n": "Epicor Kinetic", "f": "Epicor", "w": "epicor.com"}, {"n": "Infor CloudSuite", "f": "Infor", "w": "infor.com"}, {"n": "Odoo", "f": "Odoo", "w": "odoo.com"}, {"n": "SYSPRO", "f": "SYSPRO", "w": "syspro.com"}, {"n": "Global Shop Solutions", "f": "Global Shop Solutions", "w": "globalshopsolutions.com"}], "seguridad": [{"n": "SentinelOne", "f": "SentinelOne", "w": "sentinelone.com"}, {"n": "CrowdStrike Falcon", "f": "CrowdStrike", "w": "crowdstrike.com"}, {"n": "Microsoft Defender for Business", "f": "Microsoft", "w": "microsoft.com"}, {"n": "Bitdefender GravityZone", "f": "Bitdefender", "w": "bitdefender.com"}, {"n": "Sophos Intercept X", "f": "Sophos", "w": "sophos.com"}, {"n": "Webroot", "f": "OpenText", "w": "webroot.com"}, {"n": "Huntress", "f": "Huntress", "w": "huntress.com"}, {"n": "Malwarebytes", "f": "Malwarebytes", "w": "malwarebytes.com"}, {"n": "ESET", "f": "ESET", "w": "eset.com"}, {"n": "Duo (MFA)", "f": "Cisco", "w": "duo.com"}, {"n": "Bitwarden", "f": "Bitwarden", "w": "bitwarden.com"}, {"n": "Keeper", "f": "Keeper Security", "w": "keepersecurity.com"}], "remoto": [{"n": "Splashtop", "f": "Splashtop", "w": "splashtop.com"}, {"n": "AnyDesk", "f": "AnyDesk", "w": "anydesk.com"}, {"n": "TeamViewer", "f": "TeamViewer", "w": "teamviewer.com"}, {"n": "ConnectWise ScreenConnect", "f": "ConnectWise", "w": "screenconnect.com"}, {"n": "NinjaOne", "f": "NinjaOne", "w": "ninjaone.com"}, {"n": "N-able", "f": "N-able", "w": "n-able.com"}, {"n": "Datto RMM", "f": "Kaseya", "w": "datto.com"}, {"n": "RD Gateway / RD Web", "f": "Microsoft", "w": "microsoft.com"}], "backup": [{"n": "Veeam Backup & Replication", "f": "Veeam", "w": "veeam.com"}, {"n": "Acronis Cyber Protect", "f": "Acronis", "w": "acronis.com"}, {"n": "Datto BCDR", "f": "Kaseya", "w": "datto.com"}, {"n": "Wasabi", "f": "Wasabi", "w": "wasabi.com"}, {"n": "Backblaze B2", "f": "Backblaze", "w": "backblaze.com"}, {"n": "Axcient", "f": "Axcient", "w": "axcient.com"}, {"n": "Carbonite", "f": "OpenText", "w": "carbonite.com"}, {"n": "MSP360 (CloudBerry)", "f": "MSP360", "w": "msp360.com"}], "bd": [{"n": "Microsoft SQL Server", "f": "Microsoft", "w": "microsoft.com"}, {"n": "SQL Server Express", "f": "Microsoft", "w": "microsoft.com"}, {"n": "MySQL", "f": "Oracle", "w": "mysql.com"}, {"n": "PostgreSQL", "f": "PostgreSQL", "w": "postgresql.org"}, {"n": "Pervasive / Actian PSQL", "f": "Actian", "w": "actian.com"}]};
 const SW_CATS = Object.keys(SW_CAT);
@@ -4090,7 +4098,7 @@ const pwCelda = x => { const c = jArr(x.claves)[0];
 const cloudDe = (cli, clase) => cloud.filter(x => mismoCliente(x.cliente, cli) && (!clase || x.clase === clase) &&
   (!fSede || fSede === '-' || !x.sede_id || x.sede_id === fSede));
 const cd = x => jObj(x?.datos);
-const verCloud = cli => { const c = clienteObj(cli); return !!svcDe(c).cloud || cloud.some(x => mismoCliente(x.cliente, cli)); };
+const verCloud = cli => { const c = clienteObj(cli); return !!svcDe(c).cloud || cloud.some(x => x.clase !== 'clave' && mismoCliente(x.cliente, cli)); };
 const cloudItem = id => cloud.find(x => x.id === id);
 const ordN = (a, b) => (a.orden ?? 1e9) - (b.orden ?? 1e9) || String(a.nombre).localeCompare(String(b.nombre), 'es', { numeric: true });
 
@@ -4153,6 +4161,32 @@ function renderCloudBody(){
   }
 }
 const clV = (x, k) => cd(x)[k] || '';
+/* ---------- 🔑 Usuarios y contraseñas del cliente ---------- */
+let pwQ = '';
+function renderClaves(){
+  const el = $('cloudView'); if (!el) return;
+  if (!cloudOK){ el.innerHTML = `<div class="panel act-empty">🔑 ${t('cl_missing')}</div>`; return; }
+  el.innerHTML = `<div class="panel net-panel">
+    <div class="net-head"><div><h3>🔑 ${t('pw_menu')}</h3><small class="muted">${t('pw_sub')}</small></div><div class="row">
+      <div class="search"><input enterkeyhint="search" id="pwq" value="${esc(pwQ)}" placeholder="${esc(t('cl_search'))}" oninput="pwQ=this.value;busca(renderClavesBody)"></div>
+      ${PERM.editar ? `<button class="primary" onclick="cloudNuevo('clave')">＋ ${t('cl_add.clave')}</button>` : ''}</div></div>
+    ${PERM.roles && !PERM.claves ? `<div class="u-note" style="margin:12px 0 0">🔒 ${t('cl_claves_nop')}</div>` : ''}
+    <div id="pwBody" style="margin-top:12px"></div></div>`;
+  renderClavesBody();
+}
+function renderClavesBody(){
+  const b = $('pwBody'); if (!b) return;
+  const q = nrm(pwQ), pasa = x => !q || nrm(JSON.stringify([x.nombre, cd(x), jArr(x.claves).map(c => [c.nota, c.usuario])])).includes(q);
+  const lista = cloudDe(curCliente, 'clave').filter(pasa).sort(ordN);
+  const nop = x => x.claves === undefined && PERM.roles && !PERM.claves;
+  const usr = x => { if (nop(x)) return '🔒'; const c = jArr(x.claves)[0]; return c?.usuario ? `${mono(c.usuario)} <button class="sm cl-cp" onclick="event.stopPropagation();copyText('${jsq(c.usuario)}')" title="${esc(t('cl_copy'))}">📋</button>` : ''; };
+  const mas = x => { const n = jArr(x.claves).length; return n > 1 ? `<span class="muted">${esc(t('pw_mas', { n: n - 1 }))}</span>` : ''; };
+  b.innerHTML = lista.length ? `<div class="table-wrap net-wrap"><table class="net-tbl cl-tbl"><thead><tr><th>${esc(t('cf.nombre.clave'))}</th><th>${esc(t('cf.tipo_acc'))}</th><th>${esc(t('username'))}</th><th>${esc(t('cf.pw'))}</th><th>${esc(t('cf.sitio'))}</th></tr></thead>
+    <tbody>${lista.map(x => `<tr class="r" onclick="cloudVer('${x.id}')"><td><b>${esc(x.nombre)}</b>${x.sede_id ? `<small class="muted" style="display:block">${sedeNom(x.sede_id)}</small>` : ''}</td>
+      <td>${clV(x, 'tipo_acc') ? `<span class="cl-rol">${esc(t('cl_tacc.' + clV(x, 'tipo_acc')))}</span>` : ''}</td><td>${usr(x)}${mas(x) ? '<br>' + mas(x) : ''}</td><td>${nop(x) ? '🔒' : pwCelda(x)}</td>
+      <td>${/^https?:\/\//i.test(clV(x, 'sitio')) ? `<a href="${esc(clV(x, 'sitio'))}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${esc(clV(x, 'sitio'))}</a>` : esc(clV(x, 'sitio'))}</td></tr>`).join('')}</tbody></table></div>`
+    : `<div class="act-empty">🔑 ${t(q ? 'pw_nada' : 'cl_empty.clave')}</div>`;
+}
 const servNom = id => { const s = cloudItem(id); return s ? `<a class="dev-link" onclick="event.stopPropagation();cloudVer('${s.id}')">🗄️ ${esc(s.nombre)}</a>` : ''; };
 const sedeNom = id => { const s = sedes.find(x => x.id === id); return s ? `📍 ${esc(s.nombre)}` : ''; };
 const mono = v => v ? `<span class="mono">${esc(v)}</span>` : '';
@@ -4294,7 +4328,7 @@ function cloudVer(id){
     if (tp === 'pcs') return jArr(v).map(pid => { const e = items.find(i => i.id === pid); return e ? `<a class="dev-link" onclick="closeModal();verDetalle('${e.id}')">${TIPO_ICON[e.tipo] || '🖥️'} ${esc(e.nombre)}</a>` : ''; }).filter(Boolean).join(', ');
     if (tp === 'tel') return telLink(v);
     if (tp === 'date') return venceTxt(v);
-    if (tp === 'sel') return esc(({ backup: 'cl_yn.', lado: 'cl_lado.', direccion: 'cl_dir.', accion: 'cl_acc.', rol: 'cl_crol.' }[k] ? t({ backup: 'cl_yn.', lado: 'cl_lado.', direccion: 'cl_dir.', accion: 'cl_acc.', rol: 'cl_crol.' }[k] + v) : v));
+    if (tp === 'sel') return esc(({ backup: 'cl_yn.', lado: 'cl_lado.', direccion: 'cl_dir.', accion: 'cl_acc.', rol: 'cl_crol.', tipo_acc: 'cl_tacc.' }[k] ? t({ backup: 'cl_yn.', lado: 'cl_lado.', direccion: 'cl_dir.', accion: 'cl_acc.', rol: 'cl_crol.', tipo_acc: 'cl_tacc.' }[k] + v) : v));
     if (tp === 'ip' || ['rdp', 'puerto_local', 'puerto_ext', 'permitido', 'origen', 'destino', 'puerto', 'cuenta'].includes(k)) return `${mono(v)} <button class="sm cl-cp" onclick="copyText('${jsq(v)}')">📋</button>`;
     if (/^https?:\/\//i.test(v) || k === 'url' || k === 'web' || k === 'soporte_web') return `<a href="${esc(/^https?:/i.test(v) ? v : 'https://' + v)}" target="_blank" rel="noopener">${esc(v)}</a>`;
     if (k === 'email' || k === 'soporte_email') return `<a href="mailto:${esc(v)}">${esc(v)}</a>`;
@@ -4337,7 +4371,7 @@ function cloudForm(){
   const servers = cloudDe(cli, 'server').sort(ordN), wans = wanOficinas(cli);
   const prns = equiposDe(cli).filter(e => e.tipo === 'Impresora'), pcs = equiposDe(cli).filter(e => PC_TIPOS.includes(e.tipo)).sort(ordN);
   const op = (vals, cur, lbl) => '<option value="">—</option>' + vals.map(v => `<option value="${esc(v)}" ${v === cur ? 'selected' : ''}>${esc(lbl ? lbl(v) : v)}</option>`).join('');
-  const lblSel = { backup: 'cl_yn.', lado: 'cl_lado.', direccion: 'cl_dir.', accion: 'cl_acc.', rol: 'cl_crol.', estado: 'cl_est.' };
+  const lblSel = { backup: 'cl_yn.', lado: 'cl_lado.', direccion: 'cl_dir.', accion: 'cl_acc.', rol: 'cl_crol.', estado: 'cl_est.', tipo_acc: 'cl_tacc.' };
   const campo = ([k, tp, ops]) => {
     const v = k === 'sede_id' ? (x.sede_id || '') : (d[k] ?? ''), id = 'cf_' + k, L = `<span>${esc(t('cf.' + k))}</span>`;
     const full = CL_FULL.includes(k) ? ' class="full"' : '';
@@ -4448,7 +4482,7 @@ async function guardarCloud(){
   if ($('clvList')) row.claves = [...document.querySelectorAll('#clvList .cl-clv-row')].map(r => ({ nota: r.querySelector('.c-nota').value.trim(), usuario: r.querySelector('.c-user').value.trim(), password: r.querySelector('.c-pw').value }))
     .filter(c => c.usuario || c.password || c.nota).map(c => { Object.keys(c).forEach(k => { if (!c[k]) delete c[k]; }); return c; });
   const r = x.id ? await db.from('cloud_items').update(row).eq('id', x.id) : await db.from('cloud_items').insert(row).select('id').single();
-  if (r.error) return fail(r.error, /cloud_items/.test(r.error.message || '') ? t('cl_missing') : t('save_fail'));
+  if (r.error) return fail(r.error, /clase_check/.test(r.error.message || '') ? t('pw_sql') : /cloud_items/.test(r.error.message || '') ? t('cl_missing') : t('save_fail'));
   // Toda instalación lleva la carpeta Scans: se crea sola con el primer servidor
   if (!x.id && x.clase === 'server' && r.data?.id && !cloudDe(x.cliente, 'carpeta').some(f => nrm(f.nombre) === 'scans')){
     await db.from('cloud_items').insert({ cliente: x.cliente, clase: 'carpeta', nombre: 'Scans', datos: { servidor: r.data.id, share: '\\\\' + (datos.hostname || nombre) + '\\Scans' } });
@@ -10026,7 +10060,8 @@ function renderDash(){
     it("irA('ov')", `📊 ${t('ov')}`, vista === 'ov') +
     ((!permiteNet(curCliente) && !base.some(x => NET_TIPOS.includes(x.tipo))) ? '' : it("irA('net')", `🌐 ${t('net_inv')}<span class="n">${base.filter(x => NET_TIPOS.includes(x.tipo)).length}</span>`, vista === 'net')) +
     ((!permiteNet(curCliente) && !base.some(x => NET_TIPOS.includes(x.tipo))) ? '' : it("irDiseno()", `📐 ${t('dis_title')}<span class="n">${planos.filter(p => !p.presupuesto_id && mismoCliente(p.cliente, curCliente)).length || ''}</span>`, vista === 'dis')) +
-    (verCloud(curCliente) ? it("irCloud()", `☁️ Cloud Server<span class="n">${cloudDe(curCliente).length}</span>`, vista === 'cloud') : '') +
+    (verCloud(curCliente) ? it("irCloud()", `☁️ Cloud Server<span class="n">${cloudDe(curCliente).filter(x => x.clase !== 'clave').length}</span>`, vista === 'cloud') : '') +
+    it("irA('pw')", `🔑 ${t('pw_menu')}<span class="n">${cloudDe(curCliente, 'clave').length || ''}</span>`, vista === 'pw') +
     it("irA('list')", `🗂 ${t('all_devices')}<span class="n">${base.length}</span>`, listaTodo) +
     (Object.keys(cuenta).length ? `<div class="ds-sec">${t('d_types')}</div>` + ORDEN_TIPOS.filter(k => cuenta[k]).map(k =>
       it(`irA('list',{tipo:'${jsq(k)}'})`, `${TIPO_ICON[k] || '◆'} ${esc(tTipo(k))}<span class="n">${cuenta[k]}</span>`, vista === 'list' && fTipo === k)).join('') : '') +
@@ -10044,10 +10079,11 @@ function renderDash(){
   $('ovView').classList.toggle('hidden', vista !== 'ov');
   $('netView').classList.toggle('hidden', vista !== 'net');
   if (vista === 'net') renderNet(base);
-  $('cloudView').classList.toggle('hidden', vista !== 'cloud');
+  $('cloudView').classList.toggle('hidden', vista !== 'cloud' && vista !== 'pw');
   $('disView').classList.toggle('hidden', vista !== 'dis');
   if (vista === 'dis') renderDiseno(base);
   if (vista === 'cloud') renderCloud();
+  if (vista === 'pw') renderClaves();
   $('listView').classList.toggle('hidden', vista !== 'list');
   // Subtítulo de la lista según el filtro
   const sub = fPred ? fPred.label : fTipo ? tTipo(fTipo) : fCat ? t({ comp:'t_computers', prn:'t_printers', net:'t_network', cctv:'t_cctv', tel:'t_phones', acc:'t_access' }[fCat])

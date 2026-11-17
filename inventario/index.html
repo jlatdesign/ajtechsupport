@@ -1201,7 +1201,7 @@ button,.chip,.sede-tab{-webkit-user-select:none;user-select:none;-webkit-touch-c
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v9.12.1</p>
+    <p class="sub">Network Asset Manager · v9.12.2</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" enterkeyhint="next" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" enterkeyhint="go" required placeholder="••••••••"></label>
@@ -1217,7 +1217,7 @@ button,.chip,.sede-tab{-webkit-user-select:none;user-select:none;-webkit-touch-c
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.12.1</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.12.2</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -2685,7 +2685,7 @@ Object.assign(I18N.es, {
   pr_h_reales:'Horas hombre reales', pr_p_reales:'Personas', pr_d_reales:'Días', pr_c_notas:'Qué pasó (para la próxima vez)', pr_closed:'Trabajo cerrado. Diferencia contra el cálculo: {p}%',
   pr_conv_q:'¿Crear el cliente "{c}"? Los {n} equipos planificados del plano pasan al inventario.', pr_conv_ok:'Cliente {c} creado · {n} equipos al inventario',
   pdf_importe:'Importe', pdf_horas_n:'{h} horas hombre', pdf_otros:'Otros', pdf_dias_hab:'días hábiles', pdf_tecnicos:'técnicos', pdf_h_normal:'Normal', pdf_h_fuera:'Fuera', pdf_h_mixto:'fuera de horario',
-  pdf_dias_r:'Días {a}–{b}', pdf_dia:'Día {a}', pdf_dia_c:'D{a}', pdf_todo:'todo el proyecto', pdf_tiempo:'Estadísticas de tiempo', pdf_inicio:'Inicio', pdf_fin:'Fin estimado', pdf_fase:'Fase',
+  pdf_dias_r:'Días {a}–{b}', pdf_dia:'Día {a}', pdf_dia_c:'D{a}', pdf_todo:'todo el proyecto', pdf_tiempo:'Estadísticas de tiempo', pdf_inicio:'Inicio', pdf_fin:'Fin estimado', pdf_horas_c:'Horas', pdf_fase:'Fase',
   pdf_fechas:'Fechas', pdf_dias_col:'Días', pdf_tiempo_n:'Días hábiles de {h} h. El cronograma es estimado y puede cambiar por acceso al sitio, clima u operación del cliente.',
   pdf_lic:'Licencia: {l}', pdf_altura:'Techo de {a} ft', pdf_num:'Número', pdf_fecha:'Fecha', pdf_valido:'Válido hasta', pdf_prep:'Preparado por', pdf_cliente:'Cliente', pdf_sitio:'Lugar del trabajo',
   pdf_proyecto:'Proyecto', pdf_trabajo:'Detalle del trabajo', pdf_cargos:'Cargos y servicios', pdf_terminos:'Términos y condiciones', pdf_acepta:'Aceptado por el cliente', pdf_nom_firma:'Nombre, firma y fecha',
@@ -2750,7 +2750,7 @@ Object.assign(I18N.en, {
   pr_h_reales:'Real man-hours', pr_p_reales:'Crew', pr_d_reales:'Days', pr_c_notas:'What happened (for next time)', pr_closed:'Job closed. Difference vs. calculation: {p}%',
   pr_conv_q:'Create the client "{c}"? The {n} planned devices of the plan go to the inventory.', pr_conv_ok:'Client {c} created · {n} devices to the inventory',
   pdf_importe:'Amount', pdf_horas_n:'{h} man-hours', pdf_otros:'Other', pdf_dias_hab:'business days', pdf_tecnicos:'technicians', pdf_h_normal:'Normal', pdf_h_fuera:'After hrs', pdf_h_mixto:'after hours',
-  pdf_dias_r:'Days {a}–{b}', pdf_dia:'Day {a}', pdf_dia_c:'D{a}', pdf_todo:'whole project', pdf_tiempo:'Time statistics', pdf_inicio:'Start', pdf_fin:'Estimated finish', pdf_fase:'Phase',
+  pdf_dias_r:'Days {a}–{b}', pdf_dia:'Day {a}', pdf_dia_c:'D{a}', pdf_todo:'whole project', pdf_tiempo:'Time statistics', pdf_inicio:'Start', pdf_fin:'Estimated finish', pdf_horas_c:'Hours', pdf_fase:'Phase',
   pdf_fechas:'Dates', pdf_dias_col:'Days', pdf_tiempo_n:'Business days of {h} h. The schedule is an estimate and may change due to site access, weather or client operations.',
   pdf_lic:'License: {l}', pdf_altura:'{a} ft ceiling', pdf_num:'Number', pdf_fecha:'Date', pdf_valido:'Valid until', pdf_prep:'Prepared by', pdf_cliente:'Client', pdf_sitio:'Job site',
   pdf_proyecto:'Project', pdf_trabajo:'Work detail', pdf_cargos:'Charges and services', pdf_terminos:'Terms and conditions', pdf_acepta:'Accepted by the client', pdf_nom_firma:'Name, signature and date',
@@ -7129,14 +7129,28 @@ async function prPdf(){
       tp !== 'msp' ? kpi(R.pers, t('pdf_tecnicos')) : '', d.pdf_horas ? kpi(nf(R.total), t('pr_h_total')) : '',
       campo ? kpi(esc(H.h === 'mixto' ? H.pct + '%' : t(H.h === 'fuera' ? 'pdf_h_fuera' : 'pdf_h_normal')), H.h === 'mixto' ? t('pdf_h_mixto') : t('pr_horario')) : ''].filter(Boolean).join('');
     let acc = 0;
-    const gantt = lista.map((f, i) => { const w = f.h / sumF * 100, x = acc; acc += w; const d0 = Math.floor(x / 100 * dias) + 1, d1 = Math.max(d0, Math.ceil((x + w) / 100 * dias));
+    const PIE_C = ['#2a78d6', '#eb6834', '#1baf7a', '#eda100', '#e87ba4', '#008300'];   // orden fijo; probado para daltonismo
+    const filas = lista.map((f, i) => { const w = f.h / sumF * 100, x = acc; acc += w; const d0 = Math.floor(x / 100 * dias) + 1, d1 = Math.max(d0, Math.ceil((x + w) / 100 * dias));
       const rango = ini ? `${fcorta(habil(ini, d0 - 1))}${d1 > d0 ? ' – ' + fcorta(habil(ini, d1 - 1)) : ''}` : (d1 > d0 ? t('pdf_dias_r', { a: d0, b: d1 }) : t('pdf_dia', { a: d0 }));
-      return `<div class="gr"><div class="gl">${esc(f.n)}<small>${Math.round(f.h / sumF * 100)}%${d.pdf_horas ? ' · ' + nf(f.h) + ' h' : ''}</small></div><div class="gt"><div class="gb c${i % 7}" style="left:${x.toFixed(2)}%;width:${Math.max(1.5, w).toFixed(2)}%"></div></div><div class="gd">${rango}</div></div>`; }).join('')
-      + (pm ? `<div class="gr"><div class="gl">${esc(t('pr_h_pm', { p: '' }).replace(/\s*\(\s*%?\s*\)\s*$/, ''))}<small>${t('pdf_todo')}</small></div><div class="gt"><div class="gb pm" style="left:0;width:100%"></div></div><div class="gd">${ini ? fcorta(ini) + ' – ' + fcorta(fin) : t('pdf_dias_r', { a: 1, b: dias })}</div></div>` : '');
-    const ticks = Array.from({ length: Math.min(dias, 10) + 1 }, (_, i) => Math.round(i * dias / Math.min(dias, 10))).filter((v, i, a) => a.indexOf(v) === i);
+      return { n: f.n, h: f.h, c: i < 6 ? PIE_C[i] : '#a3a9b4', rango }; });
+    if (pm) filas.push({ n: t('pr_h_pm', { p: '' }).replace(/\s*\(\s*%?\s*\)\s*$/, ''), h: pm, c: '#5b6475', sub: t('pdf_todo'), rango: ini ? fcorta(ini) + ' – ' + fcorta(fin) : t('pdf_dias_r', { a: 1, b: dias }) });
+    const totH = filas.reduce((a, x) => a + x.h, 0) || 1, pct = x => Math.round(x.h / totH * 100);
+    // torta en 3D: tapa elíptica y pared delantera más oscura
+    const torta = (() => { const cx = 130, cy = 76, rx = 120, ry = 64, dz = 22, P = (a, z = 0) => (cx + rx * Math.cos(a)).toFixed(2) + ' ' + (cy + ry * Math.sin(a) + z).toFixed(2);
+      const osc = c => '#' + c.slice(1).match(/../g).map(x => Math.round(parseInt(x, 16) * .7).toString(16).padStart(2, '0')).join('');
+      let a = -Math.PI / 2, paredes = '', tapas = '';
+      const seg = filas.filter(x => x.h > 0).map(x => { const a0 = a; a += x.h / totH * 2 * Math.PI; return { ...x, a0, a1: a }; });
+      seg.forEach(s => { const b0 = Math.max(s.a0, 0), b1 = Math.min(s.a1, Math.PI);   // solo la mitad de adelante se ve
+        if (b1 - b0 > 1e-4) paredes += `<path d="M${P(b0)}A${rx} ${ry} 0 0 1 ${P(b1)}L${P(b1, dz)}A${rx} ${ry} 0 0 0 ${P(b0, dz)}Z" fill="${osc(s.c)}"/>`; });
+      tapas = seg.length === 1 ? `<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="${seg[0].c}"/>`
+        : seg.map(s => `<path d="M${cx} ${cy}L${P(s.a0)}A${rx} ${ry} 0 ${s.a1 - s.a0 > Math.PI ? 1 : 0} 1 ${P(s.a1)}Z" fill="${s.c}"/>`).join('');
+      return `<svg class="torta" viewBox="0 0 260 ${cy + ry + dz + 4}" role="img" aria-label="${esc(t('pr_h_total'))}"><g stroke="#fff" stroke-width="1.5" stroke-linejoin="round">${paredes}${tapas}</g></svg>`; })();
+    const sw = c => `<svg class="sw" viewBox="0 0 10 10"><rect width="10" height="10" rx="2" fill="${c}"/></svg>`;
+    const leyenda = `<table class="ley"><thead><tr><th>${t('pdf_fase')}</th>${d.pdf_horas ? `<th class="n">${t('pdf_horas_c')}</th>` : ''}<th class="n">%</th><th class="n">${t(ini ? 'pdf_fechas' : 'pdf_dias_col')}</th></tr></thead><tbody>
+      ${filas.map(x => `<tr><td>${sw(x.c)}${esc(x.n)}${x.sub ? `<small>${esc(x.sub)}</small>` : ''}</td>${d.pdf_horas ? `<td class="n">${nf(x.h)}</td>` : ''}<td class="n">${pct(x)}%</td><td class="n">${x.rango}</td></tr>`).join('')}</tbody></table>`;
     tiempo = `<section class="blk keep"><h2>${t('pdf_tiempo')}</h2><div class="kpis">${kpis}</div>
       ${ini ? `<div class="fechas">${t('pdf_inicio')}: <b>${fdate(ini)}</b> &nbsp;→&nbsp; ${t('pdf_fin')}: <b>${fdate(fin)}</b></div>` : ''}
-      ${lista.length ? `<div class="gantt"><div class="gr gh"><div class="gl">${t('pdf_fase')}</div><div class="gt axis">${ticks.map(v => `<span style="left:${(v / dias * 100).toFixed(2)}%">${v === 0 ? '' : t('pdf_dia_c', { a: v })}</span>`).join('')}</div><div class="gd">${t(ini ? 'pdf_fechas' : 'pdf_dias_col')}</div></div>${gantt}</div>
+      ${filas.length ? `<div class="pie">${torta}${leyenda}</div>
       <div class="nota">${t('pdf_tiempo_n', { h: nf(n0(C.horas_dia) || 8) })}</div>` : ''}</section>`;
   }
   // ---- Datos de la empresa y del sitio
@@ -7178,7 +7192,8 @@ async function prPdf(){
     .kpis{display:flex;gap:10px;margin-bottom:12px}.kpi{flex:1;border:1px solid #d5dae3;padding:9px 10px;text-align:center}
     .kpi b{display:block;font-size:16pt;line-height:1.15;color:var(--ac);font-weight:700}.kpi span{font-size:7.5pt;color:#5b6475;text-transform:uppercase;letter-spacing:.1em}
     .fechas{margin:0 0 10px;color:#2c3446}
-    .gantt{border:1px solid #d5dae3;padding:8px 12px}.gr{display:grid;grid-template-columns:170px 1fr 92px;gap:12px;align-items:center;padding:5px 0}
+    .gantt{border:1px solid #d5dae3;padding:8px 12px}.pie{display:grid;grid-template-columns:64mm 1fr;gap:7mm;align-items:center;border:1px solid #d5dae3;padding:10px 14px;break-inside:avoid}.torta{width:100%;height:auto;display:block}
+    .ley{width:100%;border-collapse:collapse;font-size:9pt;font-variant-numeric:tabular-nums}.ley th{font-size:7.5pt;text-transform:uppercase;letter-spacing:.08em;color:#5b6475;font-weight:600;text-align:left;padding:0 6px 5px;border-bottom:1px solid #d5dae3}.ley td{text-align:left;padding:4px 6px;border-bottom:1px solid #eef0f4;vertical-align:top}.ley .n{text-align:right;white-space:nowrap}.ley small{display:block;color:#5b6475;font-size:8pt;margin-left:17px}.sw{width:10px;height:10px;margin-right:7px;vertical-align:-1px}.gr{display:grid;grid-template-columns:170px 1fr 92px;gap:12px;align-items:center;padding:5px 0}
     .gr+.gr{border-top:1px solid #eef0f4}.gl{font-size:9pt;font-weight:600;line-height:1.25}.gl small{display:block;font-weight:400;color:#5b6475;font-size:8pt}
     .gt{position:relative;height:10px;background:#eef0f4}.gb{position:absolute;top:0;bottom:0}
     .c0{background:var(--ac)}.c1{background:color-mix(in srgb,var(--ac) 82%,#fff)}.c2{background:color-mix(in srgb,var(--ac) 66%,#fff)}.c3{background:color-mix(in srgb,var(--ac) 52%,#fff)}.c4{background:color-mix(in srgb,var(--ac) 40%,#fff)}.c5{background:color-mix(in srgb,var(--ac) 30%,#fff)}.c6{background:color-mix(in srgb,var(--ac) 22%,#fff)}.pm{background:color-mix(in srgb,var(--ac) 14%,#fff)}

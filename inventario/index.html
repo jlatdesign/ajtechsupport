@@ -491,6 +491,8 @@ body.p-noexport [onclick="exportActCSV()"],body.p-noexport #migrarBtn{display:no
 .u-online{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--ok-t);font-weight:600}
 .u-online i{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 3px color-mix(in srgb,var(--ok) 25%,transparent)}
 .u-note{margin-top:10px;font-size:12.5px;color:var(--muted);line-height:1.5}
+.emp-logo{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin:0 0 14px}.emp-prev{width:220px;height:96px;display:grid;place-items:center;background:#fff;border:1px dashed var(--line-strong);border-radius:10px;padding:10px;color:#6b7280;font-size:12px;text-align:center}.emp-prev img{max-width:100%;max-height:100%;object-fit:contain}
+.btn-file{display:inline-flex;align-items:center;cursor:pointer;border:1px solid var(--line);border-radius:10px;padding:9px 14px;margin-right:6px}.btn-file input{position:absolute;opacity:0;width:1px;height:1px}.btn-file:focus-within{outline:2px solid var(--c1);outline-offset:2px}
 .u-ajustes{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .u-ajustes label{flex-direction:row;align-items:center;gap:8px;font-size:13px;color:var(--text);font-weight:500}
 .u-ajustes input[type=checkbox]{width:auto;margin:0}
@@ -1198,7 +1200,7 @@ button,.chip,.sede-tab{-webkit-user-select:none;user-select:none;-webkit-touch-c
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v9.10.10</p>
+    <p class="sub">Network Asset Manager · v9.11.0</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" enterkeyhint="next" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" enterkeyhint="go" required placeholder="••••••••"></label>
@@ -1214,7 +1216,7 @@ button,.chip,.sede-tab{-webkit-user-select:none;user-select:none;-webkit-touch-c
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.10.10</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.11.0</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -2164,7 +2166,7 @@ Object.assign(I18N.en, {
   'cat.device':'Device', 'cat.security':'Security', 'cat.client':'Client', 'cat.group':'Group', 'cat.access':'Access', 'cat.data':'Data',
   'sev.1':'Info', 'sev.2':'Low', 'sev.3':'Medium', 'sev.4':'High',
   'ev.device_created':'Device Added', 'ev.device_updated':'Device Updated', 'ev.device_deleted':'Device Deleted', 'ev.password_changed':'Password Changed',
-  'ev.client_created':'Client Created', 'ev.client_updated':'Client Updated', 'ev.client_deleted':'Client Deleted',
+  'ev.quote_company_updated':'Quote Company Updated', 'ad.quote_company_updated':'{u} updated the company shown on PDF quotes', 'ev.client_created':'Client Created', 'ev.client_updated':'Client Updated', 'ev.client_deleted':'Client Deleted',
   'ev.group_created':'Group Created', 'ev.group_updated':'Group Updated', 'ev.group_deleted':'Group Deleted',
   'ev.signed_in':'Signed In', 'ev.account_pw_changed':'Login Password Changed', 'ev.password_viewed':'Password Viewed', 'ev.password_copied':'Password Copied',
   'ev.pw_history_viewed':'Password History Viewed', 'ev.export_backup':'Backup Downloaded', 'ev.export_csv':'CSV Exported', 'ev.import_excel':'Excel Imported',
@@ -2466,7 +2468,7 @@ Object.assign(I18N.es, {
   'cat.device':'Equipo', 'cat.security':'Seguridad', 'cat.client':'Cliente', 'cat.group':'Grupo', 'cat.access':'Acceso', 'cat.data':'Datos',
   'sev.1':'Info', 'sev.2':'Baja', 'sev.3':'Media', 'sev.4':'Alta',
   'ev.device_created':'Equipo agregado', 'ev.device_updated':'Equipo modificado', 'ev.device_deleted':'Equipo borrado', 'ev.password_changed':'Contraseña cambiada',
-  'ev.client_created':'Cliente creado', 'ev.client_updated':'Cliente modificado', 'ev.client_deleted':'Cliente borrado',
+  'ev.quote_company_updated':'Empresa del PDF modificada', 'ad.quote_company_updated':'{u} cambió la empresa del PDF de presupuestos', 'ev.client_created':'Cliente creado', 'ev.client_updated':'Cliente modificado', 'ev.client_deleted':'Cliente borrado',
   'ev.group_created':'Grupo creado', 'ev.group_updated':'Grupo modificado', 'ev.group_deleted':'Grupo borrado',
   'ev.signed_in':'Inicio de sesión', 'ev.account_pw_changed':'Clave de acceso cambiada', 'ev.password_viewed':'Contraseña vista', 'ev.password_copied':'Contraseña copiada',
   'ev.pw_history_viewed':'Historial de claves visto', 'ev.export_backup':'Backup descargado', 'ev.export_csv':'CSV exportado', 'ev.import_excel':'Excel importado',
@@ -2690,7 +2692,7 @@ Object.assign(I18N.es, {
   pr_term_def:'Forma de pago: 50% de anticipo para programar el trabajo y 50% al terminar.\nPrecios en dólares (USD). Cualquier cambio en el alcance se cotiza por separado.',
   pcf_emp:'Tu empresa (sale en el PDF)', 'pce.nombre':'Nombre', 'pce.direccion':'Dirección', 'pce.telefono':'Teléfono', 'pce.email':'Email', 'pce.web':'Web', 'pce.licencia':'Licencia / certificación',
   'pce_ph.nombre':'AJ Tech Support', 'pce_ph.direccion':'Calle, ciudad, FL', 'pce_ph.telefono':'(305) 000-0000', 'pce_ph.email':'info@ajtechsupport.net', 'pce_ph.web':'ajtechsupport.net', 'pce_ph.licencia':'ej. EF0000000',
-  pr_doc:'Presupuesto', pr_valid:'válido {n} días', pr_trabajo:'Trabajo', pr_mano_inst:'Mano de obra e instalación', pr_mat_inst:'Materiales de instalación', pr_resumen:'Resumen', pr_plano:'Plano',
+  pr_emp:'Empresa del PDF', pr_emp_help:'Estos datos salen en el encabezado y el pie de cada presupuesto en PDF.', pr_emp_aqui:'El nombre, los datos y el logo de la empresa están en', pr_emp_color:'Color del documento', pr_logo:'Logo', pr_logo_up:'Subir logo', pr_logo_del:'Quitar logo', pr_logo_none:'Sin logo: salen las iniciales', pr_logo_h:'PNG, JPG, WebP o SVG. Sale arriba a la izquierda del PDF.', pr_logo_tipo:'No se pudo leer la imagen. Usa PNG, JPG, WebP o SVG.', pr_logo_grande:'La imagen es muy pesada. Usa una de menos de 150 KB (SVG) o una más simple.', pr_doc:'Presupuesto', pr_valid:'válido {n} días', pr_trabajo:'Trabajo', pr_mano_inst:'Mano de obra e instalación', pr_mat_inst:'Materiales de instalación', pr_resumen:'Resumen', pr_plano:'Plano',
   pr_dur:'Duración estimada: {s} ({d} días hábiles) con un equipo de {p} técnico(s).', pr_firma:'Aceptado por: ____________________________   Fecha: ____________', pr_popup:'Permite las ventanas emergentes para ver el PDF.',
   pr_cfg_help:'Estos valores se usan en todos los presupuestos. Las horas son por unidad; los factores multiplican las horas.', pr_cfg_t:'Horas por tarea', pr_cfg_alt:'Factor por altura',
   pr_cfg_techo:'Factor por tipo de techo', pr_cfg_dif:'Factor por dificultad', pr_cfg_pp:'Precio por punto', pr_cfg_rec:'Recargo por punto según altura', pr_cfg_mat:'Precios de materiales',
@@ -2755,7 +2757,7 @@ Object.assign(I18N.en, {
   pr_term_def:'Payment: 50% deposit to schedule the work and 50% upon completion.\nPrices in US dollars (USD). Any change in scope is quoted separately.',
   pcf_emp:'Your company (shown on the PDF)', 'pce.nombre':'Name', 'pce.direccion':'Address', 'pce.telefono':'Phone', 'pce.email':'Email', 'pce.web':'Website', 'pce.licencia':'License / certification',
   'pce_ph.nombre':'AJ Tech Support', 'pce_ph.direccion':'Street, city, FL', 'pce_ph.telefono':'(305) 000-0000', 'pce_ph.email':'info@ajtechsupport.net', 'pce_ph.web':'ajtechsupport.net', 'pce_ph.licencia':'e.g. EF0000000',
-  pr_doc:'Quote', pr_valid:'valid {n} days', pr_trabajo:'Work', pr_mano_inst:'Labor and installation', pr_mat_inst:'Installation materials', pr_resumen:'Summary', pr_plano:'Floor plan',
+  pr_emp:'Company on the PDF', pr_emp_help:'This information appears in the header and footer of every PDF quote.', pr_emp_aqui:'The company name, details and logo are in', pr_emp_color:'Document color', pr_logo:'Logo', pr_logo_up:'Upload logo', pr_logo_del:'Remove logo', pr_logo_none:'No logo: initials are shown', pr_logo_h:'PNG, JPG, WebP or SVG. Shown at the top left of the PDF.', pr_logo_tipo:'The image could not be read. Use PNG, JPG, WebP or SVG.', pr_logo_grande:'The image is too heavy. Use one under 150 KB (SVG) or a simpler one.', pr_doc:'Quote', pr_valid:'valid {n} days', pr_trabajo:'Work', pr_mano_inst:'Labor and installation', pr_mat_inst:'Installation materials', pr_resumen:'Summary', pr_plano:'Floor plan',
   pr_dur:'Estimated duration: {s} ({d} business days) with a crew of {p} technician(s).', pr_firma:'Accepted by: ____________________________   Date: ____________', pr_popup:'Allow pop-ups to see the PDF.',
   pr_cfg_help:'These values are used in every quote. Hours are per unit; factors multiply the hours.', pr_cfg_t:'Hours per task', pr_cfg_alt:'Height factor',
   pr_cfg_techo:'Ceiling type factor', pr_cfg_dif:'Difficulty factor', pr_cfg_pp:'Price per point', pr_cfg_rec:'Surcharge per point by height', pr_cfg_mat:'Material prices',
@@ -5139,7 +5141,7 @@ async function plBorrar(){
 // Valores de partida (todos se cambian en ⚙ Precios y tiempos). Tarifas, salarios, márgenes y precios NO van aquí: están en presu_config_priv (solo admin). Horas por tarea basadas en estándares de la industria
 // (IPVM: ~1.85 h por corrida de 50 ft en techo falso, ~2.5 h en techo duro de 12 ft; ~50–60 ft de cable por hora).
 const PRESU_DEF = {
-  empresa: { nombre: 'AJ Tech Support', direccion: '', telefono: '', email: '', web: 'ajtechsupport.net', licencia: '' }, terminos: '',
+  empresa: { nombre: 'AJ Tech Support', direccion: '', telefono: '', email: '', web: 'ajtechsupport.net', licencia: '', color: '#1f2b4d', logo: '' }, terminos: '',
   tarifa: 0, salario: 0, cargas: 0, extra: 0, horas_dia: 8, eficiencia: 0.85, margen_mat: 0, margen_eq: 0, impuesto: 7, contingencia: 0, validez: 30,
   t: { drop: 0.75, pies_hora: 80, conduit_pies_hora: 30, prueba: 0.1, ap: 0.5, ap_cfg: 0.15, cam_int: 0.75, cam_ext: 1.25, cam_cfg: 0.25,
        rack: 3, patch: 1, switch: 1.5, nvr: 2, fibra: 3, fibra_term: 1.5, survey: 2, pm: 8 },
@@ -6676,7 +6678,7 @@ function renderPresupuestos(){
   const cerr = presus.filter(p => p.estado === 'completado' && +p.horas_est > 0 && +p.horas_real > 0), ap = cerr.length ? (() => { const r = cerr.reduce((a, p) => a + Math.min(2, Math.max(.5, p.horas_real / p.horas_est)) * p.horas_est, 0) / cerr.reduce((a, p) => a + +p.horas_est, 0), n = cerr.length; return { n, f: (n * r + 3) / (n + 3) }; })() : { n: 0, f: 1 }, tot = e => presus.filter(p => !e || p.estado === e).length;
   ponVista(el, `<div class="cl-head"><button class="backbtn" onclick="cerrarPresupuestos()">← ${t('clients_title')}</button>
       <div class="cl-info"><h2>💰 ${t('pr_title')}</h2><div class="muted">${t('pr_sub')}</div></div>
-      <div class="row no-print">${PERM.admin || !PERM.roles ? `<button onclick="prConfigAbrir()">⚙ ${t('pr_cfg')}</button>` : ''}<button class="primary" onclick="prElegirTipo()">＋ ${t('pr_new')}</button></div></div>
+      <div class="row no-print">${PERM.admin || !PERM.roles ? `<button onclick="prEmpresaAbrir()">🏢 ${t('pr_emp')}</button><button onclick="prConfigAbrir()">⚙ ${t('pr_cfg')}</button>` : ''}<button class="primary" onclick="prElegirTipo()">＋ ${t('pr_new')}</button></div></div>
     ${!presuOK ? `<div class="panel act-empty">💰 ${t('pr_missing')}</div>` : `<div class="panel">
       <div class="pr-top"><div class="stats">${['', ...PR_ESTADOS].map(e => `<span class="chip ${PRES.estado === e ? 'on' : ''}" onclick="PRES.estado='${e}';renderPresupuestos()">${e ? esc(t('pre.' + e)) : t('pr_all')} (${tot(e)})</span>`).join('')}</div>
         <div class="search"><input enterkeyhint="search" value="${esc(PRES.q)}" placeholder="${esc(t('cl_search'))}" oninput="PRES.q=this.value;busca(renderPresupuestos)"></div></div>
@@ -6714,7 +6716,7 @@ function renderPresuEditor(){
   const tab = (k, ic) => `<span class="chip ${PR.tab === k ? 'on' : ''}" onclick="prTab('${k}')">${ic} ${t('pr_tab.' + k)}</span>`;
   el.innerHTML = `<div class="cl-head"><button class="backbtn" onclick="prVolverLista()">← ${t('pr_title')}</button>
       <div class="cl-info"><h2>💰 ${PR.numero ? '#' + PR.numero + ' · ' : ''}${esc(PR.cliente || t('pr_new'))}</h2><div class="muted">${esc(PR.titulo || '')}</div></div>
-      <div class="row no-print"><span class="muted" id="prEstadoG"></span><button class="primary" onclick="prGuardar()">💾 ${t('u_save')}</button>${PERM.admin ? `<button onclick="prPdf()">🖨 ${t('pr_pdf')}</button>` : ''}
+      <div class="row no-print"><span class="muted" id="prEstadoG"></span><button class="primary" onclick="prGuardar()">💾 ${t('u_save')}</button>${PERM.admin ? `<button onclick="prPdf()">🖨 ${t('pr_pdf')}</button><button onclick="prEmpresaAbrir()" title="${esc(t('pr_emp'))}">🏢</button>` : ''}
         ${PR.id ? `<button onclick="prDuplicar()">⧉ ${t('dup')}</button>` : ''}${PR.id && ['aprobado', 'enviado', 'completado'].includes(PR.estado) ? `<button onclick="trbDesdePresu()">🛠 ${t('trb_crear_presu')}</button>` : ''}${PR.id && (PR.estado === 'aprobado' || PR.estado === 'completado') ? `<button onclick="prCerrarAbrir()">✅ ${t('pr_close')}</button>` : ''}
         ${PR.id && PR.prospecto && (PERM.admin || !PERM.roles) ? `<button onclick="prConvertir()">➕ ${t('pr_to_client')}</button>` : ''}${PR.id && (PERM.admin || !PERM.roles) ? `<button class="danger" onclick="prBorrar()">🗑</button>` : ''}</div></div>
     <div class="pr-grid">
@@ -7096,7 +7098,7 @@ async function prPdf(){
   const resumen = `<table class="sum">${R.mano ? sr(t(tp === 'msp' ? 'pms_onb' : 'pr_mano'), M(R.mano)) : ''}${R.matVenta ? sr(t('pr_mat'), M(R.matVenta)) : ''}${R.eqVenta ? sr(t(tp === 'instalacion' ? 'pr_equipos' : 'pr_productos'), M(R.eqVenta)) : ''}
     ${R.cargosT ? sr(t('pr_cargos'), M(R.cargosT)) : ''}${R.conting ? sr(t('pr_conting_c'), M(R.conting)) : ''}${R.impuesto ? sr(t('pr_imp', { p: C.impuesto }), money(R.impuesto)) : ''}
 </table><div class="totbox"><span>${t(rec.length ? 'pr_total_unico' : 'pr_total')}</span><b>${money(R.total$)}</b></div>
-    ${rec.length ? `<table class="sum rec"><tr><td colspan="2" class="rh">🔁 ${t('pr_rec')}</td></tr>${rec.map(([k, v, u]) => sr(esc(k), money(v) + '/' + t(u === 'anio' ? 'pr_anio' : 'pr_mes'))).join('')}</table><div class="totbox rec2"><span>${t('pr_mensual')}</span><b>${money(recMes)}/${t('pr_mes')}</b></div>` : ''}`;
+    ${rec.length ? `<table class="sum rec"><tr><td colspan="2" class="rh">${t('pr_rec')}</td></tr>${rec.map(([k, v, u]) => sr(esc(k), money(v) + '/' + t(u === 'anio' ? 'pr_anio' : 'pr_mes'))).join('')}</table><div class="totbox rec2"><span>${t('pr_mensual')}</span><b>${money(recMes)}/${t('pr_mes')}</b></div>` : ''}`;
   // ---- Estadísticas de tiempo
   const H = prHorario(d.sitio || {}, C), campo = ['instalacion', 'desmontaje', 'mudanza', 'reparacion'].includes(tp);
   let tiempo = '';
@@ -7124,8 +7126,8 @@ async function prPdf(){
       return `<div class="gr"><div class="gl">${esc(f.n)}<small>${Math.round(f.h / sumF * 100)}%${d.pdf_horas ? ' · ' + nf(f.h) + ' h' : ''}</small></div><div class="gt"><div class="gb c${i % 7}" style="left:${x.toFixed(2)}%;width:${Math.max(1.5, w).toFixed(2)}%"></div></div><div class="gd">${rango}</div></div>`; }).join('')
       + (pm ? `<div class="gr"><div class="gl">${esc(t('pr_h_pm', { p: '' }).replace(/\s*\(\s*%?\s*\)\s*$/, ''))}<small>${t('pdf_todo')}</small></div><div class="gt"><div class="gb pm" style="left:0;width:100%"></div></div><div class="gd">${ini ? fcorta(ini) + ' – ' + fcorta(fin) : t('pdf_dias_r', { a: 1, b: dias })}</div></div>` : '');
     const ticks = Array.from({ length: Math.min(dias, 10) + 1 }, (_, i) => Math.round(i * dias / Math.min(dias, 10))).filter((v, i, a) => a.indexOf(v) === i);
-    tiempo = `<section class="blk keep"><h2>⏱ ${t('pdf_tiempo')}</h2><div class="kpis">${kpis}</div>
-      ${ini ? `<div class="fechas">📅 ${t('pdf_inicio')}: <b>${fdate(ini)}</b> &nbsp;→&nbsp; ${t('pdf_fin')}: <b>${fdate(fin)}</b></div>` : ''}
+    tiempo = `<section class="blk keep"><h2>${t('pdf_tiempo')}</h2><div class="kpis">${kpis}</div>
+      ${ini ? `<div class="fechas">${t('pdf_inicio')}: <b>${fdate(ini)}</b> &nbsp;→&nbsp; ${t('pdf_fin')}: <b>${fdate(fin)}</b></div>` : ''}
       ${lista.length ? `<div class="gantt"><div class="gr gh"><div class="gl">${t('pdf_fase')}</div><div class="gt axis">${ticks.map(v => `<span style="left:${(v / dias * 100).toFixed(2)}%">${v === 0 ? '' : t('pdf_dia_c', { a: v })}</span>`).join('')}</div><div class="gd">${t(ini ? 'pdf_fechas' : 'pdf_dias_col')}</div></div>${gantt}</div>
       <div class="nota">${t('pdf_tiempo_n', { h: nf(n0(C.horas_dia) || 8) })}</div>` : ''}</section>`;
   }
@@ -7133,54 +7135,57 @@ async function prPdf(){
   const s = d.sitio || {}, nom = E.nombre || 'AJ Tech Support';
   const ctc = [E.direccion, [E.telefono, E.email].filter(Boolean).join(' · '), E.web, E.licencia && t('pdf_lic', { l: E.licencia })].filter(Boolean).map(esc).join('<br>');
   const pw = nom.split(/\s+/).filter(Boolean), ini2 = (pw[0] && pw[0].length <= 3 ? pw[0] : pw.slice(0, 2).map(w => w[0]).join('')).toUpperCase();
+  const ac = prColorOk(E.color), logoUrl = /^data:image\/(png|jpeg|webp|svg\+xml)[;,]/.test(E.logo || '') ? E.logo : '';
   const valido = new Date(fecha); valido.setDate(valido.getDate() + (n0(C.validez) || 30));
   const sitioLin = [d.direccion && esc(d.direccion), campo && s.tipo && esc(t('prt.' + s.tipo)), campo && n0(s.area) && nf(n0(s.area)) + ' ft²', tp === 'desmontaje' || tp === 'instalacion' ? n0(s.altura) && t('pdf_altura', { a: nf(n0(s.altura)) }) : ''].filter(Boolean);
   const terminos = d.terminos ?? (C.terminos || t('pr_term_def'));
   const excl = d.exclusiones ?? t('pr_excl_def.' + tp);
   const css = `@page{size:letter;margin:0}*{box-sizing:border-box}html,body{margin:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-    body{font:12px/1.5 Inter,"Segoe UI",Arial,sans-serif;color:#0f172a;background:#fff}
-    .pg{width:100%;border-collapse:collapse}.pg>thead td,.pg>tfoot td{height:12mm}.pg>tbody>tr>td{padding:0 15mm}
-    .hdr{display:flex;justify-content:space-between;gap:24px;align-items:flex-start}
-    .brand{display:flex;gap:12px;align-items:flex-start}.logo{width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,#006fff,#7c4dff);color:#fff;font:800 18px/46px Inter,Arial;text-align:center;flex:none}
-    .brand h1{font-size:20px;margin:0 0 2px;letter-spacing:-.2px}.brand .ct{color:#64748b;font-size:11px;line-height:1.45}
-    .doc{text-align:right}.doc .tt{font-size:24px;font-weight:800;letter-spacing:2px;color:#006fff;text-transform:uppercase;margin:0 0 6px}
-    .doc table{margin-left:auto;border-collapse:collapse;font-size:11px}.doc td{padding:1px 0 1px 12px;text-align:right}.doc td:first-child{color:#64748b}
-    .bar{height:4px;border-radius:4px;background:linear-gradient(90deg,#006fff,#7c4dff);margin:14px 0 16px}
-    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:6px}.card{border:1px solid #e2e8f0;border-radius:10px;padding:10px 12px;background:#f8fafc}
-    .card h3{margin:0 0 4px;font-size:9.5px;letter-spacing:1.2px;text-transform:uppercase;color:#64748b}.card .v{font-weight:700;font-size:12.5px}.card .s{color:#475569;font-size:11px}
-    .blk{margin-top:16px}h2{font-size:13px;margin:0 0 8px;padding-bottom:5px;border-bottom:2px solid #006fff;color:#0f172a;letter-spacing:.2px}
-    .txt{color:#334155;white-space:pre-line}
-    table.it{width:100%;border-collapse:collapse}table.it th{background:#0f172a;color:#fff;font-size:10px;letter-spacing:.8px;text-transform:uppercase;font-weight:600;padding:7px 8px;text-align:left}
-    table.it th:first-child{border-radius:6px 0 0 6px}table.it th:last-child{border-radius:0 6px 6px 0}
-    table.it td{padding:6px 8px;border-bottom:1px solid #e9eef5;vertical-align:top}table.it tbody tr:nth-child(even) td{background:#f8fafc}
-    table.it .d{font-weight:500}.det{color:#64748b;font-size:10.5px}.n{text-align:right;white-space:nowrap;width:1%}.b{font-weight:600}tr.sub td{background:#eef4ff!important}
+    body{--ac:${ac};font:10.5pt/1.5 "Helvetica Neue",Helvetica,Arial,sans-serif;color:#1d2433;background:#fff}
+    .pg{width:100%;border-collapse:collapse}.pg>thead td,.pg>tfoot td{height:13mm}.pg>tbody>tr>td{padding:0 16mm}
+    .hdr{display:flex;justify-content:space-between;gap:28px;align-items:flex-start}
+    .brand{display:flex;flex-direction:column;gap:10px;max-width:58%}.brand img{display:block;max-width:230px;max-height:70px;object-fit:contain;object-position:left center}
+    .logo{width:52px;height:52px;border-radius:6px;background:var(--ac);color:#fff;font:700 18px/52px "Helvetica Neue",Arial;text-align:center}
+    .brand h1{font-size:15pt;line-height:1.2;margin:0 0 3px;font-weight:700;letter-spacing:-.1pt}.brand .ct{color:#5b6475;font-size:9pt;line-height:1.5}
+    .doc{text-align:right;min-width:210px}.doc .tt{font-size:22pt;line-height:1;font-weight:300;letter-spacing:.06em;color:var(--ac);text-transform:uppercase;margin:4px 0 12px}
+    .doc table{margin-left:auto;border-collapse:collapse;font-size:9pt}.doc td{padding:2px 0 2px 16px;text-align:right}.doc td:first-child{color:#5b6475}.doc b{font-size:10.5pt}
+    .bar{height:2px;background:var(--ac);margin:18px 0 18px}
+    .cards{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:24px;margin-bottom:4px}
+    .card h3{margin:0 0 5px;font-size:7.5pt;letter-spacing:.12em;text-transform:uppercase;color:#5b6475;font-weight:600}.card .v{font-weight:700;font-size:11pt;line-height:1.3}.card .s{color:#3b4456;font-size:9.5pt}
+    .blk{margin-top:20px}h2{font-size:8.5pt;margin:0 0 8px;padding-bottom:6px;border-bottom:1px solid #d5dae3;color:var(--ac);letter-spacing:.14em;text-transform:uppercase;font-weight:700}
+    .txt{color:#2c3446;white-space:pre-line}
+    table.it{width:100%;border-collapse:collapse}table.it th{background:#f1f3f7;color:#3b4456;font-size:7.5pt;letter-spacing:.1em;text-transform:uppercase;font-weight:700;padding:7px 10px;text-align:left;border-bottom:1px solid #c9cfda}
+    table.it td{padding:7px 10px;border-bottom:1px solid #e6e9ef;vertical-align:top}table.it .d{font-weight:600}.det{color:#5b6475;font-size:9pt}
+    .n{text-align:right;white-space:nowrap;width:1%;font-variant-numeric:tabular-nums}.b{font-weight:600}tr.sub td{border-top:1px solid #c9cfda;background:#fafbfc}
     tr{break-inside:avoid}.keep,.fin{break-inside:avoid}
-    .fin{display:grid;grid-template-columns:1fr 300px;gap:18px;margin-top:16px;align-items:start}
-    table.sum{width:100%;border-collapse:collapse}table.sum td{padding:6px 10px;border-bottom:1px solid #e9eef5}.totbox{display:flex;justify-content:space-between;align-items:center;margin-top:6px;padding:9px 12px;border-radius:8px;background:linear-gradient(90deg,#006fff,#7c4dff);color:#fff;font-weight:800;font-size:15px}.totbox.rec2{background:#0f172a;font-size:13px}table.rec{margin-top:10px}.rh{font-weight:700;color:#334155}
-    .kpis{display:flex;gap:8px;margin-bottom:10px}.kpi{flex:1;border:1px solid #e2e8f0;border-radius:10px;padding:8px 10px;text-align:center;background:#f8fafc}
-    .kpi b{display:block;font-size:20px;line-height:1.15;color:#006fff}.kpi span{font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:.8px}
-    .fechas{margin:0 0 10px;color:#334155}
-    .gantt{border:1px solid #e2e8f0;border-radius:10px;padding:8px 10px}.gr{display:grid;grid-template-columns:170px 1fr 92px;gap:10px;align-items:center;padding:4px 0}
-    .gr+.gr{border-top:1px dashed #edf1f6}.gl{font-size:11px;font-weight:600;line-height:1.25}.gl small{display:block;font-weight:400;color:#64748b;font-size:9.5px}
-    .gt{position:relative;height:14px;background:#f1f5f9;border-radius:7px}.gb{position:absolute;top:0;bottom:0;border-radius:7px}
-    .c0{background:#006fff}.c1{background:#7c4dff}.c2{background:#06b6d4}.c3{background:#10b981}.c4{background:#f59e0b}.c5{background:#ef4444}.c6{background:#64748b}.pm{background:repeating-linear-gradient(45deg,#cbd5e1 0 6px,#e2e8f0 6px 12px)}
-    .gd{font-size:10px;color:#475569;text-align:right;white-space:nowrap}.gh{padding-bottom:6px}.gh .gl,.gh .gd{font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#94a3b8;font-weight:600}
-    .axis{background:none;height:12px}.axis span{position:absolute;transform:translateX(-50%);font-size:9px;color:#94a3b8}.nota{font-size:10px;color:#94a3b8;margin-top:6px}
-    .cols{display:grid;grid-template-columns:1fr 1fr;gap:18px}.firmas{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:28px}
-    .firma .ln{border-bottom:1px solid #0f172a;height:34px}.firma small{display:block;color:#64748b;font-size:10px;margin-top:4px}.firma b{font-size:11px}
-    .pie{margin-top:22px;padding-top:10px;border-top:1px solid #e2e8f0;text-align:center;color:#94a3b8;font-size:10px}
+    .fin{display:grid;grid-template-columns:1fr 290px;gap:28px;margin-top:22px;align-items:start}
+    table.sum{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}table.sum td{padding:6px 0;border-bottom:1px solid #e6e9ef}
+    .totbox{display:flex;justify-content:space-between;align-items:baseline;margin-top:10px;padding:12px 14px;background:var(--ac);color:#fff;font-weight:700;font-size:12.5pt;font-variant-numeric:tabular-nums}
+    .totbox.rec2{background:#1d2433;font-size:11pt}table.rec{margin-top:12px}.rh{font-weight:700;color:var(--ac)}
+    .kpis{display:flex;gap:10px;margin-bottom:12px}.kpi{flex:1;border:1px solid #d5dae3;padding:9px 10px;text-align:center}
+    .kpi b{display:block;font-size:16pt;line-height:1.15;color:var(--ac);font-weight:700}.kpi span{font-size:7.5pt;color:#5b6475;text-transform:uppercase;letter-spacing:.1em}
+    .fechas{margin:0 0 10px;color:#2c3446}
+    .gantt{border:1px solid #d5dae3;padding:8px 12px}.gr{display:grid;grid-template-columns:170px 1fr 92px;gap:12px;align-items:center;padding:5px 0}
+    .gr+.gr{border-top:1px solid #eef0f4}.gl{font-size:9pt;font-weight:600;line-height:1.25}.gl small{display:block;font-weight:400;color:#5b6475;font-size:8pt}
+    .gt{position:relative;height:10px;background:#eef0f4}.gb{position:absolute;top:0;bottom:0}
+    .c0{background:var(--ac)}.c1{background:color-mix(in srgb,var(--ac) 82%,#fff)}.c2{background:color-mix(in srgb,var(--ac) 66%,#fff)}.c3{background:color-mix(in srgb,var(--ac) 52%,#fff)}.c4{background:color-mix(in srgb,var(--ac) 40%,#fff)}.c5{background:color-mix(in srgb,var(--ac) 30%,#fff)}.c6{background:color-mix(in srgb,var(--ac) 22%,#fff)}.pm{background:color-mix(in srgb,var(--ac) 14%,#fff)}
+    .gd{font-size:8.5pt;color:#3b4456;text-align:right;white-space:nowrap}.gh{padding-bottom:6px}.gh .gl,.gh .gd{font-size:7.5pt;text-transform:uppercase;letter-spacing:.1em;color:#5b6475;font-weight:600}
+    .axis{background:none;height:12px}.axis span{position:absolute;transform:translateX(-50%);font-size:7.5pt;color:#5b6475}.nota{font-size:8.5pt;color:#5b6475;margin-top:6px}
+    .firmas{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:34px}
+    .firma .ln{border-bottom:1px solid #1d2433;height:40px}.firma small{display:block;color:#5b6475;font-size:8.5pt;margin-top:4px}.firma b{font-size:9.5pt}
+    .pie{margin-top:26px;padding-top:10px;border-top:1px solid #d5dae3;text-align:center;color:#5b6475;font-size:8.5pt}
     .dimfig{text-align:center}.dimfig svg{width:100%;max-width:520px;max-height:260px}
-    img.plano{max-width:100%;border:1px solid #e2e8f0;border-radius:8px}`;
+    img.plano{max-width:100%;border:1px solid #d5dae3}`;
   const html = `<!doctype html><html><head><meta charset="utf-8"><title>${esc(t('pr_doc'))} #${PR.numero || ''} · ${esc(PR.cliente)}</title><style>${css}</style></head><body>
   <table class="pg"><thead><tr><td></td></tr></thead><tfoot><tr><td></td></tr></tfoot><tbody><tr><td>
-    <div class="hdr"><div class="brand"><div class="logo">${esc(ini2 || 'AJ')}</div><div><h1>${esc(nom)}</h1><div class="ct">${ctc}</div></div></div>
+    <div class="hdr"><div class="brand">${logoUrl ? `<img src="${logoUrl}" alt="${esc(nom)}">` : `<div class="logo">${esc(ini2 || 'AJ')}</div>`}<div><h1>${esc(nom)}</h1><div class="ct">${ctc}</div></div></div>
       <div class="doc"><div class="tt">${esc(t('pr_doc'))}</div><table><tr><td>${t('pdf_num')}</td><td><b>#${PR.numero || '—'}</b></td></tr><tr><td>${t('pdf_fecha')}</td><td>${fdate(fecha)}</td></tr>
         <tr><td>${t('pdf_valido')}</td><td>${fdate(valido)}</td></tr>${PR.creado_por || $('whoami')?.textContent ? `<tr><td>${t('pdf_prep')}</td><td>${esc(PR.creado_por || $('whoami').textContent)}</td></tr>` : ''}</table></div></div>
     <div class="bar"></div>
     <div class="cards"><div class="card"><h3>${t('pdf_cliente')}</h3><div class="v">${esc(PR.cliente)}</div><div class="s">${[d.contacto, d.telefono].filter(Boolean).map(esc).join(' · ')}</div></div>
       <div class="card"><h3>${t('pdf_sitio')}</h3><div class="s">${sitioLin.join('<br>') || '—'}</div></div>
-      <div class="card"><h3>${t('pdf_proyecto')}</h3><div class="v">${esc(PR.titulo || t('ptt.' + tp))}</div><div class="s">${prIc(tp)} ${esc(t('ptt.' + tp))}</div></div></div>
-    ${campo && n0(s.largo) && n0(s.ancho) ? `<section class="blk keep"><h2>📐 ${t('pr_dim')}</h2><div class="dimfig">${prDimSVG(s.largo, s.ancho, s.altura, true)}</div></section>` : ''}
+      <div class="card"><h3>${t('pdf_proyecto')}</h3><div class="v">${esc(PR.titulo || t('ptt.' + tp))}</div><div class="s">${esc(t('ptt.' + tp))}</div></div></div>
+    ${campo && n0(s.largo) && n0(s.ancho) ? `<section class="blk keep"><h2>${t('pr_dim')}</h2><div class="dimfig">${prDimSVG(s.largo, s.ancho, s.altura, true)}</div></section>` : ''}
     ${d.alcance ? `<section class="blk"><h2>${t('pr_alcance')}</h2><div class="txt">${esc(d.alcance)}</div></section>` : ''}
     ${tp === 'software' && jArr(d.modulos).length ? `<section class="blk"><h2>${t('psw_modulos')}</h2><div class="txt">${jArr(d.modulos).map(m => '• ' + esc(m.n)).join('\n')}</div></section>` : ''}
     ${tiempo}
@@ -7207,7 +7212,7 @@ function prConfigAbrir(){
   $('modal').querySelector('.modal-card').classList.add('wide');
   const txt = (path, v, ph = '') => `<input type="text" data-cpt="${path}" value="${esc(v ?? '')}" placeholder="${esc(ph)}">`;
   $('modalBody').innerHTML = `<div class="u-note" style="margin:0 0 10px">${t('pr_cfg_help')}</div>
-    <h4 class="cl-h4">🏢 ${t('pcf_emp')}</h4><div class="mdm-grid">${['nombre', 'direccion', 'telefono', 'email', 'web', 'licencia'].map(k => `<label><span>${esc(t('pce.' + k))}</span>${txt('empresa.' + k, C.empresa[k], t('pce_ph.' + k))}</label>`).join('')}</div>
+    <p class="u-note" style="margin:0 0 10px">🏢 ${t('pr_emp_aqui')} <a href="#" onclick="prEmpresaAbrir();return false">${t('pr_emp')}</a></p>
     <label class="cl-full" style="display:block;margin:8px 0 12px"><span>${t('pdf_terminos')}</span><textarea data-cpt="terminos" rows="3" placeholder="${esc(t('pr_term_def'))}">${esc(C.terminos || '')}</textarea></label>
     <div class="mdm-grid">${['tarifa', 'salario', 'cargas', 'extra', 'horas_dia', 'eficiencia', 'margen_mat', 'margen_eq', 'impuesto', 'contingencia', 'validez'].map(k => `<label><span>${esc(t('pcf.' + k))}</span>${num(k, C[k])}</label>`).join('')}</div>
     ${grupo('⏱ ' + t('pr_cfg_t'), C.t, 't', k => t('pct.' + k))}
@@ -7228,6 +7233,56 @@ function prConfigAbrir(){
     <div class="row" style="margin-top:14px"><button class="primary" onclick="prConfigGuardar()">${t('u_save')}</button><button onclick="closeModal()">${t('cancel')}</button><span style="flex:1"></span><button onclick="if(confirm(t('pr_cfg_reset_q')))prConfigGuardar(true)">↺ ${t('pr_cfg_reset')}</button></div>`;
   $('modal').classList.remove('hidden');
 }
+/* ---------- 🏢 Empresa que emite el PDF: nombre, datos, logo y color ---------- */
+const PR_EMP_CAMPOS = ['nombre', 'direccion', 'telefono', 'email', 'web', 'licencia'];
+let prLogoTmp = null;
+const prColorOk = c => /^#[0-9a-f]{6}$/i.test(c || '') ? c : '#1f2b4d';
+function prEmpresaAbrir(){
+  if (!puede('admin')) return;
+  const E = prConf().empresa || {};
+  prLogoTmp = E.logo || '';
+  $('modalTitle').textContent = '🏢 ' + t('pr_emp');
+  $('modal').querySelector('.modal-card').classList.remove('wide');
+  $('modalBody').innerHTML = `<div class="u-note" style="margin:0 0 12px">${t('pr_emp_help')}</div>
+    <div class="emp-logo"><div class="emp-prev" id="empPrev"></div><div>
+      <label class="btn-file"><input type="file" id="empFile" accept="image/png,image/jpeg,image/webp,image/svg+xml" onchange="prLogoLeer(this.files[0])"><span>${t('pr_logo_up')}</span></label>
+      <button type="button" class="sm" id="empQuitar" onclick="prLogoTmp='';prLogoPrev()">${t('pr_logo_del')}</button>
+      <div class="u-note" style="margin-top:6px">${t('pr_logo_h')}</div></div></div>
+    <div class="mdm-grid">${PR_EMP_CAMPOS.map(k => `<label><span>${esc(t('pce.' + k))}</span><input type="text" data-emp="${k}" value="${esc(E[k] ?? '')}" placeholder="${esc(t('pce_ph.' + k))}"></label>`).join('')}
+      <label><span>${t('pr_emp_color')}</span><input type="color" data-emp="color" value="${prColorOk(E.color)}"></label></div>
+    <div class="row" style="margin-top:14px"><button class="primary" onclick="prEmpresaGuardar()">${t('u_save')}</button><button onclick="closeModal()">${t('cancel')}</button></div>`;
+  prLogoPrev(); $('modal').classList.remove('hidden');
+}
+function prLogoPrev(){
+  const p = $('empPrev'); if (!p) return;
+  p.innerHTML = prLogoTmp ? `<img src="${esc(prLogoTmp)}" alt="${esc(t('pr_logo'))}">` : `<span>${t('pr_logo_none')}</span>`;
+  $('empQuitar').hidden = !prLogoTmp;
+}
+// El logo se guarda dentro de la configuración: se reduce para que el PDF cargue rápido
+async function prLogoLeer(f){
+  if (!f) return;
+  if (!/^image\/(png|jpeg|webp|svg\+xml)$/.test(f.type)) return alert(t('pr_logo_tipo'));
+  const leer = () => new Promise((ok, no) => { const r = new FileReader(); r.onload = () => ok(r.result); r.onerror = no; r.readAsDataURL(f); });
+  try {
+    if (f.type === 'image/svg+xml'){ if (f.size > 150000) return alert(t('pr_logo_grande')); prLogoTmp = await leer(); return prLogoPrev(); }
+    const img = new Image(); img.src = await leer(); await img.decode();
+    const k = Math.min(1, 640 / img.naturalWidth, 240 / img.naturalHeight), c = document.createElement('canvas');
+    c.width = Math.max(1, Math.round(img.naturalWidth * k)); c.height = Math.max(1, Math.round(img.naturalHeight * k));
+    c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+    let url = c.toDataURL('image/png'); if (url.length > 300000) url = c.toDataURL('image/webp', .9);
+    if (url.length > 450000) return alert(t('pr_logo_grande'));
+    prLogoTmp = url; prLogoPrev();
+  } catch(e){ fail(e, t('pr_logo_tipo')); }
+}
+async function prEmpresaGuardar(){
+  if (!puede('admin')) return;
+  const emp = {}; document.querySelectorAll('[data-emp]').forEach(el => { emp[el.dataset.emp] = el.value.trim(); });
+  emp.color = prColorOk(emp.color); if (prLogoTmp) emp.logo = prLogoTmp;
+  const datos = { ...jObj(PRC?.datos), empresa: emp };   // solo cambia la empresa; tiempos y factores se quedan
+  const r = await db.from('presu_config').update({ datos }).eq('id', 1);
+  if (r.error) return fail(r.error, /presu_config/.test(r.error.message || '') ? t('pr_missing') : t('save_fail'));
+  PRC = { ...(PRC || { id: 1 }), datos }; logAct('quote_company_updated'); closeModal(); toast(t('saved'));
+}
 async function prConfigGuardar(reset){
   let datos = {};
   if (!reset){
@@ -7236,6 +7291,7 @@ async function prConfigGuardar(reset){
     document.querySelectorAll('[data-cpt]').forEach(el => { const ps = el.dataset.cpt.split('.'); let o = datos; ps.slice(0, -1).forEach(p => { o = o[p] = o[p] || {}; }); o[ps[ps.length - 1]] = el.value.trim(); });
     datos.equipos = [...document.querySelectorAll('#pcEq .pc-eq')].map(r => ({ m: r.querySelector('.q-m').value.trim(), c: r.querySelector('.q-c').value, p: n0(r.querySelector('.q-p').value) })).filter(e => e.m);
   }
+  const prev = jObj(PRC?.datos); if (prev.empresa) datos.empresa = prev.empresa; if (reset && prev.terminos) datos.terminos = prev.terminos;
   const { pub, priv } = prSepararConf(datos);   // "valores iniciales" solo toca tiempos y factores: las tarifas y precios privados se quedan
   if (!reset){ const v = await db.from('presu_config_priv').upsert({ id: 1, datos: priv }); if (v.error) return fail(v.error, t('save_fail')); PRCP = { id: 1, datos: priv }; }
   const r = await db.from('presu_config').update({ datos: pub }).eq('id', 1);

@@ -1201,7 +1201,7 @@ button,.chip,.sede-tab{-webkit-user-select:none;user-select:none;-webkit-touch-c
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v9.12.0</p>
+    <p class="sub">Network Asset Manager · v9.12.1</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" enterkeyhint="next" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" enterkeyhint="go" required placeholder="••••••••"></label>
@@ -1217,7 +1217,7 @@ button,.chip,.sede-tab{-webkit-user-select:none;user-select:none;-webkit-touch-c
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.12.0</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.12.1</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -2691,9 +2691,9 @@ Object.assign(I18N.es, {
   pdf_proyecto:'Proyecto', pdf_trabajo:'Detalle del trabajo', pdf_cargos:'Cargos y servicios', pdf_terminos:'Términos y condiciones', pdf_acepta:'Aceptado por el cliente', pdf_nom_firma:'Nombre, firma y fecha',
   pdf_gracias:'Gracias por su confianza', pdf_inicio_l:'Fecha de inicio estimada (opcional, para el cronograma del PDF)',
   pr_term_def:'Forma de pago: 50% de anticipo para programar el trabajo y 50% al terminar.\nPrecios en dólares (USD). Cualquier cambio en el alcance se cotiza por separado.',
-  pcf_emp:'Tu empresa (sale en el PDF)', 'pce.nombre':'Nombre', 'pce.direccion':'Dirección', 'pce.telefono':'Teléfono', 'pce.email':'Email', 'pce.web':'Web', 'pce.licencia':'Licencia / certificación',
+  pcf_emp:'Tu empresa (sale en el PDF)', 'pce.pago':'Forma de pago (por defecto)', 'pce_ph.pago':'50% de anticipo para iniciar y 50% al terminar', 'pce.nombre':'Nombre', 'pce.direccion':'Dirección', 'pce.telefono':'Teléfono', 'pce.email':'Email', 'pce.web':'Web', 'pce.licencia':'Licencia / certificación',
   'pce_ph.nombre':'AJ Tech Support', 'pce_ph.direccion':'Calle, ciudad, FL', 'pce_ph.telefono':'(305) 000-0000', 'pce_ph.email':'info@ajtechsupport.net', 'pce_ph.web':'ajtechsupport.net', 'pce_ph.licencia':'ej. EF0000000',
-  pr_emisor:'Lo emite', pr_emp_nueva:'Nueva empresa', pr_emp_edit:'Editar empresa', pr_emp_del:'Borrar esta empresa', pr_emp_del_q:'¿Borrar {n}? Los presupuestos que la usan volverán a la empresa principal.', pr_emp_falta_nom:'Escribe el nombre de la empresa.', pr_emp_help2:'Esta empresa sale en los presupuestos que la elijan en «Lo emite».', pr_emp_otras:'Otras empresas:', pr_emp:'Empresa del PDF', pr_emp_help:'Empresa principal: sale en los presupuestos que no elijan otra en «Lo emite».', pr_emp_aqui:'El nombre, los datos y el logo de la empresa están en', pr_emp_color:'Color del documento', pr_logo:'Logo', pr_logo_up:'Subir logo', pr_logo_del:'Quitar logo', pr_logo_none:'Sin logo: salen las iniciales', pr_logo_h:'PNG, JPG, WebP o SVG. Sale arriba a la izquierda del PDF.', pr_logo_tipo:'No se pudo leer la imagen. Usa PNG, JPG, WebP o SVG.', pr_logo_grande:'La imagen es muy pesada. Usa una de menos de 150 KB (SVG) o una más simple.', pr_doc:'Presupuesto', pr_valid:'válido {n} días', pr_trabajo:'Trabajo', pr_mano_inst:'Mano de obra e instalación', pr_mat_inst:'Materiales de instalación', pr_resumen:'Resumen', pr_plano:'Plano',
+  pr_emisor:'Lo emite', pr_emp_nueva:'Nueva empresa', pr_emp_edit:'Editar empresa', pr_emp_del:'Borrar esta empresa', pr_emp_del_q:'¿Borrar {n}? Los presupuestos que la usan volverán a la empresa principal.', pr_emp_falta_nom:'Escribe el nombre de la empresa.', pr_emp_help2:'Esta empresa sale en los presupuestos que la elijan en «Lo emite».', pr_emp_otras:'Otras empresas:', pr_emp:'Empresa del PDF', pr_emp_help:'Empresa principal: sale en los presupuestos que no elijan otra en «Lo emite».', pr_emp_aqui:'El nombre, los datos y el logo de la empresa están en', pr_emp_color:'Color del documento', pr_logo:'Logo', pr_logo_up:'Subir logo', pr_logo_del:'Quitar logo', pr_logo_none:'Sin logo: salen las iniciales', pr_logo_h:'PNG, JPG, WebP o SVG. Sale arriba a la izquierda del PDF.', pr_logo_tipo:'No se pudo leer la imagen. Usa PNG, JPG, WebP o SVG.', pr_logo_grande:'La imagen es muy pesada. Usa una de menos de 150 KB (SVG) o una más simple.', pdf_para:'Preparado para', pdf_subtotal:'Subtotal', pr_imp_c:'Impuesto ({p}%)', pdf_pagina:'Página', pdf_de:'de', pdf_condiciones:'Condiciones', pdf_validez:'Validez', pdf_validez_t:'Esta oferta es válida hasta el {f} ({n} días).', pdf_pago:'Forma de pago', pdf_incl:'Incluido', pdf_por:'Por {n}', pdf_cero:'{n} línea(s) tienen precio $0: {l}.\n¿Generar el PDF de todos modos?', pr_doc:'Presupuesto', pr_valid:'válido {n} días', pr_trabajo:'Trabajo', pr_mano_inst:'Mano de obra e instalación', pr_mat_inst:'Materiales de instalación', pr_resumen:'Resumen', pr_plano:'Plano',
   pr_dur:'Duración estimada: {s} ({d} días hábiles) con un equipo de {p} técnico(s).', pr_firma:'Aceptado por: ____________________________   Fecha: ____________', pr_popup:'Permite las ventanas emergentes para ver el PDF.',
   pr_cfg_help:'Estos valores se usan en todos los presupuestos. Las horas son por unidad; los factores multiplican las horas.', pr_cfg_t:'Horas por tarea', pr_cfg_alt:'Factor por altura',
   pr_cfg_techo:'Factor por tipo de techo', pr_cfg_dif:'Factor por dificultad', pr_cfg_pp:'Precio por punto', pr_cfg_rec:'Recargo por punto según altura', pr_cfg_mat:'Precios de materiales',
@@ -2756,9 +2756,9 @@ Object.assign(I18N.en, {
   pdf_proyecto:'Project', pdf_trabajo:'Work detail', pdf_cargos:'Charges and services', pdf_terminos:'Terms and conditions', pdf_acepta:'Accepted by the client', pdf_nom_firma:'Name, signature and date',
   pdf_gracias:'Thank you for your business', pdf_inicio_l:'Estimated start date (optional, for the PDF schedule)',
   pr_term_def:'Payment: 50% deposit to schedule the work and 50% upon completion.\nPrices in US dollars (USD). Any change in scope is quoted separately.',
-  pcf_emp:'Your company (shown on the PDF)', 'pce.nombre':'Name', 'pce.direccion':'Address', 'pce.telefono':'Phone', 'pce.email':'Email', 'pce.web':'Website', 'pce.licencia':'License / certification',
+  pcf_emp:'Your company (shown on the PDF)', 'pce.pago':'Payment terms (default)', 'pce_ph.pago':'50% deposit to start and 50% on completion', 'pce.nombre':'Name', 'pce.direccion':'Address', 'pce.telefono':'Phone', 'pce.email':'Email', 'pce.web':'Website', 'pce.licencia':'License / certification',
   'pce_ph.nombre':'AJ Tech Support', 'pce_ph.direccion':'Street, city, FL', 'pce_ph.telefono':'(305) 000-0000', 'pce_ph.email':'info@ajtechsupport.net', 'pce_ph.web':'ajtechsupport.net', 'pce_ph.licencia':'e.g. EF0000000',
-  pr_emisor:'Issued by', pr_emp_nueva:'New company', pr_emp_edit:'Edit company', pr_emp_del:'Delete this company', pr_emp_del_q:'Delete {n}? Quotes that use it will go back to the main company.', pr_emp_falta_nom:'Enter the company name.', pr_emp_help2:'This company appears on quotes that choose it under “Issued by”.', pr_emp_otras:'Other companies:', pr_emp:'Company on the PDF', pr_emp_help:'Main company: shown on quotes that don’t choose another one under “Issued by”.', pr_emp_aqui:'The company name, details and logo are in', pr_emp_color:'Document color', pr_logo:'Logo', pr_logo_up:'Upload logo', pr_logo_del:'Remove logo', pr_logo_none:'No logo: initials are shown', pr_logo_h:'PNG, JPG, WebP or SVG. Shown at the top left of the PDF.', pr_logo_tipo:'The image could not be read. Use PNG, JPG, WebP or SVG.', pr_logo_grande:'The image is too heavy. Use one under 150 KB (SVG) or a simpler one.', pr_doc:'Quote', pr_valid:'valid {n} days', pr_trabajo:'Work', pr_mano_inst:'Labor and installation', pr_mat_inst:'Installation materials', pr_resumen:'Summary', pr_plano:'Floor plan',
+  pr_emisor:'Issued by', pr_emp_nueva:'New company', pr_emp_edit:'Edit company', pr_emp_del:'Delete this company', pr_emp_del_q:'Delete {n}? Quotes that use it will go back to the main company.', pr_emp_falta_nom:'Enter the company name.', pr_emp_help2:'This company appears on quotes that choose it under “Issued by”.', pr_emp_otras:'Other companies:', pr_emp:'Company on the PDF', pr_emp_help:'Main company: shown on quotes that don’t choose another one under “Issued by”.', pr_emp_aqui:'The company name, details and logo are in', pr_emp_color:'Document color', pr_logo:'Logo', pr_logo_up:'Upload logo', pr_logo_del:'Remove logo', pr_logo_none:'No logo: initials are shown', pr_logo_h:'PNG, JPG, WebP or SVG. Shown at the top left of the PDF.', pr_logo_tipo:'The image could not be read. Use PNG, JPG, WebP or SVG.', pr_logo_grande:'The image is too heavy. Use one under 150 KB (SVG) or a simpler one.', pdf_para:'Prepared for', pdf_subtotal:'Subtotal', pr_imp_c:'Tax ({p}%)', pdf_pagina:'Page', pdf_de:'of', pdf_condiciones:'Terms', pdf_validez:'Validity', pdf_validez_t:'This quote is valid until {f} ({n} days).', pdf_pago:'Payment terms', pdf_incl:'Included', pdf_por:'For {n}', pdf_cero:'{n} line(s) are priced at $0: {l}.\nGenerate the PDF anyway?', pr_doc:'Quote', pr_valid:'valid {n} days', pr_trabajo:'Work', pr_mano_inst:'Labor and installation', pr_mat_inst:'Installation materials', pr_resumen:'Summary', pr_plano:'Floor plan',
   pr_dur:'Estimated duration: {s} ({d} business days) with a crew of {p} technician(s).', pr_firma:'Accepted by: ____________________________   Date: ____________', pr_popup:'Allow pop-ups to see the PDF.',
   pr_cfg_help:'These values are used in every quote. Hours are per unit; factors multiply the hours.', pr_cfg_t:'Hours per task', pr_cfg_alt:'Height factor',
   pr_cfg_techo:'Ceiling type factor', pr_cfg_dif:'Difficulty factor', pr_cfg_pp:'Price per point', pr_cfg_rec:'Surcharge per point by height', pr_cfg_mat:'Material prices',
@@ -6788,6 +6788,7 @@ function renderPrTab(){
   } else {
     b.innerHTML = `<div class="panel"><h4 class="cl-h4">📝 ${t('pr_alcance')}</h4><textarea data-pk="d.alcance" rows="7" oninput="prLeer()" placeholder="${esc(t('pr_alcance_ph.' + prTipo(d)))}">${esc(d.alcance || '')}</textarea>
       <h4 class="cl-h4">${t('pr_excl')}</h4><textarea data-pk="d.exclusiones" rows="4" oninput="prLeer()" placeholder="${esc(t('pr_excl_ph'))}">${esc(d.exclusiones ?? t('pr_excl_def.' + prTipo(d)))}</textarea>
+      <h4 class="cl-h4">${t('pdf_pago')}</h4><textarea data-pk="d.pago" rows="2" oninput="prLeer()" placeholder="${esc(prEmisor(d).pago || t('pce_ph.pago'))}">${esc(d.pago || '')}</textarea>
       <h4 class="cl-h4">${t('pdf_terminos')}</h4><textarea data-pk="d.terminos" rows="3" oninput="prLeer()" placeholder="${esc(t('pr_term_def'))}">${esc(d.terminos ?? (prConf().terminos || t('pr_term_def')))}</textarea>
       <label style="display:block;margin:10px 0 4px"><span class="muted">📅 ${t('pdf_inicio_l')}</span><br><input type="date" data-pk="d.inicio" value="${esc(d.inicio || '')}" onchange="prLeer()" style="max-width:200px"></label>
       <h4 class="cl-h4">${t('pr_notas_int')}</h4><textarea data-pk="d.notas" rows="3" oninput="prLeer()">${esc(d.notas || '')}</textarea>
@@ -7064,8 +7065,13 @@ async function prConvertir(){
 /* ---------- PDF para el cliente ---------- */
 async function prPdf(){
   if (!puede('admin') || !prPrivOK()) return;
+  { const R0 = prCalcular(PR.d), d0 = PR.d;   // una línea en $0 casi siempre es un precio que falta
+    const ceros = [...R0.eqs.filter(e => !n0(e.p)).map(e => e.m), ...jArr(d0.mat_extra).filter(m => m.d && n0(m.qty) && !n0(m.p)).map(m => m.d),
+      ...(prTipo(d0) === 'libre' ? jArr(d0.partidas).filter(p => p.d && n0(p.qty) && !p.h && !n0(p.p)).map(p => p.d) : [])];
+    if (ceros.length && !confirm(t('pdf_cero', { n: ceros.length, l: ceros.slice(0, 6).join(', ') + (ceros.length > 6 ? '…' : '') }))) return; }
   const R = prCalcular(PR.d), d = PR.d, C = prConf(), fecha = new Date(), tp = R.tipo, E = prEmisor(d, C);
   const fm = R.fm || 1, M = v => money(v * fm);   // el margen va repartido dentro de cada línea
+  const kc = R.conting && (R.mano + R.matVenta) ? 1 + R.conting / (R.mano + R.matVenta) : 1, MC = v => money(v * fm * kc);   // los imprevistos van dentro de mano de obra y materiales
   const loc = LANG === 'es' ? 'es-US' : 'en-US', fdate = x => x.toLocaleDateString(loc, { dateStyle: 'long' }), fcorta = x => x.toLocaleDateString(loc, { month: 'short', day: 'numeric' });
   const nf = v => (+v).toLocaleString('en-US', { maximumFractionDigits: 1 });
   let img = '';
@@ -7077,28 +7083,28 @@ async function prPdf(){
     else if ((m = s.match(/^(.*?)\s*×\s*(\d[\d.,]*)\s*$/))){ s = m[1]; qty = m[2]; }
     const m2 = s.match(/^(.*?)\s*\((.*)\)\s*$/); return m2 ? { p: m2[1], det: m2[2], qty } : { p: s, det: '', qty }; };
   const cap = x => String(x).replace(/^(\s*)(\p{Ll})/u, (m, a, b) => a + b.toUpperCase());
-  const fila = (desc, det, qty, unit, tot, cls = '') => `<tr class="${cls}"><td><div class="d">${cap(desc)}</div>${det ? `<div class="det">${det}</div>` : ''}</td><td class="n">${qty ?? ''}</td><td class="n">${unit ?? ''}</td><td class="n b">${tot ?? ''}</td></tr>`;
-  const tabla = (titulo, filas, cols = true) => filas ? `<section class="blk"><h2>${titulo}</h2><table class="it"><thead><tr><th>${t('pr_item')}</th><th class="n">${cols ? t('pr_cant') : ''}</th><th class="n">${cols ? t('pr_unit') : ''}</th><th class="n">${t('pdf_importe')}</th></tr></thead><tbody>${filas}</tbody></table></section>` : '';
+  const fila = (desc, det, qty, unit, tot, cls = '') => `<tr class="${cls}"><td><div class="d">${cap(desc)}</div>${det ? `<div class="det">${det}</div>` : ''}</td><td class="n">${qty ?? ''}</td><td class="n">${unit ?? ''}</td><td class="n b">${tot === '' && qty !== '' && qty != null ? `<span class="inc">${t('pdf_incl')}</span>` : tot ?? ''}</td></tr>`;
+  const tabla = (titulo, filas, cols = true) => filas ? `<section class="blk"><table class="it"><thead><tr class="tit"><th colspan="4"><h2>${titulo}</h2></th></tr><tr><th>${t('pr_item')}</th><th class="n">${cols ? t('pr_cant') : ''}</th><th class="n">${cols ? t('pr_unit') : ''}</th><th class="n">${t('pdf_importe')}</th></tr></thead><tbody>${filas}</tbody></table></section>` : '';
   const sumH = (R.hl || []).reduce((a, x) => a + x[1], 0), kH = R.total && sumH ? R.total / sumH : 1;
   // ---- Trabajo
   let trabajo = '';
   if (tp === 'instalacion'){
-    trabajo = R.lineasPunto.map(l => fila(esc(t('prp.' + l.k)), '', nf(l.qty), R.modo === 'punto' ? M(l.p) : '', R.modo === 'punto' ? M(l.qty * l.p) : '')).join('')
-      + (R.modo === 'hora' ? fila(`<b>${t('pr_mano_inst')}</b>`, d.pdf_horas ? t('pdf_horas_n', { h: nf(R.total) }) : '', '', '', M(R.mano), 'sub') : '');
+    trabajo = R.lineasPunto.map(l => fila(esc(t('prp.' + l.k)), '', nf(l.qty), R.modo === 'punto' ? MC(l.p) : '', R.modo === 'punto' ? MC(l.qty * l.p) : '')).join('')
+      + (R.modo === 'hora' ? fila(`<b>${t('pr_mano_inst')}</b>`, d.pdf_horas ? t('pdf_horas_n', { h: nf(R.total) }) : '', '', '', MC(R.mano), 'sub') : '');
   } else if (tp === 'libre'){
     const tf = prTarifa(d, C, 'libre');
-    trabajo = jArr(d.partidas).filter(p => p.d && n0(p.qty)).map(p => { const pu = n0(p.p) || (p.h ? tf : 0); return fila(esc(p.d), '', nf(n0(p.qty)) + (p.h ? ' h' : ''), M(pu), M(n0(p.qty) * pu)); }).join('');
+    trabajo = jArr(d.partidas).filter(p => p.d && n0(p.qty)).map(p => { const pu = n0(p.p) || (p.h ? tf : 0); return fila(esc(p.d), '', nf(n0(p.qty)) + (p.h ? ' <small class="u">h</small>' : ''), M(pu), M(n0(p.qty) * pu)); }).join('');
   } else {
-    trabajo = R.hl.map(([lbl, h]) => { const x = partes(lbl); return fila(esc(x.p), [x.det && esc(x.det), d.pdf_horas && nf(h * kH) + ' h'].filter(Boolean).join(' · '), x.qty, '', M(h * kH * R.tarifa)); }).join('');
+    trabajo = R.hl.map(([lbl, h]) => { const x = partes(lbl); return fila(esc(x.p), [x.det && esc(x.det), d.pdf_horas && nf(h * kH) + ' h'].filter(Boolean).join(' · '), x.qty, '', MC(h * kH * R.tarifa)); }).join('');
   }
   const cargosHtml = tp === 'libre' ? '' : R.cargos.map(([k, v]) => { const x = partes(k), q = n0(String(x.qty).replace(/,/g, '')); return fila(esc(x.p), esc(x.det), x.qty, q > 1 ? M(v / q) : '', M(v)); }).join('');
   const equipos = R.eqs.map(e => fila(esc(e.m), '', nf(e.qty), M(e.p * (1 + n0(C.margen_eq) / 100)), M(e.tot * (1 + n0(C.margen_eq) / 100)))).join('');
-  const mats = R.matVenta ? (d.pdf_mat ? R.mats.map(m => fila(esc(m.k ? t(m.k) : m.d), '', m.qty.toLocaleString('en-US') + (m.u === 'ft' ? ' ft' : ''), '', '')).join('') : '') + fila(`<b>${t(tp === 'instalacion' ? 'pr_mat_inst' : 'pr_mat')}</b>`, '', '', '', M(R.matVenta), 'sub') : '';
+  const mats = R.matVenta ? (d.pdf_mat ? R.mats.map(m => fila(esc(m.k ? t(m.k) : m.d), '', m.qty.toLocaleString('en-US') + (m.u === 'ft' ? ' <small class="u">ft</small>' : ''), '', '')).join('') : '') + fila(`<b>${t(tp === 'instalacion' ? 'pr_mat_inst' : 'pr_mat')}</b>`, '', '', '', MC(R.matVenta), 'sub') : '';
   // ---- Resumen
   const rec = jArr(R.rec), recMes = rec.filter(r => r[2] === 'mes').reduce((a, r) => a + r[1], 0), recAnio = rec.filter(r => r[2] === 'anio').reduce((a, r) => a + r[1], 0);
   const sr = (k, v, cls = '') => `<tr class="${cls}"><td>${k}</td><td class="n">${v}</td></tr>`;
-  const resumen = `<table class="sum">${R.mano ? sr(t(tp === 'msp' ? 'pms_onb' : 'pr_mano'), M(R.mano)) : ''}${R.matVenta ? sr(t('pr_mat'), M(R.matVenta)) : ''}${R.eqVenta ? sr(t(tp === 'instalacion' ? 'pr_equipos' : 'pr_productos'), M(R.eqVenta)) : ''}
-    ${R.cargosT ? sr(t('pr_cargos'), M(R.cargosT)) : ''}${R.conting ? sr(t('pr_conting_c'), M(R.conting)) : ''}${R.impuesto ? sr(t('pr_imp', { p: C.impuesto }), money(R.impuesto)) : ''}
+  const resumen = `<table class="sum">${R.mano ? sr(t(tp === 'msp' ? 'pms_onb' : 'pr_mano'), MC(R.mano)) : ''}${R.matVenta ? sr(t('pr_mat'), MC(R.matVenta)) : ''}${R.eqVenta ? sr(t(tp === 'instalacion' ? 'pr_equipos' : 'pr_productos'), M(R.eqVenta)) : ''}
+    ${R.cargosT ? sr(t('pr_cargos'), M(R.cargosT)) : ''}${sr(t('pdf_subtotal'), money(R.total$ - R.impuesto), 'st')}${R.impuesto ? sr(t('pr_imp_c', { p: C.impuesto }), money(R.impuesto)) : ''}
 </table><div class="totbox"><span>${t(rec.length ? 'pr_total_unico' : 'pr_total')}</span><b>${money(R.total$)}</b></div>
     ${rec.length ? `<table class="sum rec"><tr><td colspan="2" class="rh">${t('pr_rec')}</td></tr>${rec.map(([k, v, u]) => sr(esc(k), money(v) + '/' + t(u === 'anio' ? 'pr_anio' : 'pr_mes'))).join('')}</table><div class="totbox rec2"><span>${t('pr_mensual')}</span><b>${money(recMes)}/${t('pr_mes')}</b></div>` : ''}`;
   // ---- Estadísticas de tiempo
@@ -7141,10 +7147,12 @@ async function prPdf(){
   const valido = new Date(fecha); valido.setDate(valido.getDate() + (n0(C.validez) || 30));
   const sitioLin = [d.direccion && esc(d.direccion), campo && s.tipo && esc(t('prt.' + s.tipo)), campo && n0(s.area) && nf(n0(s.area)) + ' ft²', tp === 'desmontaje' || tp === 'instalacion' ? n0(s.altura) && t('pdf_altura', { a: nf(n0(s.altura)) }) : ''].filter(Boolean);
   const terminos = d.terminos ?? (C.terminos || t('pr_term_def'));
-  const excl = d.exclusiones ?? t('pr_excl_def.' + tp);
-  const css = `@page{size:letter;margin:0}*{box-sizing:border-box}html,body{margin:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-    body{--ac:${ac};font:10.5pt/1.5 "Helvetica Neue",Helvetica,Arial,sans-serif;color:#1d2433;background:#fff}
-    .pg{width:100%;border-collapse:collapse}.pg>thead td,.pg>tfoot td{height:13mm}.pg>tbody>tr>td{padding:0 16mm}
+  const excl = d.exclusiones ?? t('pr_excl_def.' + tp), pago = d.pago || E.pago || '';
+  const cssStr = v => '"' + String(v).replace(/["\\]/g, '\\$&').replace(/\s+/g, ' ') + '"';
+  const pieDoc = cssStr(t('pr_doc') + ' #' + (PR.numero || '—') + ' · ' + t('pdf_pagina') + ' '), pieDe = cssStr(' ' + t('pdf_de') + ' '), pieEmp = cssStr([nom, E.telefono, E.web].filter(Boolean).join(' · '));
+  const css = `@page{size:letter;margin:14mm 16mm 16mm;@bottom-left{content:${pieEmp};font:7.5pt Arial,Helvetica,sans-serif;color:#5b6475}@bottom-right{content:${pieDoc} counter(page) ${pieDe} counter(pages);font:7.5pt Arial,Helvetica,sans-serif;color:#5b6475}}@media screen{body{max-width:216mm;margin:0 auto;padding:14mm 16mm}}*{box-sizing:border-box}html,body{margin:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    body{--ac:${ac};font:10pt/1.45 Arial,"Helvetica Neue",Helvetica,sans-serif;color:#1d2433;background:#fff}b,strong{font-weight:700}
+    .pg{width:100%;border-collapse:collapse}.pg>thead td,.pg>tfoot td{height:0;padding:0}.pg>tbody>tr>td{padding:0}
     .hdr{display:flex;justify-content:space-between;gap:28px;align-items:flex-start}
     .brand{display:flex;flex-direction:column;gap:10px;max-width:58%}.brand img{display:block;max-width:230px;max-height:70px;object-fit:contain;object-position:left center}
     .logo{width:52px;height:52px;border-radius:6px;background:var(--ac);color:#fff;font:700 18px/52px "Helvetica Neue",Arial;text-align:center}
@@ -7154,11 +7162,14 @@ async function prPdf(){
     .bar{height:2px;background:var(--ac);margin:18px 0 18px}
     .cards{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:24px;margin-bottom:4px}
     .card h3{margin:0 0 5px;font-size:7.5pt;letter-spacing:.12em;text-transform:uppercase;color:#5b6475;font-weight:600}.card .v{font-weight:700;font-size:11pt;line-height:1.3}.card .s{color:#3b4456;font-size:9.5pt}
-    .blk{margin-top:20px}h2{font-size:8.5pt;margin:0 0 8px;padding-bottom:6px;border-bottom:1px solid #d5dae3;color:var(--ac);letter-spacing:.14em;text-transform:uppercase;font-weight:700}
+    .blk{margin-top:20px}h2{font-size:11pt;line-height:1.25;margin:0 0 8px;padding-bottom:5px;border-bottom:1px solid #d5dae3;color:var(--ac);font-weight:700;break-after:avoid}
     .txt{color:#2c3446;white-space:pre-line}
     table.it{width:100%;border-collapse:collapse}table.it th{background:#f1f3f7;color:#3b4456;font-size:7.5pt;letter-spacing:.1em;text-transform:uppercase;font-weight:700;padding:7px 10px;text-align:left;border-bottom:1px solid #c9cfda}
-    table.it td{padding:7px 10px;border-bottom:1px solid #e6e9ef;vertical-align:top}table.it .d{font-weight:600}.det{color:#5b6475;font-size:9pt}
-    .n{text-align:right;white-space:nowrap;width:1%;font-variant-numeric:tabular-nums}.b{font-weight:600}tr.sub td{border-top:1px solid #c9cfda;background:#fafbfc}
+    table.it td{padding:5px 10px;border-bottom:1px solid #e6e9ef;vertical-align:top}table.it .d{font-weight:400}.det{color:#5b6475;font-size:9pt}
+    .n{text-align:right;white-space:nowrap;width:1%;font-variant-numeric:tabular-nums}.b{font-weight:600}tr.sub td{border-top:1px solid #c9cfda;background:#fafbfc}tr.sub .d{font-weight:700}
+    table.it tr.tit th{background:none;border:0;padding:0;text-transform:none;letter-spacing:0;color:inherit}table.it tr.tit h2{margin:0 0 6px}
+    .inc{color:#5b6475;font-weight:400;font-size:8.5pt}.u{color:#5b6475;font-size:8.5pt;font-weight:400}tr.st td{border-top:1px solid #c9cfda;font-weight:700}
+    .cond dl{margin:0}.cond dt{font-weight:700;font-size:9pt;margin-top:8px}.cond dt:first-child{margin-top:0}.cond dd{margin:2px 0 0;color:#2c3446;white-space:pre-line}
     tr{break-inside:avoid}.keep,.fin{break-inside:avoid}
     .fin{display:grid;grid-template-columns:1fr 290px;gap:28px;margin-top:22px;align-items:start}
     table.sum{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}table.sum td{padding:6px 0;border-bottom:1px solid #e6e9ef}
@@ -7182,9 +7193,9 @@ async function prPdf(){
   <table class="pg"><thead><tr><td></td></tr></thead><tfoot><tr><td></td></tr></tfoot><tbody><tr><td>
     <div class="hdr"><div class="brand">${logoUrl ? `<img src="${logoUrl}" alt="${esc(nom)}">` : `<div class="logo">${esc(ini2 || 'AJ')}</div>`}<div><h1>${esc(nom)}</h1><div class="ct">${ctc}</div></div></div>
       <div class="doc"><div class="tt">${esc(t('pr_doc'))}</div><table><tr><td>${t('pdf_num')}</td><td><b>#${PR.numero || '—'}</b></td></tr><tr><td>${t('pdf_fecha')}</td><td>${fdate(fecha)}</td></tr>
-        <tr><td>${t('pdf_valido')}</td><td>${fdate(valido)}</td></tr>${PR.creado_por || $('whoami')?.textContent ? `<tr><td>${t('pdf_prep')}</td><td>${esc(PR.creado_por || $('whoami').textContent)}</td></tr>` : ''}</table></div></div>
+        <tr><td>${t('pdf_valido')}</td><td>${fdate(valido)}</td></tr></table></div></div>
     <div class="bar"></div>
-    <div class="cards"><div class="card"><h3>${t('pdf_cliente')}</h3><div class="v">${esc(PR.cliente)}</div><div class="s">${[d.contacto, d.telefono].filter(Boolean).map(esc).join(' · ')}</div></div>
+    <div class="cards"><div class="card"><h3>${t('pdf_para')}</h3><div class="v">${esc(PR.cliente)}</div><div class="s">${[d.contacto, d.telefono].filter(Boolean).map(esc).join(' · ')}</div></div>
       <div class="card"><h3>${t('pdf_sitio')}</h3><div class="s">${sitioLin.join('<br>') || '—'}</div></div>
       <div class="card"><h3>${t('pdf_proyecto')}</h3><div class="v">${esc(PR.titulo || t('ptt.' + tp))}</div><div class="s">${esc(t('ptt.' + tp))}</div></div></div>
     ${campo && n0(s.largo) && n0(s.ancho) ? `<section class="blk keep"><h2>${t('pr_dim')}</h2><div class="dimfig">${prDimSVG(s.largo, s.ancho, s.altura, true)}</div></section>` : ''}
@@ -7195,10 +7206,12 @@ async function prPdf(){
     ${tabla(t('pdf_cargos'), cargosHtml)}
     ${tabla(t(tp === 'instalacion' ? 'pr_equipos' : 'pr_productos'), equipos)}
     ${tabla(t('pr_mat'), mats)}
-    <div class="fin"><div>${excl ? `<h2>${t('pr_excl')}</h2><div class="txt">${esc(excl)}</div>` : ''}${terminos ? `<h2 style="margin-top:12px">${t('pdf_terminos')}</h2><div class="txt">${esc(terminos)}</div>` : ''}</div>
+    <div class="fin"><div class="cond"><h2>${t('pdf_condiciones')}</h2><dl>
+      <dt>${t('pdf_validez')}</dt><dd>${t('pdf_validez_t', { f: fdate(valido), n: n0(C.validez) || 30 })}</dd>
+      ${pago ? `<dt>${t('pdf_pago')}</dt><dd>${esc(pago)}</dd>` : ''}${terminos ? `<dt>${t('pdf_terminos')}</dt><dd>${esc(terminos)}</dd>` : ''}${excl ? `<dt>${t('pr_excl')}</dt><dd>${esc(excl)}</dd>` : ''}</dl></div>
       <div><h2>${t('pr_resumen')}</h2>${resumen}${recAnio ? `<div class="det" style="margin-top:6px">${t('pr_anual_extra')}: ${money(recAnio)}/${t('pr_anio')}</div>` : ''}</div></div>
     ${img ? `<section class="blk"><h2>${t('pr_plano')}</h2><img class="plano" src="${img}"></section>` : ''}
-    <div class="firmas keep"><div class="firma"><div class="ln"></div><b>${t('pdf_acepta')}</b><small>${t('pdf_nom_firma')}</small></div><div class="firma"><div class="ln"></div><b>${esc(nom)}</b><small>${t('pdf_fecha')}</small></div></div>
+    <div class="firmas keep"><div class="firma"><div class="ln"></div><b>${t('pdf_acepta')}</b><small>${t('pdf_nom_firma')}</small></div><div class="firma"><div class="ln"></div><b>${esc(t('pdf_por', { n: nom }))}</b><small>${t('pdf_nom_firma')}</small></div></div>
     <div class="pie">${t('pdf_gracias')} · ${esc([nom, E.telefono, E.email, E.web].filter(Boolean).join(' · '))}</div>
   </td></tr></tbody></table><script>setTimeout(()=>print(),500)<\/script></body></html>`;
   const w = window.open('', '_blank'); if (!w) return alert(t('pr_popup')); w.document.write(html); w.document.close();
@@ -7259,6 +7272,7 @@ function prEmpresaAbrir(id = ''){
       <div class="u-note" style="margin-top:6px">${t('pr_logo_h')}</div></div></div>
     <div class="mdm-grid">${PR_EMP_CAMPOS.map(k => `<label><span>${esc(t('pce.' + k))}</span><input type="text" data-emp="${k}" value="${esc(E[k] ?? '')}" placeholder="${esc(t('pce_ph.' + k))}"></label>`).join('')}
       <label><span>${t('pr_emp_color')}</span><input type="color" data-emp="color" value="${prColorOk(E.color)}"></label></div>
+    <label style="display:block;margin:4px 0 0"><span>${t('pce.pago')}</span><textarea data-emp="pago" rows="2" placeholder="${esc(t('pce_ph.pago'))}">${esc(E.pago ?? '')}</textarea></label>
     <div class="row" style="margin-top:14px"><button class="primary" onclick="prEmpresaGuardar()">${t('u_save')}</button><button onclick="closeModal()">${t('cancel')}</button><span style="flex:1"></span>
       ${!id ? `<button onclick="prEmpresaAbrir('nueva')">＋ ${t('pr_emp_nueva')}</button>` : !nueva ? `<button class="danger" onclick="prEmpresaBorrar('${esc(id)}')">${t('pr_emp_del')}</button>` : ''}</div>`;
   prLogoPrev(); $('modal').classList.remove('hidden');

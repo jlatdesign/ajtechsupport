@@ -492,6 +492,7 @@ body.p-noexport [onclick="exportActCSV()"],body.p-noexport #migrarBtn{display:no
 .u-online i{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 3px color-mix(in srgb,var(--ok) 25%,transparent)}
 .u-note{margin-top:10px;font-size:12.5px;color:var(--muted);line-height:1.5}
 .emp-logo{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin:0 0 14px}.emp-prev{width:220px;height:96px;display:grid;place-items:center;background:#fff;border:1px dashed var(--line-strong);border-radius:10px;padding:10px;color:#6b7280;font-size:12px;text-align:center}.emp-prev img{max-width:100%;max-height:100%;object-fit:contain}
+.emisor{display:flex;gap:6px;align-items:center}.emisor select{flex:1;min-width:0}
 .btn-file{display:inline-flex;align-items:center;cursor:pointer;border:1px solid var(--line);border-radius:10px;padding:9px 14px;margin-right:6px}.btn-file input{position:absolute;opacity:0;width:1px;height:1px}.btn-file:focus-within{outline:2px solid var(--c1);outline-offset:2px}
 .u-ajustes{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .u-ajustes label{flex-direction:row;align-items:center;gap:8px;font-size:13px;color:var(--text);font-weight:500}
@@ -1200,7 +1201,7 @@ button,.chip,.sede-tab{-webkit-user-select:none;user-select:none;-webkit-touch-c
     <div class="lang lang-login no-print"><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="es" onclick="setLang('es')">ES</button></div>
     <div class="logo-mark">AJ</div>
     <h1 data-i18n="login_title">Inventory</h1>
-    <p class="sub">Network Asset Manager · v9.11.0</p>
+    <p class="sub">Network Asset Manager · v9.12.0</p>
     <form onsubmit="doLogin(event)">
       <label><span data-i18n="username">Username</span><input id="lgUser" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" enterkeyhint="next" required autofocus data-i18n-ph="username_ph" placeholder="your username"></label>
       <label><span data-i18n="password">Password</span><input id="lgPass" type="password" autocomplete="current-password" enterkeyhint="go" required placeholder="••••••••"></label>
@@ -1216,7 +1217,7 @@ button,.chip,.sede-tab{-webkit-user-select:none;user-select:none;-webkit-touch-c
 <header>
   <div class="brand">
     <div class="logo-mark">AJ</div>
-    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.11.0</small></div>
+    <div><h1 data-i18n="app_title">Equipment Inventory</h1><small>Network Asset Manager · v9.12.0</small></div>
   </div>
   <div class="actions no-print">
     <button onclick="loadData()" data-i18n-title="t_refresh"><span data-i18n="refresh">↻ Refresh</span></button>
@@ -2692,7 +2693,7 @@ Object.assign(I18N.es, {
   pr_term_def:'Forma de pago: 50% de anticipo para programar el trabajo y 50% al terminar.\nPrecios en dólares (USD). Cualquier cambio en el alcance se cotiza por separado.',
   pcf_emp:'Tu empresa (sale en el PDF)', 'pce.nombre':'Nombre', 'pce.direccion':'Dirección', 'pce.telefono':'Teléfono', 'pce.email':'Email', 'pce.web':'Web', 'pce.licencia':'Licencia / certificación',
   'pce_ph.nombre':'AJ Tech Support', 'pce_ph.direccion':'Calle, ciudad, FL', 'pce_ph.telefono':'(305) 000-0000', 'pce_ph.email':'info@ajtechsupport.net', 'pce_ph.web':'ajtechsupport.net', 'pce_ph.licencia':'ej. EF0000000',
-  pr_emp:'Empresa del PDF', pr_emp_help:'Estos datos salen en el encabezado y el pie de cada presupuesto en PDF.', pr_emp_aqui:'El nombre, los datos y el logo de la empresa están en', pr_emp_color:'Color del documento', pr_logo:'Logo', pr_logo_up:'Subir logo', pr_logo_del:'Quitar logo', pr_logo_none:'Sin logo: salen las iniciales', pr_logo_h:'PNG, JPG, WebP o SVG. Sale arriba a la izquierda del PDF.', pr_logo_tipo:'No se pudo leer la imagen. Usa PNG, JPG, WebP o SVG.', pr_logo_grande:'La imagen es muy pesada. Usa una de menos de 150 KB (SVG) o una más simple.', pr_doc:'Presupuesto', pr_valid:'válido {n} días', pr_trabajo:'Trabajo', pr_mano_inst:'Mano de obra e instalación', pr_mat_inst:'Materiales de instalación', pr_resumen:'Resumen', pr_plano:'Plano',
+  pr_emisor:'Lo emite', pr_emp_nueva:'Nueva empresa', pr_emp_edit:'Editar empresa', pr_emp_del:'Borrar esta empresa', pr_emp_del_q:'¿Borrar {n}? Los presupuestos que la usan volverán a la empresa principal.', pr_emp_falta_nom:'Escribe el nombre de la empresa.', pr_emp_help2:'Esta empresa sale en los presupuestos que la elijan en «Lo emite».', pr_emp_otras:'Otras empresas:', pr_emp:'Empresa del PDF', pr_emp_help:'Empresa principal: sale en los presupuestos que no elijan otra en «Lo emite».', pr_emp_aqui:'El nombre, los datos y el logo de la empresa están en', pr_emp_color:'Color del documento', pr_logo:'Logo', pr_logo_up:'Subir logo', pr_logo_del:'Quitar logo', pr_logo_none:'Sin logo: salen las iniciales', pr_logo_h:'PNG, JPG, WebP o SVG. Sale arriba a la izquierda del PDF.', pr_logo_tipo:'No se pudo leer la imagen. Usa PNG, JPG, WebP o SVG.', pr_logo_grande:'La imagen es muy pesada. Usa una de menos de 150 KB (SVG) o una más simple.', pr_doc:'Presupuesto', pr_valid:'válido {n} días', pr_trabajo:'Trabajo', pr_mano_inst:'Mano de obra e instalación', pr_mat_inst:'Materiales de instalación', pr_resumen:'Resumen', pr_plano:'Plano',
   pr_dur:'Duración estimada: {s} ({d} días hábiles) con un equipo de {p} técnico(s).', pr_firma:'Aceptado por: ____________________________   Fecha: ____________', pr_popup:'Permite las ventanas emergentes para ver el PDF.',
   pr_cfg_help:'Estos valores se usan en todos los presupuestos. Las horas son por unidad; los factores multiplican las horas.', pr_cfg_t:'Horas por tarea', pr_cfg_alt:'Factor por altura',
   pr_cfg_techo:'Factor por tipo de techo', pr_cfg_dif:'Factor por dificultad', pr_cfg_pp:'Precio por punto', pr_cfg_rec:'Recargo por punto según altura', pr_cfg_mat:'Precios de materiales',
@@ -2757,7 +2758,7 @@ Object.assign(I18N.en, {
   pr_term_def:'Payment: 50% deposit to schedule the work and 50% upon completion.\nPrices in US dollars (USD). Any change in scope is quoted separately.',
   pcf_emp:'Your company (shown on the PDF)', 'pce.nombre':'Name', 'pce.direccion':'Address', 'pce.telefono':'Phone', 'pce.email':'Email', 'pce.web':'Website', 'pce.licencia':'License / certification',
   'pce_ph.nombre':'AJ Tech Support', 'pce_ph.direccion':'Street, city, FL', 'pce_ph.telefono':'(305) 000-0000', 'pce_ph.email':'info@ajtechsupport.net', 'pce_ph.web':'ajtechsupport.net', 'pce_ph.licencia':'e.g. EF0000000',
-  pr_emp:'Company on the PDF', pr_emp_help:'This information appears in the header and footer of every PDF quote.', pr_emp_aqui:'The company name, details and logo are in', pr_emp_color:'Document color', pr_logo:'Logo', pr_logo_up:'Upload logo', pr_logo_del:'Remove logo', pr_logo_none:'No logo: initials are shown', pr_logo_h:'PNG, JPG, WebP or SVG. Shown at the top left of the PDF.', pr_logo_tipo:'The image could not be read. Use PNG, JPG, WebP or SVG.', pr_logo_grande:'The image is too heavy. Use one under 150 KB (SVG) or a simpler one.', pr_doc:'Quote', pr_valid:'valid {n} days', pr_trabajo:'Work', pr_mano_inst:'Labor and installation', pr_mat_inst:'Installation materials', pr_resumen:'Summary', pr_plano:'Floor plan',
+  pr_emisor:'Issued by', pr_emp_nueva:'New company', pr_emp_edit:'Edit company', pr_emp_del:'Delete this company', pr_emp_del_q:'Delete {n}? Quotes that use it will go back to the main company.', pr_emp_falta_nom:'Enter the company name.', pr_emp_help2:'This company appears on quotes that choose it under “Issued by”.', pr_emp_otras:'Other companies:', pr_emp:'Company on the PDF', pr_emp_help:'Main company: shown on quotes that don’t choose another one under “Issued by”.', pr_emp_aqui:'The company name, details and logo are in', pr_emp_color:'Document color', pr_logo:'Logo', pr_logo_up:'Upload logo', pr_logo_del:'Remove logo', pr_logo_none:'No logo: initials are shown', pr_logo_h:'PNG, JPG, WebP or SVG. Shown at the top left of the PDF.', pr_logo_tipo:'The image could not be read. Use PNG, JPG, WebP or SVG.', pr_logo_grande:'The image is too heavy. Use one under 150 KB (SVG) or a simpler one.', pr_doc:'Quote', pr_valid:'valid {n} days', pr_trabajo:'Work', pr_mano_inst:'Labor and installation', pr_mat_inst:'Installation materials', pr_resumen:'Summary', pr_plano:'Floor plan',
   pr_dur:'Estimated duration: {s} ({d} business days) with a crew of {p} technician(s).', pr_firma:'Accepted by: ____________________________   Date: ____________', pr_popup:'Allow pop-ups to see the PDF.',
   pr_cfg_help:'These values are used in every quote. Hours are per unit; factors multiply the hours.', pr_cfg_t:'Hours per task', pr_cfg_alt:'Height factor',
   pr_cfg_techo:'Ceiling type factor', pr_cfg_dif:'Difficulty factor', pr_cfg_pp:'Price per point', pr_cfg_rec:'Surcharge per point by height', pr_cfg_mat:'Material prices',
@@ -6726,6 +6727,7 @@ function renderPresuEditor(){
           <label style="grid-column:span 2"><span>${t('pr_titulo')}</span><input data-pk="titulo" value="${esc(PR.titulo || '')}" oninput="prLeer()" placeholder="${esc(t('pr_titulo_ph'))}"></label>
           <label><span>${t('pr_trabajo_t')}</span><select data-pk="d.tipo" onchange="prLeer();renderPresuEditor()">${PR_TRABAJOS.map(([k, ic]) => `<option value="${k}" ${k === prTipo(d) ? 'selected' : ''}>${ic} ${esc(t('ptt.' + k))}</option>`).join('')}</select></label>
           <label><span>${t('status')}</span><select data-pk="estado" onchange="prLeer()">${PR_ESTADOS.map(e => `<option value="${e}" ${e === PR.estado ? 'selected' : ''}>${esc(t('pre.' + e))}</option>`).join('')}</select></label>
+          ${PERM.admin ? (() => { const ls = prEmpresas(), sel = ls.some(e => e.id === d.emisor) ? d.emisor : ''; return `<label><span>${t('pr_emisor')}</span><span class="emisor"><select data-pk="d.emisor" onchange="prLeer()"><option value="">${esc(prConf().empresa?.nombre || 'AJ Tech Support')}</option>${ls.map(e => `<option value="${esc(e.id)}" ${e.id === sel ? 'selected' : ''}>${esc(e.nombre)}</option>`).join('')}</select><button type="button" class="sm" onclick="prEmpresaAbrir(PR.d.emisor && prEmpresas().some(e=>e.id===PR.d.emisor) ? PR.d.emisor : '')" title="${esc(t('pr_emp_edit'))}" aria-label="${esc(t('pr_emp_edit'))}">✏️</button><button type="button" class="sm" onclick="prEmpresaAbrir('nueva')" title="${esc(t('pr_emp_nueva'))}" aria-label="${esc(t('pr_emp_nueva'))}">＋</button></span></label>`; })() : ''}
           <label><span>${t('cm_contact')}</span><input data-pk="d.contacto" value="${esc(d.contacto || '')}" oninput="prLeer()"></label>
           <label><span>${t('cm_phone')}</span><input data-pk="d.telefono" value="${esc(d.telefono || '')}" oninput="prLeer()" type="tel"></label>
           <label style="grid-column:span 2"><span>${t('address')}</span><input data-pk="d.direccion" value="${esc(d.direccion || clienteObj(PR.cliente)?.direccion || '')}" oninput="prLeer()"></label>
@@ -7062,7 +7064,7 @@ async function prConvertir(){
 /* ---------- PDF para el cliente ---------- */
 async function prPdf(){
   if (!puede('admin') || !prPrivOK()) return;
-  const R = prCalcular(PR.d), d = PR.d, C = prConf(), fecha = new Date(), tp = R.tipo, E = C.empresa || {};
+  const R = prCalcular(PR.d), d = PR.d, C = prConf(), fecha = new Date(), tp = R.tipo, E = prEmisor(d, C);
   const fm = R.fm || 1, M = v => money(v * fm);   // el margen va repartido dentro de cada línea
   const loc = LANG === 'es' ? 'es-US' : 'en-US', fdate = x => x.toLocaleDateString(loc, { dateStyle: 'long' }), fcorta = x => x.toLocaleDateString(loc, { month: 'short', day: 'numeric' });
   const nf = v => (+v).toLocaleString('en-US', { maximumFractionDigits: 1 });
@@ -7237,20 +7239,28 @@ function prConfigAbrir(){
 const PR_EMP_CAMPOS = ['nombre', 'direccion', 'telefono', 'email', 'web', 'licencia'];
 let prLogoTmp = null;
 const prColorOk = c => /^#[0-9a-f]{6}$/i.test(c || '') ? c : '#1f2b4d';
-function prEmpresaAbrir(){
+// Empresas que pueden emitir un presupuesto: la principal (empresa) y las demás (empresas)
+let prEmpId = '';
+const prEmpresas = () => jArr(prConf().empresas).filter(e => e && e.id);
+const prEmisor = (d, C = prConf()) => (d?.emisor && jArr(C.empresas).find(e => e.id === d.emisor)) || C.empresa || {};
+function prEmpresaAbrir(id = ''){
   if (!puede('admin')) return;
-  const E = prConf().empresa || {};
+  const nueva = id === 'nueva'; prEmpId = nueva ? 'e' + Date.now().toString(36) : id;
+  const E = nueva ? { nombre: '', color: '#1f2b4d' } : (id ? prEmpresas().find(e => e.id === id) : prConf().empresa) || {};
   prLogoTmp = E.logo || '';
-  $('modalTitle').textContent = '🏢 ' + t('pr_emp');
+  $('modalTitle').textContent = '🏢 ' + t(nueva ? 'pr_emp_nueva' : id ? 'pr_emp_edit' : 'pr_emp');
   $('modal').querySelector('.modal-card').classList.remove('wide');
-  $('modalBody').innerHTML = `<div class="u-note" style="margin:0 0 12px">${t('pr_emp_help')}</div>
+  const otras = prEmpresas();
+  $('modalBody').innerHTML = `<div class="u-note" style="margin:0 0 12px">${t(id ? 'pr_emp_help2' : 'pr_emp_help')}</div>
+    ${!id && otras.length ? `<div class="u-note" style="margin:-4px 0 12px">${t('pr_emp_otras')} ${otras.map(e => `<a href="#" onclick="prEmpresaAbrir('${esc(e.id)}');return false">${esc(e.nombre)}</a>`).join(' · ')}</div>` : ''}
     <div class="emp-logo"><div class="emp-prev" id="empPrev"></div><div>
       <label class="btn-file"><input type="file" id="empFile" accept="image/png,image/jpeg,image/webp,image/svg+xml" onchange="prLogoLeer(this.files[0])"><span>${t('pr_logo_up')}</span></label>
       <button type="button" class="sm" id="empQuitar" onclick="prLogoTmp='';prLogoPrev()">${t('pr_logo_del')}</button>
       <div class="u-note" style="margin-top:6px">${t('pr_logo_h')}</div></div></div>
     <div class="mdm-grid">${PR_EMP_CAMPOS.map(k => `<label><span>${esc(t('pce.' + k))}</span><input type="text" data-emp="${k}" value="${esc(E[k] ?? '')}" placeholder="${esc(t('pce_ph.' + k))}"></label>`).join('')}
       <label><span>${t('pr_emp_color')}</span><input type="color" data-emp="color" value="${prColorOk(E.color)}"></label></div>
-    <div class="row" style="margin-top:14px"><button class="primary" onclick="prEmpresaGuardar()">${t('u_save')}</button><button onclick="closeModal()">${t('cancel')}</button></div>`;
+    <div class="row" style="margin-top:14px"><button class="primary" onclick="prEmpresaGuardar()">${t('u_save')}</button><button onclick="closeModal()">${t('cancel')}</button><span style="flex:1"></span>
+      ${!id ? `<button onclick="prEmpresaAbrir('nueva')">＋ ${t('pr_emp_nueva')}</button>` : !nueva ? `<button class="danger" onclick="prEmpresaBorrar('${esc(id)}')">${t('pr_emp_del')}</button>` : ''}</div>`;
   prLogoPrev(); $('modal').classList.remove('hidden');
 }
 function prLogoPrev(){
@@ -7278,10 +7288,26 @@ async function prEmpresaGuardar(){
   if (!puede('admin')) return;
   const emp = {}; document.querySelectorAll('[data-emp]').forEach(el => { emp[el.dataset.emp] = el.value.trim(); });
   emp.color = prColorOk(emp.color); if (prLogoTmp) emp.logo = prLogoTmp;
-  const datos = { ...jObj(PRC?.datos), empresa: emp };   // solo cambia la empresa; tiempos y factores se quedan
+  if (!emp.nombre){ alert(t('pr_emp_falta_nom')); return document.querySelector('[data-emp=nombre]')?.focus(); }
+  const prev = jObj(PRC?.datos), datos = { ...prev };   // solo cambian las empresas; tiempos y factores se quedan
+  if (!prEmpId) datos.empresa = emp;
+  else { const l = jArr(prev.empresas).filter(e => e && e.id); const i = l.findIndex(e => e.id === prEmpId); i >= 0 ? l[i] = { id: prEmpId, ...emp } : l.push({ id: prEmpId, ...emp }); datos.empresas = l; }
+  if (!await prEmpresasGrabar(datos)) return;
+  // creada desde un presupuesto: queda elegida en ese presupuesto
+  if (prEmpId && PRES.edit && PR && PR.d.emisor !== prEmpId && !jArr(prev.empresas).some(e => e.id === prEmpId)){ PR.d.emisor = prEmpId; renderPresuEditor(); prLeer(); }
+  else if (PRES.edit && PR) renderPresuEditor();
+}
+async function prEmpresaBorrar(id){
+  if (!puede('admin')) return;
+  const e = prEmpresas().find(x => x.id === id); if (!e || !confirm(t('pr_emp_del_q', { n: e.nombre }))) return;
+  const prev = jObj(PRC?.datos);
+  if (!await prEmpresasGrabar({ ...prev, empresas: jArr(prev.empresas).filter(x => x.id !== id) })) return;
+  if (PRES.edit && PR && PR.d.emisor === id){ PR.d.emisor = ''; renderPresuEditor(); prLeer(); }
+}
+async function prEmpresasGrabar(datos){
   const r = await db.from('presu_config').update({ datos }).eq('id', 1);
-  if (r.error) return fail(r.error, /presu_config/.test(r.error.message || '') ? t('pr_missing') : t('save_fail'));
-  PRC = { ...(PRC || { id: 1 }), datos }; logAct('quote_company_updated'); closeModal(); toast(t('saved'));
+  if (r.error){ fail(r.error, /presu_config/.test(r.error.message || '') ? t('pr_missing') : t('save_fail')); return false; }
+  PRC = { ...(PRC || { id: 1 }), datos }; logAct('quote_company_updated'); closeModal(); toast(t('saved')); return true;
 }
 async function prConfigGuardar(reset){
   let datos = {};
@@ -7291,7 +7317,7 @@ async function prConfigGuardar(reset){
     document.querySelectorAll('[data-cpt]').forEach(el => { const ps = el.dataset.cpt.split('.'); let o = datos; ps.slice(0, -1).forEach(p => { o = o[p] = o[p] || {}; }); o[ps[ps.length - 1]] = el.value.trim(); });
     datos.equipos = [...document.querySelectorAll('#pcEq .pc-eq')].map(r => ({ m: r.querySelector('.q-m').value.trim(), c: r.querySelector('.q-c').value, p: n0(r.querySelector('.q-p').value) })).filter(e => e.m);
   }
-  const prev = jObj(PRC?.datos); if (prev.empresa) datos.empresa = prev.empresa; if (reset && prev.terminos) datos.terminos = prev.terminos;
+  const prev = jObj(PRC?.datos); if (prev.empresa) datos.empresa = prev.empresa; if (prev.empresas) datos.empresas = prev.empresas; if (reset && prev.terminos) datos.terminos = prev.terminos;
   const { pub, priv } = prSepararConf(datos);   // "valores iniciales" solo toca tiempos y factores: las tarifas y precios privados se quedan
   if (!reset){ const v = await db.from('presu_config_priv').upsert({ id: 1, datos: priv }); if (v.error) return fail(v.error, t('save_fail')); PRCP = { id: 1, datos: priv }; }
   const r = await db.from('presu_config').update({ datos: pub }).eq('id', 1);
